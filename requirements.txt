@@ -1,0 +1,22 @@
+#additional dependencies are necessary that can not be installed via pip
+#they are: scanpy, louvain, python-igraph, weasyprint
+
+scipy
+flask-restful
+dominate
+requests
+numpy
+scanpy
+plotly
+anndata
+seaborn
+mygene
+pandas
+matplotlib
+bbknn
+ipython
+nbclean
+scikit_learn
+python-igraph
+leidenalg
+scanorama
