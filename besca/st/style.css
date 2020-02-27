@@ -1,0 +1,154 @@
+h1 { font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif; font-size: 24px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 26.4px; } 
+h2 { font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif; font-size: 18px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 20px; } 
+h3 { font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 15.4px; } 
+h4 { font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif; font-size: 12px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 13px; } 
+p { font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 20px; } 
+blockquote { font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif; font-size: 21px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 30px; } 
+pre { font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 18.5714px; }
+
+
+
+table.minimalistBlack {
+  text-align: left;
+  border-collapse: collapse;
+  border-spacing: 5px;
+  font-family: Calibri;
+  margin:0 10px;
+  
+}
+
+table.minimalistBlack thead th {
+  font-size: 11px;
+  font-weight: bold;
+  color: #000000;
+  padding-left: 2px;
+  padding-right: 7px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  text-align: center;
+  border-bottom: 0.6px solid #000000;
+  border-top: 0.6px solid #000000;
+  font-family: Calibri
+}
+
+table.minimalistBlack tbody td {
+  font-size: 10px;
+  text-align: center;
+  padding-left: 7px;
+  padding-right: 2px;
+  padding-top: 5px;
+  padding-bottom: 2px;
+  font-family: Calibri
+}
+
+table.minimalistBlack tbody th {
+  font-size: 10px;
+  text-align: left;
+  font-weight: bold;
+  padding-left: 2px;
+  padding-right: 7px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-family: Calibri
+}
+
+table.minimalistBlack tfoot th {
+  border-top: 0.6px solid #000000;
+}
+
+table.dataframe {
+  text-align: left;
+  border-collapse: collapse;
+  border-spacing: 5px;
+  font-family: Calibri;
+  margin:0 10px;
+  
+}
+
+table.dataframe thead th {
+  font-size: 11px;
+  font-weight: bold;
+  color: #000000;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  text-align: center;
+  border-bottom: 0.6px solid #000000;
+  border-top: 0.6px solid #000000;
+  font-family: Calibri
+}
+
+table.dataframe tbody td {
+  font-size: 10px;
+  text-align: center;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-top: 4px;
+  padding-bottom: 2px;
+  font-family: Calibri
+}
+
+table.dataframe tbody th {
+  font-size: 10px;
+  text-align: left;
+  font-weight: bold;
+  padding-left: 2px;
+  padding-right: 7px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-family: Calibri
+}
+
+table.dataframe tfoot th {
+  border-top: 0.6px solid #000000;
+}
+
+
+table.minimalistBlack2 {
+  text-align: left;
+  border-collapse: collapse;
+  border-spacing: 5px;
+  font-family: Calibri;
+  display: inline-block;
+  margin:0 10px;
+}
+
+table.minimalistBlack2 thead th {
+  font-size: 11px;
+  font-weight: bold;
+  color: #000000;
+  padding-left: 2px;
+  padding-right: 7px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  text-align: center;
+  border-bottom: 0.6px solid #000000;
+  border-top: 0.6px solid #000000;
+  font-family: Calibri
+}
+
+table.minimalistBlack2 tbody td {
+  font-size: 10px;
+  text-align: right;
+  padding-left: 2px;
+  padding-right: 7px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-family: Calibri
+}
+
+table.minimalistBlack2 tbody th {
+  font-size: 11px;
+  text-align: left;
+  font-weight: bold;
+  padding-left: 2px;
+  padding-right: 7px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-family: Calibri
+}
+
+table.minimalistBlack2 tfoot th {
+  border-top: 0.6px solid #000000;
+}
