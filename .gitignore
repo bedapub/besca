@@ -1,0 +1,6 @@
+__pycache__/
+besca.egg-info/
+.ipynb_checkpoints
+cache/
+workbooks/test.ipynb
+figures_testing/
