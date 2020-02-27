@@ -1,0 +1,24 @@
+ besca
+  ├── datasets
+  │   └── __init__.py
+  ├── export
+  │   ├── __init__.py
+  │   └── ... (export functions)
+  ├── Import
+  │   ├── __init__.py
+  │   └── ... (Import functions)
+  ├── __init__.py
+  ├── pl
+  │   ├── __init__.py
+  │   └── ... (plotting functions)
+  ├── pp
+  │   ├── __init__.py
+  │   └── ... (preprocessing functions)
+  ├── st
+  │   ├── __init__.py
+  │   └── ... (standard pipeline functions)
+  └── tl
+      ├── ... (tl functions)
+      └── submodule
+          ├── __init__.py
+          └── ... (functions of submodule)
