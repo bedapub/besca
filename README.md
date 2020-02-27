@@ -9,7 +9,7 @@ The package has been grouped into 3 categories:
 - plotting functions: additional plot types not available in the standard scanpy package  
 - tools: contains additional tools to e.g. perform differential gene analysis or load/export data  
 
-For more information please view the package documentation: https://pages.github.com/bedapub/besca/
+For more information please view the package documentation: https://bedapub.github.io/besca/
 
 
 
