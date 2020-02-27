@@ -1,0 +1,550 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>besca.pp Package &mdash; BESCA 2.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> BESCA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="besca.html">besca</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">code examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="besca_standard_pipeline.html">standard pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adding_new_functions.html">adding new functions to besca</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">BESCA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>besca.pp Package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/bc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="module-besca.pp">
+<span id="besca-pp-package"></span><h1>besca.pp Package<a class="headerlink" href="#module-besca.pp" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="preprocessing/besca.pp.filter.html#besca.pp.filter" title="besca.pp.filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filter</span></code></a>(adata[,&nbsp;max_genes,&nbsp;min_genes,&nbsp;…])</td>
+<td>Filter cell outliers based on counts, numbers of genes expressed, number of cells expressing a gene and mitochondrial gene content.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="preprocessing/besca.pp.filter_gene_list.html#besca.pp.filter_gene_list" title="besca.pp.filter_gene_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filter_gene_list</span></code></a>(adata,&nbsp;filepath[,&nbsp;use_raw,&nbsp;…])</td>
+<td>Function to remove all genes specified in a gene list read from file.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="preprocessing/besca.pp.frac_pos.html#besca.pp.frac_pos" title="besca.pp.frac_pos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">frac_pos</span></code></a>(adata[,&nbsp;threshold])</td>
+<td>Calculate the fraction of cells positive for expression of a gene.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="preprocessing/besca.pp.frac_reads.html#besca.pp.frac_reads" title="besca.pp.frac_reads"><code class="xref py py-obj docutils literal notranslate"><span class="pre">frac_reads</span></code></a>(adata)</td>
+<td>Cacluate the fraction of reads being attributed to a specific gene.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="preprocessing/besca.pp.mean_expr.html#besca.pp.mean_expr" title="besca.pp.mean_expr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mean_expr</span></code></a>(adata)</td>
+<td>Calculate the mean expression of a gene.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="preprocessing/besca.pp.top_expressed_genes.html#besca.pp.top_expressed_genes" title="besca.pp.top_expressed_genes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">top_expressed_genes</span></code></a>(adata[,&nbsp;top_n])</td>
+<td>Give out the genes most frequently expressed in cells.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="preprocessing/besca.pp.fraction_counts.html#besca.pp.fraction_counts" title="besca.pp.fraction_counts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fraction_counts</span></code></a>(adata[,&nbsp;species,&nbsp;name,&nbsp;…])</td>
+<td>Function to calculate fraction of counts per cell from a gene list.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="preprocessing/besca.pp.top_counts_genes.html#besca.pp.top_counts_genes" title="besca.pp.top_counts_genes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">top_counts_genes</span></code></a>(adata[,&nbsp;top_n])</td>
+<td>Give out the genes that contribute the largest fraction to the total UMI counts.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-besca.pl">
+<span id="besca-pl-package"></span><h1>besca.pl Package<a class="headerlink" href="#module-besca.pl" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Functions<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="plotting/besca.pl.kp_genes.html#besca.pl.kp_genes" title="besca.pl.kp_genes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kp_genes</span></code></a>(adata[,&nbsp;threshold,&nbsp;min_genes,&nbsp;ax])</td>
+<td>visualize the minimum gene per cell threshold.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="plotting/besca.pl.kp_counts.html#besca.pl.kp_counts" title="besca.pl.kp_counts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kp_counts</span></code></a>(adata[,&nbsp;min_counts,&nbsp;ax])</td>
+<td>visualize the minimum UMI counts per cell threshold.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="plotting/besca.pl.kp_cells.html#besca.pl.kp_cells" title="besca.pl.kp_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kp_cells</span></code></a>(adata[,&nbsp;threshold,&nbsp;min_cells,&nbsp;ax])</td>
+<td>visualize the minimum number of cells expressing a gene threshold.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="plotting/besca.pl.max_counts.html#besca.pl.max_counts" title="besca.pl.max_counts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_counts</span></code></a>(adata[,&nbsp;max_counts,&nbsp;ax])</td>
+<td>visualize maximum UMI counts per cell threshold.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="plotting/besca.pl.max_genes.html#besca.pl.max_genes" title="besca.pl.max_genes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_genes</span></code></a>(adata[,&nbsp;max_genes,&nbsp;ax])</td>
+<td>visualize maximum number of genes per cell threshold.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="plotting/besca.pl.max_mito.html#besca.pl.max_mito" title="besca.pl.max_mito"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_mito</span></code></a>(adata[,&nbsp;max_mito,&nbsp;annotation_type,&nbsp;…])</td>
+<td>visulize maximum mitochondrial gene percentage threshold.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="plotting/besca.pl.dropouts.html#besca.pl.dropouts" title="besca.pl.dropouts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropouts</span></code></a>(adata[,&nbsp;ax,&nbsp;bins])</td>
+<td>Plot number of dropouts.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="plotting/besca.pl.detected_genes.html#besca.pl.detected_genes" title="besca.pl.detected_genes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">detected_genes</span></code></a>(adata[,&nbsp;ax,&nbsp;bins])</td>
+<td>Plot number of detected genes.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="plotting/besca.pl.library_size.html#besca.pl.library_size" title="besca.pl.library_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">library_size</span></code></a>(adata[,&nbsp;ax,&nbsp;bins])</td>
+<td>Plot library size.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="plotting/besca.pl.librarysize_overview.html#besca.pl.librarysize_overview" title="besca.pl.librarysize_overview"><code class="xref py py-obj docutils literal notranslate"><span class="pre">librarysize_overview</span></code></a>(adata[,&nbsp;bins])</td>
+<td>Generates overview figure of libarysize, dropouts and detected genes.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="plotting/besca.pl.transcript_capture_efficiency.html#besca.pl.transcript_capture_efficiency" title="besca.pl.transcript_capture_efficiency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transcript_capture_efficiency</span></code></a>(adata[,&nbsp;ax])</td>
+<td>Plot total gene counts vs detection probability.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="plotting/besca.pl.top_genes_counts.html#besca.pl.top_genes_counts" title="besca.pl.top_genes_counts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">top_genes_counts</span></code></a>(adata[,&nbsp;top_n,&nbsp;ax])</td>
+<td>plot top n genes that contribute to fraction of counts per cell</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="plotting/besca.pl.gene_expr_split.html#besca.pl.gene_expr_split" title="besca.pl.gene_expr_split"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gene_expr_split</span></code></a>(adata,&nbsp;genes[,&nbsp;…])</td>
+<td>visualize gene expression of two groups as a split violin plot</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="plotting/besca.pl.gene_expr_split_stacked.html#besca.pl.gene_expr_split_stacked" title="besca.pl.gene_expr_split_stacked"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gene_expr_split_stacked</span></code></a>(adata,&nbsp;genes,&nbsp;…[,&nbsp;…])</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param subset_variable:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">string identifying the column along which the AnnData object should be split into subsets. Can contain as many groups as you wish.</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="plotting/besca.pl.stacked_split_violin.html#besca.pl.stacked_split_violin" title="besca.pl.stacked_split_violin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stacked_split_violin</span></code></a>(tidy_data,&nbsp;x_axis,&nbsp;…)</td>
+<td>plot stacked split violin plots.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="plotting/besca.pl.celllabel_quant_boxplot.html#besca.pl.celllabel_quant_boxplot" title="besca.pl.celllabel_quant_boxplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">celllabel_quant_boxplot</span></code></a>(adata,&nbsp;…[,&nbsp;…])</td>
+<td>generate a box and whisker plot with overlayed swarm plot of celltype abundances</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="plotting/besca.pl.celllabel_quant_stackedbar.html#besca.pl.celllabel_quant_stackedbar" title="besca.pl.celllabel_quant_stackedbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">celllabel_quant_stackedbar</span></code></a>(adata,&nbsp;…[,&nbsp;…])</td>
+<td>Generate a stacked bar plot of the percentage of labelcounts within each AnnData subset</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="plotting/besca.pl.louvain_quant_stackedbar.html#besca.pl.louvain_quant_stackedbar" title="besca.pl.louvain_quant_stackedbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">louvain_quant_stackedbar</span></code></a>(adata,&nbsp;subset_variable)</td>
+<td>Generate a stacked bar plot of the percentage of cells in each louvain cluster from each AnnData subset</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="plotting/besca.pl.dot_heatmap.html#besca.pl.dot_heatmap" title="besca.pl.dot_heatmap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dot_heatmap</span></code></a>(adata,&nbsp;genes[,&nbsp;group_by,&nbsp;…])</td>
+<td>Generate a dot plot, filled with heatmap of individuals cells gene expression.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="plotting/besca.pl.dot_heatmap_split.html#besca.pl.dot_heatmap_split" title="besca.pl.dot_heatmap_split"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dot_heatmap_split</span></code></a>(adata,&nbsp;genes,&nbsp;split_by[,&nbsp;…])</td>
+<td>Generate a dot plot, filled with heatmap of individuals cells gene expression to compare two conditions.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="plotting/besca.pl.dot_heatmap_split_greyscale.html#besca.pl.dot_heatmap_split_greyscale" title="besca.pl.dot_heatmap_split_greyscale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dot_heatmap_split_greyscale</span></code></a>(adata,&nbsp;genes,&nbsp;…)</td>
+<td>Generate a dot plot, filled with heatmap of individuals cells gene expression to compare two conditions (greyscale).</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="plotting/besca.pl.update_qualitative_palette.html#besca.pl.update_qualitative_palette" title="besca.pl.update_qualitative_palette"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_qualitative_palette</span></code></a>(adata,&nbsp;palette[,&nbsp;…])</td>
+<td>Update adata object such that the umap will adhere to the palette provided.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-besca.tl">
+<span id="besca-tl-package"></span><h1>besca.tl Package<a class="headerlink" href="#module-besca.tl" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>Functions<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="tools/besca.tl.count_occurance.html#besca.tl.count_occurance" title="besca.tl.count_occurance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">count_occurance</span></code></a>(adata[,&nbsp;count_variable,&nbsp;…])</td>
+<td>Generate dataframe containing the label counts/percentages of a specific column in adata.obs</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="tools/besca.tl.count_occurance_subset.html#besca.tl.count_occurance_subset" title="besca.tl.count_occurance_subset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">count_occurance_subset</span></code></a>(adata,&nbsp;subset_variable)</td>
+<td>count occurance of a label in adata.obs after subseting adata object</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="tools/besca.tl.count_occurance_subset_conditions.html#besca.tl.count_occurance_subset_conditions" title="besca.tl.count_occurance_subset_conditions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">count_occurance_subset_conditions</span></code></a>(adata,&nbsp;…)</td>
+<td>count occurance of a label for each condition in adata.obs after subseting adata object</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="tools/besca.tl.annotate_cells_clustering.html#besca.tl.annotate_cells_clustering" title="besca.tl.annotate_cells_clustering"><code class="xref py py-obj docutils literal notranslate"><span class="pre">annotate_cells_clustering</span></code></a>(adata,&nbsp;…[,&nbsp;…])</td>
+<td>Function to add annotation to adata.obs based on clustering This function replaces the original cluster labels located in the column clustering_label with the new values specified in the list new_cluster_lables.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-besca.tl.bcor">
+<span id="besca-tl-bcor-package"></span><h1>besca.tl.bcor Package<a class="headerlink" href="#module-besca.tl.bcor" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id3">
+<h2>Functions<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="besca/besca.tl.bcor.batch_correct.html#besca.tl.bcor.batch_correct" title="besca.tl.bcor.batch_correct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batch_correct</span></code></a>(adata,&nbsp;batch_to_correct)</td>
+<td>function to perform batch correction</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="besca/besca.tl.bcor.postprocess_mnnpy.html#besca.tl.bcor.postprocess_mnnpy" title="besca.tl.bcor.postprocess_mnnpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">postprocess_mnnpy</span></code></a>(adata,&nbsp;bdata)</td>
+<td>postprocessing to generate a newly functional AnnData object</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-besca.tl.dge">
+<span id="besca-tl-dge-package"></span><h1>besca.tl.dge Package<a class="headerlink" href="#module-besca.tl.dge" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id4">
+<h2>Functions<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="dge/besca.tl.dge.perform_dge.html#besca.tl.dge.perform_dge" title="besca.tl.dge.perform_dge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">perform_dge</span></code></a>(adata,&nbsp;design_matrix,&nbsp;…[,&nbsp;…])</td>
+<td>Perform differential gene expression between two conditions over many adata subsets.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="dge/besca.tl.dge.plot_interactive_volcano.html#besca.tl.dge.plot_interactive_volcano" title="besca.tl.dge.plot_interactive_volcano"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_interactive_volcano</span></code></a>(top_table_path,&nbsp;outdir)</td>
+<td>plot an interactive volcano plot based on toptable file.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="dge/besca.tl.dge.get_de.html#besca.tl.dge.get_de" title="besca.tl.dge.get_de"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_de</span></code></a>(adata,&nbsp;mygroup[,&nbsp;demethod,&nbsp;topnr,&nbsp;…])</td>
+<td>Get a table of significant DE genes at certain cutoffs Based on an AnnData object and an annotation category (e.g.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-besca.tl.rc">
+<span id="besca-tl-rc-package"></span><h1>besca.tl.rc Package<a class="headerlink" href="#module-besca.tl.rc" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id5">
+<h2>Functions<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="reclustering/besca.tl.rc.recluster.html#besca.tl.rc.recluster" title="besca.tl.rc.recluster"><code class="xref py py-obj docutils literal notranslate"><span class="pre">recluster</span></code></a>(adata,&nbsp;celltype[,&nbsp;celltype_label,&nbsp;…])</td>
+<td>Perform subclustering on specific celltype to identify subclusters.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="reclustering/besca.tl.rc.annotate_new_cellnames.html#besca.tl.rc.annotate_new_cellnames" title="besca.tl.rc.annotate_new_cellnames"><code class="xref py py-obj docutils literal notranslate"><span class="pre">annotate_new_cellnames</span></code></a>(adata,&nbsp;…[,&nbsp;…])</td>
+<td>annotate new cellnames to each of the subclusters identified by running recluster.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-besca.Import">
+<span id="besca-import-package"></span><h1>besca.Import Package<a class="headerlink" href="#module-besca.Import" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id6">
+<h2>Functions<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="import/besca.Import.read_mtx.html#besca.Import.read_mtx" title="besca.Import.read_mtx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_mtx</span></code></a>(filepath[,&nbsp;annotation,&nbsp;use_genes,&nbsp;…])</td>
+<td>Read matrix.mtx, genes.tsv, barcodes.tsv to AnnData object.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="import/besca.Import.add_cell_labeling.html#besca.Import.add_cell_labeling" title="besca.Import.add_cell_labeling"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_cell_labeling</span></code></a>(adata,&nbsp;filepath[,&nbsp;label])</td>
+<td>add a labeling written out in the FAIR formating to adata.obs</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-besca.export">
+<span id="besca-export-package"></span><h1>besca.export Package<a class="headerlink" href="#module-besca.export" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id7">
+<h2>Functions<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="export/besca.export.X_to_mtx.html#besca.export.X_to_mtx" title="besca.export.X_to_mtx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">X_to_mtx</span></code></a>(adata[,&nbsp;outpath,&nbsp;write_metadata,&nbsp;…])</td>
+<td>export adata object to mtx format (matrix.mtx, genes.tsv, barcodes.tsv)</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="export/besca.export.raw_to_mtx.html#besca.export.raw_to_mtx" title="besca.export.raw_to_mtx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">raw_to_mtx</span></code></a>(adata[,&nbsp;outpath,&nbsp;write_metadata,&nbsp;…])</td>
+<td>export adata.raw to .mtx (matrix.mtx, genes.tsv, barcodes, tsv)</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="export/besca.export.louvain.html#besca.export.louvain" title="besca.export.louvain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">louvain</span></code></a>(adata[,&nbsp;outpath,&nbsp;export_average,&nbsp;…])</td>
+<td>export mapping of cells to clusters to .tsv file</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="export/besca.export.clustering.html#besca.export.clustering" title="besca.export.clustering"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clustering</span></code></a>(adata[,&nbsp;outpath,&nbsp;export_average,&nbsp;…])</td>
+<td>export mapping of cells to clusters to .tsv file</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="export/besca.export.labeling.html#besca.export.labeling" title="besca.export.labeling"><code class="xref py py-obj docutils literal notranslate"><span class="pre">labeling</span></code></a>(adata[,&nbsp;outpath,&nbsp;column,&nbsp;label,&nbsp;…])</td>
+<td>export mapping of cells to specified label to .tsv file</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="export/besca.export.labeling_info.html#besca.export.labeling_info" title="besca.export.labeling_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">labeling_info</span></code></a>([outpath,&nbsp;description,&nbsp;…])</td>
+<td>write out labeling info for uploading to database</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="export/besca.export.analysis_metadata.html#besca.export.analysis_metadata" title="besca.export.analysis_metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">analysis_metadata</span></code></a>(adata[,&nbsp;outpath,&nbsp;…])</td>
+<td>export plotting coordinates to analysis_metadata.tsv</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="export/besca.export.generate_gep.html#besca.export.generate_gep" title="besca.export.generate_gep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_gep</span></code></a>(adata[,&nbsp;filename,&nbsp;column,&nbsp;…])</td>
+<td>Generate Gene Expression Profile (GEP) from scRNA-seq annotations</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="export/besca.export.ranked_genes.html#besca.export.ranked_genes" title="besca.export.ranked_genes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ranked_genes</span></code></a>(adata[,&nbsp;type,&nbsp;outpath,&nbsp;…])</td>
+<td>export marker genes for each cluster to .gct file</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-besca.st">
+<span id="besca-st-package"></span><h1>besca.st Package<a class="headerlink" href="#module-besca.st" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id8">
+<h2>Functions<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="standardworkflow/besca.st.read_matrix.html#besca.st.read_matrix" title="besca.st.read_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_matrix</span></code></a>(root_path)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="standardworkflow/besca.st.filtering_cells_genes_min.html#besca.st.filtering_cells_genes_min" title="besca.st.filtering_cells_genes_min"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filtering_cells_genes_min</span></code></a>(adata,&nbsp;…)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="standardworkflow/besca.st.filtering_mito_genes_max.html#besca.st.filtering_mito_genes_max" title="besca.st.filtering_mito_genes_max"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filtering_mito_genes_max</span></code></a>(adata,&nbsp;…)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="standardworkflow/besca.st.export_cp10k.html#besca.st.export_cp10k" title="besca.st.export_cp10k"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_cp10k</span></code></a>(adata,&nbsp;basepath)</td>
+<td>Export raw cp10k to FAIR format for loading into database</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="standardworkflow/besca.st.export_regressedOut.html#besca.st.export_regressedOut" title="besca.st.export_regressedOut"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_regressedOut</span></code></a>(adata,&nbsp;basepath)</td>
+<td>Export regressedOut to FAIR format for loading into database</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="standardworkflow/besca.st.export_clustering.html#besca.st.export_clustering" title="besca.st.export_clustering"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_clustering</span></code></a>(adata,&nbsp;basepath,&nbsp;method)</td>
+<td>Export louvain to cell mapping to FAIR format for loading into database</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="standardworkflow/besca.st.export_metadata.html#besca.st.export_metadata" title="besca.st.export_metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_metadata</span></code></a>(adata,&nbsp;basepath[,&nbsp;n_pcs,&nbsp;…])</td>
+<td>Export metadata in FAIR format for loading into database</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="standardworkflow/besca.st.export_rank.html#besca.st.export_rank" title="besca.st.export_rank"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_rank</span></code></a>(adata,&nbsp;basepath[,&nbsp;type,&nbsp;…])</td>
+<td>Export ranked genes to FAIR format for loading into database</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="standardworkflow/besca.st.export_celltype.html#besca.st.export_celltype" title="besca.st.export_celltype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_celltype</span></code></a>(adata,&nbsp;basepath)</td>
+<td>Export celltype annotation to cell mapping in FAIR format for loading into database</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="standardworkflow/besca.st.additional_labeling.html#besca.st.additional_labeling" title="besca.st.additional_labeling"><code class="xref py py-obj docutils literal notranslate"><span class="pre">additional_labeling</span></code></a>(adata,&nbsp;labeling_to_use,&nbsp;…)</td>
+<td>Standard Workflow function to export an additional labeling besides louvain to FAIR format.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="standardworkflow/besca.st.celltype_labeling.html#besca.st.celltype_labeling" title="besca.st.celltype_labeling"><code class="xref py py-obj docutils literal notranslate"><span class="pre">celltype_labeling</span></code></a>(adata,&nbsp;labeling_author,&nbsp;…)</td>
+<td>Standard Workflow function to export an additional labeling besides louvain to FAIR format.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, BEDA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

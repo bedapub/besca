@@ -1,0 +1,551 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>besca.tl.sig._annot &mdash; BESCA 2.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> BESCA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../besca.html">besca</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto_examples/index.html">code examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorials.html">tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../besca_standard_pipeline.html">standard pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../adding_new_functions.html">adding new functions to besca</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">BESCA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>besca.tl.sig._annot</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for besca.tl.sig._annot</h1><div class="highlight"><pre>
+<span></span><span class="c1">#this module contains functions for cell type annotation based on signatures in python using scanpy</span>
+<span class="c1">#import using the python version 1.3.2 at least is a prerequisit! needs to be checked in all functions</span>
+
+<span class="kn">from</span> <span class="nn">scanpy.api</span> <span class="k">import</span> <span class="n">AnnData</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">mannwhitneyu</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">log</span><span class="p">,</span> <span class="n">where</span>
+
+
+<div class="viewcode-block" id="getset"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.getset.html#besca.tl.sig.getset">[docs]</a><span class="k">def</span> <span class="nf">getset</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">signame_complete</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Handles missing signatures aux function for make_anno</span>
+<span class="sd">    Based on a dataframe of p-values, a signature name and a cutoff check if sign is present</span>
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df: panda.DataFrame</span>
+<span class="sd">      a dataframe of p-values per signature and cell cluster</span>
+<span class="sd">    signame_complete: str</span>
+<span class="sd">      signature name</span>
+<span class="sd">    threshold: numpy.float64</span>
+<span class="sd">      cutoff used for cluster attributions</span>
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    set</span>
+<span class="sd">        Set of clusters passing the threshold value</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="n">signame_complete</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">())):</span>
+        <span class="k">return</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">signame_complete</span><span class="p">,</span> <span class="p">:]</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">]))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span><span class="p">(</span><span class="nb">set</span><span class="p">())</span></div>
+
+
+<span class="k">def</span> <span class="nf">gene_fr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">Tcells</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Returns the fraction of cells expressing a gene in distinct clusters</span>
+<span class="sd">    Takes as an input a dataframe with fractions per clusters and a gene name</span>
+<span class="sd">    Returns the fraction genes per cluster</span>
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    f: panda.DataFrame</span>
+<span class="sd">      a dataframe of fraction genes per cell as outputted by besca</span>
+<span class="sd">    Tcells: &#39;str&#39;</span>
+<span class="sd">      gene name</span>
+
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    panda.Series</span>
+<span class="sd">        a Series of fractions per cluster and gene</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span> <span class="n">Tcells</span><span class="p">),]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">columns</span><span class="p">)]</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+
+<div class="viewcode-block" id="score_mw"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.score_mw.html#besca.tl.sig.score_mw">[docs]</a><span class="k">def</span> <span class="nf">score_mw</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">mymarkers</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Score Clusters based on a set of immune signatures to generate a df of pvals</span>
+<span class="sd">    Takes as an input a dataframe with fractions per clusters and a dictionary of signatures</span>
+<span class="sd">    Performs a Mann-Whitney test per each column and Signature, returns -10logpValues</span>
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    f: panda.DataFrame</span>
+<span class="sd">      a dataframe of -log10pvals per signature and cell cluster</span>
+<span class="sd">    mymarkers: Dictionary</span>
+<span class="sd">      a dictionary of signatures</span>
+
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    panda.DataFrame</span>
+<span class="sd">        a dataframe of -10logpValues per cluster and signature</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">columns</span><span class="p">)])</span>
+    <span class="n">mypFrame</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">mymarkers</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">columns</span><span class="o">=</span><span class="n">ids</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">mymarkers</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">:</span>
+            <span class="n">mypFrame</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">key</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="o">*</span><span class="n">log</span><span class="p">(</span><span class="n">mannwhitneyu</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">value</span><span class="p">),:][</span><span class="n">i</span><span class="p">],</span> 
+                     <span class="n">y</span><span class="o">=</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;greater&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pvalue</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">)</span></div>
+
+
+
+
+<div class="viewcode-block" id="add_anno"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.add_anno.html#besca.tl.sig.add_anno">[docs]</a><span class="k">def</span> <span class="nf">add_anno</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">cNames</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="s1">&#39;louvain&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Adds annotation generated with make_anno to a AnnData object</span>
+<span class="sd">    Takes as input the AnnData object to which annotation will be appended and the large annotation</span>
+<span class="sd">    Generates 5 new adata.obs columns with annotation at distinct levels</span>
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata: AnnData</span>
+<span class="sd">      AnnData object that is to be annotated</span>
+<span class="sd">    cNames: panda.DataFrame</span>
+<span class="sd">      a list of cluster names generated with make_anno</span>
+<span class="sd">    cluster: string</span>
+<span class="sd">      initial cluster used for annotation (column in adata.obs)</span>
+
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    AnnData</span>
+<span class="sd">        the annotated adata object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;clusterID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">cluster</span><span class="p">]</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">(</span><span class="s1">&#39;clusterID&#39;</span><span class="p">,</span> <span class="n">cNames</span><span class="p">)</span>
+    
+    <span class="c1">### split according to T, B, monocytes, tumor cells</span>
+    <span class="n">cellnames</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cellgroups</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">scellgroups</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">sscellgroups</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;clusterID&#39;</span><span class="p">]:</span>
+        <span class="n">cellnames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">3</span><span class="p">])</span>
+        <span class="n">cellgroups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">scellgroups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">3</span><span class="p">])</span>
+        <span class="n">sscellgroups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">3</span><span class="p">]</span><span class="o">+</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">4</span><span class="p">])</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;cell_names&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cellnames</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;cell_group&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cellgroups</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;scell_group&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scellgroups</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;sscell_group&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sscellgroups</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="make_anno"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.make_anno.html#besca.tl.sig.make_anno">[docs]</a><span class="k">def</span> <span class="nf">make_anno</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">myc</span><span class="p">,</span> <span class="n">signame</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">CD45threshold</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span><span class="n">species</span><span class="o">=</span><span class="s1">&#39;human&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Annotate Immune cells and some other cell types (melanoma, endothelial)</span>
+<span class="sd">    Based on a dataframe of -log10pvals, a cutoff and a signature set generate cell annotation</span>
+<span class="sd">    Hierarchical model of Immune cell annotation.</span>
+<span class="sd">    It expects a specific set of signatures with a common prefix (signame) and specified suffixes indicating</span>
+<span class="sd">    the cell type.</span>
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mypFrame: panda.DataFrame</span>
+<span class="sd">      a dataframe of -log10pvals per signature and cell cluster</span>
+<span class="sd">    myc: &#39;numpy.float64&#39;</span>
+<span class="sd">      threshold used for cluster attribution</span>
+<span class="sd">    f: panda.DataFrame</span>
+<span class="sd">      a dataframe with fraction genes expressed per cluster</span>
+<span class="sd">    signame: &#39;str&#39;</span>
+<span class="sd">      signature base name</span>
+
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list of str</span>
+<span class="sd">        String of cluster labels</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">## over CD45threshold % of cells have CD45</span>
+    <span class="n">aCD45P</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">where</span><span class="p">(</span><span class="n">gene_fr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;PTPRC&#39;</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="n">CD45threshold</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">species</span> <span class="o">==</span> <span class="s1">&#39;mouse&#39;</span><span class="p">:</span>
+        <span class="n">aCD45P</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">where</span><span class="p">(</span><span class="n">gene_fr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Ptprc&#39;</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="n">CD45threshold</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">aBcells</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Bcells&#39;</span><span class="p">,</span><span class="n">myc</span><span class="p">)</span>
+    <span class="n">aPlasma</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Plasma&#39;</span><span class="p">,</span><span class="n">myc</span><span class="p">)</span>
+    <span class="n">aTcd8</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Tcd8&#39;</span><span class="p">,</span><span class="n">myc</span><span class="p">)</span>
+    <span class="n">aTcd4</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Tcd4&#39;</span><span class="p">,</span><span class="n">myc</span><span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">aTcgd</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Tcgd&#39;</span><span class="p">,</span><span class="n">myc</span><span class="o">*</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> 
+    <span class="n">aTreg</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Treg&#39;</span><span class="p">,</span><span class="n">myc</span><span class="p">)</span>
+    <span class="n">aTNK</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_TNK&#39;</span><span class="p">,</span><span class="n">myc</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">aTilCM</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_TilCM&#39;</span><span class="p">,</span><span class="n">myc</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">aT4CM</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_T4CM&#39;</span><span class="p">,</span><span class="n">myc</span><span class="o">*</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">aTcytox</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Tcytox&#39;</span><span class="p">,</span><span class="n">myc</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">aTEM</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_TEM&#39;</span><span class="p">,</span><span class="n">myc</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">aTtexh</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Ttexh&#39;</span><span class="p">,</span><span class="n">myc</span><span class="p">)</span>
+    <span class="n">aTpexh</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Tpexh&#39;</span><span class="p">,</span><span class="n">myc</span><span class="p">)</span>
+    <span class="n">aNKT</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_NKT&#39;</span><span class="p">,</span><span class="n">myc</span><span class="o">*</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">aTcells</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Tcells&#39;</span><span class="p">,</span><span class="n">myc</span><span class="o">*</span><span class="mi">4</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">aNKcells</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_NKcells&#39;</span><span class="p">,</span><span class="n">myc</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">aNKnai</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_NKnai&#39;</span><span class="p">,</span><span class="n">myc</span><span class="p">)</span>
+    <span class="n">aNKcyt</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_NKcyt&#39;</span><span class="p">,</span><span class="n">myc</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">aMyelo</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Myelo&#39;</span><span class="p">,</span><span class="n">myc</span><span class="p">)</span>
+    <span class="n">aNai</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Naive&#39;</span><span class="p">,</span><span class="n">myc</span><span class="p">)</span>
+    <span class="n">aAct</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Activation&#39;</span><span class="p">,</span><span class="n">myc</span><span class="p">)</span>
+    <span class="n">aMem</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Memory&#39;</span><span class="p">,</span><span class="n">myc</span><span class="p">)</span>
+    <span class="n">aEff</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Eff&#39;</span><span class="p">,</span><span class="n">myc</span><span class="p">)</span>
+    <span class="n">aNonEff</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_NonEff&#39;</span><span class="p">,</span><span class="n">myc</span><span class="p">)</span>
+    <span class="n">aCytotox</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Cytotox&#39;</span><span class="p">,</span><span class="n">myc</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">aDCs</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_aDCs&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="p">)</span>
+    <span class="n">moDC</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_moDC&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="o">*</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> 
+    <span class="n">pDCs</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_pDCs&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>   
+    <span class="n">acDC1</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_cDC1&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="p">)</span>       
+    <span class="n">acDC2</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_cDC2&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>       
+    <span class="n">aMono</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Monocytes&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="p">)</span>
+    <span class="n">aTAM</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_TAM&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="o">*</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>   
+    <span class="n">aTMO</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_TMO&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="p">)</span>
+    <span class="n">aMo14</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Mo14&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="p">)</span>
+    <span class="n">aMo16</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Mo16&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="p">)</span>
+    <span class="n">aTAMCx</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_TAMCx&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="p">)</span>
+    <span class="n">aTMid</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_TMid&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="p">)</span>
+    <span class="n">aMoMa</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_MoMa&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">aMyeloSubtype</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_MyeloSubtype&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="p">)</span>
+    <span class="n">aGranu</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Granulo&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="p">)</span>
+    <span class="n">aNeutro</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Neutrophil&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="p">)</span>
+    <span class="n">aMacrophage</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Macrophage&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="p">)</span>
+    <span class="n">aCC</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Cellcycle&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="o">*</span><span class="mi">4</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">aCh</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Checkpoint&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="p">)</span>
+    <span class="n">aIfng</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Ifng&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="p">)</span>
+    <span class="n">aEndo</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Endo&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="p">)</span>
+    <span class="n">aCafs</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Cafs&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="p">)</span>
+    <span class="n">aMelMelan</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_MelMelan&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="p">)</span>
+    <span class="n">aMega</span> <span class="o">=</span> <span class="n">getset</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">,</span> <span class="n">signame</span><span class="o">+</span><span class="s1">&#39;_Megakaryocytes&#39;</span><span class="p">,</span> <span class="n">myc</span><span class="p">)</span>
+   <span class="c1">#### Part 2 Combine</span>
+    <span class="n">CD45P</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">aCD45P</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">aBcells</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">aNKcells</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">aTNK</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">aTcells</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">aTreg</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">aMyelo</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">pDCs</span><span class="p">))</span>
+    <span class="n">Tc</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">CD45P</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">aTcells</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">aTreg</span><span class="p">)</span><span class="o">-</span><span class="nb">set</span><span class="p">(</span><span class="n">aBcells</span><span class="p">)</span><span class="o">-</span><span class="nb">set</span><span class="p">(</span><span class="n">aMyelo</span><span class="p">))</span>
+    <span class="n">Nk</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">CD45P</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">aNKcells</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">aCytotox</span><span class="p">))</span><span class="o">-</span><span class="nb">set</span><span class="p">(</span><span class="n">aTcells</span><span class="p">))</span>
+    <span class="n">Pl</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">aPlasma</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">CD45P</span><span class="p">))</span><span class="o">-</span><span class="n">Tc</span><span class="o">-</span><span class="n">Nk</span>
+    <span class="n">Bc</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">aBcells</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">Pl</span><span class="p">)</span>
+    <span class="n">Tr</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Tc</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">aTreg</span><span class="p">)</span>
+    <span class="n">Dc</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">aDCs</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">acDC1</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">acDC2</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">moDC</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">pDCs</span><span class="p">)</span><span class="o">-</span><span class="n">Tc</span><span class="o">-</span><span class="n">Nk</span><span class="o">-</span><span class="n">Bc</span><span class="o">-</span><span class="n">Pl</span>
+    <span class="n">My</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">CD45P</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">aMoMa</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">aTAM</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">aTMO</span><span class="p">))</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">aTMid</span><span class="p">))))</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">Dc</span><span class="p">)</span><span class="o">-</span><span class="n">Tc</span><span class="o">-</span><span class="nb">set</span><span class="p">(</span><span class="n">aBcells</span><span class="p">)</span><span class="o">-</span><span class="n">Nk</span>
+    <span class="n">naiTc</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Tc</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">aNai</span><span class="p">))</span>
+    <span class="n">ccTc</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Tc</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">aCC</span><span class="p">))</span>
+    <span class="n">chTc</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Tc</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">aCh</span><span class="p">))</span>
+    <span class="n">effTc</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Tc</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">aCytotox</span><span class="p">)</span><span class="o">-</span><span class="n">Tr</span><span class="p">)</span>
+    <span class="n">actTc</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Tc</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">aAct</span><span class="p">)</span><span class="o">-</span><span class="n">Tr</span><span class="p">)</span>
+    <span class="n">memTc</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Tc</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">aMem</span><span class="p">))</span><span class="o">-</span><span class="n">actTc</span><span class="o">-</span><span class="n">Tr</span><span class="o">-</span><span class="n">naiTc</span>
+    <span class="n">exTc</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Tc</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">chTc</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">aNonEff</span><span class="p">))</span><span class="o">-</span><span class="n">naiTc</span>
+    <span class="n">texTc</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Tc</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">aTtexh</span><span class="p">)</span><span class="o">-</span><span class="n">naiTc</span>
+    <span class="n">pexTc</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Tc</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">aTpexh</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">chTc</span><span class="p">))</span><span class="o">-</span><span class="n">naiTc</span>
+    <span class="n">cytoTc</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Tc</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">aTcytox</span><span class="p">)</span><span class="o">-</span><span class="n">Tr</span><span class="p">)</span><span class="o">-</span><span class="n">naiTc</span>
+    <span class="n">NKTc</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Tc</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">aNKT</span><span class="p">)</span><span class="o">-</span><span class="n">Tr</span><span class="p">)</span>
+    <span class="n">TilCM</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Tc</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">aTilCM</span><span class="p">)</span><span class="o">-</span><span class="n">Tr</span><span class="p">)</span> <span class="c1">#IL7R cluster</span>
+    <span class="n">T4CM</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Tc</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">aT4CM</span><span class="p">)</span><span class="o">-</span><span class="n">Tr</span><span class="p">)</span><span class="o">-</span><span class="n">TilCM</span><span class="o">-</span><span class="n">cytoTc</span>
+    <span class="n">TEM</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Tc</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">aTEM</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">aTcytox</span><span class="p">)</span><span class="o">-</span><span class="n">Tr</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">aEff</span><span class="p">)</span><span class="o">-</span><span class="n">TilCM</span><span class="o">-</span><span class="n">T4CM</span><span class="o">-</span><span class="n">cytoTc</span>
+    <span class="n">TcCD8</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">aTcd8</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">Tc</span><span class="p">)</span>
+    <span class="n">Tr</span> <span class="o">=</span> <span class="n">Tr</span><span class="o">-</span><span class="n">TcCD8</span>
+    <span class="n">TcCD4</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">aTcd4</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">Tc</span><span class="p">)</span><span class="o">-</span><span class="n">Tr</span><span class="o">-</span><span class="nb">set</span><span class="p">(</span><span class="n">TcCD8</span><span class="p">)</span>
+    <span class="n">Tgd</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Tc</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">aTcgd</span><span class="p">)</span>
+    <span class="n">Nknai</span> <span class="o">=</span> <span class="n">aNKnai</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">Nk</span><span class="p">)</span>
+    <span class="n">Nkcyt</span> <span class="o">=</span> <span class="n">aNKcyt</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">Nk</span><span class="p">)</span><span class="o">-</span><span class="n">Nknai</span>
+    <span class="n">Mo14</span> <span class="o">=</span> <span class="n">aMo14</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">My</span><span class="p">)</span><span class="o">-</span><span class="n">acDC1</span><span class="o">-</span><span class="n">acDC2</span><span class="o">-</span><span class="n">aDCs</span><span class="o">-</span><span class="n">Tc</span><span class="o">-</span><span class="n">Bc</span><span class="o">-</span><span class="n">Nk</span>
+    <span class="n">Mo16</span> <span class="o">=</span> <span class="n">aMo16</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">My</span><span class="p">)</span><span class="o">-</span><span class="n">acDC1</span><span class="o">-</span><span class="n">acDC2</span><span class="o">-</span><span class="n">aDCs</span><span class="o">-</span><span class="n">Tc</span><span class="o">-</span><span class="n">Bc</span><span class="o">-</span><span class="n">Nk</span>
+    <span class="n">Mo14</span> <span class="o">=</span> <span class="n">Mo14</span><span class="o">-</span><span class="n">Mo16</span>
+    <span class="n">pDCs</span> <span class="o">=</span> <span class="n">pDCs</span><span class="o">-</span><span class="n">Bc</span>
+    <span class="c1">#### Part 3 annotate</span>
+    <span class="n">ids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">columns</span><span class="p">)]))</span>
+    <span class="n">nclust</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+    <span class="c1">###### Summarize the annotations:</span>
+    <span class="n">cNames</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">CD45P</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">CD45P</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">nclust</span><span class="p">):</span>
+        <span class="n">ii</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">newname</span> <span class="o">=</span> <span class="s2">&quot;C&quot;</span><span class="o">+</span><span class="n">ii</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;.nCD45&#39;</span><span class="p">,</span> <span class="s1">&#39;.CD45&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">CD45P</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ii</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">CD45P</span><span class="p">):</span>
+            <span class="n">lev2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Endo&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">aEndo</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev2</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Mel&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">aMelMelan</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev2</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Caf&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">aCafs</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">lev3</span><span class="o">=</span><span class="s1">&#39;.&#39;</span>
+            <span class="n">lev4</span><span class="o">=</span><span class="s1">&#39;.&#39;</span>
+            
+        <span class="k">if</span> <span class="p">(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">CD45P</span><span class="p">):</span>
+            <span class="n">lev2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Tc&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">Tc</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev2</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.NK&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">Nk</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev2</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Bc&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">Bc</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev2</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.My&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">My</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev2</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev2</span><span class="o">=</span><span class="s1">&#39;.&#39;</span>
+                <span class="n">lev3</span><span class="o">=</span><span class="s1">&#39;.&#39;</span>
+                <span class="n">lev4</span><span class="o">=</span><span class="s1">&#39;.&#39;</span>
+    
+        <span class="k">if</span> <span class="p">(</span><span class="n">lev2</span> <span class="o">==</span> <span class="s1">&#39;.Tc&#39;</span><span class="p">):</span>
+            <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.8&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">TcCD8</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Tr&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">Tr</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.4&#39;</span><span class="p">,</span> <span class="s1">&#39;.4&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">TcCD4</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">lev4</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Tr&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">Tr</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>          
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev4</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev4</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.texh&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">texTc</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev4</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev4</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.NKT&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">NKTc</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev4</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev4</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Tgd&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">Tgd</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev4</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev4</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Cytox&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">cytoTc</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev4</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev4</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.CMil7&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">TilCM</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev4</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev4</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.CM4&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">T4CM</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev4</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev4</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.CC&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">ccTc</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev4</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev4</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.texh&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">pexTc</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev4</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev4</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.EM&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">TEM</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev4</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev4</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Nai&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">naiTc</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>  
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev4</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev4</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Exh&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">chTc</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev4</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev4</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Eff&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">effTc</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev4</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev4</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Act&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">actTc</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev4</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev4</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Mem&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">memTc</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev4</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev4</span> <span class="o">=</span> <span class="s1">&#39;.Mid&#39;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">lev2</span> <span class="o">==</span> <span class="s1">&#39;.Bc&#39;</span><span class="p">):</span>
+            <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.Bc&#39;</span><span class="p">,</span> <span class="s1">&#39;.Pl&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">Pl</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">lev4</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">lev2</span> <span class="o">==</span> <span class="s1">&#39;.NK&#39;</span><span class="p">):</span>
+            <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Nai&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">Nknai</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="s1">&#39;.Cyt&#39;</span>
+            <span class="n">lev4</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span>               
+        <span class="k">if</span> <span class="p">(</span><span class="n">lev2</span> <span class="o">==</span> <span class="s1">&#39;.My&#39;</span><span class="p">):</span>
+            <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.pDC&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">pDCs</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">My</span><span class="p">))</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>   
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.aDCs&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">aDCs</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">My</span><span class="p">))</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.cDC1&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">acDC1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">My</span><span class="p">))</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.cDC2&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">acDC2</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">My</span><span class="p">))</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.aTc&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">aTcells</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">My</span><span class="p">))</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Mo14&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">Mo14</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">My</span><span class="p">))</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Mo16&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">Mo16</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">My</span><span class="p">))</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.TAMCx&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">aTAMCx</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">My</span><span class="p">))</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.TMid&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">aTMid</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">My</span><span class="p">))</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.aTAM&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">aTAM</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">My</span><span class="p">))</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.moDC&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">moDC</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">My</span><span class="p">))</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.TMO&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">aTMO</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">My</span><span class="p">))</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.MoMa&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">aMyeloSubtype</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">My</span><span class="p">))</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Gra&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">aGranu</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">My</span><span class="p">))</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Mky&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">aMega</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">My</span><span class="p">))</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Neu&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">aNeutro</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">My</span><span class="p">))</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.Tc&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">aTcells</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;.My&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">aMyelo</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lev3</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">):</span>
+                <span class="n">lev3</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span>
+            <span class="n">lev4</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span>
+        <span class="n">newname</span> <span class="o">=</span> <span class="n">newname</span><span class="o">+</span><span class="n">lev2</span><span class="o">+</span><span class="n">lev3</span><span class="o">+</span><span class="n">lev4</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;.nNa&#39;</span><span class="p">,</span> <span class="s1">&#39;.Na&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">aNai</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">newname</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;.nCC&#39;</span><span class="p">,</span> <span class="s1">&#39;.CC&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">aCC</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;.nCy&#39;</span><span class="p">,</span> <span class="s1">&#39;.Cy&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">aCytotox</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">newname</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;.nCh&#39;</span><span class="p">,</span> <span class="s1">&#39;.Ch&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">aCh</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;.nAc&#39;</span><span class="p">,</span> <span class="s1">&#39;.Ac&#39;</span><span class="p">][(</span><span class="n">ii</span> <span class="ow">in</span> <span class="n">aAct</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">cNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newname</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">cNames</span><span class="p">)</span></div>
+
+
+
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, BEDA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

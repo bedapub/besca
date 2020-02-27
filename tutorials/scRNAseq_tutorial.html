@@ -1,0 +1,2638 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>hands on tutorial &mdash; BESCA 2.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> BESCA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../besca.html">besca</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">code examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../besca_standard_pipeline.html">standard pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adding_new_functions.html">adding new functions to besca</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">BESCA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>hands on tutorial</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/tutorials/scRNAseq_tutorial.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="hands-on-tutorial">
+<h1>hands on tutorial<a class="headerlink" href="#hands-on-tutorial" title="Permalink to this headline">¶</a></h1>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#import necessary python packages</span>
+<span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span> <span class="c1">#software suite of tools for single-cell analysis in python</span>
+<span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span> <span class="c1">#internal BEDA package for single cell analysis</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+
+<span class="n">sc</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">print_versions</span><span class="p">()</span> <span class="c1">#output an overview of the software versions that are loaded</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+scanpy==1.4.5.1 anndata==0.7.1 umap==0.3.10 numpy==1.16.2 scipy==1.4.1 pandas==0.24.1 scikit-learn==0.22.1 statsmodels==0.11.1 python-igraph==0.7.1 louvain==0.6.1
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">HTML</span>
+<span class="n">task</span> <span class="o">=</span> <span class="s2">&quot;&lt;style&gt;div.task { background-color: #ffc299; border-color: #ff944d; border-left: 7px solid #ff944d; padding: 1em;} &lt;/style&gt;&quot;</span>
+<span class="n">HTML</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<style>div.task { background-color: #ffc299; border-color: #ff944d; border-left: 7px solid #ff944d; padding: 1em;} </style></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">tag</span> <span class="o">=</span> <span class="s2">&quot;&lt;style&gt;div.tag { background-color: #99ccff; border-color: #1a8cff; border-left: 7px solid #1a8cff; padding: 1em;} &lt;/style&gt;&quot;</span>
+<span class="n">HTML</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<style>div.tag { background-color: #99ccff; border-color: #1a8cff; border-left: 7px solid #1a8cff; padding: 1em;} </style></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">FAIR</span> <span class="o">=</span> <span class="s2">&quot;&lt;style&gt;div.fair { background-color: #d2f7ec; border-color: #d2f7ec; border-left: 7px solid #2fbc94; padding: 1em;} &lt;/style&gt;&quot;</span>
+<span class="n">HTML</span><span class="p">(</span><span class="n">FAIR</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<style>div.fair { background-color: #d2f7ec; border-color: #d2f7ec; border-left: 7px solid #2fbc94; padding: 1em;} </style></div>
+</div>
+<div class="section" id="Dataset-Loading">
+<h2>Dataset Loading<a class="headerlink" href="#Dataset-Loading" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#adata = sc.read(filepath)</span>
+<span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc_storage_raw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="task"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;p&gt;1. How many cells does this dataset contain? &lt;/p&gt;
+&lt;p&gt;2. How many genes does this dataset contain? &lt;/p&gt;
+&lt;p&gt;3. Which categories of sample annotation are present? &lt;/p&gt;
+&lt;p&gt;4. How many cells are from each Donor? Is it an equal distribution? &lt;/p&gt;
+&lt;p&gt;5. How many cells are from each Storage Condition? Is it an equal distribution? Do you think this is a random stochastic result? &lt;/p&gt;
+</pre></div>
+</div>
+</div><div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">## solution 1 and 2</span>
+<span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>AnnData object with n_obs × n_vars = 13066 × 19883
+    obs: &#39;CELL&#39;, &#39;CONDITION&#39;, &#39;experiment&#39;, &#39;sample_type&#39;, &#39;storage_condition&#39;, &#39;donor&#39;, &#39;batch&#39;
+    var: &#39;ENSEMBL&#39;, &#39;SYMBOL&#39;
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">## solution 3</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CELL</th>
+      <th>CONDITION</th>
+      <th>experiment</th>
+      <th>sample_type</th>
+      <th>storage_condition</th>
+      <th>donor</th>
+      <th>batch</th>
+    </tr>
+    <tr>
+      <th>index</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_FRESH.AACCGCGAGGGTCTCC-1</th>
+      <td>6.6K_inhouse_Donor_1_FRESH.AACCGCGAGGGTCTCC-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>fresh</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_3A_24h_RT.GGCAATTCAGACGCCT-1</th>
+      <td>6.6K_inhouse_Donor_3A_24h_RT.GGCAATTCAGACGCCT-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_3A</td>
+      <td>flowcell1</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_FROZEN.CGGCTAGAGCTATGCT-1</th>
+      <td>6.6K_inhouse_Donor_2_FROZEN.CGGCTAGAGCTATGCT-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>frozen</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_FRESH.CTCGGGATCCTATGTT-1</th>
+      <td>6.6K_inhouse_Donor_2_FRESH.CTCGGGATCCTATGTT-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>fresh</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_3A_FROZEN.GCGCGATAGTTCGATC-1</th>
+      <td>6.6K_inhouse_Donor_3A_FROZEN.GCGCGATAGTTCGATC-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>frozen</td>
+      <td>Donor_3A</td>
+      <td>flowcell1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">## solution 4</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">donor</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Donor_3A    4652
+Donor_1     4562
+Donor_2     3852
+Name: donor, dtype: int64
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">## solution 5</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">storage_condition</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>fresh     5111
+24h_RT    5062
+frozen    2893
+Name: storage_condition, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Quality-Control">
+<h2>Quality Control<a class="headerlink" href="#Quality-Control" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">transcript_capture_efficiency</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_scRNAseq_tutorial_13_0.png" src="../_images/tutorials_scRNAseq_tutorial_13_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">librarysize_overview</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_scRNAseq_tutorial_14_0.png" src="../_images/tutorials_scRNAseq_tutorial_14_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Preprocessing">
+<h2>Preprocessing<a class="headerlink" href="#Preprocessing" title="Permalink to this headline">¶</a></h2>
+<div class="task"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;p&gt; 6. what do you think are reasonable cutoffs for this dataset? Why do we filter for these particular cutoffs? &lt;/p&gt;
+</pre></div>
+</div>
+</div><div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">## solution 6</span>
+
+<span class="n">min_genes</span> <span class="o">=</span> <span class="mi">650</span>
+<span class="n">min_counts</span><span class="o">=</span> <span class="mi">1600</span>
+<span class="n">min_cells</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">max_genes</span> <span class="o">=</span> <span class="mi">3000</span>
+<span class="n">max_counts</span> <span class="o">=</span> <span class="mi">15000</span>
+<span class="n">max_mito</span> <span class="o">=</span> <span class="mf">0.15</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span><span class="p">,</span> <span class="p">((</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">),</span> <span class="p">(</span><span class="n">ax4</span><span class="p">,</span> <span class="n">ax5</span><span class="p">,</span> <span class="n">ax6</span><span class="p">))</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mf">4.5</span><span class="p">)</span>
+
+<span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">kp_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_genes</span><span class="o">=</span><span class="n">min_genes</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax1</span><span class="p">)</span>
+<span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">kp_counts</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_counts</span> <span class="o">=</span> <span class="n">min_counts</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax2</span><span class="p">)</span>
+<span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">kp_cells</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_cells</span><span class="o">=</span><span class="n">min_cells</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax3</span><span class="p">)</span>
+
+<span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">max_counts</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">max_counts</span><span class="o">=</span><span class="n">max_counts</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax4</span><span class="p">)</span>
+<span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">max_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">max_genes</span> <span class="o">=</span> <span class="n">max_genes</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax5</span><span class="p">)</span>
+<span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">max_mito</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">max_mito</span><span class="o">=</span><span class="n">max_mito</span><span class="p">,</span> <span class="n">annotation_type</span><span class="o">=</span><span class="s1">&#39;SYMBOL&#39;</span><span class="p">,</span> <span class="n">species</span><span class="o">=</span><span class="s1">&#39;human&#39;</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+adding percent mitochondrial genes to dataframe for species human
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_scRNAseq_tutorial_18_1.png" src="../_images/tutorials_scRNAseq_tutorial_18_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">max_counts</span><span class="o">=</span><span class="n">max_counts</span><span class="p">,</span> <span class="n">max_genes</span> <span class="o">=</span> <span class="n">max_genes</span><span class="p">,</span> <span class="n">max_mito</span> <span class="o">=</span> <span class="n">max_mito</span><span class="p">,</span> <span class="n">min_genes</span> <span class="o">=</span> <span class="n">min_genes</span><span class="p">,</span> <span class="n">min_cells</span> <span class="o">=</span> <span class="n">min_cells</span><span class="p">,</span> <span class="n">min_counts</span> <span class="o">=</span> <span class="n">min_counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+started with  13066  total cells and  19883  total genes
+removed 16 cells that expressed more than 3000 genes
+removed 3492 cells that did not express at least 650  genes
+removed 4 cells that had more than 15000  counts
+removed 210 cells that did not have at least 1600 counts
+removed 8383 genes that were not expressed in at least 30 cells
+removed  29  cells that expressed  15.0 percent mitochondrial genes or more
+finished with 9315  total cells and 11500 total genes
+</pre></div></div>
+</div>
+<div class="task"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;p&gt; 7. Were there differences in viability between Donors? &lt;/p&gt;
+</pre></div>
+</div>
+</div><div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">## Solution 7</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">donor</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Donor_3A    3814
+Donor_1     2879
+Donor_2     2622
+Name: donor, dtype: int64
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">top_genes_counts</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x2aaafbe5a358&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_scRNAseq_tutorial_22_1.png" src="../_images/tutorials_scRNAseq_tutorial_22_1.png" />
+</div>
+</div>
+<div class="task"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;p&gt; 8. Which are the most commonly expressed genes? Is this what you would expect? &lt;/p&gt;
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="Normalization">
+<h2>Normalization<a class="headerlink" href="#Normalization" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#normalize per cell</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">normalize_per_cell</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">counts_per_cell_after</span><span class="o">=</span><span class="mf">1e4</span><span class="p">)</span>
+
+<span class="c1">#save a copy (logarithmized for better understanding of values) to adata.raw</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">raw</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="fair"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;p&gt; write out cp10k values for loading into database&lt;/p&gt;
+&lt;p&gt; `bc.st.export_cp10k(adata=adata, basepath=&#39;FILEPATH_TO_FOLDER_CONTAINING_RAW_SUBFOLDER&#39;)` &lt;/p&gt;
+</pre></div>
+</div>
+</div><div class="task"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;p&gt; 9. What does a cp10k of 10 mean? Why do we normalize to cp10k? &lt;/p&gt;
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="variance-in-the-dataset">
+<h2>variance in the dataset<a class="headerlink" href="#variance-in-the-dataset" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># calculate mean and coefficient of variation for each gene and add to adata.var</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;mean_log1p&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;coeffvar&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">variation</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">todense</span><span class="p">(),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;coeffvar_log1p&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;coeffvar&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+<span class="c1">#generate a plot of our data to visualize</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">mean_log1p</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">coeffvar_log1p</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+
+<span class="c1">#calculate linear fit between mean and cv</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">linear_model</span>
+
+<span class="c1">#generate linear model</span>
+<span class="n">lm</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+
+<span class="c1">#make predictions</span>
+<span class="n">X</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;mean_log1p&#39;</span><span class="p">])),</span> <span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;mean_log1p&#39;</span><span class="p">])))</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">lm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="p">)))</span>
+
+<span class="c1">#generate plot</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;log2(mean gene expression)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;log2(coefficient of variation)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;mean variance trend&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;linear regression&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;matplotlib.legend.Legend at 0x2aab0452a6d8&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_scRNAseq_tutorial_29_1.png" src="../_images/tutorials_scRNAseq_tutorial_29_1.png" />
+</div>
+</div>
+<div class="task"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;p&gt; 10. What trend can we see in the dataset? Why does it make sense that we observe this trend? Which genes are the ones that interest us? &lt;/p&gt;
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="selection-highly-variable-genes">
+<h2>selection highly variable genes<a class="headerlink" href="#selection-highly-variable-genes" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">variable_genes_min_mean</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">variable_genes_max_mean</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">variable_genes_min_disp</span> <span class="o">=</span> <span class="mf">0.4</span>
+
+<span class="c1">#identify genes with variable expression</span>
+<span class="n">filter_result</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">filter_genes_dispersion</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">min_mean</span><span class="o">=</span><span class="n">variable_genes_min_mean</span><span class="p">,</span> <span class="n">max_mean</span><span class="o">=</span><span class="n">variable_genes_max_mean</span><span class="p">,</span> <span class="n">min_disp</span><span class="o">=</span><span class="n">variable_genes_min_disp</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">filter_genes_dispersion</span><span class="p">(</span><span class="n">filter_result</span><span class="p">)</span>
+<span class="n">nbr_variable_genes</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">filter_result</span><span class="o">.</span><span class="n">gene_subset</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;number of variable genes selected &#39;</span><span class="p">,</span> <span class="n">nbr_variable_genes</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_scRNAseq_tutorial_32_0.png" src="../_images/tutorials_scRNAseq_tutorial_32_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+number of variable genes selected  1518
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#perform the actual filtering</span>
+<span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="n">filter_result</span><span class="o">.</span><span class="n">gene_subset</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="task"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;p&gt; 11. Why do we reduce the number of genes that we look at? What do the genes we select have in common? &lt;/p&gt;
+</pre></div>
+</div>
+</div><div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#log transform our data (is easier to work with numbers like this)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="unwanted-sources-of-variance">
+<h2>unwanted sources of variance<a class="headerlink" href="#unwanted-sources-of-variance" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#define several input factors</span>
+<span class="n">random_seed</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#define a random seed so that for stochastic processes you get reproducible results</span>
+<span class="n">max_value</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</div>
+<div class="task"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;p&gt; 12. What is a potential issue when removing unwanted sources of variance? &lt;/p&gt;
+</pre></div>
+</div>
+</div><div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#remove variance due to difference in counts and percent mitochondrial gene content</span>
+<span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">regress_out</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;n_counts&#39;</span><span class="p">,</span> <span class="s1">&#39;percent_mito&#39;</span><span class="p">],</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># Scale data to unit variance and zero mean, and cut-off at max value 10</span>
+</pre></div>
+</div>
+</div>
+<div class="fair"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;p&gt; write out regressedOut values for loading into database&lt;/p&gt;
+&lt;p&gt; `bc.st.export_regressedOut(adata = adata, basepath=&#39;FILEPATH_TO_FOLDER_CONTAINING_RAW_SUBFOLDER&#39;)` &lt;/p&gt;
+</pre></div>
+</div>
+</div><div class="task"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;p&gt; 13. Besides regressOut what else might we consider correcting for? Why is it possible in this dataset? &lt;/p&gt;
+</pre></div>
+</div>
+</div><div class="section" id="batch-correction">
+<h3>batch correction<a class="headerlink" href="#batch-correction" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_uncorrected</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%%</span><span class="k">time</span>
+# since this code takes a long time (25mins), commented it out (see also below). To execute please feel free to uncomment it.
+#adata_mnn = bc.st.batch_correction(adata, &#39;storage_condition&#39;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+CPU times: user 3 µs, sys: 1 µs, total: 4 µs
+Wall time: 7.39 µs
+</pre></div></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Performing</span> <span class="n">cosine</span> <span class="n">normalization</span><span class="o">...</span>
+<span class="n">Starting</span> <span class="n">MNN</span> <span class="n">correct</span> <span class="n">iteration</span><span class="o">.</span> <span class="n">Reference</span> <span class="n">batch</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">Step</span> <span class="mi">1</span> <span class="n">of</span> <span class="mi">2</span><span class="p">:</span> <span class="n">processing</span> <span class="n">batch</span> <span class="mi">1</span>
+  <span class="n">Looking</span> <span class="k">for</span> <span class="n">MNNs</span><span class="o">...</span>
+  <span class="n">Computing</span> <span class="n">correction</span> <span class="n">vectors</span><span class="o">...</span>
+  <span class="n">Adjusting</span> <span class="n">variance</span><span class="o">...</span>
+  <span class="n">Applying</span> <span class="n">correction</span><span class="o">...</span>
+<span class="n">Step</span> <span class="mi">2</span> <span class="n">of</span> <span class="mi">2</span><span class="p">:</span> <span class="n">processing</span> <span class="n">batch</span> <span class="mi">2</span>
+  <span class="n">Looking</span> <span class="k">for</span> <span class="n">MNNs</span><span class="o">...</span>
+  <span class="n">Computing</span> <span class="n">correction</span> <span class="n">vectors</span><span class="o">...</span>
+  <span class="n">Adjusting</span> <span class="n">variance</span><span class="o">...</span>
+  <span class="n">Applying</span> <span class="n">correction</span><span class="o">...</span>
+<span class="n">MNN</span> <span class="n">correction</span> <span class="n">complete</span><span class="o">.</span> <span class="n">Gathering</span> <span class="n">output</span><span class="o">...</span>
+<span class="n">Packing</span> <span class="n">AnnData</span> <span class="nb">object</span><span class="o">...</span>
+<span class="n">Done</span><span class="o">.</span>
+<span class="n">postprocessing</span> <span class="n">performed</span><span class="o">.</span> <span class="n">adata</span> <span class="n">contains</span> <span class="n">original</span> <span class="o">.</span><span class="n">raw</span>
+</pre></div>
+</div>
+<div class="tag"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span> <span class="n">We</span> <span class="n">will</span> <span class="k">continue</span> <span class="n">doing</span> <span class="n">each</span> <span class="n">step</span> <span class="n">both</span> <span class="k">for</span> <span class="n">the</span> <span class="n">corrected</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">uncorrected</span> <span class="n">dataset</span> <span class="n">so</span> <span class="n">that</span> <span class="n">we</span> <span class="n">can</span> <span class="n">compare</span> <span class="n">our</span> <span class="n">results</span><span class="o">.</span> <span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div><div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">CELL</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Principle-component-analysis">
+<h2>Principle component analysis<a class="headerlink" href="#Principle-component-analysis" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+
+<span class="c1">#calculate 50 principle components of the dataset</span>
+<span class="c1">#sc.tl.pca(adata_mnn, random_state=random_seed, svd_solver=&#39;arpack&#39;) # Please uncomment if you calculated adata_mnn (see above)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">adata_uncorrected</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="n">random_seed</span><span class="p">,</span> <span class="n">svd_solver</span> <span class="o">=</span> <span class="s1">&#39;arpack&#39;</span><span class="p">)</span>
+
+<span class="c1">#visualize the amount of variance explained by each PC</span>
+<span class="c1">#sc.pl.pca_variance_ratio(adata_mnn) # Please uncomment if you calculated adata_mnn (see above)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">pca_variance_ratio</span><span class="p">(</span><span class="n">adata_uncorrected</span><span class="p">)</span>
+
+<span class="c1">#visualize the loadings onto the first 3 PCs</span>
+<span class="c1">#sc.pl.pca_loadings(adata_mnn) # Please uncomment if you calculated adata_mnn (see above)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">pca_loadings</span><span class="p">(</span><span class="n">adata_uncorrected</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_scRNAseq_tutorial_50_0.png"><img alt="../_images/tutorials_scRNAseq_tutorial_50_0.png" src="../_images/tutorials_scRNAseq_tutorial_50_0.png" style="width: 353px; height: 363px;" /></a>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_scRNAseq_tutorial_50_1.png"><img alt="../_images/tutorials_scRNAseq_tutorial_50_1.png" src="../_images/tutorials_scRNAseq_tutorial_50_1.png" style="width: 940px; height: 346px;" /></a>
+</div>
+</div>
+<div class="task"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;p&gt; 14. Do we observe differences in the amount of variance that the PCs explain in the corrected vs the uncorrected data?  why might this be? &lt;/p&gt;
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="nearest-neighbor-calculation">
+<h2>nearest neighbor calculation<a class="headerlink" href="#nearest-neighbor-calculation" title="Permalink to this headline">¶</a></h2>
+<p>Computes a neighborhood graph of the cells based on the first 50 principle components.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#for comparision purposes we will look at a second batch correction method</span>
+<span class="n">adata_bbknn</span> <span class="o">=</span> <span class="n">adata_uncorrected</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%%</span><span class="k">time</span>
+sc.pp.neighbors(adata_uncorrected, n_neighbors=15, random_state = random_seed, n_pcs=50)
+#sc.pp.neighbors(adata_mnn, n_neighbors=15, random_state = random_seed, n_pcs=50) # Please uncomment if you calculated adata_mnn (see above)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+CPU times: user 5.75 s, sys: 48 ms, total: 5.8 s
+Wall time: 5.79 s
+</pre></div></div>
+</div>
+<p>The second batch correction method we will look at for comparision purposes is called bbknn. This method introduces the batch correction during the calculation of the nearest neighbors. It splits your dataset into a smaller number of batches and ensures that each cell is connected to atleast a small number of other cells from each batch. This will bring the more closely related cells from each batch closer together. A huge benefit is that it works extremely quickly.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%%</span><span class="k">time</span>
+#perform batch correction using bbknn (graph based batch correction method)
+import bbknn
+bbknn.bbknn(adata_bbknn, batch_key=&#39;storage_condition&#39;) #perform alternative batch correction method
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+CPU times: user 1.54 s, sys: 2.19 ms, total: 1.54 s
+Wall time: 1.53 s
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="louvain-clustering">
+<h2>louvain clustering<a class="headerlink" href="#louvain-clustering" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">louvain</span><span class="p">(</span><span class="n">adata_uncorrected</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="n">random_seed</span><span class="p">)</span>
+<span class="c1">#sc.tl.louvain(adata_mnn, random_state=random_seed) # Please uncommentn if you calculated adata_mnn (see above)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">louvain</span><span class="p">(</span><span class="n">adata_bbknn</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="n">random_seed</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="UMAP">
+<h2>UMAP<a class="headerlink" href="#UMAP" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%%</span><span class="k">time</span>
+
+##Warning this code block will take 1-2mins to execute
+sc.tl.umap(adata_uncorrected, random_state = random_seed)
+#sc.tl.umap(adata_mnn, random_state = random_seed) # Please uncomment if you calculated adata_mnn (see above)
+sc.tl.umap(adata_bbknn, random_state = random_seed)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+CPU times: user 44.1 s, sys: 79.9 ms, total: 44.2 s
+Wall time: 44.1 s
+</pre></div></div>
+</div>
+<div class="tag"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span> <span class="n">Due</span> <span class="n">to</span> <span class="n">the</span> <span class="n">larger</span> <span class="n">dataset</span> <span class="n">calculating</span> <span class="n">the</span> <span class="n">t</span><span class="o">-</span><span class="n">SNE</span> <span class="n">plot</span> <span class="n">would</span> <span class="n">already</span> <span class="n">take</span> <span class="n">several</span> <span class="n">minutes</span> <span class="n">wich</span> <span class="ow">is</span> <span class="n">why</span> <span class="n">we</span> <span class="n">left</span> <span class="n">it</span> <span class="n">out</span> <span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="Visualize-our-Results">
+<h2>Visualize our Results<a class="headerlink" href="#Visualize-our-Results" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;uncorrected&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata_uncorrected</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;donor&#39;</span><span class="p">,</span> <span class="s1">&#39;louvain&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_condition&#39;</span><span class="p">],</span> <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;mnnpy&#39;</span><span class="p">)</span>
+<span class="c1">#sc.pl.umap(adata, color = [&#39;donor&#39;, &#39;louvain&#39;, &#39;storage_condition&#39;], wspace = 0.4) # Please uncommentn if you calculated adata_mnn (see above)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;bbknn&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata_bbknn</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;donor&#39;</span><span class="p">,</span> <span class="s1">&#39;louvain&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_condition&#39;</span><span class="p">],</span> <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+uncorrected
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_scRNAseq_tutorial_63_1.png"><img alt="../_images/tutorials_scRNAseq_tutorial_63_1.png" src="../_images/tutorials_scRNAseq_tutorial_63_1.png" style="width: 1311px; height: 338px;" /></a>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+mnnpy
+bbknn
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_scRNAseq_tutorial_63_3.png"><img alt="../_images/tutorials_scRNAseq_tutorial_63_3.png" src="../_images/tutorials_scRNAseq_tutorial_63_3.png" style="width: 1311px; height: 338px;" /></a>
+</div>
+</div>
+<p>mnnpy (precomputed and loaded from disc) <a href="#id1"><span class="problematic" id="id2">|alt\_text|</span></a></p>
+<div class="task"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;p&gt; 15. Which batch correction method would you use? Why are there such large differences? What does this tell us about batch corrections? &lt;/p&gt;
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="Reload-previously-done-cell-annotation-(from-Introduction-this-morning)">
+<h2>Reload previously done cell annotation (from Introduction this morning)<a class="headerlink" href="#Reload-previously-done-cell-annotation-(from-Introduction-this-morning)" title="Permalink to this headline">¶</a></h2>
+<p>This will aid us in labeling the celltypes found in the complete dataset.</p>
+<div class="tag"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span> <span class="n">After</span> <span class="n">this</span> <span class="n">point</span> <span class="n">we</span> <span class="n">will</span> <span class="n">only</span> <span class="n">proceed</span> <span class="k">with</span> <span class="n">the</span> <span class="n">batch</span> <span class="n">corrected</span> <span class="n">dataset</span> <span class="n">using</span> <span class="n">the</span> <span class="n">second</span> <span class="n">batch</span> <span class="n">correction</span> <span class="n">method</span><span class="o">.&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div><div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#define genesets for cell type identification</span>
+<span class="n">b_cells</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CD19&#39;</span><span class="p">,</span> <span class="s1">&#39;CD79A&#39;</span><span class="p">,</span> <span class="s1">&#39;MS4A1&#39;</span><span class="p">]</span>
+<span class="n">t_cells</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CD3E&#39;</span><span class="p">,</span> <span class="s1">&#39;CD3G&#39;</span><span class="p">,</span> <span class="s1">&#39;CD3D&#39;</span><span class="p">]</span>
+<span class="n">t_cell_subsets</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CD4&#39;</span><span class="p">,</span> <span class="s1">&#39;CD8A&#39;</span><span class="p">,</span> <span class="s1">&#39;CD8B&#39;</span><span class="p">]</span>
+<span class="n">naive_t_cell</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SELL&#39;</span><span class="p">,</span> <span class="s1">&#39;CCR7&#39;</span><span class="p">,</span> <span class="s1">&#39;IL7R&#39;</span><span class="p">]</span>
+<span class="n">myeloid_cells</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;S100A8&#39;</span><span class="p">,</span> <span class="s1">&#39;S100A9&#39;</span><span class="p">,</span> <span class="s1">&#39;CST3&#39;</span><span class="p">]</span>
+<span class="n">monocytes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;FCGR3A&#39;</span><span class="p">,</span> <span class="s1">&#39;CD14&#39;</span><span class="p">]</span> <span class="c1">#FCGR3A/B = CD16</span>
+<span class="n">dendritic_cells</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;FCER1A&#39;</span><span class="p">,</span> <span class="s1">&#39;ITGAM&#39;</span><span class="p">,</span> <span class="s1">&#39;ITGAX&#39;</span><span class="p">]</span> <span class="c1">#ITGAM = CD11b #ITGAX= CD11c</span>
+<span class="n">NK_cells</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;NCAM1&#39;</span><span class="p">,</span> <span class="s1">&#39;NKG7&#39;</span><span class="p">,</span> <span class="s1">&#39;CD3G&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="c1">#visualize the gene expression as an overlay of the umap</span>
+<span class="c1">#(this way you can visually identify the clusters with a high expression))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;b_cells&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata_bbknn</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">b_cells</span><span class="p">,</span> <span class="n">color_map</span> <span class="o">=</span> <span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">ncols</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;t_cells&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata_bbknn</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">t_cells</span><span class="p">,</span> <span class="n">color_map</span> <span class="o">=</span> <span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">ncols</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;t_cell_subsets&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata_bbknn</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">t_cell_subsets</span><span class="p">,</span> <span class="n">color_map</span> <span class="o">=</span> <span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">ncols</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;NK_cells&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata_bbknn</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">NK_cells</span><span class="p">,</span>  <span class="n">color_map</span> <span class="o">=</span> <span class="s1">&#39;viridis&#39;</span><span class="p">,</span><span class="n">ncols</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;myeloid_cells&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata_bbknn</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">myeloid_cells</span><span class="p">,</span>  <span class="n">color_map</span> <span class="o">=</span> <span class="s1">&#39;viridis&#39;</span><span class="p">,</span><span class="n">ncols</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;monocytes&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata_bbknn</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">monocytes</span><span class="p">,</span> <span class="n">color_map</span> <span class="o">=</span> <span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">ncols</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;dendritic_cells&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata_bbknn</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">dendritic_cells</span><span class="p">,</span> <span class="n">color_map</span> <span class="o">=</span> <span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">ncols</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+b_cells
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_scRNAseq_tutorial_69_1.png"><img alt="../_images/tutorials_scRNAseq_tutorial_69_1.png" src="../_images/tutorials_scRNAseq_tutorial_69_1.png" style="width: 1083px; height: 338px;" /></a>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+t_cells
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_scRNAseq_tutorial_69_3.png"><img alt="../_images/tutorials_scRNAseq_tutorial_69_3.png" src="../_images/tutorials_scRNAseq_tutorial_69_3.png" style="width: 1083px; height: 338px;" /></a>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+t_cell_subsets
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_scRNAseq_tutorial_69_5.png"><img alt="../_images/tutorials_scRNAseq_tutorial_69_5.png" src="../_images/tutorials_scRNAseq_tutorial_69_5.png" style="width: 1100px; height: 338px;" /></a>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+NK_cells
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_scRNAseq_tutorial_69_7.png"><img alt="../_images/tutorials_scRNAseq_tutorial_69_7.png" src="../_images/tutorials_scRNAseq_tutorial_69_7.png" style="width: 1100px; height: 338px;" /></a>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+myeloid_cells
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_scRNAseq_tutorial_69_9.png"><img alt="../_images/tutorials_scRNAseq_tutorial_69_9.png" src="../_images/tutorials_scRNAseq_tutorial_69_9.png" style="width: 1083px; height: 338px;" /></a>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+monocytes
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_scRNAseq_tutorial_69_11.png"><img alt="../_images/tutorials_scRNAseq_tutorial_69_11.png" src="../_images/tutorials_scRNAseq_tutorial_69_11.png" style="width: 735px; height: 338px;" /></a>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+dendritic_cells
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_scRNAseq_tutorial_69_13.png"><img alt="../_images/tutorials_scRNAseq_tutorial_69_13.png" src="../_images/tutorials_scRNAseq_tutorial_69_13.png" style="width: 1100px; height: 338px;" /></a>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;t_cell_subsets&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">dotplot</span><span class="p">(</span><span class="n">adata_bbknn</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;louvain&#39;</span><span class="p">,</span> <span class="n">var_names</span> <span class="o">=</span> <span class="n">t_cells</span> <span class="o">+</span> <span class="n">t_cell_subsets</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+t_cell_subsets
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_scRNAseq_tutorial_70_1.png"><img alt="../_images/tutorials_scRNAseq_tutorial_70_1.png" src="../_images/tutorials_scRNAseq_tutorial_70_1.png" style="width: 329px; height: 379px;" /></a>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>GridSpec(2, 5, height_ratios=[0, 10.5], width_ratios=[2.0999999999999996, 0, 0.2, 0.5, 0.25])
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata_bbknn</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;louvain&#39;</span><span class="p">],</span> <span class="n">palette</span> <span class="o">=</span> <span class="s1">&#39;tab20&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_scRNAseq_tutorial_71_0.png"><img alt="../_images/tutorials_scRNAseq_tutorial_71_0.png" src="../_images/tutorials_scRNAseq_tutorial_71_0.png" style="width: 376px; height: 334px;" /></a>
+</div>
+</div>
+<div class="task"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span> <span class="n">Annotate</span> <span class="n">the</span> <span class="n">cell</span> <span class="n">types</span><span class="o">.</span> <span class="n">The</span> <span class="n">celltypes</span> <span class="n">you</span> <span class="n">should</span> <span class="n">annotate</span> <span class="n">are</span><span class="p">:</span> <span class="n">naive</span> <span class="n">CD4</span> <span class="ow">and</span> <span class="n">CD8</span> <span class="n">T</span><span class="o">-</span><span class="n">cell</span><span class="p">,</span> <span class="n">CD4</span> <span class="ow">and</span> <span class="n">CD8</span> <span class="n">T</span><span class="o">-</span><span class="n">cell</span><span class="p">,</span> <span class="n">NK</span> <span class="n">cell</span><span class="p">,</span> <span class="n">B</span><span class="o">-</span><span class="n">cell</span><span class="p">,</span> <span class="n">monocyte</span> <span class="n">CD16</span><span class="o">+</span><span class="p">,</span> <span class="n">monocyte</span> <span class="n">CD14</span><span class="o">+</span><span class="p">,</span> <span class="n">DC</span><span class="p">,</span> <span class="n">pDC</span><span class="o">.</span> <span class="n">Hint</span> <span class="n">some</span> <span class="n">of</span> <span class="n">the</span> <span class="n">clusters</span> <span class="n">are</span> <span class="n">mixed</span><span class="p">:</span> <span class="n">label</span> <span class="n">them</span> <span class="k">with</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">celltypes</span> <span class="n">they</span> <span class="n">contain</span><span class="o">.</span> <span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div><div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#celltype annotation</span>
+<span class="c1">#write down new cluster names (important order needs to be equivalent to above)</span>
+<span class="c1">#will label the cell types:</span>
+
+<span class="n">new_cluster_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CD14+ monocyte&#39;</span><span class="p">,</span> <span class="c1">#0</span>
+                     <span class="s1">&#39;CD8 T-cell&#39;</span><span class="p">,</span> <span class="c1">#1</span>
+                     <span class="s1">&#39;NK cell&#39;</span><span class="p">,</span> <span class="c1">#2</span>
+                     <span class="s1">&#39;B-cell&#39;</span><span class="p">,</span> <span class="c1">#3</span>
+                     <span class="s1">&#39;CD4 T-cell&#39;</span><span class="p">,</span> <span class="c1">#4</span>
+                     <span class="s1">&#39;CD4 T-cell&#39;</span><span class="p">,</span> <span class="c1">#5</span>
+                     <span class="s1">&#39;CD8 T-cell&#39;</span><span class="p">,</span> <span class="c1">#6</span>
+                     <span class="s1">&#39;CD8 T-cell&#39;</span><span class="p">,</span> <span class="c1">#7</span>
+                     <span class="s1">&#39;CD4 T-cell&#39;</span><span class="p">,</span> <span class="c1">#8</span>
+                     <span class="s1">&#39;FCGR3A+ monocyte&#39;</span><span class="p">,</span> <span class="c1">#9</span>
+                     <span class="s1">&#39;CD14+ monocyte&#39;</span><span class="p">,</span> <span class="c1">#10</span>
+                     <span class="s1">&#39;unknown&#39;</span><span class="p">]</span> <span class="c1">#11</span>
+
+<span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">annotate_cells_clustering</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="n">adata_bbknn</span><span class="p">,</span> <span class="n">clustering_label</span><span class="o">=</span><span class="s1">&#39;louvain&#39;</span><span class="p">,</span> <span class="n">new_annotation_label</span><span class="o">=</span><span class="s1">&#39;celltype&#39;</span><span class="p">,</span> <span class="n">new_cluster_labels</span><span class="o">=</span><span class="n">new_cluster_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_bbknn</span><span class="o">.</span><span class="n">obs</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CELL</th>
+      <th>CONDITION</th>
+      <th>experiment</th>
+      <th>sample_type</th>
+      <th>storage_condition</th>
+      <th>donor</th>
+      <th>batch</th>
+      <th>n_counts</th>
+      <th>n_genes</th>
+      <th>percent_mito</th>
+      <th>louvain</th>
+      <th>celltype</th>
+    </tr>
+    <tr>
+      <th>index</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>6.6K_inhouse_Donor_3A_24h_RT.GGCAATTCAGACGCCT-1</th>
+      <td>6.6K_inhouse_Donor_3A_24h_RT.GGCAATTCAGACGCCT-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_3A</td>
+      <td>flowcell1</td>
+      <td>2662.0</td>
+      <td>867</td>
+      <td>0.046547</td>
+      <td>3</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_FROZEN.CGGCTAGAGCTATGCT-1</th>
+      <td>6.6K_inhouse_Donor_2_FROZEN.CGGCTAGAGCTATGCT-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>frozen</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>2054.0</td>
+      <td>724</td>
+      <td>0.032572</td>
+      <td>8</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_3A_FROZEN.GCGCGATAGTTCGATC-1</th>
+      <td>6.6K_inhouse_Donor_3A_FROZEN.GCGCGATAGTTCGATC-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>frozen</td>
+      <td>Donor_3A</td>
+      <td>flowcell1</td>
+      <td>4467.0</td>
+      <td>1144</td>
+      <td>0.017010</td>
+      <td>5</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_24h_RT.TACCTTAGTTCACGGC-1</th>
+      <td>6.6K_inhouse_Donor_2_24h_RT.TACCTTAGTTCACGGC-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>2721.0</td>
+      <td>1009</td>
+      <td>0.053985</td>
+      <td>7</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_24h_RT.AACTCTTCAAGTTCTG-1</th>
+      <td>6.6K_inhouse_Donor_2_24h_RT.AACTCTTCAAGTTCTG-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>10081.0</td>
+      <td>1941</td>
+      <td>0.033987</td>
+      <td>10</td>
+      <td>CD14+ monocyte</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_24h_RT.CGCGGTAAGAGGGATA-1</th>
+      <td>6.6K_inhouse_Donor_2_24h_RT.CGCGGTAAGAGGGATA-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>10513.0</td>
+      <td>2124</td>
+      <td>0.035446</td>
+      <td>10</td>
+      <td>CD14+ monocyte</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_24h_RT.AGAGCTTCAGTATGCT-1</th>
+      <td>6.6K_inhouse_Donor_1_24h_RT.AGAGCTTCAGTATGCT-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>3780.0</td>
+      <td>822</td>
+      <td>0.029357</td>
+      <td>4</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_FRESH.TCGAGGCTCTACTATC-1</th>
+      <td>6.6K_inhouse_Donor_1_FRESH.TCGAGGCTCTACTATC-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>fresh</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>6057.0</td>
+      <td>1764</td>
+      <td>0.080046</td>
+      <td>0</td>
+      <td>CD14+ monocyte</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_3A_FROZEN.AACCATGGTCCTAGCG-1</th>
+      <td>6.6K_inhouse_Donor_3A_FROZEN.AACCATGGTCCTAGCG-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>frozen</td>
+      <td>Donor_3A</td>
+      <td>flowcell1</td>
+      <td>3709.0</td>
+      <td>988</td>
+      <td>0.034232</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_24h_RT.GGACAAGTCCGCGCAA-1</th>
+      <td>6.6K_inhouse_Donor_2_24h_RT.GGACAAGTCCGCGCAA-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>3486.0</td>
+      <td>878</td>
+      <td>0.055906</td>
+      <td>3</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_FROZEN.GGGACCTCATGAGCGA-1</th>
+      <td>6.6K_inhouse_Donor_1_FROZEN.GGGACCTCATGAGCGA-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>frozen</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>4969.0</td>
+      <td>1417</td>
+      <td>0.062563</td>
+      <td>9</td>
+      <td>FCGR3A+ monocyte</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_24h_RT.TAGCCGGAGCTAACAA-1</th>
+      <td>6.6K_inhouse_Donor_1_24h_RT.TAGCCGGAGCTAACAA-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>4040.0</td>
+      <td>882</td>
+      <td>0.043059</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_FROZEN.ACACCAATCCCGGATG-1</th>
+      <td>6.6K_inhouse_Donor_1_FROZEN.ACACCAATCCCGGATG-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>frozen</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>2910.0</td>
+      <td>1027</td>
+      <td>0.034329</td>
+      <td>0</td>
+      <td>CD14+ monocyte</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_FRESH.GGAACTTTCAGTTGAC-1</th>
+      <td>6.6K_inhouse_Donor_2_FRESH.GGAACTTTCAGTTGAC-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>fresh</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>2998.0</td>
+      <td>960</td>
+      <td>0.058980</td>
+      <td>3</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_FRESH.ACGGAGATCCCATTAT-1</th>
+      <td>6.6K_inhouse_Donor_2_FRESH.ACGGAGATCCCATTAT-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>fresh</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>1996.0</td>
+      <td>967</td>
+      <td>0.088822</td>
+      <td>6</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_3A_24h_RT.TGCGGGTCAAGAGTCG-1</th>
+      <td>6.6K_inhouse_Donor_3A_24h_RT.TGCGGGTCAAGAGTCG-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_3A</td>
+      <td>flowcell1</td>
+      <td>5975.0</td>
+      <td>1184</td>
+      <td>0.025602</td>
+      <td>6</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_3A_FRESH.CCTCTGATCTCGTTTA-1</th>
+      <td>6.6K_inhouse_Donor_3A_FRESH.CCTCTGATCTCGTTTA-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>fresh</td>
+      <td>Donor_3A</td>
+      <td>flowcell1</td>
+      <td>5127.0</td>
+      <td>1318</td>
+      <td>0.030994</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_FROZEN.GTGCAGCAGGCGCTCT-1</th>
+      <td>6.6K_inhouse_Donor_1_FROZEN.GTGCAGCAGGCGCTCT-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>frozen</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>5076.0</td>
+      <td>1264</td>
+      <td>0.041560</td>
+      <td>6</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_FROZEN.GAATAAGTCTGTACGA-1</th>
+      <td>6.6K_inhouse_Donor_1_FROZEN.GAATAAGTCTGTACGA-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>frozen</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>2926.0</td>
+      <td>991</td>
+      <td>0.081312</td>
+      <td>0</td>
+      <td>CD14+ monocyte</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_FROZEN.GCCTCTAAGATGCGAC-1</th>
+      <td>6.6K_inhouse_Donor_1_FROZEN.GCCTCTAAGATGCGAC-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>frozen</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>3901.0</td>
+      <td>934</td>
+      <td>0.032035</td>
+      <td>5</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_3A_24h_RT.CCTCAGTTCGAGAACG-1</th>
+      <td>6.6K_inhouse_Donor_3A_24h_RT.CCTCAGTTCGAGAACG-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_3A</td>
+      <td>flowcell1</td>
+      <td>3858.0</td>
+      <td>888</td>
+      <td>0.030578</td>
+      <td>5</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_FROZEN.CAACCAAAGCTGTTCA-1</th>
+      <td>6.6K_inhouse_Donor_1_FROZEN.CAACCAAAGCTGTTCA-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>frozen</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>3321.0</td>
+      <td>1014</td>
+      <td>0.060168</td>
+      <td>6</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_FRESH.TGGCGCAGTGAGTGAC-1</th>
+      <td>6.6K_inhouse_Donor_1_FRESH.TGGCGCAGTGAGTGAC-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>fresh</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>1758.0</td>
+      <td>661</td>
+      <td>0.118316</td>
+      <td>6</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_24h_RT.GGCTCGATCCGATATG-1</th>
+      <td>6.6K_inhouse_Donor_1_24h_RT.GGCTCGATCCGATATG-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>3673.0</td>
+      <td>838</td>
+      <td>0.027732</td>
+      <td>4</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_FROZEN.GGTGAAGGTTAGATGA-1</th>
+      <td>6.6K_inhouse_Donor_1_FROZEN.GGTGAAGGTTAGATGA-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>frozen</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>3652.0</td>
+      <td>836</td>
+      <td>0.023269</td>
+      <td>5</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_3A_24h_RT.ATGAGGGAGCAATCTC-1</th>
+      <td>6.6K_inhouse_Donor_3A_24h_RT.ATGAGGGAGCAATCTC-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_3A</td>
+      <td>flowcell1</td>
+      <td>3480.0</td>
+      <td>883</td>
+      <td>0.036739</td>
+      <td>4</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_24h_RT.TCTCTAACACATGTGT-1</th>
+      <td>6.6K_inhouse_Donor_1_24h_RT.TCTCTAACACATGTGT-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>2762.0</td>
+      <td>860</td>
+      <td>0.043431</td>
+      <td>7</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_24h_RT.TACGGTAGTGAGGGAG-1</th>
+      <td>6.6K_inhouse_Donor_2_24h_RT.TACGGTAGTGAGGGAG-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>2337.0</td>
+      <td>938</td>
+      <td>0.057692</td>
+      <td>2</td>
+      <td>NK cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_3A_24h_RT.CTCGTCATCGAATCCA-1</th>
+      <td>6.6K_inhouse_Donor_3A_24h_RT.CTCGTCATCGAATCCA-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_3A</td>
+      <td>flowcell1</td>
+      <td>4917.0</td>
+      <td>1132</td>
+      <td>0.030494</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_FRESH.AGGGAGTAGAAACCAT-1</th>
+      <td>6.6K_inhouse_Donor_2_FRESH.AGGGAGTAGAAACCAT-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>fresh</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>3181.0</td>
+      <td>1013</td>
+      <td>0.059378</td>
+      <td>6</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_24h_RT.AGCTTGAGTTGTCGCG-1</th>
+      <td>6.6K_inhouse_Donor_2_24h_RT.AGCTTGAGTTGTCGCG-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>2667.0</td>
+      <td>966</td>
+      <td>0.027341</td>
+      <td>5</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_FROZEN.CGTCAGGCAAATACAG-1</th>
+      <td>6.6K_inhouse_Donor_2_FROZEN.CGTCAGGCAAATACAG-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>frozen</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>4544.0</td>
+      <td>1399</td>
+      <td>0.069890</td>
+      <td>0</td>
+      <td>CD14+ monocyte</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_24h_RT.ACCTTTAGTAAACCTC-1</th>
+      <td>6.6K_inhouse_Donor_2_24h_RT.ACCTTTAGTAAACCTC-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>7514.0</td>
+      <td>1928</td>
+      <td>0.034638</td>
+      <td>2</td>
+      <td>NK cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_3A_FROZEN.AGAGCGAGTCATCGGC-1</th>
+      <td>6.6K_inhouse_Donor_3A_FROZEN.AGAGCGAGTCATCGGC-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>frozen</td>
+      <td>Donor_3A</td>
+      <td>flowcell1</td>
+      <td>3773.0</td>
+      <td>991</td>
+      <td>0.034684</td>
+      <td>3</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_3A_FRESH.CTGTTTATCTACCAGA-1</th>
+      <td>6.6K_inhouse_Donor_3A_FRESH.CTGTTTATCTACCAGA-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>fresh</td>
+      <td>Donor_3A</td>
+      <td>flowcell1</td>
+      <td>2167.0</td>
+      <td>689</td>
+      <td>0.039650</td>
+      <td>4</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_24h_RT.CGCTGGAGTGCCTGGT-1</th>
+      <td>6.6K_inhouse_Donor_1_24h_RT.CGCTGGAGTGCCTGGT-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>4311.0</td>
+      <td>880</td>
+      <td>0.040566</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_3A_FRESH.GTACTTTCATTGCGGC-1</th>
+      <td>6.6K_inhouse_Donor_3A_FRESH.GTACTTTCATTGCGGC-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>fresh</td>
+      <td>Donor_3A</td>
+      <td>flowcell1</td>
+      <td>2488.0</td>
+      <td>1130</td>
+      <td>0.039342</td>
+      <td>2</td>
+      <td>NK cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_24h_RT.GGAGCAAGTAAGGGAA-1</th>
+      <td>6.6K_inhouse_Donor_1_24h_RT.GGAGCAAGTAAGGGAA-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>8310.0</td>
+      <td>1413</td>
+      <td>0.044859</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_24h_RT.CGAGCACTCTGACCTC-1</th>
+      <td>6.6K_inhouse_Donor_2_24h_RT.CGAGCACTCTGACCTC-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>2379.0</td>
+      <td>747</td>
+      <td>0.052941</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_24h_RT.TTGACTTAGACGCTTT-1</th>
+      <td>6.6K_inhouse_Donor_2_24h_RT.TTGACTTAGACGCTTT-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>2818.0</td>
+      <td>1157</td>
+      <td>0.035714</td>
+      <td>7</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_FRESH.TACAGTGAGGCCGAAT-1</th>
+      <td>6.6K_inhouse_Donor_1_FRESH.TACAGTGAGGCCGAAT-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>fresh</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>3515.0</td>
+      <td>1265</td>
+      <td>0.072831</td>
+      <td>9</td>
+      <td>FCGR3A+ monocyte</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_24h_RT.GATCAGTAGCTAAGAT-1</th>
+      <td>6.6K_inhouse_Donor_1_24h_RT.GATCAGTAGCTAAGAT-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>6581.0</td>
+      <td>1298</td>
+      <td>0.053775</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_3A_FRESH.AACCGCGAGCTATGCT-1</th>
+      <td>6.6K_inhouse_Donor_3A_FRESH.AACCGCGAGCTATGCT-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>fresh</td>
+      <td>Donor_3A</td>
+      <td>flowcell1</td>
+      <td>2775.0</td>
+      <td>891</td>
+      <td>0.057595</td>
+      <td>6</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_FROZEN.CTCGAGGGTACCGCTG-1</th>
+      <td>6.6K_inhouse_Donor_1_FROZEN.CTCGAGGGTACCGCTG-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>frozen</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>3021.0</td>
+      <td>968</td>
+      <td>0.076134</td>
+      <td>0</td>
+      <td>CD14+ monocyte</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_FROZEN.CAACCTCCAGGCAGTA-1</th>
+      <td>6.6K_inhouse_Donor_1_FROZEN.CAACCTCCAGGCAGTA-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>frozen</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>7661.0</td>
+      <td>1992</td>
+      <td>0.046800</td>
+      <td>0</td>
+      <td>CD14+ monocyte</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_FRESH.AACTCAGAGTGCAAGC-1</th>
+      <td>6.6K_inhouse_Donor_2_FRESH.AACTCAGAGTGCAAGC-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>fresh</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>3799.0</td>
+      <td>1032</td>
+      <td>0.032614</td>
+      <td>8</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_24h_RT.ATCGAGTTCAACGCTA-1</th>
+      <td>6.6K_inhouse_Donor_1_24h_RT.ATCGAGTTCAACGCTA-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>3896.0</td>
+      <td>843</td>
+      <td>0.038225</td>
+      <td>4</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_FRESH.TCCACACGTCCGACGT-1</th>
+      <td>6.6K_inhouse_Donor_2_FRESH.TCCACACGTCCGACGT-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>fresh</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>2503.0</td>
+      <td>894</td>
+      <td>0.045527</td>
+      <td>7</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_24h_RT.CGATGTAAGTGTTAGA-1</th>
+      <td>6.6K_inhouse_Donor_2_24h_RT.CGATGTAAGTGTTAGA-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>3246.0</td>
+      <td>1036</td>
+      <td>0.054495</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_24h_RT.AGACGTTCATAAGACA-1</th>
+      <td>6.6K_inhouse_Donor_1_24h_RT.AGACGTTCATAAGACA-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>4481.0</td>
+      <td>994</td>
+      <td>0.036806</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_3A_24h_RT.GATCAGTGTCCCTACT-1</th>
+      <td>6.6K_inhouse_Donor_3A_24h_RT.GATCAGTGTCCCTACT-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_3A</td>
+      <td>flowcell1</td>
+      <td>4362.0</td>
+      <td>1012</td>
+      <td>0.036451</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_FRESH.ACGAGCCAGCGGCTTC-1</th>
+      <td>6.6K_inhouse_Donor_2_FRESH.ACGAGCCAGCGGCTTC-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>fresh</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>2074.0</td>
+      <td>801</td>
+      <td>0.067405</td>
+      <td>6</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_24h_RT.GTTTCTAGTCCAAGTT-1</th>
+      <td>6.6K_inhouse_Donor_1_24h_RT.GTTTCTAGTCCAAGTT-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>2474.0</td>
+      <td>838</td>
+      <td>0.041583</td>
+      <td>0</td>
+      <td>CD14+ monocyte</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_24h_RT.CAGCTGGTCCGAACGC-1</th>
+      <td>6.6K_inhouse_Donor_1_24h_RT.CAGCTGGTCCGAACGC-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>3583.0</td>
+      <td>832</td>
+      <td>0.033435</td>
+      <td>4</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_24h_RT.GCTTCCACAATAGCAA-1</th>
+      <td>6.6K_inhouse_Donor_2_24h_RT.GCTTCCACAATAGCAA-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>4248.0</td>
+      <td>1017</td>
+      <td>0.033404</td>
+      <td>5</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_24h_RT.ATGTGTGTCTGTTTGT-1</th>
+      <td>6.6K_inhouse_Donor_2_24h_RT.ATGTGTGTCTGTTTGT-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>2915.0</td>
+      <td>907</td>
+      <td>0.078875</td>
+      <td>6</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_FROZEN.CGGACTGTCGGGAGTA-1</th>
+      <td>6.6K_inhouse_Donor_1_FROZEN.CGGACTGTCGGGAGTA-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>frozen</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>2582.0</td>
+      <td>973</td>
+      <td>0.042973</td>
+      <td>2</td>
+      <td>NK cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_1_FROZEN.ACTGCTCAGTCCCACG-1</th>
+      <td>6.6K_inhouse_Donor_1_FROZEN.ACTGCTCAGTCCCACG-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>frozen</td>
+      <td>Donor_1</td>
+      <td>flowcell1</td>
+      <td>1961.0</td>
+      <td>929</td>
+      <td>0.044297</td>
+      <td>2</td>
+      <td>NK cell</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_2_FROZEN.CTACCCATCCTTAATC-1</th>
+      <td>6.6K_inhouse_Donor_2_FROZEN.CTACCCATCCTTAATC-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>frozen</td>
+      <td>Donor_2</td>
+      <td>flowcell1</td>
+      <td>4362.0</td>
+      <td>1467</td>
+      <td>0.069108</td>
+      <td>0</td>
+      <td>CD14+ monocyte</td>
+    </tr>
+    <tr>
+      <th>6.6K_inhouse_Donor_3A_24h_RT.TCTTTCCCAGTCACTA-1</th>
+      <td>6.6K_inhouse_Donor_3A_24h_RT.TCTTTCCCAGTCACTA-1</td>
+      <td>PBMC_healthy</td>
+      <td>6.6k_healthy_pbmc_storage_effects_inhouse</td>
+      <td>PBMC</td>
+      <td>24h_RT</td>
+      <td>Donor_3A</td>
+      <td>flowcell1</td>
+      <td>3643.0</td>
+      <td>850</td>
+      <td>0.025240</td>
+      <td>5</td>
+      <td>CD4 T-cell</td>
+    </tr>
+  </tbody>
+</table>
+<p>9315 rows × 12 columns</p>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># The bbknn corrected and annotated dataset can be loaded using</span>
+<span class="n">adata_bbknn</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc_storage_processed</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Quantify-celltypes-per-donor">
+<h2>Quantify celltypes per donor<a class="headerlink" href="#Quantify-celltypes-per-donor" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata_bbknn</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;celltype&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_scRNAseq_tutorial_77_0.png"><img alt="../_images/tutorials_scRNAseq_tutorial_77_0.png" src="../_images/tutorials_scRNAseq_tutorial_77_0.png" style="width: 499px; height: 334px;" /></a>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">celllabel_quant_stackedbar</span><span class="p">(</span><span class="n">adata_bbknn</span><span class="p">,</span> <span class="n">count_variable</span><span class="o">=</span><span class="s1">&#39;celltype&#39;</span><span class="p">,</span> <span class="n">subset_variable</span> <span class="o">=</span> <span class="s1">&#39;donor&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_scRNAseq_tutorial_78_0.png"><img alt="../_images/tutorials_scRNAseq_tutorial_78_0.png" src="../_images/tutorials_scRNAseq_tutorial_78_0.png" style="width: 699px; height: 339px;" /></a>
+</div>
+</div>
+</div>
+<div class="section" id="Little-excursion-into-differential-gene-expression-analysis">
+<h2>Little excursion into differential gene expression analysis<a class="headerlink" href="#Little-excursion-into-differential-gene-expression-analysis" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span><span class="n">adata_bbknn</span><span class="p">,</span> <span class="n">use_raw</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">groupby</span> <span class="o">=</span> <span class="s1">&#39;storage_condition&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups_dotplot</span><span class="p">(</span><span class="n">adata_bbknn</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">groupby</span> <span class="o">=</span> <span class="s1">&#39;storage_condition&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING: dendrogram data not found (using key=dendrogram_storage_condition). Running `sc.tl.dendrogram` with default parameters. For fine tuning it is recommended to run `sc.tl.dendrogram` independently.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_scRNAseq_tutorial_81_1.png"><img alt="../_images/tutorials_scRNAseq_tutorial_81_1.png" src="../_images/tutorials_scRNAseq_tutorial_81_1.png" style="width: 653px; height: 227px;" /></a>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups_matrixplot</span><span class="p">(</span><span class="n">adata_bbknn</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">use_raw</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">groupby</span> <span class="o">=</span> <span class="s1">&#39;storage_condition&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_scRNAseq_tutorial_82_0.png"><img alt="../_images/tutorials_scRNAseq_tutorial_82_0.png" src="../_images/tutorials_scRNAseq_tutorial_82_0.png" style="width: 530px; height: 310px;" /></a>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups_stacked_violin</span><span class="p">(</span><span class="n">adata_bbknn</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;storage_condition&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_scRNAseq_tutorial_83_0.png"><img alt="../_images/tutorials_scRNAseq_tutorial_83_0.png" src="../_images/tutorials_scRNAseq_tutorial_83_0.png" style="width: 461px; height: 413px;" /></a>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, BEDA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

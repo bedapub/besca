@@ -1,0 +1,9 @@
+.. automodapi:: besca.pp
+.. automodapi:: besca.pl
+.. automodapi:: besca.tl
+.. automodapi:: besca.tl.bcor
+.. automodapi:: besca.tl.dge
+.. automodapi:: besca.tl.rc
+.. automodapi:: besca.Import
+.. automodapi:: besca.export
+.. automodapi:: besca.st

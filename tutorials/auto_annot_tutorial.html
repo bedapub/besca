@@ -1,0 +1,5027 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Automated Annotation Workflow &mdash; BESCA 2.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="BESCApe - tutorial on deconvolution of bulk RNA using single-cell annotations" href="bescape.html" />
+    <link rel="prev" title="notebook 3 - batch correction" href="notebook3_batch_correction.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> BESCA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../besca.html">besca</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">code examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="notebook1_data_processing.html">notebook 1 - introduction and data processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebook2_celltype_annotation.html">notebook 2 - celltype annotation and beyond</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebook3_batch_correction.html">notebook 3 - batch correction</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Automated Annotation Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Parameter-specification">Parameter specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Data-loading">Data loading</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Read-in-all-training-sets-and-the-testing-set.">Read in all training sets and the testing set.</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Correct-datasets-(e.g.-using-scanorama)-and-merge-training-datasets">Correct datasets (e.g. using scanorama) and merge training datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Train-the-classifier">Train the classifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Prediction">Prediction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Output">Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#let's-try-another-classifier-(SVM)">let’s try another classifier (SVM)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#let's-try-with-a-speciefied-gene-set">let’s try with a speciefied gene set</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bescape.html">BESCApe - tutorial on deconvolution of bulk RNA using single-cell annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#single-cell-sequencing-general-tutorials">single cell sequencing general tutorials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#single-cell-auto-annot-tutorial-for-cell-type-annotation">single cell auto_annot tutorial for cell type annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#bescape-cell-deconvolution-tutorial">Bescape: Cell deconvolution tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../besca_standard_pipeline.html">standard pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adding_new_functions.html">adding new functions to besca</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">BESCA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../tutorials.html">tutorials</a> &raquo;</li>
+        
+      <li>Automated Annotation Workflow</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/tutorials/auto_annot_tutorial.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Automated-Annotation-Workflow">
+<h1>Automated Annotation Workflow<a class="headerlink" href="#Automated-Annotation-Workflow" title="Permalink to this headline">¶</a></h1>
+<p>This workflow uses the auto_annot tools from besca to newly annotate a scRNAseq dataset based on one or more preannotated datasets. Ideally, these datasets come from a similar tissue and condition.</p>
+<p>We use supervised machine learning methods to annotate each individual cell utilizing methods like support vector machines (SVM) or logistic regression.</p>
+<p>First, the traning dataset(s) and the testing dataset are loaded from h5ad files or made available as adata objects. Next, the training and testing datasets are corrected using scanorama, and the training datasets are then merged into one anndata object. Then, the classifier is trained utilizing the merged training data. Finally, the classifier is applied to the testing dataset to predict the cell types. If the testing dataset is already annotated (to test the algorithm), a report including
+confusion matrices can be generated.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Parameter-specification">
+<h2>Parameter specification<a class="headerlink" href="#Parameter-specification" title="Permalink to this headline">¶</a></h2>
+<p>Give your analysis a name.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">analysis_name</span> <span class="o">=</span> <span class="s1">&#39;auto_annot_tutorial&#39;</span> <span class="c1"># The analysis name will be used to name the output files</span>
+</pre></div>
+</div>
+</div>
+<p>Specify column name of celltype annotation you want to train on.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">celltype</span> <span class="o">=</span><span class="s1">&#39;celltype&#39;</span> <span class="c1"># This needs to be a column in the .obs of the training datasets (and test dataset if you want to generate a report)</span>
+</pre></div>
+</div>
+</div>
+<p>Choose a method:</p>
+<ul class="simple">
+<li>linear: Support Vector Machine with Linear Kernel</li>
+<li>sgd: Support Vector Machine with Linear Kernel using Stochastic Gradient Descent</li>
+<li>rbf: Support Vector Machine with radial basis function kernel. Very time intensive, use only on small datasets.</li>
+<li>logistic_regression: Standard logistic classifier iwth multinomial loss.</li>
+<li>logistic_regression_ovr: Logistic Regression with one versus rest classification.</li>
+<li>logistic_regression_elastic: Logistic Regression with elastic loss, cross validates among multiple l1 ratios.</li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;logistic_regression&#39;</span>
+</pre></div>
+</div>
+</div>
+<p>Specify merge method. Needs to be either scanorama or naive.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">merge</span> <span class="o">=</span> <span class="s1">&#39;scanorama&#39;</span> <span class="c1"># We recommend to use scanorama here</span>
+</pre></div>
+</div>
+</div>
+<p>Decide if you want to use the raw format or highly variable genes. Raw increases computational time and does not necessarily improve predictions.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">use_raw</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># We recommend to use False here</span>
+</pre></div>
+</div>
+</div>
+<p>You can choose to only consider a subset of genes from a signature set or use all genes.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">genes_to_use</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span> <span class="c1"># We suggest to use all here, but the runtime is strongly improved if you select an appropriate gene set</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Data-loading">
+<h2>Data loading<a class="headerlink" href="#Data-loading" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Read-in-all-training-sets-and-the-testing-set.">
+<h3>Read in all training sets and the testing set.<a class="headerlink" href="#Read-in-all-training-sets-and-the-testing-set." title="Permalink to this headline">¶</a></h3>
+<p>We will use a publicly available PBMC dataset, including ~3000 cells, as testing dataset. For the training dataset we use another PBMC dataset that is delivered with besca.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_test</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc3k_processed</span><span class="p">()</span> <span class="c1"># Dataset to be annotated (it&#39;s already annotated in this case for testing)</span>
+<span class="n">adata_test_orig</span> <span class="o">=</span> <span class="n">adata_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># Make a copy of the testing data, which will be annotated in .obs, but not further modified</span>
+<span class="n">adata_train_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc_storage_processed</span><span class="p">()]</span> <span class="c1"># List of annotated training datasets</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<p>You can also load your own dataset from the file system. Specify folders where .h5ad files are found and their names. The datasets that are already annotated and should be used for training. If you only use one dataset please use list of one.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#test_dataset_path = &#39;/path/to/test/dataset/folder&#39;</span>
+<span class="c1">#test_dataset = &#39;testdataset.h5ad&#39;</span>
+<span class="c1">#</span>
+<span class="c1">#train_dataset_paths = [&#39;/path/to/train/dataset/folder1&#39;, &#39;/path/to/train/dataset/folder2&#39;]</span>
+<span class="c1">#train_datasets = [&#39;traindataset1.h5ad&#39;, &#39;traindataset2.h5ad&#39;]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#adata_train_list, adata_test, adata_test_orig = bc.tl.auto_annot.read_data(train_paths = train_dataset_paths, train_datasets= train_datasets, test_path=  test_dataset_path, test_dataset= test_dataset, use_raw = use_raw)</span>
+</pre></div>
+</div>
+</div>
+<p>The testing dataset is already annotated to demonstrate the methodology. Both datasets include the same cell types.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_test</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">celltype</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[CD8 T-cell, B-cell, CD4 T-cell, FCGR3A+ monocyte, CD14+ monocyte, NK cell, pDC]
+Categories (7, object): [CD8 T-cell, B-cell, CD4 T-cell, FCGR3A+ monocyte, CD14+ monocyte, NK cell, pDC]
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_train_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">celltype</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[CD8 T-cell, CD4 T-cell, B-cell, monocyte CD14+, NK cell, monocyte CD16+, unknown, dendritic cell]
+Categories (8, object): [CD8 T-cell, CD4 T-cell, B-cell, monocyte CD14+, NK cell, monocyte CD16+, unknown, dendritic cell]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Correct-datasets-(e.g.-using-scanorama)-and-merge-training-datasets">
+<h2>Correct datasets (e.g. using scanorama) and merge training datasets<a class="headerlink" href="#Correct-datasets-(e.g.-using-scanorama)-and-merge-training-datasets" title="Permalink to this headline">¶</a></h2>
+<p>This function merges training datasets, removes unwanted genes, and if scanorama is used corrects for datasets.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_train</span><span class="p">,</span> <span class="n">adata_test_corrected</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">auto_annot</span><span class="o">.</span><span class="n">merge_data</span><span class="p">(</span><span class="n">adata_train_list</span><span class="p">,</span> <span class="n">adata_test</span><span class="p">,</span> <span class="n">genes_to_use</span> <span class="o">=</span> <span class="n">genes_to_use</span><span class="p">,</span> <span class="n">merge</span> <span class="o">=</span> <span class="n">merge</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+merging with scanorama
+using scanorama rn
+Found 327 genes among all datasets
+[[0.         0.98113208]
+ [0.         0.        ]]
+Processing datasets (0, 1)
+integrating training set
+calculating intersection
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Train-the-classifier">
+<h2>Train the classifier<a class="headerlink" href="#Train-the-classifier" title="Permalink to this headline">¶</a></h2>
+<p>The returned scaler is fitted on the training dataset (to zero mean and scaled to unit variance). The scaling will then be applied to the counts in the testing dataset and then the classifier is applied to the scaled testing dataset (see next step, adata_predict()). This function will run multiple jobs in parallel if if logistic regression was specified as method.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">classifier</span><span class="p">,</span> <span class="n">scaler</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">auto_annot</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">adata_train</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">celltype</span><span class="p">,</span> <span class="n">njobs</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Prediction">
+<h2>Prediction<a class="headerlink" href="#Prediction" title="Permalink to this headline">¶</a></h2>
+<p>Use fitted model to predict celltypes in adata_pred (adata_test_corrected in our case). In the case of logistic regression, the threshold specifies the probability that needs to be reached to annotate a cell type or will be annotated as “unknown” if not reached. The threshold should be set to 0 or left out for SVM.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_predicted</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">auto_annot</span><span class="o">.</span><span class="n">adata_predict</span><span class="p">(</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">scaler</span> <span class="o">=</span> <span class="n">scaler</span><span class="p">,</span> <span class="n">adata_pred</span> <span class="o">=</span> <span class="n">adata_test_corrected</span><span class="p">,</span> <span class="n">adata_orig</span> <span class="o">=</span> <span class="n">adata_test_orig</span><span class="p">,</span> <span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The prediction was added in a new column called ‘auto_annot’.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_predicted</span><span class="o">.</span><span class="n">obs</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CELL</th>
+      <th>CONDITION</th>
+      <th>experiment</th>
+      <th>donor</th>
+      <th>n_counts</th>
+      <th>n_genes</th>
+      <th>percent_mito</th>
+      <th>louvain</th>
+      <th>celltype</th>
+      <th>auto_annot</th>
+    </tr>
+    <tr>
+      <th>index</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>AAACATACAACCAC-1</th>
+      <td>AAACATACAACCAC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2421.0</td>
+      <td>781</td>
+      <td>0.030153</td>
+      <td>0</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAACATTGAGCTAC-1</th>
+      <td>AAACATTGAGCTAC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4903.0</td>
+      <td>1352</td>
+      <td>0.037936</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>AAACATTGATCAGC-1</th>
+      <td>AAACATTGATCAGC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3148.0</td>
+      <td>1131</td>
+      <td>0.008892</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAACCGTGCTTCCG-1</th>
+      <td>AAACCGTGCTTCCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2639.0</td>
+      <td>960</td>
+      <td>0.017431</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+    </tr>
+    <tr>
+      <th>AAACGCACTGGTAC-1</th>
+      <td>AAACGCACTGGTAC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2163.0</td>
+      <td>782</td>
+      <td>0.016636</td>
+      <td>1</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAACGCTGACCAGT-1</th>
+      <td>AAACGCTGACCAGT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2176.0</td>
+      <td>783</td>
+      <td>0.038143</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAACGCTGGTTCTT-1</th>
+      <td>AAACGCTGGTTCTT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2260.0</td>
+      <td>790</td>
+      <td>0.030973</td>
+      <td>0</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAACTTGAAAAACG-1</th>
+      <td>AAACTTGAAAAACG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3915.0</td>
+      <td>1116</td>
+      <td>0.026289</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>AAACTTGATCCAGA-1</th>
+      <td>AAACTTGATCCAGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2391.0</td>
+      <td>751</td>
+      <td>0.010870</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAAGAGACGAGATA-1</th>
+      <td>AAAGAGACGAGATA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2412.0</td>
+      <td>866</td>
+      <td>0.010779</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAAGAGACGCGAGA-1</th>
+      <td>AAAGAGACGCGAGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3034.0</td>
+      <td>1059</td>
+      <td>0.014173</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>AAAGCAGATATCGG-1</th>
+      <td>AAAGCAGATATCGG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4584.0</td>
+      <td>1424</td>
+      <td>0.013956</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>AAAGCCTGTATGCG-1</th>
+      <td>AAAGCCTGTATGCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2928.0</td>
+      <td>1014</td>
+      <td>0.017071</td>
+      <td>1</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAAGGCCTGTCTAG-1</th>
+      <td>AAAGGCCTGTCTAG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4973.0</td>
+      <td>1446</td>
+      <td>0.015279</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>AAAGTTTGGGGTGA-1</th>
+      <td>AAAGTTTGGGGTGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3283.0</td>
+      <td>1020</td>
+      <td>0.025867</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>AAAGTTTGTAGCGT-1</th>
+      <td>AAAGTTTGTAGCGT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2683.0</td>
+      <td>878</td>
+      <td>0.024963</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>AAATCAACAATGCC-1</th>
+      <td>AAATCAACAATGCC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2321.0</td>
+      <td>789</td>
+      <td>0.011633</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>AAATCAACCAGGAG-1</th>
+      <td>AAATCAACCAGGAG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2800.0</td>
+      <td>824</td>
+      <td>0.022492</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAATCAACCCTATT-1</th>
+      <td>AAATCAACCCTATT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>5679.0</td>
+      <td>1545</td>
+      <td>0.024296</td>
+      <td>1</td>
+      <td>NK cell</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>AAATCAACGGAAGC-1</th>
+      <td>AAATCAACGGAAGC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3473.0</td>
+      <td>996</td>
+      <td>0.017564</td>
+      <td>1</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAATCAACTCGCAA-1</th>
+      <td>AAATCAACTCGCAA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2812.0</td>
+      <td>937</td>
+      <td>0.018492</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAATCATGACCACA-1</th>
+      <td>AAATCATGACCACA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4128.0</td>
+      <td>1368</td>
+      <td>0.045785</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+    </tr>
+    <tr>
+      <th>AAATGTTGAACGAA-1</th>
+      <td>AAATGTTGAACGAA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3209.0</td>
+      <td>1020</td>
+      <td>0.019309</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>AAATGTTGCCACAA-1</th>
+      <td>AAATGTTGCCACAA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1760.0</td>
+      <td>786</td>
+      <td>0.006246</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAATGTTGTGGCAT-1</th>
+      <td>AAATGTTGTGGCAT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2763.0</td>
+      <td>1019</td>
+      <td>0.019182</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>AAATTCGAAGGTTC-1</th>
+      <td>AAATTCGAAGGTTC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2741.0</td>
+      <td>750</td>
+      <td>0.022255</td>
+      <td>1</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAATTCGAATCACG-1</th>
+      <td>AAATTCGAATCACG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2567.0</td>
+      <td>822</td>
+      <td>0.019868</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>AAATTCGAGCTGAT-1</th>
+      <td>AAATTCGAGCTGAT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2970.0</td>
+      <td>982</td>
+      <td>0.021878</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+    </tr>
+    <tr>
+      <th>AAATTCGAGGAGTG-1</th>
+      <td>AAATTCGAGGAGTG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2979.0</td>
+      <td>876</td>
+      <td>0.024824</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAATTCGATTCTCA-1</th>
+      <td>AAATTCGATTCTCA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2642.0</td>
+      <td>930</td>
+      <td>0.014378</td>
+      <td>3</td>
+      <td>NK cell</td>
+      <td>NK cell</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>TTGCTATGGTACGT-1</th>
+      <td>TTGCTATGGTACGT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3109.0</td>
+      <td>1104</td>
+      <td>0.020585</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>TTGCTATGGTAGGG-1</th>
+      <td>TTGCTATGGTAGGG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3405.0</td>
+      <td>1268</td>
+      <td>0.024075</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+    </tr>
+    <tr>
+      <th>TTGGAGACCAATCG-1</th>
+      <td>TTGGAGACCAATCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4165.0</td>
+      <td>1239</td>
+      <td>0.011762</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTGGAGACGCTATG-1</th>
+      <td>TTGGAGACGCTATG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2662.0</td>
+      <td>862</td>
+      <td>0.024042</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>TTGGAGACTATGGC-1</th>
+      <td>TTGGAGACTATGGC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1779.0</td>
+      <td>739</td>
+      <td>0.028668</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTGGGAACTGAACC-1</th>
+      <td>TTGGGAACTGAACC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2652.0</td>
+      <td>858</td>
+      <td>0.021116</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTGGTACTACTGGT-1</th>
+      <td>TTGGTACTACTGGT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3268.0</td>
+      <td>1066</td>
+      <td>0.028458</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+    </tr>
+    <tr>
+      <th>TTGGTACTCTTAGG-1</th>
+      <td>TTGGTACTCTTAGG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2927.0</td>
+      <td>752</td>
+      <td>0.017418</td>
+      <td>1</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTGGTACTGAATCC-1</th>
+      <td>TTGGTACTGAATCC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1855.0</td>
+      <td>615</td>
+      <td>0.025337</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTGGTACTGGATTC-1</th>
+      <td>TTGGTACTGGATTC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1883.0</td>
+      <td>721</td>
+      <td>0.019118</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTGTACACTTGCAG-1</th>
+      <td>TTGTACACTTGCAG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2259.0</td>
+      <td>861</td>
+      <td>0.013717</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTGTAGCTAGCTCA-1</th>
+      <td>TTGTAGCTAGCTCA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2519.0</td>
+      <td>933</td>
+      <td>0.022231</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTGTAGCTCTCTTA-1</th>
+      <td>TTGTAGCTCTCTTA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2135.0</td>
+      <td>807</td>
+      <td>0.026217</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTGTCATGGACGGA-1</th>
+      <td>TTGTCATGGACGGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2176.0</td>
+      <td>1082</td>
+      <td>0.018365</td>
+      <td>3</td>
+      <td>NK cell</td>
+      <td>NK cell</td>
+    </tr>
+    <tr>
+      <th>TTTAGAGATCCTCG-1</th>
+      <td>TTTAGAGATCCTCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2362.0</td>
+      <td>820</td>
+      <td>0.013548</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTTAGCTGATACCG-1</th>
+      <td>TTTAGCTGATACCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2755.0</td>
+      <td>887</td>
+      <td>0.022859</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTTAGCTGGATACC-1</th>
+      <td>TTTAGCTGGATACC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2454.0</td>
+      <td>850</td>
+      <td>0.011002</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>TTTAGCTGTACTCT-1</th>
+      <td>TTTAGCTGTACTCT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>5674.0</td>
+      <td>1567</td>
+      <td>0.021134</td>
+      <td>7</td>
+      <td>pDC</td>
+      <td>dendritic cell</td>
+    </tr>
+    <tr>
+      <th>TTTAGGCTCCTTTA-1</th>
+      <td>TTTAGGCTCCTTTA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1984.0</td>
+      <td>803</td>
+      <td>0.023185</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>TTTATCCTGTTGTG-1</th>
+      <td>TTTATCCTGTTGTG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3680.0</td>
+      <td>1156</td>
+      <td>0.013043</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+    </tr>
+    <tr>
+      <th>TTTCACGAGGTTCA-1</th>
+      <td>TTTCACGAGGTTCA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2036.0</td>
+      <td>721</td>
+      <td>0.013255</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTTCAGTGGAAGGC-1</th>
+      <td>TTTCAGTGGAAGGC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1781.0</td>
+      <td>692</td>
+      <td>0.015160</td>
+      <td>0</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTTCAGTGTCACGA-1</th>
+      <td>TTTCAGTGTCACGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1634.0</td>
+      <td>700</td>
+      <td>0.034272</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTTCAGTGTGCAGT-1</th>
+      <td>TTTCAGTGTGCAGT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1321.0</td>
+      <td>637</td>
+      <td>0.018911</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTTCCAGAGGTGAG-1</th>
+      <td>TTTCCAGAGGTGAG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2187.0</td>
+      <td>873</td>
+      <td>0.006859</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTTCGAACACCTGA-1</th>
+      <td>TTTCGAACACCTGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4459.0</td>
+      <td>1544</td>
+      <td>0.013004</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>unknown</td>
+    </tr>
+    <tr>
+      <th>TTTCGAACTCTCAT-1</th>
+      <td>TTTCGAACTCTCAT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3461.0</td>
+      <td>1155</td>
+      <td>0.021092</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>dendritic cell</td>
+    </tr>
+    <tr>
+      <th>TTTCTACTGAGGCA-1</th>
+      <td>TTTCTACTGAGGCA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3447.0</td>
+      <td>1227</td>
+      <td>0.009283</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTTCTACTTCCTCG-1</th>
+      <td>TTTCTACTTCCTCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1684.0</td>
+      <td>622</td>
+      <td>0.021971</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTTGCATGCCTCAC-1</th>
+      <td>TTTGCATGCCTCAC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1985.0</td>
+      <td>724</td>
+      <td>0.008060</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+  </tbody>
+</table>
+<p>2279 rows × 10 columns</p>
+</div></div>
+</div>
+<p>If in addition to the most likely class you would like to have all class probabilities returned use the following function. (This is only a sensible choice if using logistic regression.)</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_predicted</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">auto_annot</span><span class="o">.</span><span class="n">adata_pred_prob</span><span class="p">(</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">scaler</span> <span class="o">=</span> <span class="n">scaler</span><span class="p">,</span> <span class="n">adata_pred</span> <span class="o">=</span> <span class="n">adata_test_corrected</span><span class="p">,</span> <span class="n">adata_orig</span> <span class="o">=</span> <span class="n">adata_test_orig</span><span class="p">,</span> <span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_predicted</span><span class="o">.</span><span class="n">obs</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CELL</th>
+      <th>CONDITION</th>
+      <th>experiment</th>
+      <th>donor</th>
+      <th>n_counts</th>
+      <th>n_genes</th>
+      <th>percent_mito</th>
+      <th>louvain</th>
+      <th>celltype</th>
+      <th>auto_annot</th>
+      <th>B-cell</th>
+      <th>CD4 T-cell</th>
+      <th>CD8 T-cell</th>
+      <th>NK cell</th>
+      <th>dendritic cell</th>
+      <th>monocyte CD14+</th>
+      <th>monocyte CD16+</th>
+      <th>unknown</th>
+    </tr>
+    <tr>
+      <th>index</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>AAACATACAACCAC-1</th>
+      <td>AAACATACAACCAC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2421.0</td>
+      <td>781</td>
+      <td>0.030153</td>
+      <td>0</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+      <td>1.165872e-03</td>
+      <td>2.787113e-02</td>
+      <td>9.696970e-01</td>
+      <td>0.001085</td>
+      <td>3.002581e-05</td>
+      <td>4.108581e-05</td>
+      <td>1.141223e-05</td>
+      <td>0.000099</td>
+    </tr>
+    <tr>
+      <th>AAACATTGAGCTAC-1</th>
+      <td>AAACATTGAGCTAC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4903.0</td>
+      <td>1352</td>
+      <td>0.037936</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+      <td>9.998381e-01</td>
+      <td>6.915440e-06</td>
+      <td>1.225253e-04</td>
+      <td>0.000017</td>
+      <td>1.835590e-06</td>
+      <td>6.289564e-08</td>
+      <td>6.054714e-08</td>
+      <td>0.000014</td>
+    </tr>
+    <tr>
+      <th>AAACATTGATCAGC-1</th>
+      <td>AAACATTGATCAGC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3148.0</td>
+      <td>1131</td>
+      <td>0.008892</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+      <td>1.152273e-03</td>
+      <td>8.400463e-01</td>
+      <td>1.479121e-01</td>
+      <td>0.000330</td>
+      <td>2.302119e-04</td>
+      <td>8.660449e-03</td>
+      <td>1.054936e-03</td>
+      <td>0.000614</td>
+    </tr>
+    <tr>
+      <th>AAACCGTGCTTCCG-1</th>
+      <td>AAACCGTGCTTCCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2639.0</td>
+      <td>960</td>
+      <td>0.017431</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+      <td>5.497631e-06</td>
+      <td>1.221340e-04</td>
+      <td>1.191244e-06</td>
+      <td>0.000058</td>
+      <td>2.335463e-05</td>
+      <td>7.078339e-03</td>
+      <td>9.926689e-01</td>
+      <td>0.000043</td>
+    </tr>
+    <tr>
+      <th>AAACGCACTGGTAC-1</th>
+      <td>AAACGCACTGGTAC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2163.0</td>
+      <td>782</td>
+      <td>0.016636</td>
+      <td>1</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+      <td>3.995097e-04</td>
+      <td>9.713266e-01</td>
+      <td>2.742380e-02</td>
+      <td>0.000024</td>
+      <td>3.127283e-05</td>
+      <td>5.413499e-04</td>
+      <td>1.144253e-04</td>
+      <td>0.000139</td>
+    </tr>
+    <tr>
+      <th>AAACGCTGACCAGT-1</th>
+      <td>AAACGCTGACCAGT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2176.0</td>
+      <td>783</td>
+      <td>0.038143</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+      <td>8.969077e-05</td>
+      <td>7.775776e-05</td>
+      <td>9.993581e-01</td>
+      <td>0.000472</td>
+      <td>8.898113e-07</td>
+      <td>1.147517e-08</td>
+      <td>2.255194e-08</td>
+      <td>0.000002</td>
+    </tr>
+    <tr>
+      <th>AAACGCTGGTTCTT-1</th>
+      <td>AAACGCTGGTTCTT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2260.0</td>
+      <td>790</td>
+      <td>0.030973</td>
+      <td>0</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+      <td>1.980179e-04</td>
+      <td>4.051099e-04</td>
+      <td>9.992484e-01</td>
+      <td>0.000137</td>
+      <td>3.562072e-06</td>
+      <td>5.378972e-08</td>
+      <td>2.801081e-07</td>
+      <td>0.000008</td>
+    </tr>
+    <tr>
+      <th>AAACTTGAAAAACG-1</th>
+      <td>AAACTTGAAAAACG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3915.0</td>
+      <td>1116</td>
+      <td>0.026289</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+      <td>9.997144e-01</td>
+      <td>1.066804e-05</td>
+      <td>2.552803e-04</td>
+      <td>0.000006</td>
+      <td>3.812740e-06</td>
+      <td>2.434533e-08</td>
+      <td>3.840485e-08</td>
+      <td>0.000010</td>
+    </tr>
+    <tr>
+      <th>AAACTTGATCCAGA-1</th>
+      <td>AAACTTGATCCAGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2391.0</td>
+      <td>751</td>
+      <td>0.010870</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+      <td>1.112062e-03</td>
+      <td>4.497796e-01</td>
+      <td>5.489615e-01</td>
+      <td>0.000041</td>
+      <td>1.229146e-05</td>
+      <td>3.527258e-05</td>
+      <td>6.381810e-06</td>
+      <td>0.000052</td>
+    </tr>
+    <tr>
+      <th>AAAGAGACGAGATA-1</th>
+      <td>AAAGAGACGAGATA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2412.0</td>
+      <td>866</td>
+      <td>0.010779</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+      <td>8.213413e-04</td>
+      <td>9.267801e-01</td>
+      <td>6.814398e-02</td>
+      <td>0.000220</td>
+      <td>1.398351e-04</td>
+      <td>3.686453e-03</td>
+      <td>8.582060e-05</td>
+      <td>0.000122</td>
+    </tr>
+    <tr>
+      <th>AAAGAGACGCGAGA-1</th>
+      <td>AAAGAGACGCGAGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3034.0</td>
+      <td>1059</td>
+      <td>0.014173</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+      <td>2.423128e-07</td>
+      <td>3.391629e-04</td>
+      <td>1.245233e-07</td>
+      <td>0.000003</td>
+      <td>5.602937e-05</td>
+      <td>9.978945e-01</td>
+      <td>1.699291e-03</td>
+      <td>0.000008</td>
+    </tr>
+    <tr>
+      <th>AAAGCAGATATCGG-1</th>
+      <td>AAAGCAGATATCGG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4584.0</td>
+      <td>1424</td>
+      <td>0.013956</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+      <td>3.458008e-06</td>
+      <td>1.954326e-04</td>
+      <td>4.442683e-07</td>
+      <td>0.000038</td>
+      <td>3.764593e-03</td>
+      <td>9.844980e-01</td>
+      <td>1.143904e-02</td>
+      <td>0.000061</td>
+    </tr>
+    <tr>
+      <th>AAAGCCTGTATGCG-1</th>
+      <td>AAAGCCTGTATGCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2928.0</td>
+      <td>1014</td>
+      <td>0.017071</td>
+      <td>1</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+      <td>5.319584e-04</td>
+      <td>1.346974e-02</td>
+      <td>9.857074e-01</td>
+      <td>0.000283</td>
+      <td>8.175529e-07</td>
+      <td>9.993536e-07</td>
+      <td>5.749336e-07</td>
+      <td>0.000005</td>
+    </tr>
+    <tr>
+      <th>AAAGGCCTGTCTAG-1</th>
+      <td>AAAGGCCTGTCTAG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4973.0</td>
+      <td>1446</td>
+      <td>0.015279</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+      <td>9.996765e-01</td>
+      <td>8.308675e-06</td>
+      <td>2.340875e-04</td>
+      <td>0.000048</td>
+      <td>1.600933e-06</td>
+      <td>1.156020e-07</td>
+      <td>1.308052e-07</td>
+      <td>0.000031</td>
+    </tr>
+    <tr>
+      <th>AAAGTTTGGGGTGA-1</th>
+      <td>AAAGTTTGGGGTGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3283.0</td>
+      <td>1020</td>
+      <td>0.025867</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+      <td>9.998427e-01</td>
+      <td>1.708319e-05</td>
+      <td>4.564578e-05</td>
+      <td>0.000029</td>
+      <td>1.354028e-05</td>
+      <td>2.821981e-06</td>
+      <td>8.132117e-07</td>
+      <td>0.000049</td>
+    </tr>
+    <tr>
+      <th>AAAGTTTGTAGCGT-1</th>
+      <td>AAAGTTTGTAGCGT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2683.0</td>
+      <td>878</td>
+      <td>0.024963</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+      <td>2.081446e-06</td>
+      <td>2.517961e-03</td>
+      <td>2.355893e-06</td>
+      <td>0.000004</td>
+      <td>1.346492e-04</td>
+      <td>9.959922e-01</td>
+      <td>1.310266e-03</td>
+      <td>0.000037</td>
+    </tr>
+    <tr>
+      <th>AAATCAACAATGCC-1</th>
+      <td>AAATCAACAATGCC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2321.0</td>
+      <td>789</td>
+      <td>0.011633</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+      <td>9.986280e-01</td>
+      <td>4.012929e-04</td>
+      <td>3.192759e-05</td>
+      <td>0.000021</td>
+      <td>5.045641e-04</td>
+      <td>1.933934e-04</td>
+      <td>3.052344e-05</td>
+      <td>0.000189</td>
+    </tr>
+    <tr>
+      <th>AAATCAACCAGGAG-1</th>
+      <td>AAATCAACCAGGAG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2800.0</td>
+      <td>824</td>
+      <td>0.022492</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+      <td>5.803294e-04</td>
+      <td>3.663591e-03</td>
+      <td>9.952557e-01</td>
+      <td>0.000469</td>
+      <td>7.920258e-06</td>
+      <td>3.865895e-06</td>
+      <td>2.431295e-06</td>
+      <td>0.000017</td>
+    </tr>
+    <tr>
+      <th>AAATCAACCCTATT-1</th>
+      <td>AAATCAACCCTATT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>5679.0</td>
+      <td>1545</td>
+      <td>0.024296</td>
+      <td>1</td>
+      <td>NK cell</td>
+      <td>monocyte CD14+</td>
+      <td>7.042499e-03</td>
+      <td>3.208338e-02</td>
+      <td>3.158212e-02</td>
+      <td>0.066658</td>
+      <td>1.118973e-03</td>
+      <td>8.433711e-01</td>
+      <td>3.701532e-03</td>
+      <td>0.014442</td>
+    </tr>
+    <tr>
+      <th>AAATCAACGGAAGC-1</th>
+      <td>AAATCAACGGAAGC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3473.0</td>
+      <td>996</td>
+      <td>0.017564</td>
+      <td>1</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+      <td>5.363661e-04</td>
+      <td>1.093262e-02</td>
+      <td>9.883274e-01</td>
+      <td>0.000199</td>
+      <td>3.758492e-07</td>
+      <td>3.080257e-07</td>
+      <td>1.517350e-07</td>
+      <td>0.000004</td>
+    </tr>
+    <tr>
+      <th>AAATCAACTCGCAA-1</th>
+      <td>AAATCAACTCGCAA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2812.0</td>
+      <td>937</td>
+      <td>0.018492</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+      <td>8.041151e-03</td>
+      <td>4.767227e-02</td>
+      <td>9.213984e-01</td>
+      <td>0.020213</td>
+      <td>3.936407e-04</td>
+      <td>1.065967e-03</td>
+      <td>2.718985e-04</td>
+      <td>0.000944</td>
+    </tr>
+    <tr>
+      <th>AAATCATGACCACA-1</th>
+      <td>AAATCATGACCACA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4128.0</td>
+      <td>1368</td>
+      <td>0.045785</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+      <td>1.667885e-03</td>
+      <td>2.075029e-02</td>
+      <td>7.270923e-03</td>
+      <td>0.020719</td>
+      <td>5.342108e-05</td>
+      <td>7.693419e-04</td>
+      <td>9.484365e-01</td>
+      <td>0.000333</td>
+    </tr>
+    <tr>
+      <th>AAATGTTGAACGAA-1</th>
+      <td>AAATGTTGAACGAA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3209.0</td>
+      <td>1020</td>
+      <td>0.019309</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+      <td>5.812776e-07</td>
+      <td>5.631157e-04</td>
+      <td>2.391979e-07</td>
+      <td>0.000004</td>
+      <td>2.132182e-04</td>
+      <td>9.964731e-01</td>
+      <td>2.731274e-03</td>
+      <td>0.000014</td>
+    </tr>
+    <tr>
+      <th>AAATGTTGCCACAA-1</th>
+      <td>AAATGTTGCCACAA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1760.0</td>
+      <td>786</td>
+      <td>0.006246</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+      <td>4.196387e-04</td>
+      <td>9.550839e-01</td>
+      <td>6.899303e-03</td>
+      <td>0.000033</td>
+      <td>3.221686e-04</td>
+      <td>3.611851e-02</td>
+      <td>6.882203e-04</td>
+      <td>0.000436</td>
+    </tr>
+    <tr>
+      <th>AAATGTTGTGGCAT-1</th>
+      <td>AAATGTTGTGGCAT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2763.0</td>
+      <td>1019</td>
+      <td>0.019182</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+      <td>3.364433e-06</td>
+      <td>5.831740e-04</td>
+      <td>3.698367e-07</td>
+      <td>0.000026</td>
+      <td>7.283319e-04</td>
+      <td>8.734922e-01</td>
+      <td>1.250911e-01</td>
+      <td>0.000075</td>
+    </tr>
+    <tr>
+      <th>AAATTCGAAGGTTC-1</th>
+      <td>AAATTCGAAGGTTC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2741.0</td>
+      <td>750</td>
+      <td>0.022255</td>
+      <td>1</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+      <td>2.559026e-04</td>
+      <td>6.979177e-04</td>
+      <td>9.985422e-01</td>
+      <td>0.000501</td>
+      <td>5.021668e-07</td>
+      <td>2.784814e-08</td>
+      <td>4.010697e-08</td>
+      <td>0.000002</td>
+    </tr>
+    <tr>
+      <th>AAATTCGAATCACG-1</th>
+      <td>AAATTCGAATCACG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2567.0</td>
+      <td>822</td>
+      <td>0.019868</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+      <td>3.686921e-06</td>
+      <td>2.866126e-03</td>
+      <td>2.506780e-06</td>
+      <td>0.000015</td>
+      <td>8.154857e-05</td>
+      <td>9.957408e-01</td>
+      <td>1.265934e-03</td>
+      <td>0.000025</td>
+    </tr>
+    <tr>
+      <th>AAATTCGAGCTGAT-1</th>
+      <td>AAATTCGAGCTGAT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2970.0</td>
+      <td>982</td>
+      <td>0.021878</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+      <td>1.596185e-06</td>
+      <td>8.098168e-05</td>
+      <td>1.009702e-06</td>
+      <td>0.000112</td>
+      <td>6.911677e-06</td>
+      <td>3.395946e-03</td>
+      <td>9.963887e-01</td>
+      <td>0.000013</td>
+    </tr>
+    <tr>
+      <th>AAATTCGAGGAGTG-1</th>
+      <td>AAATTCGAGGAGTG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2979.0</td>
+      <td>876</td>
+      <td>0.024824</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+      <td>4.608415e-04</td>
+      <td>2.613232e-03</td>
+      <td>9.968123e-01</td>
+      <td>0.000109</td>
+      <td>3.985782e-07</td>
+      <td>2.124248e-08</td>
+      <td>4.526999e-08</td>
+      <td>0.000005</td>
+    </tr>
+    <tr>
+      <th>AAATTCGATTCTCA-1</th>
+      <td>AAATTCGATTCTCA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2642.0</td>
+      <td>930</td>
+      <td>0.014378</td>
+      <td>3</td>
+      <td>NK cell</td>
+      <td>NK cell</td>
+      <td>3.109753e-04</td>
+      <td>8.002622e-05</td>
+      <td>5.913480e-03</td>
+      <td>0.991891</td>
+      <td>1.366730e-03</td>
+      <td>2.055469e-04</td>
+      <td>6.852086e-05</td>
+      <td>0.000164</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>TTGCTATGGTACGT-1</th>
+      <td>TTGCTATGGTACGT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3109.0</td>
+      <td>1104</td>
+      <td>0.020585</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+      <td>2.524852e-06</td>
+      <td>6.698943e-04</td>
+      <td>7.661173e-07</td>
+      <td>0.000008</td>
+      <td>5.539804e-04</td>
+      <td>9.959056e-01</td>
+      <td>2.807829e-03</td>
+      <td>0.000051</td>
+    </tr>
+    <tr>
+      <th>TTGCTATGGTAGGG-1</th>
+      <td>TTGCTATGGTAGGG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3405.0</td>
+      <td>1268</td>
+      <td>0.024075</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+      <td>3.775933e-05</td>
+      <td>5.424008e-04</td>
+      <td>6.983175e-05</td>
+      <td>0.001051</td>
+      <td>6.987267e-06</td>
+      <td>4.467618e-04</td>
+      <td>9.977969e-01</td>
+      <td>0.000049</td>
+    </tr>
+    <tr>
+      <th>TTGGAGACCAATCG-1</th>
+      <td>TTGGAGACCAATCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4165.0</td>
+      <td>1239</td>
+      <td>0.011762</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+      <td>1.171282e-04</td>
+      <td>1.002652e-03</td>
+      <td>9.979800e-01</td>
+      <td>0.000898</td>
+      <td>4.772263e-07</td>
+      <td>6.438062e-08</td>
+      <td>3.259161e-08</td>
+      <td>0.000002</td>
+    </tr>
+    <tr>
+      <th>TTGGAGACGCTATG-1</th>
+      <td>TTGGAGACGCTATG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2662.0</td>
+      <td>862</td>
+      <td>0.024042</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+      <td>9.258771e-07</td>
+      <td>1.917930e-03</td>
+      <td>8.924476e-07</td>
+      <td>0.000003</td>
+      <td>1.612317e-04</td>
+      <td>9.964954e-01</td>
+      <td>1.400249e-03</td>
+      <td>0.000020</td>
+    </tr>
+    <tr>
+      <th>TTGGAGACTATGGC-1</th>
+      <td>TTGGAGACTATGGC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1779.0</td>
+      <td>739</td>
+      <td>0.028668</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+      <td>9.990368e-01</td>
+      <td>1.291376e-04</td>
+      <td>5.439915e-05</td>
+      <td>0.000025</td>
+      <td>3.661016e-04</td>
+      <td>8.583161e-05</td>
+      <td>3.059835e-05</td>
+      <td>0.000272</td>
+    </tr>
+    <tr>
+      <th>TTGGGAACTGAACC-1</th>
+      <td>TTGGGAACTGAACC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2652.0</td>
+      <td>858</td>
+      <td>0.021116</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+      <td>5.195054e-04</td>
+      <td>1.134860e-03</td>
+      <td>9.981675e-01</td>
+      <td>0.000170</td>
+      <td>1.844842e-06</td>
+      <td>1.573175e-07</td>
+      <td>1.916141e-07</td>
+      <td>0.000006</td>
+    </tr>
+    <tr>
+      <th>TTGGTACTACTGGT-1</th>
+      <td>TTGGTACTACTGGT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3268.0</td>
+      <td>1066</td>
+      <td>0.028458</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+      <td>6.786450e-06</td>
+      <td>4.654794e-04</td>
+      <td>2.799491e-06</td>
+      <td>0.000096</td>
+      <td>7.492471e-05</td>
+      <td>2.986691e-02</td>
+      <td>9.694177e-01</td>
+      <td>0.000070</td>
+    </tr>
+    <tr>
+      <th>TTGGTACTCTTAGG-1</th>
+      <td>TTGGTACTCTTAGG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2927.0</td>
+      <td>752</td>
+      <td>0.017418</td>
+      <td>1</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+      <td>6.513667e-04</td>
+      <td>2.150721e-03</td>
+      <td>9.970502e-01</td>
+      <td>0.000140</td>
+      <td>1.786711e-06</td>
+      <td>5.778316e-08</td>
+      <td>6.313789e-08</td>
+      <td>0.000006</td>
+    </tr>
+    <tr>
+      <th>TTGGTACTGAATCC-1</th>
+      <td>TTGGTACTGAATCC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1855.0</td>
+      <td>615</td>
+      <td>0.025337</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+      <td>9.997114e-01</td>
+      <td>2.704276e-05</td>
+      <td>4.557785e-06</td>
+      <td>0.000013</td>
+      <td>8.893532e-05</td>
+      <td>3.587735e-05</td>
+      <td>6.027260e-06</td>
+      <td>0.000113</td>
+    </tr>
+    <tr>
+      <th>TTGGTACTGGATTC-1</th>
+      <td>TTGGTACTGGATTC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1883.0</td>
+      <td>721</td>
+      <td>0.019118</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+      <td>9.998121e-01</td>
+      <td>3.179608e-05</td>
+      <td>1.037657e-05</td>
+      <td>0.000009</td>
+      <td>3.408682e-05</td>
+      <td>1.426683e-05</td>
+      <td>3.450559e-06</td>
+      <td>0.000085</td>
+    </tr>
+    <tr>
+      <th>TTGTACACTTGCAG-1</th>
+      <td>TTGTACACTTGCAG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2259.0</td>
+      <td>861</td>
+      <td>0.013717</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+      <td>7.238045e-03</td>
+      <td>5.563403e-01</td>
+      <td>3.759727e-01</td>
+      <td>0.013813</td>
+      <td>8.408442e-03</td>
+      <td>2.950508e-02</td>
+      <td>2.771176e-03</td>
+      <td>0.005951</td>
+    </tr>
+    <tr>
+      <th>TTGTAGCTAGCTCA-1</th>
+      <td>TTGTAGCTAGCTCA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2519.0</td>
+      <td>933</td>
+      <td>0.022231</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+      <td>1.299252e-03</td>
+      <td>5.535937e-01</td>
+      <td>4.442347e-01</td>
+      <td>0.000657</td>
+      <td>2.271307e-05</td>
+      <td>1.249909e-04</td>
+      <td>8.827541e-06</td>
+      <td>0.000059</td>
+    </tr>
+    <tr>
+      <th>TTGTAGCTCTCTTA-1</th>
+      <td>TTGTAGCTCTCTTA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2135.0</td>
+      <td>807</td>
+      <td>0.026217</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+      <td>9.997606e-01</td>
+      <td>4.222620e-05</td>
+      <td>1.413864e-05</td>
+      <td>0.000014</td>
+      <td>5.838453e-05</td>
+      <td>3.663288e-05</td>
+      <td>1.341323e-05</td>
+      <td>0.000060</td>
+    </tr>
+    <tr>
+      <th>TTGTCATGGACGGA-1</th>
+      <td>TTGTCATGGACGGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2176.0</td>
+      <td>1082</td>
+      <td>0.018365</td>
+      <td>3</td>
+      <td>NK cell</td>
+      <td>NK cell</td>
+      <td>1.210702e-05</td>
+      <td>9.345587e-07</td>
+      <td>9.874705e-05</td>
+      <td>0.999510</td>
+      <td>2.234514e-04</td>
+      <td>9.335540e-05</td>
+      <td>3.592902e-05</td>
+      <td>0.000025</td>
+    </tr>
+    <tr>
+      <th>TTTAGAGATCCTCG-1</th>
+      <td>TTTAGAGATCCTCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2362.0</td>
+      <td>820</td>
+      <td>0.013548</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+      <td>9.996456e-01</td>
+      <td>4.771990e-05</td>
+      <td>1.156852e-05</td>
+      <td>0.000008</td>
+      <td>6.418866e-05</td>
+      <td>2.120472e-05</td>
+      <td>5.257715e-06</td>
+      <td>0.000197</td>
+    </tr>
+    <tr>
+      <th>TTTAGCTGATACCG-1</th>
+      <td>TTTAGCTGATACCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2755.0</td>
+      <td>887</td>
+      <td>0.022859</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+      <td>3.419416e-04</td>
+      <td>7.722952e-04</td>
+      <td>9.987808e-01</td>
+      <td>0.000102</td>
+      <td>7.299583e-07</td>
+      <td>2.930471e-08</td>
+      <td>5.379980e-08</td>
+      <td>0.000002</td>
+    </tr>
+    <tr>
+      <th>TTTAGCTGGATACC-1</th>
+      <td>TTTAGCTGGATACC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2454.0</td>
+      <td>850</td>
+      <td>0.011002</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+      <td>3.422883e-06</td>
+      <td>1.476705e-03</td>
+      <td>1.765972e-06</td>
+      <td>0.000074</td>
+      <td>5.131085e-04</td>
+      <td>7.338207e-01</td>
+      <td>2.640044e-01</td>
+      <td>0.000106</td>
+    </tr>
+    <tr>
+      <th>TTTAGCTGTACTCT-1</th>
+      <td>TTTAGCTGTACTCT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>5674.0</td>
+      <td>1567</td>
+      <td>0.021134</td>
+      <td>7</td>
+      <td>pDC</td>
+      <td>dendritic cell</td>
+      <td>3.089785e-02</td>
+      <td>1.961860e-05</td>
+      <td>5.401145e-04</td>
+      <td>0.002683</td>
+      <td>9.417922e-01</td>
+      <td>1.543536e-04</td>
+      <td>1.720518e-06</td>
+      <td>0.023912</td>
+    </tr>
+    <tr>
+      <th>TTTAGGCTCCTTTA-1</th>
+      <td>TTTAGGCTCCTTTA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1984.0</td>
+      <td>803</td>
+      <td>0.023185</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+      <td>9.434176e-07</td>
+      <td>1.129582e-03</td>
+      <td>4.670387e-07</td>
+      <td>0.000004</td>
+      <td>2.599942e-05</td>
+      <td>9.974114e-01</td>
+      <td>1.404523e-03</td>
+      <td>0.000024</td>
+    </tr>
+    <tr>
+      <th>TTTATCCTGTTGTG-1</th>
+      <td>TTTATCCTGTTGTG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3680.0</td>
+      <td>1156</td>
+      <td>0.013043</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+      <td>2.035478e-05</td>
+      <td>1.159173e-03</td>
+      <td>3.618471e-06</td>
+      <td>0.000085</td>
+      <td>6.280813e-04</td>
+      <td>2.348211e-01</td>
+      <td>7.631152e-01</td>
+      <td>0.000168</td>
+    </tr>
+    <tr>
+      <th>TTTCACGAGGTTCA-1</th>
+      <td>TTTCACGAGGTTCA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2036.0</td>
+      <td>721</td>
+      <td>0.013255</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+      <td>8.977477e-04</td>
+      <td>1.955111e-01</td>
+      <td>8.035043e-01</td>
+      <td>0.000048</td>
+      <td>5.828771e-06</td>
+      <td>5.318869e-06</td>
+      <td>3.187694e-06</td>
+      <td>0.000025</td>
+    </tr>
+    <tr>
+      <th>TTTCAGTGGAAGGC-1</th>
+      <td>TTTCAGTGGAAGGC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1781.0</td>
+      <td>692</td>
+      <td>0.015160</td>
+      <td>0</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+      <td>6.608122e-04</td>
+      <td>8.102782e-03</td>
+      <td>9.877315e-01</td>
+      <td>0.002674</td>
+      <td>2.761582e-04</td>
+      <td>1.355786e-04</td>
+      <td>5.456638e-05</td>
+      <td>0.000365</td>
+    </tr>
+    <tr>
+      <th>TTTCAGTGTCACGA-1</th>
+      <td>TTTCAGTGTCACGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1634.0</td>
+      <td>700</td>
+      <td>0.034272</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+      <td>9.996837e-01</td>
+      <td>6.540453e-05</td>
+      <td>3.343153e-05</td>
+      <td>0.000010</td>
+      <td>4.632673e-05</td>
+      <td>1.029961e-05</td>
+      <td>3.511111e-06</td>
+      <td>0.000147</td>
+    </tr>
+    <tr>
+      <th>TTTCAGTGTGCAGT-1</th>
+      <td>TTTCAGTGTGCAGT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1321.0</td>
+      <td>637</td>
+      <td>0.018911</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+      <td>9.993189e-01</td>
+      <td>1.187654e-04</td>
+      <td>1.835176e-05</td>
+      <td>0.000009</td>
+      <td>3.638556e-04</td>
+      <td>5.410934e-05</td>
+      <td>1.061974e-05</td>
+      <td>0.000106</td>
+    </tr>
+    <tr>
+      <th>TTTCCAGAGGTGAG-1</th>
+      <td>TTTCCAGAGGTGAG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2187.0</td>
+      <td>873</td>
+      <td>0.006859</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+      <td>2.045417e-03</td>
+      <td>8.681253e-01</td>
+      <td>6.699196e-03</td>
+      <td>0.000120</td>
+      <td>2.073171e-03</td>
+      <td>1.162093e-01</td>
+      <td>3.357497e-03</td>
+      <td>0.001370</td>
+    </tr>
+    <tr>
+      <th>TTTCGAACACCTGA-1</th>
+      <td>TTTCGAACACCTGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4459.0</td>
+      <td>1544</td>
+      <td>0.013004</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>unknown</td>
+      <td>1.025806e-05</td>
+      <td>4.706346e-10</td>
+      <td>1.880980e-07</td>
+      <td>0.000026</td>
+      <td>9.017571e-08</td>
+      <td>1.774955e-05</td>
+      <td>2.978412e-07</td>
+      <td>0.999946</td>
+    </tr>
+    <tr>
+      <th>TTTCGAACTCTCAT-1</th>
+      <td>TTTCGAACTCTCAT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3461.0</td>
+      <td>1155</td>
+      <td>0.021092</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>dendritic cell</td>
+      <td>1.612723e-05</td>
+      <td>1.357452e-04</td>
+      <td>5.381265e-06</td>
+      <td>0.000066</td>
+      <td>9.545454e-01</td>
+      <td>4.367460e-02</td>
+      <td>1.105102e-03</td>
+      <td>0.000451</td>
+    </tr>
+    <tr>
+      <th>TTTCTACTGAGGCA-1</th>
+      <td>TTTCTACTGAGGCA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3447.0</td>
+      <td>1227</td>
+      <td>0.009283</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+      <td>9.964552e-01</td>
+      <td>4.338927e-04</td>
+      <td>2.502382e-03</td>
+      <td>0.000363</td>
+      <td>1.935053e-06</td>
+      <td>3.580767e-06</td>
+      <td>2.284179e-06</td>
+      <td>0.000238</td>
+    </tr>
+    <tr>
+      <th>TTTCTACTTCCTCG-1</th>
+      <td>TTTCTACTTCCTCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1684.0</td>
+      <td>622</td>
+      <td>0.021971</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+      <td>9.984856e-01</td>
+      <td>3.370092e-04</td>
+      <td>5.639210e-05</td>
+      <td>0.000007</td>
+      <td>6.450814e-04</td>
+      <td>8.384737e-05</td>
+      <td>1.000465e-05</td>
+      <td>0.000375</td>
+    </tr>
+    <tr>
+      <th>TTTGCATGCCTCAC-1</th>
+      <td>TTTGCATGCCTCAC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1985.0</td>
+      <td>724</td>
+      <td>0.008060</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+      <td>1.171514e-03</td>
+      <td>9.381549e-01</td>
+      <td>2.218124e-02</td>
+      <td>0.000189</td>
+      <td>5.154082e-04</td>
+      <td>3.648896e-02</td>
+      <td>8.566872e-04</td>
+      <td>0.000442</td>
+    </tr>
+  </tbody>
+</table>
+<p>2279 rows × 18 columns</p>
+</div></div>
+</div>
+</div>
+<div class="section" id="Output">
+<h2>Output<a class="headerlink" href="#Output" title="Permalink to this headline">¶</a></h2>
+<p>The adata object that includes the predicted cell type annotation can be written out as h5ad file.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_predicted</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;/tmp/adata_predicted.h5ad&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>If the testing dataset included already a cell type annotation, a report can be generated and written, which includes metrics, confusion matrices and comparative umap plots.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">auto_annot</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="n">adata_predicted</span><span class="p">,</span> <span class="n">celltype</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">analysis_name</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">merge</span><span class="p">,</span> <span class="n">use_raw</span><span class="p">,</span> <span class="n">genes_to_use</span><span class="p">,</span> <span class="n">clustering</span> <span class="o">=</span> <span class="s1">&#39;louvain&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING: saving figure to file figures/umap.ondata_auto_annot_tutorial.png
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_auto_annot_tutorial_45_1.png"><img alt="../_images/tutorials_auto_annot_tutorial_45_1.png" src="../_images/tutorials_auto_annot_tutorial_45_1.png" style="width: 2803px; height: 901px;" /></a>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING: saving figure to file figures/umap.auto_annot_tutorial.png
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_auto_annot_tutorial_45_3.png"><img alt="../_images/tutorials_auto_annot_tutorial_45_3.png" src="../_images/tutorials_auto_annot_tutorial_45_3.png" style="width: 2870px; height: 901px;" /></a>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Confusion matrix, without normalization
+Normalized confusion matrix
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_auto_annot_tutorial_45_5.png"><img alt="../_images/tutorials_auto_annot_tutorial_45_5.png" src="../_images/tutorials_auto_annot_tutorial_45_5.png" style="width: 803px; height: 700px;" /></a>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_auto_annot_tutorial_45_6.png"><img alt="../_images/tutorials_auto_annot_tutorial_45_6.png" src="../_images/tutorials_auto_annot_tutorial_45_6.png" style="width: 800px; height: 700px;" /></a>
+</div>
+</div>
+</div>
+<div class="section" id="let's-try-another-classifier-(SVM)">
+<h2>let’s try another classifier (SVM)<a class="headerlink" href="#let's-try-another-classifier-(SVM)" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">analysis_name</span> <span class="o">=</span> <span class="s1">&#39;auto_annot_tutorial_svm&#39;</span>
+<span class="n">celltype</span> <span class="o">=</span><span class="s1">&#39;celltype&#39;</span> <span class="c1">#column name of celltype of interest</span>
+<span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>  <span class="c1"># rbf or linear or sgd, rbf extremely slow cannot recommend, logistic_regression recommended, as you can get probabilities, random_forest is a fast but not very powerful option (in current implementation)</span>
+<span class="n">merge</span> <span class="o">=</span> <span class="s1">&#39;scanorama&#39;</span>
+<span class="n">use_raw</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">genes_to_use</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_test</span> <span class="o">=</span> <span class="n">adata_test_orig</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_train</span><span class="p">,</span> <span class="n">adata_test_corrected</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">auto_annot</span><span class="o">.</span><span class="n">merge_data</span><span class="p">(</span><span class="n">adata_train_list</span><span class="p">,</span> <span class="n">adata_test</span><span class="p">,</span> <span class="n">genes_to_use</span> <span class="o">=</span> <span class="n">genes_to_use</span><span class="p">,</span> <span class="n">merge</span> <span class="o">=</span> <span class="n">merge</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+merging with scanorama
+using scanorama rn
+Found 327 genes among all datasets
+[[0.   0.98]
+ [0.   0.  ]]
+Processing datasets (0, 1)
+integrating training set
+calculating intersection
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">classifier</span><span class="p">,</span> <span class="n">scaler</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">auto_annot</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">adata_train</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">celltype</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_predicted</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">auto_annot</span><span class="o">.</span><span class="n">adata_predict</span><span class="p">(</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">scaler</span> <span class="o">=</span> <span class="n">scaler</span><span class="p">,</span> <span class="n">adata_pred</span> <span class="o">=</span> <span class="n">adata_test_corrected</span><span class="p">,</span> <span class="n">adata_orig</span> <span class="o">=</span> <span class="n">adata_test_orig</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_predicted</span><span class="o">.</span><span class="n">obs</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CELL</th>
+      <th>CONDITION</th>
+      <th>experiment</th>
+      <th>donor</th>
+      <th>n_counts</th>
+      <th>n_genes</th>
+      <th>percent_mito</th>
+      <th>louvain</th>
+      <th>celltype</th>
+      <th>auto_annot</th>
+    </tr>
+    <tr>
+      <th>index</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>AAACATACAACCAC-1</th>
+      <td>AAACATACAACCAC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2421.0</td>
+      <td>781</td>
+      <td>0.030153</td>
+      <td>0</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAACATTGAGCTAC-1</th>
+      <td>AAACATTGAGCTAC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4903.0</td>
+      <td>1352</td>
+      <td>0.037936</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>AAACATTGATCAGC-1</th>
+      <td>AAACATTGATCAGC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3148.0</td>
+      <td>1131</td>
+      <td>0.008892</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAACCGTGCTTCCG-1</th>
+      <td>AAACCGTGCTTCCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2639.0</td>
+      <td>960</td>
+      <td>0.017431</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+    </tr>
+    <tr>
+      <th>AAACGCACTGGTAC-1</th>
+      <td>AAACGCACTGGTAC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2163.0</td>
+      <td>782</td>
+      <td>0.016636</td>
+      <td>1</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAACGCTGACCAGT-1</th>
+      <td>AAACGCTGACCAGT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2176.0</td>
+      <td>783</td>
+      <td>0.038143</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAACGCTGGTTCTT-1</th>
+      <td>AAACGCTGGTTCTT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2260.0</td>
+      <td>790</td>
+      <td>0.030973</td>
+      <td>0</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAACTTGAAAAACG-1</th>
+      <td>AAACTTGAAAAACG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3915.0</td>
+      <td>1116</td>
+      <td>0.026289</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>AAACTTGATCCAGA-1</th>
+      <td>AAACTTGATCCAGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2391.0</td>
+      <td>751</td>
+      <td>0.010870</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAAGAGACGAGATA-1</th>
+      <td>AAAGAGACGAGATA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2412.0</td>
+      <td>866</td>
+      <td>0.010779</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAAGAGACGCGAGA-1</th>
+      <td>AAAGAGACGCGAGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3034.0</td>
+      <td>1059</td>
+      <td>0.014173</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>AAAGCAGATATCGG-1</th>
+      <td>AAAGCAGATATCGG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4584.0</td>
+      <td>1424</td>
+      <td>0.013956</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>AAAGCCTGTATGCG-1</th>
+      <td>AAAGCCTGTATGCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2928.0</td>
+      <td>1014</td>
+      <td>0.017071</td>
+      <td>1</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAAGGCCTGTCTAG-1</th>
+      <td>AAAGGCCTGTCTAG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4973.0</td>
+      <td>1446</td>
+      <td>0.015279</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>AAAGTTTGGGGTGA-1</th>
+      <td>AAAGTTTGGGGTGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3283.0</td>
+      <td>1020</td>
+      <td>0.025867</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>AAAGTTTGTAGCGT-1</th>
+      <td>AAAGTTTGTAGCGT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2683.0</td>
+      <td>878</td>
+      <td>0.024963</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>AAATCAACAATGCC-1</th>
+      <td>AAATCAACAATGCC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2321.0</td>
+      <td>789</td>
+      <td>0.011633</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>AAATCAACCAGGAG-1</th>
+      <td>AAATCAACCAGGAG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2800.0</td>
+      <td>824</td>
+      <td>0.022492</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAATCAACCCTATT-1</th>
+      <td>AAATCAACCCTATT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>5679.0</td>
+      <td>1545</td>
+      <td>0.024296</td>
+      <td>1</td>
+      <td>NK cell</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>AAATCAACGGAAGC-1</th>
+      <td>AAATCAACGGAAGC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3473.0</td>
+      <td>996</td>
+      <td>0.017564</td>
+      <td>1</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAATCAACTCGCAA-1</th>
+      <td>AAATCAACTCGCAA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2812.0</td>
+      <td>937</td>
+      <td>0.018492</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAATCATGACCACA-1</th>
+      <td>AAATCATGACCACA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4128.0</td>
+      <td>1368</td>
+      <td>0.045785</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAATGTTGAACGAA-1</th>
+      <td>AAATGTTGAACGAA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3209.0</td>
+      <td>1020</td>
+      <td>0.019309</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>AAATGTTGCCACAA-1</th>
+      <td>AAATGTTGCCACAA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1760.0</td>
+      <td>786</td>
+      <td>0.006246</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAATGTTGTGGCAT-1</th>
+      <td>AAATGTTGTGGCAT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2763.0</td>
+      <td>1019</td>
+      <td>0.019182</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>AAATTCGAAGGTTC-1</th>
+      <td>AAATTCGAAGGTTC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2741.0</td>
+      <td>750</td>
+      <td>0.022255</td>
+      <td>1</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAATTCGAATCACG-1</th>
+      <td>AAATTCGAATCACG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2567.0</td>
+      <td>822</td>
+      <td>0.019868</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>AAATTCGAGCTGAT-1</th>
+      <td>AAATTCGAGCTGAT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2970.0</td>
+      <td>982</td>
+      <td>0.021878</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+    </tr>
+    <tr>
+      <th>AAATTCGAGGAGTG-1</th>
+      <td>AAATTCGAGGAGTG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2979.0</td>
+      <td>876</td>
+      <td>0.024824</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAATTCGATTCTCA-1</th>
+      <td>AAATTCGATTCTCA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2642.0</td>
+      <td>930</td>
+      <td>0.014378</td>
+      <td>3</td>
+      <td>NK cell</td>
+      <td>NK cell</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>TTGCTATGGTACGT-1</th>
+      <td>TTGCTATGGTACGT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3109.0</td>
+      <td>1104</td>
+      <td>0.020585</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>TTGCTATGGTAGGG-1</th>
+      <td>TTGCTATGGTAGGG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3405.0</td>
+      <td>1268</td>
+      <td>0.024075</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+    </tr>
+    <tr>
+      <th>TTGGAGACCAATCG-1</th>
+      <td>TTGGAGACCAATCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4165.0</td>
+      <td>1239</td>
+      <td>0.011762</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTGGAGACGCTATG-1</th>
+      <td>TTGGAGACGCTATG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2662.0</td>
+      <td>862</td>
+      <td>0.024042</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>TTGGAGACTATGGC-1</th>
+      <td>TTGGAGACTATGGC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1779.0</td>
+      <td>739</td>
+      <td>0.028668</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTGGGAACTGAACC-1</th>
+      <td>TTGGGAACTGAACC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2652.0</td>
+      <td>858</td>
+      <td>0.021116</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTGGTACTACTGGT-1</th>
+      <td>TTGGTACTACTGGT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3268.0</td>
+      <td>1066</td>
+      <td>0.028458</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+    </tr>
+    <tr>
+      <th>TTGGTACTCTTAGG-1</th>
+      <td>TTGGTACTCTTAGG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2927.0</td>
+      <td>752</td>
+      <td>0.017418</td>
+      <td>1</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTGGTACTGAATCC-1</th>
+      <td>TTGGTACTGAATCC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1855.0</td>
+      <td>615</td>
+      <td>0.025337</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTGGTACTGGATTC-1</th>
+      <td>TTGGTACTGGATTC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1883.0</td>
+      <td>721</td>
+      <td>0.019118</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTGTACACTTGCAG-1</th>
+      <td>TTGTACACTTGCAG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2259.0</td>
+      <td>861</td>
+      <td>0.013717</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTGTAGCTAGCTCA-1</th>
+      <td>TTGTAGCTAGCTCA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2519.0</td>
+      <td>933</td>
+      <td>0.022231</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTGTAGCTCTCTTA-1</th>
+      <td>TTGTAGCTCTCTTA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2135.0</td>
+      <td>807</td>
+      <td>0.026217</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTGTCATGGACGGA-1</th>
+      <td>TTGTCATGGACGGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2176.0</td>
+      <td>1082</td>
+      <td>0.018365</td>
+      <td>3</td>
+      <td>NK cell</td>
+      <td>NK cell</td>
+    </tr>
+    <tr>
+      <th>TTTAGAGATCCTCG-1</th>
+      <td>TTTAGAGATCCTCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2362.0</td>
+      <td>820</td>
+      <td>0.013548</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTTAGCTGATACCG-1</th>
+      <td>TTTAGCTGATACCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2755.0</td>
+      <td>887</td>
+      <td>0.022859</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTTAGCTGGATACC-1</th>
+      <td>TTTAGCTGGATACC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2454.0</td>
+      <td>850</td>
+      <td>0.011002</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>TTTAGCTGTACTCT-1</th>
+      <td>TTTAGCTGTACTCT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>5674.0</td>
+      <td>1567</td>
+      <td>0.021134</td>
+      <td>7</td>
+      <td>pDC</td>
+      <td>dendritic cell</td>
+    </tr>
+    <tr>
+      <th>TTTAGGCTCCTTTA-1</th>
+      <td>TTTAGGCTCCTTTA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1984.0</td>
+      <td>803</td>
+      <td>0.023185</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>TTTATCCTGTTGTG-1</th>
+      <td>TTTATCCTGTTGTG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3680.0</td>
+      <td>1156</td>
+      <td>0.013043</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>TTTCACGAGGTTCA-1</th>
+      <td>TTTCACGAGGTTCA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2036.0</td>
+      <td>721</td>
+      <td>0.013255</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTTCAGTGGAAGGC-1</th>
+      <td>TTTCAGTGGAAGGC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1781.0</td>
+      <td>692</td>
+      <td>0.015160</td>
+      <td>0</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTTCAGTGTCACGA-1</th>
+      <td>TTTCAGTGTCACGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1634.0</td>
+      <td>700</td>
+      <td>0.034272</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTTCAGTGTGCAGT-1</th>
+      <td>TTTCAGTGTGCAGT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1321.0</td>
+      <td>637</td>
+      <td>0.018911</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTTCCAGAGGTGAG-1</th>
+      <td>TTTCCAGAGGTGAG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2187.0</td>
+      <td>873</td>
+      <td>0.006859</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTTCGAACACCTGA-1</th>
+      <td>TTTCGAACACCTGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4459.0</td>
+      <td>1544</td>
+      <td>0.013004</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>unknown</td>
+    </tr>
+    <tr>
+      <th>TTTCGAACTCTCAT-1</th>
+      <td>TTTCGAACTCTCAT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3461.0</td>
+      <td>1155</td>
+      <td>0.021092</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>dendritic cell</td>
+    </tr>
+    <tr>
+      <th>TTTCTACTGAGGCA-1</th>
+      <td>TTTCTACTGAGGCA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3447.0</td>
+      <td>1227</td>
+      <td>0.009283</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTTCTACTTCCTCG-1</th>
+      <td>TTTCTACTTCCTCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1684.0</td>
+      <td>622</td>
+      <td>0.021971</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTTGCATGCCTCAC-1</th>
+      <td>TTTGCATGCCTCAC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1985.0</td>
+      <td>724</td>
+      <td>0.008060</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+  </tbody>
+</table>
+<p>2279 rows × 10 columns</p>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_predicted</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;/tmp/adata_predicted_svm.h5ad&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">auto_annot</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="n">adata_predicted</span><span class="p">,</span> <span class="n">celltype</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">analysis_name</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">merge</span><span class="p">,</span> <span class="n">use_raw</span><span class="p">,</span> <span class="n">genes_to_use</span><span class="p">,</span> <span class="n">clustering</span> <span class="o">=</span> <span class="s1">&#39;louvain&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING: saving figure to file figures/umap.ondata_auto_annot_tutorial_svm.png
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_auto_annot_tutorial_54_1.png"><img alt="../_images/tutorials_auto_annot_tutorial_54_1.png" src="../_images/tutorials_auto_annot_tutorial_54_1.png" style="width: 2803px; height: 901px;" /></a>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING: saving figure to file figures/umap.auto_annot_tutorial_svm.png
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_auto_annot_tutorial_54_3.png"><img alt="../_images/tutorials_auto_annot_tutorial_54_3.png" src="../_images/tutorials_auto_annot_tutorial_54_3.png" style="width: 2870px; height: 901px;" /></a>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Confusion matrix, without normalization
+Normalized confusion matrix
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_auto_annot_tutorial_54_5.png"><img alt="../_images/tutorials_auto_annot_tutorial_54_5.png" src="../_images/tutorials_auto_annot_tutorial_54_5.png" style="width: 803px; height: 700px;" /></a>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_auto_annot_tutorial_54_6.png"><img alt="../_images/tutorials_auto_annot_tutorial_54_6.png" src="../_images/tutorials_auto_annot_tutorial_54_6.png" style="width: 800px; height: 700px;" /></a>
+</div>
+</div>
+</div>
+<div class="section" id="let's-try-with-a-speciefied-gene-set">
+<h2>let’s try with a speciefied gene set<a class="headerlink" href="#let's-try-with-a-speciefied-gene-set" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">analysis_name</span> <span class="o">=</span> <span class="s1">&#39;auto_annot_tutorial_geneset&#39;</span>
+<span class="n">celltype</span> <span class="o">=</span><span class="s1">&#39;celltype&#39;</span> <span class="c1">#column name of celltype of interest</span>
+<span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>  <span class="c1"># rbf or linear or sgd, rbf extremely slow cannot recommend, logistic_regression recommended, as you can get probabilities, random_forest is a fast but not very powerful option (in current implementation)</span>
+<span class="n">merge</span> <span class="o">=</span> <span class="s1">&#39;scanorama&#39;</span>
+<span class="n">use_raw</span> <span class="o">=</span> <span class="kc">False</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">annotSigns</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_immune_signatures</span><span class="p">()</span>
+<span class="n">allGenes</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">annotSigns</span><span class="p">:</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">annotSigns</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
+<span class="n">genes_to_use</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">allGenes</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">annotSigns</span><span class="o">.</span><span class="n">values</span><span class="p">()))))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">genes_to_use</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[&#39;SLC45A2&#39;,
+ &#39;MCM4&#39;,
+ &#39;PCNA&#39;,
+ &#39;LILRB2&#39;,
+ &#39;C3AR1&#39;,
+ &#39;ITGAX&#39;,
+ &#39;KLRC1&#39;,
+ &#39;LAMP1&#39;,
+ &#39;SIGLEC8&#39;,
+ &#39;CXXC5&#39;]
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_test</span> <span class="o">=</span> <span class="n">adata_test_orig</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_train</span><span class="p">,</span> <span class="n">adata_test_corrected</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">auto_annot</span><span class="o">.</span><span class="n">merge_data</span><span class="p">(</span><span class="n">adata_train_list</span><span class="p">,</span> <span class="n">adata_test</span><span class="p">,</span> <span class="n">genes_to_use</span> <span class="o">=</span> <span class="n">genes_to_use</span><span class="p">,</span> <span class="n">merge</span> <span class="o">=</span> <span class="n">merge</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+merging with scanorama
+using scanorama rn
+Found 95 genes among all datasets
+[[0.   0.99]
+ [0.   0.  ]]
+Processing datasets (0, 1)
+integrating training set
+calculating intersection
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">classifier</span><span class="p">,</span> <span class="n">scaler</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">auto_annot</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">adata_train</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">celltype</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_predicted</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">auto_annot</span><span class="o">.</span><span class="n">adata_predict</span><span class="p">(</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">scaler</span> <span class="o">=</span> <span class="n">scaler</span><span class="p">,</span> <span class="n">adata_pred</span> <span class="o">=</span> <span class="n">adata_test_corrected</span><span class="p">,</span> <span class="n">adata_orig</span> <span class="o">=</span> <span class="n">adata_test_orig</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_predicted</span><span class="o">.</span><span class="n">obs</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CELL</th>
+      <th>CONDITION</th>
+      <th>experiment</th>
+      <th>donor</th>
+      <th>n_counts</th>
+      <th>n_genes</th>
+      <th>percent_mito</th>
+      <th>louvain</th>
+      <th>celltype</th>
+      <th>auto_annot</th>
+    </tr>
+    <tr>
+      <th>index</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>AAACATACAACCAC-1</th>
+      <td>AAACATACAACCAC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2421.0</td>
+      <td>781</td>
+      <td>0.030153</td>
+      <td>0</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAACATTGAGCTAC-1</th>
+      <td>AAACATTGAGCTAC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4903.0</td>
+      <td>1352</td>
+      <td>0.037936</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>AAACATTGATCAGC-1</th>
+      <td>AAACATTGATCAGC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3148.0</td>
+      <td>1131</td>
+      <td>0.008892</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAACCGTGCTTCCG-1</th>
+      <td>AAACCGTGCTTCCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2639.0</td>
+      <td>960</td>
+      <td>0.017431</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+    </tr>
+    <tr>
+      <th>AAACGCACTGGTAC-1</th>
+      <td>AAACGCACTGGTAC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2163.0</td>
+      <td>782</td>
+      <td>0.016636</td>
+      <td>1</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAACGCTGACCAGT-1</th>
+      <td>AAACGCTGACCAGT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2176.0</td>
+      <td>783</td>
+      <td>0.038143</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAACGCTGGTTCTT-1</th>
+      <td>AAACGCTGGTTCTT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2260.0</td>
+      <td>790</td>
+      <td>0.030973</td>
+      <td>0</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAACTTGAAAAACG-1</th>
+      <td>AAACTTGAAAAACG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3915.0</td>
+      <td>1116</td>
+      <td>0.026289</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>AAACTTGATCCAGA-1</th>
+      <td>AAACTTGATCCAGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2391.0</td>
+      <td>751</td>
+      <td>0.010870</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAAGAGACGAGATA-1</th>
+      <td>AAAGAGACGAGATA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2412.0</td>
+      <td>866</td>
+      <td>0.010779</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAAGAGACGCGAGA-1</th>
+      <td>AAAGAGACGCGAGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3034.0</td>
+      <td>1059</td>
+      <td>0.014173</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>AAAGCAGATATCGG-1</th>
+      <td>AAAGCAGATATCGG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4584.0</td>
+      <td>1424</td>
+      <td>0.013956</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>AAAGCCTGTATGCG-1</th>
+      <td>AAAGCCTGTATGCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2928.0</td>
+      <td>1014</td>
+      <td>0.017071</td>
+      <td>1</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAAGGCCTGTCTAG-1</th>
+      <td>AAAGGCCTGTCTAG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4973.0</td>
+      <td>1446</td>
+      <td>0.015279</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>AAAGTTTGGGGTGA-1</th>
+      <td>AAAGTTTGGGGTGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3283.0</td>
+      <td>1020</td>
+      <td>0.025867</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>AAAGTTTGTAGCGT-1</th>
+      <td>AAAGTTTGTAGCGT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2683.0</td>
+      <td>878</td>
+      <td>0.024963</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>AAATCAACAATGCC-1</th>
+      <td>AAATCAACAATGCC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2321.0</td>
+      <td>789</td>
+      <td>0.011633</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>AAATCAACCAGGAG-1</th>
+      <td>AAATCAACCAGGAG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2800.0</td>
+      <td>824</td>
+      <td>0.022492</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAATCAACCCTATT-1</th>
+      <td>AAATCAACCCTATT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>5679.0</td>
+      <td>1545</td>
+      <td>0.024296</td>
+      <td>1</td>
+      <td>NK cell</td>
+      <td>monocyte CD16+</td>
+    </tr>
+    <tr>
+      <th>AAATCAACGGAAGC-1</th>
+      <td>AAATCAACGGAAGC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3473.0</td>
+      <td>996</td>
+      <td>0.017564</td>
+      <td>1</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAATCAACTCGCAA-1</th>
+      <td>AAATCAACTCGCAA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2812.0</td>
+      <td>937</td>
+      <td>0.018492</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAATCATGACCACA-1</th>
+      <td>AAATCATGACCACA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4128.0</td>
+      <td>1368</td>
+      <td>0.045785</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+    </tr>
+    <tr>
+      <th>AAATGTTGAACGAA-1</th>
+      <td>AAATGTTGAACGAA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3209.0</td>
+      <td>1020</td>
+      <td>0.019309</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>AAATGTTGCCACAA-1</th>
+      <td>AAATGTTGCCACAA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1760.0</td>
+      <td>786</td>
+      <td>0.006246</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>dendritic cell</td>
+    </tr>
+    <tr>
+      <th>AAATGTTGTGGCAT-1</th>
+      <td>AAATGTTGTGGCAT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2763.0</td>
+      <td>1019</td>
+      <td>0.019182</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>AAATTCGAAGGTTC-1</th>
+      <td>AAATTCGAAGGTTC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2741.0</td>
+      <td>750</td>
+      <td>0.022255</td>
+      <td>1</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAATTCGAATCACG-1</th>
+      <td>AAATTCGAATCACG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2567.0</td>
+      <td>822</td>
+      <td>0.019868</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>AAATTCGAGCTGAT-1</th>
+      <td>AAATTCGAGCTGAT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2970.0</td>
+      <td>982</td>
+      <td>0.021878</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+    </tr>
+    <tr>
+      <th>AAATTCGAGGAGTG-1</th>
+      <td>AAATTCGAGGAGTG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2979.0</td>
+      <td>876</td>
+      <td>0.024824</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>AAATTCGATTCTCA-1</th>
+      <td>AAATTCGATTCTCA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2642.0</td>
+      <td>930</td>
+      <td>0.014378</td>
+      <td>3</td>
+      <td>NK cell</td>
+      <td>NK cell</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>TTGCTATGGTACGT-1</th>
+      <td>TTGCTATGGTACGT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3109.0</td>
+      <td>1104</td>
+      <td>0.020585</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>TTGCTATGGTAGGG-1</th>
+      <td>TTGCTATGGTAGGG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3405.0</td>
+      <td>1268</td>
+      <td>0.024075</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+    </tr>
+    <tr>
+      <th>TTGGAGACCAATCG-1</th>
+      <td>TTGGAGACCAATCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4165.0</td>
+      <td>1239</td>
+      <td>0.011762</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTGGAGACGCTATG-1</th>
+      <td>TTGGAGACGCTATG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2662.0</td>
+      <td>862</td>
+      <td>0.024042</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>TTGGAGACTATGGC-1</th>
+      <td>TTGGAGACTATGGC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1779.0</td>
+      <td>739</td>
+      <td>0.028668</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTGGGAACTGAACC-1</th>
+      <td>TTGGGAACTGAACC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2652.0</td>
+      <td>858</td>
+      <td>0.021116</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTGGTACTACTGGT-1</th>
+      <td>TTGGTACTACTGGT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3268.0</td>
+      <td>1066</td>
+      <td>0.028458</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>TTGGTACTCTTAGG-1</th>
+      <td>TTGGTACTCTTAGG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2927.0</td>
+      <td>752</td>
+      <td>0.017418</td>
+      <td>1</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTGGTACTGAATCC-1</th>
+      <td>TTGGTACTGAATCC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1855.0</td>
+      <td>615</td>
+      <td>0.025337</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTGGTACTGGATTC-1</th>
+      <td>TTGGTACTGGATTC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1883.0</td>
+      <td>721</td>
+      <td>0.019118</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTGTACACTTGCAG-1</th>
+      <td>TTGTACACTTGCAG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2259.0</td>
+      <td>861</td>
+      <td>0.013717</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTGTAGCTAGCTCA-1</th>
+      <td>TTGTAGCTAGCTCA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2519.0</td>
+      <td>933</td>
+      <td>0.022231</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTGTAGCTCTCTTA-1</th>
+      <td>TTGTAGCTCTCTTA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2135.0</td>
+      <td>807</td>
+      <td>0.026217</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTGTCATGGACGGA-1</th>
+      <td>TTGTCATGGACGGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2176.0</td>
+      <td>1082</td>
+      <td>0.018365</td>
+      <td>3</td>
+      <td>NK cell</td>
+      <td>NK cell</td>
+    </tr>
+    <tr>
+      <th>TTTAGAGATCCTCG-1</th>
+      <td>TTTAGAGATCCTCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2362.0</td>
+      <td>820</td>
+      <td>0.013548</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTTAGCTGATACCG-1</th>
+      <td>TTTAGCTGATACCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2755.0</td>
+      <td>887</td>
+      <td>0.022859</td>
+      <td>1</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTTAGCTGGATACC-1</th>
+      <td>TTTAGCTGGATACC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2454.0</td>
+      <td>850</td>
+      <td>0.011002</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>TTTAGCTGTACTCT-1</th>
+      <td>TTTAGCTGTACTCT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>5674.0</td>
+      <td>1567</td>
+      <td>0.021134</td>
+      <td>7</td>
+      <td>pDC</td>
+      <td>dendritic cell</td>
+    </tr>
+    <tr>
+      <th>TTTAGGCTCCTTTA-1</th>
+      <td>TTTAGGCTCCTTTA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1984.0</td>
+      <td>803</td>
+      <td>0.023185</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>TTTATCCTGTTGTG-1</th>
+      <td>TTTATCCTGTTGTG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3680.0</td>
+      <td>1156</td>
+      <td>0.013043</td>
+      <td>5</td>
+      <td>FCGR3A+ monocyte</td>
+      <td>monocyte CD16+</td>
+    </tr>
+    <tr>
+      <th>TTTCACGAGGTTCA-1</th>
+      <td>TTTCACGAGGTTCA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2036.0</td>
+      <td>721</td>
+      <td>0.013255</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTTCAGTGGAAGGC-1</th>
+      <td>TTTCAGTGGAAGGC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1781.0</td>
+      <td>692</td>
+      <td>0.015160</td>
+      <td>0</td>
+      <td>CD8 T-cell</td>
+      <td>CD8 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTTCAGTGTCACGA-1</th>
+      <td>TTTCAGTGTCACGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1634.0</td>
+      <td>700</td>
+      <td>0.034272</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTTCAGTGTGCAGT-1</th>
+      <td>TTTCAGTGTGCAGT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1321.0</td>
+      <td>637</td>
+      <td>0.018911</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTTCCAGAGGTGAG-1</th>
+      <td>TTTCCAGAGGTGAG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>2187.0</td>
+      <td>873</td>
+      <td>0.006859</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+    <tr>
+      <th>TTTCGAACACCTGA-1</th>
+      <td>TTTCGAACACCTGA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>4459.0</td>
+      <td>1544</td>
+      <td>0.013004</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>unknown</td>
+    </tr>
+    <tr>
+      <th>TTTCGAACTCTCAT-1</th>
+      <td>TTTCGAACTCTCAT-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3461.0</td>
+      <td>1155</td>
+      <td>0.021092</td>
+      <td>2</td>
+      <td>CD14+ monocyte</td>
+      <td>monocyte CD14+</td>
+    </tr>
+    <tr>
+      <th>TTTCTACTGAGGCA-1</th>
+      <td>TTTCTACTGAGGCA-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>3447.0</td>
+      <td>1227</td>
+      <td>0.009283</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTTCTACTTCCTCG-1</th>
+      <td>TTTCTACTTCCTCG-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1684.0</td>
+      <td>622</td>
+      <td>0.021971</td>
+      <td>4</td>
+      <td>B-cell</td>
+      <td>B-cell</td>
+    </tr>
+    <tr>
+      <th>TTTGCATGCCTCAC-1</th>
+      <td>TTTGCATGCCTCAC-1</td>
+      <td>healthy PBMC</td>
+      <td>pbmc3k_besca</td>
+      <td>donor1</td>
+      <td>1985.0</td>
+      <td>724</td>
+      <td>0.008060</td>
+      <td>0</td>
+      <td>CD4 T-cell</td>
+      <td>CD4 T-cell</td>
+    </tr>
+  </tbody>
+</table>
+<p>2279 rows × 10 columns</p>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">adata_predicted</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;/tmp/adata_predicted_svm.h5ad&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">auto_annot</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="n">adata_predicted</span><span class="p">,</span> <span class="n">celltype</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">analysis_name</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">merge</span><span class="p">,</span> <span class="n">use_raw</span><span class="p">,</span> <span class="n">genes_to_use</span><span class="p">,</span> <span class="n">clustering</span> <span class="o">=</span> <span class="s1">&#39;louvain&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING: saving figure to file figures/umap.ondata_auto_annot_tutorial_geneset.png
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_auto_annot_tutorial_64_1.png"><img alt="../_images/tutorials_auto_annot_tutorial_64_1.png" src="../_images/tutorials_auto_annot_tutorial_64_1.png" style="width: 2803px; height: 901px;" /></a>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING: saving figure to file figures/umap.auto_annot_tutorial_geneset.png
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_auto_annot_tutorial_64_3.png"><img alt="../_images/tutorials_auto_annot_tutorial_64_3.png" src="../_images/tutorials_auto_annot_tutorial_64_3.png" style="width: 2870px; height: 901px;" /></a>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Confusion matrix, without normalization
+Normalized confusion matrix
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_auto_annot_tutorial_64_5.png"><img alt="../_images/tutorials_auto_annot_tutorial_64_5.png" src="../_images/tutorials_auto_annot_tutorial_64_5.png" style="width: 803px; height: 700px;" /></a>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/tutorials_auto_annot_tutorial_64_6.png"><img alt="../_images/tutorials_auto_annot_tutorial_64_6.png" src="../_images/tutorials_auto_annot_tutorial_64_6.png" style="width: 800px; height: 700px;" /></a>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bescape.html" class="btn btn-neutral float-right" title="BESCApe - tutorial on deconvolution of bulk RNA using single-cell annotations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="notebook3_batch_correction.html" class="btn btn-neutral float-left" title="notebook 3 - batch correction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, BEDA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
