@@ -3,8 +3,6 @@
 # Denote all files that are truly binary and should not be modified.
 *.png binary
 *.jpg binary
-*.h5ad binary
-besca/datasets/data/pbmc_storage_raw_downsampled.h5ad filter=lfs diff=lfs merge=lfs -text
 *.h5ad filter=lfs diff=lfs merge=lfs -text
 besca/datasets/data/pbmc3k_raw.h5ad filter=lfs diff=lfs merge=lfs -text
 besca/datasets/data/pbmc_storage_processed_downsampled.h5ad filter=lfs diff=lfs merge=lfs -text
