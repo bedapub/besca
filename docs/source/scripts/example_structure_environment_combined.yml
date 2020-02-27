@@ -1,0 +1,12 @@
+name: myenv
+channels:
+- conda-forge
+- defaults
+dependencies:
+- ca-certificates=2018.11.29=ha4d7672_0
+- cairo=1.14.12=ha4e643d_1006
+- ... list of all conda packages in the above format
+- pip:
+  - alabaster==0.7.12
+  - anndata==0.6.18
+  - ... list of all pip packages in the above format
