@@ -2,6 +2,7 @@
 """
 
 import os
+import pkg_resources
 from scanpy.api import read
 
 def pbmc3k_raw():
@@ -27,7 +28,7 @@ def pbmc3k_raw():
 
     """
 
-    filename = os.path.dirname(__file__) + '/data/pbmc3k_raw.h5ad'
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_raw.h5ad')
     adata = read(filename, cache = True)
     return adata
 
@@ -50,7 +51,7 @@ def pbmc3k_filtered():
 
     """
 
-    filename = os.path.dirname(__file__) + '/data/pbmc3k_filtered.h5ad'
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_filtered.h5ad')
     adata = read(filename, cache = True)
     return adata
 
@@ -74,7 +75,7 @@ def pbmc3k_processed():
     
     """
 
-    filename = os.path.dirname(__file__) + '/data/pbmc3k_processed.h5ad'
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_processed.h5ad')
     adata = read(filename, cache = True)
     return adata
 
@@ -97,7 +98,7 @@ def pbmc_storage_raw():
     
     """
 
-    filename = os.path.dirname(__file__) + '/data/pbmc_storage_raw_downsampled.h5ad'
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc_storage_raw_downsampled.h5ad')
     adata = read(filename, cache=True)
     return adata
   
@@ -119,7 +120,7 @@ def pbmc_storage_processed():
     >>> adata = bc.datasets.pbmc_storage_processed()
     >>> adata
     """
-    filename = os.path.dirname(__file__) + '/data/pbmc_storage_processed_downsampled.h5ad'
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc_storage_processed_downsampled.h5ad')
     adata = read(filename, cache=True)
     return adata
 
@@ -149,9 +150,9 @@ def load_immune_signatures(refined=True):
     >>> immune_sig
     """
     if refined:
-        filename = os.path.dirname(__file__) + '/genesets/HumanCD45p_scseqCMs6.gmt'
+        filename = pkg_resources.resource_filename('besca', 'datasets/genesets/HumanCD45p_scseqCMs6.gmt')
     else: 
-        filename = os.path.dirname(__file__) + '/genesets/Immune.gmt'
+        filename = pkg_resources.resource_filename('besca', 'datasets/genesets/Immune.gmt')
     file = open(filename, 'r')
     Lines = file.readlines()
     mymarkers = {}
