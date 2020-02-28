@@ -11,22 +11,32 @@ requirements:
     - setuptools
     - python
   run:
-    - scipy
-    - dominate
-    - numpy
+    - python
     - scanpy
-    - plotly
     - anndata
-    - seaborn
+    - numpy
+    - louvain
+    - leidenalg
+    - scikit-learn
+    - scanorama
+    - python-igraph
+    - weasyprint
     - mygene
     - pandas
-    - matplotlib
-    - bbknn
-    - ipython
-    - scikit-learn
     - python-igraph
-    - leidenalg
-    - scanorama
+    - umap-learn
+    - numpy
+    - scipy
+    - seaborn
+    - matplotlib
+    - plotly
+    - bbknn
+    - fastcluster
+    - dominate
+    - more-itertools
+    - packaging
+    - ipython
+    - statsmodels
 
 test:
   imports:
