@@ -1,0 +1,13 @@
+Standard Pipeline Version 2.8 used
+2020-02-28
+Analysis 'standard_workflow_besca2.0' on data located in'/pstore/home/ulriche2/besca/workbooks'
+species: human
+Batch effect to correct: None
+Parameters:
+	standard_min_genes = 500
+	standard_min_cells = 30
+	standard_min_counts = 1000
+	standard_n_genes = 4500
+	standard_max_counts = 100000
+	standard_percent_mito = 0.1
+	Time for creating all output directories and setting up logging: 0.021s
