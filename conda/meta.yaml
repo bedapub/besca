@@ -11,33 +11,30 @@ requirements:
     - setuptools
     - python
   run:
-    - python
-    - scanpy
-    - anndata=0.6.22
-    - numpy
-    - louvain=0.6.1
-    - leidenalg
-    - scikit-learn=0.22
-    - scanorama
-    - python-igraph
-    - weasyprint
-    - mygene
-    - pandas=1.0.1
-    - python-igraph
-    - umap-learn=0.3.10
-    - numpy
     - scipy
-    - seaborn
-    - matplotlib
-    - plotly
-    - bbknn
-    - fastcluster
+    - flask-restful
     - dominate
-    - more-itertools
-    - packaging
+    - requests
+    - numpy
+    - scanpy
+    - plotly
+    - anndata
+    - seaborn
+    - mygene
+    - pandas
+    - matplotlib
+    - bbknn
     - ipython
-    - statsmodels=0.10.2
+    - nbclean
+    - scikit_learn
+    - python-igraph
+    - leidenalg
+    - scanorama
 
 test:
   imports:
     - besca
+
+about:
+  license: GPL3
+  license_file: '{{ environ["RECIPE_DIR"] }}/LICENSE'
