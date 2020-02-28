@@ -1,0 +1,43 @@
+package:
+  name: "besca"
+  version: "2.1"
+
+source:
+  git_url: https://github.roche.com/BEDA/besca.git
+  git_tag: conda
+
+requirements:
+  build:
+    - setuptools
+    - python
+  run:
+    - python
+    - scanpy
+    - anndata=0.6.22
+    - numpy
+    - louvain=0.6.1
+    - leidenalg
+    - scikit-learn=0.22
+    - scanorama
+    - python-igraph
+    - weasyprint
+    - mygene
+    - pandas=1.0.1
+    - python-igraph
+    - umap-learn=0.3.10
+    - numpy
+    - scipy
+    - seaborn
+    - matplotlib
+    - plotly
+    - bbknn
+    - fastcluster
+    - dominate
+    - more-itertools
+    - packaging
+    - ipython
+    - statsmodels=0.10.2
+
+test:
+  imports:
+    - besca
