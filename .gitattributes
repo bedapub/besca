@@ -3,4 +3,7 @@
 # Denote all files that are truly binary and should not be modified.
 *.png binary
 *.jpg binary
+<<<<<<< HEAD
 *.h5ad filter=lfs diff=lfs merge=lfs -text
+=======
+>>>>>>> upstream/master

@@ -2,6 +2,10 @@
 """
 
 import os
+<<<<<<< HEAD
+=======
+import pkg_resources
+>>>>>>> upstream/master
 from scanpy.api import read
 
 def pbmc3k_raw():
@@ -27,7 +31,11 @@ def pbmc3k_raw():
 
     """
 
+<<<<<<< HEAD
     filename = os.path.dirname(__file__) + '/data/pbmc3k_raw.h5ad'
+=======
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_raw.h5ad')
+>>>>>>> upstream/master
     adata = read(filename, cache = True)
     return adata
 
@@ -50,7 +58,11 @@ def pbmc3k_filtered():
 
     """
 
+<<<<<<< HEAD
     filename = os.path.dirname(__file__) + '/data/pbmc3k_filtered.h5ad'
+=======
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_filtered.h5ad')
+>>>>>>> upstream/master
     adata = read(filename, cache = True)
     return adata
 
@@ -74,7 +86,11 @@ def pbmc3k_processed():
     
     """
 
+<<<<<<< HEAD
     filename = os.path.dirname(__file__) + '/data/pbmc3k_processed.h5ad'
+=======
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_processed.h5ad')
+>>>>>>> upstream/master
     adata = read(filename, cache = True)
     return adata
 
@@ -97,7 +113,11 @@ def pbmc_storage_raw():
     
     """
 
+<<<<<<< HEAD
     filename = os.path.dirname(__file__) + '/data/pbmc_storage_raw_downsampled.h5ad'
+=======
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc_storage_raw_downsampled.h5ad')
+>>>>>>> upstream/master
     adata = read(filename, cache=True)
     return adata
   
@@ -119,7 +139,11 @@ def pbmc_storage_processed():
     >>> adata = bc.datasets.pbmc_storage_processed()
     >>> adata
     """
+<<<<<<< HEAD
     filename = os.path.dirname(__file__) + '/data/pbmc_storage_processed_downsampled.h5ad'
+=======
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc_storage_processed_downsampled.h5ad')
+>>>>>>> upstream/master
     adata = read(filename, cache=True)
     return adata
 
@@ -149,9 +173,15 @@ def load_immune_signatures(refined=True):
     >>> immune_sig
     """
     if refined:
+<<<<<<< HEAD
         filename = os.path.dirname(__file__) + '/genesets/HumanCD45p_scseqCMs6.gmt'
     else: 
         filename = os.path.dirname(__file__) + '/genesets/Immune.gmt'
+=======
+        filename = pkg_resources.resource_filename('besca', 'datasets/genesets/HumanCD45p_scseqCMs6.gmt')
+    else: 
+        filename = pkg_resources.resource_filename('besca', 'datasets/genesets/Immune.gmt')
+>>>>>>> upstream/master
     file = open(filename, 'r')
     Lines = file.readlines()
     mymarkers = {}
