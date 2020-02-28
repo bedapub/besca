@@ -20,5 +20,5 @@ if __name__ == '__main__':
         zip_safe=False,
         package_data={'besca.datasets.data':['*.h5ad'], 'besca.st':['*.css'],\
             'besca.datasets.mito_files': ['*.tsv'], 'besca.export':['reformat'],\
-            'besca.datasets.genesets':['HumanCD45p_scseqCMs6.gmt','Immune.txt']},
+            'besca.datasets.genesets':['HumanCD45p_scseqCMs6.gmt','Immune.gmt']},
         install_requires=requires)
