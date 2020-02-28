@@ -14,7 +14,8 @@ setuptools.setup(
     url='https://github.com/bedapub/besca',
     packages=setuptools.find_packages(),
     package_data={'besca.datasets.data':['*.h5ad'], 'besca.st':['*.css'],\
-        'besca.datasets.mito_files':['*.tsv'], 'besca.export':['reformat']},
+        'besca.datasets.mito_files': ['*.tsv'], 'besca.export':['reformat'],\
+        'besca.datasets.genesets':['HumanCD45p_scseqCMs6.gmt','Immune.txt']},
     classifiers=[
         'Development Status :: Release 2.1 (Scanpy 1.4.1)',
         'Programming Language :: Python :: 3.7.1'
