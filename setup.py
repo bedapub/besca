@@ -1,10 +1,9 @@
-if __name__ == '__main__':
+import setuptools
 
-  from setuptools import setup, find_packages
-  with open('requirements.txt', encoding='utf-8') as requirements:
-    requires = [l.strip() for l in requirements]
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
-  setup(name='besca',
+setup(name='besca',
         version='2.1',
         description='collection of BEDA internal python functions for analysing single cell RNAseq data',
         long_description= 'please view https://pages.github.com/bedapub/besca/',
@@ -20,9 +19,5 @@ if __name__ == '__main__':
         zip_safe=False,
         package_data={'besca.datasets.data':['*.h5ad'], 'besca.st':['*.css'],\
             'besca.datasets.mito_files': ['*.tsv'], 'besca.export':['reformat'],\
-<<<<<<< HEAD
             'besca.datasets.genesets':['HumanCD45p_scseqCMs6.gmt','Immune.txt']},
-=======
-            'besca.datasets.genesets':['HumanCD45p_scseqCMs6.gmt','Immune.gmt']},
->>>>>>> upstream/master
-        install_requires=requires)
+        install_requires=requires)      
