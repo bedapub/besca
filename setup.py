@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="besca", # Replace with your own username
+    name="besca",
     version="2.1",
     description="collection of BEDA internal python functions for analysing single cell RNAseq data",
     long_description= 'please view https://pages.github.roche.com/BEDA/besca/',
