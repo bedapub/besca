@@ -12,9 +12,7 @@ requirements:
     - python
   run:
     - scipy
-    - flask-restful
     - dominate
-    - requests
     - numpy
     - scanpy
     - plotly
@@ -25,7 +23,6 @@ requirements:
     - matplotlib
     - bbknn
     - ipython
-    - nbclean
     - scikit-learn
     - python-igraph
     - leidenalg
