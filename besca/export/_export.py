@@ -13,7 +13,9 @@ def X_to_mtx(adata,
              write_metadata = False, 
              geneannotation = 'SYMBOL',
              additional_geneannotation = 'ENSEMBL', 
-             C_path = pkg_resources.resource_filename('besca', 'export/reformat')):
+             C_path = pkg_resources.resource_filename('besca', 'export/reformat'),
+             s3_fs = None,
+             s3_bucket = None):
     """export adata object to mtx format (matrix.mtx, genes.tsv, barcodes.tsv)
 
     exports the counts contained in adata.X to a matrix.mtx file (in sparse format),
@@ -51,9 +53,14 @@ def X_to_mtx(adata,
     
     """
 
-    ### check if the outdir exists if not create
-    if not os.path.exists(outpath):
-        os.makedirs(outpath)
+    if s3_fs and s3_bucket:
+        ### check if the outdir exists if not create
+        if not s3_fs.exists(os.path.join(s3_bucket, outpath)):
+            s3_fs.makedirs(os.path.join(s3_bucket, outpath))   
+    else:
+        ### check if the outdir exists if not create
+        if not os.path.exists(outpath):
+            os.makedirs(outpath)
 
     ### write out matrix.mtx as float with 3 significant digits
     print('writing out matrix.mtx ...')
@@ -63,15 +70,22 @@ def X_to_mtx(adata,
     else:
         E = adata.X.tocsr().T #transpose back into the same format as we imported it
 
-    #create a temporary file to pipe the output from io.mmwrite to
-    f_in = BytesIO()
+    if s3_fs and s3_bucket:
+        with s3_fs.open(os.path.join(s3_bucket, outpath, 'matrix.mtx'), 'wb') as fp:
+            io.mmwrite(fp, E, precision = 2)
+    else:
+        #create a temporary file to pipe the output from io.mmwrite to
+        f_in = BytesIO()
+        
+        #write out temporary matrix to created pipe
+        io.mmwrite(target=f_in, a=E, precision = 2)
     
-    #write out temporary matrix to created pipe
-    io.mmwrite(target=f_in, a=E, precision = 2)
-    
-    from subprocess import run
-    f_out = open(os.path.join(outpath, 'matrix.mtx'), "w")
-    run([C_path, "-"], input=f_in.getvalue(), stdout=f_out)
+        from subprocess import run
+        f_out = open(os.path.join(outpath, 'matrix.mtx'), "w")
+        run([C_path, "-"], input=f_in.getvalue(), stdout=f_out)
+        f_in.close()
+        f_out.close()
+
     
     print('adata.X successfully written to matrix.mtx')
 
@@ -100,25 +114,39 @@ def X_to_mtx(adata,
         sys.exit('need to provide either \'ENSEMBL\' or \'SYMBOL\' gene annotation.')
 
     #write the genes out in the correct format (first ENSEMBL THEN SYMBOL)
-    with open (os.path.join(outpath, 'genes.tsv'), "w") as fp:
-        for ENSEMBL, symbol in zip(genes_ENSEMBL, genes_SYMBOL):
-            fp.write(ENSEMBL+"\t"+ symbol+"\n")
-        fp.close()
-        print('genes successfully written out to genes.tsv')
+    if s3_fs and s3_bucket:
+        with s3_fs.open (os.path.join(s3_bucket, outpath, 'genes.tsv'), "w") as fp:
+            for ENSEMBL, symbol in zip(genes_ENSEMBL, genes_SYMBOL):
+                fp.write(ENSEMBL+"\t"+ symbol+"\n")
+    else:
+        with open (os.path.join(outpath, 'genes.tsv'), "w") as fp:
+            for ENSEMBL, symbol in zip(genes_ENSEMBL, genes_SYMBOL):
+                fp.write(ENSEMBL+"\t"+ symbol+"\n")
+    print('genes successfully written out to genes.tsv')
 
     ### write out the cellbarcodes
     cellbarcodes = adata.obs_names.tolist()
-    with open(os.path.join(outpath, 'barcodes.tsv'), "w") as fp:
-        for barcode in cellbarcodes:
-            fp.write(barcode+"\n")
-        fp.close()
-        print('cellbarcodes successfully written out to barcodes.tsv')
+
+    if s3_fs and s3_bucket:
+        with s3_fs.open(os.path.join(s3_bucket, outpath, 'barcodes.tsv'), "w") as fp:
+            for barcode in cellbarcodes:
+                fp.write(barcode+"\n")
+    else:
+        with open(os.path.join(outpath, 'barcodes.tsv'), "w") as fp:
+            for barcode in cellbarcodes:
+                fp.write(barcode+"\n")
+    print('cellbarcodes successfully written out to barcodes.tsv')
 
     ### export annotation
 
+
     if write_metadata == True:
         annotation = adata.obs
-        annotation.to_csv(os.path.join(outpath, 'metadata.tsv'), sep = '\t', header = True, index = None)
+        if s3_fs and s3_bucket:
+            with s3_fs.open(os.path.join(s3_bucket, outpath, 'metadata.tsv'), "w") as fp:
+                annotation.to_csv(fp, sep = '\t', header = True, index = None)
+        else:
+            annotation.to_csv(os.path.join(outpath, 'metadata.tsv'), sep = '\t', header = True, index = None)
         print('annotation successfully written out to metadata.tsv')
 
     return(None)

@@ -49,7 +49,7 @@ def setup(results_folder,
           standard_n_genes,
           standard_percent_mito,
           standard_max_counts,
-          s3_client = None,
+          s3_fs = None,
           s3_bucket = None):
     '''
     This function is only intended for use in the standardpipeline! As such it has no input variables
@@ -60,24 +60,24 @@ def setup(results_folder,
 
     #generate the necessary directories
     
-    if s3_client and s3_bucket:
-        client.put_object(Bucket=s3_bucket, Key=(join(results_folder)+'/'))
-        client.put_object(Bucket=s3_bucket, Key=(join(results_folder, 'figures')+'/'))
-        client.put_object(Bucket=s3_bucket, Key=(join(results_folder, 'labelings')+'/'))
-        client.put_object(Bucket=s3_bucket, Key=(join(results_folder, 'labelings', 'leiden')+'/'))
-        client.put_object(Bucket=s3_bucket, Key=(join(results_folder, 'labelings', 'louvain')+'/'))
+    if s3_fs and s3_bucket:
+        s3_fs.makedirs(join(s3_bucket, results_folder), exist_ok=True)
+        makedirs(join(s3_bucket, results_folder, 'figures'), exist_ok=True)
+        makedirs(join(s3_bucket, results_folder, 'labelings'), exist_ok=True)
+        makedirs(join(s3_bucket, results_folder, 'labelings', 'leiden'), exist_ok=True)
+        makedirs(join(s3_bucket, results_folder, 'labelings', 'louvain'), exist_ok=True)
         if labeling_to_use != 'None': 
-            client.put_object(Bucket=s3_bucket, Key=(join(results_folder, 'labelings' , labeling_name)+'/'))
-        client.put_object(Bucket=s3_bucket, Key=(join(results_folder, 'normalized_counts')+'/'))
-        client.put_object(Bucket=s3_bucket, Key=(join(results_folder, 'normalized_counts', 'cp10k')+'/'))
-        client.put_object(Bucket=s3_bucket, Key=(join(results_folder, 'normalized_counts', 'regressedOut')+'/'))
-        print('all output directories created successfully in s3 bucket')
-        
-        if os.path.exists(log_file):
-            os.remove(log_file)
-            open(log_file, "x")
+            makedirs(join(s3_bucket, results_folder, 'labelings' , labeling_name), exist_ok=True)
+        makedirs(join(s3_bucket, results_folder, 'normalized_counts'), exist_ok=True)
+        makedirs(join(s3_bucket, results_folder, 'normalized_counts', 'cp10k'), exist_ok=True)
+        makedirs(join(s3_bucket, results_folder, 'normalized_counts', 'regressedOut'), exist_ok=True)
+        print('all output directories created successfully in s3 bucket:' + s3_bucket)
+
+        if s3_fs.exists(os.path.join(s3_bucket, log_file)):
+            s3_fs.rm(os.path.join(s3_bucket, log_file))
+            s3_fs.open(os.path.join(s3_bucket, log_file, "x"))
         else:
-            open(log_file, "x")
+            s3_fs.open(os.path.join(s3_bucket, log_file, "x"))
         
     else: 
         makedirs(results_folder, exist_ok=True)
