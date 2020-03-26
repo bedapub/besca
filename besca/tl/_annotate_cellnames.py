@@ -39,7 +39,7 @@ def annotate_cells_clustering(adata,
     except:
         clusters = sorted(adata.obs.get(clustering_label).unique(), key=str)
     #extract old clustering labels to a new dataframe
-    cluster_annotation = adata.obs.get(clustering_label).to_frame(name=new_annotation_label)
+    cluster_annotation = adata.obs.get(clustering_label).to_frame(name=new_annotation_label).copy()
     #check if the number of new labels matches the number of clusters
     if (len(clusters) != len(new_cluster_labels)):
         sys.exit("Specified "+str(len(new_cluster_labels))+" new labels for a total of "+str(len(clusters))+" clusters. Numbers should match! No changes were made.\n")
