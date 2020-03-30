@@ -18,7 +18,6 @@ Installing Besca Using Pip
 
 Besca can be installed using pip.
 
-
 ```
 pip install git+https://github.com/bedapub/besca.git
 ```
