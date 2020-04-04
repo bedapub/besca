@@ -16,7 +16,7 @@ For more information please view the package documentation: https://bedapub.gith
 Installing Besca Using Pip
 ============================
 
-Besca can be installed using pip.
+Besca can be installed using pip. Please ensure that you have installed and activated git lfs before proceeding (see documentation [here](https://github.com/git-lfs/git-lfs/wiki/Installation)). 
 
 ```
 pip install git+https://github.com/bedapub/besca.git
