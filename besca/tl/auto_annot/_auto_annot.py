@@ -195,12 +195,12 @@ def naive_merge(adata_trains):
     for trains in adata_trains:
         # note: anndata concatenate only works if dtypes of var are the same
         trains.var.SYMBOL = trains.var.SYMBOL.astype('object')
+        if trains.raw:
+            trains.raw.var.SYMBOL = trains.raw.var.SYMBOL.astype('object')
         for key in rmkeys:
             trains.uns.pop(key, None)
             trains.uns.pop(key, None)
 
-    for adata in adata_trains:
-        adata.var.astype({'SYMBOL': 'category'}).dtypes
     if len(adata_trains) ==1:
         return adata_trains[0]
     adata_train = adata_trains[0].concatenate(*adata_trains[1:])
