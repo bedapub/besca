@@ -402,7 +402,7 @@ def dot_heatmap(adata,
 
     if switch_axis:
         for i in range(sub_num_cols):
-            adata_subset = adata_plot[adata_plot.obs.get(group_by) == groups[i], :]
+            adata_subset = adata_plot[adata_plot.obs.get(group_by) == groups[i], :].copy()
             adata_subset.var_names_make_unique()
             label = fig.add_subplot(axs[0, i+1])
             label.axis('off')
@@ -416,7 +416,7 @@ def dot_heatmap(adata,
                     _generate_circle(data, (0.5, 0.5), radius, ax = ax1)
     else:
         for i in range(sub_num_rows):
-            adata_subset = adata_plot[adata_plot.obs.get(group_by) == groups[i], :]
+            adata_subset = adata_plot[adata_plot.obs.get(group_by) == groups[i], :].copy()
             adata_subset.var_names_make_unique()
             label = fig.add_subplot(axs[i+1, 0])
             label.axis('off')
@@ -812,7 +812,7 @@ def dot_heatmap_split(adata,
             adata_subset_plot = input_data[conditions[c]]
             #iterate through the groups (here on the x-axis)
             for i, g in zip(colranges[c], range(len(groups))):
-                adata_subset = adata_subset_plot[adata_subset_plot.obs.get(group_by) == groups[g], :]
+                adata_subset = adata_subset_plot[adata_subset_plot.obs.get(group_by) == groups[g], :].copy()
                 #iterate through all of the genes
                 for j in range(sub_num_rows):
                     data = _get_expression_table(adata_subset, genes[j], color_map= color_maps[c], max_expression= max_expression)
@@ -827,7 +827,7 @@ def dot_heatmap_split(adata,
             adata_subset_plot = input_data[conditions[c]]
             #iterate through the groups (here on the y-axis)
             for i in range(sub_num_rows):
-                adata_subset = adata_subset_plot[adata_subset_plot.obs.get(group_by) == groups[i], :]
+                adata_subset = adata_subset_plot[adata_subset_plot.obs.get(group_by) == groups[i], :].copy()
                 #iterate through all of the genes
                 for j,g in zip(colranges[c], range(len(genes))):
                     data = _get_expression_table(adata_subset, genes[g], color_map= color_maps[c], max_expression= max_expression)
@@ -1237,7 +1237,7 @@ def dot_heatmap_split_greyscale(adata,
             adata_subset_plot = input_data[conditions[c]]
             #iterate through the groups (here on the x-axis)
             for i, g in zip(colranges[c], range(len(groups))):
-                adata_subset = adata_subset_plot[adata_subset_plot.obs.get(group_by) == groups[g], :]
+                adata_subset = adata_subset_plot[adata_subset_plot.obs.get(group_by) == groups[g], :].copy()
                 #iterate through all of the genes
                 for j in range(sub_num_rows):
                     data = _get_expression_table(adata_subset, genes[j], color_map= 'Greys', max_expression= max_expression)
@@ -1252,7 +1252,7 @@ def dot_heatmap_split_greyscale(adata,
             adata_subset_plot = input_data[conditions[c]]
             #iterate through the groups (here on the y-axis)
             for i in range(sub_num_rows):
-                adata_subset = adata_subset_plot[adata_subset_plot.obs.get(group_by) == groups[i], :]
+                adata_subset = adata_subset_plot[adata_subset_plot.obs.get(group_by) == groups[i], :].copy()
                 #iterate through all of the genes
                 for j,g in zip(colranges[c], range(len(genes))):
                     data = _get_expression_table(adata_subset, genes[g], color_map= 'Greys', max_expression= max_expression)
