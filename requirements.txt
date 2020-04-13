@@ -8,7 +8,7 @@ requests
 numpy
 scanpy
 plotly
-anndata
+anndata>=0.7.1
 seaborn
 mygene
 pandas
