@@ -3,9 +3,10 @@ flask-restful
 dominate
 requests
 numpy
+pygenesig
 scanpy
 plotly
-anndata
+anndata>=0.7.1
 seaborn
 mygene
 pandas
