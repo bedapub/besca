@@ -4,7 +4,7 @@ import sys
 def annotate_cells_clustering(adata,
                               new_cluster_labels,
                               new_annotation_label='celltype',
-                              clustering_label='louvain'):
+                              clustering_label='leiden'):
     """ Function to add annotation to adata.obs based on clustering    
     This function replaces the original cluster labels located in the column clustering_label with
     the new values specified in the list new_cluster_lables. The values in this list need to be in the
@@ -33,6 +33,8 @@ def annotate_cells_clustering(adata,
 
     """
     #get the cluster ids
+    if clustering_label not in adata.obs.columns:
+        sys.exit(clustering_label + ' label not found')
     try:
         clusters = sorted(adata.obs.get(clustering_label).unique(), key=int)
     #If int conversion does not work
