@@ -3,7 +3,6 @@ flask-restful
 dominate
 requests
 numpy
-pygenesig
 scanpy
 plotly
 anndata>=0.7.1
