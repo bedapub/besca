@@ -63,7 +63,7 @@ def transcript_capture_efficiency(adata, ax = None):
     #generate figure
     ax = ax or plt.gca()
 
-    ax.scatter(data=data, x='total_gene_counts', y = 'fraction_pos', alpha = 0.4, s = 4, edgecolors='none')
+    ax.scatter(data=data, x='total_gene_counts', y = 'fraction_pos', alpha = 0.4, s = 4, edgecolors='none', rasterized = True)
     ax.set_title('transcript capture efficiency')
     ax.set_xlabel('log2(total gene counts)')
     ax.set_ylabel('detection probability')
