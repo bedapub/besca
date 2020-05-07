@@ -1,0 +1,316 @@
+dblabel	dblabelEFO	EFO	short_dblabel	is_level	l4	l4EFO	l3	l3EFO	l2	l2EFO	l1	l1EFO	l0	l0EFO
+cell name to be used	associated EFO term (if present)	term ID (EFO if present, internal otherwise)	short name used for plotting	hierarchy level	hierarchy level 4									
+cultured cell	cultured cell	CL:0000010	Cultured	0										
+germ line stem cell	germ line stem cell	CL:0000014	GermLineStem	3					stem cell	CL:0000034	precursor cell	CL:0011115	animal cell	CL:0000548
+male germ line stem cell	male germ line stem cell	CL:0000016	MaleGerm	4			germ line stem cell	CL:0000014	stem cell	CL:0000034	precursor cell	CL:0011115	animal cell	CL:0000548
+spermatocyte	spermatocyte	CL:0000017	Spermatocyte	5	male germ line stem cell	CL:0000016	germ line stem cell	CL:0000014	stem cell	CL:0000034	precursor cell	CL:0011115	animal cell	CL:0000548
+spermatid	spermatid	CL:0000018	Spermatid	5	male germ line stem cell	CL:0000016	germ line stem cell	CL:0000014	stem cell	CL:0000034	precursor cell	CL:0011115	animal cell	CL:0000548
+sperm	sperm	CL:0000019	Sperm	5	male germ line stem cell	CL:0000016	germ line stem cell	CL:0000014	stem cell	CL:0000034	precursor cell	CL:0011115	animal cell	CL:0000548
+stem cell	stem cell	CL:0000034	Stem	2							precursor cell	CL:0011115	animal cell	CL:0000548
+epithelial fate stem cell	epithelial fate stem cell	CL:0000036	EpithelialStem	4			somatic stem cell	CL:0000723	stem cell	CL:0000034	precursor cell	CL:0011115	animal cell	CL:0000548
+hematopoietic stem cell	hematopoietic stem cell	CL:0000037	HematoStem	4			hematopoietic stem cell	CL:0000037	hematopoetic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+neuronal stem cell	neuronal stem cell	CL:0000047	NeuronalStem	4			multi fate stem cell	CL:0000048	stem cell	CL:0000034	precursor cell	CL:0011115	animal cell	CL:0000548
+multi fate stem cell	multi fate stem cell	CL:0000048	MultiFateStem	3					stem cell	CL:0000034	precursor cell	CL:0011115	animal cell	CL:0000548
+common myeloid progenitor	common myeloid progenitor	CL:0000049	CommonMyeloidPC	3					hematopoetic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+megakaryocyte-erythroid progenitor cell	megakaryocyte-erythroid progenitor cell	CL:0000050	MegakaryoErythroidPC	3					hematopoetic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+common lymphoid progenitor	common lymphoid progenitor	CL:0000051	CommonLymhpoidPC	3					hematopoetic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+fibroblast	fibroblast	CL:0000057	Fibroblast	2							connective tissue cell	CL:0002320	animal cell	CL:0000548
+osteoblast	osteoblast	CL:0000062	Osteoblast	2							connective tissue cell	CL:0002320	animal cell	CL:0000548
+ependymal cell	ependymal cell	CL:0000065	Ependymal	3					ciliated epithelial cell	CL:0000067	epithelial cell	CL:0000066	animal cell	CL:0000548
+epithelial cell	epithelial cell	CL:0000066	Epithelial	1									animal cell	CL:0000548
+ciliated cell	ciliated epithelial cell	CL:0000067	CiliatedEpithelial	2							epithelial cell	CL:0000066	animal cell	CL:0000548
+duct epithelial cell	duct epithelial cell	CL:0000068	DuctEpithelial	2							epithelial cell	CL:0000066	animal cell	CL:0000548
+branched duct epithelial cell	branched duct epithelial cell	CL:0000069	BranchedDuctEpith	3					duct epithelial cell	CL:0000068	epithelial cell	CL:0000066	animal cell	CL:0000548
+blood vessel endothelial cell	blood vessel endothelial cell	CL:0000071	VesselEndothelial	3					endothelial cell of vascular tree	CL:0002139	endothelial cell	CL:0000115	animal cell	CL:0000548
+epithelial cell of lung	epithelial cell of lung	CL:0000082	LungEpithelial	2							epithelial cell	CL:0000066	animal cell	CL:0000548
+T cell	T cell	CL:0000084	Tcell	3					lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+Kupffer cell	Kupffer cell	CL:0000091	Kupffer	4			macrophage	CL:0000235	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+granulocyte	granulocyte	CL:0000094	Granulocyte	3					myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+mast cell	mast cell	CL:0000097	Mast	3					myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+interneuron	interneuron	CL:0000099	Interneuron	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+bipolar neuron	bipolar neuron	CL:0000103	BipolarN	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+cholinergic neuron	cholinergic neuron	CL:0000108	CholinergicN	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+endothelial cell	endothelial cell	CL:0000115	Endothelial	1									animal cell	CL:0000548
+basket cell	basket cell	CL:0000118	Basket	4			central nervous system neuron	CL:2000029	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+granule cell	granule cell	CL:0000120	Granule	4			central nervous system neuron	CL:2000029	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+Purkinje cell	Purkinje cell	CL:0000121	Purkinje	4			central nervous system neuron	CL:2000029	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+glial cell	glial cell	CL:0000125	Glial	2							neural cell	CL:0002319	animal cell	CL:0000548
+macrogial cell	macrogial cell	CL:0000126	Macroglial	3					glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
+astrocyte	astrocyte	CL:0000127	Astrocyte	4			macrogial cell	CL:0000126	glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
+oligodendrocyte	oligodendrocyte	CL:0000128	Oligodendrocyte	4			macrogial cell	CL:0000126	glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
+microglial cell	microglial cell	CL:0000129	Microglial	5	central nervous system macrophage	CL:0000878	macrophage	CL:0000235	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+mesenchymal stem cell	mesenchymal stem cell	CL:0000134	MesenchymalStem	4			multi fate stem cell	CL:0000048	stem cell	CL:0000034	precursor cell	CL:0011115	animal cell	CL:0000548
+pigment cell	pigment cell	CL:0000147	Pigment	2							epithelial cell	CL:0000066	animal cell	CL:0000548
+glandular epithelial cell	glandular epithelial cell	CL:0000150	GlandularEpithelial	2							epithelial cell	CL:0000066	animal cell	CL:0000548
+secretory cell	secretory cell	CL:0000151	Secretory	1									animal cell	CL:0000548
+club cell	club cell	CL:0000158	Club	5	bronchial epithelial cell	CL:0002328	respiratory epithelial cell	CL:0002368	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+goblet cell	goblet cell	CL:0000160	Goblet	3					glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+endocrine cell	endocrine cell	CL:0000163	Endocrine	2							secretory cell	CL:0000151	animal cell	CL:0000548
+enteroendocrine cell	enteroendocrine cell	CL:0000164	Enteroendocrine	3					glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+neuroendocrine cell	neuroendocrine cell	CL:0000165	Neuroendocrine	3					endocrine cell	CL:0000163	secretory cell	CL:0000151	animal cell	CL:0000548
+type B pancreatic cell	type B pancreatic cell	CL:0000169	BetaPancreatic	5	pancreatic endocrine cell	CL:0008024	enteroendocrine cell	CL:0000164	glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+pancreatic A cell	pancreatic A cell	CL:0000171	AlphaPancreatic	5	pancreatic endocrine cell	CL:0008024	enteroendocrine cell	CL:0000164	glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+pancreatic D cell	pancreatic D cell	CL:0000173	DeltaPancreatic	5	pancreatic endocrine cell	CL:0008024	enteroendocrine cell	CL:0000164	glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+Leydig cell	Leydig cell	CL:0000178	Leydig	2							secretory cell	CL:0000151	animal cell	CL:0000548
+hepatocyte	hepatocyte	CL:0000182	Hepatocyte	2							epithelial cell	CL:0000066	animal cell	CL:0000548
+contractile cell	contractile cell	CL:0000183	Contractile	1									animal cell	CL:0000548
+myofibroblast cell	myofibroblast cell	CL:0000186	Myofibroblast	2							contractile cell	CL:0000183	animal cell	CL:0000548
+muscle cell	muscle cell	CL:0000187	MuscleCell	2							contractile cell	CL:0000183	animal cell	CL:0000548
+smooth muscle cell	smooth muscle cell	CL:0000192	SmoothMuscle	3					muscle cell	CL:0000187	contractile cell	CL:0000183	animal cell	CL:0000548
+photoreceptor cell 	photoreceptor cell 	CL:0000210	Photoreceptor	4			sensory neuron	CL:0000128	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+Sertoli cell	Sertoli cell	CL:0000216	Sertoli	2							epithelial cell	CL:0000066	animal cell	CL:0000548
+myelinating Schwann cell	myelinating Schwann cell	CL:0000218	MyelinSchwann	4			Schwann cell	CL:0002573	glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
+erythrocyte	erythrocyte	CL:0000232	Erythrocyte	3					erythroid lineage cell	CL:0000764	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+macrophage	macrophage	CL:0000235	Macrophage	3					myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+B cell	B cell	CL:0000236	Bcell	3					lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+tracheal epithelial cell	tracheal epithelial cell	CL:0000307	TrachealEpithelial	4			respiratory epithelial cell	CL:0002368	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+keratinocyte	keratinocyte	CL:0000312	Keratinocyte	4			epidermal cell	CL:0000362	ecto-epithelial cell	CL:0002077	epithelial cell	CL:0000066	animal cell	CL:0000548
+pneumocyte	pneumocyte	CL:0000322	Pneumocyte	3					epithelial cell of lung	CL:0000082	epithelial cell	CL:0000066	animal cell	CL:0000548
+epidermal cell	epidermal cell	CL:0000362	Epidermal	3					ecto-epithelial cell	CL:0002077	epithelial cell	CL:0000066	animal cell	CL:0000548
+Langerhans cell	Langerhans cell	CL:0000453	Langerhans	4			myeloid dendritic cell	CL:0000782	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CD4-positive helper T cell	CD4-positive helper T cell	CL:0000492	ThCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+stromal cell	stromal cell	CL:0000499	Stromal	2							connective tissue cell	CL:0002320	animal cell	CL:0000548
+paneth cell	paneth cell	CL:0000510	Paneth	4			intestinal epithelial cell	CL:0002563	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+neuron	neuron	CL:0000540	Neuron	3							neural cell	CL:0002319	animal cell	CL:0000540
+lymphocyte	lymphocyte	CL:0000542	Lymphocyte	2							hematopoietic cell	CL:0000988	animal cell	CL:0000548
+T-helper 1 cell	T-helper 1 cell	CL:0000545	Th1CD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+proerythroblast	proerythroblast	CL:0000547	Proerythroblast	3					erythroid lineage cell	CL:0000764	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+animal cell	animal cell	CL:0000548	Cell	0										
+megakaryocyte	megakaryocyte	CL:0000556	Megakaryocyte	2							hematopoietic cell	CL:0000988	animal cell	CL:0000548
+granulocyte monocyte progenitor cell	granulocyte monocyte progenitor cell	CL:0000557	GranuloMonocytePC	3					hematopoetic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+promonocyte	promonocyte	CL:0000559	Promonocyte	3					hematopoetic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+amacrine cell	amacrine cell	CL:0000561	Amacrine	2							neural cell	CL:0002319	animal cell	CL:0000548
+retinal cone cell	retinal cone cell	CL:0000573	RetinalCone	5	photoreceptor cell	CL:0000210	sensory neuron	CL:0000128	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+monocyte	monocyte	CL:0000576	Monocyte	3					myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+alveolar macrophage	alveolar macrophage	CL:0000583	AlvelolarMacrophage	5	lung macrophage	CL:1001603	macrophage	CL:0000235	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+enterocyte	enterocyte	CL:0000584	Enterocyte	4			intestinal epithelial cell	CL:0002563	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+skeletal muscle satellite cell	skeletal muscle satellite cell	CL:0000594	MuscleSatellite	3					muscle precursor cell	CL:0000680	precursor cell	CL:0011115	animal cell	CL:0000548
+pyramidal neuron	pyramidal neuron	CL:0000598	Pyramidal	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+retinal rod cell	retinal rod cell	CL:0000604	RetinalRod	5	photoreceptor cell	CL:0000210	sensory neuron	CL:0000128	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+GABAergic neuron	GABAergic neuron	CL:0000617	GABAergicN	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+GABAergic neuron	GABAergic neuron	CL:0000617	GABAergicN	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+acinar cell	acinar cell	CL:0000622	Acinar	3					glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+natural killer cell	natural killer cell	CL:0000623	NKcell	4			innate lymphoid cell	CL:0001065	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CD4-positive, alpha-beta T cell	CD4-positive, alpha-beta T cell	CL:0000624	CD4Tcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CD8-positive, alpha-beta T cell	CD8-positive, alpha-beta T cell	CL:0000625	CD8Tcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+Mueller cell	Mueller cell	CL:0000636	Mueller	5	astrocyte	CL:0000127	macrogial cell	CL:0000126	glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
+Bergmann glial cell	Bergmann glial cell	CL:0000644	BergmannGlial	5	astrocyte	CL:0000127	macrogial cell	CL:0000126	glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
+basal cell	basal cell	CL:0000646	Basal	5	epithelial fate stem cell	CL:0000036	somatic stem cell	CL:0000723	stem cell	CL:0000034	precursor cell	CL:0011115	animal cell	CL:0000548
+mesangial cell	mesangial cell	CL:0000650	Mesangial	3					pericyte cell	CL:0000669	connective tissue cell	CL:0002320	animal cell	CL:0000548
+pericyte cell	pericyte cell	CL:0000669	Pericyte	2							connective tissue cell	CL:0002320	animal cell	CL:0000548
+glutamatergic neuron	glutamatergic neuron	CL:0000679	GlutamatergicN	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+glutamatergic neuron	glutamatergic neuron	CL:0000679	GlutamatergicN	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+muscle precursor cell	muscle precursor cell	CL:0000680	MusclePC	2							precursor cell	CL:0011115	animal cell	CL:0000548
+radial glial cell	radial glial cell	CL:0000681	RadialGlial	3					glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
+microfold cell	M cell of gut	CL:0000682	McellGut	3					endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+Cajal-Retzius cell	Cajal-Retzius cell	CL:0000695	CajalRetzius	4			central nervous system neuron	CL:2000029	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+PP cell	PP cell	CL:0000696	PPcell	4			enteroendocrine cell	CL:0000164	glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+dopaminergic neuron	dopaminergic neuron	CL:0000700	DopaminergicN	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+endothelial tip cell	endothelial tip cell	CL:0000704	TipEndothelial	4			blood vessel endothelial cell	CL:0000071	endothelial cell of vascular tree	CL:0002139	endothelial cell	CL:0000115	animal cell	CL:0000548
+leptomeningeal cell	leptomeningeal cell	CL:0000708	Leptomeningeal	2							neural cell	CL:0002319	animal cell	CL:0000548
+somatic stem cell	somatic stem cell	CL:0000723	SomaticStem	3					stem cell	CL:0000034	precursor cell	CL:0011115	animal cell	CL:0000548
+striated muscle cell	striated muscle cell	CL:0000737	StriatedMuscle	3					muscle cell	CL:0000187	contractile cell	CL:0000183	animal cell	CL:0000548
+leukocyte	leukocyte	CL:0000738	Leukocyte	2							hematopoietic cell	CL:0000988	animal cell	CL:0000548
+retinal ganglion cell	retinal ganglion cell	CL:0000740	RetinalGanglion	4			central nervous system neuron	CL:2000029	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+retina horizontal cell	retina horizontal cell	CL:0000745	RetinalHorizontal	4			interneuron	CL:0000099	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+cardiac muscle cell	cardiac muscle cell	CL:0000746	CardiacMuscle	4			striated muscle cell	CL:0000737	muscle cell	CL:0000187	contractile cell	CL:0000183	animal cell	CL:0000548
+retinal bipolar neuron	retinal bipolar neuron	CL:0000748	RetinalBPNeuron	4			bipolar neuron	CL:0000103	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+OFF-bipolar cell	OFF-bipolar cell	CL:0000750	OFFBipolar	5	retinal bipolar neuron	CL:0000748	bipolar neuron	CL:0000103	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+rod bipolar cell	rod bipolar cell	CL:0000751	RodBipolar	5	retinal bipolar neuron	CL:0000748	bipolar neuron	CL:0000103	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+cone retinal bipolar cell	cone retinal bipolar cell	CL:0000752	ConeBipolar	5	retinal bipolar neuron	CL:0000748	bipolar neuron	CL:0000103	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+nucleated thrombocyte	nucleated thrombocyte	CL:0000762	NucleatedThrombocyte	3					myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+erythroid lineage cell	erythroid lineage cell	CL:0000764	Erythroid	2							hematopoietic cell	CL:0000988	animal cell	CL:0000548
+erythroblast	erythroblast	CL:0000765	Erythroblast	3					erythroid lineage cell	CL:0000764	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+myeloid leukocyte	myeloid leukocyte	CL:0000766	Myeloid	2							hematopoietic cell	CL:0000988	animal cell	CL:0000548
+basophil	basophil	CL:0000767	Basophil	4			granulocyte	CL:0000094	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+eosinophil	eosinophil	CL:0000771	Eosinophil	4			granulocyte	CL:0000094	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+neutrophil	neutrophil	CL:0000775	Neutrophil	4			granulocyte	CL:0000094	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+myeloid dendritic cell	myeloid dendritic cell	CL:0000782	cDC	3					myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+plasmacytoid dendritic cell	plasmacytoid dendritic cell	CL:0000784	pDC	3					lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+plasma cell	plasma cell	CL:0000786	Plasma	3					lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+memory B cell	memory B cell	CL:0000787	MemBcell	4			B cell	CL:0000236	lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+naive B cell	naive B cell	CL:0000788	NaiBcell	4			B cell	CL:0000236	lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CD8-positive, alpha-beta cytotoxic T cell	CD8-positive, alpha-beta cytotoxic T cell	CL:0000794	CytotoxCD8Tcell	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+gamma delta T cell	gamma-delta T cell	CL:0000798	gdTcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+memory T cell	memory T cell	CL:0000813	MemTcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+mature NK T cell	mature NK T cell	CL:0000814	NKTcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+regulatory T cell	regulatory T cell	CL:0000815	RegTcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+immature B cell	immature B cell	CL:0000816	ImmatureBcell	4			B cell	CL:0000236	lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+precursor B cell	precursor B cell	CL:0000817	BcellPC	4			B cell	CL:0000236	lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+immature natural killer cell	immature natural killer cell	CL:0000823	ImmatureNK	5	natural killer cell	CL:0000623	innate lymphoid cell	CL:0001065	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+pro-B cell	pro-B cell	CL:0000826	ProBcell	3					lymphoid lineage restricted progenitor cell	CL:0000838 	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+pro-T cell	pro-T cell	CL:0000827	ProTcell	3					lymphoid lineage restricted progenitor cell	CL:0000838 	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+hematopoietic multipotent progenitor cell	hematopoietic multipotent progenitor cell	CL:0000837 	HematoMultipotentPC	3					hematopoetic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+lymphoid lineage restricted progenitor cell	lymphoid lineage restricted progenitor cell	CL:0000838 	LymphoidPC	2							hematopoietic cell	CL:0000988	animal cell	CL:0000548
+myeloid lineage restricted progenitor cell	myeloid lineage restricted progenitor cell	CL:0000839	MyeloidPC	3					hematopoetic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+follicular B cell	follicular B cell	CL:0000843	FollicularBcell	4			B cell	CL:0000236	lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+germinal center B cell	germinal center B cell	CL:0000844	GermCenterBcell	4			B cell	CL:0000236	lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+classical monocyte	classical monocyte	CL:0000860	ClassMonocyte	4			monocyte	CL:0000576	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+non-classical monocyte	non-classical monocyte	CL:0000875	NClassMonocyte	4			monocyte	CL:0000576	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+central nervous system macrophage	central nervous system macrophage	CL:0000878	CNSMacrophage	4			macrophage	CL:0000235	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+perivascular macrophage	perivascular macrophage	CL:0000881	PerivascMacrophage	5	central nervous system macrophage	CL:0000878	macrophage	CL:0000235	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+DN1 thymic pro-T cell	DN1 thymic pro-T cell	CL:0000894	DN1ProTcell	4			pro-T cell	CL:0000827	lymphoid lineage restricted progenitor cell	CL:0000838 	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+naive thymus-derived CD4-positive, alpha-beta T cell	naive thymus-derived CD4-positive, alpha-beta T cell	CL:0000895	NaiCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+activated CD4-positive, alpha-beta T cell	activated CD4-positive, alpha-beta T cell	CL:0000896	ActCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CD4-positive, alpha-beta memory T cell	CD4-positive, alpha-beta memory T cell	CL:0000897	MemCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+T-helper 17 cell	T-helper 17 cell	CL:0000899	Th17CD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+naive thymus-derived CD8-positive, alpha-beta T cell	naive thymus-derived CD8-positive, alpha-beta T cell	CL:0000900	NaiCD8Tcell	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+central memory CD4-positive, alpha-beta T cell	central memory CD4-positive, alpha-beta T cell	CL:0000904	CMCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+effector memory CD4-positive, alpha-beta T cell	effector memory CD4-positive, alpha-beta T cell	CL:0000905	EMCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+activated CD8-positive, alpha-beta T cell	activated CD8-positive, alpha-beta T cell	CL:0000906	ActCD8Tcell	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+central memory CD8-positive, alpha-beta T cell	central memory CD8-positive, alpha-beta T cell	CL:0000907	CMCD8Tcell	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CD8-positive, alpha-beta cytokine secreting effector T cell	CD8-positive, alpha-beta cytokine secreting effector T cell	CL:0000908	CytokineCD8Tcell	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+effector T cell	effector T cell	CL:0000911	EffTcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+effector memory CD8-positive, alpha-beta T cell	effector memory CD8-positive, alpha-beta T cell	CL:0000913	EMCD8Tcell	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+immature NK T cell	immature NK T cell	CL:0000914	ImmatureNKTcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CD4-positive, alpha-beta cytotoxic T cell	CD4-positive, alpha-beta cytotoxic T cell	CL:0000934	CytotoxCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+pre-natural killer cell	pre-natural killer cell	CL:0000937	PreNKcell	5	natural killer cell	CL:0000623	innate lymphoid cell	CL:0001065	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CD56-bright cytokine secreting natural killer cell	CD56-bright cytokine secreting natural killer cell	CL:0000938	CD56brightNK	5	natural killer cell	CL:0000623	innate lymphoid cell	CL:0001065	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+cytotoxic CD56-dim natural killer cell	cytotoxic CD56-dim natural killer cell	CL:0000939	CD56dimNK	5	natural killer cell	CL:0000623	innate lymphoid cell	CL:0001065	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+mucosal invariant T cell	mucosal invariant T cell	CL:0000940	MAIT	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+lymphocyte of B lineage	lymphocyte of B lineage	CL:0000945	Blymphocyte	2							hematopoietic cell	CL:0000988	animal cell	CL:0000548
+hematopoietic cell	hematopoietic cell	CL:0000988	Hematopoetic	0									animal cell	CL:0000548
+cerebellar granule cell	cerebellar granule cell	CL:0001031	CerebellarGranule	5	granule cell	CL:0000120	central nervous system neuron	CL:2000029	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+bone cell	bone cell	CL:0001035	BoneCell	1									animal cell	CL:0000548
+effector CD4-positive, alpha-beta T cell	effector CD4-positive, alpha-beta T cell	CL:0001044	EffCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+neoplastic cell	neoplastic cell	CL:0001063	Neoplastic	0										
+malignant cell	malignant cell	CL:0001064	Malignant	1									neoplastic cell	CL:0001063
+innate lymphoid cell	innate lymphoid cell	CL:0001065	InnateLymphoid	3					lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+pre-conventional dendritic cell	pre-conventional dendritic cell	CL:0002010	PrecDC	3					hematopoetic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+short term hematopoietic stem cell	short term hematopoietic stem cell	CL:0002033	STHematoStem	4			hematopoietic stem cell	CL:0000037	hematopoetic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+long term hematopoietic stem cell	long term hematopoietic stem cell	CL:0002034	LTHematoStem	4			hematopoietic stem cell	CL:0000037	hematopoetic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+Slamf1-negative multipotent progenitor cell	Slamf1-negative multipotent progenitor cell	CL:0002035	MultipotentPC_SLAMFneg	4			hematopoietic multipotent progenitor cell	CL:0000837 	hematopoetic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+Slamf1-positive multipotent progenitor cell	Slamf1-positive multipotent progenitor cell	CL:0002036	MultipotentPC_SLAMF	4			hematopoietic multipotent progenitor cell	CL:0000837 	hematopoetic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+Fraction A pre-pro B cell	Fraction A pre-pro B cell	CL:0002045	FrAPreProBcell	4			pro-B cell	CL:0000826	lymphoid lineage restricted progenitor cell	CL:0000838 	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+early pro-B cell	early pro-B cell	CL:0002046	EarlyProBcell	4			pro-B cell	CL:0000826	lymphoid lineage restricted progenitor cell	CL:0000838 	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+late pro-B cell	late pro-B cell	CL:0002048	LateProBcell	4			pro-B cell	CL:0000826	lymphoid lineage restricted progenitor cell	CL:0000838 	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+type I pneumocyte	type I pneumocyte	CL:0002062	T1Pneumocyte	4			pneumocyte	CL:0000322	epithelial cell of lung	CL:0000082	epithelial cell	CL:0000066	animal cell	CL:0000548
+type II pneumocyte	type II pneumocyte	CL:0002063	T2Pneumocyte	4			pneumocyte	CL:0000322	epithelial cell of lung	CL:0000082	epithelial cell	CL:0000066	animal cell	CL:0000548
+pancreatic acinar cell	pancreatic acinar cell	CL:0002064	PancreaticAcinar	4			acinar cell	CL:0000622	glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+enterocyte of epithelium of large intestine	enterocyte of epithelium of large intestine	CL:0002071	EnterocyteLargeIntest	5	enterocyte	CL:0000584	intestinal epithelial cell	CL:0002563	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+endo-epithelial cell	endo-epithelial cell	CL:0002076	EndoEpithelial	2							epithelial cell	CL:0000066	animal cell	CL:0000548
+ecto-epithelial cell	ecto-epithelial cell	CL:0002077	EctoEpithelial	2							epithelial cell	CL:0000066	animal cell	CL:0000548
+pancreatic ductal cell	pancreatic ductal cell	CL:0002079	PancreaticDuctal	3					duct epithelial cell	CL:0000068	epithelial cell	CL:0000066	animal cell	CL:0000548
+tanycyte	tanycyte	CL:0002085	Tanycyte	5	astrocyte	CL:0000127	macrogial cell	CL:0000126	glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
+bone marrow cell	bone marrow cell	CL:0002092	BoneMarrowCell	2							bone cell	CL:0001035	animal cell	CL:0000548
+endothelial cell of vascular tree	endothelial cell of vascular tree	CL:0002139	EndothelialVascular	2							endothelial cell	CL:0000115	animal cell	CL:0000548
+ciliated columnar cell of tracheobronchial tree	ciliated columnar cell of tracheobronchial tree	CL:0002145	CCTracheobronchial	4			respiratory epithelial cell	CL:0002368	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+basal cell of epidermis	basal cell of epidermis	CL:0002187	BasalEpidermis	5	keratinocyte	CL:0000312	epidermal cell	CL:0000362	ecto-epithelial cell	CL:0002077	epithelial cell	CL:0000066	animal cell	CL:0000548
+granulocytopoietic cell	granulocytopoietic cell	CL:0002191	Granulocytopoetic	4			myeloid lineage restricted progenitor cell	CL:0000839	hematopoetic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+brush cell of epithelium proper of large intestine	brush cell of epithelium proper of large intestine	CL:0002203	LargeIntestineBrush	4			brush cell	CL:0002204	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+brush cell	brush cell	CL:0002204	Brush	3					endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+epithelial cell of large intestine	epithelial cell of large intestine	CL:0002253	LargeIntestineEpith	4			intestinal epithelial cell	CL:0002563	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+neuroepithelial stem cell	neuroepithelial stem cell	CL:0002259	NeuroepithelialStem	3			somatic stem cell	CL:0000723	stem cell	CL:0000034	precursor cell	CL:0011115	animal cell	CL:0000548
+endothelial cell of sinusoid	endothelial cell of sinusoid	CL:0002262	EndothelialSinusoid	2							endothelial cell	CL:0000115	animal cell	CL:0000548
+pancreatic PP cell	pancreatic PP cell	CL:0002275	PancreaticPP	5	PP cell	CL:0000696	enteroendocrine cell	CL:0000164	glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+epithelial cell of distal tubule	epithelial cell of distal tubule	CL:0002305	TubuleEpithelial	4			kidney tubule cell	CL:1000507	kidney epithelial cell	CL:0002518	epithelial cell	CL:0000066	animal cell	CL:0000548
+epithelial cell of proximal tubule	epithelial cell of proximal tubule	CL:0002306	ProximalTubule	5	kidney tubule cell	CL:1000507	epithelial cell of nephron	CL:1000449	kidney epithelial cell	CL:0002518	epithelial cell	CL:0000066	animal cell	CL:0000548
+epithelial cell of proximal tubule	epithelial cell of proximal tubule	CL:0002306	ProximalTubule	5	kidney tubule cell	CL:1000507	epithelial cell of nephron	CL:1000449	kidney epithelial cell	CL:0002518	epithelial cell	CL:0000066	animal cell	CL:0000548
+neural cell	neural cell	CL:0002319	Neural	1									animal cell	CL:0000548
+connective tissue cell	connective tissue cell	CL:0002320	ConnectiveTissue	1									animal cell	CL:0000548
+embryonic stem cell	embryonic stem cell	CL:0002322	EmbryonicStem	3					stem cell	CL:0000034	precursor cell	CL:0011115	animal cell	CL:0000548
+luminal epithelial cell of mammary gland	luminal epithelial cell of mammary gland	CL:0002326	MammaryLumEpith	4			branched duct epithelial cell	CL:0000069	duct epithelial cell	CL:0000068	epithelial cell	CL:0000066	animal cell	CL:0000548
+bronchial epithelial cell	bronchial epithelial cell	CL:0002328	BronchialEpithelial	4			respiratory epithelial cell	CL:0002368	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+keratinocyte stem cell	keratinocyte stem cell	CL:0002337	KeratinocyteStem	5	keratinocyte	CL:0000312	epidermal cell	CL:0000362	ecto-epithelial cell	CL:0002077	epithelial cell	CL:0000066	animal cell	CL:0000548
+endocardial cell	endocardial cell	CL:0002350	Endocardial	3					cardiac endothelial cell	CL:0002350	endothelial cell	CL:0000115	animal cell	CL:0000548
+respiratory epithelial cell	respiratory epithelial cell	CL:0002368	RespiratoryEpithelial	3					endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+CD141-positive myeloid dendritic cell	CD141-positive myeloid dendritic cell	CL:0002394	cDC1	5			myeloid dendritic cell	CL:0002394	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CD1c-positive myeloid dendritic cell	CD1c-positive myeloid dendritic cell	CL:0002399	cDC2	5			myeloid dendritic cell	CL:0002394	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+pancreatic stellate cell	pancreatic stellate cell	CL:0002410	PancStellate	3					fibroblast of lung	CL:0002553	connective tissue cell	CL:0002320	animal cell	CL:0000548
+immature T cell	immature T cell	CL:0002420	ImmatureTcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+oligodendrocyte precursor cell	oligodendrocyte precursor cell	CL:0002453	OligodendrocytePC	5	oligodendrocyte	CL:0000128	macrogial cell	CL:0000126	glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
+kidney epithelial cell	kidney epithelial cell	CL:0002518	KidneyEpithelial	2							epithelial cell	CL:0000066	animal cell	CL:0000548
+fibroblast of lung	fibroblast of lung	CL:0002553	LungFibroblast	3					fibroblast of lung	CL:0002553	connective tissue cell	CL:0002320	animal cell	CL:0000548
+intestinal epithelial cell	intestinal epithelial cell	CL:0002563	IntestinalEpithelial	3					endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+mesenchymal stem cell of adipose	mesenchymal stem cell of adipose	CL:0002570	AdiposeMSC	5	mesenchymal stem cell	CL:0000134	multi fate stem cell	CL:0000048	stem cell	CL:0000034	precursor cell	CL:0011115	animal cell	CL:0000548
+Schwann cell	Schwann cell	CL:0002573	Schwann	3					glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
+central nervous system pericyte	central nervous system pericyte	CL:0002575	CNSPericyte	3					pericyte cell	CL:0000669	connective tissue cell	CL:0002320	animal cell	CL:0000548
+renal cortical epithelial cell	renal cortical epithelial cell	CL:0002584	RenalCorticalEpith	3					kidney epithelial cell	CL:0002518	epithelial cell	CL:0000066	animal cell	CL:0000548
+retinal blood vessel endothelial cell	retinal blood vessel endothelial cell	CL:0002585	RetinalVesselEndo	4			blood vessel endothelial cell	CL:0000071	endothelial cell of vascular tree	CL:0002139	endothelial cell	CL:0000115	animal cell	CL:0000548
+retinal pigment epithelial cell	retinal pigment epithelial cell	CL:0002586	RetPigmentEpith	3					pigment cell	CL:0000147	epithelial cell	CL:0000066	animal cell	CL:0000548
+HEV endothelial cell	endothelial cell of high endothelial venule	CL:0002652	HEVEndothelial	3					endothelial cell of vascular tree	CL:0002139	endothelial cell	CL:0000115	animal cell	CL:0000548
+endothelial stalk cell	endothelial stalk cell	CL:0002671	StalkEndothelial	4			blood vessel endothelial cell	CL:0000071	endothelial cell of vascular tree	CL:0002139	endothelial cell	CL:0000115	animal cell	CL:0000548
+ionocyte	ionocyte	CL:0005006	Ionocyte	2							epithelial cell	CL:0000066	animal cell	CL:0000548
+pancreatic epsilon cell	pancreatic epsilon cell	CL:0005019	EpsilonPancreatic	5	pancreatic endocrine cell	CL:0008024	enteroendocrine cell	CL:0000164	glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+hematopoietic precursor cell	hematopoietic precursor cell	CL:0008001	HematopoeticPC	2							hematopoietic cell	CL:0000988	animal cell	CL:0000548
+skeletal muscle satellite stem cell	skeletal muscle satellite stem cell	CL:0008011	MuscleSatelliteStem	4			skeletal muscle satellite cell	CL:0000594	muscle precursor cell	CL:0000680	precursor cell	CL:0011115	animal cell	CL:0000548
+mesenchymal cell	mesenchymal cell	CL:0008019	Mesenchymal	1									animal cell	CL:0000548
+pancreatic endocrine cell	pancreatic endocrine cell	CL:0008024	PancreaticEndocrine	4			enteroendocrine cell	CL:0000164	glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+inhibitory neuron	inhibitory neuron	CL:0008029	InhibitoryN	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+excitatory neuron	excitatory neuron	CL:0008030	ExcitatoryN	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+stromal cell of bone marrow	stromal cell of bone marrow	CL:0010001	StromalBoneMarrow	3					bone marrow cell	CL:0002092	bone cell	CL:0001035	animal cell	CL:0000548
+camera-type eye photoreceptor cell	camera-type eye photoreceptor cell	CL:0010009	CameraEyePhotorec	5	photoreceptor cell	CL:0000210	sensory neuron	CL:0000128	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+neural progenitor cell	neural progenitor cell	CL:0011020	NeuralPC	2							precursor cell	CL:0011115	animal cell	CL:0000548
+histaminergic neuron	histaminergic neuron	CL:0011110	HistaminergicN	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+precursor cell	precursor cell	CL:0011115	Precursor	1									animal cell	CL:0000548
+large intestine goblet cell	large intestine goblet cell	CL:1000320	LargeIntestGoblet	4			goblet cell	CL:0000160	glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+basal cell of epithelium of trachea	basal cell of epithelium of trachea	CL:1000348	BasalTrachealEpith	5	tracheal epithelial cell	CL:0000307	respiratory epithelial cell	CL:0002368	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+endothelial cell of hepatic sinusoid	endothelial cell of hepatic sinusoid	CL:1000398	LiverSinusoidEndo	3					endothelial cell of sinusoid	CL:0002262	endothelial cell	CL:0000115	animal cell	CL:0000548
+stem cell of epidermis	stem cell of epidermis	CL:1000428	EpidermisStem	4			somatic stem cell	CL:0000723	stem cell	CL:0000034	precursor cell	CL:0011115	animal cell	CL:0000548
+epithelial cell of nephron	epithelial cell of nephron	CL:1000449	NephronEpithelial	3					kidney epithelial cell	CL:0002518	epithelial cell	CL:0000066	animal cell	CL:0000548
+parietal epithelial cell	parietal epithelial cell	CL:1000452	ParietalEpithelial	5	glomerular cell	CL:1000746	renal cortical epithelial cell	CL:0002584	kidney epithelial cell	CL:0002518	epithelial cell	CL:0000066	animal cell	CL:0000548
+kidney collecting duct epithelial cell	kidney collecting duct epithelial cell	CL:1000454	KidneyDuctEpith	4			kidney collecting duct cell	CL:1001225	duct epithelial cell	CL:0000068	epithelial cell	CL:0000066	animal cell	CL:0000548
+cholangiocyte	cholangiocyte	CL:1000488	Cholangiocyte	3					duct epithelial cell	CL:0000068	epithelial cell	CL:0000066	animal cell	CL:0000548
+kidney cell	kidney cell	CL:1000497	KidneyCell	1									animal cell	CL:0000548
+kidney tubule cell	kidney tubule cell	CL:1000507	KidneyTubule	3					kidney epithelial cell	CL:0002518	epithelial cell	CL:0000066	animal cell	CL:0000548
+lower urinary tract cell	lower urinary tract cell	CL:1000600	LowUrinaryTract	1									animal cell	CL:0000548
+glomerular cell	glomerular cell	CL:1000746	Glomerular	4			renal cortical epithelial cell	CL:0002584	kidney epithelial cell	CL:0002518	epithelial cell	CL:0000066	animal cell	CL:0000548
+kidney proximal straight tubule epithelial cell	kidney proximal straight tubule epithelial cell	CL:1000839	ProxStraightTubule	5	epithelial cell of proximal tubule	CL:0002306	kidney tubule cell	CL:1000507	kidney epithelial cell	CL:0002518	epithelial cell	CL:0000066	animal cell	CL:0000548
+kidney distal convoluted tubule epithelial cell	kidney distal convoluted tubule epithelial cell	CL:1000849	DistalConvTubule	5	epithelial cell of distal tubule	CL:0002305	kidney tubule cell	CL:1000507	kidney epithelial cell	CL:0002518	epithelial cell	CL:0000066	animal cell	CL:0000548
+kidney capillary endothelial cell	kidney capillary endothelial cell	CL:1000892	KidneyCapillaryEndo	4			blood vessel endothelial cell	CL:0000071	endothelial cell of vascular tree	CL:0002139	endothelial cell	CL:0000115	animal cell	CL:0000548
+kidney loop of Henle epithelial cell	kidney loop of Henle epithelial cell	CL:1000909	HenleTubule	4			kidney tubule cell	CL:1000507	kidney epithelial cell	CL:0002518	epithelial cell	CL:0000066	animal cell	CL:0000548
+kidney collecting duct cell	kidney collecting duct cell	CL:1001225	KidneyDuct	3					duct epithelial cell	CL:0000068	epithelial cell	CL:0000066	animal cell	CL:0000548
+bladder cell	bladder cell	CL:1001319	BladderCell	2							lower urinary tract cell	CL:1000600	animal cell	CL:0000548
+bladder urothelial cell	bladder urothelial cell	CL:1001428	BladderUrothelial	3					bladder cell	CL:1001319	lower urinary tract cell	CL:1000600	animal cell	CL:0000548
+lung endothelial cell	lung endothelial cell	CL:1001567	LungEndothelial	4			blood vessel endothelial cell	CL:0000071	endothelial cell of vascular tree	CL:0002139	endothelial cell	CL:0000115	animal cell	CL:0000548
+mammary gland glandular cell	mammary gland glandular cell	CL:1001586	MammaryGlandular	3					glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+lung macrophage	lung macrophage	CL:1001603	LungMacrophage	4			macrophage	CL:0000235	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+bone marrow hematopoietic cell	bone marrow hematopoietic cell	CL:1001610	BoneMarrowHemato	2							hematopoietic cell	CL:0000988	animal cell	CL:0000548
+microvascular endothelial cell	microvascular endothelial cell	CL:2000008	MicroVascEndo	5	microvascular endothelial cell	CL:2000008	blood vessel endothelial cell	CL:0000071	endothelial cell of vascular tree	CL:0002139	endothelial cell	CL:0000115	animal cell	CL:0000548
+cerebellum basket cell	cerebellum basket cell	CL:2000027	CerebellumBasket	5	basket cell	CL:0000118	central nervous system neuron	CL:2000029	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+central nervous system neuron	central nervous system neuron	CL:2000029	CNSNeuron	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+brain pericyte	brain pericyte	CL:2000043	BrainPericyte	4			central nervous system pericyte	CL:0002575	pericyte cell	CL:0000669	connective tissue cell	CL:0002320	animal cell	CL:0000548
+inflammatory monocyte		DB:0000001	InflamMonocyte	4			monocyte	CL:0000576	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+exhausted-like CD4-positive, alpha-beta T cell		DB:0000002	ExhCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+proliferating CD8-positive, alpha-beta T cell		DB:0000003	ProlifCD8Tcell	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CCR7-positive myeloid dendritic cell		DB:0000004	cDC_CCR7	4			myeloid dendritic cell	CL:0000782	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+exhausted-like CD8-positive, alpha-beta T cell		DB:0000005	ExhCD8Tcell	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+melanocytic melanoma cell		DB:0000006	MelMelanoma	2							malignant cell	CL:0001064	neoplastic cell	CL:0001063
+IL7R-max CD8-positive, alpha-beta cytotoxic T cell		DB:0000007	CD8Tcell_IL7Rmax	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+IL7R-max CD4-positive, alpha-beta cytotoxic T cell		DB:0000040	CD4Tcell_IL7Rmax	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+doublet		DB:0000008	Doublet	1									animal cell	CL:0000548
+immature enterocyte		DB:0000009	ImmatureEnterocyte	5	enterocyte	CL:0000584	intestinal epithelial cell	CL:0002563	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+immature goblet cell		DB:0000010	ImmatureGoblet	4			goblet cell	CL:0000160	glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+inflammatory fibroblast		DB:0000011	InflamFibroblast	3					fibroblast	CL:0000057	connective tissue cell	CL:0002320	animal cell	CL:0000548
+artifact		DB:0000012	Artifact	1									animal cell	CL:0000548
+proliferating neuron		DB:0000013	ProlifNeuron	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+myeloid T cell doublet		DB:0000014	MyeloTcell	2							hematopoietic cell	CL:0000988	animal cell	CL:0000548
+natural killer or T cell		DB:0000015	NKorTcell	3					lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+newly formed oligodendrocyte		DB:0000016	NFOligodendrocyte	5	oligodendrocyte	CL:0000128	macrogial cell	CL:0000126	glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
+nonhematopoetic cell		DB:0000017	NonHematopoetic	1									animal cell	CL:0000548
+proliferating B cell		DB:0000018	ProlifBcell	4			B cell	CL:0000236	lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+proliferating monocyte		DB:0000020	ProlifMonocyte	3			monocyte	CL:0000576	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+proliferating T cell		DB:0000021	ProlifTcell	3			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+proliferating CD4-positive, alpha-beta T cell		DB:0000022	ProlifCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+proliferating transit amplifying cell		DB:0000023	ProlifTAmplifying	5	transit amplifying cell	DB:0000024	intestinal epithelial cell	CL:0002563	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+transit amplifying cell		DB:0000024	TAmplifying	4			intestinal epithelial cell	CL:0002563	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+SLC17A7-positive neuron		DB:0000025	Neuron_SLC17A7	4			glutamatergic neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+SLC17A6-positive neuron		DB:0000026	Neuron_SLC17A6	4			glutamatergic neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+SLC17A6_SLC17A7-positive neuron		DB:0000027	Neuron_SLC17A6_SLC17A7	4			glutamatergic neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+GAD1-positive neuron		DB:0000028	Neuron_GAD1	4			GABAergic neuron	CL:0000617	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+GAD1_GAD2-positive neuron		DB:0000029	Neuron_GAD1_GAD2	4			GABAergic neuron	CL:0000617	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+GAD1_GAD2_VIP-positive neuron		DB:0000041	Neuron_GAD1_GAD2_VIP	4			GABAergic neuron	CL:0000617	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+MGP-positive endothelial stalk cell		DB:0000030	StalkEndothelial_MGP	5	endothelial stalk cell	CL:0002671	blood vessel endothelial cell	CL:0000071	endothelial cell of vascular tree	CL:0002139	endothelial cell	CL:0000115	animal cell	CL:0000548
+GAD1_GAD2_SST-positive neuron		DB:0000042	Neuron_GAD1_GAD2_SST	4			GABAergic neuron	CL:0000617	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+GAD1_GAD2_PVALB-positive neuron		DB:0000032	Neuron_GAD1_GAD2_PVALB	4			GABAergic neuron	CL:0000617	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+GAD1_GAD2_CPLX3-positive neuron		DB:0000033	Neuron_GAD1_GAD2_CPLX3	4			GABAergic neuron	CL:0000617	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+GAD1_GAD2_HTR3A-positive neuron		DB:0000034	Neuron_GAD1_GAD2_HTR3A	3			GABAergic neuron	CL:0000617	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+GAD1_GAD2_TAC2-positive neuron		DB:0000035	Neuron_GAD1_GAD2_TAC2	3			GABAergic neuron	CL:0000617	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+SLC17A8-positive neuron		DB:0000036	Neuron_SLC17A8	4			glutamatergic neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+enterocyte progenitor		DB:0000037	EnterocytePC	4			intestinal epithelial cell	CL:0002563	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+GAD1_GAD2_ID2-positive neuron		DB:0000038	Neuron_GAD1_GAD2_ID2	4			GABAergic neuron	CL:0000617	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+SATB2_EBF3_GLYT1-positive amacrine cell		DB:0000039	Amacrine_SATB2_EBF3_GLYT1	3					amacrine cell	CL:0000561	neural cell	CL:0002319	animal cell	CL:0000548
+epithelial cell derived cell line	epithelial cell derived cell line	EFO:0001641	EpithelialCellLine	1									cultured cell	CL:0000010
+U-87 MG	U-87 MG	EFO:0005237	U87MG	2							epithelial cell derived cell line	EFO:0001641	cultured cell	CL:0000010
+embryonic cell	embryonic cell	CL:0002321	Embryonic	1									animal cell	CL:0000548
+immature conventional dendritic cell	immature conventional dendritic cell	CL:0000840	ImmaturecDC	4			myeloid dendritic cell	CL:0002394	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
