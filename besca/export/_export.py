@@ -63,18 +63,29 @@ def X_to_mtx(adata,
     else:
         E = adata.X.tocsr().T #transpose back into the same format as we imported it
 
-    #create a temporary file to pipe the output from io.mmwrite to
-    f_in = BytesIO()
     
-    #write out temporary matrix to created pipe
-    io.mmwrite(target=f_in, a=E, precision = 2)
-    
-    from subprocess import run
-    f_out = open(os.path.join(outpath, 'matrix.mtx'), "w")
-    run([C_path, "-"], input=f_in.getvalue(), stdout=f_out)
-    
-    print('adata.X successfully written to matrix.mtx')
+    #check if executable is actually executable on the system
+    def is_exe(fpath):
+        return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
 
+    if is_exe(C_path):
+        #create a temporary file to pipe the output from io.mmwrite to
+        f_in = BytesIO()
+        
+        #write out temporary matrix to created pipe
+        io.mmwrite(target=f_in, a=E, precision = 2)
+
+        from subprocess import run
+        f_out = open(os.path.join(outpath, 'matrix.mtx'), "w")
+        run([C_path, "-"], input=f_in.getvalue(), stdout=f_out)
+
+        print('adata.X successfully written to matrix.mtx')
+
+    else:
+        io.mmwrite(target=os.path.join(outpath, 'matrix.mtx'), a=E, precision = 2)
+
+        print('adata.X successfully written to matrix.mtx. \n Warning: could not use reformat script.')
+        
     ### export genes
     
     #get genes to export
