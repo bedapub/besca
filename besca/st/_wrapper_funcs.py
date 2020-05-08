@@ -93,12 +93,12 @@ def setup(results_folder,
     #output feedback to logfile
     logging.info('\tTime for creating all output directories and setting up logging: '+str(round(time()-start, 3))+'s')
 
-def read_matrix(root_path):
+def read_matrix(root_path, citeseq = None):
 
     start = time()
     input_path = join(root_path, 'raw')
 
-    adata = read_mtx(input_path)
+    adata = read_mtx(input_path, citeseq = citeseq)
     logging.info('After input: '+str(adata.shape[0])+' cells, ' + str(adata.shape[1])+' genes')
     logging.info("\tTime for reading data: "+str(round(time()-start, 3))+'s')
     
