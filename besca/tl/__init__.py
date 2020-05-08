@@ -5,6 +5,7 @@ from . import sig
 from . import auto_annot
 from ._count_occurances import count_occurance, count_occurance_subset, count_occurance_subset_conditions
 from ._annotate_cellnames import annotate_cells_clustering
+from . import auto_annot
 
 __all__ = ["rc",
            "dge", 
