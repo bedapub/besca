@@ -1,5 +1,5 @@
 import pandas as pd
-from scanpy.api import read
+from scanpy import read
 import os
 from .._helper import convert_ensembl_to_symbol
 

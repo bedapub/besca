@@ -21,18 +21,18 @@ import bbknn
 import scipy
 
 #import scanpy functions
-from scanpy.api.pp import normalize_per_cell, log1p, neighbors
-from scanpy.api.pp import highly_variable_genes as sc_highly_variable_genes
-from scanpy.api.pl import highly_variable_genes as pl_highly_variable_genes
-from scanpy.api.tl import rank_genes_groups
-from scanpy.api.pp import regress_out as sc_regress_out
-from scanpy.api.pp import scale as sc_scale
-from scanpy.api.tl import pca as sc_pca
-from scanpy.api.tl import louvain as sc_louvain
-from scanpy.api.tl import leiden as sc_leiden
-from scanpy.api.tl import umap as sc_umap
-from scanpy.api.pl import pca as sc_pl_pca
-from scanpy.api.pl import umap as sc_pl_umap
+from scanpy.pp import normalize_per_cell, log1p, neighbors
+from scanpy.pp import highly_variable_genes as sc_highly_variable_genes
+from scanpy.pl import highly_variable_genes as pl_highly_variable_genes
+from scanpy.tl import rank_genes_groups
+from scanpy.pp import regress_out as sc_regress_out
+from scanpy.pp import scale as sc_scale
+from scanpy.tl import pca as sc_pca
+from scanpy.tl import louvain as sc_louvain
+from scanpy.tl import leiden as sc_leiden
+from scanpy.tl import umap as sc_umap
+from scanpy.pl import pca as sc_pl_pca
+from scanpy.pl import umap as sc_pl_umap
 
 def setup(results_folder, 
           analysis_name, 
