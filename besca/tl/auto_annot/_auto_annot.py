@@ -662,6 +662,8 @@ def report(adata_pred, celltype, method, analysis_name, train_datasets, test_dat
     remove_nonshared: `bool`|default = False
     clustering: `str` | default = leiden
         clustering that was used in original analysis of testing set, needed for umap plotting
+    asymmetric_matrix: `bool` | default = True
+        if False returns square confusion matrix, if True it only shows possible combinations
 
     returns
     -------
@@ -709,15 +711,15 @@ def report(adata_pred, celltype, method, analysis_name, train_datasets, test_dat
         class_names =  np.unique(np.concatenate((adata_pred.obs[celltype], adata_pred.obs['auto_annot'])))
         np.set_printoptions(precision=2)
         # Plot non-normalized confusion matrix
-        plot_confusion_matrix(adata_pred.obs[celltype], adata_pred.obs['auto_annot'], classes=class_names, title='Confusion matrix, without normalization',numbers = False, adata_predicted = adata_pred, asymmetric_matrix = asymmetric_matrix)
+        plot_confusion_matrix(adata_pred.obs[celltype], adata_pred.obs['auto_annot'], classes=class_names, celltype=celltype,  title='Confusion matrix, without normalization',numbers = False, adata_predicted = adata_pred, asymmetric_matrix = asymmetric_matrix)
         plt.savefig(os.path.join('./figures/SVM_confusion_matrix_' + analysis_name +'_' + celltype +  '.svg'))
 
         # Plot normalized confusion matrix with numbers
-        plot_confusion_matrix(adata_pred.obs[celltype], adata_pred.obs['auto_annot'], classes=class_names, normalize=True, title='Normalized confusion matrix', numbers = False, adata_predicted = adata_pred, asymmetric_matrix = asymmetric_matrix)
+        plot_confusion_matrix(adata_pred.obs[celltype], adata_pred.obs['auto_annot'], classes=class_names,celltype=celltype,  normalize=True, title='Normalized confusion matrix', numbers = False, adata_predicted = adata_pred, asymmetric_matrix = asymmetric_matrix)
         plt.savefig(os.path.join('./figures/SVM_confusion_matrix_norm_' + analysis_name +'_' + celltype +  '.svg'))
 
     
-def plot_confusion_matrix(y_true, y_pred, classes,
+def plot_confusion_matrix(y_true, y_pred, classes, celltype,
                           normalize=False,
                           title=None, numbers =False,
                           cmap=plt.cm.Blues, adata_predicted= None, asymmetric_matrix = True): 
@@ -734,6 +736,8 @@ def plot_confusion_matrix(y_true, y_pred, classes,
         ordered series of all predicted celltypes
     classes: numpy.ndarray
         union of true and predictable celltypes
+    celltype: `str`
+        celltype column on which the prediction was performed
     normalize: `bool` | default = False
         whether to return absolute values or to value all celltypes equally
     title: `str` | default = None
@@ -742,6 +746,8 @@ def plot_confusion_matrix(y_true, y_pred, classes,
         should the numbers be displayed in the plot. Note: is illegible in larger plots
     cmap: matplotlib.cm | default = plt.cm.Blues
         colour to be used for plotting
+    asymmetric_matrix: `bool` | default = True
+        if False returns square confusion matrix, if True it only shows possible combinations
 
     returns
     -------
