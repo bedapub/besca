@@ -4,8 +4,8 @@
 
 def _to_geneid(conversionTable, symbol):
     """Convert the symbol into another using the conversionSymbol table,
-    converting symbol from the fiest column of the table to the index of such.
-    To use to convert from HGNC symobl to Ensembl and vice-versa for eg.
+    converting symbol from the first column of the table to the index of such.
+    To use to convert from HGNC symobl to Ensembl and vice-versa e.g.
 
     Parameters
     ----------
