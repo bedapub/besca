@@ -1,6 +1,6 @@
 from ._sig import combined_signature_score, compute_signed_score, filter_siggenes
 from ._io_sig import read_GMT_sign
-from ._annot import getset, score_mw, add_anno, make_anno
+from ._annot import getset, score_mw, add_anno, make_anno, match_cluster
 
 __all__ = ["combined_signature_score",
            "compute_signed_score",
@@ -9,5 +9,5 @@ __all__ = ["combined_signature_score",
            'getset',
            'score_mw',
            'add_anno',
-           'make_anno'
-           ]
+           'make_anno',
+           'match_cluster']

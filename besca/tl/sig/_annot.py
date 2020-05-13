@@ -4,7 +4,7 @@
 from scanpy.api import AnnData
 from pandas import DataFrame
 from scipy.stats import mannwhitneyu
-from numpy import log, where
+from numpy import log, where, array
 
 
 def getset(df, signame_complete, threshold):
@@ -345,6 +345,33 @@ def make_anno(mypFrame, myc, signame, f, CD45threshold=0.3,species='human'):
         cNames.append(newname)
     return(cNames)
 
-
-
+def match_cluster(adata,obsquery,obsqueryval,obsref='leiden',cutoff=0.5):
+    """ Matches categories from adata.obs to each other. For a query category specified in obsquery
+    and a value specified in obsqueryval, checks which clusters (or other adata.obs categories, obsref)
+    contain >50% (or distinct cutoff, cutoff) of cells of the specified kind.
+    
+    parameters
+    ----------
+    adata: AnnData
+      AnnData object 
+    obsquery: 'str'
+      adata.obs category name used for querying
+    obsqueryval: 'str'
+      adata.obs category name value, present in obsquery
+    obsref: 'str'
+      adata.obs category name to be returned
+    cutoff: 'numpy.float64'
+      fraction of positive cells returned
+    returns
+    -------
+    list
+        a list of the cluster IDs that match the query label
+    """
+    
+    myc=[]
+    myleiden=list(set(adata[adata.obs[obsquery].isin([obsqueryval])].obs[obsref]))
+    for i in myleiden:
+        mysub=adata[adata.obs[obsref].isin([i])].copy()
+        myc.append(len(mysub[mysub.obs[obsquery]==obsqueryval])/len(mysub))
+    return(list(array(myleiden)[array(myc)>cutoff]))
 
