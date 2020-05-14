@@ -25,6 +25,10 @@ def filter_siggenes(adata, signature_dict):
         Values are a dict  with keys as the directions (UP/DN) and genes names in values.
 
     """
+    
+    # to add: which signatures were discarded and print (if verbose) genes not found
+    # to check: what happens if no signature is left?
+    
     signature_dict_filtered={}
     for key, value in signature_dict.items():
         mym=[]
@@ -85,7 +89,7 @@ def combined_signature_score(adata, GMT_file,
     """
     #RMK : Score could be computed while reading the gmt (one loop less).
     #However here we divided geneset provenance and computation.
-    signature_dict = read_GMT_sign(GMT_file, UP_suffix, DN_suffix, verbose)
+    signature_dict = read_GMT_sign(GMT_file, UP_suffix, DN_suffix,True, verbose)
     if (verbose):
         print(str(len(signature_dict)) + " signatures obtained")
     # More readable than in signatures read. This forces a second loop.
