@@ -1,26 +1,50 @@
-Term	Parent	Cutoff
-Bcell	Blymphocyte	40
-Fibroblast	None	40
-Endothelial	None	40
-Epithelial	None	40
-Granulocyte	Hematopoetic	40
-Mast	Myeloid	40
-MelMelanoma	None	40
-MemBcell	Bcell	40
-Myeloid	Hematopoetic	40
-Nkcell	Hematopoetic	40
-NaiBcell	Bcell	40
-Neutrophil	Hematopoetic	40
-Plasma	Blymphocyte	40
-CD4Tcell	Tcell	40
-CD8Tcell	Tcell	40
-Tcell	Hematopoetic	40
-Th17CD4Tcell	Tcell	40
-RegTcell	Tcell	40
-cDC1	cDC	40
-cDC2	cDC	40
-cDC	Myeloid	40
-NClassMonocyte	Myeloid	40
-pDC	Myeloid	40
-Hematopoetic	None	40
-Blymphocyte	Hematopoetic	40
+Term	Parent	Cutoff	Order
+Bcell	Blymphocyte	1	1
+Fibroblast	None	1	2
+Endothelial	None	1	3
+Epithelial	None	1	4
+Granulocyte	Myeloid	1	49
+Mast	Myeloid	1	6
+MelMelanoma	None	1	7
+MemBcell	Bcell	1	11
+Myeloid	Hematopoetic	0.1	9
+NKcell	Hematopoetic	1	16
+NaiBcell	Bcell	1	8
+Neutrophil	Granulocyte	1.5	12
+Plasma	Blymphocyte	1	13
+CD4Tcell	Tcell	0.25	15
+CD8Tcell	Tcell	1	14
+Tcell	Hematopoetic	1	10
+Th17CD4Tcell	CD4Tcell	0.75	17
+RegTcell	Tcell	1	18
+cDC1	cDC	1	19
+cDC2	cDC	1	20
+cDC	Myeloid	0.5	22
+NClassMonocyte	Myeloid	0.5	35
+pDC	Myeloid	1	23
+Hematopoetic	None	0.25	24
+Blymphocyte	Hematopoetic	1	25
+CD56dimNK	NKcell	1	26
+CD56brightNK	NKcell	1	27
+NaiCD4Tcell	CD4Tcell	1.5	28
+NaiCD8Tcell	CD8Tcell	1.5	29
+ProlifCD8Tcell	CD8Tcell	1	30
+ProlifCD4Tcell	CD4Tcell	1	31
+CMCD4Tcell	CD4Tcell	0.5	32
+EMCD8Tcell	CD8Tcell	1	33
+EMCD4Tcell	CD4Tcell	1.5	34
+ClassMonocyte	Myeloid	2	21
+Macrophage_MARCO	Macrophage	1	36
+NKTcell	Tcell	0.75	50
+gdTcell	Tcell	1	38
+CytotoxCD4Tcell	CD4Tcell	0.5	39
+CytotoxCD8Tcell	CD8Tcell	0.5	40
+ExhCD8Tcell	CD8Tcell	1	41
+cDC_CCR7	cDC	1	42
+Langerhans	cDC	1	43
+Macrophage_MSR1	Macrophage	1	44
+Macrophage_CXCL9	Macrophage	1	45
+Monocyte	Myeloid	1	46
+ExhBcell	Bcell	1	47
+Macrophage	Myeloid	1	48
+Hepatocyte	Epithelial	1	51

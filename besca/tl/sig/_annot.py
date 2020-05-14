@@ -157,6 +157,8 @@ def read_annotconfig(configfile):
     """
     ### read the config file
     sigconfig=read_csv(configfile, sep='\t', index_col=0)
+    ### Reorder with the specified order. Place better signatures first, only first match will be kept
+    sigconfig=sigconfig.sort_values('Order') 
     #### Consider up to 7 levels 
     nochild=list(set(sigconfig.index)-set(sigconfig['Parent']))
     levs=[]
@@ -208,10 +210,15 @@ def make_anno(df,sigscores,sigconfig,levsk,lab='celltype'):
         if (len(levsk)>2):
             for j in range(len(levsk)-1):
                 #jj=j+1
+                if len(annol[ii])==0:
+                    break
                 if len(str.split(annol[ii],"."))< (j+1):
                     break
                 sublev=list(sigconfig.loc[sigconfig["Parent"]==str.split(annol[ii],".")[j],:].index)
-                sublev=list(set(sublev).intersection(set(list(sigscores.keys()))))
+                sublevk=[]
+                for x in sublev:
+                    if x in set(list(sigscores.keys())): sublevk.append(x)
+                sublev=sublevk.copy()
                 for lev in sublev:
                     if ii in sigscores[lev]:
                         annol[ii]=annol[ii]+'.'+lev
@@ -220,7 +227,10 @@ def make_anno(df,sigscores,sigconfig,levsk,lab='celltype'):
     #### Second part, transform to pandas
     cnames=[]
     for key, val in annol.items():
-        tmp=str.split(val,".")
+        if len(val)==0:
+            tmp=['Unknown']
+        else:
+            tmp=str.split(val,".")
         for i in range(len(levsk)-len(tmp)):
             tmp.append(tmp[len(tmp)-1])
         cnames.append(tmp)
