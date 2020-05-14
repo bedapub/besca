@@ -7,3 +7,6 @@ figures_testing/
 
 build
 pip
+
+README.private.md
+besca/datasets/data/pbmc_storage*_downsampled.h5ad
