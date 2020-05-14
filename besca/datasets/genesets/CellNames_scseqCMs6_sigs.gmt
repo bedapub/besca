@@ -1,0 +1,25 @@
+Bcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	CD19	MS4A1	CD79A	CD79B														
+Fibroblast	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	FAP	THY1	DCN	COL1A1	COL1A2	COL6A1	COL6A2	COL6A3	CXCL14	LUM	COL3A1	DPT	ISLR	PODN	CD248	FDF7	MXRA8	PDGFRL
+Endothelial	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	PECAM1	VWF	CDH5	CLDN5	PLVAP	ECSCR	CCL14	SLCO2A1	MMRN1	KDR	TIE1	ERG	FABP4	SDPR	HYAL2			
+Epithelial	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	EPCAM	KRT8	KRT7	KRT18	KRT19	CEACAM1												
+Granulocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	CSF3R	ITGAX	S100A9	HCAR2	CLEC4D	S100A8	RETN											
+Mast	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	ENPP3	KIT																
+MelMelanoma	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	MIA	TYR	SLC45A2	CDH19	PMEL	SLC24A5	MAGEA6	GJB1	PLP1	PRAME	CAPN3	ERBB3	GPM6B	S100B	PAX3	S100A1	MLANA	
+MemBcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	TNFRSF13B	AIM2	IGHG1	CRIP1	AHNAK	IGHG2	LGALS1	CLECL1	IGHA1	ZBTB20	CD27	CXCR3						
+Myeloid	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	TYROBP	CST3	CD14	FCGR4	CCR2	ITGAM	CD34	TFRC	FCGR1	FCGR1A								
+Nkcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	SH2D1B	KLRC1	IL2RB	TRDC	KLRF1	XCL2	IGFBP7	NCR1	IL18RAP									
+NaiBcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	IGHD	IGHM	YBX3	TCL1A	SELL	FCER2	SATB1	BTLA										
+Neutrophil	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	ANPEP	C5AR1	CD33	CEACAM8	CSF3R	CXCR1	CXCR2	FCGR1A	FUT4	ITGAM	ITGAX	MME	TLR2					
+Plasma	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	CD79A	CD79B	ARSA	IGF1	ITGA8	CD38	IGJ											
+CD4Tcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	CD4	GPR183	CMTM8															
+CD8Tcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	CD8A	CD8B																
+Tcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	CD3E	CD3D	CD3G	TRAC	BCL11B	TRAT1												
+Th17CD4Tcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	CXCR6	SLC4A10	IL7R	IL18RAP	LGALS3	ZBTB16	CXXC5	NCR3	CEBPD	SLC4A10	CCR2	ADAM12	KLRB1	GZMK	PHACTR2			
+RegTcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	FANK1	FOXP3	IL2RA	RTKN2	LRRC32													
+cDC1	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	CLEC9A	BATF3	CADM1	XCR1	WDFY4	CLNK	ASB2	VAC14	TMEM14A	CPNE3								
+cDC2	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	CLEC10A	IL13RA1	FCER1A	CD1C	CD1E	PKIB	CD1D											
+cDC	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	CLEC9A	BTLA	PLET1	CLEC10A	IL13RA1	PAK1	NDRG2	CSF2RA	SPINT2	PKIB	XCR1							
+NClassMonocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	LYPD2	LILRA5	CFP	CDKN1C	LILRB2													
+pDC	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	TLR7	IL3RA	SIGLECH	TCF4	TRAF4	IRF7	LILRA4	RUNX2	PTPRS	MYBL2	IRF4	CLIC3	SLC15A4	SMPD3	BLNK	TPM2	MAP1A	
+Hematopoetic	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	PTPRC	TYROBP	CD14	CD3D	MS4A1	CST3	ENPP3	CD79A										
+Blymphocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v6 Jul19) derived by Schwalie P.	CD19	MS4A1	CD79A	CD79B	CD79A	CD79B	ARSA	IGF1	ITGA8	CD38	IGJ							
