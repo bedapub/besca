@@ -89,7 +89,7 @@ def combined_signature_score(adata, GMT_file,
     """
     #RMK : Score could be computed while reading the gmt (one loop less).
     #However here we divided geneset provenance and computation.
-    signature_dict = read_GMT_sign(GMT_file, UP_suffix, DN_suffix, verbose)
+    signature_dict = read_GMT_sign(GMT_file, UP_suffix, DN_suffix,True, verbose)
     if (verbose):
         print(str(len(signature_dict)) + " signatures obtained")
     # More readable than in signatures read. This forces a second loop.
