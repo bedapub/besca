@@ -25,6 +25,10 @@ def filter_siggenes(adata, signature_dict):
         Values are a dict  with keys as the directions (UP/DN) and genes names in values.
 
     """
+    
+    # to add: which signatures were discarded and print (if verbose) genes not found
+    # to check: what happens if no signature is left?
+    
     signature_dict_filtered={}
     for key, value in signature_dict.items():
         mym=[]
