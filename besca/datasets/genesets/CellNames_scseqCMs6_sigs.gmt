@@ -48,3 +48,23 @@ Monocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PB
 ExhBcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	NR4A3	EGR3	NR4A1	NR4A2	EGR2	DUSP4	CKS2	PIM3	TILPL2																	
 Macrophage	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	MSR1	SIRPA	CREG1	ADAP2	GPR34	CD209	FCGR1A	GPR84	MARCO	CLEC5A	CXCL5	PPARG	CXCL10	CXCL11	CXCL9	FCGR1A										
 Hepatocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	CYP2C9	ALDOB	APOA2	APOH	FGB	PCK1	APOC3																			
+Erythrocyte	"Additional marker genes, mainly from PangalaoDB (May20)"	AHSG	HBA-X	HBB-BH1	VAMP5	PFAS	PAN3	KCNN4	ERMAP																		
+AlphaPancreatic	"Additional marker genes, mainly from PangalaoDB (May20)"	CGC	TTR	TM4SF4	PDK4	SLC7A2	CRYBA2	SHH																			
+BetaPancreatic	"Additional marker genes, mainly from PangalaoDB (May20)"	INS	IAPP	ISL1	FOXA2	PDX1	RBP4	UCN3	MAFA																		
+DeltaPancreatic	"Additional marker genes, mainly from PangalaoDB (May20)"	SST	RBP4	FRZB	MS4A8	BCHE	GABRB3	UNC5B	PRG4																		
+Ppcell	"Additional marker genes, mainly from PangalaoDB (May20)"	PPY	ABCC9	FGB	ZNF503	MEIS1	PAX6	FXYD2																			
+PancreaticDuctal	"Additional marker genes, mainly from PangalaoDB (May20)"	ANXA2	KRT19	S100A11	SOX9	FOXA2	MUC1	CFTR																			
+PancreaticAcinar	"Additional marker genes, mainly from PangalaoDB (May20)"	GATA4	CPA1	REG3A	ALDOB	REG1A	CTRB1	REG1B	CTRC																		
+EpsilonPancreatic	"Additional marker genes, mainly from PangalaoDB (May20)"	ARX	MYO1A	HRH2	CALCR	SLC6A16	PCSK6	ADAMTS6																			
+PancStellate	"Additional marker genes, mainly from PangalaoDB (May20)"	COL6A1	THY1	COL6A3	SFRP2	COL1A2	TNFAIP6	TIMP3	COL1A1	SPARC	COL3A1	MGP															
+Cholangiocyte	"Additional marker genes, mainly from PangalaoDB (May20)"	KRT7	SPP1	SOX9	EPCAM	KRT19	CD24	TFF3	TFF1	CLDN4	MMP7	TFF2	SCGB3A1														
+Tamplifying	"Additional marker genes, mainly from PangalaoDB (May20)"	KCNE3	KCNQ1	OLFM4	PROM1	ASCL2	BMI1	HOPX																			
+EntericGlial	"Additional marker genes, mainly from PangalaoDB (May20)"	MPZ	SLC18A2	GFRA3	ALDH1A3	FOXD3	NOS2	S100B																			
+Enterocyte	"Additional marker genes, mainly from PangalaoDB (May20)"	SLC10A2	VDR	RNF186	KLF5	CLDN15	ALDOB	PRAP1	CCL25																		
+Enteroendocrine	"Additional marker genes, mainly from PangalaoDB (May20)"	TRPA1	SST	MLN	GPR119	GCG	CHGB	CPE																			
+Goblet	"Additional marker genes, mainly from PangalaoDB (May20)"	MUC5AC	PDIA5	PHGR1	MUC13	FCGBP	CLCA1	ZG16																			
+Paneth	"Additional marker genes, mainly from PangalaoDB (May20)"	DLL1	DEFA5	CTNNB1	DEFA20	RIPK2	TLR5	WNT3	KCNN4																		
+Brush	"Additional marker genes, mainly from PangalaoDB (May20)"	PTGS1	ASIC5	CD24A	KLF3	KLF6	DRD3	NRADD	GNG13	NREP	RAC2																
+Glial	"Additional marker genes, mainly from PangalaoDB (May20)"	MPZ	SLC18A2	GFRA3	ALDH1A3	FOXD3	NOS2	S100B																			
+Adipocyte	"Additional marker genes, mainly from PangalaoDB (May20)"	LEP	FABP4	TCF21	ADIPOQ	P2RX5	UCP1	CIDEA	PRDM16	LHX8																	
+Chondrocyte	"Additional marker genes, mainly from PangalaoDB (May20)"	COL9A3	EMP1	COL6A1	CYTL1	LCN2	LUM	GADD45B	SCRG1																		
