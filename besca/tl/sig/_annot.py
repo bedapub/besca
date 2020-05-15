@@ -228,7 +228,7 @@ def make_anno(df,sigscores,sigconfig,levsk,lab='celltype'):
     cnames=[]
     for key, val in annol.items():
         if len(val)==0:
-            tmp=['Unknown']
+            tmp=['Cell']
         else:
             tmp=str.split(val,".")
         for i in range(len(levsk)-len(tmp)):
