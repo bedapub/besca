@@ -624,9 +624,14 @@ def predict(classifier, scaler, adata_pred, threshold = 0):
     test = scaler.transform(test)
     results = classifier.predict(test)
 
-    prob = np.max(classifier.predict_proba(test), axis = 1)
+    if (isinstance(classifier, LogisticRegressionCV) and classifier.multi_class == 'ovr') == False:
+        prob = np.max(classifier.predict_proba(test), axis=1)
+
+    else:  # in this case we are using ovr logreg
+        prob = np.max(scipy.special.expit(classifier.decision_function(test)), axis=1)
+
     unlabeled = np.where(prob < threshold)
-    results[unlabeled] = 'Unknown'
+    results[unlabeled] = 'unknown'
     pred = pd.DataFrame(results)
 
     pred.to_csv("SVM_Pred_Labels_inter_jupyter.csv", index = False)
@@ -877,18 +882,23 @@ def predict_proba(classifier, scaler, adata_pred, threshold = 0):
     else:
         test = adata_pred.X
     test = scaler.transform(test)
+
     results = classifier.predict(test)
 
-    
-    probmax = np.max(classifier.predict_proba(test), axis = 1)
+    if (isinstance(classifier, LogisticRegressionCV) and classifier.multi_class == 'ovr') == False:
+        probmax = np.max(classifier.predict_proba(test), axis=1)
+        prob = classifier.predict_proba(test)
+        # (pd.DataFrame(prob)) #test if this is needed
+
+    else:  # in this case we are using ovr logreg
+        probmax = np.max(scipy.special.expit(classifier.decision_function(test)), axis=1)
+        prob = (scipy.special.expit(classifier.decision_function(test)))
+        # (pd.DataFrame(prob))
 
     unlabeled = np.where(probmax < threshold)
-    results[unlabeled] = 'Unknown'
+    results[unlabeled] = 'unknown'
     pred = pd.DataFrame(results)
 
-    pred.to_csv("SVM_Pred_Labels_inter_jupyter.csv", index = False)
-    
-    #prob = np.max(classifier.predict_proba(test), axis = 1) 
-    prob =classifier.predict_proba(test)
-    (pd.DataFrame(prob))
+    pred.to_csv("SVM_Pred_Labels_inter_jupyter.csv", index=False)
+
     return results, prob 
