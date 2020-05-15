@@ -58,7 +58,7 @@ PancreaticAcinar	"Additional marker genes, mainly from PangalaoDB (May20)"	GATA4
 EpsilonPancreatic	"Additional marker genes, mainly from PangalaoDB (May20)"	ARX	MYO1A	HRH2	CALCR	SLC6A16	PCSK6	ADAMTS6																			
 PancStellate	"Additional marker genes, mainly from PangalaoDB (May20)"	COL6A1	THY1	COL6A3	SFRP2	COL1A2	TNFAIP6	TIMP3	COL1A1	SPARC	COL3A1	MGP															
 Cholangiocyte	"Additional marker genes, mainly from PangalaoDB (May20)"	KRT7	SPP1	SOX9	EPCAM	KRT19	CD24	TFF3	TFF1	CLDN4	MMP7	TFF2	SCGB3A1														
-Tamplifying	"Additional marker genes, mainly from PangalaoDB (May20)"	KCNE3	KCNQ1	OLFM4	PROM1	ASCL2	BMI1	HOPX																			
+TAmplifying	"Additional marker genes, mainly from PangalaoDB (May20)"	KCNE3	KCNQ1	OLFM4	PROM1	ASCL2	BMI1	HOPX																			
 EntericGlial	"Additional marker genes, mainly from PangalaoDB (May20)"	MPZ	SLC18A2	GFRA3	ALDH1A3	FOXD3	NOS2	S100B																			
 Enterocyte	"Additional marker genes, mainly from PangalaoDB (May20)"	SLC10A2	VDR	RNF186	KLF5	CLDN15	ALDOB	PRAP1	CCL25																		
 Enteroendocrine	"Additional marker genes, mainly from PangalaoDB (May20)"	TRPA1	SST	MLN	GPR119	GCG	CHGB	CPE																			
