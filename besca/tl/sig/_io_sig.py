@@ -4,7 +4,7 @@ from re import match, compile
 from requests import post
 
 
-def read_GMT_sign(GMT_file, UP_suffix='_UP', DN_suffix='_DN', verbose=False):
+def read_GMT_sign(GMT_file, UP_suffix='_UP', DN_suffix='_DN', directed=True, verbose=False):
     """ Read gmt file to extract signed genesets.
     This function combines genesets scores composed of
     UP and DN regulated genes.
@@ -74,6 +74,14 @@ def read_GMT_sign(GMT_file, UP_suffix='_UP', DN_suffix='_DN', verbose=False):
                 signed_sign[signatureName] = {direction: geneArray}
             if (verbose):
                 print(i, ": ", signature_full_name)
+                
+    ### remove UP in case one just wants the signature as a dictionary
+    if (directed==False):
+        mymarkersk={}
+        for key, value in signed_sign.items():
+            mymarkersk[key]=value['UP']
+        signed_sign=mymarkersk.copy()
+        
     return(signed_sign)
 
 
