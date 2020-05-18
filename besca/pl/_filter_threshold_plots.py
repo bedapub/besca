@@ -6,7 +6,7 @@ import sys
 import anndata
 from ..datasets._mito import get_mito_genes
 
-def kp_genes (adata, 
+def kp_genes (adata,
               threshold = 0,
               min_genes = 100,
               ax = None):
@@ -29,7 +29,7 @@ def kp_genes (adata,
     -------
     None
         Figure is displayed
-    
+
     Example
     -------
 
@@ -42,7 +42,7 @@ def kp_genes (adata,
     >>> fig, ax1 = plt.subplots(1)
     >>> bc.pl.kp_genes(adata, min_genes = min_genes, ax = ax1)
 
-    .. plot:: 
+    .. plot::
 
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
@@ -52,7 +52,7 @@ def kp_genes (adata,
         >>> bc.pl.kp_genes(adata, min_genes = min_genes, ax = ax1)
 
     """
-    nbr_cells = adata.shape[0] 
+    nbr_cells = adata.shape[0]
     ax = ax or plt.gca()
 
     ax.plot(-np.sort(-np.array(np.sum(adata.X>threshold,axis=1).T)[0]));
@@ -101,7 +101,7 @@ def kp_counts(adata,
     >>> fig, ax1 = plt.subplots(1)
     >>> bc.pl.kp_counts(adata, min_counts = min_counts, ax = ax1)
 
-    .. plot:: 
+    .. plot::
 
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
@@ -111,7 +111,7 @@ def kp_counts(adata,
         >>> bc.pl.kp_counts(adata, min_counts = min_counts, ax = ax1)
 
     """
-    nbr_cells = adata.shape[0] 
+    nbr_cells = adata.shape[0]
     ax = ax or plt.gca()
 
     ax.plot(-np.sort(-np.array(adata.X.sum(axis=1).T)[0]))
@@ -125,7 +125,7 @@ def kp_counts(adata,
     return(None)
 
 
-def kp_cells (adata,  
+def kp_cells (adata,
               threshold= 0,
               min_cells = 2,
               ax = None):
@@ -151,7 +151,7 @@ def kp_cells (adata,
     Returns
     -------
     None
-        Figure is displayed 
+        Figure is displayed
 
     Example
     -------
@@ -165,7 +165,7 @@ def kp_cells (adata,
     >>> fig, ax1 = plt.subplots(1)
     >>> bc.pl.kp_cells(adata, min_cells = min_cells, ax = ax1)
 
-    .. plot:: 
+    .. plot::
 
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
@@ -176,7 +176,7 @@ def kp_cells (adata,
 
 
     """
-    nbr_cells = adata.shape[0] 
+    nbr_cells = adata.shape[0]
 
     ax = ax or plt.gca()
 
@@ -212,7 +212,7 @@ def max_counts (adata,
     Returns
     -------
     None
-        Figure is displayed 
+        Figure is displayed
 
     Example
     -------
@@ -226,7 +226,7 @@ def max_counts (adata,
     >>> fig, ax1 = plt.subplots(1)
     >>> bc.pl.max_counts(adata, max_counts = max_counts, ax = ax1)
 
-    .. plot:: 
+    .. plot::
 
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
@@ -281,7 +281,7 @@ def max_genes (adata,
     if adata.obs.get('n_counts') is None:
         adata.obs['n_counts'] = adata.X.sum(axis=1)
 
-    if adata.obs.get('n_genes')is not None:
+    if adata.obs.get('n_genes') is None:
         adata.obs['n_genes'] = np.sum(adata.X > 0, axis = 1)
 
     x=adata.obs.get('n_counts').tolist()
@@ -301,7 +301,7 @@ def max_genes (adata,
     return(None)
 
 
-def max_mito (adata,  
+def max_mito (adata,
               max_mito = 0.05,
               annotation_type = 'SYMBOL',
               species = 'human',
@@ -317,7 +317,7 @@ def max_mito (adata,
         The annotated data matrix.
     threshold: `int` | default = 0
         integer value that defines the minimum expression threshold for a gene to be defined as expressed. Default value is 1.
-    min_cells: `int` | default = 2 
+    min_cells: `int` | default = 2
         visualize the chosen minimum number of cells that need to express a gene threshold
     ax: `axes` | default = None
         pass the axes class to which your figure should be added
@@ -325,7 +325,7 @@ def max_mito (adata,
     Returns
     -------
     None
-        Figure is displayed 
+        Figure is displayed
 
     """
 
@@ -352,7 +352,7 @@ def max_mito (adata,
 
             # Extract mitochondrial genes
             mito_genes = [name for name in adata.var_names if name.startswith('MT-')]
-                
+
             # for each cell compute fraction of counts in mito genes vs. all genes
             print('adding percent mitochondrial genes to dataframe for species human')
             adata.obs['percent_mito'] = np.sum(adata[:, mito_genes].X, axis=1).A1 / np.sum(adata.X, axis=1).A1
@@ -372,12 +372,12 @@ def max_mito (adata,
             ax.set_title('mitochondrial gene content in dataset before filtering');
             ax.hlines(max_mito, 0, max(x), color = "red", linestyle = "dotted");
 
-            if copy == True: 
+            if copy == True:
                 return(adata)
             else:
                 return(None)
 
-        elif species == 'mouse':    
+        elif species == 'mouse':
             # Extract mitochondrial genes
             mito_genes = [name for name in adata.var_names if name.startswith('mt-')]
 
@@ -400,7 +400,7 @@ def max_mito (adata,
             ax.set_title('mitochondrial gene content in dataset before filtering');
             ax.hlines(max_mito, 0, max(x), color = "red", linestyle = "dotted");
 
-            if copy == True: 
+            if copy == True:
                 return(adata)
             else:
                 return(None)
@@ -433,11 +433,11 @@ def max_mito (adata,
         ax.set_title('mitochondrial gene content in dataset before filtering')
         ax.hlines(max_mito, 0, max(x), color = "red", linestyle = "dotted")
 
-        if copy == True: 
+        if copy == True:
             return(adata)
         else:
             return(None)
 
-    else: 
+    else:
         print('Calculating "percent_mito" and "n_genes" is currently only implemented for either SYMBOL gene symbols or ENSEMBL gene IDs.')
         print('Please supply an adata object where adata.obs contains these values already.')
