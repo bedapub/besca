@@ -11,7 +11,7 @@ def kp_genes (adata,
               min_genes = 100,
               ax = None):
     """visualize the minimum gene per cell threshold.
-    
+
     Generates a "knee-plot" to visualize the chosen threshold for the minimum number of genes that a cell expresses to validate if this is a good threshold.
 
     Parameters
@@ -29,10 +29,10 @@ def kp_genes (adata,
     -------
     None
         Figure is displayed
-        
+    
     Example
     -------
-    
+
     Generate a "knee-plot" for a minimum of 600 expressed genes per cell for an example dataset.
 
     >>> import besca as bc
@@ -54,7 +54,7 @@ def kp_genes (adata,
     """
     nbr_cells = adata.shape[0] 
     ax = ax or plt.gca()
-    
+
     ax.plot(-np.sort(-np.array(np.sum(adata.X>threshold,axis=1).T)[0]));
     ax.set_yscale('log',basey=10);
     ax.set_xscale('log',basex=10);
@@ -87,11 +87,11 @@ def kp_counts(adata,
     -------
     None
         figure is displayed
-    
-    
+
+
     Example
     -------
-    
+
     Generate a "knee-plot" for a minimum of 600 UMI counts per cell for an example dataset.
 
     >>> import besca as bc
@@ -102,7 +102,7 @@ def kp_counts(adata,
     >>> bc.pl.kp_counts(adata, min_counts = min_counts, ax = ax1)
 
     .. plot:: 
-    
+
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
         >>> adata = bc.datasets.pbmc3k_raw()
@@ -113,7 +113,7 @@ def kp_counts(adata,
     """
     nbr_cells = adata.shape[0] 
     ax = ax or plt.gca()
-    
+
     ax.plot(-np.sort(-np.array(adata.X.sum(axis=1).T)[0]))
     ax.set_yscale('log',basey=10)
     ax.set_xscale('log',basex=10)
@@ -155,7 +155,7 @@ def kp_cells (adata,
 
     Example
     -------
-    
+
     Generates a "knee-plot" for a the minimum number of cells expressing a gene in a given dataset.
 
     >>> import besca as bc
@@ -166,7 +166,7 @@ def kp_cells (adata,
     >>> bc.pl.kp_cells(adata, min_cells = min_cells, ax = ax1)
 
     .. plot:: 
-    
+
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
         >>> adata = bc.datasets.pbmc3k_raw()
@@ -174,7 +174,7 @@ def kp_cells (adata,
         >>> fig, ax1 = plt.subplots(1)
         >>> bc.pl.kp_cells(adata, min_cells = min_cells, ax = ax1)
 
-    
+
     """
     nbr_cells = adata.shape[0] 
 
@@ -213,10 +213,10 @@ def max_counts (adata,
     -------
     None
         Figure is displayed 
-    
+
     Example
     -------
-    
+
     Generates a "knee-plot" for a maximum UMI count of 6500 for the example dataset.
 
     >>> import besca as bc
@@ -227,7 +227,7 @@ def max_counts (adata,
     >>> bc.pl.max_counts(adata, max_counts = max_counts, ax = ax1)
 
     .. plot:: 
-    
+
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
         >>> adata = bc.datasets.pbmc3k_raw()
@@ -236,42 +236,26 @@ def max_counts (adata,
         >>> bc.pl.max_counts(adata, max_counts = max_counts, ax = ax1)
 
     """
-    if adata.obs.get('n_counts') is not None and adata.obs.get('n_genes')is not None:
-        x=adata.obs.get('n_counts').tolist()
-        y=adata.obs.get('n_genes').tolist()
-
-        data_plot = pd.DataFrame({'n_counts':x, 'n_genes':y})
-        min_genes = 100
-
-        ax = ax or plt.gca()
-
-        ax.scatter(data=data_plot, x = 'n_counts', y='n_genes', alpha = 0.4, s = 0.5);
-        ax.vlines(max_counts, min_genes, max(y), color = "red", linestyle = "dotted");
-        ax.set_xlabel("n_counts");
-        ax.set_ylabel("n_genes");
-        ax.set_title('max counts cutoff');
-
-        return(None)
-    else:
+    if adata.obs.get('n_counts') is None:
         adata.obs['n_counts'] = adata.X.sum(axis=1)
+    if adata.obs.get('n_genes') is None:
         adata.obs['n_genes'] = np.sum(adata.X > 0, axis = 1)
 
-        x=adata.obs.get('n_counts').tolist()
-        y=adata.obs.get('n_genes').tolist()
+    x=adata.obs.get('n_counts').tolist()
+    y=adata.obs.get('n_genes').tolist()
 
-        data_plot = pd.DataFrame({'n_counts':x, 'n_genes':y})
-        min_genes = 100
+    data_plot = pd.DataFrame({'n_counts':x, 'n_genes':y})
+    min_genes = 100
 
-        ax = ax or plt.gca()
+    ax = ax or plt.gca()
 
-        ax.scatter(data=data_plot, x = 'n_counts', y='n_genes', alpha = 0.4, s = 0.5);
-        ax.vlines(max_counts, min_genes, max(y), color = "red", linestyle = "dotted");
-        ax.set_xlabel("n_counts");
-        ax.set_ylabel("n_genes");
-        ax.set_title('max counts cutoff');
+    ax.scatter(data=data_plot, x = 'n_counts', y='n_genes', alpha = 0.4, s = 0.5);
+    ax.vlines(max_counts, min_genes, max(y), color = "red", linestyle = "dotted");
+    ax.set_xlabel("n_counts");
+    ax.set_ylabel("n_genes");
+    ax.set_title('max counts cutoff');
 
-        return(None)
-
+    return(None)
 
 def max_genes (adata,
                max_genes = 5000,
@@ -342,7 +326,7 @@ def max_mito (adata,
     -------
     None
         Figure is displayed 
-    
+
     """
 
     if adata.obs.get('percent_mito') is not None and adata.obs.get('n_counts')is not None:
@@ -358,17 +342,17 @@ def max_mito (adata,
         ax.scatter(data=data_plot, x = 'n_counts', y='percent_mito', alpha = 0.2, s = 0.3);
         ax.set_xlabel("n_counts");
         ax.set_ylabel("percent_mito");
-        ax.set_title('mitochondrial gene content in dataset before filtering');
+        ax.set_title('Mitochondrial gene content');
         ax.hlines(max_mito, 0, max(x), color = "red", linestyle = "dotted");
 
         return(None)
-    
+
     elif annotation_type == 'SYMBOL':
         if species == 'human':
 
             # Extract mitochondrial genes
             mito_genes = [name for name in adata.var_names if name.startswith('MT-')]
-                    
+                
             # for each cell compute fraction of counts in mito genes vs. all genes
             print('adding percent mitochondrial genes to dataframe for species human')
             adata.obs['percent_mito'] = np.sum(adata[:, mito_genes].X, axis=1).A1 / np.sum(adata.X, axis=1).A1
@@ -393,10 +377,10 @@ def max_mito (adata,
             else:
                 return(None)
 
-        elif species == 'mouse':        
+        elif species == 'mouse':    
             # Extract mitochondrial genes
             mito_genes = [name for name in adata.var_names if name.startswith('mt-')]
-                    
+
             # for each cell compute fraction of counts in mito genes vs. all genes
             print('adding percent mitochondrial genes to dataframe for species mouse')
             adata.obs['percent_mito'] = np.sum(adata[:, mito_genes].X, axis=1).A1 / np.sum(adata.X, axis=1).A1
@@ -434,7 +418,7 @@ def max_mito (adata,
         adata.obs['percent_mito'] = np.sum(adata[:, mito_genes].X, axis=1).A1 / np.sum(adata.X, axis=1).A1
         # add the total counts per cell as observations-annotation to adata
         adata.obs['n_counts'] = adata.X.sum(axis=1).A1
-        
+
         #generate data for plot
         x=adata.obs.get('n_counts').tolist()
         z=adata.obs.get('percent_mito').tolist()
