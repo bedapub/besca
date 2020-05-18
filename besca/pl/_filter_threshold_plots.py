@@ -61,7 +61,7 @@ def kp_genes (adata,
     ax.set_ylabel("Number of expressed genes");
     ax.set_xlabel("Cells");
     ax.set_title('Gene expressed if count > ' +  str(threshold));
-    ax.hlines(min_genes,xmin=0,xmax=nbr_cells * 1.3,color="red",linestyles="dashed");
+    ax.hlines(min_genes,xmin=0,xmax=nbr_cells * 1.3,color="red",linestyles="dotted");
 
     return(None)
 
@@ -120,7 +120,7 @@ def kp_counts(adata,
     ax.set_ylabel("Number of UMI counts")
     ax.set_xlabel("Cells")
     ax.set_title('counts per cell')
-    ax.hlines(min_counts, xmin=0, xmax=nbr_cells*1.3, color="red", linestyles="dashed")
+    ax.hlines(min_counts, xmin=0, xmax=nbr_cells*1.3, color="red", linestyles="dotted")
 
     return(None)
 
