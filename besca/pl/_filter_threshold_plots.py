@@ -60,7 +60,7 @@ def kp_genes (adata,
     ax.set_xscale('log',basex=10);
     ax.set_ylabel("Number of expressed genes");
     ax.set_xlabel("Cells");
-    ax.set_title('Gene expressed [count > ' +  str(threshold) + ']');
+    ax.set_title('Expressed genes [count > ' +  str(threshold) + ']');
     ax.hlines(min_genes,xmin=0,xmax=nbr_cells * 1.3,color="red",linestyles="dotted");
 
     return(None)
@@ -119,7 +119,7 @@ def kp_counts(adata,
     ax.set_xscale('log',basex=10)
     ax.set_ylabel("Number of UMI counts")
     ax.set_xlabel("Cells")
-    ax.set_title('counts per cell')
+    ax.set_title('Counts per cell')
     ax.hlines(min_counts, xmin=0, xmax=nbr_cells*1.3, color="red", linestyles="dotted")
 
     return(None)
@@ -185,7 +185,7 @@ def kp_cells (adata,
     ax.set_xscale("log", basex = 10);
     ax.set_xlabel("genes");
     ax.set_ylabel("number of cells expressing a gene");
-    ax.set_title("number of cells expressing a gene if threshold " + str(threshold));
+    ax.set_title("Cells that express a gene [count > " + str(threshold) + ']');
 
     cutoff = np.sum(-np.sort(-np.array(np.sum(adata.X > threshold, axis = 0))) > min_cells)
     ax.vlines(cutoff, 0, nbr_cells*1.05, color = "red", linestyle = "dotted");
@@ -293,44 +293,28 @@ def max_genes (adata,
     -------
     None
         Figure is displayed
-    
     """
-    if adata.obs.get('n_counts') is not None and adata.obs.get('n_genes')is not None:
-        x=adata.obs.get('n_counts').tolist()
-        y=adata.obs.get('n_genes').tolist()
-
-        data_plot = pd.DataFrame({'n_counts':x, 'n_genes':y})
-        min_UMI = 200
-
-        ax = ax or plt.gca()
-
-        ax.scatter(data=data_plot, x = 'n_counts', y='n_genes', alpha = 0.4, s = 0.5);
-        ax.hlines(max_genes, min_UMI, max(x), color = "red", linestyle = "dotted");
-        ax.set_xlabel("n_counts");
-        ax.set_ylabel("n_genes");
-        ax.set_title('max gene cutoff');
-
-        return(None)
-
-    else:
+    if adata.obs.get('n_counts') is None:
         adata.obs['n_counts'] = adata.X.sum(axis=1)
+
+    if adata.obs.get('n_genes')is not None:
         adata.obs['n_genes'] = np.sum(adata.X > 0, axis = 1)
 
-        x=adata.obs.get('n_counts').tolist()
-        y=adata.obs.get('n_genes').tolist()
+    x=adata.obs.get('n_counts').tolist()
+    y=adata.obs.get('n_genes').tolist()
 
-        data_plot = pd.DataFrame({'n_counts':x, 'n_genes':y})
-        min_UMI = 200
+    data_plot = pd.DataFrame({'n_counts':x, 'n_genes':y})
+    min_UMI = 200
 
-        ax = ax or plt.gca()
+    ax = ax or plt.gca()
 
-        ax.scatter(data=data_plot, x = 'n_counts', y='n_genes', alpha = 0.4, s = 0.5);
-        ax.hlines(max_genes, min_UMI, max(x), color = "red", linestyle = "dotted");
-        ax.set_xlabel("n_counts");
-        ax.set_ylabel("n_genes");
-        ax.set_title('max gene cutoff');
+    ax.scatter(data=data_plot, x = 'n_counts', y='n_genes', alpha = 0.4, s = 0.5);
+    ax.hlines(max_genes, min_UMI, max(x), color = "red", linestyle = "dotted");
+    ax.set_xlabel("n_counts");
+    ax.set_ylabel("n_genes");
+    ax.set_title('Filtering by the maximum gene count');
 
-        return(None)
+    return(None)
 
 
 def max_mito (adata,  
