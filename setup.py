@@ -5,11 +5,11 @@ if __name__ == '__main__':
     requires = [l.strip() for l in requirements]
 
   setup(name='besca',
-        version='2.1',
+        version='2.1.1',
         description='collection of BEDA internal python functions for analysing single cell RNAseq data',
         long_description= 'please view https://pages.github.com/bedapub/besca/',
         classifiers=[
-          'Development Status :: Release 2.1 (Scanpy 1.4.1)',
+          'Development Status :: Release 2.1.1 (Scanpy 2.8)',
           'Programming Language :: Python :: 3.7.1',
           'License :: GPLv3'],
         url='https://github.com/bedapub/besca',
