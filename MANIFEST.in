@@ -1,0 +1,2 @@
+include versioneer.py
+include besca/_version.py
