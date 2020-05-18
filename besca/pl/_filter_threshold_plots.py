@@ -60,7 +60,7 @@ def kp_genes (adata,
     ax.set_xscale('log',basex=10);
     ax.set_ylabel("Number of expressed genes");
     ax.set_xlabel("Cells");
-    ax.set_title('Gene expressed if count > ' +  str(threshold));
+    ax.set_title('Gene expressed [count > ' +  str(threshold) + ']');
     ax.hlines(min_genes,xmin=0,xmax=nbr_cells * 1.3,color="red",linestyles="dotted");
 
     return(None)
