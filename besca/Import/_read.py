@@ -75,6 +75,9 @@ def read_mtx(
     symbols = var_anno[1]
     ensembl_id = var_anno[0]
 
+    adata.var['ENSEMBL'] = ensembl_id.tolist()
+    adata.var.index.names = ['index']
+
     if use_genes == 'SYMBOL':
         adata.var_names = symbols
 
@@ -84,22 +87,16 @@ def read_mtx(
 
         if symbols.tolist() != ensembl_id.tolist():
             print('adding ENSEMBL gene ids to adata.var')
-            adata.var['ENSEMBL'] = ensembl_id.tolist()
-            adata.var.index.names = ['index']
             adata.var['SYMBOL'] = symbols.tolist()
     elif use_genes == 'ENSEMBL':
         adata.var_names = ensembl_id
 
-        #add symbols to object
         if symbols[0] != ensembl_id[0]:
+            #add symbols to object
             print('adding symbols to adata.var')
             adata.var['SYMBOL'] = symbols.tolist()
-            adata.var.index.names = ['index']
-            adata.var['ENSEMBL'] = ensembl_id.tolist()
-        #lookup the corresponding Symbols
         else:
-            adata.var['ENSEMBL'] = ensembl_id.tolist()
-            adata.var.index.names = ['index']
+            #lookup the corresponding Symbols
             adata.var['SYMBOL'] = convert_ensembl_to_symbol(ensembl_id.tolist(), species = species)
     else:
         sys.exit('supplied unknown use_genes parameter')
