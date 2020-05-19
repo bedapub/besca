@@ -5,33 +5,54 @@ from .._helper import convert_ensembl_to_symbol
 
 import sys
 
+def is_valid_filepath(filepath):
+    """Assert that matrix.mtx, genes.tsv, and barcodes.tsv can be found in the
+    filepath.
+
+    Parameters
+    ----------
+    filepath: `str`
+        filepath as string to the directory that is expected to contain at least
+        following files: `matrix.mtx`, `genes.tsv`, and `barcodes.tsv`.
+
+    Returns
+    -------
+    returns a Boolean value
+    """
+
+    mtx_file = os.path.join(filepath, 'matrix.mtx')
+    genes_file = os.path.join(filepath, 'genes.tsv')
+    cells_file = os.path(filepath, 'barcodes.tsv')
+    valid = os.path.isfile(mtx_file) and os.path.isfile(genes_file) and os.path.isfile(cells_file)
+    return(valid)
+
 def read_mtx(
         filepath,
         annotation = True,
         use_genes = 'SYMBOL',
-        species = 'human'): 
-   
+        species = 'human'):
+
     """Read matrix.mtx, genes.tsv, barcodes.tsv to AnnData object.
 
-    By specifiying an input folder this function reads the contained matrix.mtx, 
-    genes.tsv and barcodes.tsv files to an AnnData object. In case annotation = True 
+    By specifiying an input folder this function reads the contained matrix.mtx,
+    genes.tsv and barcodes.tsv files to an AnnData object. In case annotation = True
     it also adds the annotation contained in metadata.tsv to the object.
 
-    
+
     Parameters
     ----------
     filepath: `str`
         filepath as string to the directory containg the matrix.mtx, genes.tsv,
         barcodes.tsv and if applicable metadata.tsv
     annotation: `bool` (default = True)
-        boolian identifier if an annotation file is also located in the folder 
+        boolian identifier if an annotation file is also located in the folder
         and should be added to the AnnData object
     use_genes: `str`
         either SYMBOL or ENSEMBL. Other genenames are not yet supported.
     species: `str` | default = 'human'
         string specifying the species, only needs to be used when no Gene Symbols
         are supplied and you only have the ENSEMBLE gene ids to perform a lookup.
-    
+
     Returns
     -------
     returns an AnnData object
@@ -49,7 +70,7 @@ def read_mtx(
             #make unique
             print('making var_names unique')
             adata.var_names_make_unique()
-            
+
             #add ENSEMBL ids if present in genes.tsv file
             symbols = pd.read_csv(os.path.join(filepath, 'genes.tsv'), header=None, sep='\\t',engine='python')[1] #get gene symbols
             ENSEMBL_id = pd.read_csv(os.path.join(filepath, 'genes.tsv'), header=None, sep='\\t',engine='python')[0] #get ENSEMBL Ids
@@ -66,7 +87,7 @@ def read_mtx(
                     adata.obs.index = adata.obs.get('CELL').tolist()
 
             return(adata)
-        
+
         if not os.path.exists(os.path.join(filepath, 'matrix.mtx')):
             raise ValueError('Reading file failed, file does not exist.')
 
@@ -100,7 +121,7 @@ def read_mtx(
                     adata.obs.index = adata.obs.get('CELL').tolist()
 
             return(adata)
-        
+
         if not os.path.exists(os.path.join(filepath, 'matrix.mtx')):
             raise ValueError('Reading file failed, file does not exist.')
     else:
