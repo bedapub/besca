@@ -3,12 +3,14 @@ besca.egg-info/
 .ipynb_checkpoints
 cache/
 workbooks/test.ipynb
+workbooks/analyzed
 figures_testing/
 *~
 *.swp
 
 build
 pip
+*.pyc
 
 README.private.md
 besca/datasets/data/pbmc_storage*_downsampled.h5ad
