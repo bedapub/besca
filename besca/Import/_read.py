@@ -5,9 +5,8 @@ from .._helper import convert_ensembl_to_symbol
 
 import sys
 
-def is_valid_filepath(filepath):
-    """Assert that matrix.mtx, genes.tsv, and barcodes.tsv can be found in the
-    filepath.
+def assert_filepath(filepath):
+    """Asserts that the filepath contains the files required by read_mtx.
 
     Parameters
     ----------
@@ -17,14 +16,19 @@ def is_valid_filepath(filepath):
 
     Returns
     -------
-    returns a Boolean value
+    None if the filepath is valid. If not, an Exception will be raised
     """
-
-    mtx_file = os.path.join(filepath, 'matrix.mtx')
-    genes_file = os.path.join(filepath, 'genes.tsv')
-    cells_file = os.path(filepath, 'barcodes.tsv')
-    valid = os.path.isfile(mtx_file) and os.path.isfile(genes_file) and os.path.isfile(cells_file)
-    return(valid)
+    req_files = ['matrix.mtx', 'genes.tsv', 'barcodes.tsv']
+    req_files_exist = [os.path.isfile(os.path.join(filepath, x)) for x in
+            req_files]
+    valid = all(req_files_exist)
+    if valid:
+        return(None)
+    else:
+        for ind, exist  in enumerate(req_files_exist):
+            if not exist:
+                raise FileNotFoundError('{} is not found in '
+                        'the given path `{}`'.format(req_files[ind], filepath))
 
 def read_mtx(
         filepath,
@@ -58,71 +62,52 @@ def read_mtx(
     returns an AnnData object
     """
 
+    assert_filepath(filepath)
+
+    print('reading matrix.mtx')
+    adata = read(os.path.join(filepath, 'matrix.mtx'), cache= True).T  #transpose the data
+
+    print('adding cell barcodes')
+    adata.obs_names = pd.read_csv(os.path.join(filepath, 'barcodes.tsv'), header=None)[0]
+
+    print('adding genes')
+    var_anno = pd.read_csv(os.path.join(filepath, 'genes.tsv'), header=None, sep='\\t',engine='python')
+    symbols = var_anno[1]
+    ensembl_id = var_anno[0]
+
     if use_genes == 'SYMBOL':
-        if os.path.isfile(os.path.join(filepath, 'matrix.mtx')):
-            print('reading matrix.mtx')
-            adata = read(os.path.join(filepath, 'matrix.mtx'), cache= True).T  #transpose the data
-            print('adding genes')
-            adata.var_names = pd.read_csv(os.path.join(filepath, 'genes.tsv'), header=None, sep='\\t',engine='python')[1] # Use gene symbols
-            print('adding cell barcodes')
-            adata.obs_names = pd.read_csv(os.path.join(filepath, 'barcodes.tsv'), header=None)[0]
+        adata.var_names = symbols
 
-            #make unique
-            print('making var_names unique')
-            adata.var_names_make_unique()
+        #make unique
+        print('making var_names unique')
+        adata.var_names_make_unique()
 
-            #add ENSEMBL ids if present in genes.tsv file
-            symbols = pd.read_csv(os.path.join(filepath, 'genes.tsv'), header=None, sep='\\t',engine='python')[1] #get gene symbols
-            ENSEMBL_id = pd.read_csv(os.path.join(filepath, 'genes.tsv'), header=None, sep='\\t',engine='python')[0] #get ENSEMBL Ids
-            if symbols.tolist() != ENSEMBL_id.tolist():
-                print('adding ENSEMBL gene ids to adata.var')
-                adata.var['ENSEMBL'] = ENSEMBL_id.tolist()
-                adata.var.index.names = ['index']
-                adata.var['SYMBOL'] = symbols.tolist()
-
-            if annotation == True:
-                print('adding annotation')
-                adata.obs = pd.read_csv(os.path.join(filepath, 'metadata.tsv'), sep='\\t',engine='python')
-                if adata.obs.get('CELL') is not None:
-                    adata.obs.index = adata.obs.get('CELL').tolist()
-
-            return(adata)
-
-        if not os.path.exists(os.path.join(filepath, 'matrix.mtx')):
-            raise ValueError('Reading file failed, file does not exist.')
-
+        if symbols.tolist() != ensembl_id.tolist():
+            print('adding ENSEMBL gene ids to adata.var')
+            adata.var['ENSEMBL'] = ensembl_id.tolist()
+            adata.var.index.names = ['index']
+            adata.var['SYMBOL'] = symbols.tolist()
     elif use_genes == 'ENSEMBL':
-        if os.path.isfile(os.path.join(filepath, 'matrix.mtx')):
-            print('reading matrix.mtx')
-            adata = read(os.path.join(filepath, 'matrix.mtx'), cache= True).T  #transpose the data
-            print('adding genes')
-            adata.var_names = pd.read_csv(os.path.join(filepath, 'genes.tsv'), header=None, sep='\\t',engine='python')[0] # Use gene symbols
-            print('adding cell barcodes')
-            adata.obs_names = pd.read_csv(os.path.join(filepath, 'barcodes.tsv'), header=None)[0]
+        adata.var_names = ensembl_id
 
-            #add symbols to object
-            symbols = pd.read_csv(os.path.join(filepath, 'genes.tsv'), header=None, sep='\\t',engine='python')[1] #get gene symbols
-            ENSEMBL_id = pd.read_csv(os.path.join(filepath, 'genes.tsv'), header=None, sep='\\t',engine='python')[0] #get ENSEMBL Ids
-            if symbols[0] != ENSEMBL_id[0]:
-                print('adding symbols to adata.var')
-                adata.var['SYMBOL'] = symbols.tolist()
-                adata.var.index.names = ['index']
-                adata.var['ENSEMBL'] = ENSEMBL_id.tolist()
-            #lookup the corresponding Symbols
-            else:
-                adata.var['ENSEMBL'] = ENSEMBL_id.tolist()
-                adata.var.index.names = ['index']
-                adata.var['SYMBOL'] = convert_ensembl_to_symbol(ENSEMBL_id.tolist(), species = species)
-
-            if annotation == True:
-                print('adding annotation')
-                adata.obs = pd.read_csv(os.path.join(filepath, 'metadata.tsv'), sep='\\t',engine='python')
-                if adata.obs.get('CELL') is not None:
-                    adata.obs.index = adata.obs.get('CELL').tolist()
-
-            return(adata)
-
-        if not os.path.exists(os.path.join(filepath, 'matrix.mtx')):
-            raise ValueError('Reading file failed, file does not exist.')
+        #add symbols to object
+        if symbols[0] != ensembl_id[0]:
+            print('adding symbols to adata.var')
+            adata.var['SYMBOL'] = symbols.tolist()
+            adata.var.index.names = ['index']
+            adata.var['ENSEMBL'] = ensembl_id.tolist()
+        #lookup the corresponding Symbols
+        else:
+            adata.var['ENSEMBL'] = ensembl_id.tolist()
+            adata.var.index.names = ['index']
+            adata.var['SYMBOL'] = convert_ensembl_to_symbol(ensembl_id.tolist(), species = species)
     else:
         sys.exit('supplied unknown use_genes parameter')
+
+    if annotation == True:
+        print('adding annotation')
+        adata.obs = pd.read_csv(os.path.join(filepath, 'metadata.tsv'), sep='\\t',engine='python')
+        if adata.obs.get('CELL') is not None:
+            adata.obs.index = adata.obs.get('CELL').tolist()
+
+    return(adata)
