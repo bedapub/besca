@@ -2,7 +2,7 @@
 
 #import other besca functions
 from ..pp._filtering import filter
-from ..Import._read import read_mtx
+from ..import._read import read_mtx
 from ..export._export import labeling, labeling_info
 from .. import _logging as logs
 from ._FAIR_export import export_cp10k, export_regressedOut, export_metadata, export_clustering, export_rank

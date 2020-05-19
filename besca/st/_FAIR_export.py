@@ -2,7 +2,7 @@
 
 #import other functions
 from ..export._export import X_to_mtx, raw_to_mtx, louvain, clustering,  labeling, analysis_metadata, ranked_genes, labeling_info
-from ..Import._read import read_mtx
+from ..import._read import read_mtx
 from .. import _logging as logs
 from os.path import join
 from os import makedirs
