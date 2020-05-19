@@ -2,7 +2,7 @@ import os
 from matplotlib.pyplot import subplots, tight_layout
 import seaborn as sns
 from pandas import DataFrame, melt
-from ..tl._count_occurances import count_occurance_subset, count_occurance_subset_conditions
+from ..tl._count_occurrences import count_occurrence_subset, count_occurrence_subset_conditions
 
 def celllabel_quant_boxplot(adata,
                             count_variable,
@@ -43,13 +43,13 @@ def celllabel_quant_boxplot(adata,
     """
     #generate dataframe to plot
     if plot_percentage:
-        data = count_occurance_subset_conditions(adata, 
+        data = count_occurrence_subset_conditions(adata, 
                                                  subset_variable = subset_variable, 
                                                  count_variable = count_variable, 
                                                  condition_identifier = condition_identifier,  
                                                  return_percentage = True)
     else:
-        data = count_occurance_subset_conditions(adata, 
+        data = count_occurrence_subset_conditions(adata, 
                                                  subset_variable = subset_variable, 
                                                  count_variable = count_variable, 
                                                  condition_identifier = condition_identifier,  
@@ -132,7 +132,7 @@ def celllabel_quant_stackedbar(adata,
         >>> fig = bc.pl.celllabel_quant_stackedbar(adata, count_variable = 'louvain', subset_variable = 'donor');
     
     """
-    counts_celltype = count_occurance_subset(adata, subset_variable, count_variable =count_variable, return_percentage = False)
+    counts_celltype = count_occurrence_subset(adata, subset_variable, count_variable =count_variable, return_percentage = False)
     percentages = DataFrame(index = counts_celltype.index.tolist(), columns = counts_celltype.columns.tolist())
     
     for cell in counts_celltype.index.tolist():
@@ -185,7 +185,7 @@ def louvain_quant_stackedbar(adata,
         >>> fig = bc.pl.louvain_quant_stackedbar(adata, subset_variable = 'donor');
     
     """
-    counts_celltype = count_occurance_subset(adata, subset_variable, count_variable =count_variable, return_percentage = False)
+    counts_celltype = count_occurrence_subset(adata, subset_variable, count_variable =count_variable, return_percentage = False)
     percentages = DataFrame(index = counts_celltype.index.tolist(), columns = counts_celltype.columns.tolist())
     
     for cell in counts_celltype.index.tolist():
