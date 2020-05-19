@@ -43,13 +43,9 @@ def read_mtx(
     if use_genes == 'SYMBOL':
         if os.path.isfile(os.path.join(filepath, 'matrix.mtx')):
             print('reading matrix.mtx')
-            if citeseq is None:
-                adata = read(os.path.join(filepath, 'matrix.mtx'), cache= True).T  #transpose the data
-            elif citeseq == 'gex_only':
-                adata = read(os.path.join(filepath, 'matrix.mtx'), cache= True, gex_only = True).T  #transpose the data
-            elif citeseq == 'citeseq_only':
-                adata = read(os.path.join(filepath, 'matrix.mtx'), cache= True).T
             
+            adata = read(os.path.join(filepath, 'matrix.mtx'), cache= True).T  #transpose the data
+           
             print('adding genes')
             adata.var_names = pd.read_csv(os.path.join(filepath, 'genes.tsv'), header=None, sep='\\t',engine='python')[1] # Use gene symbols
             print('adding cell barcodes')
@@ -67,14 +63,21 @@ def read_mtx(
                 adata.var['ENSEMBL'] = ENSEMBL_id.tolist()
                 adata.var.index.names = ['index']
                 adata.var['SYMBOL'] = symbols.tolist()
+            
+            if citeseq is not None:
+                features = pd.read_csv(os.path.join(filepath, 'genes.tsv'), header=None, sep='\\t',engine='python')[2]
+                adata.var['feature_type'] = features.tolist()
 
             if annotation == True:
                 print('adding annotation')
                 adata.obs = pd.read_csv(os.path.join(filepath, 'metadata.tsv'), sep='\\t',engine='python')
                 if adata.obs.get('CELL') is not None:
                     adata.obs.index = adata.obs.get('CELL').tolist()
+            
+            if citeseq == 'gex_only':
+                adata = adata[:, adata.var.feature_type == 'Gene Expression'].copy()
             if citeseq == 'citeseq_only':
-                adata = adata[adata.var.feature_type == 'Antibody Capture'].copy()
+                adata = adata[:, adata.var.feature_type == 'Antibody Capture'].copy()
             
             return(adata)
         
@@ -84,12 +87,8 @@ def read_mtx(
     elif use_genes == 'ENSEMBL':
         if os.path.isfile(os.path.join(filepath, 'matrix.mtx')):
             print('reading matrix.mtx')
-            if citeseq is None:
-                adata = read(os.path.join(filepath, 'matrix.mtx'), cache= True).T  #transpose the data
-            elif citeseq == 'gex_only':
-                adata = read(os.path.join(filepath, 'matrix.mtx'), cache= True, gex_only = True).T  #transpose the data
-            elif citeseq == 'citeseq_only':
-                adata = read(os.path.join(filepath, 'matrix.mtx'), cache= True).T
+            
+            adata = read(os.path.join(filepath, 'matrix.mtx'), cache= True).T  #transpose the data
             print('adding genes')
             adata.var_names = pd.read_csv(os.path.join(filepath, 'genes.tsv'), header=None, sep='\\t',engine='python')[0] # Use gene symbols
             print('adding cell barcodes')
@@ -103,11 +102,16 @@ def read_mtx(
                 adata.var['SYMBOL'] = symbols.tolist()
                 adata.var.index.names = ['index']
                 adata.var['ENSEMBL'] = ENSEMBL_id.tolist()
+
             #lookup the corresponding Symbols
             else:
                 adata.var['ENSEMBL'] = ENSEMBL_id.tolist()
                 adata.var.index.names = ['index']
                 adata.var['SYMBOL'] = convert_ensembl_to_symbol(ENSEMBL_id.tolist(), species = species)
+
+            if citeseq is not None:
+                features = pd.read_csv(os.path.join(filepath, 'genes.tsv'), header=None, sep='\\t',engine='python')[2]
+                adata.var['feature_type'] = features.tolist()
 
             if annotation == True:
                 print('adding annotation')
@@ -115,9 +119,11 @@ def read_mtx(
                 if adata.obs.get('CELL') is not None:
                     adata.obs.index = adata.obs.get('CELL').tolist()
 
+            if citeseq == 'gex_only':
+                adata = adata[:, adata.var.feature_type == 'Gene Expression'].copy()
             if citeseq == 'citeseq_only':
-                adata = adata[adata.var.feature_type == 'Antibody Capture'].copy()
-
+                adata = adata[:, adata.var.feature_type == 'Antibody Capture'].copy()
+            
             return(adata)
         
         if not os.path.exists(os.path.join(filepath, 'matrix.mtx')):
