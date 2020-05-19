@@ -4,7 +4,7 @@ from . import pp
 from . import st
 from . import datasets
 from . import export
-from . import import
+from . import Import
 
 
 from ._helper import subset_adata, convert_ensembl_to_symbol, \
