@@ -4,3 +4,6 @@ besca.egg-info/
 cache/
 workbooks/test.ipynb
 figures_testing/
+
+build
+pip

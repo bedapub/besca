@@ -1,5 +1,9 @@
 :orphan:
 
+
+
+.. _sphx_glr_auto_examples:
+
 Code Examples
 =============
 
@@ -8,7 +12,11 @@ Code Examples
 
 .. raw:: html
 
-    <div style='clear:both'></div>
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. _sphx_glr_auto_examples_plotting:
 
 Plotting examples
 -----------------
@@ -25,9 +33,9 @@ This is a gallery containing some plotting examples.
 
 .. only:: html
 
-    .. figure:: /auto_examples/plotting/images/thumb/sphx_glr_plot_split_gene_expression_thumb.png
+ .. figure:: /auto_examples/plotting/images/thumb/sphx_glr_plot_split_gene_expression_thumb.png
 
-        :ref:`sphx_glr_auto_examples_plotting_plot_split_gene_expression.py`
+     :ref:`sphx_glr_auto_examples_plotting_plot_split_gene_expression.py`
 
 .. raw:: html
 
@@ -45,9 +53,9 @@ This is a gallery containing some plotting examples.
 
 .. only:: html
 
-    .. figure:: /auto_examples/plotting/images/thumb/sphx_glr_plot_qc_thumb.png
+ .. figure:: /auto_examples/plotting/images/thumb/sphx_glr_plot_qc_thumb.png
 
-        :ref:`sphx_glr_auto_examples_plotting_plot_qc.py`
+     :ref:`sphx_glr_auto_examples_plotting_plot_qc.py`
 
 .. raw:: html
 
@@ -65,9 +73,9 @@ This is a gallery containing some plotting examples.
 
 .. only:: html
 
-    .. figure:: /auto_examples/plotting/images/thumb/sphx_glr_plot_celltype_quantification_thumb.png
+ .. figure:: /auto_examples/plotting/images/thumb/sphx_glr_plot_celltype_quantification_thumb.png
 
-        :ref:`sphx_glr_auto_examples_plotting_plot_celltype_quantification.py`
+     :ref:`sphx_glr_auto_examples_plotting_plot_celltype_quantification.py`
 
 .. raw:: html
 
@@ -85,9 +93,9 @@ This is a gallery containing some plotting examples.
 
 .. only:: html
 
-    .. figure:: /auto_examples/plotting/images/thumb/sphx_glr_plot_filtering_thumb.png
+ .. figure:: /auto_examples/plotting/images/thumb/sphx_glr_plot_filtering_thumb.png
 
-        :ref:`sphx_glr_auto_examples_plotting_plot_filtering.py`
+     :ref:`sphx_glr_auto_examples_plotting_plot_filtering.py`
 
 .. raw:: html
 
@@ -100,7 +108,11 @@ This is a gallery containing some plotting examples.
    /auto_examples/plotting/plot_filtering
 .. raw:: html
 
-    <div style='clear:both'></div>
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. _sphx_glr_auto_examples_preprocessing:
 
 Preprocessing
 -------------
@@ -114,9 +126,9 @@ This section highlights some of the features of the preprocessing functions incl
 
 .. only:: html
 
-    .. figure:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_example_filtering_thumb.png
+ .. figure:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_example_filtering_thumb.png
 
-        :ref:`sphx_glr_auto_examples_preprocessing_plot_example_filtering.py`
+     :ref:`sphx_glr_auto_examples_preprocessing_plot_example_filtering.py`
 
 .. raw:: html
 
@@ -134,9 +146,9 @@ This section highlights some of the features of the preprocessing functions incl
 
 .. only:: html
 
-    .. figure:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_pca_neighbors_clustering_thumb.png
+ .. figure:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_pca_neighbors_clustering_thumb.png
 
-        :ref:`sphx_glr_auto_examples_preprocessing_plot_pca_neighbors_clustering.py`
+     :ref:`sphx_glr_auto_examples_preprocessing_plot_pca_neighbors_clustering.py`
 
 .. raw:: html
 
@@ -149,7 +161,11 @@ This section highlights some of the features of the preprocessing functions incl
    /auto_examples/preprocessing/plot_pca_neighbors_clustering
 .. raw:: html
 
-    <div style='clear:both'></div>
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. _sphx_glr_auto_examples_tools:
 
 Tools
 -----
@@ -163,9 +179,9 @@ This section contains all examples related to besca tools.
 
 .. only:: html
 
-    .. figure:: /auto_examples/tools/images/thumb/sphx_glr_plot_reclustering_function_thumb.png
+ .. figure:: /auto_examples/tools/images/thumb/sphx_glr_plot_reclustering_function_thumb.png
 
-        :ref:`sphx_glr_auto_examples_tools_plot_reclustering_function.py`
+     :ref:`sphx_glr_auto_examples_tools_plot_reclustering_function.py`
 
 .. raw:: html
 
@@ -178,7 +194,11 @@ This section contains all examples related to besca tools.
    /auto_examples/tools/plot_reclustering_function
 .. raw:: html
 
-    <div style='clear:both'></div>
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. _sphx_glr_auto_examples_workflows:
 
 Workflows
 ---------
@@ -192,9 +212,9 @@ Demonstration workflows showing you how to peform certain tasks
 
 .. only:: html
 
-    .. figure:: /auto_examples/workflows/images/thumb/sphx_glr_plot_celltype_annotation_thumb.png
+ .. figure:: /auto_examples/workflows/images/thumb/sphx_glr_plot_celltype_annotation_thumb.png
 
-        :ref:`sphx_glr_auto_examples_workflows_plot_celltype_annotation.py`
+     :ref:`sphx_glr_auto_examples_workflows_plot_celltype_annotation.py`
 
 .. raw:: html
 
@@ -207,7 +227,7 @@ Demonstration workflows showing you how to peform certain tasks
    /auto_examples/workflows/plot_celltype_annotation
 .. raw:: html
 
-    <div style='clear:both'></div>
+    <div class="sphx-glr-clear"></div>
 
 
 
@@ -215,4 +235,4 @@ Demonstration workflows showing you how to peform certain tasks
 
  .. rst-class:: sphx-glr-signature
 
-    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.readthedocs.io>`_
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_
