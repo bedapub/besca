@@ -173,7 +173,7 @@ def read_annotconfig(configfile):
     return(sigconfig,levsk)
 
 
-def make_anno(df,sigscores,sigconfig,levsk,lab='celltype'):
+def make_anno(df,sigscores,sigconfig,levsk,lab='celltype', toexclude=[]):
     """ Annotate cell types
     Based on a dataframe of -log10pvals, a cutoff and a signature set generate cell annotation
     Hierarchical model of Immune cell annotation.
@@ -197,7 +197,25 @@ def make_anno(df,sigscores,sigconfig,levsk,lab='celltype'):
     cnames: panda.DataFrame
       a dataframe with cluster to cell type attribution per distinct levels
     """
-
+    
+    ### make sure that all levels are present in df, remove toexclude
+    levskk=[]
+    for x in levsk:
+        tmp=[]
+        for y in x: 
+            toinc=set(sigscores.keys())-set(toexclude)
+            if y in list(toinc):
+                tmp.append(y)
+        levskk.append(tmp)
+    levsk=levskk.copy()
+    
+    
+    sigscoresk={}
+    for x in sigscores.keys():
+        if not x in toexclude:
+            sigscoresk[x]=sigscores[x]
+    sigscores=sigscoresk.copy()
+    
     #### First part, get cluster identities
     myclust=list(df.columns)
     annol={}

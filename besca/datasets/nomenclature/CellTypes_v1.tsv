@@ -13,7 +13,7 @@ neuronal stem cell	neuronal stem cell	CL:0000047	NeuronalStem	4			multi fate ste
 multi fate stem cell	multi fate stem cell	CL:0000048	MultiFateStem	3					stem cell	CL:0000034	precursor cell	CL:0011115	animal cell	CL:0000548
 common myeloid progenitor	common myeloid progenitor	CL:0000049	CommonMyeloidPC	3					hematopoetic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 megakaryocyte-erythroid progenitor cell	megakaryocyte-erythroid progenitor cell	CL:0000050	MegakaryoErythroidPC	3					hematopoetic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-common lymphoid progenitor	common lymphoid progenitor	CL:0000051	CommonLymhpoidPC	3					hematopoetic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+common lymphoid progenitor	common lymphoid progenitor	CL:0000051	CommonLymphoidPC	3					hematopoetic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 fibroblast	fibroblast	CL:0000057	Fibroblast	2							connective tissue cell	CL:0002320	animal cell	CL:0000548
 osteoblast	osteoblast	CL:0000062	Osteoblast	2							connective tissue cell	CL:0002320	animal cell	CL:0000548
 ependymal cell	ependymal cell	CL:0000065	Ependymal	3					ciliated epithelial cell	CL:0000067	epithelial cell	CL:0000066	animal cell	CL:0000548
