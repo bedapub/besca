@@ -76,3 +76,5 @@ Basophil	HematoMultipotentPC	1	82
 CommonLymphoidPC	Hematopoetic	2.5	10.5
 ProBcell	Blymphocyte	2.5	7
 ImmaturecDC	cDC	1	84
+Schwann	None	2	85
+Glial	None	2	86
