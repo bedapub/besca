@@ -254,16 +254,30 @@ def concate_adata(adata1, adata2):
         if adata1_raw.X.shape == adata2_raw.X.shape:
             X_raw = adata1_raw.X
         else:
-            sys.exit('supplied objects have different .raws') 
+            #need to merge the raw matrices
+            #convert both to sparse matrices
+            adata1_raw_X = sparse.csr_matrix(adata1_raw.X)
+            adata2_raw_X = sparse.csr_matrix(adata2_raw.X)
+
+            #hstack (i.e. horizontally stack them)
+            X_raw = sparse.hstack([adata1_raw_X, adata2_raw_X])
+
+            #convert back to sparse matrix (for some reason hstack returns coo matrix)
+            X_raw = sparse.csr_matrix(X_raw) 
 
         #get the raw var and obs names
 
         #check if .raw.var matches
-        if (adata1_raw.var != adata2_raw.var).sum().sum() == 0:
+        if (adata1_raw.var.shape == adata2_raw.var.shape):
             var_raw = adata1_raw.var
             var_names = adata1_raw.var_names
         else:
-            sys.exit('.var in raws does not match, not sure how to combine.')
+            var_raw = concat([adata1_raw.var, adata2_raw.var])
+            var_names_raw = adata1_raw.var_names.tolist() + adata2_raw.var_names.tolist()
+
+            if var_raw.index.tolist() != var_names_raw:
+                sys.exit('var and var_names index does not match in .raw. Something went wrong.')
+        
         obs_raw = adata1_raw.obs
         obs_names_raw = adata1_raw.obs_names
 
