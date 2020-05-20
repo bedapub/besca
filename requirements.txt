@@ -18,3 +18,4 @@ python-igraph
 leidenalg
 scanorama
 umap-learn
+sinfo
