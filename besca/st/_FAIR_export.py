@@ -37,6 +37,31 @@ def export_cp10k(adata, basepath):
              geneannotation='SYMBOL',
              additional_geneannotation='ENSEMBL')
 
+def export_clr(adata, basepath):
+    """ Export clr corrected CiteSeq data to FAIR format for loading into database
+
+    wrapper function for X_to_mtx with correct folder structure for loading into database.
+
+    parameters
+    ----------
+    adata: `ÀnnData`
+        AnnData object that is to be exported. Needs to be CiteSeq data.
+    basepath: `str`
+        root path to the Analysis folder (i.e. ../analyzed/<ANALYSIS_NAME>)
+
+    returns
+    -------
+    None
+        writes to file
+
+    """
+    
+    #call wrapper function
+    X_to_mtx(adata=adata,
+             outpath=join(basepath, 'normalized_counts', 'clr'),
+             write_metadata=True,
+             geneannotation='SYMBOL',
+             additional_geneannotation='ENSEMBL')
 
 def export_regressedOut(adata, basepath):
     """ Export regressedOut to FAIR format for loading into database
