@@ -1,6 +1,6 @@
 import numpy as np 
-
 from scipy.sparse.csr import csr_matrix
+from anndata._core.views import SparseCSRView
 
 def closure(mat):
     """
@@ -170,16 +170,18 @@ def normalize_geometric (adata):
 
     X = adata.X
 
-    #Replace NaN with zero and infinity with large finite numbers
     X = np.nan_to_num(X)
 
     #if the matrix is sparse make to array
     if type(X) == csr_matrix:
         X = X.todense()
-        
-        #ensure that X is an array otherwise this will cause type issue with multiplicative replacement function
-        X = np.array(X)
-        
+    #need to add a catch for newly encountered datatype 
+    elif type(X) == SparseCSRView:
+        X = X.todense()
+
+    #ensure that X is an array otherwise this will cause type issue with multiplicative replacement function
+    X = np.array(X)
+
     #replacement of zero values with very small numbers without changing the overall sums
     X = multiplicative_replacement(X)
 
