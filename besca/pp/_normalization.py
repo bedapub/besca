@@ -190,8 +190,7 @@ def normalize_geometric (adata):
 
     adata.X = X
 
-    #return adata object
-    return(adata)
+    return(None) #adata object is automatically updated
 
 
 
