@@ -93,6 +93,27 @@ def setup(results_folder,
     #output feedback to logfile
     logging.info('\tTime for creating all output directories and setting up logging: '+str(round(time()-start, 3))+'s')
 
+def setup_citeseq(results_folder):
+  '''This function generates the required file structure to save the citeseq data
+  '''
+  #define file paths
+  results_folder_citeseq = os.path.join(results_folder, 'citeseq')
+  results_folder_merged= os.path.join(results_folder, 'citeseq_merged')
+  
+  #generate folder structure
+  makedirs(results_folder_citeseq, exist_ok=True)
+  makedirs(results_folder_merged, exist_ok=True)
+  makedirs(join(results_folder_citeseq, 'figures'), exist_ok=True)
+  makedirs(join(results_folder_citeseq, 'labelings'), exist_ok=True)
+  makedirs(join(results_folder_citeseq, 'labelings', 'leiden'), exist_ok=True)
+  makedirs(join(results_folder_citeseq, 'labelings', 'louvain'), exist_ok=True)
+  if labeling_to_use != 'None': 
+      makedirs(join(results_folder_citeseq, 'labelings' , labeling_name), exist_ok=True)
+  makedirs(join(results_folder_citeseq, 'normalized_counts'), exist_ok=True)
+  
+  #generate log message
+  print('all output directories for citeseq data created successfully')
+
 def read_matrix(root_path, citeseq = None):
 
     start = time()
