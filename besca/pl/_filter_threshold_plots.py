@@ -245,7 +245,7 @@ def max_counts (adata,
 
         ax = ax or plt.gca()
 
-        ax.scatter(data=data_plot, x = 'n_counts', y='n_genes', alpha = 0.4, s = 0.5);
+        ax.scatter(data=data_plot, x = 'n_counts', y='n_genes', alpha = 0.4, s = 0.5, rasterized = True);
         ax.vlines(max_counts, min_genes, max(y), color = "red", linestyle = "dotted");
         ax.set_xlabel("n_counts");
         ax.set_ylabel("n_genes");
@@ -264,7 +264,7 @@ def max_counts (adata,
 
         ax = ax or plt.gca()
 
-        ax.scatter(data=data_plot, x = 'n_counts', y='n_genes', alpha = 0.4, s = 0.5);
+        ax.scatter(data=data_plot, x = 'n_counts', y='n_genes', alpha = 0.4, s = 0.5, rasterized = True);
         ax.vlines(max_counts, min_genes, max(y), color = "red", linestyle = "dotted");
         ax.set_xlabel("n_counts");
         ax.set_ylabel("n_genes");
@@ -304,7 +304,7 @@ def max_genes (adata,
 
         ax = ax or plt.gca()
 
-        ax.scatter(data=data_plot, x = 'n_counts', y='n_genes', alpha = 0.4, s = 0.5);
+        ax.scatter(data=data_plot, x = 'n_counts', y='n_genes', alpha = 0.4, s = 0.5, rasterized = True);
         ax.hlines(max_genes, min_UMI, max(x), color = "red", linestyle = "dotted");
         ax.set_xlabel("n_counts");
         ax.set_ylabel("n_genes");
@@ -324,7 +324,7 @@ def max_genes (adata,
 
         ax = ax or plt.gca()
 
-        ax.scatter(data=data_plot, x = 'n_counts', y='n_genes', alpha = 0.4, s = 0.5);
+        ax.scatter(data=data_plot, x = 'n_counts', y='n_genes', alpha = 0.4, s = 0.5, rasterized = True);
         ax.hlines(max_genes, min_UMI, max(x), color = "red", linestyle = "dotted");
         ax.set_xlabel("n_counts");
         ax.set_ylabel("n_genes");
@@ -371,7 +371,7 @@ def max_mito (adata,
         #generate plot with cutoff
         ax = ax or plt.gca()
 
-        ax.scatter(data=data_plot, x = 'n_counts', y='percent_mito', alpha = 0.2, s = 0.3);
+        ax.scatter(data=data_plot, x = 'n_counts', y='percent_mito', alpha = 0.2, s = 0.3, rasterized = True);
         ax.set_xlabel("n_counts");
         ax.set_ylabel("percent_mito");
         ax.set_title('mitochondrial gene content in dataset before filtering');
@@ -398,7 +398,7 @@ def max_mito (adata,
             #generate plot with cutoff
             ax = ax or plt.gca()
 
-            ax.scatter(data=data_plot, x = 'n_counts', y='percent_mito', alpha = 0.2, s = 0.3);
+            ax.scatter(data=data_plot, x = 'n_counts', y='percent_mito', alpha = 0.2, s = 0.3, rasterized = True);
             ax.set_xlabel("n_counts");
             ax.set_ylabel("percent_mito");
             ax.set_title('mitochondrial gene content in dataset before filtering');
@@ -426,7 +426,7 @@ def max_mito (adata,
             #generate plot with cutoff
             ax = ax or plt.gca()
 
-            ax.scatter(data=data_plot, x = 'n_counts', y='percent_mito', alpha = 0.2, s = 0.3);
+            ax.scatter(data=data_plot, x = 'n_counts', y='percent_mito', alpha = 0.2, s = 0.3, rasterized = True);
             ax.set_xlabel("n_counts");
             ax.set_ylabel("percent_mito");
             ax.set_title('mitochondrial gene content in dataset before filtering');
@@ -459,7 +459,7 @@ def max_mito (adata,
 
         #generate plot with cutoff
         ax = ax or plt.gca()
-        ax.scatter(data=data_plot, x = 'n_counts', y='percent_mito', alpha = 0.2, s = 0.3)
+        ax.scatter(data=data_plot, x = 'n_counts', y='percent_mito', alpha = 0.2, s = 0.3, rasterized = True)
         ax.set_xlabel("n_counts")
         ax.set_ylabel("percent_mito")
         ax.set_title('mitochondrial gene content in dataset before filtering')
