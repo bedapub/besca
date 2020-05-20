@@ -23,3 +23,7 @@ __all__ = ["pl",
            "get_raw",
            "get_means",
            "concate_adata"]
+
+from ._version import get_versions
+__version__ = get_versions()['version']
+del get_versions
