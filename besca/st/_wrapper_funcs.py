@@ -93,7 +93,9 @@ def setup(results_folder,
     #output feedback to logfile
     logging.info('\tTime for creating all output directories and setting up logging: '+str(round(time()-start, 3))+'s')
 
-def setup_citeseq(results_folder):
+def setup_citeseq(results_folder,           
+                  labeling_name, 
+                  labeling_to_use, ):
   '''This function generates the required file structure to save the citeseq data
   '''
 
