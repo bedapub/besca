@@ -198,6 +198,7 @@ def concate_adata(adata1, adata2):
     """ concatenate two adata objects based on the observations
 
     this function also merges the objects saved in .raw and generates a new combined.raw.
+    The obs from adata1 are preserved. Those from adata2 are lost.
 
     parameters
     ----------
