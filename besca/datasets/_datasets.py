@@ -28,7 +28,7 @@ def pbmc3k_raw():
 
     """
 
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_raw.h5ad')
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_raw.h5ad', backup_url='https://zenodo.org/record/3752813/files/pbmc3k_raw.h5ad?download=1')
     adata = read(filename, cache = True)
     return adata
 
@@ -51,7 +51,7 @@ def pbmc3k_filtered():
 
     """
 
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_filtered.h5ad')
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_filtered.h5ad', backup_url='https://zenodo.org/record/3752813/files/pbmc3k_filtered.h5ad?download=1')
     adata = read(filename, cache = True)
     return adata
 
@@ -75,7 +75,7 @@ def pbmc3k_processed():
     
     """
 
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_processed.h5ad')
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_processed.h5ad', backup_url='https://zenodo.org/record/3752813/files/pbmc3k_processed.h5ad?download=1')
     adata = read(filename, cache = True)
     return adata
 
@@ -123,6 +123,109 @@ def pbmc_storage_processed():
     filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc_storage_processed_downsampled.h5ad')
     adata = read(filename, cache=True)
     return adata
+
+
+
+
+def Smillie2019_raw():
+    """Raw counts from Smillie et al. Intra- and Inter-cellular Rewiring of the Human Colon during Ulcerative Colitis. Cell. 2019
+
+    The data consists of raw gene expression counts of single cells from colon mucosa from 7 ulcerative colitis (UC) patients and 10 healthy controls, paired samples (inlamed, non-inflamed for UC, location-matched for healthy): 34 samples. Epithelial (EPI) and lamina propria (LP) fractions enriched in a two-step digestion process. 
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Smillie2019_raw()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Smillie2019_raw.h5ad')
+    adata = read(filename, cache=True)
+    return adata
+
+
+def Smillie2019_processed():
+    """Processed data from Smillie et al. Intra- and Inter-cellular Rewiring of the Human Colon during Ulcerative Colitis. Cell. 2019
+
+    The data consists of processed single cell expression data from colon mucosa from 7 ulcerative colitis (UC) patients and 10 healthy controls, paired samples (inlamed, non-inflamed for UC, location-matched for healthy): 34 samples. Epithelial (EPI) and lamina propria (LP) fractions enriched in a two-step digestion process. Data was filtered, batch corrected using BBKNN and celltypes were annotated.
+
+
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Smillie2019_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Smillie2019_processed.h5ad')
+    adata = read(filename, cache=True)
+    return adata
+
+
+def Martin2019_raw():
+    """Raw counts from Martin et al. Single-Cell Analysis of Crohn's Disease Lesions Identifies a Pathogenic Cellular Module Associated with Resistance to Anti-TNF Therapy. Cell. 2019
+
+    The data consists of raw gene expression counts of single cells from lamina propria cells from inflamed and non-inflamed ileum lesions (and peripheral blood, but not part of GEO dataset) from 11 Crohn’s disease patients: 22 samples
+
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Martin2019_raw()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Martin2019_raw.h5ad')
+    adata = read(filename, cache=True)
+    return adata
+
+
+def Martin2019_processed():
+    """Processed data from Martin et al. Single-Cell Analysis of Crohn's Disease Lesions Identifies a Pathogenic Cellular Module Associated with Resistance to Anti-TNF Therapy. Cell. 2019
+
+    The data consists of processed single cell expression data from lamina propria cells from inflamed and non-inflamed ileum lesions (and peripheral blood, but not part of GEO dataset) from 11 Crohn’s disease patients: 22 samples. Data was filtered and celltypes were annotated.
+
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Martin2019_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Martin2019_processed.h5ad')
+    adata = read(filename, cache=True)
+    return adata
+
 
 
 
