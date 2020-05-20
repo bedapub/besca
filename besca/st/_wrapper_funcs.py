@@ -2,10 +2,11 @@
 
 #import other besca functions
 from ..pp._filtering import filter
+from ..pp._normalization import normalize_geometric
 from ..Import._read import read_mtx
 from ..export._export import labeling, labeling_info
 from .. import _logging as logs
-from ._FAIR_export import export_cp10k, export_regressedOut, export_metadata, export_clustering, export_rank
+from ._FAIR_export import export_cp10k, export_clr, export_regressedOut, export_metadata, export_clustering, export_rank
 from ..tl.bcor import batch_correct, postprocess_mnnpy
 
 #import other modules
@@ -177,6 +178,35 @@ def per_cell_normalize(adata, results_folder):
 
     logging.info('cp10k values exported to file.')
     logging.info("\tTime for cp10k export: "+str(round(time()-start, 3))+'s')
+  
+    return(adata)
+
+def clr_normalize(adata, results_folder):
+    """Perform clr normalization.
+    """
+
+    #get start time
+    start = time()
+    
+    #normalize per cell
+    #this also already applies log! Is not taken seperately
+    normalize_geometric(adata) #already normalize BEFORE saving "raw" - as recommended in the scanpy tutorial
+    print('clr normalization applied to adata')
+
+    #keep raw copy
+    adata.raw = adata.copy()
+    print('normalized values saved into adata.raw')
+
+    #make log entries
+    logging.info('CLR normalization completed successfully.')
+    logging.info("\tTime for CLR normalization: "+str(round(time()-start, 3))+'s')
+
+    #export to file
+    start = time()
+    export_clr(adata, basepath = results_folder)
+
+    logging.info('CLR values exported to file.')
+    logging.info("\tTime for CLR export: "+str(round(time()-start, 3))+'s')
   
     return(adata)
 
