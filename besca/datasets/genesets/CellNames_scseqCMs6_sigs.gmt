@@ -50,13 +50,13 @@ ExhBcell	Genes used for automatic annotation of scRNA-seq derived clusters of PB
 Macrophage	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	MSR1	GPR34	CD209	GPR84	MARCO	CLEC5A	PPARG	CXCL10	CXCL11	CXCL9																
 Hepatocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	ALDOB	APOH	PCK1	APOC3	TAT																					
 Erythrocyte	"Additional marker genes, mainly from PangalaoDB (May20)"	PAN3	KCNN4	ERMAP	TPM1	HBB	AHSP	CA1	HBD																		
-AlphaPancreatic	"Additional marker genes, mainly from PangalaoDB (May20)"	CGC	TTR	TM4SF4	PDK4	SLC7A2	CRYBA2	SHH																			
-BetaPancreatic	"Additional marker genes, mainly from PangalaoDB (May20)"	INS	IAPP	ISL1	FOXA2	PDX1	RBP4	UCN3	MAFA																		
-DeltaPancreatic	"Additional marker genes, mainly from PangalaoDB (May20)"	SST	RBP4	FRZB	MS4A8	BCHE	GABRB3	UNC5B	PRG4																		
-Ppcell	"Additional marker genes, mainly from PangalaoDB (May20)"	PPY	ABCC9	FGB	ZNF503	MEIS1	PAX6	FXYD2																			
+AlphaPancreatic	"Additional marker genes, mainly from PangalaoDB (May20)"	GCG	GC	IRX2	CRYBA2																						
+BetaPancreatic	"Additional marker genes, mainly from PangalaoDB (May20)"	INS	IAPP	HADH	ADCYAP1	MAFA																					
+DeltaPancreatic	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	LEPR 	RGS2 	RBP4 	GABPB3 	BAIAP3																					
+Ppcell	"Additional marker genes, mainly from PangalaoDB (May20)"	PPY	STMN2	DPYSL3	FGB	MEIS1																					
 PancreaticDuctal	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	KRT19	SOX9	FOXA2	MUC1	CFTR	SLC4A4	AMBP	CLDN10	FXYD3	SLPI																
 PancreaticAcinar	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	CPA1	REG3A	REG1A	CTRB1	REG1B	CTRC	CPA2	KLK1	CEL	CELA3B																
-EpsilonPancreatic	"Additional marker genes, mainly from PangalaoDB (May20)"	ARX	csf2	HRH2	CALCR	SLC6A16	PCSK6	ADAMTS6																			
+EpsilonPancreatic	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	GHRL	FRZB	SPTSSB	NNMT																						
 PancStellate	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	RGS5	NOTCH3	NDUFA4L2	PPP1R14A	PLAC9	GPX3	MAP1B																			
 Cholangiocyte	"Additional marker genes, mainly from PangalaoDB (May20)"	KRT7	SOX9	EPCAM	KRT19	TFF1	CLDN4	MMP7	TFF2	SFRP5	SLC12A2	CITED4	FGFR2	CD24													
 TAmplifying	"Additional marker genes, mainly from PangalaoDB (May20)"	KCNE3	KCNQ1	OLFM4	PROM1	ASCL2	BMI1	HOPX																			
@@ -75,3 +75,5 @@ Basophil	Genes used for automatic annotation of scRNA-seq derived clusters of PB
 CommonLymphoidPC	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	DNTT	IGLL1	VPREB1	ADA	TCF4																					
 ProBcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	BCL7A	FAM129C	CD72	IRF4	TCL1A																					
 ImmaturecDC	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	AXL	FAM105A	NBPF10	LILRB4	SIGLEC6																					
+Schwann	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	NGFR	ST6GALNAC2	S100B	SEMA3C	EHBP1																					
+Glial	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	MPZ	SLC18A2	GFRA3	ALDH1A3	FOXD3	NOS2	S100B	NGFR	ST6GALNAC2	SEMA3C	EHBP1															
