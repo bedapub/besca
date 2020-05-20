@@ -96,6 +96,11 @@ def setup(results_folder,
 def setup_citeseq(results_folder):
   '''This function generates the required file structure to save the citeseq data
   '''
+
+  #time file creation
+  logging.info('CiteSeq Values present in  Dataset. Setting up analysis to utilize CiteSeq data.')
+  start = time()
+
   #define file paths
   results_folder_citeseq = os.path.join(results_folder, 'citeseq')
   results_folder_merged= os.path.join(results_folder, 'citeseq_merged')
@@ -113,6 +118,7 @@ def setup_citeseq(results_folder):
   
   #generate log message
   print('all output directories for citeseq data created successfully')
+  logging.info('\tTime for creating all citeseq output directories: '+str(round(time()-start, 3))+'s')
 
 def read_matrix(root_path, citeseq = None):
 
