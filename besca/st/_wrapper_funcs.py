@@ -228,7 +228,24 @@ def batch_correction(adata, batch_to_correct):
   #return new AnnData object
   return(adata)
 
-def pca_neighbors_umap(adata, results_folder,nrpcs=50, nrneigh=10, method='NULL'):
+def pca_neighbors_umap(adata, results_folder,nrpcs=50, nrpcs_neigh=None, nrneigh=10, method='NULL'):
+  '''
+  parameters
+  ----------
+  adata: `ÀnnData`
+      AnnData object that is to be exported
+  results_folder: `str`
+      path to the results folder 
+  nrpcs: int | nrpcs = 50
+      number of principle components to calculate
+  nrpcs_neigh: int | nrpcs_neigh = 50
+      number of principle components to use for nearest neighbor calculation. 
+      When set to None the number is chosen automatically. For .n_vars < 50, .X is used, otherwise ‘X_pca’ is used with 50 components.
+  nrneigh: int | nrpcs = None
+      number of principle components to calculate
+  method: `str`
+      Method for nearest neighbor calculation.  Can be set to 'NULL' or bbknn
+  '''
   start = time()
   random_state = 0
   print('Using random_state = 0 for all the following calculations')
@@ -263,9 +280,11 @@ def pca_neighbors_umap(adata, results_folder,nrpcs=50, nrneigh=10, method='NULL'
       if('batch' in adata.obs.columns):
           bbknn.bbknn(adata)
   else:
-      neighbors(adata, n_neighbors=nrneigh, random_state=random_state)
+      neighbors(adata, n_neighbors=nrneigh, random_state=random_state, n_pcs = nrpcs_neigh)
       print('Nearest neighbors calculated with n_neighbors = '+str(nrneigh))
-
+      if nrpcs_neigh == 0:
+        print('Using .X to calculate nearest neighbors instead of PCs.')
+        logging.info('Neighborhood analysis performed with .X instead of PCs.')
   #umap
   sc_umap(adata, random_state=random_state)
   print('UMAP coordinates calculated.')
@@ -285,23 +304,23 @@ def pca_neighbors_umap(adata, results_folder,nrpcs=50, nrneigh=10, method='NULL'
 def clustering(adata, results_folder, myres=1, method = 'leiden'):
   """ Perform adata clustering and write the corresponding results
 
-    parameters
-    ----------
-    adata: `ÀnnData`
-        AnnData object that is to be exported
-    results_folder: `str`
-        path to the results folder 
-    myres: int
-        resolution for the algorithm
-    method: `str`
-        clustering algorithm. Implemented: louvain/leiden
+  parameters
+  ----------
+  adata: `ÀnnData`
+      AnnData object that is to be exported
+  results_folder: `str`
+      path to the results folder 
+  myres: int
+      resolution for the algorithm
+  method: `str`
+      clustering algorithm. Implemented: louvain/leiden
 
-    returns
-    -------
-    None
-        writes to file
+  returns
+  -------
+  None
+      writes to file
 
-    """
+  """
   if( not method in ['leiden', 'louvain']):
     raise ValueError("method argument should be leiden or louvain")
   random_state = 0
