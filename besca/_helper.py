@@ -2,6 +2,9 @@ from anndata import AnnData
 import mygene
 import sys
 from pandas import DataFrame
+from scipy import sparse
+from pandas import concat
+
 
 def subset_adata(adata,
                  filter_criteria,
@@ -190,3 +193,83 @@ def get_means(adata,mycat):
         average_obs=None
         fraction_obs=None
     return(average_obs, fraction_obs)
+
+def concate_adata(adata1, adata2):
+    """ concatenate two adata objects based on the observations
+
+    this function also merges the objects saved in .raw and generates a new combined.raw.
+
+    parameters
+    ----------
+    adata1: ´AnnData´
+        first Anndata object that is to be concatenated (the obs and obs_names will be taken from here)
+    adata2: ´AnnData´
+        second Anndata objec that is to be concatenated
+
+    returns
+    -------
+    AnnData
+        returns the AnnData object contained in .raw with all relevant annotation
+
+    """
+
+    #convert both to sparse matrices
+    adata1_X = sparse.csr_matrix(adata1.X)
+    adata2_X = sparse.csr_matrix(adata2.X)
+
+    #hstack (i.e. horizontally stack them)
+    X = sparse.hstack([adata1_X, adata2_X])
+
+    #convert back to sparse matrix (for some reason hstack returns coo matrix)
+    X = sparse.csr_matrix(X)
+
+    #observations remain unchanged so will use obs from adata1
+    if sum(adata1.obs.CELL != adata2.obs.CELL) != 0:
+        sys.exit('The observations in adata1 and adata2 are not the same. These two anndata objects can not be concatenated.')
+
+    obs = adata1.obs
+    obs_names = adata1.obs_names
+
+    #vars, var_names are concatenated from the two dataframes
+    var = concat([adata1.var, adata2.var])
+    var_names = adata1.var_names.tolist() + adata2.var_names.tolist()
+
+    if var.index.tolist() != var_names:
+        sys.exit('var and var_names index does not match. Something went wrong.')
+    
+    #create our complete combined object
+    adata_combined = AnnData(X = X, obs = obs, var = var)
+
+    if adata1.raw is not None:
+
+        if adata2.raw is None:
+            sys.exit('Only one of the anndata objects contains a .raw!')
+
+        #get the raw object
+        adata1_raw = get_raw(adata1)
+        adata2_raw = get_raw(adata2)
+
+        #check that the raw_matrices are the same
+        if adata1_raw.X.shape == adata2_raw.X.shape:
+            X_raw = adata1_raw.X
+        else:
+            sys.exit('supplied objects have different .raws') 
+
+        #get the raw var and obs names
+
+        #check if .raw.var matches
+        if (adata1_raw.var != adata2_raw.var).sum().sum() == 0:
+            var_raw = adata1_raw.var
+            var_names = adata1_raw.var_names
+        else:
+            sys.exit('.var in raws does not match, not sure how to combine.')
+        obs_raw = adata1_raw.obs
+        obs_names_raw = adata1_raw.obs_names
+
+        #create our adata_combined_raw object (this will be the same for all of the other combined objects as well)
+        adata_combined_raw = AnnData(X = X_raw, obs = obs_raw, var = var_raw)
+
+        #add our new raw objec to our combined adata object
+        adata_combined.raw = adata_combined_raw
+
+    return(adata_combined)
