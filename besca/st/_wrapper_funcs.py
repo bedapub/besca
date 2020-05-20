@@ -111,6 +111,7 @@ def setup_citeseq(results_folder,
   makedirs(results_folder_citeseq, exist_ok=True)
   makedirs(results_folder_merged, exist_ok=True)
   makedirs(join(results_folder_citeseq, 'figures'), exist_ok=True)
+  makedirs(join(results_folder_merged, 'figures'), exist_ok=True)
   makedirs(join(results_folder_citeseq, 'labelings'), exist_ok=True)
   makedirs(join(results_folder_citeseq, 'labelings', 'leiden'), exist_ok=True)
   makedirs(join(results_folder_citeseq, 'labelings', 'louvain'), exist_ok=True)
