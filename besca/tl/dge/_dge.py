@@ -2,7 +2,7 @@
 import os
 from scanpy.api.tl import rank_genes_groups
 from pandas import DataFrame, read_csv, concat
-from numpy import sign, log10, inf, max, abs, floor, arange, round
+from numpy import sign, log10, inf, max, abs, floor, arange, round, sort
 from plotly.offline import plot as plotly_plot
 
 #other besca functions
@@ -486,7 +486,7 @@ def plot_interactive_volcano(top_table_path,
     print('plotting', filename)
     plotly_plot({'data': traces, 'layout': layout}, validate=False, filename = os.path.join(outdir, filename), auto_open=False)
 
-def get_de(adata,mygroup, demethod='t-test_overestim_var',topnr=1000, logfc=1,padj=0.05):
+def get_de(adata,mygroup, demethod='wilcoxon',topnr=5000, logfc=1,padj=0.05):
     """ Get a table of significant DE genes at certain cutoffs
     Based on an AnnData object and an annotation category (e.g. louvain) runs 
     scanpy's rank_genes_groups using a specified method with specified cutoffs 
@@ -508,7 +508,7 @@ def get_de(adata,mygroup, demethod='t-test_overestim_var',topnr=1000, logfc=1,pa
     returns
     -------
     delist
-		a list of panda DataFrames of differentially expressed genes
+        a list of panda DataFrames of differentially expressed genes
     """
 
     try:
@@ -518,9 +518,9 @@ def get_de(adata,mygroup, demethod='t-test_overestim_var',topnr=1000, logfc=1,pa
         print (list(adata.obs.columns))
         return
 
-    mygroups=list(set(adata.obs[mygroup]))
+    mygroups=list(sort(list(set(adata.obs[mygroup]))))
     delist={}
-    rank_genes_groups(adata, groupby=mygroup,use_raw = True, n_genes = topnr,method=demethod)
+    rank_genes_groups(adata, groupby=mygroup,use_raw = True, n_genes = adata.raw.X.shape[1],method=demethod)
     for i in mygroups:
         df=DataFrame(adata.uns['rank_genes_groups']['names']).head(topnr)[i]
         dfS=DataFrame(adata.uns['rank_genes_groups']['scores']).head(topnr)[i]
@@ -530,4 +530,3 @@ def get_de(adata,mygroup, demethod='t-test_overestim_var',topnr=1000, logfc=1,pa
         d.columns=['Name','Score','Log2FC','P.adj']
         delist[i]=d[(d['Log2FC']>=logfc)&(d['P.adj']<=padj)]
     return(delist)
-
