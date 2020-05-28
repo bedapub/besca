@@ -292,7 +292,7 @@ def pca_neighbors_umap(adata, results_folder,nrpcs=50, nrpcs_neigh=None, nrneigh
   fig.tight_layout(pad=4.5)
 
   cumulative_variance = cumsum(adata.uns['pca']['variance_ratio'])
-  x= list(range(50))
+  x= list(range(nrpcs))
   data = DataFrame({'x':x, 'y':cumulative_variance})
 
   ax1.scatter(x = x, y = cumulative_variance)
