@@ -22,3 +22,7 @@ __all__ = ["pl",
            "convert_symbol_to_ensembl",
            "get_raw",
            "get_means"]
+
+from ._version import get_versions
+__version__ = get_versions()['version']
+del get_versions
