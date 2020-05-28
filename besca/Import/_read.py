@@ -1,6 +1,8 @@
 import pandas as pd
 from scanpy.api import read
 import os
+from anndata import AnnData
+from scipy.sparse import issparse, csr_matrix
 from .._helper import convert_ensembl_to_symbol
 
 import sys
@@ -29,6 +31,58 @@ def assert_filepath(filepath):
             if not exist:
                 raise FileNotFoundError('{} is not found in '
                         'the given path `{}`'.format(req_files[ind], filepath))
+
+
+def add_var_column(adata, colname = 'SYMBOL', attempFix = True):
+    if( not colname in adata.var.columns) :
+        if attempFix:
+            print(f'Creating empty {colname} column;  please check if {colname} is not in the index of adata.var')
+            adata.var[colname] = 'N.A.'   
+        else:
+            raise Exception('adata.var needs column named {colname}' )
+    return(adata)
+
+
+def assert_h5ad(adata: AnnData, attempFix = True):
+    """Asserts that an adata object is containing information needed for the besca pipeline to run and export information.
+    This is particularly usefull when loading public data
+    The parameter attempFix will try to fix the issue by itself.
+    However, we advise the user to check by himself what is the leading problem.
+
+    Parameters
+    ----------
+    adata: AnnData
+    attempFix: `bool` if True will transform adata object to match requirements.
+    Returns
+    -------
+    returns an AnnData object
+    """
+    if not 'CELL' in adata.obs.columns:
+        if attempFix:
+            adata.obs['CELL'] = adata.obs.index
+            print( 'Creating columns CELL in adata.obs using adata.obs.index.')
+        else:
+            raise Exception('Required CELL columns in observations')
+    
+    if not all( adata.obs_names == adata.obs['CELL']):
+        raise Exception('Required indexing of adata.obs by CELL column')
+    if not issparse(adata.X):
+        if attempFix:
+            print('Required count matrix to be sparse, X transformed to sparse')
+            try:
+                adata.X = sparse.csr_matrix( adata.X.copy())
+            except:
+                raise Exception('X transformation to sparse failed.')
+        else:
+            raise Exception('adata.X needs to be sparse.')
+    # checking adata.var concordance
+    for x in ['SYMBOL', 'ENSEMBL']:
+        adata = add_var_column(adata, x, attempFix )
+        if ~all(isinstance(el, str) for el in adata.var.get(x) ):
+            raise Exception('In {x} non string values will create an issue for export')
+    return(adata)
+
+
 
 def read_mtx(
         filepath,
