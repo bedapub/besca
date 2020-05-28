@@ -243,7 +243,7 @@ def concate_adata(adata1, adata2):
 
     if  any([adata1.raw is not None, adata2.raw is not None]) :
         if any([adata1.raw  is None, adata2.raw is None]):
-            sys.exit( ''Only one of the anndata objects contains a .raw!')
+            sys.exit( 'Only one of the anndata objects contains a .raw!')
                 
         #get the raw object
         adata1_raw = get_raw(adata1)
