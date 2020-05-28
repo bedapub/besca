@@ -2,10 +2,11 @@
 
 #import other besca functions
 from ..pp._filtering import filter
+from ..pp._normalization import normalize_geometric
 from ..Import._read import read_mtx
 from ..export._export import labeling, labeling_info
 from .. import _logging as logs
-from ._FAIR_export import export_cp10k, export_regressedOut, export_metadata, export_clustering, export_rank
+from ._FAIR_export import export_cp10k, export_clr, export_regressedOut, export_metadata, export_clustering, export_rank
 from ..tl.bcor import batch_correct, postprocess_mnnpy
 
 #import other modules
@@ -93,12 +94,42 @@ def setup(results_folder,
     #output feedback to logfile
     logging.info('\tTime for creating all output directories and setting up logging: '+str(round(time()-start, 3))+'s')
 
-def read_matrix(root_path):
+def setup_citeseq(results_folder,           
+                  labeling_name, 
+                  labeling_to_use, ):
+  '''This function generates the required file structure to save the citeseq data
+  '''
+
+  #time file creation
+  logging.info('CiteSeq Values present in  Dataset. Setting up analysis to utilize CiteSeq data.')
+  start = time()
+
+  #define file paths
+  results_folder_citeseq = os.path.join(results_folder, 'citeseq')
+  results_folder_merged= os.path.join(results_folder, 'citeseq_merged')
+  
+  #generate folder structure
+  makedirs(results_folder_citeseq, exist_ok=True)
+  makedirs(results_folder_merged, exist_ok=True)
+  makedirs(join(results_folder_citeseq, 'figures'), exist_ok=True)
+  makedirs(join(results_folder_merged, 'figures'), exist_ok=True)
+  makedirs(join(results_folder_citeseq, 'labelings'), exist_ok=True)
+  makedirs(join(results_folder_citeseq, 'labelings', 'leiden'), exist_ok=True)
+  makedirs(join(results_folder_citeseq, 'labelings', 'louvain'), exist_ok=True)
+  if labeling_to_use != 'None': 
+      makedirs(join(results_folder_citeseq, 'labelings' , labeling_name), exist_ok=True)
+  makedirs(join(results_folder_citeseq, 'normalized_counts'), exist_ok=True)
+  
+  #generate log message
+  print('all output directories for citeseq data created successfully')
+  logging.info('\tTime for creating all citeseq output directories: '+str(round(time()-start, 3))+'s')
+
+def read_matrix(root_path, citeseq = None):
 
     start = time()
     input_path = join(root_path, 'raw')
 
-    adata = read_mtx(input_path)
+    adata = read_mtx(input_path, citeseq = citeseq)
     logging.info('After input: '+str(adata.shape[0])+' cells, ' + str(adata.shape[1])+' genes')
     logging.info("\tTime for reading data: "+str(round(time()-start, 3))+'s')
     
@@ -150,6 +181,35 @@ def per_cell_normalize(adata, results_folder):
   
     return(adata)
 
+def clr_normalize(adata, results_folder):
+    """Perform clr normalization.
+    """
+
+    #get start time
+    start = time()
+    
+    #normalize per cell
+    #this also already applies log! Is not taken seperately
+    normalize_geometric(adata) #already normalize BEFORE saving "raw" - as recommended in the scanpy tutorial
+    print('clr normalization applied to adata')
+
+    #keep raw copy
+    adata.raw = adata.copy()
+    print('normalized values saved into adata.raw')
+
+    #make log entries
+    logging.info('CLR normalization completed successfully.')
+    logging.info("\tTime for CLR normalization: "+str(round(time()-start, 3))+'s')
+
+    #export to file
+    start = time()
+    export_clr(adata, basepath = results_folder)
+
+    logging.info('CLR values exported to file.')
+    logging.info("\tTime for CLR export: "+str(round(time()-start, 3))+'s')
+  
+    return(adata)
+
 def highly_variable_genes (adata):
     start = time()
 
@@ -198,7 +258,24 @@ def batch_correction(adata, batch_to_correct):
   #return new AnnData object
   return(adata)
 
-def pca_neighbors_umap(adata, results_folder,nrpcs=50, nrneigh=10, method='NULL'):
+def pca_neighbors_umap(adata, results_folder,nrpcs=50, nrpcs_neigh=None, nrneigh=10, method='NULL'):
+  '''
+  parameters
+  ----------
+  adata: `ÀnnData`
+      AnnData object that is to be exported
+  results_folder: `str`
+      path to the results folder 
+  nrpcs: int | nrpcs = 50
+      number of principle components to calculate
+  nrpcs_neigh: int | nrpcs_neigh = 50
+      number of principle components to use for nearest neighbor calculation. 
+      When set to None the number is chosen automatically. For .n_vars < 50, .X is used, otherwise ‘X_pca’ is used with 50 components.
+  nrneigh: int | nrpcs = None
+      number of principle components to calculate
+  method: `str`
+      Method for nearest neighbor calculation.  Can be set to 'NULL' or bbknn
+  '''
   start = time()
   random_state = 0
   print('Using random_state = 0 for all the following calculations')
@@ -215,7 +292,7 @@ def pca_neighbors_umap(adata, results_folder,nrpcs=50, nrneigh=10, method='NULL'
   fig.tight_layout(pad=4.5)
 
   cumulative_variance = cumsum(adata.uns['pca']['variance_ratio'])
-  x= list(range(50))
+  x= list(range(nrpcs))
   data = DataFrame({'x':x, 'y':cumulative_variance})
 
   ax1.scatter(x = x, y = cumulative_variance)
@@ -233,9 +310,11 @@ def pca_neighbors_umap(adata, results_folder,nrpcs=50, nrneigh=10, method='NULL'
       if('batch' in adata.obs.columns):
           bbknn.bbknn(adata)
   else:
-      neighbors(adata, n_neighbors=nrneigh, random_state=random_state)
+      neighbors(adata, n_neighbors=nrneigh, random_state=random_state, n_pcs = nrpcs_neigh)
       print('Nearest neighbors calculated with n_neighbors = '+str(nrneigh))
-
+      if nrpcs_neigh == 0:
+        print('Using .X to calculate nearest neighbors instead of PCs.')
+        logging.info('Neighborhood analysis performed with .X instead of PCs.')
   #umap
   sc_umap(adata, random_state=random_state)
   print('UMAP coordinates calculated.')
@@ -255,23 +334,23 @@ def pca_neighbors_umap(adata, results_folder,nrpcs=50, nrneigh=10, method='NULL'
 def clustering(adata, results_folder, myres=1, method = 'leiden'):
   """ Perform adata clustering and write the corresponding results
 
-    parameters
-    ----------
-    adata: `ÀnnData`
-        AnnData object that is to be exported
-    results_folder: `str`
-        path to the results folder 
-    myres: int
-        resolution for the algorithm
-    method: `str`
-        clustering algorithm. Implemented: louvain/leiden
+  parameters
+  ----------
+  adata: `ÀnnData`
+      AnnData object that is to be exported
+  results_folder: `str`
+      path to the results folder 
+  myres: int
+      resolution for the algorithm
+  method: `str`
+      clustering algorithm. Implemented: louvain/leiden
 
-    returns
-    -------
-    None
-        writes to file
+  returns
+  -------
+  None
+      writes to file
 
-    """
+  """
   if( not method in ['leiden', 'louvain']):
     raise ValueError("method argument should be leiden or louvain")
   random_state = 0

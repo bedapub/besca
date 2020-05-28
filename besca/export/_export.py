@@ -110,10 +110,21 @@ def X_to_mtx(adata,
     else:
         sys.exit('need to provide either \'ENSEMBL\' or \'SYMBOL\' gene annotation.')
 
+    feature = None
+    #add catch to write out type of annotation 
+    if 'feature_type' in adata.var.columns:
+        print('feature annotation is present and will be written out')
+        feature = True
+        gene_feature = adata.var.get('feature_type')
+
     #write the genes out in the correct format (first ENSEMBL THEN SYMBOL)
     with open (os.path.join(outpath, 'genes.tsv'), "w") as fp:
-        for ENSEMBL, symbol in zip(genes_ENSEMBL, genes_SYMBOL):
-            fp.write(ENSEMBL+"\t"+ symbol+"\n")
+        if feature is not None:
+            for ENSEMBL, symbol, feature in zip(genes_ENSEMBL, genes_SYMBOL, gene_feature):
+                fp.write(ENSEMBL+"\t"+ symbol+"\t"+ feature +"\n")
+        else:
+            for ENSEMBL, symbol in zip(genes_ENSEMBL, genes_SYMBOL):
+                fp.write(ENSEMBL+"\t"+ symbol+"\n")
         fp.close()
         print('genes successfully written out to genes.tsv')
 
@@ -228,10 +239,21 @@ def raw_to_mtx(adata,
     else:
         sys.exit('need to provide either \'ENSEMBL\' or \'SYMBOL\' gene annotation.')
 
+    feature = None
+    #add catch to write out type of annotation 
+    if 'feature_type' in adata.var.columns:
+        print('feature annotation is present and will be written out')
+        feature = True
+        gene_feature = adata.var.get('feature_type')
+
     #write the genes out in the correct format (first ENSEMBL THEN SYMBOL)
     with open (os.path.join(outpath, 'genes.tsv'), "w") as fp:
-        for ENSEMBL, symbol in zip(genes_ENSEMBL, genes_SYMBOL):
-            fp.write(ENSEMBL+"\t"+symbol+"\n")
+        if feature is not None:
+            for ENSEMBL, symbol, feature in zip(genes_ENSEMBL, genes_SYMBOL, gene_feature):
+                fp.write(ENSEMBL+"\t"+ symbol+"\t"+ feature +"\n")
+        else:
+            for ENSEMBL, symbol in zip(genes_ENSEMBL, genes_SYMBOL):
+                fp.write(ENSEMBL+"\t"+ symbol+"\n")
         fp.close()
         print('genes successfully written out to genes.tsv from adata.raw')
 
@@ -275,7 +297,7 @@ def X_to_mtx_python(adata,
     If the outpath directory does not exist, this function automatically generates it.
 
     This is a slower version of this function that does not rely on external C-Programms. The default
-    verison of this function that is used in most cases 'X_to_mtx' does rely on this program.
+    version of this function that is used in most cases 'X_to_mtx' does rely on this program.
 
     parameters
     ----------
@@ -352,12 +374,24 @@ def X_to_mtx_python(adata,
     else:
         sys.exit('need to provide either \'ENSEMBL\' or \'SYMBOL\' gene annotation.')
 
+    feature = None
+    #add catch to write out type of annotation 
+    if 'feature_type' in adata.var.columns:
+        print('feature annotation is present and will be written out')
+        feature = True
+        gene_feature = adata.var.get('feature_type')
+
     #write the genes out in the correct format (first ENSEMBL THEN SYMBOL)
     with open (os.path.join(outpath, 'genes.tsv'), "w") as fp:
-        for ENSEMBL, symbol in zip(genes_ENSEMBL, genes_SYMBOL):
-            fp.write(ENSEMBL+"\t"+ symbol+"\n")
+        if feature is not None:
+            for ENSEMBL, symbol, feature in zip(genes_ENSEMBL, genes_SYMBOL, gene_feature):
+                fp.write(ENSEMBL+"\t"+ symbol+"\t"+ feature +"\n")
+        else:
+            for ENSEMBL, symbol in zip(genes_ENSEMBL, genes_SYMBOL):
+                fp.write(ENSEMBL+"\t"+ symbol+"\n")
         fp.close()
         print('genes successfully written out to genes.tsv')
+
 
     ### write out the cellbarcodes
     cellbarcodes = adata.obs_names.tolist()
@@ -483,12 +517,23 @@ def raw_to_mtx_python(adata,
     else:
         sys.exit('need to provide either \'ENSEMBL\' or \'SYMBOL\' gene annotation.')
 
+    feature = None
+    #add catch to write out type of annotation 
+    if 'feature_type' in adata.var.columns:
+        print('feature annotation is present and will be written out')
+        feature = True
+        gene_feature = adata.var.get('feature_type')
+
     #write the genes out in the correct format (first ENSEMBL THEN SYMBOL)
     with open (os.path.join(outpath, 'genes.tsv'), "w") as fp:
-        for ENSEMBL, symbol in zip(genes_ENSEMBL, genes_SYMBOL):
-            fp.write(ENSEMBL+"\t"+symbol+"\n")
+        if feature is not None:
+            for ENSEMBL, symbol, feature in zip(genes_ENSEMBL, genes_SYMBOL, gene_feature):
+                fp.write(ENSEMBL+"\t"+ symbol+"\t"+ feature +"\n")
+        else:
+            for ENSEMBL, symbol in zip(genes_ENSEMBL, genes_SYMBOL):
+                fp.write(ENSEMBL+"\t"+ symbol+"\n")
         fp.close()
-        print('genes successfully written out to genes.tsv from adata.raw')
+        print('genes successfully written out to genes.tsv')
 
     ### write out the cellbarcodes
     cellbarcodes = adata.obs_names.tolist()
