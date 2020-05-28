@@ -33,9 +33,9 @@ def filter_siggenes(adata, signature_dict):
     for key, value in signature_dict.items():
         mym=[]
         for item in value:
-            if (sum(adata.raw.var.index.isin([item])*1)>0):
-                mym.append(item)
-            if (len(mym)>1): signature_dict_filtered[key]=mym
+            if (sum(adata.raw.var.index.isin([item.strip()])*1)>0):
+                mym.append(item.strip())
+        if (len(mym)>1): signature_dict_filtered[key]=mym
     return signature_dict_filtered
 
 def combined_signature_score(adata, GMT_file,
