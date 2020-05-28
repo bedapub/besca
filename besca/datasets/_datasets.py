@@ -197,7 +197,7 @@ def Martin2019_raw():
     
     """
 
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/Martin2019_raw.h5ad')
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Martin2019_raw.h5ad', backup_url='https://zenodo.org/record/3862132/files/Martin2019_raw.h5ad?download=1')
     adata = read(filename, cache=True)
     return adata
 
@@ -222,7 +222,7 @@ def Martin2019_processed():
     
     """
 
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/Martin2019_processed.h5ad')
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Martin2019_processed.h5ad', backup_url='https://zenodo.org/record/3862132/files/Martin2019_processed.h5ad?download=1')
     adata = read(filename, cache=True)
     return adata
 
