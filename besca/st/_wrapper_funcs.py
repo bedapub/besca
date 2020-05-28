@@ -159,7 +159,6 @@ def highly_variable_genes (adata):
 
     filter_result = sc_highly_variable_genes(adata, min_mean=0.0125, max_mean=3, min_disp=0.5, inplace = False)
     pl_highly_variable_genes(filter_result, save = '.hvg.png', show = True)
-    #sc_highly_variable_genes(adata, min_mean=0.0125, max_mean=3, min_disp=0.5, inplace = True)
 
     adata = adata[:, filter_result.highly_variable == True]
 
