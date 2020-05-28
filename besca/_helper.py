@@ -241,11 +241,10 @@ def concate_adata(adata1, adata2):
     #create our complete combined object
     adata_combined = AnnData(X = X, obs = obs, var = var)
 
-    if adata1.raw is not None:
-
-        if adata2.raw is None:
-            sys.exit('Only one of the anndata objects contains a .raw!')
-
+    if  any([adata1.raw is not None, adata2.raw is not None]) :
+        if any([adata1.raw  is None, adata2.raw is None]):
+            sys.exit( ''Only one of the anndata objects contains a .raw!')
+                
         #get the raw object
         adata1_raw = get_raw(adata1)
         adata2_raw = get_raw(adata2)
