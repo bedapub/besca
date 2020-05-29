@@ -89,7 +89,7 @@ GermCenterBcell	Bcell	1	96
 ImmatureEnterocyte	Epithelial	2	60.6
 ImmatureGoblet	Epithelial	2	60.7
 EnterocytePC	Epithelial	2	60.8
-EpithelialStem	None	1	100
+EpithelialStem	Epithelial	1	100
 IgAPlasma	Plasma	1.75	102
 IgGPlasma	Plasma	2.5	101
 IgMPlasma	Plasma	2.5	103
