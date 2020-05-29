@@ -624,15 +624,21 @@ def predict(classifier, scaler, adata_pred, threshold = 0):
     test = scaler.transform(test)
     results = classifier.predict(test)
 
-    prob = np.max(classifier.predict_proba(test), axis = 1)
+    if (isinstance(classifier, LogisticRegressionCV) and classifier.multi_class == 'ovr') == False:
+        prob = np.max(classifier.predict_proba(test), axis=1)
+
+    else:  # in this case we are using ovr logreg
+        prob = np.max(scipy.special.expit(classifier.decision_function(test)), axis=1)
+
     unlabeled = np.where(prob < threshold)
-    results[unlabeled] = 'Unknown'
+    results[unlabeled] = 'unknown'
     pred = pd.DataFrame(results)
 
     pred.to_csv("SVM_Pred_Labels_inter_jupyter.csv", index = False)
     return results 
 
-def report(adata_pred, celltype, method, analysis_name, train_datasets, test_dataset, merge, use_raw = False, genes_to_use = 'all', remove_nonshared = False, clustering = 'leiden'):
+
+def report(adata_pred, celltype, method, analysis_name, train_datasets, test_dataset, merge, use_raw = False, genes_to_use = 'all', remove_nonshared = False, clustering = 'leiden', asymmetric_matrix = True):
     """ reports basic metrics, produces confusion matrices and plots umap of prediction
 
     Writes out a csv file containing all accuracy and f1 scores.
@@ -661,6 +667,8 @@ def report(adata_pred, celltype, method, analysis_name, train_datasets, test_dat
     remove_nonshared: `bool`|default = False
     clustering: `str` | default = leiden
         clustering that was used in original analysis of testing set, needed for umap plotting
+    asymmetric_matrix: `bool` | default = True
+        if False returns square confusion matrix, if True it only shows possible combinations
 
     returns
     -------
@@ -708,17 +716,18 @@ def report(adata_pred, celltype, method, analysis_name, train_datasets, test_dat
         class_names =  np.unique(np.concatenate((adata_pred.obs[celltype], adata_pred.obs['auto_annot'])))
         np.set_printoptions(precision=2)
         # Plot non-normalized confusion matrix
-        plot_confusion_matrix(adata_pred.obs[celltype], adata_pred.obs['auto_annot'], classes=class_names, title='Confusion matrix, without normalization',numbers = False)
+        plot_confusion_matrix(adata_pred.obs[celltype], adata_pred.obs['auto_annot'], classes=class_names, celltype=celltype,  title='Confusion matrix, without normalization',numbers = False, adata_predicted = adata_pred, asymmetric_matrix = asymmetric_matrix)
         plt.savefig(os.path.join('./figures/SVM_confusion_matrix_' + analysis_name +'_' + celltype +  '.svg'))
 
         # Plot normalized confusion matrix with numbers
-        plot_confusion_matrix(adata_pred.obs[celltype], adata_pred.obs['auto_annot'], classes=class_names, normalize=True, title='Normalized confusion matrix', numbers = False)
+        plot_confusion_matrix(adata_pred.obs[celltype], adata_pred.obs['auto_annot'], classes=class_names,celltype=celltype,  normalize=True, title='Normalized confusion matrix', numbers = False, adata_predicted = adata_pred, asymmetric_matrix = asymmetric_matrix)
         plt.savefig(os.path.join('./figures/SVM_confusion_matrix_norm_' + analysis_name +'_' + celltype +  '.svg'))
 
-def plot_confusion_matrix(y_true, y_pred, classes,
+    
+def plot_confusion_matrix(y_true, y_pred, classes, celltype,
                           normalize=False,
                           title=None, numbers =False,
-                          cmap=plt.cm.Blues): 
+                          cmap=plt.cm.Blues, adata_predicted= None, asymmetric_matrix = True): 
     """ plots confusion matrices
 
     returns a matplotlib confusion matrix
@@ -732,6 +741,8 @@ def plot_confusion_matrix(y_true, y_pred, classes,
         ordered series of all predicted celltypes
     classes: numpy.ndarray
         union of true and predictable celltypes
+    celltype: `str`
+        celltype column on which the prediction was performed
     normalize: `bool` | default = False
         whether to return absolute values or to value all celltypes equally
     title: `str` | default = None
@@ -740,6 +751,8 @@ def plot_confusion_matrix(y_true, y_pred, classes,
         should the numbers be displayed in the plot. Note: is illegible in larger plots
     cmap: matplotlib.cm | default = plt.cm.Blues
         colour to be used for plotting
+    asymmetric_matrix: `bool` | default = True
+        if False returns square confusion matrix, if True it only shows possible combinations
 
     returns
     -------
@@ -758,6 +771,14 @@ def plot_confusion_matrix(y_true, y_pred, classes,
     cm = confusion_matrix(y_true, y_pred)
     # Only use the labels that appear in the data
     #classes = classes[unique_labels(y_true, y_pred)]
+    if asymmetric_matrix == True:
+        class_names =  np.unique(np.concatenate((adata_predicted.obs[celltype], adata_predicted.obs['auto_annot'])))
+        class_names_orig = np.unique(adata_predicted.obs[celltype])
+        class_names_pred = np.unique(adata_predicted.obs['auto_annot'])
+        test_celltypes_ind = np.searchsorted(class_names, class_names_orig)
+        train_celltypes_ind = np.searchsorted(class_names, class_names_pred)
+        cm=cm[test_celltypes_ind,:][:,train_celltypes_ind]
+    
     if normalize:
         cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
         print("Normalized confusion matrix")
@@ -768,20 +789,30 @@ def plot_confusion_matrix(y_true, y_pred, classes,
     im = ax.imshow(cm, interpolation='nearest', cmap=cmap)
     ax.figure.colorbar(im, ax=ax, shrink = 0.8)
     # We want to show all ticks...
-    ax.set(xticks=np.arange(cm.shape[1]),
-           yticks=np.arange(cm.shape[0]),
-           # ... and label them with the respective list entries
-           xticklabels=classes, yticklabels=classes,
-           title=title,
-           ylabel='True label',
-           xlabel='Predicted label')
+    if asymmetric_matrix == True:
+        ax.set(xticks=np.arange(cm.shape[1]),
+               yticks=np.arange(cm.shape[0]),
+               # ... and label them with the respective list entries
+               xticklabels=class_names_pred, yticklabels=class_names_orig,
+               title=title,
+               ylabel='True label',
+               xlabel='Predicted label')
+    else:
+        ax.set(xticks=np.arange(cm.shape[1]),
+               yticks=np.arange(cm.shape[0]),
+               # ... and label them with the respective list entries
+               xticklabels=classes, yticklabels=classes,
+               title=title,
+               ylabel='True label',
+               xlabel='Predicted label')
+        
     ax.grid(False)
     #ax.tick_params(axis='both', which='major', labelsize=10)
     # Rotate the tick labels and set their alignment.
     plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
              rotation_mode="anchor")
 
-    # Loop over data dimensions and create text annotations. uncomment this if you want numbers displayed
+    # Loop over data dimensions and create text annotations.
     if numbers == True:
         fmt = '.2f' if normalize else 'd'
         thresh = cm.max() / 2.
@@ -851,18 +882,23 @@ def predict_proba(classifier, scaler, adata_pred, threshold = 0):
     else:
         test = adata_pred.X
     test = scaler.transform(test)
+
     results = classifier.predict(test)
 
-    
-    probmax = np.max(classifier.predict_proba(test), axis = 1)
+    if (isinstance(classifier, LogisticRegressionCV) and classifier.multi_class == 'ovr') == False:
+        probmax = np.max(classifier.predict_proba(test), axis=1)
+        prob = classifier.predict_proba(test)
+        # (pd.DataFrame(prob)) #test if this is needed
+
+    else:  # in this case we are using ovr logreg
+        probmax = np.max(scipy.special.expit(classifier.decision_function(test)), axis=1)
+        prob = (scipy.special.expit(classifier.decision_function(test)))
+        # (pd.DataFrame(prob))
 
     unlabeled = np.where(probmax < threshold)
-    results[unlabeled] = 'Unknown'
+    results[unlabeled] = 'unknown'
     pred = pd.DataFrame(results)
 
-    pred.to_csv("SVM_Pred_Labels_inter_jupyter.csv", index = False)
-    
-    #prob = np.max(classifier.predict_proba(test), axis = 1) 
-    prob =classifier.predict_proba(test)
-    (pd.DataFrame(prob))
+    pred.to_csv("SVM_Pred_Labels_inter_jupyter.csv", index=False)
+
     return results, prob 
