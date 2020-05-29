@@ -21,7 +21,7 @@ cDC2	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/
 cDC	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	CLEC9A	KIAA1598	XCR1	RABB7B	ZNF366	BATF3	CCL22	CCL17	CCL19	NUDT17	ENHO	CD1C	CLEC10A	CD1E	AXL	LILRB4										
 NClassMonocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	LYPD	MS4A4	ICAM4	TCF7L2	MTSS1	FCGR3A																				
 pDC	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	LILRA4	PTPRS	ZFAT	SCT	CLEC4C	PTCRA	LAMP5																			
-Hematopoetic	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	PTPRC	CORO1A	RAC2	CD53	LAPTM5	CXCR4	LCP1																			
+Hematopoietic	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	PTPRC	CORO1A	RAC2	CD53	LAPTM5	CXCR4	LCP1																			
 Blymphocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	CD19	MS4A1	CD79A	CD79B	ITGA8	IGLL5	IGJ	VPREB3	POU2AF1																	
 CD56dimNK	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	CD160	SPON2	FCGR3A	CCL4	FGFBP2	CD160	S1PR5	FCRL6																		
 CD56brightNK	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	XCL1	SELL	CCR7	FUT7	KLRC1	TNFRSF18																				
@@ -80,7 +80,7 @@ InflamFibroblast	Genes used for automatic annotation of scRNA-seq derived cluste
 InflamMonocyte	Genes used for automatic annotation of scRNA-seq derived clusters of Intestine (v8 May20) derived by Hatje K.	CCL3	SOD2	IL1B	IER3																						
 Neural	Genes used for automatic annotation of scRNA-seq derived clusters of Intestine (v8 May20) derived by Hatje K.	S100B	ALDH1A1	GPM6B	CRYAB	CLU																					
 Enteroendocrine	Genes used for automatic annotation of scRNA-seq derived clusters of Intestine (v8 May20) derived by Hatje K.	PCSK1N	SCGN	CHGA	MS4A8	SCG5	CRYBA2	FEV																			
-Goblet	Genes used for automatic annotation of scRNA-seq derived clusters of Intestine (v8 May20) derived by Hatje K.	TFF1	S100P	BCAS1																							
+Goblet	Genes used for automatic annotation of scRNA-seq derived clusters of Intestine (v8 May20) derived by Hatje K.	TFF1	S100P	BCAS1	FCGBP	KLK1	ZG16																				
 Enterocyte	Genes used for automatic annotation of scRNA-seq derived clusters of Intestine (v8 May20) derived by Hatje K.	PLAC8	CEACAM5	CEACAM7	TSPAN1	KRT20	CA4	SDCBP2																			
 FollicularBcell	Genes used for automatic annotation of scRNA-seq derived clusters of Intestine (v8 May20) derived by Hatje K.	CXCR4	BANK1																								
 GermCenterBcell	Genes used for automatic annotation of scRNA-seq derived clusters of Intestine (v8 May20) derived by Hatje K.	TCL1A	MARCKSL1	SMIM14																							
@@ -98,3 +98,4 @@ ActTcell	Genes used for automatic annotation of scRNA-seq derived clusters of In
 NaiTcell	Genes used for automatic annotation of scRNA-seq derived clusters of Intestine (v8 May20) derived by Hatje K.	SELL	TCF7	LEF1	NELL2	PASK	FLT3LG	CAMK4																			
 McellGut	Genes used for automatic annotation of scRNA-seq derived clusters of Intestine (v8 May20) derived by Hatje K.	CTSE	FERMT1	CCL20	NTRK2	MIA																					
 Mast	Genes used for automatic annotation of scRNA-seq derived clusters of Intestine (v8 May20) derived by Hatje K.	TPSAB1	CPA3	HPGDS	VWA5A	KIT																					
+ColorectalCancer	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	S100P	CEACAM6	DPEP1	MAL2	REG4																					
