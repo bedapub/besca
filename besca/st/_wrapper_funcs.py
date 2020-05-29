@@ -134,7 +134,7 @@ def read_matrix(root_path,
                 annotation = True,
                 use_genes = 'SYMBOL',
                 species = 'human'):
-"""Read matrix file as expected for the standard workflow.
+    """Read matrix file as expected for the standard workflow.
     ----------
     root_path: `str`
        root path of the analysis. Expected in this folder a raw folder containing
@@ -154,7 +154,7 @@ def read_matrix(root_path,
     Returns
     -------
     returns an AnnData object
-    """
+  """
     start = time()
     input_path = join(root_path, 'raw')
 
