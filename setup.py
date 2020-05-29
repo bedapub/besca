@@ -1,15 +1,17 @@
 if __name__ == '__main__':
 
   from setuptools import setup, find_packages
+  import versioneer
   with open('requirements.txt', encoding='utf-8') as requirements:
     requires = [l.strip() for l in requirements]
 
   setup(name='besca',
-        version='2.1',
+        version=versioneer.get_version(),
+        cmdclass=versioneer.get_cmdclass(),
         description='collection of BEDA internal python functions for analysing single cell RNAseq data',
         long_description= 'please view https://pages.github.com/bedapub/besca/',
         classifiers=[
-          'Development Status :: Release 2.1 (Scanpy 1.4.1)',
+          'Development Status :: Release 2.1.1 (Scanpy 1.4)',
           'Programming Language :: Python :: 3.7.1',
           'License :: GPLv3'],
         url='https://github.com/bedapub/besca',

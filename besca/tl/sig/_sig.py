@@ -7,6 +7,36 @@ from ._metrics import _handle_signature
 # for conversion 
 from itertools import repeat
 
+def filter_siggenes(adata, signature_dict):
+    """Filter all signatures in signature_dict to remove genes not present in adata 
+    
+    Parameters
+    ----------
+    adata: class:`~anndata.AnnData`
+        An AnnData object (from scanpy). Following besca convention, var names (gene) are HGNC symbol and should match the signatures values.
+    signature_dict: `dict`
+        a dictionary of signatures. Nested dictionnaries, key: signature names
+        Values are a dict  with keys as the directions (UP/DN) and genes names in values.
+
+    Returns
+    -------
+    signature_dict_filtered: `dict`
+        a dictionary of signatures. Nested dictionnaries, key: signature names
+        Values are a dict  with keys as the directions (UP/DN) and genes names in values.
+
+    """
+    
+    # to add: which signatures were discarded and print (if verbose) genes not found
+    # to check: what happens if no signature is left?
+    
+    signature_dict_filtered={}
+    for key, value in signature_dict.items():
+        mym=[]
+        for item in value:
+            if (sum(adata.raw.var.index.isin([item.strip()])*1)>0):
+                mym.append(item.strip())
+        if (len(mym)>1): signature_dict_filtered[key]=mym
+    return signature_dict_filtered
 
 def combined_signature_score(adata, GMT_file,
                              UP_suffix='_UP', DN_suffix='_DN', method='scanpy',
@@ -59,7 +89,7 @@ def combined_signature_score(adata, GMT_file,
     """
     #RMK : Score could be computed while reading the gmt (one loop less).
     #However here we divided geneset provenance and computation.
-    signature_dict = read_GMT_sign(GMT_file, UP_suffix, DN_suffix, verbose)
+    signature_dict = read_GMT_sign(GMT_file, UP_suffix, DN_suffix,True, verbose)
     if (verbose):
         print(str(len(signature_dict)) + " signatures obtained")
     # More readable than in signatures read. This forces a second loop.
@@ -68,9 +98,12 @@ def combined_signature_score(adata, GMT_file,
         for signature in signature_dict.keys():
             for direction in signature_dict[signature]:
                 signature_dict[signature][direction] = [i for i in map(_to_geneid, repeat(conversion), signature_dict[signature][direction]) if i is not None]
+                
+    # Filter out signature genes not present in adata
+    # signature_dict=filter_siggenes(adata, signature_dict)
+    
     compute_signed_score(adata=adata, signature_dict=signature_dict, method=method, overwrite=overwrite, verbose=verbose, use_raw=use_raw)
     return None
-
 
 def compute_signed_score(adata, signature_dict, method='scanpy',
                          overwrite=False, verbose=False, use_raw=False):
@@ -100,5 +133,8 @@ def compute_signed_score(adata, signature_dict, method='scanpy',
     None
 
     """
+    # Filter out signature genes not present in adata
+    # signature_dict=filter_siggenes(adata, signature_dict)
+    
     [_handle_signature(signature_dict, method, adata, signature_name, overwrite, verbose, use_raw) for signature_name in signature_dict.keys()]
     return None
