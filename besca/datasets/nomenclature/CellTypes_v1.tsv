@@ -216,11 +216,11 @@ endocardial cell	endocardial cell	CL:0002350	Endocardial	3					cardiac endotheli
 respiratory epithelial cell	respiratory epithelial cell	CL:0002368	RespiratoryEpithelial	3					endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
 CD141-positive myeloid dendritic cell	CD141-positive myeloid dendritic cell	CL:0002394	cDC1	5			myeloid dendritic cell	CL:0002394	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 CD1c-positive myeloid dendritic cell	CD1c-positive myeloid dendritic cell	CL:0002399	cDC2	5			myeloid dendritic cell	CL:0002394	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-pancreatic stellate cell	pancreatic stellate cell	CL:0002410	PancStellate	3					fibroblast of lung	CL:0002553	connective tissue cell	CL:0002320	animal cell	CL:0000548
+pancreatic stellate cell	pancreatic stellate cell	CL:0002410	PancStellate	3					fibroblast	CL:0000057	connective tissue cell	CL:0002320	animal cell	CL:0000548
 immature T cell	immature T cell	CL:0002420	ImmatureTcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 oligodendrocyte precursor cell	oligodendrocyte precursor cell	CL:0002453	OligodendrocytePC	5	oligodendrocyte	CL:0000128	macrogial cell	CL:0000126	glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
 kidney epithelial cell	kidney epithelial cell	CL:0002518	KidneyEpithelial	2							epithelial cell	CL:0000066	animal cell	CL:0000548
-fibroblast of lung	fibroblast of lung	CL:0002553	LungFibroblast	3					fibroblast of lung	CL:0002553	connective tissue cell	CL:0002320	animal cell	CL:0000548
+fibroblast of lung	fibroblast of lung	CL:0002553	LungFibroblast	3					fibroblast	CL:0000057	connective tissue cell	CL:0002320	animal cell	CL:0000548
 intestinal epithelial cell	intestinal epithelial cell	CL:0002563	IntestinalEpithelial	3					endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
 mesenchymal stem cell of adipose	mesenchymal stem cell of adipose	CL:0002570	AdiposeMSC	5	mesenchymal stem cell	CL:0000134	multi fate stem cell	CL:0000048	stem cell	CL:0000034	precursor cell	CL:0011115	animal cell	CL:0000548
 Schwann cell	Schwann cell	CL:0002573	Schwann	3					glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
@@ -314,3 +314,23 @@ epithelial cell derived cell line	epithelial cell derived cell line	EFO:0001641	
 U-87 MG	U-87 MG	EFO:0005237	U87MG	2							epithelial cell derived cell line	EFO:0001641	cultured cell	CL:0000010
 embryonic cell	embryonic cell	CL:0002321	Embryonic	1									animal cell	CL:0000548
 immature conventional dendritic cell	immature conventional dendritic cell	CL:0000840	ImmaturecDC	4			myeloid dendritic cell	CL:0002394	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+activated T cell		DB:0000043	ActTcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CD8-positive, alpha-beta memory T cell	CD8-positive, alpha-beta memory T cell	CL:0000909	MemCD8Tcell	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+group 1 innate lymphoid cell	group 1 innate lymphoid cell	CL:0001067	ILC1	4			innate lymphoid cell	CL:0001065	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+group 2 innate lymphoid cell	group 2 innate lymphoid cell	CL:0001069	ILC2	4			innate lymphoid cell	CL:0001065	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+group 3 innate lymphoid cell	group 3 innate lymphoid cell	CL:0001071	ILC3	4			innate lymphoid cell	CL:0001065	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+IgA plasma cell	IgA plasma cell	CL:0000987	IgAPlasma	4			plasma cell	CL:0000786	lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+IgG plasma cell	IgG plasma cell	CL:0000985	IgGPlasma	4			plasma cell	CL:0000786	lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+IgM or IgA plasma cell		DB:0000044	IgMorIgAPlasma	4			plasma cell	CL:0000786	lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+IgM plasma cell	IgM plasma cell	CL:0000986	IgMPlasma	4			plasma cell	CL:0000786	lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+naive T cell	naive T cell	CL:0000898	NaiTcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CMS1 colorectal cancer cell		DB:0000045	CMS1Colorectal	3					colorectal cancer cell	DB:0000049	malignant cell	CL:0001064	neoplastic cell	CL:0001063
+CMS2 colorectal cancer cell		DB:0000046	CMS2Colorectal	3					colorectal cancer cell	DB:0000049	malignant cell	CL:0001064	neoplastic cell	CL:0001063
+CMS3 colorectal cancer cell		DB:0000047	CMS3Colorectal	3					colorectal cancer cell	DB:0000049	malignant cell	CL:0001064	neoplastic cell	CL:0001063
+CMS4 colorectal cancer cell		DB:0000048	CMS4Colorectal	3					colorectal cancer cell	DB:0000049	malignant cell	CL:0001064	neoplastic cell	CL:0001063
+colorectal cancer cell		DB:0000049	ColorectalCancer 	2							malignant cell	CL:0001064	neoplastic cell	CL:0001063
+enteric glial cell		DB:0000050	EntericGlial	3					glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
+endothelial cell of lymphatic vessel	endothelial cell of lymphatic vessel	CL:0002138	EndothelialLymph	3					endothelial cell of vascular tree	CL:0002139	endothelial cell	CL:0000115	animal cell	CL:0000548
+MSR1-positive macrophage		DB:0000051	Macrophage_MSR1	4			macrophage	CL:0000235	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+MARCO-positive macrophage		DB:0000052	Macrophage_MARCO	4			macrophage	CL:0000235	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CXCL9-positive macrophage		DB:0000053	Macrophage_CXCL9	4			macrophage	CL:0000235	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
