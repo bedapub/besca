@@ -124,12 +124,44 @@ def setup_citeseq(results_folder,
   print('all output directories for citeseq data created successfully')
   logging.info('\tTime for creating all citeseq output directories: '+str(round(time()-start, 3))+'s')
 
-def read_matrix(root_path, citeseq = None):
 
+
+
+
+
+def read_matrix(root_path, 
+                citeseq = None, 
+                annotation = True,
+                use_genes = 'SYMBOL',
+                species = 'human'):
+"""Read matrix file as expected for the standard workflow.
+    ----------
+    root_path: `str`
+       root path of the analysis. Expected in this folder a raw folder containing
+       containg the matrix.mtx, genes.tsv,
+        barcodes.tsv and if applicable metadata.tsv
+    annotation: `bool` (default = True)
+        boolian identifier if an annotation file is also located in the folder
+        and should be added to the AnnData object
+    use_genes: `str`
+        either SYMBOL or ENSEMBL. Other genenames are not yet supported.
+    species: `str` | default = 'human'
+        string specifying the species, only needs to be used when no Gene Symbols
+        are supplied and you only have the ENSEMBLE gene ids to perform a lookup.
+    citeseq: 'gex_only' or 'citeseq_only' or None | default = None
+        string indicating if only gene expression values (gex_only) or only protein
+        expression values ('citeseq_only') or everything is read if None is specified 
+    Returns
+    -------
+    returns an AnnData object
+    """
     start = time()
     input_path = join(root_path, 'raw')
 
-    adata = read_mtx(input_path, citeseq = citeseq)
+    adata = read_mtx(input_path, citeseq = citeseq, 
+        annotation = annotation,
+        use_genes = use_genes,
+        species = species)
     logging.info('After input: '+str(adata.shape[0])+' cells, ' + str(adata.shape[1])+' genes')
     logging.info("\tTime for reading data: "+str(round(time()-start, 3))+'s')
     
