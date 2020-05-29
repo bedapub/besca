@@ -4,6 +4,16 @@
 import os
 import pkg_resources
 from scanpy.api import read
+from urllib.error import URLError
+
+
+def check_dl( filename, url):
+    try:
+        adata = read(filename, backup_url = url, cache= True)
+    except Exception:
+        raise URLError(f'\n\n\n {filename} could not be downloaded from {url}; \n Please download it manually and store it in your besca installation: besca/datasets/data/')
+    return adata
+
 
 def pbmc3k_raw():
     """3k PBMCs from 10x Genomics raw.
@@ -28,8 +38,8 @@ def pbmc3k_raw():
 
     """
 
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_raw.h5ad', backup_url='https://zenodo.org/record/3752813/files/pbmc3k_raw.h5ad?download=1')
-    adata = read(filename, cache = True)
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_raw.h5ad')
+    adata =  check_dl( filename, url = 'https://zenodo.org/record/3752813/files/pbmc3k_raw.h5ad?download=1')
     return adata
 
 def pbmc3k_filtered():
@@ -51,8 +61,8 @@ def pbmc3k_filtered():
 
     """
 
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_filtered.h5ad', backup_url='https://zenodo.org/record/3752813/files/pbmc3k_filtered.h5ad?download=1')
-    adata = read(filename, cache = True)
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_filtered.h5ad')
+    adata = check_dl( filename, url='https://zenodo.org/record/3752813/files/pbmc3k_filtered.h5ad?download=1')
     return adata
 
 def pbmc3k_processed():
@@ -75,8 +85,8 @@ def pbmc3k_processed():
     
     """
 
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_processed.h5ad', backup_url='https://zenodo.org/record/3752813/files/pbmc3k_processed.h5ad?download=1')
-    adata = read(filename, cache = True)
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_processed.h5ad')
+    adata = check_dl( filename, url='https://zenodo.org/record/3752813/files/pbmc3k_processed.h5ad?download=1')
     return adata
 
 def pbmc_storage_raw():
@@ -197,8 +207,8 @@ def Martin2019_raw():
     
     """
 
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/Martin2019_raw.h5ad', backup_url='https://zenodo.org/record/3862132/files/Martin2019_raw.h5ad?download=1')
-    adata = read(filename, cache=True)
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Martin2019_raw.h5ad')
+    adata = check_dl( filename, url ='https://zenodo.org/record/3862132/files/Martin2019_raw.h5ad?download=1')
     return adata
 
 
@@ -222,8 +232,8 @@ def Martin2019_processed():
     
     """
 
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/Martin2019_processed.h5ad', backup_url='https://zenodo.org/record/3862132/files/Martin2019_processed.h5ad?download=1')
-    adata = read(filename, cache=True)
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Martin2019_processed.h5ad')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/3862132/files/Martin2019_processed.h5ad?download=1')
     return adata
 
 
