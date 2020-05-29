@@ -43,7 +43,7 @@ def add_var_column(adata, colname = 'SYMBOL', attempFix = True):
     return(adata)
 
 
-def assert_h5ad(adata: AnnData, attempFix = True):
+def assert_adata(adata: AnnData, attempFix = True):
     """Asserts that an adata object is containing information needed for the besca pipeline to run and export information.
     This is particularly usefull when loading public data
     The parameter attempFix will try to fix the issue by itself.
