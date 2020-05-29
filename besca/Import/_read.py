@@ -78,7 +78,7 @@ def assert_h5ad(adata: AnnData, attempFix = True):
     # checking adata.var concordance
     for x in ['SYMBOL', 'ENSEMBL']:
         adata = add_var_column(adata, x, attempFix )
-        if ~all(isinstance(el, str) for el in adata.var.get(x) ):
+        if not all(isinstance(el, str) for el in adata.var.get(x) ):
             raise Exception('In {x} non string values will create an issue for export')
     return(adata)
 
@@ -90,7 +90,6 @@ def read_mtx(
         use_genes = 'SYMBOL',
         species = 'human',
         citeseq = None):
-
     """Read matrix.mtx, genes.tsv, barcodes.tsv to AnnData object.
     By specifiying an input folder this function reads the contained matrix.mtx,
     genes.tsv and barcodes.tsv files to an AnnData object. In case annotation = True
