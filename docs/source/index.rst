@@ -14,17 +14,17 @@
 Welcome to besca's documentation!
 =================================
 
-The besca (BEDA's single cell sequencing analysis) package contains many usefull python functions to use for your single-cell analysis. 
+The besca (BEDA's single-cell sequencing analysis) package builds upon the scanpy library and offers additional data structures and functions for single-cell analysis.
 
 .. image:: _images/besca_outline.jpg
    :align: center
 
-The package has been grouped into 5 categories:
+The package has grouped into 6 modules:
 
-- :ref:`preprocessing functions<preprocessing-functions>`: this submodule contains all functions relevant to data preprocessing  
-- :ref:`plotting functions <plotting-functions>`: additional plot types not available in the standard scanpy package  
-- :ref:`tools <tools-functions>`: contains additional tools to e.g. perform differential gene analysis
-- :ref:`import<import-functions>`/:ref:`export <export-functions>`: collection of functions to export/load data from the FAIR data format
-- :ref:`standardworkflow <standardworkflow-functions>`: contains functions optimized for use in our standard scsequencing analysis pipeline
+- :ref:`preprocessing functions<preprocessing-functions>`: the `pp` module contains functions relevant for data preprocessing.
+- :ref:`plotting functions <plotting-functions>`: the `pl` module offers additional plot types not available in the scanpy package  
+- :ref:`tools <tools-functions>`: the `tl` module contains additional tools, for instance tools to perform differential gene analysis
+- :ref:`standardworkflow <standardworkflow-functions>`: the `st` module contains functions optimized for our standard single-cell sequencing analysis pipeline
+- :ref:`import<import-functions>`/:ref:`export <export-functions>`: the `Import` and `export` modules are collection of functions to export/load data from the FAIR data format
 
-In addition you will find example code and output (including some short tutorials) :doc:`here <auto_examples/index>`, aswell as extensive documentation on :ref:`adding functions to besca <adding-new-functions>` and :ref:`maintaining the package <besca-maintenance>`. 
+In addition you will find example code and output (including some short tutorials) :doc:`here <auto_examples/index>`, as well as extensive documentation on :ref:`adding functions to besca <adding-new-functions>` and :ref:`maintaining the package <besca-maintenance>`.
