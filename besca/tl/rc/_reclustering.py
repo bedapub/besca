@@ -166,7 +166,7 @@ def annotate_new_cellnames(adata,
            adata.obs[new_label] = 'not_labeled'
         else:
             print('NOTE: overwriting labels for the selected cells saved in adata.obs.' + new_label + ' with the new labels')
-        new_annotation = cluster_subset.obs.get(method).to_frame(name= new_label)
+        new_annotation = cluster_subset.obs.get(method).to_frame(name= new_label).copy()
         
         for i in range(0, len(clusters)):
             new_annotation[new_label].replace(clusters[i], names[i], inplace = True)
