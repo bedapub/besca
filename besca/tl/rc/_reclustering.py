@@ -8,7 +8,7 @@ import sys
 
 def recluster(adata, 
               celltype,
-              celltype_label = 'louvain',
+              celltype_label = 'leiden',
               min_mean = 0.0125,
               max_mean = 4,
               min_disp = 0.5,
@@ -16,7 +16,7 @@ def recluster(adata,
               regress_out_key = None,
               random_seed = 0,
               show_plot_filter = False,
-              method = 'louvain'):
+              method = 'leiden'):
     """ Perform subclustering on specific celltype to identify subclusters.
 
     Extract all cells that belong to the pre-labeled celltype into a new 
@@ -24,19 +24,18 @@ def recluster(adata,
     variable genes are selected and a new clustering is performed. The function returns the adata 
     subset with the new clustering annotation.
 
-    This can be performed on louvain clusters by setting celltype_label = 'louvain' and passing the
+    This can be performed on leiden clusters by setting celltype_label = 'leiden' and passing the
     clusters that are to be selected for reclustering as strings or tuple of strings to the parameter
     celltype. 
 
     Parameters
     ----------
     adata: 
-        the complete AnnData object of the Dataset. A louvain clustering must have already been performed
-        and the clusterannotation saved in adata.obs.louvain
+        the complete AnnData object of the Dataset.
     celltype: `str` or (`str`)
         string identifying the cluster which is to be filtered out, if more than one is to be selected please
         pass them as a tuple not as a list!
-    celltype_label `str` | default = 'louvain'
+    celltype_label: `str` | default = 'leiden'
         string identifying which column in adata.obs will be matching with the celltype argument.
     min_mean: `float` | default = 0.0125
         the minimum gene expression a gene must have to be considered highly variable
@@ -115,7 +114,7 @@ def annotate_new_cellnames(adata,
                            cluster_subset,
                            names,
                            new_label = 'celltype',
-                           method = 'louvain'):
+                           method = 'leiden'):
     """annotate new cellnames to each of the subclusters identified by running recluster.
 
     Give each subcluster a new celltype identifier. Can only be run on an AnnData subset that has already been 
@@ -136,7 +135,7 @@ def annotate_new_cellnames(adata,
     new_label: `str` | default = 'celltype'
         string specifying under which label in adata.obs the new annotation should be saved
         (it will overwrite existing annotations under this name)
-    method: `str` | default = 'louvain'
+    method: `str` | default = 'leiden'
         string indicating the method used for clustering. This string will be used to retrieve the cluster
         numbers in adata.obs and in the cluster_subset. (assuming the same obs column name)
 
