@@ -68,9 +68,9 @@ def score_mw(f, mymarkers):
         a dataframe of -10logpValues per cluster and signature
     """
     ids = set(f.iloc[:,2:len(f.columns)])
-    mypFrame = DataFrame(index=mymarkers.keys(), columns=ids)
+    mypFrame = DataFrame(index=mymarkers.keys(), columns=list(ids))
     for key, value in mymarkers.items():
-        for i in ids:
+        for i in list(ids):
             mypFrame.loc[key,i] = -10*log(mannwhitneyu(x=f.loc[f['Description'].isin(value),:][i], 
                      y=f[i],alternative='greater').pvalue)
     return(mypFrame)
