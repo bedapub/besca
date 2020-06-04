@@ -1,4 +1,4 @@
-#this file contains the helper functions
+# this file contains the helper functions
 # for signature scoring analysis in python using scanpy
 
 
@@ -13,7 +13,7 @@ def _to_geneid(conversionTable, symbol):
         A serie containing
     symbol:class`~str`: symbol to convert.
         Should match in the first column of conversionTable
-            
+
     Returns
     -------
     a str, the converted symbol.        
