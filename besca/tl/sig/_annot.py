@@ -72,13 +72,13 @@ def score_mw(f, mymarkers):
     for key, value in mymarkers.items():
         for i in ids:
             mypFrame.loc[key, i] = -10*log(
-                 mannwhitneyu(x=f.loc[f['Description'].isin(value), :][i],
+                mannwhitneyu(x=f.loc[f['Description'].isin(value), :][i],
                              y=f[i], alternative='greater').pvalue
             )
     return(mypFrame)
 
 
-def add_anno(adata, cnames, mycol, clusters='louvain'):
+def add_anno(adata, cnames, mycol, clusters='leiden'):
     """ Adds annotation generated with make_anno to a AnnData object
     Takes as input the AnnData object to which annotation will be appended and the annotation pd
     Generates a pd.Series that can be added as a adata.obs column with annotation at a level
@@ -90,7 +90,7 @@ def add_anno(adata, cnames, mycol, clusters='louvain'):
       a list of cluster names generated with make_anno
     mycol: string
       column to be added
-    cluster: string
+    clusters: string
       initial cluster used for annotation (column in adata.obs)
 
     returns
