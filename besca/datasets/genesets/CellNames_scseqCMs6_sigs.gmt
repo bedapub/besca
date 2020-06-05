@@ -99,3 +99,11 @@ NaiTcell	Genes used for automatic annotation of scRNA-seq derived clusters of In
 McellGut	Genes used for automatic annotation of scRNA-seq derived clusters of Intestine (v8 May20) derived by Hatje K.	CTSE	FERMT1	CCL20	NTRK2	MIA																					
 Mast	Genes used for automatic annotation of scRNA-seq derived clusters of Intestine (v8 May20) derived by Hatje K.	TPSAB1	CPA3	HPGDS	VWA5A	KIT																					
 ColorectalCancer	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	S100P	CEACAM6	DPEP1	MAL2	REG4																					
+T1Pneumocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	AGER	CLIC5	SEMA3B																							
+T2Pneumocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	ABCA3	PGC	NAPSA	SFTPD	SFTA2																					
+Pneumocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	ABCA3	PGC	AGER	NAPSA	SPTB	CFTR																				
+Club	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	SCGB1A1	BPIFB1	TMEM45A	SCGB3A2																						
+CiliatedEpithelial	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	RSPH1	CCDC17	CAPS	ODF3B	ODF3B	FAM183A	FOXJ1	CCDC78																		
+Basal	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	KRT5	TP63																								
+Ionocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	CHGA	CALCA	ASCL1																							
+																											
