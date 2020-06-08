@@ -5,6 +5,7 @@ from ._qc_plots import dropouts, librarysize_overview, detected_genes, library_s
 from ._general import stacked_split_violin
 from ._dot_heatmap import dot_heatmap, dot_heatmap_split, dot_heatmap_split_greyscale
 from ._update_palette import update_qualitative_palette
+from ._nomenclature_network import plot_network
 
 __all__ = ["kp_genes", 
            "kp_counts", 
@@ -27,4 +28,5 @@ __all__ = ["kp_genes",
            "dot_heatmap",
            "dot_heatmap_split",
            "dot_heatmap_split_greyscale",
-           "update_qualitative_palette"]
+           "update_qualitative_palette",
+           "nomenclature_network"]
