@@ -89,51 +89,6 @@ def pbmc3k_processed():
     adata = check_dl( filename, url='https://zenodo.org/record/3752813/files/pbmc3k_processed.h5ad?download=1')
     return adata
 
-def pbmc_storage_raw():
-    """PBMCs at 3 storage conditions raw
-
-    The data consists of raw data of PBMCs from 3 healthy donor that were stored under 3 different conditions: fresh, frozen, 24_RT.
-    
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.pbmc_storage_raw()
-    >>> adata
-    
-    """
-
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc_storage_raw_downsampled.h5ad')
-    adata = read(filename, cache=True)
-    return adata
-  
-
-def pbmc_storage_processed():
-    """PBMCs at 3 storage conditions raw
-
-    The data consists of raw data of PBMCs from 3 healthy donor that were stored under 3 different conditions: fresh, frozen, 24_RT.
-    Data was filtered, batch corrected using BBKNN and celltypes were annotated.
-    
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
-
-    Example
-    -------
-    >>> import besca as bc
-    >>> adata = bc.datasets.pbmc_storage_processed()
-    >>> adata
-    """
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc_storage_processed_downsampled.h5ad')
-    adata = read(filename, cache=True)
-    return adata
-
 
 
 
