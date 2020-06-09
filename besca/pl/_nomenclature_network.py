@@ -11,7 +11,7 @@ def nomenclature_network(tsv):
     networkx_import = importlib.util.find_spec('networkx')
     pydot_import = importlib.util.find_spec('pydot')
 
-    if (networkx_import or pydot_import) is None:
+    if networkx_import is None or pydot_import is None:
         raise ImportError(
             "_nomenclature_network.py requires networkx and pydot. Install with pip install pydot and pip install networkx")
         
