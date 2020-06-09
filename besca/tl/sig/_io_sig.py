@@ -1,6 +1,6 @@
 # this file contains the functions to read / import signatures
 # for signature score computations
-from re import match, compile
+from re import compile, match
 from requests import post
 
 
@@ -80,8 +80,6 @@ def read_GMT_sign(GMT_file, UP_suffix='_UP', DN_suffix='_DN', directed=True, ver
         mymarkersk={}
         for key, value in signed_sign.items():
             mymarkersk[key]=value['UP']
-        signed_sign=mymarkersk.copy()
-        
+        signed_sign=mymarkersk.copy()        
     return(signed_sign)
-
 
