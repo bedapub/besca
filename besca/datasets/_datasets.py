@@ -2,12 +2,24 @@
 """
 
 import os
+from urllib.error import URLError
 import pkg_resources
 from scanpy.api import read
-from urllib.error import URLError
 
 
 def check_dl( filename, url):
+    """try to obtain dataset while checking url 
+      ----------
+    filename: `str`
+        path and filename to load
+    url: `str` 
+        backup url.
+            
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+    """
     try:
         adata = read(filename, backup_url = url, cache= True)
     except Exception:
@@ -86,7 +98,7 @@ def pbmc3k_processed():
     """
 
     filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_processed.h5ad')
-    adata = check_dl( filename, url='https://zenodo.org/record/3886414/files/pbmc3k_processed.h5ad?download=1')
+    adata = check_dl(filename, url='https://zenodo.org/record/3886414/files/pbmc3k_processed.h5ad?download=1')
     return adata
 
 
