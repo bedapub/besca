@@ -1,22 +1,20 @@
 from matplotlib import pyplot as plt
 import pandas as pd
 import importlib
-
-networkx_import = importlib.util.find_spec('networkx')
-pydot_import = importlib.util.find_spec('pydot')
-
-if (networkx_import or pydot_import) is None:
-    raise ImportError(
-        "_nomenclature_network.py requires networkx and pydot. Install with pip install pydot and pip install networkx")
-else:
-    import networkx as nx
+import networkx as nx
 
 def nomenclature_network(tsv):
     """ 
     Based on a tsv config file of a .gmt datasetfile a network is plotted. This network reflects the connection between parent cells and terms.
-    Example tsv: '../datasets/genesets/CellNames_scseqCMs6_config.tsv'
+    Example tsv: 'besca/datasets/genesets/CellNames_scseqCMs6_config.tsv'
     """
+    networkx_import = importlib.util.find_spec('networkx')
+    pydot_import = importlib.util.find_spec('pydot')
 
+    if (networkx_import or pydot_import) is None:
+        raise ImportError(
+            "_nomenclature_network.py requires networkx and pydot. Install with pip install pydot and pip install networkx")
+        
     # read tsv file 
     df = pd.read_csv(tsv,sep='\t')
 
