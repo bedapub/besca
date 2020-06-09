@@ -1,6 +1,6 @@
 from matplotlib import pyplot as plt
 import pandas as pd
-_nomenclature_network.import importlib
+import importlib
 
 networkx_import = importlib.util.find_spec('networkx')
 pydot_import = importlib.util.find_spec('pydot')
