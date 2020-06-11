@@ -3,11 +3,11 @@ Bcell	Blymphocyte	1.75	1.5
 Fibroblast	None	2.75	2
 Endothelial	None	2.5	3
 Epithelial	None	2.5	4
-Granulocyte	Myeloid	1	21
+Granulocyte	Myeloid	2	21
 MelMelanoma	None	2	60
 MemBcell	Bcell	1.5	8
 Myeloid	Hematopoietic	0.1	12.5
-NKcell	Hematopoietic	2	16
+NKcell	Hematopoietic	1.5	10.2
 NaiBcell	Bcell	1.5	11
 Neutrophil	Granulocyte	1.5	12
 Plasma	Blymphocyte	1	25
@@ -17,7 +17,7 @@ Tcell	Hematopoietic	2.25	10
 CD8Tcell_IL7Rmax	CD8Tcell	4	17
 CD4Tcell_IL7Rmax	CD4Tcell	4	17.5
 RegTcell	CD4Tcell	0.5	18
-cDC1	cDC	1	19
+cDC1	cDC	2	19
 cDC2	cDC	1	20.5
 cDC	Myeloid	1	22
 NClassMonocyte	Myeloid	1.5	48
@@ -28,8 +28,8 @@ CD56dimNK	NKcell	1.5	26
 CD56brightNK	NKcell	1.5	27
 NaiCD4Tcell	CD4Tcell	3.75	28
 NaiCD8Tcell	CD8Tcell	4	29
-ProlifCD8Tcell	CD8Tcell	2	30
-ProlifCD4Tcell	CD4Tcell	2	31
+ProlifCD8Tcell	CD8Tcell	3	30
+ProlifCD4Tcell	CD4Tcell	3	31
 ProlifBcell	Bcell	2	31.5
 CMCD4Tcell	CD4Tcell	1.5	32
 EMCD8Tcell	CD8Tcell	2	40
@@ -47,9 +47,9 @@ Macrophage_MSR1	Macrophage	1	44
 Macrophage_CXCL9	Macrophage	1	45
 Monocyte	Myeloid	1	85
 ExhBcell	Bcell	1	47
-Macrophage	Myeloid	0.4	35
+Macrophage	Myeloid	1	35
 Hepatocyte	None	3	51
-Erythrocyte	None	1	5
+Erythrocyte	None	2	5
 AlphaPancreatic	Enteroendocrine	2	62
 BetaPancreatic	Enteroendocrine	2	61
 DeltaPancreatic	Enteroendocrine	1	63
@@ -71,7 +71,7 @@ Chondrocyte	None	1	86
 HematoMultipotentPC	Hematopoietic	1	80
 HematoStem	None	2	20
 Basophil	HematoMultipotentPC	1	82
-CommonLymphoidPC	Hematopoietic	2.5	10.5
+CommonLymphoidPC	Hematopoietic	1.5	10.5
 ProBcell	Blymphocyte	2.5	7
 ImmaturecDC	cDC	1	84
 Schwann	None	2	85
@@ -82,7 +82,7 @@ VesselEndothelial	Endothelial	1	89
 Pericyte	Fibroblast	1.5	1.75
 Myofibroblast	Fibroblast	1	91
 InflamFibroblast	Fibroblast	2.5	92
-InflamMonocyte	Monocyte	1	93
+InflamMonocyte	Myeloid	1	93
 Neural	None	1	60.5
 FollicularBcell	Bcell	1	95
 GermCenterBcell	Bcell	1	96
@@ -107,3 +107,4 @@ Club	Pneumocyte	1.5	110.5
 CiliatedEpithelial	Epithelial	3	90.5
 Basal	Pneumocyte	2	114
 Ionocyte	Epithelial	4	115
+ProlifMonocyte	Myeloid	2	31.5
