@@ -1,5 +1,4 @@
 from matplotlib import pyplot as plt
-import pkg_resources
 import pandas as pd
 import importlib
 import networkx as nx
@@ -22,11 +21,12 @@ def nomenclature_network(tsv):
     -------
 
     >>> import besca as bc
+    >>> import pkg_resources
     >>> config_file = pkg_resources.resource_filename('besca', 'datasets/genesets/CellNames_scseqCMs6_config.tsv')
-    >>> bc.pl.nomenclature_network(config_file)
+    >>> plt = bc.pl.nomenclature_network(config_file)
+    >>> plt.show()
 
     """
-    networkx_import = importlib.util.find_spec('networkx')
     pydot_import = importlib.util.find_spec('pydot')
 
     if pydot_import is None:
