@@ -1,12 +1,30 @@
 from matplotlib import pyplot as plt
+import pkg_resources
 import pandas as pd
 import importlib
 import networkx as nx
 
 def nomenclature_network(tsv):
-    """ 
-    Based on a tsv config file of a .gmt datasetfile a network is plotted. This network reflects the connection between parent cells and terms.
-    Example tsv: 'besca/datasets/genesets/CellNames_scseqCMs6_config.tsv'
+    """Plot a nomenclature network based on annotation config file.
+
+    This function plots a nomeclature network based on the config file from an .gmt annotation file.
+
+    Parameters
+    ----------
+    tsv: `type`
+
+    Returns
+    -------
+    Figure
+        A matplotlib plt object containing the generated plot.
+
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> config_file = pkg_resources.resource_filename('besca', 'datasets/genesets/CellNames_scseqCMs6_config.tsv')
+    >>> bc.pl.nomenclature_network(config_file)
+
     """
     networkx_import = importlib.util.find_spec('networkx')
     pydot_import = importlib.util.find_spec('pydot')
@@ -28,4 +46,5 @@ def nomenclature_network(tsv):
     G = nx.from_pandas_edgelist(df, 'Term', 'Parent')
     nx.draw_networkx(G,nx.nx_pydot.pydot_layout(G),font_size=7)
     plt.tight_layout()
-    plt.show()
+
+    return plt
