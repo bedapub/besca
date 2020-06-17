@@ -8,7 +8,9 @@ def celllabel_quant_boxplot(adata,
                             count_variable,
                             subset_variable,
                             condition_identifier,
-                            plot_percentage = True):
+                            plot_percentage = True,
+                            condition_order=None,
+                            myh=4,myw=8,mypal='Paired'):
     """ generate a box and whisker plot with overlayed swarm plot of celltype abundances
 
     This function takes a condition identifier to generate plots in which you can
@@ -18,11 +20,24 @@ def celllabel_quant_boxplot(adata,
     ----------
     data: 'DataFrame'
         tidy dataframe that is outputed by the function besca.tl.compare_count_subsets(..., make_tidy = True)
+    count_variable: `str`
+        obs on which to count - e.g. clusters or cell types
+    subset_variable: `str`
+        obs for stratification - e.g. donor, sample, experiment
     condition_identifier: `str`
-        same condition_identifier used to generate data
+        same condition_identifier used to generate data, used as hue - e.g. disease, storage, treatment
     plot_percentages: `bool` | default = True
         boolian indicating if the percentages or the total counts should be plotted
-
+    condition_order: `list` | default = None
+        list with the order in which the conditions should be plotted, for consistency
+    myh: `integer` | default = 4
+        height of the figure
+    myw: `integer` | default = 8
+        width of the figure
+    mypal: `string` | default = "Paired"
+        color palette for boxplots e.g. Paired, Blues_d        
+    
+    
     returns
     -------
     Figure
@@ -48,6 +63,9 @@ def celllabel_quant_boxplot(adata,
                                              condition_identifier = condition_identifier,
                                              return_percentage = plot_percentage)
 
+    if condition_order==None:
+        condition_order=list(adata.obs[condition_identifier].cat.categories)
+        
     #add count_variable to dataframe as individual column
     data[count_variable] = data.index.tolist()
 
@@ -64,15 +82,15 @@ def celllabel_quant_boxplot(adata,
     #create a new instance of a figure
     fig, (ax1) = subplots(1)
     fig.tight_layout()
-    fig.set_figheight(4)
-    fig.set_figwidth(8)
+    fig.set_figheight(myh)
+    fig.set_figwidth(myw)
 
     #format the plot
     sns.set_style("white")
     sns.set_style("ticks")
 
-    ax1 = sns.boxplot(data= data, x = count_variable, y = ylabel, hue = condition_identifier, palette="Blues_d", dodge = True, fliersize = 0)
-    ax1 = sns.swarmplot(data= data, x = count_variable, y = ylabel, hue = condition_identifier, dodge=True, color='Black')
+    ax1 = sns.boxplot(data= data, x = count_variable, y = ylabel, hue = condition_identifier, palette=mypal, dodge = True, fliersize = 0,hue_order=condition_order)
+    ax1 = sns.swarmplot(data= data, x = count_variable, y = ylabel, hue = condition_identifier, dodge=True, color='Black',hue_order=condition_order)
 
     ax1.spines['bottom'].set_linewidth(1)
     ax1.spines['left'].set_linewidth(1)
@@ -82,7 +100,7 @@ def celllabel_quant_boxplot(adata,
     ax1.tick_params(labelrotation=90,  length=6, width=2)
 
     #fix figure axis to include legend
-    tight_layout()
+    #tight_layout()
 
     #return the generated figure
     return(fig)
