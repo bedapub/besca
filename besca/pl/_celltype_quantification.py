@@ -100,7 +100,7 @@ def celllabel_quant_boxplot(adata,
     ax1.tick_params(labelrotation=90,  length=6, width=2)
 
     #fix figure axis to include legend
-    #tight_layout()
+    tight_layout()
 
     #return the generated figure
     return(fig)
