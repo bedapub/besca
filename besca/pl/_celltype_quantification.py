@@ -91,6 +91,8 @@ def celllabel_quant_boxplot(adata,
 
     ax1 = sns.boxplot(data= data, x = count_variable, y = ylabel, hue = condition_identifier, palette=mypal, dodge = True, fliersize = 0,hue_order=condition_order)
     ax1 = sns.swarmplot(data= data, x = count_variable, y = ylabel, hue = condition_identifier, dodge=True, color='Black',hue_order=condition_order)
+    handles, labels = ax1.get_legend_handles_labels()
+    ax1.legend(handles[:len(condition_order)], labels[:len(condition_order)])
 
     ax1.spines['bottom'].set_linewidth(1)
     ax1.spines['left'].set_linewidth(1)
@@ -100,7 +102,7 @@ def celllabel_quant_boxplot(adata,
     ax1.tick_params(labelrotation=90,  length=6, width=2)
 
     #fix figure axis to include legend
-    tight_layout()
+    #tight_layout()
 
     #return the generated figure
     return(fig)
