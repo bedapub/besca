@@ -1,6 +1,6 @@
 import os
-from pandas import DataFrame, read_csv
-from numpy import round, ndarray, where, arange, ix_
+from pandas import DataFrame, read_csv, concat
+from numpy import round, ndarray, where, arange, expm1, zeros, ix_
 from scipy import io, sparse
 import sys
 from io import BytesIO
@@ -1119,6 +1119,109 @@ def ranked_genes(adata,
     return(None)
     sys.exit(0)
 
+def pseudobulk(adata,
+             outpath = os.getcwd(),
+             column = 'celltype0',
+             label  = 'celltype0',
+             split_condition  = 'donor',
+             todrop =['CELL','input.path','percent_mito','n_counts','n_genes','leiden','celltype0','celltype1','celltype2','celltype3','dblabel']):
+    """export pseudobulk profiles of cells to .gct files
+
+    This is a function with which any type of labeling (i.e. celltype annotation, louvain 
+    clustering, etc.) can be written out to several .gct files as well as a single metadata file. 
+
+    To ensure FAIR compatbility label, and file name should not be changed.
+
+    parameters
+    ----------
+    adata:
+    outpath `str` | default = current working directory
+        filepath to the directory in which the results should be outputed, if no directory is 
+        specified it outputs the results to the current working directory.
+    column: `str` | default = 'celltype0'
+        Name of the column in adata.obs that is to be mapped to cell barcodes and written out to file.
+    label: `str` | default = 'celltype0'
+        label above the column when it is written out to several files
+    split_condition: `str` | default = 'experiment'
+        the experimental unit, e.g. sample ID
+    todrop: `list` 
+        Several column headers to be excluded from metadata
+
+    returns
+    -------
+    dfmerge: `pd.DataFrame`
+        merged dataframe
+
+    """
+    data = adata.obs.get(column).to_frame(name=label)
+    if data is None:
+        sys.exit('please specify a column name that is present in adata.obs')
+    
+    ### check if the outdir exists if not create
+    if not os.path.exists(outpath):
+        os.makedirs(outpath)
+    
+    ### create adata subsets for each column value
+    bulks={}
+    myset=list(set(adata.obs[column]))
+    for i in myset:
+        ii=i.replace(" ", "_") ## to avoid spaces in cell names
+        bulks[ii]=adata[adata.obs[column].isin([i])].copy()
+    bulks['all']=adata.copy()
+    
+    ### go through each adata subset and export pseudobulk
+    dfbulks={}
+    for x in bulks.keys():   
+        # sum expression
+        auxdata=bulks[x].copy()
+        myexp=list(auxdata.obs[split_condition].cat.categories) ### these are all different levels for experiments
+        mysums=zeros((len(auxdata.raw.var.index),len(myexp)))
+        for i in range(len(myexp)):
+            mysums[:,i]=expm1(auxdata[auxdata.obs[split_condition]==myexp[i]].raw.X).sum(axis=0)
+        mysums=DataFrame(mysums)
+        mysums.index=adata.raw.var.index
+        mysums.columns=[x+'.'+y for y in myexp]
+        dfbulks[x]=mysums
+    
+        mydat = auxdata.raw.var.loc[:,['SYMBOL', 'ENSEMBL']]
+        mydat.rename(columns={'SYMBOL':'Description'}, inplace=True)
+        gct = mydat.merge(dfbulks[x], how='right', left_index=True, right_index=True)
+        gct.set_index('ENSEMBL', inplace=True)
+        gct.index.names = ['NAME']
+        gct.columns=['Description']+myexp
+    
+        #write out average expression
+        gctFile_pseudo = outpath+ 'Pseudobulk-'+label+'-'+x+'.gct'
+        with open (gctFile_pseudo,"w") as fp:
+            fp.write("#1.2"+"\n")
+            fp.write(str(gct.shape[0])+'\t'+str(gct.shape[1] - 1)+'\n') # "description" already merged in as a column
+        fp.close()
+        #...and then the matrix
+        gct.to_csv(gctFile_pseudo, sep = '\t', index=True, index_label='NAME', header=True, mode = 'a',  float_format='%.3f')
+        print('Pseudobulk-'+label+'-'+x+'.gct exported successfully to file')
+
+    #### Output into single .tsv file
+    dfmerge=concat(dfbulks,axis=1)
+    dfmerge.columns = dfmerge.columns.droplevel()
+    dfmerge.to_csv(outpath+ 'Pseudobulk-'+label+'.tsv',sep='\t',index_label=False)
+
+    ### Export one metadata file
+    myexp=list(adata.obs[split_condition].cat.categories) 
+    colindex=range(0,len(adata.obs.columns)) ### replace if only a subset of metadata should be used
+    mysums=[]
+    for i in range(len(myexp)):
+        mysums.append(list(adata[adata.obs[split_condition]==myexp[i]].obs.iloc[:,colindex].iloc[0,:]))
+    mysums=DataFrame(mysums).transpose()
+    mysums.index=adata[adata.obs[split_condition]==myexp[i]].obs.iloc[:,colindex].columns
+    mysums.columns=myexp
+    mysums=mysums.transpose().drop(labels=todrop,axis=1,errors='ignore')
+    mysums['ID']=list(mysums.index)
+    colorder = ['ID','CONDITION'] + (mysums.columns.drop(['ID','CONDITION']).tolist())
+    mysums.loc[:,colorder].to_csv(outpath+ 'Pseudobulk.meta',sep='\t',index=False)
+
+    return(dfmerge)
+    sys.exit(0)
+    
 def generate_gep(adata,
                  filename='gep_basis_vector.csv',
                  column='<last_column>',
