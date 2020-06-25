@@ -1,4 +1,4 @@
-from ._export import X_to_mtx, raw_to_mtx, louvain, clustering, labeling, analysis_metadata, ranked_genes, labeling_info, generate_gep
+from ._export import X_to_mtx, raw_to_mtx, louvain, clustering, labeling, analysis_metadata, ranked_genes, labeling_info, generate_gep, pseudobulk
 
 __all__ = ["X_to_mtx",
            "raw_to_mtx", 
@@ -9,4 +9,5 @@ __all__ = ["X_to_mtx",
            "analysis_metadata",
            "generate_gep", 
            "ranked_genes",
+           "pseudobulk",
            ]
