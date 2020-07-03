@@ -1,5 +1,5 @@
 from ._annot import (add_anno, getset, make_anno, match_cluster,
-                     obtain_dblabel, read_annotconfig, score_mw)
+                     obtain_dblabel, read_annotconfig, score_mw, export_annotconfig)
 from ._io_sig import read_GMT_sign
 from ._sig import (combined_signature_score, compute_signed_score,
                    filter_siggenes)
@@ -14,4 +14,5 @@ __all__ = ["combined_signature_score",
            'make_anno',
            'read_annotconfig',
            'match_cluster',
-           'obtain_dblabel']
+           'obtain_dblabel',
+           'export_annotconfig']
