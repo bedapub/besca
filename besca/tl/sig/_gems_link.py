@@ -20,10 +20,10 @@ def insert_GeMs(BASE_URL, genesets, params, headers=['setName', 'desc', 'genes']
     Returns
     -------
     results: `int`
-        call results
+        call results 200 indicates a good request
 
     """
-    BASE_URL+= BASE_URL  + '/api/insert'
+    BASE_URL+=  '/api/insert'
     if isinstance(genesets, dict):  # only one geneset as dict
         genesets = [genesets]
     parsed = []
@@ -35,8 +35,9 @@ def insert_GeMs(BASE_URL, genesets, params, headers=['setName', 'desc', 'genes']
             else:
                 sParsed += geneset[header]
     parsed.append(sParsed)
-    returnJSON = post(BASE_URL, json=parsed).json()
-    return(returnJSON)
+    dataIn_1 = {'headers': headers,'parsed': parsed, 'params': params}  
+    returnJSON = post(BASE_URL, json=dataIn_1).json()
+    return(returnJSON['response'])
 
 
 def get_GEMS_sign(setName, BASE_URL,  UP_suffix='_UP', DN_suffix='_DN', verbose=False):
