@@ -1,6 +1,7 @@
 # this file contains the main functions for signature scoring analysis in python using scanpy
 # import using the python version 1.3.2 at least is a prerequisit! needs to be checked in all functions
 
+import sys
 # for conversion
 from itertools import repeat
 
@@ -42,7 +43,7 @@ def filter_siggenes(adata, signature_dict):
     return signature_dict_filtered
 
 
-def combined_signature_score(adata, GMT_file,
+def combined_signature_score(adata, GMT_file = None, signature_dict = None,
                              UP_suffix='_UP', DN_suffix='_DN', method='scanpy',
                              overwrite=False, verbose=False,
                              use_raw=True, conversion=None):
@@ -59,6 +60,8 @@ def combined_signature_score(adata, GMT_file,
         var names (gene) are HGNC symbol and should match the signatures values.
     GMT_file: `str` | default = None
         gmt file location containing the geneset
+    signature_dict: `str` | default = None
+        pre-loaded signature dictionnary using read_GMT_sign or get_GEMS_sign
     UP_suffix : str` | default = "_UP"
         str suffix indicating that the suffix indicating the signature in a UP direction (end of the signature).
         Can be replaced by "None" (quoted) or any kind of unexpected string to avoid combination.
@@ -93,8 +96,15 @@ def combined_signature_score(adata, GMT_file,
     """
     # RMK : Score could be computed while reading the gmt (one loop less).
     # However here we divided geneset provenance and computation.
-    signature_dict = read_GMT_sign(
-        GMT_file, UP_suffix, DN_suffix, True, verbose)
+    if ( GMT_file is None  and signature_dict is None):
+          sys.exit('need to provide either GMT_file or signature_dict gene annotation.')
+    if not GMT_file is None:
+            if signature_dict is not None:
+                signature_dict.update( read_GMT_sign(
+                    GMT_file, UP_suffix, DN_suffix, True, verbose) )
+            else: 
+                 signature_dict = read_GMT_sign(
+                    GMT_file, UP_suffix, DN_suffix, True, verbose)
     if (verbose):
         print(str(len(signature_dict)) + " signatures obtained")
     # More readable than in signatures read. This forces a second loop.
