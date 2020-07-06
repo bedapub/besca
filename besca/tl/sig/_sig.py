@@ -104,10 +104,8 @@ def combined_signature_score(adata, GMT_file,
             for direction in signature_dict[signature]:
                 signature_dict[signature][direction] = [i for i in map(_to_geneid, repeat(
                     conversion), signature_dict[signature][direction]) if i is not None]
-
     # Filter out signature genes not present in adata
     # signature_dict=filter_siggenes(adata, signature_dict)
-
     compute_signed_score(adata=adata, signature_dict=signature_dict,
                          method=method, overwrite=overwrite, verbose=verbose, use_raw=use_raw)
     return None
