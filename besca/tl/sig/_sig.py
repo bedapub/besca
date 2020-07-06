@@ -87,7 +87,7 @@ def combined_signature_score(adata, GMT_file,
     >>> #insert example code here
     >>> adata = bc.datasets.pbmc3k_filtered()
     >>> gmt_file=   'genesets/Immune.txt' # Provided by BESCA datasets check the path
-    >>> combined_signature_score( adata, GEMS_command = dataIn)
+    >>> combined_signature_score( adata, GMT_file = gmt_file)
     >>> # this code is only displayed not executed
 
     """
