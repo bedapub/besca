@@ -39,15 +39,15 @@ def insert_GeMs(BASE_URL, genesets, params, headers=['setName', 'desc', 'genes']
     return(returnJSON)
 
 
-def get_GEMS_sign(GEMS_command, BASE_URL,  UP_suffix='_UP', DN_suffix='_DN', verbose=False):
-    """ Connect to GEMS, dowload related geneset (specified by GEMS command)
+def get_GEMS_sign(setName, BASE_URL,  UP_suffix='_UP', DN_suffix='_DN', verbose=False):
+    """ Connect to GEMS, dowload related geneset (specified by setName, can be a prefix/suffix)
     and return them
     This function combines genesets (signatures) scores (UP and DN) genes.
     Non directionaly geneset are by default considered as UP.
     Parameters
     ----------
-    GEMS_command: `dict` | default = None
-        dictionary specifying values possible for GEMS
+    setName: `str` 
+        setName to find in GeMs
     BASE_URL: `str` 
         GeMS url for the api. Should look like: 'http://' + hostname + ':' +  localport 
     UP_suffix : `str` | default = "_UP"
@@ -65,15 +65,15 @@ def get_GEMS_sign(GEMS_command, BASE_URL,  UP_suffix='_UP', DN_suffix='_DN', ver
     >>> import yaml
     >>> with open('mongocredentials/credential.yml') as f:
             cred = yaml.safe_load(f)
-    >>> dataIn = {
-    'setName': 'HumanCD45p',
-    'returnParams': ['setName','desc', 'genes']
-    }
-    >>> get_GEMS_sign(dataIn, BASE_URL =  'http://' + cred['hostname'] + ':' +  cred['localport'])
+    >>> get_GEMS_sign('Tcell', BASE_URL =  'http://' + cred['hostname'] + ':' +  cred['localport'])
     >>> # this code is only displayed not executed
     """
     # Calling GEMS
     BASE_URL += '/api/genesets'
+    GEMS_command= {
+        'setName': setName,
+        'returnParams': ['setName','desc', 'genes']
+        }
     returnJSON = post(BASE_URL, json=GEMS_command).json()
     # Pattern compilation
     pattern_DN = compile("(\w+)" + DN_suffix + "$")
@@ -150,10 +150,6 @@ def get_similar_geneset(request, BASE_URL, similarity_coefficient = 0.5, method 
             print('Catching all genesets related to the request')
             signature_dict = {}
             for el  in getChecking:
-                dataIn = {
-                    'setName': el['setName'],
-                    'returnParams': ['setName','desc', 'genes']
-                    }
-                signature_dict.update(  get_GEMS_sign(dataIn, BASE_URL =  BASE_URL ))
+                signature_dict.update(  get_GEMS_sign(el['setName'], BASE_URL =  BASE_URL ))
             return( signature_dict)
     
