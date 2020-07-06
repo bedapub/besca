@@ -1,15 +1,14 @@
 from re import compile, match
+from requests import post, get
+import sys
 
-from requests import post
-
-
-def insert_GeMs(url_host_insert, genesets, params, headers=['setName', 'desc', 'genes']):
+def insert_GeMs(BASE_URL, genesets, params, headers=['setName', 'desc', 'genes']):
     """Insert genesets into the local gems server
     url_host will depend on GeMs deployement. Could be stored in crendential files.
     Parameters
     ----------
-    url_host_insert: class:`str`
-        an string  'http://' + hostname + ':' +  localport + '/api/insert'
+    BASE_URL: class:`str`
+        an string  'http://' + hostname + ':' +  localport
     genesets: `list`
         a list of dict; each dict is a signature; key values should mapp the headers
     params: `list` of strings.
@@ -24,6 +23,7 @@ def insert_GeMs(url_host_insert, genesets, params, headers=['setName', 'desc', '
         call results
 
     """
+    BASE_URL+= BASE_URL  + '/api/insert'
     if isinstance(genesets, dict):  # only one geneset as dict
         genesets = [genesets]
     parsed = []
@@ -35,7 +35,7 @@ def insert_GeMs(url_host_insert, genesets, params, headers=['setName', 'desc', '
             else:
                 sParsed += geneset[header]
     parsed.append(sParsed)
-    returnJSON = post(url_host_insert, json=dataIn_1).json()
+    returnJSON = post(BASE_URL, json=parsed).json()
     return(returnJSON)
 
 
@@ -49,7 +49,7 @@ def get_GEMS_sign(GEMS_command, BASE_URL,  UP_suffix='_UP', DN_suffix='_DN', ver
     GEMS_command: `dict` | default = None
         dictionary specifying values possible for GEMS
     BASE_URL: `str` 
-        GeMS url for the api. Should look like: 'http://' + hostname + ':' +  localport + '/api/genesets'
+        GeMS url for the api. Should look like: 'http://' + hostname + ':' +  localport 
     UP_suffix : `str` | default = "_UP"
         str suffix indicating that the suffix indicating the signature  is in UP direction.
         This should be the end of the signatures names ($)
@@ -69,10 +69,11 @@ def get_GEMS_sign(GEMS_command, BASE_URL,  UP_suffix='_UP', DN_suffix='_DN', ver
     'setName': 'HumanCD45p',
     'returnParams': ['setName','desc', 'genes']
     }
-    >>> get_GEMS_sign(dataIn, BASE_URL =  'http://' + cred['hostname'] + ':' +  cred['localport'] + '/api/genesets')
+    >>> get_GEMS_sign(dataIn, BASE_URL =  'http://' + cred['hostname'] + ':' +  cred['localport'])
     >>> # this code is only displayed not executed
     """
     # Calling GEMS
+    BASE_URL += '/api/genesets'
     returnJSON = post(BASE_URL, json=GEMS_command).json()
     # Pattern compilation
     pattern_DN = compile("(\w+)" + DN_suffix + "$")
@@ -104,3 +105,55 @@ def get_GEMS_sign(GEMS_command, BASE_URL,  UP_suffix='_UP', DN_suffix='_DN', ver
                 print(i, ": ", signature_full_name)
     return(signed_sign)
 
+
+
+def get_similar_geneset(request, BASE_URL, similarity_coefficient = 0.5, method = 'overlap', outputGeneset = False):
+    """ Encapsulating small similary research. Will look for simalirity within GeMs and the mongoDB collections 
+    and returns the associated geneseets. 
+    Parameters
+    ----------
+    request: `string`
+        request specificity, if the hosted collection is large, one might need to specify more into details the geneset.
+    BASE_URL: `str` 
+        GeMS url for the api. Should look like: 'http://' + hostname + ':' +  localport
+    UP_suffix : `str` | default = "_UP"
+        str suffix indicating that the suffix indicating the signature  is in UP direction.
+        This should be the end of the signatures names ($)
+    DN_suffix : `str` | default = "_DN"
+        str suffix indicating that the suffix indicating the signature is in DN direction.
+        This should be the end of the signatures names ($)
+    Returns
+    -------
+    a dictionnary containing the signature names as key, and subdictionnary as direction
+    (Key could then be : UP or DN). values are then the gene names.
+    Example
+    -------
+    >>> import yaml
+    >>> with open('mongocredentials/credential.yml') as f:
+            cred = yaml.safe_load(f)
+    >>> get_similar_geneset(request='?setName=dz:770_UP&source=CREEDS&user=Public&subtype=disease',
+            BASE_URL =  'http://' + cred['hostname'] + ':' +  cred['localport'], outputGeneset = True)
+    >>> # this code is only displayed not executed
+    """   
+    if not method in [ 'jaccard' , 'overlap']:
+        sys.exit( 'Method should be  jaccard or overlap. ' + method  + ' is not a valid choice')
+    BASE_URL_similar =  BASE_URL + '/api/similar'
+    request = BASE_URL_similar + request + '&method=' + method + '&threshold=' + str(similarity_coefficient)
+    returnJSON = get(request).json()
+    if 'message' in returnJSON.keys():
+        print(returnJSON['message'])
+    if 'response' in returnJSON.keys():
+        getChecking = returnJSON['response']
+        if not outputGeneset:
+            return( getChecking)
+        else: 
+            print('Catching all genesets related to the request')
+            signature_dict = {}
+            for el  in getChecking:
+                dataIn = {
+                    'setName': el['setName'],
+                    'returnParams': ['setName','desc', 'genes']
+                    }
+                signature_dict.update(  get_GEMS_sign(dataIn, BASE_URL =  BASE_URL ))
+            return( signature_dict)
+    

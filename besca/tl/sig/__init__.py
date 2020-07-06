@@ -1,6 +1,6 @@
 from ._annot import (add_anno, getset, make_anno, match_cluster,
                      obtain_dblabel, read_annotconfig, score_mw)
-from ._gems_link import get_GEMS_sign, insert_GeMs
+from ._gems_link import (get_GEMS_sign, insert_GeMs, get_similar_geneset)
 from ._io_sig import read_GMT_sign
 from ._sig import (combined_signature_score, compute_signed_score,
                    filter_siggenes)
@@ -17,4 +17,5 @@ __all__ = ['combined_signature_score',
            'match_cluster',
            'obtain_dblabel',
            'get_GEMS_sign',
-           'insert_GeMs']
+           'insert_GeMs',
+           'get_similar_geneset']
