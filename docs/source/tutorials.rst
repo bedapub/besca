@@ -9,7 +9,7 @@ tutorials
    :maxdepth: 2
    
    tutorials/notebook1_data_processing_pbmc3k.ipynb
-   tutorials/notebook2_celltype_annotation.ipynb
+   tutorials/notebook2_celltype_annotation_pbmc3k.ipynb
    tutorials/notebook3_batch_correction.ipynb
    tutorials/auto_annot_tutorial.ipynb
    tutorials/bescape.rst
