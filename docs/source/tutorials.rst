@@ -22,7 +22,7 @@ This tutorial will give you a general introduction into single-cell sequencing a
 
 **Part 1**: :doc:`data processing <tutorials/notebook1_data_processing_pbmc3k>` 
 
-**Part 2**: :doc:`celltype annotation <tutorials/notebook2_celltype_annotation>`
+**Part 2**: :doc:`celltype annotation <tutorials/notebook2_celltype_annotation_pbmc3k>`
 
 **Part 3**: :doc:`batch correction <tutorials/notebook3_batch_correction>`
 
