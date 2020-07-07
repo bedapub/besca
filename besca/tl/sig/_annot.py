@@ -147,6 +147,36 @@ def read_annotconfig(configfile):
     return(sigconfig, levsk)
 
 
+
+def export_annotconfig(sigconfig, levsk, resultsFolder, analysisName = ''):
+    """ Export the configuration defined in sigconfig and levsk
+    Order might changed compared to the original sig. config file.
+    But numericol order within a same category (same parents) should be respected.
+    ----------
+    sigconfig: panda.DataFrame
+      a dataframe with the config details
+    levsk: list of str
+        String of distinct levels based on configuration file
+    resultsFolder: 'str'
+        results folder. where the annotation will also be stored
+    analysisName: 'str'
+        will prefix the saved config file       
+    """
+    it_order = 0 # Iterative order.
+    config_t = sigconfig.copy()
+    get_order = {}
+    for child in levsk :
+      for element in child :
+              get_order[element] = it_order
+              it_order +=1
+    config_t['Order'] = config_t.index.map(get_order) 
+    config_t.to_csv( resultsFolder + analysisName + '_config.tsv' ,  sep = '\t' )
+
+
+
+
+
+
 def make_anno(df, sigscores, sigconfig, levsk, lab='celltype', toexclude=[]):
     """ Annotate cell types
     Based on a dataframe of -log10pvals, a cutoff and a signature set generate cell annotation
@@ -160,7 +190,7 @@ def make_anno(df, sigscores, sigconfig, levsk, lab='celltype', toexclude=[]):
     sigscores: dict
       a dictionary with cluster attribution per signature
     sigconfig: panda.DataFrame
-      a dataframe with the configuration information
+      a dataframe with the configurati  on information
     levsk: list of str
       String of distinct levels based on configuration file
     lab: 'str'
