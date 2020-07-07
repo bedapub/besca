@@ -2,7 +2,7 @@ from re import compile, match
 from requests import post, get
 import sys
 
-def insert_GeMs(BASE_URL, genesets, params, headers=['setName', 'desc', 'genes']):
+def insert_gems(BASE_URL, genesets, params, headers=['setName', 'desc', 'genes']):
     """Insert genesets into the local gems server
     url_host will depend on GeMs deployement. Could be stored in crendential files.
     Parameters
@@ -40,7 +40,7 @@ def insert_GeMs(BASE_URL, genesets, params, headers=['setName', 'desc', 'genes']
     return(returnJSON['response'])
 
 
-def get_GEMS_sign(setName, BASE_URL,  UP_suffix='_UP', DN_suffix='_DN', verbose=False):
+def get_gems(setName, BASE_URL,  UP_suffix='_UP', DN_suffix='_DN', verbose=False):
     """ Connect to GEMS, dowload related geneset (specified by setName, can be a prefix/suffix)
     and return them
     This function combines genesets (signatures) scores (UP and DN) genes.
@@ -48,7 +48,7 @@ def get_GEMS_sign(setName, BASE_URL,  UP_suffix='_UP', DN_suffix='_DN', verbose=
     Parameters
     ----------
     setName: `str` 
-        setName to find in GeMs
+        setName to find in GeMs (can be a subset)
     BASE_URL: `str` 
         GeMS url for the api. Should look like: 'http://' + hostname + ':' +  localport 
     UP_suffix : `str` | default = "_UP"
@@ -81,6 +81,8 @@ def get_GEMS_sign(setName, BASE_URL,  UP_suffix='_UP', DN_suffix='_DN', verbose=
     pattern_UP = compile("(\w+)" + UP_suffix + "$")
     # Signature dict
     signed_sign = {}
+    if('response' not in returnJSON.keys()) :
+        sys.exit(print(returnJSON))
     for i in range(0, len(returnJSON['response'])):
         signature_full_name = returnJSON['response'][i]['setName']
         if len(signature_full_name):
