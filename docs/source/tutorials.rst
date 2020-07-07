@@ -8,7 +8,7 @@ tutorials
    :hidden:
    :maxdepth: 2
    
-   tutorials/notebook1_data_processing.ipynb
+   tutorials/notebook1_data_processing_pbmc3k.ipynb
    tutorials/notebook2_celltype_annotation.ipynb
    tutorials/notebook3_batch_correction.ipynb
    tutorials/auto_annot_tutorial.ipynb
@@ -20,7 +20,7 @@ single cell sequencing general tutorials
    
 This tutorial will give you a general introduction into single-cell sequencing analysis using scanpy and besca. It is divided into three seperate notebooks that should be looked at in consecutive order (they build up on results from the previous notebooks).
 
-**Part 1**: :doc:`data processing <tutorials/notebook1_data_processing>` 
+**Part 1**: :doc:`data processing <tutorials/notebook1_data_processing_pbmc3k>` 
 
 **Part 2**: :doc:`celltype annotation <tutorials/notebook2_celltype_annotation>`
 
