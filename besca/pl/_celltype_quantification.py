@@ -157,13 +157,13 @@ def celllabel_quant_stackedbar(adata,
     #return figure
     return(fig)
 
-def louvain_quant_stackedbar(adata,
+def leiden_quant_stackedbar(adata,
                              subset_variable,
-                             count_variable = 'louvain'):
-    """ Generate a stacked bar plot of the percentage of cells in each louvain cluster from each AnnData subset
+                             count_variable = 'leiden'):
+    """ Generate a stacked bar plot of the percentage of cells in each leiden cluster from each AnnData subset
 
     In contrast to the celllabel_quant_stackedbar function which can also be used to visualize the lovain clusters
-    this function also sorts the louvain clusters in proper order on the x-Axis.
+    this function also sorts the leiden clusters in proper order on the x-Axis.
 
     parameters
     ----------
@@ -182,14 +182,14 @@ def louvain_quant_stackedbar(adata,
     -------
 
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc_storage_processed_bbknn()
-    >>> fig = bc.pl.louvain_quant_stackedbar(adata, subset_variable = 'donor');
+    >>> adata = bc.datasets.Haber2017_processed()
+    >>> fig = bc.pl.leiden_quant_stackedbar(adata, subset_variable = 'donor');
 
     .. plot::
 
         >>> import besca as bc
-        >>> adata = bc.datasets.pbmc_storage_processed_bbknn()
-        >>> fig = bc.pl.louvain_quant_stackedbar(adata, subset_variable = 'donor');
+        >>> adata = bc.datasets.Haber2017_processed()
+        >>> fig = bc.pl.leiden_quant_stackedbar(adata, subset_variable = 'donor');
 
     """
     counts_celltype = count_occurrence_subset(adata, subset_variable, count_variable =count_variable, return_percentage = False)
@@ -205,7 +205,7 @@ def louvain_quant_stackedbar(adata,
 
     fig = percentages.plot(kind='bar', stacked=True, figsize=(8, 4))
     fig.set_ylabel('percentage')
-    fig.set_xlabel('louvain cluster')
+    fig.set_xlabel('leiden cluster')
     fig.legend(bbox_to_anchor=(1, 1))
 
     #fix figure axis to include legend
