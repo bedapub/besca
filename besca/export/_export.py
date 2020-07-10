@@ -1236,9 +1236,10 @@ def generate_gep(adata,
 
     We generate the GEP from adata.raw and not from adata because we need CP10k normalised values, 
     which adata doesnt contain as it will have gone through several normalisation steps further downstream.
+    At the same time we are subsetting adata.raw by the highly variable genes present only present in adata.
 
     For each cell type, its gene expression is calculted by summing up all values for given gene 
-    and given cell type, and dividing by the total number of the cell type. 
+    and given cell type. A mean value is not taken as there are many cell with zero expresion for given gene.
 
     parameters
     ----------
@@ -1288,7 +1289,7 @@ def generate_gep(adata,
         E = sparse.csr_matrix(adata.raw.X).T
     else:
         E = adata.raw.X.tocsr().T
-
+    # mask to subset only highly variable genes
     mask = adata.raw.var_names.isin(adata.var_names)
     mask = arange(len(adata.raw.var_names))[mask]
     #revert to linear scale
@@ -1298,7 +1299,8 @@ def generate_gep(adata,
     for i in range(num_labels):
         cells = where(adata.obs.get(column) == label_names[i])[0]
         #gct.iloc[:,i] = E[:,cells].mean(axis= 1) #get mean expression per gene
-        gct.iloc[:, i] = E[ix_(mask, cells)].mean(axis=1)
+        #gct.iloc[:, i] = E[ix_(mask, cells)].mean(axis=1) # get mean expression per *highly variable* gene per cell type
+        gct.iloc[:, i] = E[ix_(mask, cells)].sum(axis=1) # get the sum of expression per *highly variable* gene per cell type
         labeling_size = len(cells)
 
     mydat = mydat.loc[:, [annot]]
