@@ -98,7 +98,7 @@ def pbmc3k_processed():
     """
 
     filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_processed.h5ad')
-    adata = check_dl(filename, url='https://zenodo.org/record/3886414/files/pbmc3k_processed.h5ad?download=1')
+    adata = check_dl(filename, url='https://zenodo.org/record/3938334/files/pbmc3k_processed.h5ad?download=1')
     return adata
 
 
@@ -202,6 +202,58 @@ def Martin2019_processed():
     filename = pkg_resources.resource_filename('besca', 'datasets/data/Martin2019_processed.h5ad')
     adata = check_dl( filename, url = 'https://zenodo.org/record/3862132/files/Martin2019_processed.h5ad?download=1')
     return adata
+
+
+
+def Haber2017_raw():
+    """Raw counts from GSE92332 mouse small intestine single cell transcriptomics dataset [Haber AL, Biton M, Rogel N, et al. A single-cell survey of the small intestinal epithelium. Nature. 2017]
+
+    The data consists of raw gene expression counts of single cells from mouse small intestine.
+
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Haber2017_raw()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/haber_raw.h5ad')
+    adata = check_dl( filename, url ='https://zenodo.org/record/3935782/files/haber_raw.h5ad?download=1')
+    return adata
+
+
+def Haber2017_processed():
+    """Processed data from GSE92332 mouse small intestine single cell transcriptomics dataset [Haber AL, Biton M, Rogel N, et al. A single-cell survey of the small intestinal epithelium. Nature. 2017]
+
+    The data consists of processed single cell expression data from mouse small intestine. Data was filtered and celltypes were annotated.
+
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Haber2017_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/haber_processed.h5ad')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/3935782/files/haber_processed.h5ad?download=1')
+    return adata
+
 
 
 
