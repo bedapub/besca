@@ -191,6 +191,7 @@ def naive_merge(adata_trains):
         A concatenated anndata object of all training datasets.
     """
     # note: the following lines are a hack to avoid an incomprehensible error when aome values i uns are not the same
+    """
     rmkeys = ['neighbors', 'pca', 'rank_genes_groups', 'celltype_dream_colors']
     for trains in adata_trains:
         # note: anndata concatenate only works if dtypes of var are the same
@@ -200,6 +201,7 @@ def naive_merge(adata_trains):
         for key in rmkeys:
             trains.uns.pop(key, None)
             trains.uns.pop(key, None)
+    """
 
     if len(adata_trains) ==1:
         return adata_trains[0]
