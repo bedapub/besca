@@ -293,3 +293,77 @@ def load_immune_signatures(refined=True):
         mymarkers[ll[0]] = ll[2:len(ll)]
     file.close()
     return mymarkers
+
+
+
+def Kotliarov2020_raw():
+    """Raw counts from Kotliarov et al. Broad immune activation underlies shared set point signatures for vaccine responsiveness in healthy individuals and disease activity in patients with lupus. Nat Med. 2020
+
+    
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Kotliarov2020_raw()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Kotliarov2020_raw.h5ad')
+    adata = check_dl( filename, url ='https://zenodo.org/record/3938290/files/Kotliarov2020_raw.h5ad?download=1')
+    return adata
+
+
+def Kotliarov2020_processed():
+    """Processed data from Kotliarov et al. Broad immune activation underlies shared set point signatures for vaccine responsiveness in healthy individuals and disease activity in patients with lupus. Nat Med. 2020
+
+    
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Kotliarov2020_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Kotliarov2020_processed_citeseq_merged_annotated.h5ad')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/3938290/files/Kotliarov2020_processed_citeseq_merged_annotated.h5ad?download=1')
+    return adata
+
+
+
+def Granja2019_processed():
+    """Processed data from Granja et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol. 2019.
+    
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Granja2019_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Granja2019_processed.h5ad')
+    adata = read(filename)
+    return adata
+
