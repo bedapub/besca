@@ -304,7 +304,7 @@ def Kotliarov2020_raw():
     Returns
     -------
     adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
+        Raw data matrix.
             
     Example
     -------
@@ -344,6 +344,29 @@ def Kotliarov2020_processed():
     return adata
 
 
+def Granja2019_raw():
+    """Raw data from Granja et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol. 2019.
+    
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Raw data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Granja2019_raw()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Granja2019_raw.h5ad')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/3944753/files/standard_workflow_besca2_0_updated.h5ad.raw.h5ad?download=1')
+    return adata
+
+
 
 def Granja2019_processed():
     """Processed data from Granja et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol. 2019.
@@ -364,6 +387,76 @@ def Granja2019_processed():
     """
 
     filename = pkg_resources.resource_filename('besca', 'datasets/data/Granja2019_processed.h5ad')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/3944753/files/standard_workflow_besca2_0_updated.annotated.h5ad?download=1')
+    return adata
+
+
+
+
+def Baron2016_processed():
+    """Processed data from Baron et al. A Single-Cell Transcriptomic Map of the Human and Mouse Pancreas Reveals Inter- and Intra-cell Population Structure. Cell Systems. 2016.
+    
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Baron2016_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Baron2016_processed.h5ad')
     adata = read(filename)
     return adata
 
+
+def Segerstolpe2016_processed():
+    """Processed data from Segerstolpe et al. Single-Cell Transcriptome Profiling of Human Pancreatic Islets in Health and Type 2 Diabetes. Cell Metab. 2016.
+    
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Segerstolpe2016_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Segerstolpe2016_processed.h5ad')
+    adata = read(filename)
+    return adata
+
+
+def Peng2019_processed():
+    """Processed data from Peng et al. Single-cell RNA-seq highlights intra-tumoral heterogeneity and malignant progression in pancreatic ductal adenocarcinoma. Cell Res. 2019.
+    
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Peng2019_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Peng2019_processed.h5ad')
+    adata = read(filename)
+    return adata
