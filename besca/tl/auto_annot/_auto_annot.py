@@ -712,7 +712,7 @@ def report(adata_pred, celltype, method, analysis_name, train_datasets, test_dat
         sc.settings.set_figure_params(dpi=240)
 
         sc.pl.umap(adata_pred, color=[celltype, 'auto_annot', clustering], legend_loc='on data',legend_fontsize=7, save= '.ondata_'+ analysis_name + '.png')
-        sc.pl.umap(adata_pred, color=[celltype, 'auto_annot', clustering],legend_fontsize=7, save = '.' + analysis_name + '.png')
+        sc.pl.umap(adata_pred, color=[celltype, 'auto_annot', clustering],legend_fontsize=7, wspace = 1.5,  save = '.' + analysis_name + '.png')
         sc.settings.set_figure_params(dpi=60)
 
         # make conf matrices (4)
