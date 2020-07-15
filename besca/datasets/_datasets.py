@@ -299,7 +299,7 @@ def load_immune_signatures(refined=True):
 def Kotliarov2020_raw():
     """Raw counts from Kotliarov et al. Broad immune activation underlies shared set point signatures for vaccine responsiveness in healthy individuals and disease activity in patients with lupus. Nat Med. 2020
 
-    
+    The data consists of raw gene expression and CITE-seq counts of single cells from 53,201 single cells from healthy high and low influenza vaccination responders.
     
     Returns
     -------
@@ -323,7 +323,7 @@ def Kotliarov2020_raw():
 def Kotliarov2020_processed():
     """Processed data from Kotliarov et al. Broad immune activation underlies shared set point signatures for vaccine responsiveness in healthy individuals and disease activity in patients with lupus. Nat Med. 2020
 
-    
+    The data consists of processed single cell expression and CITE-seq data from healthy high and low influenza vaccination responders. Data was filtered and celltypes were annotated.
     
     Returns
     -------
@@ -347,6 +347,7 @@ def Kotliarov2020_processed():
 def Granja2019_raw():
     """Raw data from Granja et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol. 2019.
     
+    The data consists of raw gene expression and CITE-seq counts of single cells from healthy bone marrow, CD34+ bone marow, peripheral blood, and MPAL donors.
     
     Returns
     -------
@@ -371,6 +372,7 @@ def Granja2019_raw():
 def Granja2019_processed():
     """Processed data from Granja et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol. 2019.
     
+     The data consists of processed gene expression and CITE-seq counts of single cells from healthy bone marrow, CD34+ bone marow, peripheral blood, and MPAL donors. Data was filtered and celltypes were annotated.
     
     Returns
     -------
@@ -396,6 +398,7 @@ def Granja2019_processed():
 def Baron2016_processed():
     """Processed data from Baron et al. A Single-Cell Transcriptomic Map of the Human and Mouse Pancreas Reveals Inter- and Intra-cell Population Structure. Cell Systems. 2016.
     
+    The data consists of processed gene expression from over 12000 single cells from 4 human donors. Data was filtered and celltypes were annotated.
     
     Returns
     -------
@@ -419,6 +422,7 @@ def Baron2016_processed():
 def Segerstolpe2016_processed():
     """Processed data from Segerstolpe et al. Single-Cell Transcriptome Profiling of Human Pancreatic Islets in Health and Type 2 Diabetes. Cell Metab. 2016.
     
+    The data consists of processed gene expression from thousands of human islet cells from healthy and type 2 diabetic human donors. Data was filtered and celltypes were annotated.
     
     Returns
     -------
@@ -439,10 +443,12 @@ def Segerstolpe2016_processed():
     return adata
 
 
+
 def Peng2019_processed():
     """Processed data from Peng et al. Single-cell RNA-seq highlights intra-tumoral heterogeneity and malignant progression in pancreatic ductal adenocarcinoma. Cell Res. 2019.
     
-    
+     The data consists of processed gene expression of 57,530 individual pancreatic cells from primary PDAC tumors and control pancreases. Data was filtered and celltypes were annotated.
+
     Returns
     -------
     adata : :class:`~anndata.AnnData`
