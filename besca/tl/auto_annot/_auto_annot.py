@@ -88,8 +88,7 @@ def read_raw(train_paths, train_datasets, test_path, test_dataset):
 
     adata_trains =[]
     for i in range(len(train_datasets)):
-        adata_trains.append(scv
-.read(os.path.join(train_paths[i], train_datasets[i])))
+        adata_trains.append(scv.read(os.path.join(train_paths[i], train_datasets[i])))
         adata_trains[i]= sc.AnnData(X = np.expm1(adata_trains[i].raw.X), obs = adata_trains[i].obs, var= adata_trains[i].raw.var)
     adata_pred =scv.read(os.path.join(test_path, test_dataset))
     adata_pred = sc.AnnData(X = np.expm1(adata_pred.raw.X), obs = adata_pred.obs, var= adata_pred[i].raw.var)
