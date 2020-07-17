@@ -120,9 +120,9 @@ def annotate_new_cellnames(adata,
     Give each subcluster a new celltype identifier. Can only be run on an AnnData subset that has already been 
     reclustered, e.g. using the recluster function also available in this package. The list of 
     provided names must be of equal length to the number of subclusters in the AnnData subset. 
-    The order must be the same as the lexicographic order of the louvain cluster identifiers.
+    The order must be the same as the order of the clusters identifiers (integer expected).
 
-    parameters
+    Parameters
     ----------
     adata:
         complete AnnData object from which the subset was extracted. Must contain adata.obs.celltype.
@@ -137,7 +137,8 @@ def annotate_new_cellnames(adata,
         (it will overwrite existing annotations under this name)
     method: `str` | default = 'leiden'
         string indicating the method used for clustering. This string will be used to retrieve the cluster
-        numbers in adata.obs and in the cluster_subset. (assuming the same obs column name)
+        numbers
+         in adata.obs and in the cluster_subset. (assuming the same obs column name)
 
     returns
     -------
@@ -153,8 +154,9 @@ def annotate_new_cellnames(adata,
 
     """
 
-    clusters = cluster_subset.obs.get(method).value_counts().index.tolist()
-
+    clusters = [int(x) for x in cluster_subset.obs.get(method).value_counts().index.tolist() ]
+    clusters.sort()
+    clusters = [str(x) for x in clusters]
     if len(clusters) != len(names):
         print('need to supply as many cluster names as there are clusters')
         print('these are the clusters that need to be annotated:')
