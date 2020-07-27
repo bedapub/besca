@@ -128,7 +128,7 @@ def Smillie2019_raw():
     """
 
     filename = pkg_resources.resource_filename('besca', 'datasets/data/Smillie2019_raw.h5ad')
-    adata = read(filename, cache=True)
+    adata = check_dl(filename, url='https://zenodo.org/record/3960617/files/Smillie2019_raw.h5ad?download=1')
     return adata
 
 
@@ -154,7 +154,7 @@ def Smillie2019_processed():
     """
 
     filename = pkg_resources.resource_filename('besca', 'datasets/data/Smillie2019_processed.h5ad')
-    adata = read(filename, cache=True)
+    adata = check_dl(filename, url='https://zenodo.org/record/3960617/files/Smillie2019_processed.h5ad?download=1')
     return adata
 
 
