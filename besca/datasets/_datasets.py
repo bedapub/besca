@@ -2,8 +2,12 @@
 """
 
 import os
+import urllib.request
 from urllib.error import URLError
+
 import pkg_resources
+
+import pandas
 from scanpy.api import read
 
 
@@ -51,7 +55,7 @@ def pbmc3k_raw():
     """
 
     filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_raw.h5ad')
-    adata =  check_dl( filename, url = 'https://zenodo.org/record/3886414/files/pbmc3k_raw.h5ad?download=1')
+    adata =  check_dl( filename, url = 'https://zenodo.org/record/3948150/files/pbmc3k_raw.h5ad?download=1')
     return adata
 
 def pbmc3k_filtered():
@@ -74,7 +78,7 @@ def pbmc3k_filtered():
     """
 
     filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_filtered.h5ad')
-    adata = check_dl( filename, url='https://zenodo.org/record/3886414/files/pbmc3k_filtered.h5ad?download=1')
+    adata = check_dl( filename, url='https://zenodo.org/record/3948150/files/pbmc3k_filtered.h5ad?download=1')
     return adata
 
 def pbmc3k_processed():
@@ -98,7 +102,7 @@ def pbmc3k_processed():
     """
 
     filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_processed.h5ad')
-    adata = check_dl(filename, url='https://zenodo.org/record/3938334/files/pbmc3k_processed.h5ad?download=1')
+    adata = check_dl(filename, url='https://zenodo.org/record/3948150/files/pbmc3k_processed.h5ad?download=1')
     return adata
 
 
@@ -124,7 +128,7 @@ def Smillie2019_raw():
     """
 
     filename = pkg_resources.resource_filename('besca', 'datasets/data/Smillie2019_raw.h5ad')
-    adata = read(filename, cache=True)
+    adata = check_dl(filename, url='https://zenodo.org/record/3960617/files/Smillie2019_raw.h5ad?download=1')
     return adata
 
 
@@ -150,7 +154,7 @@ def Smillie2019_processed():
     """
 
     filename = pkg_resources.resource_filename('besca', 'datasets/data/Smillie2019_processed.h5ad')
-    adata = read(filename, cache=True)
+    adata = check_dl(filename, url='https://zenodo.org/record/3960617/files/Smillie2019_processed.h5ad?download=1')
     return adata
 
 
@@ -254,6 +258,77 @@ def Haber2017_processed():
     adata = check_dl( filename, url = 'https://zenodo.org/record/3935782/files/haber_processed.h5ad?download=1')
     return adata
 
+
+
+def Granja2019_raw():
+    """Processed data from GSE139369 mixed-phenotype acute leukemia.
+      [Granja JM, Klemm S, McGinnis LM, Kathiria AS et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol 2019 Dec;37(12):1458-1465. PMID: 31792411.]
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Original data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Granja2019_raw()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Granja2019_raw.h5ad')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/3944753/files/Granja2019_raw.h5ad?download=1')
+    return adata
+
+
+
+
+
+def Granja2019_processed():
+    """Processed data from GSE139369 mixed-phenotype acute leukemia.
+      [Granja JM, Klemm S, McGinnis LM, Kathiria AS et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol 2019 Dec;37(12):1458-1465. PMID: 31792411.]
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Granja2019_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Granja2019_annotated.h5ad')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/3944753/files/Granja2019_annotated.h5ad?download=1')
+    return adata
+
+
+
+
+def Granja2019_citeSeq():
+    """Citeseq table from GSE139369 mixed-phenotype acute leukemia; healthy sample only
+      [Granja JM, Klemm S, McGinnis LM, Kathiria AS et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol 2019 Dec;37(12):1458-1465. PMID: 31792411.]
+    
+    Returns
+    -------
+    table : panda dataframe 
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> protein_table = bc.datasets.Granja2019_citeSeq()
+    >>> protein_table
+    
+    """    
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/scADT_Healthy_counts.csv')
+    urllib.request.urlretrieve ("https://zenodo.org/record/3944753/files/scADT_Healthy_counts.csv?download=1", filename)
+    citeSeq  = pandas.read_csv(filename, sep = '\t')
+    return citeSeq
 
 
 

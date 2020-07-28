@@ -12,7 +12,8 @@ tutorials
    tutorials/notebook2_celltype_annotation_pbmc3k.ipynb
    tutorials/notebook3_batch_correction.ipynb
    tutorials/auto_annot_tutorial.ipynb
-   tutorials/bescape.rst
+   tutorials/bescape_tutorial.ipynb
+   tutorials/adata_to_eset.ipynb
    
 
 single cell sequencing general tutorials
@@ -37,6 +38,9 @@ We also provide a tutorial for the auto_annot package, which allows to automatic
 
 Bescape: Cell deconvolution tutorial
 ---------------------------------------------------------------
-Please find the deconvolution tutorial :doc:`here <tutorials/bescape>`.
+Bescape (BESCA proportion estimator) is a deconvolution module. It utilises single-cell annotations coming from the BESCA workflow to build a Gene Expression Profile (GEP). This GEP is used as a basis vector to deconvolute bulk RNA samples i.e. predict cell type proportions within a sample.
 
+Please find the deconvolution tutorial :doc:`here <tutorials/bescape_tutorial>`.
+
+Some deconvolution methods provided by Bescape are written in R. Thus, we need to convert the AnnData objects to R ExpressionSet objects. This has been semi-automated in the following tutorial: :doc:`Converting AnnData to ExpressionSet <tutorials/adata_to_eset>`
 
