@@ -1,40 +1,42 @@
 #this contains wrapper functions to export data into the standard format for the standard pipeline
 
-#import other besca functions
-from ..pp._filtering import filter
-from ..pp._normalization import normalize_geometric
-from ..Import._read import read_mtx
-from ..export._export import labeling, labeling_info
-from .. import _logging as logs
-from ._FAIR_export import export_cp10k, export_clr, export_regressedOut, export_metadata, export_clustering, export_rank
-from ..tl.bcor import batch_correct, postprocess_mnnpy
-
+import logging
+import os
 #import other modules
 import sys
-from os.path import join
 from os import makedirs
-import os
+from os.path import join
 from time import time
-import logging
+import bbknn
+import scipy
 from matplotlib.pyplot import subplots
 from numpy import cumsum
 from pandas import DataFrame
-import bbknn
-import scipy
-
 #import scanpy functions
-from scanpy.api.pp import normalize_per_cell, log1p, neighbors
-from scanpy.api.pp import highly_variable_genes as sc_highly_variable_genes
 from scanpy.api.pl import highly_variable_genes as pl_highly_variable_genes
-from scanpy.api.tl import rank_genes_groups
-from scanpy.api.pp import regress_out as sc_regress_out
-from scanpy.api.pp import scale as sc_scale
-from scanpy.api.tl import pca as sc_pca
-from scanpy.api.tl import louvain as sc_louvain
-from scanpy.api.tl import leiden as sc_leiden
-from scanpy.api.tl import umap as sc_umap
 from scanpy.api.pl import pca as sc_pl_pca
 from scanpy.api.pl import umap as sc_pl_umap
+from scanpy.api.pp import highly_variable_genes as sc_highly_variable_genes
+from scanpy.api.pp import log1p, neighbors, normalize_per_cell
+from scanpy.api.pp import regress_out as sc_regress_out
+from scanpy.api.pp import scale as sc_scale
+from scanpy.api.tl import leiden as sc_leiden
+from scanpy.api.tl import louvain as sc_louvain
+from scanpy.api.tl import pca as sc_pca
+from scanpy.api.tl import rank_genes_groups
+from scanpy.api.tl import umap as sc_umap
+
+
+#import other besca functions
+from .. import _logging as logs
+from ..export._export import labeling, labeling_info
+from ..Import._read import read_mtx
+from ..pp._filtering import filter
+from ..pp._normalization import normalize_geometric
+from ..tl.bcor import batch_correct, postprocess_mnnpy
+from ._FAIR_export import (export_clr, export_clustering, export_cp10k,
+                           export_metadata, export_rank, export_regressedOut)
+
 
 def setup(results_folder, 
           analysis_name, 
@@ -333,7 +335,7 @@ def pca_neighbors_umap(adata, results_folder,nrpcs=50, nrpcs_neigh=None, nrneigh
   ax1.set_xlabel('PCA components')
   ax1.set_title('cumulative explained variance (as ratio)')
 
-  sc_pl_pca(adata, ax = ax2, );
+  sc_pl_pca(adata, ax = ax2 )
   fig.savefig(join(results_folder, 'figures', 'PCA.png'))
 
   #display(fig)
