@@ -127,6 +127,8 @@ html_context = dict(
 
 html_static_path = ['_static']
 
+html_extra_path = ['tutorials_html']
+
 def setup(app):
     app.add_stylesheet('css/custom.css')
 
