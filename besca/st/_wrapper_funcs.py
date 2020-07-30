@@ -10,6 +10,7 @@ from ._FAIR_export import export_cp10k, export_clr, export_regressedOut, export_
 from ..tl.bcor import batch_correct, postprocess_mnnpy
 
 #import other modules
+import sys
 from os.path import join
 from os import makedirs
 import os
@@ -341,6 +342,8 @@ def pca_neighbors_umap(adata, results_folder,nrpcs=50, nrpcs_neigh=None, nrneigh
   if(method=='bbknn'):
       if('batch' in adata.obs.columns):
           bbknn.bbknn(adata)
+      else:
+          sys.exit('bbknn correction requires a column "batch" in the observations.')
   else:
       neighbors(adata, n_neighbors=nrneigh, random_state=random_state, n_pcs = nrpcs_neigh)
       print('Nearest neighbors calculated with n_neighbors = '+str(nrneigh))
