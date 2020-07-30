@@ -17,7 +17,8 @@ def subset_adata(adata,
 
     adata: `AnnData`
         complete AnnData object
-
+    filter_criteria: bool serie 
+        filtering requirement along the axis chosen.
     raw: `bool` | default = True
         boolian indicator if the subset should be initialized with the data contained in adata.raw or not
 
@@ -29,6 +30,14 @@ def subset_adata(adata,
 
     AnnData
         if raw = True the AnnData subset initialized with the adata.raw otherwise the AnnData subset initialized with adata
+
+    
+    Examples
+    --------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.pbmc3k_processed()
+    >>> adata_BCELL =  bc.subset_adata( adata, filter_criteria= adata.obs.get('dblabel') == 'naive B cell')
 
     """
     if axis == 0:
