@@ -42,19 +42,6 @@ def celllabel_quant_boxplot(adata,
     -------
     Figure
 
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.pbmc_storage_processed_bbknn()
-    >>> fig = bc.pl.celllabel_quant_boxplot(adata, count_variable = 'louvain', subset_variable = 'donor', condition_identifier = 'storage_condition',  plot_percentage = True);
-
-    .. plot::
-
-        >>> import besca as bc
-        >>> adata = bc.datasets.pbmc_storage_processed_bbknn()
-        >>> fig = bc.pl.celllabel_quant_boxplot(adata, count_variable = 'louvain', subset_variable = 'donor', condition_identifier = 'storage_condition',  plot_percentage = True);
-
     """
     #generate dataframe to plot
     data = count_occurrence_subset_conditions(adata,
@@ -129,15 +116,16 @@ def celllabel_quant_stackedbar(adata,
     -------
 
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc_storage_processed_bbknn()
-    >>> fig = bc.pl.celllabel_quant_stackedbar(adata, count_variable = 'louvain', subset_variable = 'donor');
+    >>> adata = bc.datasets.Kotliarov2020_processed()
+    >>> adata.obs   = adata.obs.astype( {'batch' :  'category'})
+    >>> fig = bc.pl.celllabel_quant_stackedbar(adata, count_variable = 'leiden', subset_variable = 'donor')
 
     .. plot::
 
         >>> import besca as bc
-        >>> adata = bc.datasets.pbmc_storage_processed_bbknn()
-        >>> fig = bc.pl.celllabel_quant_stackedbar(adata, count_variable = 'louvain', subset_variable = 'donor');
-
+        >>> adata = bc.datasets.Kotliarov2020_processed()
+        >>> adata.obs   = adata.obs.astype( {'batch' :  'category'})
+        >>> fig = bc.pl.celllabel_quant_stackedbar(adata, count_variable = 'leiden', subset_variable = 'batch')
     """
     counts_celltype = count_occurrence_subset(adata, subset_variable, count_variable =count_variable, return_percentage = False)
     percentages = DataFrame(index = counts_celltype.index.tolist(), columns = counts_celltype.columns.tolist())
