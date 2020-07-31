@@ -332,6 +332,60 @@ def Granja2019_citeSeq():
 
 
 
+def Kotliarov2020_raw():
+    """ Raw data from 
+    [Kotliarov, Y., Sparks, R., Martins, A.J. et al. Broad immune activation underlies shared set point signatures for vaccine responsiveness in healthy individuals and disease activity in patients with lupus. Nat Med 26, 618–629 (2020).]
+    
+    Returns
+    -------
+    adata : anndata            
+
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Kotliarov2020_raw()
+    >>> adata
+    
+    """    
+    ## REGULAR PROCESS DOES NOT WORK FOR THIS DATASET (SIZE ISSUE?)
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Kotliarov2020_raw.h5ad')
+    adata  = check_dl (filename, url = "https://zenodo.org/record/3938290/files/Kotliarov2020_raw.h5ad?download=1")
+    return adata
+
+
+
+def Kotliarov2020_processed():
+    """ Processed data from 
+    [Kotliarov, Y., Sparks, R., Martins, A.J. et al. Broad immune activation underlies shared set point signatures for vaccine responsiveness in healthy individuals and disease activity in patients with lupus. Nat Med 26, 618–629 (2020).]
+    
+    Returns
+    -------
+    adata : anndata
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Kotliarov2020_processed()
+    >>> adata
+    
+    """    
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Kotliarov2020_processed_citeseq_merged_annotated.h5ad')
+    adata  =check_dl (filename, url = "https://zenodo.org/record/3938290/files/Kotliarov2020_processed_citeseq_merged_annotated.h5ad?download=1")
+    return adata
+
+
+
+
+
+
+
+
+
+
+
+
 
 def load_immune_signatures(refined=True):
     """ This function load immune signatures provided 
