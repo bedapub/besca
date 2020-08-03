@@ -17,12 +17,6 @@ adata = bc.datasets.pbmc_storage_processed_bbknn()
 
 bc.pl.celllabel_quant_stackedbar(adata, count_variable = 'donor', subset_variable = 'storage_condition');
 
-#####################
-# quantify number of cells in each louvain cluster belonging to a specific subset variable (e.g. donor)
-#
-# Note that the louvain clusters are brought into the correct order.
-
-bc.pl.louvain_quant_stackedbar(adata, subset_variable = 'donor');
 
 #####################
 # quantify number of cells belong to each condition in a specific subset
