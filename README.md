@@ -10,6 +10,8 @@ The package has been grouped into 3 categories:
 
 For more information please view the package documentation: https://bedapub.github.io/besca/
 
+If you are interested in contributing you can check the repository wiki for helpful information on contributing: https://github.com/bedapub/besca/wiki
+
 ## Installation
 
 If you are familiar with python packages simply install it using pip:  
