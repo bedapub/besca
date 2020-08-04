@@ -33,7 +33,7 @@ After looking at the introductory tutorial you can download the hands-on tutoria
 single cell auto_annot tutorial for cell type annotation
 ---------------------------------------------------------------
 
-We also provide a tutorial for the auto_annot package, which allows to automatically annotate cell types useing supervised machine learning, 
+We also provide a tutorial for the auto_annot package, which allows to automatically annotate cell types using supervised machine learning, 
 you can download it from `here <github.com/bedapub/besca/blob/master/docs/source/tutorials/auto_annot_tutorial.ipynb>`_  
 (please save the link as a :code:`.ipynb` file) and compare with the results published
  :doc:`here <tutorials/auto_annot_tutorial>`.
