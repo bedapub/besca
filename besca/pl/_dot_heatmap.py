@@ -447,7 +447,7 @@ def dot_heatmap(adata,
 def dot_heatmap_split(adata, 
                       genes, 
                       split_by,
-                      group_by = 'louvain', 
+                      group_by = 'leiden', 
                       plot_absolute = True, 
                       raw = True, 
                       color_maps = ['Reds', 'Blues'], 
@@ -507,6 +507,23 @@ def dot_heatmap_split(adata,
         A matplotlib figure element containing the generated plot. To save the figure this plot will need
         to be passed to a parameter and saved in a second step through the fig.savefig() function call.
 
+    Examples
+    --------
+
+    >>> # import libraries and dataset
+    >>> import besca as bc
+    >>> adata = bc.datasets.Haber2017_processed()
+    >>> genes = ['Defa22', 'Defa24', 'Gm15284', 'Reg4']
+    >>> fig = bc.pl.dot_heatmap_split(adata, genes=genes, group_by='leiden', split_by = 'donor')
+
+    .. plot::
+
+        >>> # import libraries and dataset
+        >>> import besca as bc
+        >>> adata = bc.datasets.Haber2017_processed()
+        >>> # define genes
+        >>> genes = ['Defa22', 'Defa24', 'Gm15284', 'Reg4']
+        >>> fig = bc.pl.dot_heatmap_split(adata, genes=genes, group_by='leiden', split_by = 'donor')
 
     """
 
