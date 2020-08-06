@@ -4,9 +4,9 @@ from ._datasets import (Baron2016_processed, Baron2016_raw, Granja2019_citeSeq,
                         Kotliarov2020_processed, Kotliarov2020_raw,
                         Lee2020_processed, Lee2020_raw, Martin2019_processed,
                         Martin2019_raw, Peng2019_processed, Peng2019_raw,
-                        Smillie2019_processed, Smillie2019_raw,
-                        load_immune_signatures, pbmc3k_filtered,
-                        pbmc3k_processed, pbmc3k_raw)
+                        Segerstolpe2016_processed, Smillie2019_processed,
+                        Smillie2019_raw, load_immune_signatures,
+                        pbmc3k_filtered, pbmc3k_processed, pbmc3k_raw)
 from ._mito import get_mito_genes
 
 __all__ = ["pbmc3k_raw",
@@ -30,5 +30,6 @@ __all__ = ["pbmc3k_raw",
            "Lee2020_processed",
            "Peng2019_raw", 
            "Peng2019_processed",
+           "Segerstolpe2016_processed",
            "load_immune_signatures"
            ]

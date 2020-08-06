@@ -31,6 +31,337 @@ def check_dl( filename, url):
     return adata
 
 
+
+
+def Baron2016_raw():
+    """Raw counts from GSE84133 Pancreatic Islets Dataset [Baron M, Veres A, Wolock SL, et al. A Single-Cell Transcriptomic Map of the Human and Mouse Pancreas Reveals Inter- and Intra-cell Population Structure. Cell Syst. 2016]
+
+    The data consists of raw gene expression counts of single cells from pancreatic islets.
+
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Baron2016_raw()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/baron_raw.h5ad')
+    adata = check_dl( filename, url ='https://zenodo.org/record/3968315/files/baron2016_raw.h5ad?download=1')
+    return adata
+
+
+def Baron2016_processed():
+    """Processed data from GSE84133 Pancreatic Islets Dataset [Baron M, Veres A, Wolock SL, et al. A Single-Cell Transcriptomic Map of the Human and Mouse Pancreas Reveals Inter- and Intra-cell Population Structure. Cell Syst. 2016]
+
+    The data consists of processed single cell expression data from pancreatic islets. Data was filtered and celltypes were annotated.
+
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Baron2016_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/baron_processed.h5ad')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/3968315/files/baron2016_processed.h5ad?download=1')
+    return adata
+
+
+def Granja2019_citeSeq():
+    """Citeseq table from GSE139369 mixed-phenotype acute leukemia; healthy sample only
+      [Granja JM, Klemm S, McGinnis LM, Kathiria AS et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol 2019 Dec;37(12):1458-1465. PMID: 31792411.]
+    
+    Returns
+    -------
+    table : panda dataframe 
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> protein_table = bc.datasets.Granja2019_citeSeq()
+    >>> protein_table
+    
+    """    
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/scADT_Healthy_counts.csv')
+    urllib.request.urlretrieve ("https://zenodo.org/record/3944753/files/scADT_Healthy_counts.csv?download=1", filename)
+    citeSeq  = pandas.read_csv(filename, sep = '\t')
+    return citeSeq
+
+
+
+
+
+def Granja2019_raw():
+    """Raw data from Granja et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol. 2019.
+    
+    The data consists of raw gene expression and CITE-seq counts of single cells from healthy bone marrow, CD34+ bone marow, peripheral blood, and MPAL donors.
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Raw data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Granja2019_raw()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Granja2019_raw.h5ad')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/3944753/files/Granja2019_raw.h5ad?download=1')
+    return adata
+
+
+
+def Granja2019_processed():
+    """Processed data from Granja et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol. 2019.
+    
+     The data consists of processed gene expression and CITE-seq counts of single cells from healthy bone marrow, CD34+ bone marow, peripheral blood, and MPAL donors. Data was filtered and celltypes were annotated.
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Granja2019_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Granja2019.annotated.h5ad')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/3944753/files/Granja2019.annotated.h5ad?download=1')
+    return adata
+
+
+
+
+def Haber2017_raw():
+    """Raw counts from GSE92332 mouse small intestine single cell transcriptomics dataset [Haber AL, Biton M, Rogel N, et al. A single-cell survey of the small intestinal epithelium. Nature. 2017]
+
+    The data consists of raw gene expression counts of single cells from mouse small intestine.
+
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Haber2017_raw()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/haber_raw.h5ad')
+    adata = check_dl( filename, url ='https://zenodo.org/record/3935782/files/haber_raw.h5ad?download=1')
+    return adata
+
+
+def Haber2017_processed():
+    """Processed data from GSE92332 mouse small intestine single cell transcriptomics dataset [Haber AL, Biton M, Rogel N, et al. A single-cell survey of the small intestinal epithelium. Nature. 2017]
+
+    The data consists of processed single cell expression data from mouse small intestine. Data was filtered and celltypes were annotated.
+
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Haber2017_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/haber_processed.h5ad')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/3935782/files/haber_processed.h5ad?download=1')
+    return adata
+
+
+
+def Kotliarov2020_raw():
+    """Raw counts from Kotliarov et al. Broad immune activation underlies shared set point signatures for vaccine responsiveness in healthy individuals and disease activity in patients with lupus. Nat Med. 2020
+
+    The data consists of raw gene expression and CITE-seq counts of single cells from 53,201 single cells from healthy high and low influenza vaccination responders.
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Raw data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Kotliarov2020_raw()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Kotliarov2020_raw.h5ad')
+    adata = check_dl( filename, url ='https://zenodo.org/record/3938290/files/Kotliarov2020_raw.h5ad?download=1')
+    return adata
+
+
+
+def Kotliarov2020_processed():
+    """Processed data from Kotliarov et al. Broad immune activation underlies shared set point signatures for vaccine responsiveness in healthy individuals and disease activity in patients with lupus. Nat Med. 2020
+
+    The data consists of processed single cell expression and CITE-seq data from healthy high and low influenza vaccination responders. Data was filtered and celltypes were annotated.
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Kotliarov2020_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Kotliarov2020_processed_citeseq_merged_annotated.h5ad')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/3938290/files/Kotliarov2020_processed_citeseq_merged_annotated.h5ad?download=1')
+    return adata
+
+
+
+def Lee2020_raw():
+    """Raw counts from GSE132465 Primary Colorectal Cancer Dataset [Lee HO, Hong Y, Etlioglu HE, et al. Lineage-dependent gene expression programs influence the immune landscape of colorectal cancer. Nat Genet. 2020]
+
+    The data consists of raw gene expression counts of single cells from primary colorectal cancer.
+
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Lee2020_raw()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/lee2020_raw.h5ad')
+    adata = check_dl( filename, url ='https://zenodo.org/record/3967538/files/lee2020_raw.h5ad?download=1')
+    return adata
+
+
+def Lee2020_processed():
+    """Processed data from GSE132465 Primary Colorectal Cancer Dataset [Lee HO, Hong Y, Etlioglu HE, et al. Lineage-dependent gene expression programs influence the immune landscape of colorectal cancer. Nat Genet. 2020]
+
+    The data consists of processed single cell expression data from primary colorectal cancer. Data was filtered and celltypes were annotated.
+
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Lee2020_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/lee2020_processed.h5ad')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/3967538/files/lee2020_processed.h5ad?download=1')
+    return adata
+
+
+
+
+def Martin2019_raw():
+    """Raw counts from Martin et al. Single-Cell Analysis of Crohn's Disease Lesions Identifies a Pathogenic Cellular Module Associated with Resistance to Anti-TNF Therapy. Cell. 2019
+
+    The data consists of raw gene expression counts of single cells from lamina propria cells from inflamed and non-inflamed ileum lesions (and peripheral blood, but not part of GEO dataset) from 11 Crohn’s disease patients: 22 samples
+
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Martin2019_raw()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Martin2019_raw.h5ad')
+    adata = check_dl( filename, url ='https://zenodo.org/record/3862132/files/Martin2019_raw.h5ad?download=1')
+    return adata
+
+
+def Martin2019_processed():
+    """Processed data from Martin et al. Single-Cell Analysis of Crohn's Disease Lesions Identifies a Pathogenic Cellular Module Associated with Resistance to Anti-TNF Therapy. Cell. 2019
+
+    The data consists of processed single cell expression data from lamina propria cells from inflamed and non-inflamed ileum lesions (and peripheral blood, but not part of GEO dataset) from 11 Crohn’s disease patients: 22 samples. Data was filtered and celltypes were annotated.
+
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Martin2019_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Martin2019_processed.h5ad')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/3862132/files/Martin2019_processed.h5ad?download=1')
+    return adata
+
+
 def pbmc3k_raw():
     """3k PBMCs from 10x Genomics raw.
 
@@ -107,6 +438,82 @@ def pbmc3k_processed():
 
 
 
+def Peng2019_raw():
+    """Raw counts from Peng2019 PRJCA001063 Pancreatic Ductal Adenocarcinoma Dataset [Peng J, Sun BF, Chen CY, et al. Single-cell RNA-seq highlights intra-tumoral heterogeneity and malignant progression in pancreatic ductal adenocarcinoma [published correction appears in Cell Res. 2019]
+
+    The data consists of raw gene expression counts of single cells from Pancreatic Ductal Adenocarcinoma.
+
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Peng2019_raw()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/StdWf1_PRJCA001063_CRC_besca2.raw.h5ad')
+    adata = check_dl( filename, url ='https://zenodo.org/record/3969339/files/StdWf1_PRJCA001063_CRC_besca2.raw.h5ad?download=1')
+    return adata
+
+
+def Peng2019_processed():
+    """Processed data from Peng2019 PRJCA001063 Pancreatic Ductal Adenocarcinoma Dataset [Peng J, Sun BF, Chen CY, et al. Single-cell RNA-seq highlights intra-tumoral heterogeneity and malignant progression in pancreatic ductal adenocarcinoma [published correction appears in Cell Res. 2019]
+
+    The data consists of processed single cell expression data from Pancreatic Ductal Adenocarcinoma. Data was filtered and celltypes were annotated.
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Peng2019_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/StdWf1_PRJCA001063_CRC_besca2.annotated.h5ad')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/3969339/files/StdWf1_PRJCA001063_CRC_besca2.annotated.h5ad?download=1')
+    return adata
+
+
+
+def Segerstolpe2016_processed():
+    """Processed data from Segerstolpe et al. Single-Cell Transcriptome Profiling of Human Pancreatic Islets in Health and Type 2 Diabetes. Cell Metab. 2016.
+    
+    The data consists of processed gene expression from thousands of human islet cells from healthy and type 2 diabetic human donors. Data was filtered and celltypes were annotated.
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Segerstolpe2016_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/standard_workflow_besca2_0_annotated.h5ad')
+    adata = check_dl(filename, url = 'https://zenodo.org/record/3928276/files/standard_workflow_besca2_0_annotated.h5ad?download=1')
+    return adata
+
+
+
+
 
 def Smillie2019_raw():
     """Raw counts from Smillie et al. Intra- and Inter-cellular Rewiring of the Human Colon during Ulcerative Colitis. Cell. 2019
@@ -158,373 +565,6 @@ def Smillie2019_processed():
     return adata
 
 
-def Martin2019_raw():
-    """Raw counts from Martin et al. Single-Cell Analysis of Crohn's Disease Lesions Identifies a Pathogenic Cellular Module Associated with Resistance to Anti-TNF Therapy. Cell. 2019
-
-    The data consists of raw gene expression counts of single cells from lamina propria cells from inflamed and non-inflamed ileum lesions (and peripheral blood, but not part of GEO dataset) from 11 Crohn’s disease patients: 22 samples
-
-    
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Martin2019_raw()
-    >>> adata
-    
-    """
-
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/Martin2019_raw.h5ad')
-    adata = check_dl( filename, url ='https://zenodo.org/record/3862132/files/Martin2019_raw.h5ad?download=1')
-    return adata
-
-
-def Martin2019_processed():
-    """Processed data from Martin et al. Single-Cell Analysis of Crohn's Disease Lesions Identifies a Pathogenic Cellular Module Associated with Resistance to Anti-TNF Therapy. Cell. 2019
-
-    The data consists of processed single cell expression data from lamina propria cells from inflamed and non-inflamed ileum lesions (and peripheral blood, but not part of GEO dataset) from 11 Crohn’s disease patients: 22 samples. Data was filtered and celltypes were annotated.
-
-    
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Martin2019_processed()
-    >>> adata
-    
-    """
-
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/Martin2019_processed.h5ad')
-    adata = check_dl( filename, url = 'https://zenodo.org/record/3862132/files/Martin2019_processed.h5ad?download=1')
-    return adata
-
-
-
-def Haber2017_raw():
-    """Raw counts from GSE92332 mouse small intestine single cell transcriptomics dataset [Haber AL, Biton M, Rogel N, et al. A single-cell survey of the small intestinal epithelium. Nature. 2017]
-
-    The data consists of raw gene expression counts of single cells from mouse small intestine.
-
-    
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Haber2017_raw()
-    >>> adata
-    
-    """
-
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/haber_raw.h5ad')
-    adata = check_dl( filename, url ='https://zenodo.org/record/3935782/files/haber_raw.h5ad?download=1')
-    return adata
-
-
-def Haber2017_processed():
-    """Processed data from GSE92332 mouse small intestine single cell transcriptomics dataset [Haber AL, Biton M, Rogel N, et al. A single-cell survey of the small intestinal epithelium. Nature. 2017]
-
-    The data consists of processed single cell expression data from mouse small intestine. Data was filtered and celltypes were annotated.
-
-    
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Haber2017_processed()
-    >>> adata
-    
-    """
-
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/haber_processed.h5ad')
-    adata = check_dl( filename, url = 'https://zenodo.org/record/3935782/files/haber_processed.h5ad?download=1')
-    return adata
-
-
-
-def Granja2019_raw():
-    """Processed data from GSE139369 mixed-phenotype acute leukemia.
-      [Granja JM, Klemm S, McGinnis LM, Kathiria AS et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol 2019 Dec;37(12):1458-1465. PMID: 31792411.]
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Original data matrix.
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Granja2019_raw()
-    >>> adata
-    
-    """
-
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/Granja2019_raw.h5ad')
-    adata = check_dl( filename, url = 'https://zenodo.org/record/3944753/files/Granja2019_raw.h5ad?download=1')
-    return adata
-
-
-
-
-
-def Granja2019_processed():
-    """Processed data from GSE139369 mixed-phenotype acute leukemia.
-      [Granja JM, Klemm S, McGinnis LM, Kathiria AS et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol 2019 Dec;37(12):1458-1465. PMID: 31792411.]
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Granja2019_processed()
-    >>> adata
-    
-    """
-
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/Granja2019_annotated.h5ad')
-    adata = check_dl( filename, url = 'https://zenodo.org/record/3944753/files/Granja2019_annotated.h5ad?download=1')
-    return adata
-
-
-
-
-def Granja2019_citeSeq():
-    """Citeseq table from GSE139369 mixed-phenotype acute leukemia; healthy sample only
-      [Granja JM, Klemm S, McGinnis LM, Kathiria AS et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol 2019 Dec;37(12):1458-1465. PMID: 31792411.]
-    
-    Returns
-    -------
-    table : panda dataframe 
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> protein_table = bc.datasets.Granja2019_citeSeq()
-    >>> protein_table
-    
-    """    
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/scADT_Healthy_counts.csv')
-    urllib.request.urlretrieve ("https://zenodo.org/record/3944753/files/scADT_Healthy_counts.csv?download=1", filename)
-    citeSeq  = pandas.read_csv(filename, sep = '\t')
-    return citeSeq
-
-
-
-def Kotliarov2020_raw():
-    """ Raw data from 
-    [Kotliarov, Y., Sparks, R., Martins, A.J. et al. Broad immune activation underlies shared set point signatures for vaccine responsiveness in healthy individuals and disease activity in patients with lupus. Nat Med 26, 618–629 (2020).]
-    
-    Returns
-    -------
-    adata : anndata            
-
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Kotliarov2020_raw()
-    >>> adata
-    
-    """    
-    ## REGULAR PROCESS DOES NOT WORK FOR THIS DATASET (SIZE ISSUE?)
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/Kotliarov2020_raw.h5ad')
-    adata  = check_dl (filename, url = "https://zenodo.org/record/3938290/files/Kotliarov2020_raw.h5ad?download=1")
-    return adata
-
-
-
-def Kotliarov2020_processed():
-    """ Processed data from 
-    [Kotliarov, Y., Sparks, R., Martins, A.J. et al. Broad immune activation underlies shared set point signatures for vaccine responsiveness in healthy individuals and disease activity in patients with lupus. Nat Med 26, 618–629 (2020).]
-    
-    Returns
-    -------
-    adata : anndata
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Kotliarov2020_processed()
-    >>> adata
-    
-    """    
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/Kotliarov2020_processed_citeseq_merged_annotated.h5ad')
-    adata  =check_dl (filename, url = "https://zenodo.org/record/3938290/files/Kotliarov2020_processed_citeseq_merged_annotated.h5ad?download=1")
-    return adata
-
-def Baron2016_raw():
-    """Raw counts from GSE84133 Pancreatic Islets Dataset [Baron M, Veres A, Wolock SL, et al. A Single-Cell Transcriptomic Map of the Human and Mouse Pancreas Reveals Inter- and Intra-cell Population Structure. Cell Syst. 2016]
-
-    The data consists of raw gene expression counts of single cells from pancreatic islets.
-
-    
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Baron2016_raw()
-    >>> adata
-    
-    """
-
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/baron_raw.h5ad')
-    adata = check_dl( filename, url ='https://zenodo.org/record/3968315/files/baron2016_raw.h5ad?download=1')
-    return adata
-
-
-def Baron2016_processed():
-    """Processed data from GSE84133 Pancreatic Islets Dataset [Baron M, Veres A, Wolock SL, et al. A Single-Cell Transcriptomic Map of the Human and Mouse Pancreas Reveals Inter- and Intra-cell Population Structure. Cell Syst. 2016]
-
-    The data consists of processed single cell expression data from pancreatic islets. Data was filtered and celltypes were annotated.
-
-    
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Baron2016_processed()
-    >>> adata
-    
-    """
-
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/baron_processed.h5ad')
-    adata = check_dl( filename, url = 'https://zenodo.org/record/3968315/files/baron2016_processed.h5ad?download=1')
-    return adata
-
-
-def Lee2020_raw():
-    """Raw counts from GSE132465 Primary Colorectal Cancer Dataset [Lee HO, Hong Y, Etlioglu HE, et al. Lineage-dependent gene expression programs influence the immune landscape of colorectal cancer. Nat Genet. 2020]
-
-    The data consists of raw gene expression counts of single cells from primary colorectal cancer.
-
-    
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Lee2020_raw()
-    >>> adata
-    
-    """
-
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/lee2020_raw.h5ad')
-    adata = check_dl( filename, url ='https://zenodo.org/record/3967538/files/lee2020_raw.h5ad?download=1')
-    return adata
-
-
-def Lee2020_processed():
-    """Processed data from GSE132465 Primary Colorectal Cancer Dataset [Lee HO, Hong Y, Etlioglu HE, et al. Lineage-dependent gene expression programs influence the immune landscape of colorectal cancer. Nat Genet. 2020]
-
-    The data consists of processed single cell expression data from primary colorectal cancer. Data was filtered and celltypes were annotated.
-
-    
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Lee2020_processed()
-    >>> adata
-    
-    """
-
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/lee2020_processed.h5ad')
-    adata = check_dl( filename, url = 'https://zenodo.org/record/3967538/files/lee2020_processed.h5ad?download=1')
-    return adata
-
-
-def Peng2019_raw():
-    """Raw counts from Peng2019 PRJCA001063 Pancreatic Ductal Adenocarcinoma Dataset [Peng J, Sun BF, Chen CY, et al. Single-cell RNA-seq highlights intra-tumoral heterogeneity and malignant progression in pancreatic ductal adenocarcinoma [published correction appears in Cell Res. 2019]
-
-    The data consists of raw gene expression counts of single cells from Pancreatic Ductal Adenocarcinoma.
-
-    
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Peng2019_raw()
-    >>> adata
-    
-    """
-
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/StdWf1_PRJCA001063_CRC_besca2.raw.h5ad')
-    adata = check_dl( filename, url ='https://zenodo.org/record/3969339/files/StdWf1_PRJCA001063_CRC_besca2.raw.h5ad?download=1')
-    return adata
-
-
-def Peng2019_processed():
-    """Processed data from Peng2019 PRJCA001063 Pancreatic Ductal Adenocarcinoma Dataset [Peng J, Sun BF, Chen CY, et al. Single-cell RNA-seq highlights intra-tumoral heterogeneity and malignant progression in pancreatic ductal adenocarcinoma [published correction appears in Cell Res. 2019]
-
-    The data consists of processed single cell expression data from Pancreatic Ductal Adenocarcinoma. Data was filtered and celltypes were annotated.
-
-    
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Peng2019_processed()
-    >>> adata
-    
-    """
-
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/StdWf1_PRJCA001063_CRC_besca2.annotated.h5ad')
-    adata = check_dl( filename, url = 'https://zenodo.org/record/3969339/files/StdWf1_PRJCA001063_CRC_besca2.annotated.h5ad?download=1')
-    return adata
-
-
 
 def load_immune_signatures(refined=True):
     """ This function load immune signatures provided 
@@ -561,176 +601,3 @@ def load_immune_signatures(refined=True):
         mymarkers[ll[0]] = ll[2:len(ll)]
     file.close()
     return mymarkers
-
-
-
-def Kotliarov2020_raw():
-    """Raw counts from Kotliarov et al. Broad immune activation underlies shared set point signatures for vaccine responsiveness in healthy individuals and disease activity in patients with lupus. Nat Med. 2020
-
-    The data consists of raw gene expression and CITE-seq counts of single cells from 53,201 single cells from healthy high and low influenza vaccination responders.
-    
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Raw data matrix.
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Kotliarov2020_raw()
-    >>> adata
-    
-    """
-
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/Kotliarov2020_raw.h5ad')
-    adata = check_dl( filename, url ='https://zenodo.org/record/3938290/files/Kotliarov2020_raw.h5ad?download=1')
-    return adata
-
-
-def Kotliarov2020_processed():
-    """Processed data from Kotliarov et al. Broad immune activation underlies shared set point signatures for vaccine responsiveness in healthy individuals and disease activity in patients with lupus. Nat Med. 2020
-
-    The data consists of processed single cell expression and CITE-seq data from healthy high and low influenza vaccination responders. Data was filtered and celltypes were annotated.
-    
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Kotliarov2020_processed()
-    >>> adata
-    
-    """
-
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/Kotliarov2020_processed_citeseq_merged_annotated.h5ad')
-    adata = check_dl( filename, url = 'https://zenodo.org/record/3938290/files/Kotliarov2020_processed_citeseq_merged_annotated.h5ad?download=1')
-    return adata
-
-
-def Granja2019_raw():
-    """Raw data from Granja et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol. 2019.
-    
-    The data consists of raw gene expression and CITE-seq counts of single cells from healthy bone marrow, CD34+ bone marow, peripheral blood, and MPAL donors.
-    
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Raw data matrix.
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Granja2019_raw()
-    >>> adata
-    
-    """
-
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/Granja2019_raw.h5ad')
-    adata = check_dl( filename, url = 'https://zenodo.org/record/3944753/files/standard_workflow_besca2_0_updated.h5ad.raw.h5ad?download=1')
-    return adata
-
-
-
-def Granja2019_processed():
-    """Processed data from Granja et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol. 2019.
-    
-     The data consists of processed gene expression and CITE-seq counts of single cells from healthy bone marrow, CD34+ bone marow, peripheral blood, and MPAL donors. Data was filtered and celltypes were annotated.
-    
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Granja2019_processed()
-    >>> adata
-    
-    """
-
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/Granja2019_processed.h5ad')
-    adata = check_dl( filename, url = 'https://zenodo.org/record/3944753/files/standard_workflow_besca2_0_updated.annotated.h5ad?download=1')
-    return adata
-
-
-
-
-def Baron2016_processed():
-    """Processed data from Baron et al. A Single-Cell Transcriptomic Map of the Human and Mouse Pancreas Reveals Inter- and Intra-cell Population Structure. Cell Systems. 2016.
-    
-    The data consists of processed gene expression from over 12000 single cells from 4 human donors. Data was filtered and celltypes were annotated.
-    
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Baron2016_processed()
-    >>> adata
-    
-    """
-
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/Baron2016_processed.h5ad')
-    adata = read(filename)
-    return adata
-
-
-def Segerstolpe2016_processed():
-    """Processed data from Segerstolpe et al. Single-Cell Transcriptome Profiling of Human Pancreatic Islets in Health and Type 2 Diabetes. Cell Metab. 2016.
-    
-    The data consists of processed gene expression from thousands of human islet cells from healthy and type 2 diabetic human donors. Data was filtered and celltypes were annotated.
-    
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Segerstolpe2016_processed()
-    >>> adata
-    
-    """
-
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/Segerstolpe2016_processed.h5ad')
-    adata = read(filename)
-    return adata
-
-
-
-def Peng2019_processed():
-    """Processed data from Peng et al. Single-cell RNA-seq highlights intra-tumoral heterogeneity and malignant progression in pancreatic ductal adenocarcinoma. Cell Res. 2019.
-    
-     The data consists of processed gene expression of 57,530 individual pancreatic cells from primary PDAC tumors and control pancreases. Data was filtered and celltypes were annotated.
-
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
-            
-    Example
-    -------
-
-    >>> import besca as bc
-    >>> adata = bc.datasets.Peng2019_processed()
-    >>> adata
-    
-    """
-
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/Peng2019_processed.h5ad')
-    adata = read(filename)
-    return adata
