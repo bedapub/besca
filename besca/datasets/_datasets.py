@@ -561,3 +561,176 @@ def load_immune_signatures(refined=True):
         mymarkers[ll[0]] = ll[2:len(ll)]
     file.close()
     return mymarkers
+
+
+
+def Kotliarov2020_raw():
+    """Raw counts from Kotliarov et al. Broad immune activation underlies shared set point signatures for vaccine responsiveness in healthy individuals and disease activity in patients with lupus. Nat Med. 2020
+
+    The data consists of raw gene expression and CITE-seq counts of single cells from 53,201 single cells from healthy high and low influenza vaccination responders.
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Raw data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Kotliarov2020_raw()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Kotliarov2020_raw.h5ad')
+    adata = check_dl( filename, url ='https://zenodo.org/record/3938290/files/Kotliarov2020_raw.h5ad?download=1')
+    return adata
+
+
+def Kotliarov2020_processed():
+    """Processed data from Kotliarov et al. Broad immune activation underlies shared set point signatures for vaccine responsiveness in healthy individuals and disease activity in patients with lupus. Nat Med. 2020
+
+    The data consists of processed single cell expression and CITE-seq data from healthy high and low influenza vaccination responders. Data was filtered and celltypes were annotated.
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Kotliarov2020_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Kotliarov2020_processed_citeseq_merged_annotated.h5ad')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/3938290/files/Kotliarov2020_processed_citeseq_merged_annotated.h5ad?download=1')
+    return adata
+
+
+def Granja2019_raw():
+    """Raw data from Granja et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol. 2019.
+    
+    The data consists of raw gene expression and CITE-seq counts of single cells from healthy bone marrow, CD34+ bone marow, peripheral blood, and MPAL donors.
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Raw data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Granja2019_raw()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Granja2019_raw.h5ad')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/3944753/files/standard_workflow_besca2_0_updated.h5ad.raw.h5ad?download=1')
+    return adata
+
+
+
+def Granja2019_processed():
+    """Processed data from Granja et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol. 2019.
+    
+     The data consists of processed gene expression and CITE-seq counts of single cells from healthy bone marrow, CD34+ bone marow, peripheral blood, and MPAL donors. Data was filtered and celltypes were annotated.
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Granja2019_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Granja2019_processed.h5ad')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/3944753/files/standard_workflow_besca2_0_updated.annotated.h5ad?download=1')
+    return adata
+
+
+
+
+def Baron2016_processed():
+    """Processed data from Baron et al. A Single-Cell Transcriptomic Map of the Human and Mouse Pancreas Reveals Inter- and Intra-cell Population Structure. Cell Systems. 2016.
+    
+    The data consists of processed gene expression from over 12000 single cells from 4 human donors. Data was filtered and celltypes were annotated.
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Baron2016_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Baron2016_processed.h5ad')
+    adata = read(filename)
+    return adata
+
+
+def Segerstolpe2016_processed():
+    """Processed data from Segerstolpe et al. Single-Cell Transcriptome Profiling of Human Pancreatic Islets in Health and Type 2 Diabetes. Cell Metab. 2016.
+    
+    The data consists of processed gene expression from thousands of human islet cells from healthy and type 2 diabetic human donors. Data was filtered and celltypes were annotated.
+    
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Segerstolpe2016_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Segerstolpe2016_processed.h5ad')
+    adata = read(filename)
+    return adata
+
+
+
+def Peng2019_processed():
+    """Processed data from Peng et al. Single-cell RNA-seq highlights intra-tumoral heterogeneity and malignant progression in pancreatic ductal adenocarcinoma. Cell Res. 2019.
+    
+     The data consists of processed gene expression of 57,530 individual pancreatic cells from primary PDAC tumors and control pancreases. Data was filtered and celltypes were annotated.
+
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+            
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Peng2019_processed()
+    >>> adata
+    
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Peng2019_processed.h5ad')
+    adata = read(filename)
+    return adata
