@@ -17,5 +17,6 @@ scikit_learn
 python-igraph
 leidenalg
 scanorama
+scvelo
 umap-learn
 sinfo
