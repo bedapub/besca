@@ -3,6 +3,7 @@ import os
 import csv
 import scipy
 import scanpy as sc
+import scvelo as scv
 import pandas as pd
 import numpy as np
 import matplotlib
@@ -87,9 +88,9 @@ def read_raw(train_paths, train_datasets, test_path, test_dataset):
 
     adata_trains =[]
     for i in range(len(train_datasets)):
-        adata_trains.append(sc.read(os.path.join(train_paths[i], train_datasets[i])))
+        adata_trains.append(scv.read(os.path.join(train_paths[i], train_datasets[i])))
         adata_trains[i]= sc.AnnData(X = np.expm1(adata_trains[i].raw.X), obs = adata_trains[i].obs, var= adata_trains[i].raw.var)
-    adata_pred =sc.read(os.path.join(test_path, test_dataset))
+    adata_pred =scv.read(os.path.join(test_path, test_dataset))
     adata_pred = sc.AnnData(X = np.expm1(adata_pred.raw.X), obs = adata_pred.obs, var= adata_pred[i].raw.var)
     
     return adata_trains, adata_pred
@@ -122,8 +123,8 @@ def read_adata(train_paths, train_datasets, test_path, test_dataset):
 
     adata_trains =[]
     for i in range(len(train_datasets)):
-        adata_trains.append(sc.read(os.path.join(train_paths[i], train_datasets[i])))
-    adata_pred =sc.read(os.path.join(test_path, test_dataset))
+        adata_trains.append(scv.read(os.path.join(train_paths[i], train_datasets[i])))
+    adata_pred =scv.read(os.path.join(test_path, test_dataset))
     return adata_trains, adata_pred
 
 def merge_data(adata_trains, adata_pred, genes_to_use = 'all', merge = 'scanorama'):
@@ -191,6 +192,7 @@ def naive_merge(adata_trains):
         A concatenated anndata object of all training datasets.
     """
     # note: the following lines are a hack to avoid an incomprehensible error when aome values i uns are not the same
+    """
     rmkeys = ['neighbors', 'pca', 'rank_genes_groups', 'celltype_dream_colors']
     for trains in adata_trains:
         # note: anndata concatenate only works if dtypes of var are the same
@@ -200,6 +202,7 @@ def naive_merge(adata_trains):
         for key in rmkeys:
             trains.uns.pop(key, None)
             trains.uns.pop(key, None)
+    """
 
     if len(adata_trains) ==1:
         return adata_trains[0]
@@ -709,7 +712,7 @@ def report(adata_pred, celltype, method, analysis_name, train_datasets, test_dat
         sc.settings.set_figure_params(dpi=240)
 
         sc.pl.umap(adata_pred, color=[celltype, 'auto_annot', clustering], legend_loc='on data',legend_fontsize=7, save= '.ondata_'+ analysis_name + '.png')
-        sc.pl.umap(adata_pred, color=[celltype, 'auto_annot', clustering],legend_fontsize=7, save = '.' + analysis_name + '.png')
+        sc.pl.umap(adata_pred, color=[celltype, 'auto_annot', clustering],legend_fontsize=7, wspace = 1.5,  save = '.' + analysis_name + '.png')
         sc.settings.set_figure_params(dpi=60)
 
         # make conf matrices (4)
