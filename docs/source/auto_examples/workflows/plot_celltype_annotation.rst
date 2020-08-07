@@ -10,9 +10,12 @@
 annotate celltypes
 ==================
 
-An example workflow using the PBMC3k dataset included with besca illustrating how to annotate celltypes based on louvain clusters.
-This workflow begins with a preprocessed and filtered dataset on which a louvain clustering was already performed. 
+An example workflow using the PBMC3k dataset included with besca illustrating how to annotate celltypes based on Leiden clusters.
+This workflow begins with a preprocessed and filtered dataset. 
 Please refer to other tutorials on how to perform these steps.
+Here we demonstrate a simple annotation based on some known markers.
+However, Besca is distributed with auto-annot and sig-annot to annotate automatically or quasi-automatically in a reproducible way datasets.
+Please refer to the corresponding tutorials to see how this would work.
 
 
 
@@ -20,20 +23,19 @@ Please refer to other tutorials on how to perform these steps.
 .. code-block:: python
 
     #load libraries
-    import besca as bc 
-    import scanpy.api as sc
+    import besca as bc
+    import scanpy as sc
 
     #load preprocessed dataset (included in BESCA for demonstration purposes)
     adata = bc.datasets.pbmc3k_processed()
 
     #need to drop celltype annotation stored in this dataset (only relevant for this tutorial)
-    adata.obs.drop(columns = ['celltype'], inplace = True)
+    adata.obs.drop(columns = ['dblabel', 'leiden'], inplace = True)
 
+
+    sc.tl.leiden( adata)
     #visualize the louvain clusters
-    sc.pl.umap(adata, color=['louvain'])
-
-
-
+    sc.pl.umap(adata, color=['leiden'])
 
 .. image:: /auto_examples/workflows/images/sphx_glr_plot_celltype_annotation_001.png
     :class: sphx-glr-single-img
@@ -108,7 +110,7 @@ cluster level celltype annotation
 ---------------------------------
 
 Depending on how fine-grained your clustering is you will often come into the
-the situation that a louvain cluster contains several cell-populations that
+the situation that a leiden cluster contains several cell-populations that
 are clearly segregated based on the marker gene expression. If this happens you
 can try and adjust the louvain resolution parameter to make the clustering more
 fine-grained, but this will not always be successfull. Especially in cases where
@@ -116,7 +118,7 @@ your sample contains vastly different celltypes (e.g. an Immuncell dataset
 containing B-cells and T-cells) it will be difficult to resolve T-cell subsets
 since they are much more comparable to each other than e.g. a T-cell vs a B-cell.
 In this case it often makes sense to make a highlevel cell-labeling and then perform
-a second clustering on onoly the mixed cellclusters. This is the procedure that will
+a second clustering on only the mixed cell clusters. This is the procedure that will
 be demonstrated in the rest of this tutorial.
 
 
@@ -124,15 +126,15 @@ be demonstrated in the rest of this tutorial.
 .. code-block:: python
 
 
+   
     #define high-level celltype annotation
-    new_labels = ["mixed", #0
-                  "mixed", #1
-                  "CD14+ monocyte", #2
-                  "mixed", #3
-                  "B-cell", #4
+    new_labels = ["T cell", #0
+                  "monocyte", #1
+                  "mixed", #2
+                  "B-cell", #3
+                  "T cell", #4
                   "FCGR3A+ monocyte", #5
-                  "mixed", #6
-                  "pDC"] #7
+                  "pDC"] #6
 
     bc.tl.annotate_cells_clustering(adata, new_labels)
 
@@ -141,6 +143,8 @@ be demonstrated in the rest of this tutorial.
 
     #preserve highlevel labels for future use if desired
     adata.obs['high_level celltype'] = adata.obs.celltype.tolist()
+
+
 
 
 
@@ -159,31 +163,34 @@ reclustering on mixed cell clusters
 .. code-block:: python
 
 
-    #perform reclustering on subset using besca function
-    adata_subset = bc.tl.rc.recluster(adata, cluster=('0', '1', '3', '6'), resolution = 1.3)
-
+    #perform reclustering on subset using besca function 
+    adata_subset = bc.tl.rc.recluster(adata, ('mixed', 'T cell'), resolution = 1.2, celltype_label='celltype')
     #visualize important marker genes in reclustering
-    sc.pl.umap(adata_subset, color = ['louvain', 'CD3G', 'CD8A', 'CD4', 'IL7R', 'NKG7', 'GNLY'], ncols = 3)
-
-    #annotate celltypes based on the new louvain clusters
+  
+    sc.pl.umap(adata_subset, color = ['leiden', 'CD3G', 'CD8A', 'CD4', 'IL7R', 'NKG7', 'GNLY'], ncols = 3)
+ 
+    
+ 
+    #append new celltype labels to the subclusters
     new_labels = ["CD4 T-cell", #0
-                  "CD4 T-cell", #1
+                  "CD8 T-cell", #1
                   "CD4 T-cell", #2
                   "CD8 T-cell", #3
                   "NK cell", #4
-                  "CD8 T-cell", #5
+                  "CD4 T-cell", #5
                   "CD8 T-cell",#6
                   "CD4 T-cell", #7
-                  "CD4 T-cell", #8
+                  "CD8 T-cell", #8
                   "CD4 T-cell", #9
-                  "CD4 T-cell"] #10
-
-    #merge new celllabels back into the original adata object containing all cells
-    #Note: this will overwrite the labels contained in adata.obs.celltype! If you w
-    bc.tl.rc.annotate_new_cellnames(adata, adata_subset, names=new_labels)
-
-    #visualize finished celltype annotation
+                  "CD4 T-cell", #10
+                  "CD4 T-cell" ] #11
+    
+    #merge the labels back into the original adata object
+    #note this will overwrite what ever was saved in adata.obs.celltype
+    bc.tl.rc.annotate_new_cellnames(adata, adata_subset, names=new_labels, new_label = 'celltype')
+    
     sc.pl.umap(adata, color = ['celltype'])
+    print(adata.obs.celltype.value_counts())
 
 
 .. rst-class:: sphx-glr-horizontal
