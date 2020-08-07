@@ -68,6 +68,14 @@ Collection of functions to perform reclustering on selected subclusters.
 
 .. _import-functions:
 
+auto-annot
+++++++++++++
+Collection of functions to perform auto-annot : annotating a sc datasets based on a reference one.
+
+.. automodsumm:: besca.tl.auto_annot
+	:toctree: auto_annot
+
+
 Import
 ------
 .. automodsumm:: besca.Import

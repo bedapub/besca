@@ -171,6 +171,32 @@
 <li class="toctree-l5"><a class="reference internal" href="reclustering/besca.tl.rc.annotate_new_cellnames.html">annotate_new_cellnames</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="#auto-annot">auto-annot</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.read_data.html">read_data</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.read_raw.html">read_raw</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.read_adata.html">read_adata</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.merge_data.html">merge_data</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.naive_merge.html">naive_merge</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.scanorama_merge.html">scanorama_merge</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.remove_genes.html">remove_genes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.intersect_genes.html">intersect_genes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.remove_nonshared.html">remove_nonshared</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.fit.html">fit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.linear_svm.html">linear_svm</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.rbf_svm.html">rbf_svm</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.sgd_svm.html">sgd_svm</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.random_forest.html">random_forest</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.logistic_regression.html">logistic_regression</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.logistic_regression_ovr.html">logistic_regression_ovr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.logistic_regression_elastic.html">logistic_regression_elastic</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.adata_predict.html">adata_predict</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.predict.html">predict</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.report.html">report</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.plot_confusion_matrix.html">plot_confusion_matrix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.adata_pred_prob.html">adata_pred_prob</a></li>
+<li class="toctree-l5"><a class="reference internal" href="auto_annot/besca.tl.auto_annot.predict_proba.html">predict_proba</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -582,10 +608,91 @@
 </tbody>
 </table>
 </div>
+<div class="section" id="auto-annot">
+<span id="import-functions"></span><h4>auto-annot<a class="headerlink" href="#auto-annot" title="Permalink to this headline">¶</a></h4>
+<p>Collection of functions to perform auto-annot : annotating a sc datasets based on a reference one.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.read_data.html#besca.tl.auto_annot.read_data" title="besca.tl.auto_annot.read_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_data</span></code></a>(train_paths,&nbsp;train_datasets,&nbsp;…)</td>
+<td>Function to read in  training and testing datasets</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.read_raw.html#besca.tl.auto_annot.read_raw" title="besca.tl.auto_annot.read_raw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_raw</span></code></a>(train_paths,&nbsp;train_datasets,&nbsp;…)</td>
+<td>read from adata.raw and revert log1p normalization</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.read_adata.html#besca.tl.auto_annot.read_adata" title="besca.tl.auto_annot.read_adata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_adata</span></code></a>(train_paths,&nbsp;train_datasets,&nbsp;…)</td>
+<td>read adata files of training and testing datasets</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.merge_data.html#besca.tl.auto_annot.merge_data" title="besca.tl.auto_annot.merge_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_data</span></code></a>(adata_trains,&nbsp;adata_pred[,&nbsp;…])</td>
+<td>read adata files of training and testing datasets</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.naive_merge.html#besca.tl.auto_annot.naive_merge" title="besca.tl.auto_annot.naive_merge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">naive_merge</span></code></a>(adata_trains)</td>
+<td>concatenates training anndata objects</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.scanorama_merge.html#besca.tl.auto_annot.scanorama_merge" title="besca.tl.auto_annot.scanorama_merge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scanorama_merge</span></code></a>(adata_trains,&nbsp;adata_pred,&nbsp;…)</td>
+<td>corrects datasets using scanorama and merge training datasets subsequently</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.remove_genes.html#besca.tl.auto_annot.remove_genes" title="besca.tl.auto_annot.remove_genes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_genes</span></code></a>(adata_trains,&nbsp;adata_pred,&nbsp;…)</td>
+<td>removes all genes not in gene set</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.intersect_genes.html#besca.tl.auto_annot.intersect_genes" title="besca.tl.auto_annot.intersect_genes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">intersect_genes</span></code></a>(adata_train,&nbsp;adata_pred)</td>
+<td>removes all genes not in all datasets</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.remove_nonshared.html#besca.tl.auto_annot.remove_nonshared" title="besca.tl.auto_annot.remove_nonshared"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_nonshared</span></code></a>(adata_train,&nbsp;adata_pred)</td>
+<td>removes all celltypes not in all datasets</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.fit.html#besca.tl.auto_annot.fit" title="besca.tl.auto_annot.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(adata_train,&nbsp;method,&nbsp;celltype[,&nbsp;njobs])</td>
+<td>fits classifier on training dataset</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.linear_svm.html#besca.tl.auto_annot.linear_svm" title="besca.tl.auto_annot.linear_svm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linear_svm</span></code></a>(train,&nbsp;y_train)</td>
+<td>fits linear svm on training dataset</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.rbf_svm.html#besca.tl.auto_annot.rbf_svm" title="besca.tl.auto_annot.rbf_svm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rbf_svm</span></code></a>(train,&nbsp;y_train)</td>
+<td>fits radial basis function kernel svm on training dataset</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.sgd_svm.html#besca.tl.auto_annot.sgd_svm" title="besca.tl.auto_annot.sgd_svm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sgd_svm</span></code></a>(train,&nbsp;y_train)</td>
+<td>fits linear svm on training dataset using stochastic gradient descent</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.random_forest.html#besca.tl.auto_annot.random_forest" title="besca.tl.auto_annot.random_forest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">random_forest</span></code></a>(train,&nbsp;y_train,&nbsp;njobs)</td>
+<td>fits a random forest of a thousand esitamtors with balance class weight on training dataset.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.logistic_regression.html#besca.tl.auto_annot.logistic_regression" title="besca.tl.auto_annot.logistic_regression"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logistic_regression</span></code></a>(train,&nbsp;y_train,&nbsp;njobs)</td>
+<td>multiclass crossvalidated logistic regression with balanced class weight.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.logistic_regression_ovr.html#besca.tl.auto_annot.logistic_regression_ovr" title="besca.tl.auto_annot.logistic_regression_ovr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logistic_regression_ovr</span></code></a>(train,&nbsp;y_train,&nbsp;njobs)</td>
+<td>multiclass crossvalidated logistic regression with balanced class weight.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.logistic_regression_elastic.html#besca.tl.auto_annot.logistic_regression_elastic" title="besca.tl.auto_annot.logistic_regression_elastic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logistic_regression_elastic</span></code></a>(train,&nbsp;y_train,&nbsp;…)</td>
+<td>multiclass crossvalidated logistic regression with balanced class weight.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.adata_predict.html#besca.tl.auto_annot.adata_predict" title="besca.tl.auto_annot.adata_predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adata_predict</span></code></a>(classifier,&nbsp;scaler,&nbsp;…[,&nbsp;…])</td>
+<td>predicts on testing set using trained classifier</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.predict.html#besca.tl.auto_annot.predict" title="besca.tl.auto_annot.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a>(classifier,&nbsp;scaler,&nbsp;adata_pred[,&nbsp;…])</td>
+<td>predicts on testing set using trained classifier</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.report.html#besca.tl.auto_annot.report" title="besca.tl.auto_annot.report"><code class="xref py py-obj docutils literal notranslate"><span class="pre">report</span></code></a>(adata_pred,&nbsp;celltype,&nbsp;method,&nbsp;…[,&nbsp;…])</td>
+<td>reports basic metrics, produces confusion matrices and plots umap of prediction</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.plot_confusion_matrix.html#besca.tl.auto_annot.plot_confusion_matrix" title="besca.tl.auto_annot.plot_confusion_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_confusion_matrix</span></code></a>(y_true,&nbsp;y_pred,&nbsp;…[,&nbsp;…])</td>
+<td>plots confusion matrices</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.adata_pred_prob.html#besca.tl.auto_annot.adata_pred_prob" title="besca.tl.auto_annot.adata_pred_prob"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adata_pred_prob</span></code></a>(classifier,&nbsp;scaler,&nbsp;…[,&nbsp;…])</td>
+<td>predicts on testing set using trained classifier and returns class probability for every cell and every class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="auto_annot/besca.tl.auto_annot.predict_proba.html#besca.tl.auto_annot.predict_proba" title="besca.tl.auto_annot.predict_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_proba</span></code></a>(classifier,&nbsp;scaler,&nbsp;adata_pred)</td>
+<td>predicts on testing set using trained classifier and returns probabilities</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div class="section" id="import">
-<span id="import-functions"></span><h2>Import<a class="headerlink" href="#import" title="Permalink to this headline">¶</a></h2>
+<h2>Import<a class="headerlink" href="#import" title="Permalink to this headline">¶</a></h2>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
