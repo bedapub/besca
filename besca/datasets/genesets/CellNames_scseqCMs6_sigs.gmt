@@ -108,3 +108,6 @@ Basal	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs
 Ionocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	CHGA	CALCA	ASCL1																							
 ProlifMonocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	MKI67	PCNA	STMN1	HMGB2																						
 ILC2	Genes used for automatic annotation of scRNA-seq derived clusters of Intestine (v8 May20) derived by Schwalie P. 	GATA3	RORA	IL2RA	IL1RL1	IL7R	FAM102A																				
+ProlifMyeloid	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	MKI67	PCNA	STMN1	HMGB2																						
+ProlifcDC	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	MKI67	PCNA	STMN1	HMGB2																						
+Mesothelial	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	CCDC80	UPK3B	PLA2G2A	PTGIS	PRG4	CALB2																				
