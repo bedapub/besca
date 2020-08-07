@@ -16,7 +16,7 @@ CD8Tcell	Tcell	1	14
 Tcell	Hematopoietic	2.25	10
 CD8Tcell_IL7Rmax	CD8Tcell	4	17
 CD4Tcell_IL7Rmax	CD4Tcell	4	17.5
-RegTcell	CD4Tcell	0.5	18
+RegTcell	CD4Tcell	1	18
 cDC1	cDC	1	19
 cDC2	cDC	1	20.5
 cDC	Myeloid	1	22
@@ -39,7 +39,7 @@ Macrophage_MARCO	Macrophage	1	19.5
 NKTcell	Tcell	2	50
 gdTcell	Tcell	1.5	38
 CytotoxCD4Tcell	CD4Tcell	3	34
-CytotoxCD8Tcell	CD8Tcell	3	33
+CytotoxCD8Tcell	CD8Tcell	4	33
 ExhCD8Tcell	CD8Tcell	2	41
 cDC_CCR7	cDC	1	42
 Langerhans	cDC	1	43
@@ -98,7 +98,7 @@ ILC3	InnateLymphoid	2	105
 ActTcell	Tcell	2	106
 NaiTcell	Tcell	1	107
 McellGut	Epithelial	2	60.9
-Mast	Hematopoietic	2.5	50.5
+Mast	Hematopoietic	2.5	10.5
 ColorectalCancer	None	2	110
 T1Pneumocyte	Pneumocyte	2	111
 T2Pneumocyte	Pneumocyte	2	112
