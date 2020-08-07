@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 # to get an understanding for its characteristics.
 
 #import data
-adata = bc.datasets.pbmc_storage_raw()
+adata = bc.datasets.pbmc3k_raw()
 
 ###############################################################################
 # transcript capture efficiency
@@ -61,7 +61,7 @@ bc.pl.top_genes_counts(adata=adata, top_n=25)
 # After performing your filtering it is generally a good idea to take another look
 # at your dataset to ensure that the filtering parameters used were reasonable.
 
-adata = bc.datasets.pbmc_storage_filtered()
+adata = bc.datasets.pbmc3k_processed()
 
 ###############################################################################
 #
