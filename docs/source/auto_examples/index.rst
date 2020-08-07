@@ -34,6 +34,7 @@ This is a gallery containing some plotting examples.
 .. only:: html
 
  .. figure:: /auto_examples/plotting/images/thumb/sphx_glr_plot_split_gene_expression_thumb.png
+     :alt: plotting gene expression
 
      :ref:`sphx_glr_auto_examples_plotting_plot_split_gene_expression.py`
 
@@ -54,6 +55,7 @@ This is a gallery containing some plotting examples.
 .. only:: html
 
  .. figure:: /auto_examples/plotting/images/thumb/sphx_glr_plot_qc_thumb.png
+     :alt: quality control plots
 
      :ref:`sphx_glr_auto_examples_plotting_plot_qc.py`
 
@@ -74,6 +76,7 @@ This is a gallery containing some plotting examples.
 .. only:: html
 
  .. figure:: /auto_examples/plotting/images/thumb/sphx_glr_plot_celltype_quantification_thumb.png
+     :alt: visualize cell fractions
 
      :ref:`sphx_glr_auto_examples_plotting_plot_celltype_quantification.py`
 
@@ -94,6 +97,7 @@ This is a gallery containing some plotting examples.
 .. only:: html
 
  .. figure:: /auto_examples/plotting/images/thumb/sphx_glr_plot_filtering_thumb.png
+     :alt: filtering functions
 
      :ref:`sphx_glr_auto_examples_plotting_plot_filtering.py`
 
@@ -127,6 +131,7 @@ This section highlights some of the features of the preprocessing functions incl
 .. only:: html
 
  .. figure:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_example_filtering_thumb.png
+     :alt: performing filtering using besca
 
      :ref:`sphx_glr_auto_examples_preprocessing_plot_example_filtering.py`
 
@@ -147,6 +152,7 @@ This section highlights some of the features of the preprocessing functions incl
 .. only:: html
 
  .. figure:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_pca_neighbors_clustering_thumb.png
+     :alt: cluster generation
 
      :ref:`sphx_glr_auto_examples_preprocessing_plot_pca_neighbors_clustering.py`
 
@@ -180,6 +186,7 @@ This section contains all examples related to besca tools.
 .. only:: html
 
  .. figure:: /auto_examples/tools/images/thumb/sphx_glr_plot_reclustering_function_thumb.png
+     :alt: reclustering on specific louvain clusters
 
      :ref:`sphx_glr_auto_examples_tools_plot_reclustering_function.py`
 
@@ -213,6 +220,7 @@ Demonstration workflows showing you how to peform certain tasks
 .. only:: html
 
  .. figure:: /auto_examples/workflows/images/thumb/sphx_glr_plot_celltype_annotation_thumb.png
+     :alt: annotate celltypes
 
      :ref:`sphx_glr_auto_examples_workflows_plot_celltype_annotation.py`
 

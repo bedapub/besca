@@ -1,3 +1,4 @@
+import sys
 from matplotlib.patches import Circle
 from matplotlib.colors import Normalize
 from math import log10, ceil
@@ -164,21 +165,20 @@ def dot_heatmap(adata,
     Examples
     --------
 
-    >>> #i mport libraries and dataset
+    >>> # import libraries and dataset
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc_storage_processed()
-    >>> # define genes
-    >>> genes = ['CD3D', 'TMSB4X']
-    >>> fig = bc.pl.dot_heatmap(adata, genes=genes, group_by='donor')
+    >>> adata = bc.datasets.Kotliarov2020_processed()
+    >>> genes = ['CD3D', 'CD19']
+    >>> fig = bc.pl.dot_heatmap(adata, genes=genes, group_by='leiden')
 
     .. plot::
 
-        >>> #i mport libraries and dataset
+        >>> # import libraries and dataset
         >>> import besca as bc
-        >>> adata = bc.datasets.pbmc_storage_processed()
+        >>> adata = bc.datasets.Kotliarov2020_processed()
         >>> # define genes
-        >>> genes = ['CD3D', 'TMSB4X']
-        >>> fig = bc.pl.dot_heatmap(adata, genes=genes, group_by='louvain')
+        >>> genes = ['CD3D', 'CD19']
+        >>> fig = bc.pl.dot_heatmap(adata, genes=genes, group_by='leiden')
 
     """
     #check to ensure genes does not contain any duplicates
@@ -447,7 +447,7 @@ def dot_heatmap(adata,
 def dot_heatmap_split(adata, 
                       genes, 
                       split_by,
-                      group_by = 'louvain', 
+                      group_by = 'leiden', 
                       plot_absolute = True, 
                       raw = True, 
                       color_maps = ['Reds', 'Blues'], 
@@ -510,25 +510,20 @@ def dot_heatmap_split(adata,
     Examples
     --------
 
-    >>> #import libraries and dataset
+    >>> # import libraries and dataset
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc_storage_processed()
-    >>> #filter out one donor to have two "conditions"
-    >>> adata = adata[adata.obs.donor != 'Donor_3A',:]
-    >>> # define genes
-    >>> genes = ['CD3D', 'TMSB4X']
-    >>> fig = bc.pl.dot_heatmap_split(adata, genes=genes, group_by='louvain', split_by = 'donor')
+    >>> adata = bc.datasets.Haber2017_processed()
+    >>> genes = ['Defa22', 'Defa24', 'Gm15284', 'Reg4']
+    >>> fig = bc.pl.dot_heatmap_split(adata, genes=genes, group_by='leiden', split_by = 'donor')
 
     .. plot::
 
-        >>> #import libraries and dataset
+        >>> # import libraries and dataset
         >>> import besca as bc
-        >>> adata = bc.datasets.pbmc_storage_processed()
-        >>> #filter out one donor to have two "conditions"
-        >>> adata = adata[adata.obs.donor != 'Donor_3A',:]
+        >>> adata = bc.datasets.Haber2017_processed()
         >>> # define genes
-        >>> genes = ['CD3D', 'TMSB4X']
-        >>> fig = bc.pl.dot_heatmap_split(adata, genes=genes, group_by='louvain', split_by = 'donor')
+        >>> genes = ['Defa22', 'Defa24', 'Gm15284', 'Reg4']
+        >>> fig = bc.pl.dot_heatmap_split(adata, genes=genes, group_by='leiden', split_by = 'donor')
 
     """
 
@@ -937,30 +932,6 @@ def dot_heatmap_split_greyscale(adata,
         A matplotlib figure element containing the generated plot. To save the figure this plot will need
         to be passed to a parameter and saved in a second step through the fig.savefig() function call.
 
-    Examples
-    --------
-
-    >>> #import libraries and dataset
-    >>> import besca as bc
-    >>> adata = bc.datasets.pbmc_storage_processed()
-    >>> #filter out one donor to have two "conditions"
-    >>> adata = adata[adata.obs.donor != 'Donor_3A',:]
-    >>> # define genes
-    >>> genes = ['CD3D', 'TMSB4X']
-    >>> abbreviations = ['D1', 'D2']
-    >>> fig = bc.pl.dot_heatmap_split_greyscale(adata, genes=genes, group_by='louvain', split_by = 'donor', abbreviations = abbreviations)
-
-    .. plot::
-
-        >>> #import libraries and dataset
-        >>> import besca as bc
-        >>> adata = bc.datasets.pbmc_storage_processed()
-        >>> #filter out one donor to have two "conditions"
-        >>> adata = adata[adata.obs.donor != 'Donor_3A',:]
-        >>> # define genes
-        >>> genes = ['CD3D', 'TMSB4X']
-        >>> abbreviations = ['D1', 'D2']
-        >>> fig = bc.pl.dot_heatmap_split_greyscale(adata, genes=genes, group_by='louvain', split_by = 'donor', , abbreviations = abbreviations)
 
     """
 
