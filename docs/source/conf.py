@@ -13,9 +13,9 @@ copyright = '2020, BEDA'
 author = 'BEDA'
 
 # The short X.Y version
-version = '2.1'
+version = '2.2'
 # The full version, including alpha/beta/rc tags
-release = '2.1'
+release = '2.2'
 
 
 # -- General configuration ---------------------------------------------------
@@ -85,7 +85,7 @@ master_doc = 'index'
 
 
 language = None
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '**.ipynb_checkpoints']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '**.ipynb_checkpoints', '**bescape_tutorial.ipynb', '**adata_to_eset.ipynb']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -126,6 +126,8 @@ html_context = dict(
 )
 
 html_static_path = ['_static']
+
+html_extra_path = ['tutorials_html']
 
 def setup(app):
     app.add_stylesheet('css/custom.css')

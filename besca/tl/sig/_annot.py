@@ -55,7 +55,8 @@ def score_mw(f, mymarkers):
     """ Score Clusters based on a set of immune signatures to generate a df of pvals
     Takes as an input a dataframe with fractions per clusters and a dictionary of signatures
     Performs a Mann-Whitney test per each column and Signature, returns -10logpValues
-    parameters
+    
+    Parameters
     ----------
     f: panda.DataFrame
       a dataframe of -log10pvals per signature and cell cluster
@@ -82,7 +83,8 @@ def add_anno(adata, cnames, mycol, clusters='leiden'):
     """ Adds annotation generated with make_anno to a AnnData object
     Takes as input the AnnData object to which annotation will be appended and the annotation pd
     Generates a pd.Series that can be added as a adata.obs column with annotation at a level
-    parameters
+    
+    Parameters
     ----------
     adata: AnnData
       AnnData object that is to be annotated
@@ -115,7 +117,8 @@ def add_anno(adata, cnames, mycol, clusters='leiden'):
 
 def read_annotconfig(configfile):
     """ Reads the configuration file for signature-based hierarhical annotation. 
-    parameters
+    
+    Parameters
     ----------
      configfile: 'str'
       path to the configuration file, tsv
@@ -151,7 +154,9 @@ def read_annotconfig(configfile):
 def export_annotconfig(sigconfig, levsk, resultsFolder, analysisName = ''):
     """ Export the configuration defined in sigconfig and levsk
     Order might changed compared to the original sig. config file.
-    But numericol order within a same category (same parents) should be respected.
+    But numerical order within a same category (same parents) should be respected.
+    
+    Parameters
     ----------
     sigconfig: panda.DataFrame
       a dataframe with the config details
@@ -183,7 +188,8 @@ def make_anno(df, sigscores, sigconfig, levsk, lab='celltype', toexclude=[]):
     Hierarchical model of Immune cell annotation.
     It expects a specific set of signatures with a common prefix (signame) and specified suffixes indicating
     the cell type.
-    parameters
+    
+    Parameters
     ----------
     mypFrame: panda.DataFrame
       a dataframe of -log10pvals per signature and cell cluster
@@ -271,7 +277,7 @@ def match_cluster(adata, obsquery, obsqueryval, obsref='leiden', cutoff=0.5):
     and a value specified in obsqueryval, checks which clusters (or other adata.obs categories, obsref)
     contain >50% (or distinct cutoff, cutoff) of cells of the specified kind.
 
-    parameters
+    Parameters
     ----------
     adata: AnnData
       AnnData object 
