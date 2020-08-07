@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tutorials &mdash; BESCA 2.1 documentation</title>
+  <title>tutorials &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -25,8 +25,6 @@
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -35,12 +33,14 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="notebook 1 - introduction and data processing" href="tutorials/notebook1_data_processing.html" />
+    <link rel="next" title="notebook 1 - introduction and data processing" href="tutorials/notebook1_data_processing_pbmc3k.html" />
     <link rel="prev" title="annotate celltypes" href="auto_examples/workflows/plot_celltype_annotation.html" /> 
 </head>
 
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -94,11 +94,12 @@
 <li class="toctree-l1"><a class="reference internal" href="besca.html">besca</a></li>
 <li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">code examples</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">tutorials</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/notebook1_data_processing.html">notebook 1 - introduction and data processing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/notebook2_celltype_annotation.html">notebook 2 - celltype annotation and beyond</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/notebook1_data_processing_pbmc3k.html">notebook 1 - introduction and data processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/notebook2_celltype_annotation_pbmc3k.html">notebook 2 - celltype annotation and beyond</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/notebook2_celltype_annotation_pbmc3k.html#Hierarchical-signature-enrichment-based-approach-for-cell-type-annotation-for-Hematopoeitic-cells">Hierarchical signature-enrichment based approach for cell type annotation for Hematopoeitic cells</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/notebook3_batch_correction.html">notebook 3 - batch correction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/auto_annot_tutorial.html">Automated Annotation Workflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/bescape.html">BESCApe - tutorial on deconvolution of bulk RNA using single-cell annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/auto_annot_tutorial.html#Done!">Done!</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#single-cell-sequencing-general-tutorials">single cell sequencing general tutorials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#single-cell-auto-annot-tutorial-for-cell-type-annotation">single cell auto_annot tutorial for cell type annotation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#bescape-cell-deconvolution-tutorial">Bescape: Cell deconvolution tutorial</a></li>
@@ -201,18 +202,26 @@
 <div class="section" id="single-cell-sequencing-general-tutorials">
 <h2>single cell sequencing general tutorials<a class="headerlink" href="#single-cell-sequencing-general-tutorials" title="Permalink to this headline">¶</a></h2>
 <p>This tutorial will give you a general introduction into single-cell sequencing analysis using scanpy and besca. It is divided into three seperate notebooks that should be looked at in consecutive order (they build up on results from the previous notebooks).</p>
-<p><strong>Part 1</strong>: <a class="reference internal" href="tutorials/notebook1_data_processing.html"><span class="doc">data processing</span></a></p>
-<p><strong>Part 2</strong>: <a class="reference internal" href="tutorials/notebook2_celltype_annotation.html"><span class="doc">celltype annotation</span></a></p>
+<p><strong>Part 1</strong>: <a class="reference internal" href="tutorials/notebook1_data_processing_pbmc3k.html"><span class="doc">data processing</span></a></p>
+<p><strong>Part 2</strong>: <a class="reference internal" href="tutorials/notebook2_celltype_annotation_pbmc3k.html"><span class="doc">celltype annotation</span></a></p>
 <p><strong>Part 3</strong>: <a class="reference internal" href="tutorials/notebook3_batch_correction.html"><span class="doc">batch correction</span></a></p>
 <p>After looking at the introductory tutorial you can download the hands-on tutorial yourself from <a class="reference external" href="github.com/bedapub/besca/blob/master/docs/source/tutorials/scRNAseq_tutorial.ipynb">here</a>  (please save the link as a <code class="code docutils literal notranslate"><span class="pre">.ipynb</span></code> file) and compare with the results published <a class="reference internal" href="tutorials/scRNAseq_tutorial.html"><span class="doc">here</span></a>.</p>
 </div>
 <div class="section" id="single-cell-auto-annot-tutorial-for-cell-type-annotation">
 <h2>single cell auto_annot tutorial for cell type annotation<a class="headerlink" href="#single-cell-auto-annot-tutorial-for-cell-type-annotation" title="Permalink to this headline">¶</a></h2>
-<p>We also provide a tutorial for the auto_annot package, which allows to automatically annotate cell types useing supervised machine learning, you can download it from <a class="reference external" href="github.com/bedapub/besca/blob/master/docs/source/tutorials/auto_annot_tutorial.ipynb">here</a>  (please save the link as a <code class="code docutils literal notranslate"><span class="pre">.ipynb</span></code> file) and compare with the results published <a class="reference internal" href="tutorials/auto_annot_tutorial.html"><span class="doc">here</span></a>.</p>
+<p>We also provide a tutorial for the auto_annot package, which allows to automatically annotate cell types using supervised machine learning,
+you can download it from <a class="reference external" href="github.com/bedapub/besca/blob/master/docs/source/tutorials/auto_annot_tutorial.ipynb">here</a>
+(please save the link as a <code class="code docutils literal notranslate"><span class="pre">.ipynb</span></code> file) and compare with the results published</p>
+<blockquote>
+<div><a class="reference internal" href="tutorials/auto_annot_tutorial.html"><span class="doc">here</span></a>.</div></blockquote>
 </div>
 <div class="section" id="bescape-cell-deconvolution-tutorial">
 <h2>Bescape: Cell deconvolution tutorial<a class="headerlink" href="#bescape-cell-deconvolution-tutorial" title="Permalink to this headline">¶</a></h2>
-<p>Please find the deconvolution tutorial <a class="reference internal" href="tutorials/bescape.html"><span class="doc">here</span></a>.</p>
+<p>Bescape (BESCA proportion estimator) is a deconvolution module. It utilises single-cell annotations coming from the BESCA workflow to build a Gene Expression Profile (GEP). This GEP is used as a basis vector to deconvolute bulk RNA samples i.e. predict cell type proportions within a sample.</p>
+<p><strong>Deconvolution tutorial</strong>:   <a class="reference download internal" download="" href="_downloads/7e538445dce7a180745aa8a78946fa75/bescape_tutorial.html"><code class="xref download docutils literal notranslate"><span class="pre">Bescape</span></code></a></p>
+<p>Some deconvolution methods provided by Bescape are written in R.
+Thus, we need to convert the AnnData objects to R ExpressionSet objects. This has been semi-automated :</p>
+<p><strong>adata_to_eset tutorial:</strong>   <a class="reference download internal" download="" href="_downloads/5940d65e60699f4d14a2a2600a02350b/adata_to_eset.html"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a></p>
 </div>
 </div>
 
@@ -224,7 +233,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="tutorials/notebook1_data_processing.html" class="btn btn-neutral float-right" title="notebook 1 - introduction and data processing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="tutorials/notebook1_data_processing_pbmc3k.html" class="btn btn-neutral float-right" title="notebook 1 - introduction and data processing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="auto_examples/workflows/plot_celltype_annotation.html" class="btn btn-neutral float-left" title="annotate celltypes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

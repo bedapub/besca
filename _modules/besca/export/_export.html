@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>besca.export._export &mdash; BESCA 2.1 documentation</title>
+  <title>besca.export._export &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -25,8 +25,6 @@
         <script type="text/javascript" src="../../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -35,9 +33,11 @@
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -158,8 +158,8 @@
             
   <h1>Source code for besca.export._export</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">read_csv</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="nb">round</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">where</span><span class="p">,</span> <span class="n">arange</span><span class="p">,</span> <span class="n">ix_</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">read_csv</span><span class="p">,</span> <span class="n">concat</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="nb">round</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">where</span><span class="p">,</span> <span class="n">arange</span><span class="p">,</span> <span class="n">expm1</span><span class="p">,</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">ix_</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">io</span><span class="p">,</span> <span class="n">sparse</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="n">BytesIO</span>
@@ -168,11 +168,11 @@
 <span class="c1">#Functions to export AnnData objects to FAIR dataformat</span>
 
 <div class="viewcode-block" id="X_to_mtx"><a class="viewcode-back" href="../../../export/besca.export.X_to_mtx.html#besca.export.X_to_mtx">[docs]</a><span class="k">def</span> <span class="nf">X_to_mtx</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
-             <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span>
+             <span class="n">outpath</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
              <span class="n">write_metadata</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> 
              <span class="n">geneannotation</span> <span class="o">=</span> <span class="s1">&#39;SYMBOL&#39;</span><span class="p">,</span>
              <span class="n">additional_geneannotation</span> <span class="o">=</span> <span class="s1">&#39;ENSEMBL&#39;</span><span class="p">,</span> 
-             <span class="n">C_path</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;besca&#39;</span><span class="p">,</span> <span class="s1">&#39;export/reformat&#39;</span><span class="p">)):</span>
+             <span class="n">C_path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;export adata object to mtx format (matrix.mtx, genes.tsv, barcodes.tsv)</span>
 
 <span class="sd">    exports the counts contained in adata.X to a matrix.mtx file (in sparse format),</span>
@@ -209,7 +209,10 @@
 <span class="sd">        writes out files to the specified output directory</span>
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
+    <span class="k">if</span> <span class="n">outpath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">C_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">C_path</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;besca&#39;</span><span class="p">,</span> <span class="s1">&#39;export/reformat&#39;</span><span class="p">)</span>
     <span class="c1">### check if the outdir exists if not create</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">outpath</span><span class="p">):</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">outpath</span><span class="p">)</span>
@@ -222,18 +225,29 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">E</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">tocsr</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="c1">#transpose back into the same format as we imported it</span>
 
-    <span class="c1">#create a temporary file to pipe the output from io.mmwrite to</span>
-    <span class="n">f_in</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
     
-    <span class="c1">#write out temporary matrix to created pipe</span>
-    <span class="n">io</span><span class="o">.</span><span class="n">mmwrite</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">f_in</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">E</span><span class="p">,</span> <span class="n">precision</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
-    
-    <span class="kn">from</span> <span class="nn">subprocess</span> <span class="k">import</span> <span class="n">run</span>
-    <span class="n">f_out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s1">&#39;matrix.mtx&#39;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
-    <span class="n">run</span><span class="p">([</span><span class="n">C_path</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">],</span> <span class="nb">input</span><span class="o">=</span><span class="n">f_in</span><span class="o">.</span><span class="n">getvalue</span><span class="p">(),</span> <span class="n">stdout</span><span class="o">=</span><span class="n">f_out</span><span class="p">)</span>
-    
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;adata.X successfully written to matrix.mtx&#39;</span><span class="p">)</span>
+    <span class="c1">#check if executable is actually executable on the system</span>
+    <span class="k">def</span> <span class="nf">is_exe</span><span class="p">(</span><span class="n">fpath</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="n">fpath</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">X_OK</span><span class="p">)</span>
 
+    <span class="k">if</span> <span class="n">is_exe</span><span class="p">(</span><span class="n">C_path</span><span class="p">):</span>
+        <span class="c1">#create a temporary file to pipe the output from io.mmwrite to</span>
+        <span class="n">f_in</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
+        
+        <span class="c1">#write out temporary matrix to created pipe</span>
+        <span class="n">io</span><span class="o">.</span><span class="n">mmwrite</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">f_in</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">E</span><span class="p">,</span> <span class="n">precision</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="kn">from</span> <span class="nn">subprocess</span> <span class="k">import</span> <span class="n">run</span>
+        <span class="n">f_out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s1">&#39;matrix.mtx&#39;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+        <span class="n">run</span><span class="p">([</span><span class="n">C_path</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">],</span> <span class="nb">input</span><span class="o">=</span><span class="n">f_in</span><span class="o">.</span><span class="n">getvalue</span><span class="p">(),</span> <span class="n">stdout</span><span class="o">=</span><span class="n">f_out</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;adata.X successfully written to matrix.mtx&#39;</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">io</span><span class="o">.</span><span class="n">mmwrite</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s1">&#39;matrix.mtx&#39;</span><span class="p">),</span> <span class="n">a</span><span class="o">=</span><span class="n">E</span><span class="p">,</span> <span class="n">precision</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;adata.X successfully written to matrix.mtx. </span><span class="se">\n</span><span class="s1"> Warning: could not use reformat script.&#39;</span><span class="p">)</span>
+        
     <span class="c1">### export genes</span>
     
     <span class="c1">#get genes to export</span>
@@ -258,10 +272,21 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;need to provide either </span><span class="se">\&#39;</span><span class="s1">ENSEMBL</span><span class="se">\&#39;</span><span class="s1"> or </span><span class="se">\&#39;</span><span class="s1">SYMBOL</span><span class="se">\&#39;</span><span class="s1"> gene annotation.&#39;</span><span class="p">)</span>
 
+    <span class="n">feature</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1">#add catch to write out type of annotation </span>
+    <span class="k">if</span> <span class="s1">&#39;feature_type&#39;</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;feature annotation is present and will be written out&#39;</span><span class="p">)</span>
+        <span class="n">feature</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">gene_feature</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;feature_type&#39;</span><span class="p">)</span>
+
     <span class="c1">#write the genes out in the correct format (first ENSEMBL THEN SYMBOL)</span>
     <span class="k">with</span> <span class="nb">open</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s1">&#39;genes.tsv&#39;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">ENSEMBL</span><span class="p">,</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">genes_ENSEMBL</span><span class="p">,</span> <span class="n">genes_SYMBOL</span><span class="p">):</span>
-            <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ENSEMBL</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">+</span> <span class="n">symbol</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">feature</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ENSEMBL</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">feature</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">genes_ENSEMBL</span><span class="p">,</span> <span class="n">genes_SYMBOL</span><span class="p">,</span> <span class="n">gene_feature</span><span class="p">):</span>
+                <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ENSEMBL</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">+</span> <span class="n">symbol</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">+</span> <span class="n">feature</span> <span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ENSEMBL</span><span class="p">,</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">genes_ENSEMBL</span><span class="p">,</span> <span class="n">genes_SYMBOL</span><span class="p">):</span>
+                <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ENSEMBL</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">+</span> <span class="n">symbol</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;genes successfully written out to genes.tsv&#39;</span><span class="p">)</span>
 
@@ -288,7 +313,7 @@
                <span class="n">write_metadata</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
                <span class="n">geneannotation</span> <span class="o">=</span> <span class="s1">&#39;ENSEMBL&#39;</span><span class="p">,</span>
                <span class="n">additional_geneannotation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-               <span class="n">C_path</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;besca&#39;</span><span class="p">,</span> <span class="s1">&#39;export/reformat&#39;</span><span class="p">)):</span>
+               <span class="n">C_path</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot; export adata.raw to .mtx (matrix.mtx, genes.tsv, barcodes, tsv)</span>
 
@@ -328,7 +353,8 @@
 <span class="sd">        writes out files to the specified output directory</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-
+    <span class="k">if</span> <span class="n">C_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">C_path</span><span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;besca&#39;</span><span class="p">,</span> <span class="s1">&#39;export/reformat&#39;</span><span class="p">)</span>
     <span class="c1">### write out matrix.mtx as float with 3 significant digits</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;writing out matrix.mtx ...&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">adata</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">X</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -376,10 +402,21 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;need to provide either </span><span class="se">\&#39;</span><span class="s1">ENSEMBL</span><span class="se">\&#39;</span><span class="s1"> or </span><span class="se">\&#39;</span><span class="s1">SYMBOL</span><span class="se">\&#39;</span><span class="s1"> gene annotation.&#39;</span><span class="p">)</span>
 
+    <span class="n">feature</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1">#add catch to write out type of annotation </span>
+    <span class="k">if</span> <span class="s1">&#39;feature_type&#39;</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;feature annotation is present and will be written out&#39;</span><span class="p">)</span>
+        <span class="n">feature</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">gene_feature</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;feature_type&#39;</span><span class="p">)</span>
+
     <span class="c1">#write the genes out in the correct format (first ENSEMBL THEN SYMBOL)</span>
     <span class="k">with</span> <span class="nb">open</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s1">&#39;genes.tsv&#39;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">ENSEMBL</span><span class="p">,</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">genes_ENSEMBL</span><span class="p">,</span> <span class="n">genes_SYMBOL</span><span class="p">):</span>
-            <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ENSEMBL</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">+</span><span class="n">symbol</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">feature</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ENSEMBL</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">feature</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">genes_ENSEMBL</span><span class="p">,</span> <span class="n">genes_SYMBOL</span><span class="p">,</span> <span class="n">gene_feature</span><span class="p">):</span>
+                <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ENSEMBL</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">+</span> <span class="n">symbol</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">+</span> <span class="n">feature</span> <span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ENSEMBL</span><span class="p">,</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">genes_ENSEMBL</span><span class="p">,</span> <span class="n">genes_SYMBOL</span><span class="p">):</span>
+                <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ENSEMBL</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">+</span> <span class="n">symbol</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;genes successfully written out to genes.tsv from adata.raw&#39;</span><span class="p">)</span>
 
@@ -423,7 +460,7 @@
 <span class="sd">    If the outpath directory does not exist, this function automatically generates it.</span>
 
 <span class="sd">    This is a slower version of this function that does not rely on external C-Programms. The default</span>
-<span class="sd">    verison of this function that is used in most cases &#39;X_to_mtx&#39; does rely on this program.</span>
+<span class="sd">    version of this function that is used in most cases &#39;X_to_mtx&#39; does rely on this program.</span>
 
 <span class="sd">    parameters</span>
 <span class="sd">    ----------</span>
@@ -500,12 +537,24 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;need to provide either </span><span class="se">\&#39;</span><span class="s1">ENSEMBL</span><span class="se">\&#39;</span><span class="s1"> or </span><span class="se">\&#39;</span><span class="s1">SYMBOL</span><span class="se">\&#39;</span><span class="s1"> gene annotation.&#39;</span><span class="p">)</span>
 
+    <span class="n">feature</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1">#add catch to write out type of annotation </span>
+    <span class="k">if</span> <span class="s1">&#39;feature_type&#39;</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;feature annotation is present and will be written out&#39;</span><span class="p">)</span>
+        <span class="n">feature</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">gene_feature</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;feature_type&#39;</span><span class="p">)</span>
+
     <span class="c1">#write the genes out in the correct format (first ENSEMBL THEN SYMBOL)</span>
     <span class="k">with</span> <span class="nb">open</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s1">&#39;genes.tsv&#39;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">ENSEMBL</span><span class="p">,</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">genes_ENSEMBL</span><span class="p">,</span> <span class="n">genes_SYMBOL</span><span class="p">):</span>
-            <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ENSEMBL</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">+</span> <span class="n">symbol</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">feature</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ENSEMBL</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">feature</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">genes_ENSEMBL</span><span class="p">,</span> <span class="n">genes_SYMBOL</span><span class="p">,</span> <span class="n">gene_feature</span><span class="p">):</span>
+                <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ENSEMBL</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">+</span> <span class="n">symbol</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">+</span> <span class="n">feature</span> <span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ENSEMBL</span><span class="p">,</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">genes_ENSEMBL</span><span class="p">,</span> <span class="n">genes_SYMBOL</span><span class="p">):</span>
+                <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ENSEMBL</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">+</span> <span class="n">symbol</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;genes successfully written out to genes.tsv&#39;</span><span class="p">)</span>
+
 
     <span class="c1">### write out the cellbarcodes</span>
     <span class="n">cellbarcodes</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs_names</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -631,12 +680,23 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;need to provide either </span><span class="se">\&#39;</span><span class="s1">ENSEMBL</span><span class="se">\&#39;</span><span class="s1"> or </span><span class="se">\&#39;</span><span class="s1">SYMBOL</span><span class="se">\&#39;</span><span class="s1"> gene annotation.&#39;</span><span class="p">)</span>
 
+    <span class="n">feature</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1">#add catch to write out type of annotation </span>
+    <span class="k">if</span> <span class="s1">&#39;feature_type&#39;</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;feature annotation is present and will be written out&#39;</span><span class="p">)</span>
+        <span class="n">feature</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">gene_feature</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;feature_type&#39;</span><span class="p">)</span>
+
     <span class="c1">#write the genes out in the correct format (first ENSEMBL THEN SYMBOL)</span>
     <span class="k">with</span> <span class="nb">open</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s1">&#39;genes.tsv&#39;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">ENSEMBL</span><span class="p">,</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">genes_ENSEMBL</span><span class="p">,</span> <span class="n">genes_SYMBOL</span><span class="p">):</span>
-            <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ENSEMBL</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">+</span><span class="n">symbol</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">feature</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ENSEMBL</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">feature</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">genes_ENSEMBL</span><span class="p">,</span> <span class="n">genes_SYMBOL</span><span class="p">,</span> <span class="n">gene_feature</span><span class="p">):</span>
+                <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ENSEMBL</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">+</span> <span class="n">symbol</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">+</span> <span class="n">feature</span> <span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ENSEMBL</span><span class="p">,</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">genes_ENSEMBL</span><span class="p">,</span> <span class="n">genes_SYMBOL</span><span class="p">):</span>
+                <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ENSEMBL</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">+</span> <span class="n">symbol</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;genes successfully written out to genes.tsv from adata.raw&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;genes successfully written out to genes.tsv&#39;</span><span class="p">)</span>
 
     <span class="c1">### write out the cellbarcodes</span>
     <span class="n">cellbarcodes</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs_names</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -658,7 +718,7 @@
 
 
 <div class="viewcode-block" id="clustering"><a class="viewcode-back" href="../../../export/besca.export.clustering.html#besca.export.clustering">[docs]</a><span class="k">def</span> <span class="nf">clustering</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>  
-            <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span>
+            <span class="n">outpath</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">export_average</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
             <span class="n">export_fractpos</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
             <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">):</span>               
@@ -685,6 +745,8 @@
 <span class="sd">        files are written out.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">outpath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
     <span class="k">if</span><span class="p">(</span> <span class="ow">not</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="s1">&#39;louvain&#39;</span><span class="p">]):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;method argument should be leiden or louvain&quot;</span><span class="p">)</span>
     <span class="n">cluster_data</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">method</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;LABEL&#39;</span><span class="p">)</span>
@@ -701,53 +763,14 @@
     <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
 
     
-<div class="viewcode-block" id="louvain"><a class="viewcode-back" href="../../../export/besca.export.louvain.html#besca.export.louvain">[docs]</a><span class="k">def</span> <span class="nf">louvain</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
-            <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span>
-            <span class="n">export_average</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="n">export_fractpos</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>    
-    <span class="sd">&quot;&quot;&quot; export mapping of cells to clusters to .tsv file</span>
 
-<span class="sd">    This function exports the labels saved in adata.obs.louvain and the corresponding cell barcode to the file cell2labels.tsv.</span>
-<span class="sd">    See clustering( function. Louvain left for compatability)</span>
-<span class="sd">    parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    adata:</span>
-<span class="sd">    outpath: `str` | default = current working directory</span>
-<span class="sd">        filepath to the directory in which the results should be outputed, if no directory is </span>
-<span class="sd">        specified it outputs the results to the current working directory.</span>
-<span class="sd">    export_average: `bool` | default = True</span>
-<span class="sd">        boolian indicator if the average gene expression of each cluster should be exported to file</span>
-<span class="sd">    export_fractpos: `bool` | default = True</span>
-<span class="sd">        boolian indicator if the fraction of positive cells (i.e. cells that express the gene) should</span>
-<span class="sd">        be exported to file</span>
-
-<span class="sd">    returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    None</span>
-<span class="sd">        files are written out.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">louvain_data</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">louvain</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;LABEL&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">louvain_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;need to perform louvain clustering before exporting&#39;</span><span class="p">)</span>
-    <span class="c1">#perform export calling the general export function</span>
-    <span class="n">labeling</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
-             <span class="n">outpath</span> <span class="o">=</span> <span class="n">outpath</span><span class="p">,</span> 
-             <span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;louvain&#39;</span><span class="p">,</span> 
-             <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;LABEL&#39;</span><span class="p">,</span> 
-             <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;cell2labels.tsv&#39;</span><span class="p">,</span> 
-             <span class="n">export_average</span> <span class="o">=</span> <span class="n">export_average</span><span class="p">,</span> 
-             <span class="n">export_fractpos</span><span class="o">=</span> <span class="n">export_fractpos</span><span class="p">)</span>
-    <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="labeling_info"><a class="viewcode-back" href="../../../export/besca.export.labeling_info.html#besca.export.labeling_info">[docs]</a><span class="k">def</span> <span class="nf">labeling_info</span><span class="p">(</span><span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span>
-                  <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;louvain clustering&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="labeling_info"><a class="viewcode-back" href="../../../export/besca.export.labeling_info.html#besca.export.labeling_info">[docs]</a><span class="k">def</span> <span class="nf">labeling_info</span><span class="p">(</span><span class="n">outpath</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                  <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;leiden clustering&#39;</span><span class="p">,</span>
                   <span class="n">public</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
                   <span class="n">default</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
                   <span class="n">expert</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
                   <span class="n">reference</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                  <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;louvain&#39;</span><span class="p">,</span>
+                  <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span>
                   <span class="n">annotated_version_of</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span>
                   <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;labelinfo.tsv&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; write out labeling info for uploading to database</span>
@@ -759,12 +782,12 @@
 <span class="sd">    ----------</span>
 <span class="sd">    outpath: `str` | default = current working directory</span>
 <span class="sd">        The filepath as a string indicating the location where the file should be written out to.</span>
-<span class="sd">    description: `str` | default = &#39;louvain clustering&#39;</span>
+<span class="sd">    description: `str` | default = &#39;leiden clustering&#39;</span>
 <span class="sd">        string describing what type of information is saved in the corresponding labeling.</span>
 <span class="sd">    public: `bool` | default = False</span>
 <span class="sd">        boolian indicator if the contained labeling information is available in the public domain.</span>
 <span class="sd">    default_ `bool` | default = True</span>
-<span class="sd">        boolian indicator if the labeling was created using a standardized process e.g. the louvain </span>
+<span class="sd">        boolian indicator if the labeling was created using a standardized process e.g. the leiden </span>
 <span class="sd">        clusters outputed by the standard pipeline (this should be false if expert is true)</span>
 <span class="sd">    expert: `bool` | default = False</span>
 <span class="sd">        boolian indicator if the labeling was created by an &#39;expert&#39; i.e. manually done (this should </span>
@@ -772,13 +795,13 @@
 <span class="sd">    reference: `bool` | default = True</span>
 <span class="sd">        boolian indicator if this is the labeling (e.g. celltype annotation) that should be used for further analysis</span>
 <span class="sd">        (there should only be one reference labeling per study)</span>
-<span class="sd">    method: `str` | default = &#39;louvain&#39;</span>
+<span class="sd">    method: `str` | default = &#39;leiden&#39;</span>
 <span class="sd">        string indicating the type of method that was applied, e.g. if the labeling is of a clustering</span>
 <span class="sd">        which clustering algorithm was used.</span>
 <span class="sd">    annotated_version_of: `str` | default = &#39;-&#39;</span>
 <span class="sd">        string identifying of what othe labeling/dataset this is an annotated version of (so for </span>
-<span class="sd">        example if the labeling is celltype annotation of a louvain clustering then this would </span>
-<span class="sd">        reference the louvain clsutering that was used to obtain the clusters that were then </span>
+<span class="sd">        example if the labeling is celltype annotation of a leiden clustering then this would </span>
+<span class="sd">        reference the leiden clsutering that was used to obtain the clusters that were then </span>
 <span class="sd">        labeled here)</span>
 <span class="sd">    filename: `str` | default = &#39;labelinfo.tsv&#39;</span>
 <span class="sd">        string indicating the filename that should be used. This is per default set to the correct </span>
@@ -790,6 +813,8 @@
 <span class="sd">        results are written out to a file instead</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">outpath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">public</span><span class="p">:</span>
         <span class="n">Public</span> <span class="o">=</span> <span class="s1">&#39;TRUE&#39;</span>
     <span class="k">else</span><span class="p">:</span>
@@ -821,8 +846,8 @@
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="labeling"><a class="viewcode-back" href="../../../export/besca.export.labeling.html#besca.export.labeling">[docs]</a><span class="k">def</span> <span class="nf">labeling</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
-             <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span>
-             <span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;louvain&#39;</span><span class="p">,</span>
+             <span class="n">outpath</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+             <span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span>
              <span class="n">label</span>  <span class="o">=</span> <span class="s1">&#39;LABEL&#39;</span><span class="p">,</span>
              <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;cell2labels.tsv&#39;</span><span class="p">,</span>
              <span class="n">export_average</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -830,7 +855,7 @@
              <span class="n">use_raw</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;export mapping of cells to specified label to .tsv file</span>
 
-<span class="sd">    This is a function with which any type of labeling (i.e. celltype annotation, louvain </span>
+<span class="sd">    This is a function with which any type of labeling (i.e. celltype annotation, leiden </span>
 <span class="sd">    clustering, etc.) can be written out to a .tsv file. The generated file can then also be easily </span>
 <span class="sd">    uploaded to the database since it fullfilles the FAIR document standards. </span>
 
@@ -842,7 +867,7 @@
 <span class="sd">    outpath `str` | default = current working directory</span>
 <span class="sd">        filepath to the directory in which the results should be outputed, if no directory is </span>
 <span class="sd">        specified it outputs the results to the current working directory.</span>
-<span class="sd">    column: `str` | default = &#39;louvain&#39;</span>
+<span class="sd">    column: `str` | default = &#39;leiden&#39;</span>
 <span class="sd">        Name of the column in adata.obs that is to be mapped to cell barcodes and written out to file.</span>
 <span class="sd">    label: `str` | default = &#39;LABEL&#39;</span>
 <span class="sd">        label above the column when it is written out to file</span>
@@ -855,6 +880,8 @@
 <span class="sd">        files are written out.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">outpath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">column</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;please specify column name that is present in adata.obs&#39;</span><span class="p">)</span>
@@ -981,7 +1008,7 @@
 
 
 <div class="viewcode-block" id="analysis_metadata"><a class="viewcode-back" href="../../../export/besca.export.analysis_metadata.html#besca.export.analysis_metadata">[docs]</a><span class="k">def</span> <span class="nf">analysis_metadata</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
-                      <span class="n">outpath</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span>
+                      <span class="n">outpath</span><span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                       <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;analysis_metadata.tsv&#39;</span><span class="p">,</span>
                       <span class="n">total_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                       <span class="n">n_pcs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
@@ -1018,6 +1045,8 @@
 <span class="sd">        file is written out.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">outpath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
     <span class="c1">#add cellbarcodes to index</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs_names</span><span class="p">)</span>
 
@@ -1061,7 +1090,7 @@
 
 <div class="viewcode-block" id="ranked_genes"><a class="viewcode-back" href="../../../export/besca.export.ranked_genes.html#besca.export.ranked_genes">[docs]</a><span class="k">def</span> <span class="nf">ranked_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> 
                  <span class="nb">type</span> <span class="o">=</span> <span class="s1">&#39;wilcox&#39;</span><span class="p">,</span>
-                 <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span>
+                 <span class="n">outpath</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">geneannotation</span> <span class="o">=</span> <span class="s1">&#39;SYMBOL&#39;</span><span class="p">,</span>
                  <span class="n">additional_geneannotation</span> <span class="o">=</span> <span class="s1">&#39;ENSEMBL&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;export marker genes for each cluster to .gct file</span>
@@ -1093,7 +1122,8 @@
 <span class="sd">        writes results to file in output directory</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    
+    <span class="k">if</span> <span class="n">outpath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;rank_genes_groups&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;need to rank genes before export, please run: scanpy.api.tl.rank_genes() before proceeding with export&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -1222,11 +1252,116 @@
     <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="pseudobulk"><a class="viewcode-back" href="../../../export/besca.export.pseudobulk.html#besca.export.pseudobulk">[docs]</a><span class="k">def</span> <span class="nf">pseudobulk</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
+             <span class="n">outpath</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+             <span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;celltype0&#39;</span><span class="p">,</span>
+             <span class="n">label</span>  <span class="o">=</span> <span class="s1">&#39;celltype0&#39;</span><span class="p">,</span>
+             <span class="n">split_condition</span>  <span class="o">=</span> <span class="s1">&#39;donor&#39;</span><span class="p">,</span>
+             <span class="n">todrop</span> <span class="o">=</span><span class="p">[</span><span class="s1">&#39;CELL&#39;</span><span class="p">,</span><span class="s1">&#39;input.path&#39;</span><span class="p">,</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">,</span><span class="s1">&#39;n_counts&#39;</span><span class="p">,</span><span class="s1">&#39;n_genes&#39;</span><span class="p">,</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span><span class="s1">&#39;celltype0&#39;</span><span class="p">,</span><span class="s1">&#39;celltype1&#39;</span><span class="p">,</span><span class="s1">&#39;celltype2&#39;</span><span class="p">,</span><span class="s1">&#39;celltype3&#39;</span><span class="p">,</span><span class="s1">&#39;dblabel&#39;</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;export pseudobulk profiles of cells to .gct files</span>
+
+<span class="sd">    This is a function with which any type of labeling (i.e. celltype annotation, louvain </span>
+<span class="sd">    clustering, etc.) can be written out to several .gct files as well as a single metadata file. </span>
+
+<span class="sd">    To ensure FAIR compatbility label, and file name should not be changed.</span>
+
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata:</span>
+<span class="sd">    outpath `str` | default = current working directory</span>
+<span class="sd">        filepath to the directory in which the results should be outputed, if no directory is </span>
+<span class="sd">        specified it outputs the results to the current working directory.</span>
+<span class="sd">    column: `str` | default = &#39;celltype0&#39;</span>
+<span class="sd">        Name of the column in adata.obs that is to be mapped to cell barcodes and written out to file.</span>
+<span class="sd">    label: `str` | default = &#39;celltype0&#39;</span>
+<span class="sd">        label above the column when it is written out to several files</span>
+<span class="sd">    split_condition: `str` | default = &#39;experiment&#39;</span>
+<span class="sd">        the experimental unit, e.g. sample ID</span>
+<span class="sd">    todrop: `list` </span>
+<span class="sd">        Several column headers to be excluded from metadata</span>
+
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dfmerge: `pd.DataFrame`</span>
+<span class="sd">        merged dataframe</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">outpath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">column</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;please specify a column name that is present in adata.obs&#39;</span><span class="p">)</span>
+    
+    <span class="c1">### check if the outdir exists if not create</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">outpath</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">outpath</span><span class="p">)</span>
+    
+    <span class="c1">### create adata subsets for each column value</span>
+    <span class="n">bulks</span><span class="o">=</span><span class="p">{}</span>
+    <span class="n">myset</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">column</span><span class="p">]))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">myset</span><span class="p">:</span>
+        <span class="n">ii</span><span class="o">=</span><span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span> <span class="c1">## to avoid spaces in cell names</span>
+        <span class="n">bulks</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">=</span><span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="n">i</span><span class="p">])]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">bulks</span><span class="p">[</span><span class="s1">&#39;all&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    
+    <span class="c1">### go through each adata subset and export pseudobulk</span>
+    <span class="n">dfbulks</span><span class="o">=</span><span class="p">{}</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">bulks</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>   
+        <span class="c1"># sum expression</span>
+        <span class="n">auxdata</span><span class="o">=</span><span class="n">bulks</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">myexp</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">auxdata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">split_condition</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="p">)</span> <span class="c1">### these are all different levels for experiments</span>
+        <span class="n">mysums</span><span class="o">=</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">auxdata</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">myexp</span><span class="p">)))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">myexp</span><span class="p">)):</span>
+            <span class="n">mysums</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">expm1</span><span class="p">(</span><span class="n">auxdata</span><span class="p">[</span><span class="n">auxdata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">split_condition</span><span class="p">]</span><span class="o">==</span><span class="n">myexp</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">mysums</span><span class="o">=</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mysums</span><span class="p">)</span>
+        <span class="n">mysums</span><span class="o">.</span><span class="n">index</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span>
+        <span class="n">mysums</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">x</span><span class="o">+</span><span class="s1">&#39;.&#39;</span><span class="o">+</span><span class="n">y</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">myexp</span><span class="p">]</span>
+        <span class="n">dfbulks</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">=</span><span class="n">mysums</span>
+    
+        <span class="n">mydat</span> <span class="o">=</span> <span class="n">auxdata</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;SYMBOL&#39;</span><span class="p">,</span> <span class="s1">&#39;ENSEMBL&#39;</span><span class="p">]]</span>
+        <span class="n">mydat</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;SYMBOL&#39;</span><span class="p">:</span><span class="s1">&#39;Description&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">gct</span> <span class="o">=</span> <span class="n">mydat</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">dfbulks</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">gct</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;ENSEMBL&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">gct</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">]</span>
+        <span class="n">gct</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">myexp</span>
+    
+        <span class="c1">#write out average expression</span>
+        <span class="n">gctFile_pseudo</span> <span class="o">=</span> <span class="n">outpath</span><span class="o">+</span> <span class="s1">&#39;Pseudobulk-&#39;</span><span class="o">+</span><span class="n">label</span><span class="o">+</span><span class="s1">&#39;-&#39;</span><span class="o">+</span><span class="n">x</span><span class="o">+</span><span class="s1">&#39;.gct&#39;</span>
+        <span class="k">with</span> <span class="nb">open</span> <span class="p">(</span><span class="n">gctFile_pseudo</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;#1.2&quot;</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">gct</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">gct</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># &quot;description&quot; already merged in as a column</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="c1">#...and then the matrix</span>
+        <span class="n">gct</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">gctFile_pseudo</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">index_label</span><span class="o">=</span><span class="s1">&#39;NAME&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>  <span class="n">float_format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%.3f</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Pseudobulk-&#39;</span><span class="o">+</span><span class="n">label</span><span class="o">+</span><span class="s1">&#39;-&#39;</span><span class="o">+</span><span class="n">x</span><span class="o">+</span><span class="s1">&#39;.gct exported successfully to file&#39;</span><span class="p">)</span>
+
+    <span class="c1">#### Output into single .tsv file</span>
+    <span class="n">dfmerge</span><span class="o">=</span><span class="n">concat</span><span class="p">(</span><span class="n">dfbulks</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">dfmerge</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">dfmerge</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">droplevel</span><span class="p">()</span>
+    <span class="n">dfmerge</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">outpath</span><span class="o">+</span> <span class="s1">&#39;Pseudobulk-&#39;</span><span class="o">+</span><span class="n">label</span><span class="o">+</span><span class="s1">&#39;.tsv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">index_label</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1">### Export one metadata file</span>
+    <span class="n">myexp</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">split_condition</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="p">)</span> 
+    <span class="n">colindex</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span> <span class="c1">### replace if only a subset of metadata should be used</span>
+    <span class="n">mysums</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">myexp</span><span class="p">)):</span>
+        <span class="n">mysums</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">split_condition</span><span class="p">]</span><span class="o">==</span><span class="n">myexp</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">colindex</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]))</span>
+    <span class="n">mysums</span><span class="o">=</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mysums</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+    <span class="n">mysums</span><span class="o">.</span><span class="n">index</span><span class="o">=</span><span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">split_condition</span><span class="p">]</span><span class="o">==</span><span class="n">myexp</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">colindex</span><span class="p">]</span><span class="o">.</span><span class="n">columns</span>
+    <span class="n">mysums</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="n">myexp</span>
+    <span class="n">mysums</span><span class="o">=</span><span class="n">mysums</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="n">todrop</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+    <span class="n">mysums</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">mysums</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">colorder</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="s1">&#39;CONDITION&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">mysums</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="s1">&#39;CONDITION&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+    <span class="n">mysums</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">colorder</span><span class="p">]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">outpath</span><span class="o">+</span> <span class="s1">&#39;Pseudobulk.meta&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">dfmerge</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+    
 <div class="viewcode-block" id="generate_gep"><a class="viewcode-back" href="../../../export/besca.export.generate_gep.html#besca.export.generate_gep">[docs]</a><span class="k">def</span> <span class="nf">generate_gep</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
                  <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;gep_basis_vector.csv&#39;</span><span class="p">,</span>
                  <span class="n">column</span><span class="o">=</span><span class="s1">&#39;&lt;last_column&gt;&#39;</span><span class="p">,</span>
                  <span class="n">annot</span><span class="o">=</span><span class="s1">&#39;ENSEMBL&#39;</span><span class="p">,</span>
-                 <span class="n">outpath</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()):</span>
+                 <span class="n">outpath</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Generate Gene Expression Profile (GEP) from scRNA-seq annotations</span>
 
 <span class="sd">    Reads in the AnnData object, taking only the pre-filtered highly variable genes </span>
@@ -1236,9 +1371,10 @@
 
 <span class="sd">    We generate the GEP from adata.raw and not from adata because we need CP10k normalised values, </span>
 <span class="sd">    which adata doesnt contain as it will have gone through several normalisation steps further downstream.</span>
+<span class="sd">    At the same time we are subsetting adata.raw by the highly variable genes present only present in adata.</span>
 
 <span class="sd">    For each cell type, its gene expression is calculted by summing up all values for given gene </span>
-<span class="sd">    and given cell type, and dividing by the total number of the cell type. </span>
+<span class="sd">    and given cell type. A mean value is not taken as there are many cell with zero expresion for given gene.</span>
 
 <span class="sd">    parameters</span>
 <span class="sd">    ----------</span>
@@ -1260,7 +1396,8 @@
 <span class="sd">        files are written out</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-
+    <span class="k">if</span> <span class="n">outpath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
     <span class="c1">### check if the outdir exists if not create</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">outpath</span><span class="p">):</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">outpath</span><span class="p">)</span>
@@ -1288,7 +1425,7 @@
         <span class="n">E</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">E</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">tocsr</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
-
+    <span class="c1"># mask to subset only highly variable genes</span>
     <span class="n">mask</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="p">)</span>
     <span class="n">mask</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">var_names</span><span class="p">))[</span><span class="n">mask</span><span class="p">]</span>
     <span class="c1">#revert to linear scale</span>
@@ -1298,7 +1435,8 @@
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_labels</span><span class="p">):</span>
         <span class="n">cells</span> <span class="o">=</span> <span class="n">where</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">column</span><span class="p">)</span> <span class="o">==</span> <span class="n">label_names</span><span class="p">[</span><span class="n">i</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
         <span class="c1">#gct.iloc[:,i] = E[:,cells].mean(axis= 1) #get mean expression per gene</span>
-        <span class="n">gct</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">E</span><span class="p">[</span><span class="n">ix_</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">cells</span><span class="p">)]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1">#gct.iloc[:, i] = E[ix_(mask, cells)].mean(axis=1) # get mean expression per *highly variable* gene per cell type</span>
+        <span class="n">gct</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">E</span><span class="p">[</span><span class="n">ix_</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">cells</span><span class="p">)]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># get the sum of expression per *highly variable* gene per cell type</span>
         <span class="n">labeling_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>
 
     <span class="n">mydat</span> <span class="o">=</span> <span class="n">mydat</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="n">annot</span><span class="p">]]</span>

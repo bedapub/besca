@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>plotting gene expression &mdash; BESCA 2.1 documentation</title>
+  <title>plotting gene expression &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -25,8 +25,6 @@
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -35,9 +33,11 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="quality control plots" href="plot_qc.html" />
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -203,46 +203,49 @@
 </style>
 <div class="sphx-glr-download-link-note admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plotting-plot-split-gene-expression-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plotting-plot-split-gene-expression-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="plotting-gene-expression">
 <span id="sphx-glr-auto-examples-plotting-plot-split-gene-expression-py"></span><h1>plotting gene expression<a class="headerlink" href="#plotting-gene-expression" title="Permalink to this headline">¶</a></h1>
 <p>This example shows you some of the different plots you can use to plot gene expression.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">besca</span> <span class="kn">as</span> <span class="nn">bc</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
 
 <span class="c1">#import data</span>
-<span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">brain3k_processed</span><span class="p">()</span>
+<span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">Haber2017_processed</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="section" id="compare-two-conditions">
 <h2>compare two conditions<a class="headerlink" href="#compare-two-conditions" title="Permalink to this headline">¶</a></h2>
 <p>You can use the split violin plot to compare gene expression for two different conditions.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">gene_expr_split</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">genes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Trem2&#39;</span><span class="p">,</span> <span class="s1">&#39;Nanos1&#39;</span><span class="p">],</span> <span class="n">split_variable</span><span class="o">=</span><span class="s1">&#39;condition&#39;</span><span class="p">);</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">gene_expr_split</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">genes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Defa24&#39;</span><span class="p">,</span> <span class="s1">&#39;Gm15284&#39;</span><span class="p">],</span> <span class="n">split_variable</span><span class="o">=</span><span class="s1">&#39;donor&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../../_images/sphx_glr_plot_split_gene_expression_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_split_gene_expression_001.png" />
-<p>use a stacked split violin plot to compare this for several genes at the same time</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#import dataset</span>
-<span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc_storage_processed</span><span class="p">()</span>
+<img alt="plot split gene expression" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_split_gene_expression_001.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/pstore/home/julienla/miniconda3/envs/besca_2.2/lib/python3.6/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
 
-<span class="c1">#update the dataset to only contain two conditions</span>
-<span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">donor</span> <span class="o">!=</span> <span class="s1">&#39;Donor_3A&#39;</span><span class="p">]</span>
-<span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">gene_expr_split_stacked</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span> <span class="n">genes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;CD4&#39;</span><span class="p">,</span> <span class="s1">&#39;CD8A&#39;</span><span class="p">],</span> <span class="n">split_variable</span><span class="o">=</span><span class="s1">&#39;donor&#39;</span><span class="p">,</span> <span class="n">subset_variable</span> <span class="o">=</span> <span class="s1">&#39;storage_condition&#39;</span><span class="p">);</span>
+is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
 </pre></div>
 </div>
-<img alt="../../_images/sphx_glr_plot_split_gene_expression_002.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_split_gene_expression_002.png" />
+<p>use a stacked split violin plot to compare this for several genes at the same time</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">gene_expr_split_stacked</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span> <span class="n">genes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Defa24&#39;</span><span class="p">,</span> <span class="s1">&#39;Gm15284&#39;</span><span class="p">],</span> <span class="n">split_variable</span><span class="o">=</span><span class="s1">&#39;donor&#39;</span><span class="p">,</span> <span class="n">subset_variable</span> <span class="o">=</span> <span class="s1">&#39;region&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="plot split gene expression" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_split_gene_expression_002.png" />
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>merging a total of  3  datasubset
+
+&lt;Figure size 640x480 with 2 Axes&gt;
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  3.391 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  31.507 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plotting-plot-split-gene-expression-py">
-<div class="sphx-glr-download docutils container">
-<a class="reference download internal" download="" href="../../_downloads/9ecc675b22b44e159bb8ffa351963dc3/plot_split_gene_expression.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_split_gene_expression.py</span></code></a></div>
-<div class="sphx-glr-download docutils container">
-<a class="reference download internal" download="" href="../../_downloads/a826084b91cf05e103073f671f89c7d5/plot_split_gene_expression.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_split_gene_expression.ipynb</span></code></a></div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<a class="reference download internal" download="" href="../../_downloads/8de411020d59ee6e487c7477a0f5d3c8/plot_split_gene_expression.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_split_gene_expression.py</span></code></a></div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<a class="reference download internal" download="" href="../../_downloads/2ce1636ede2318159c4e4066d6a4f3af/plot_split_gene_expression.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_split_gene_expression.ipynb</span></code></a></div>
 </div>
-<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </div>
 </div>
 

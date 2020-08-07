@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>dot_heatmap &mdash; BESCA 2.1 documentation</title>
+  <title>dot_heatmap &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -25,8 +25,6 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,9 +33,11 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
 </head>
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -225,12 +225,11 @@ to be passed to a parameter and saved in a second step through the fig.savefig()
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#i mport libraries and dataset</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># import libraries and dataset</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc_storage_processed</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># define genes</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">genes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CD3D&#39;</span><span class="p">,</span> <span class="s1">&#39;TMSB4X&#39;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">dot_heatmap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">genes</span><span class="o">=</span><span class="n">genes</span><span class="p">,</span> <span class="n">group_by</span><span class="o">=</span><span class="s1">&#39;donor&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">Kotliarov2020_processed</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">genes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CD3D&#39;</span><span class="p">,</span> <span class="s1">&#39;CD19&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">dot_heatmap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">genes</span><span class="o">=</span><span class="n">genes</span><span class="p">,</span> <span class="n">group_by</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href="../besca/besca-pl-dot_heatmap-1.py">Source code</a>)</p>

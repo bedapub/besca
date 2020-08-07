@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; BESCA 2.1 documentation</title>
+  <title>Index &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -26,8 +26,6 @@
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -36,9 +34,11 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" /> 
 </head>
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -168,9 +168,12 @@
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
+ | <a href="#I"><strong>I</strong></a>
  | <a href="#K"><strong>K</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
@@ -195,6 +198,8 @@
       <li><a href="besca/besca.tl.annotate_cells_clustering.html#besca.tl.annotate_cells_clustering">annotate_cells_clustering() (in module besca.tl)</a>, <a href="tools/besca.tl.annotate_cells_clustering.html#besca.tl.annotate_cells_clustering">[1]</a>
 </li>
       <li><a href="besca/besca.tl.rc.annotate_new_cellnames.html#besca.tl.rc.annotate_new_cellnames">annotate_new_cellnames() (in module besca.tl.rc)</a>, <a href="reclustering/besca.tl.rc.annotate_new_cellnames.html#besca.tl.rc.annotate_new_cellnames">[1]</a>
+</li>
+      <li><a href="besca/besca.Import.assert_adata.html#besca.Import.assert_adata">assert_adata() (in module besca.Import)</a>, <a href="import/besca.Import.assert_adata.html#besca.Import.assert_adata">[1]</a>
 </li>
   </ul></td>
 </tr></table>
@@ -246,11 +251,11 @@
 </li>
       <li><a href="sig/besca.tl.sig.compute_signed_score.html#besca.tl.sig.compute_signed_score">compute_signed_score() (in module besca.tl.sig)</a>
 </li>
-      <li><a href="besca/besca.tl.count_occurance.html#besca.tl.count_occurance">count_occurance() (in module besca.tl)</a>, <a href="tools/besca.tl.count_occurance.html#besca.tl.count_occurance">[1]</a>
+      <li><a href="besca/besca.tl.count_occurrence.html#besca.tl.count_occurrence">count_occurrence() (in module besca.tl)</a>, <a href="tools/besca.tl.count_occurrence.html#besca.tl.count_occurrence">[1]</a>
 </li>
-      <li><a href="besca/besca.tl.count_occurance_subset.html#besca.tl.count_occurance_subset">count_occurance_subset() (in module besca.tl)</a>, <a href="tools/besca.tl.count_occurance_subset.html#besca.tl.count_occurance_subset">[1]</a>
+      <li><a href="besca/besca.tl.count_occurrence_subset.html#besca.tl.count_occurrence_subset">count_occurrence_subset() (in module besca.tl)</a>, <a href="tools/besca.tl.count_occurrence_subset.html#besca.tl.count_occurrence_subset">[1]</a>
 </li>
-      <li><a href="besca/besca.tl.count_occurance_subset_conditions.html#besca.tl.count_occurance_subset_conditions">count_occurance_subset_conditions() (in module besca.tl)</a>, <a href="tools/besca.tl.count_occurance_subset_conditions.html#besca.tl.count_occurance_subset_conditions">[1]</a>
+      <li><a href="besca/besca.tl.count_occurrence_subset_conditions.html#besca.tl.count_occurrence_subset_conditions">count_occurrence_subset_conditions() (in module besca.tl)</a>, <a href="tools/besca.tl.count_occurrence_subset_conditions.html#besca.tl.count_occurrence_subset_conditions">[1]</a>
 </li>
   </ul></td>
 </tr></table>
@@ -276,14 +281,16 @@
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="sig/besca.tl.sig.export_annotconfig.html#besca.tl.sig.export_annotconfig">export_annotconfig() (in module besca.tl.sig)</a>
+</li>
       <li><a href="besca/besca.st.export_celltype.html#besca.st.export_celltype">export_celltype() (in module besca.st)</a>, <a href="standardworkflow/besca.st.export_celltype.html#besca.st.export_celltype">[1]</a>
 </li>
       <li><a href="besca/besca.st.export_clustering.html#besca.st.export_clustering">export_clustering() (in module besca.st)</a>, <a href="standardworkflow/besca.st.export_clustering.html#besca.st.export_clustering">[1]</a>
 </li>
-      <li><a href="besca/besca.st.export_cp10k.html#besca.st.export_cp10k">export_cp10k() (in module besca.st)</a>, <a href="standardworkflow/besca.st.export_cp10k.html#besca.st.export_cp10k">[1]</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="besca/besca.st.export_cp10k.html#besca.st.export_cp10k">export_cp10k() (in module besca.st)</a>, <a href="standardworkflow/besca.st.export_cp10k.html#besca.st.export_cp10k">[1]</a>
+</li>
       <li><a href="besca/besca.st.export_metadata.html#besca.st.export_metadata">export_metadata() (in module besca.st)</a>, <a href="standardworkflow/besca.st.export_metadata.html#besca.st.export_metadata">[1]</a>
 </li>
       <li><a href="besca/besca.st.export_rank.html#besca.st.export_rank">export_rank() (in module besca.st)</a>, <a href="standardworkflow/besca.st.export_rank.html#besca.st.export_rank">[1]</a>
@@ -300,12 +307,14 @@
 </li>
       <li><a href="besca/besca.pp.filter_gene_list.html#besca.pp.filter_gene_list">filter_gene_list() (in module besca.pp)</a>, <a href="preprocessing/besca.pp.filter_gene_list.html#besca.pp.filter_gene_list">[1]</a>
 </li>
-      <li><a href="besca/besca.st.filtering_cells_genes_min.html#besca.st.filtering_cells_genes_min">filtering_cells_genes_min() (in module besca.st)</a>, <a href="standardworkflow/besca.st.filtering_cells_genes_min.html#besca.st.filtering_cells_genes_min">[1]</a>
+      <li><a href="sig/besca.tl.sig.filter_siggenes.html#besca.tl.sig.filter_siggenes">filter_siggenes() (in module besca.tl.sig)</a>
 </li>
-      <li><a href="besca/besca.st.filtering_mito_genes_max.html#besca.st.filtering_mito_genes_max">filtering_mito_genes_max() (in module besca.st)</a>, <a href="standardworkflow/besca.st.filtering_mito_genes_max.html#besca.st.filtering_mito_genes_max">[1]</a>
+      <li><a href="besca/besca.st.filtering_cells_genes_min.html#besca.st.filtering_cells_genes_min">filtering_cells_genes_min() (in module besca.st)</a>, <a href="standardworkflow/besca.st.filtering_cells_genes_min.html#besca.st.filtering_cells_genes_min">[1]</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="besca/besca.st.filtering_mito_genes_max.html#besca.st.filtering_mito_genes_max">filtering_mito_genes_max() (in module besca.st)</a>, <a href="standardworkflow/besca.st.filtering_mito_genes_max.html#besca.st.filtering_mito_genes_max">[1]</a>
+</li>
       <li><a href="besca/besca.pp.frac_pos.html#besca.pp.frac_pos">frac_pos() (in module besca.pp)</a>, <a href="preprocessing/besca.pp.frac_pos.html#besca.pp.frac_pos">[1]</a>
 </li>
       <li><a href="besca/besca.pp.frac_reads.html#besca.pp.frac_reads">frac_reads() (in module besca.pp)</a>, <a href="preprocessing/besca.pp.frac_reads.html#besca.pp.frac_reads">[1]</a>
@@ -324,13 +333,25 @@
 </li>
       <li><a href="besca/besca.pl.gene_expr_split_stacked.html#besca.pl.gene_expr_split_stacked">gene_expr_split_stacked() (in module besca.pl)</a>, <a href="plotting/besca.pl.gene_expr_split_stacked.html#besca.pl.gene_expr_split_stacked">[1]</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="besca/besca.export.generate_gep.html#besca.export.generate_gep">generate_gep() (in module besca.export)</a>, <a href="export/besca.export.generate_gep.html#besca.export.generate_gep">[1]</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="besca/besca.tl.dge.get_de.html#besca.tl.dge.get_de">get_de() (in module besca.tl.dge)</a>, <a href="dge/besca.tl.dge.get_de.html#besca.tl.dge.get_de">[1]</a>
 </li>
+      <li><a href="sig/besca.tl.sig.get_gems.html#besca.tl.sig.get_gems">get_gems() (in module besca.tl.sig)</a>
+</li>
+      <li><a href="sig/besca.tl.sig.get_similar_geneset.html#besca.tl.sig.get_similar_geneset">get_similar_geneset() (in module besca.tl.sig)</a>
+</li>
       <li><a href="sig/besca.tl.sig.getset.html#besca.tl.sig.getset">getset() (in module besca.tl.sig)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="sig/besca.tl.sig.insert_gems.html#besca.tl.sig.insert_gems">insert_gems() (in module besca.tl.sig)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -356,15 +377,11 @@
 </li>
       <li><a href="besca/besca.export.labeling_info.html#besca.export.labeling_info">labeling_info() (in module besca.export)</a>, <a href="export/besca.export.labeling_info.html#besca.export.labeling_info">[1]</a>
 </li>
-      <li><a href="besca/besca.pl.library_size.html#besca.pl.library_size">library_size() (in module besca.pl)</a>, <a href="plotting/besca.pl.library_size.html#besca.pl.library_size">[1]</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="besca/besca.pl.library_size.html#besca.pl.library_size">library_size() (in module besca.pl)</a>, <a href="plotting/besca.pl.library_size.html#besca.pl.library_size">[1]</a>
+</li>
       <li><a href="besca/besca.pl.librarysize_overview.html#besca.pl.librarysize_overview">librarysize_overview() (in module besca.pl)</a>, <a href="plotting/besca.pl.librarysize_overview.html#besca.pl.librarysize_overview">[1]</a>
-</li>
-      <li><a href="besca/besca.export.louvain.html#besca.export.louvain">louvain() (in module besca.export)</a>, <a href="export/besca.export.louvain.html#besca.export.louvain">[1]</a>
-</li>
-      <li><a href="besca/besca.pl.louvain_quant_stackedbar.html#besca.pl.louvain_quant_stackedbar">louvain_quant_stackedbar() (in module besca.pl)</a>, <a href="plotting/besca.pl.louvain_quant_stackedbar.html#besca.pl.louvain_quant_stackedbar">[1]</a>
 </li>
   </ul></td>
 </tr></table>
@@ -373,6 +390,8 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="sig/besca.tl.sig.make_anno.html#besca.tl.sig.make_anno">make_anno() (in module besca.tl.sig)</a>
+</li>
+      <li><a href="sig/besca.tl.sig.match_cluster.html#besca.tl.sig.match_cluster">match_cluster() (in module besca.tl.sig)</a>
 </li>
       <li><a href="besca/besca.pl.max_counts.html#besca.pl.max_counts">max_counts() (in module besca.pl)</a>, <a href="plotting/besca.pl.max_counts.html#besca.pl.max_counts">[1]</a>
 </li>
@@ -387,16 +406,38 @@
   </ul></td>
 </tr></table>
 
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="besca/besca.pl.nomenclature_network.html#besca.pl.nomenclature_network">nomenclature_network() (in module besca.pl)</a>, <a href="plotting/besca.pl.nomenclature_network.html#besca.pl.nomenclature_network">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="besca/besca.pp.normalize_geometric.html#besca.pp.normalize_geometric">normalize_geometric() (in module besca.pp)</a>, <a href="preprocessing/besca.pp.normalize_geometric.html#besca.pp.normalize_geometric">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="sig/besca.tl.sig.obtain_dblabel.html#besca.tl.sig.obtain_dblabel">obtain_dblabel() (in module besca.tl.sig)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="besca/besca.tl.dge.perform_dge.html#besca.tl.dge.perform_dge">perform_dge() (in module besca.tl.dge)</a>, <a href="dge/besca.tl.dge.perform_dge.html#besca.tl.dge.perform_dge">[1]</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="besca/besca.tl.dge.plot_interactive_volcano.html#besca.tl.dge.plot_interactive_volcano">plot_interactive_volcano() (in module besca.tl.dge)</a>, <a href="dge/besca.tl.dge.plot_interactive_volcano.html#besca.tl.dge.plot_interactive_volcano">[1]</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="bcor/besca.tl.bcor.postprocess_mnnpy.html#besca.tl.bcor.postprocess_mnnpy">postprocess_mnnpy() (in module besca.tl.bcor)</a>, <a href="besca/besca.tl.bcor.postprocess_mnnpy.html#besca.tl.bcor.postprocess_mnnpy">[1]</a>
+</li>
+      <li><a href="besca/besca.export.pseudobulk.html#besca.export.pseudobulk">pseudobulk() (in module besca.export)</a>, <a href="export/besca.export.pseudobulk.html#besca.export.pseudobulk">[1]</a>
 </li>
   </ul></td>
 </tr></table>
@@ -408,10 +449,12 @@
 </li>
       <li><a href="besca/besca.export.raw_to_mtx.html#besca.export.raw_to_mtx">raw_to_mtx() (in module besca.export)</a>, <a href="export/besca.export.raw_to_mtx.html#besca.export.raw_to_mtx">[1]</a>
 </li>
-      <li><a href="sig/besca.tl.sig.read_GMT_sign.html#besca.tl.sig.read_GMT_sign">read_GMT_sign() (in module besca.tl.sig)</a>
+      <li><a href="sig/besca.tl.sig.read_annotconfig.html#besca.tl.sig.read_annotconfig">read_annotconfig() (in module besca.tl.sig)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="sig/besca.tl.sig.read_GMT_sign.html#besca.tl.sig.read_GMT_sign">read_GMT_sign() (in module besca.tl.sig)</a>
+</li>
       <li><a href="besca/besca.st.read_matrix.html#besca.st.read_matrix">read_matrix() (in module besca.st)</a>, <a href="standardworkflow/besca.st.read_matrix.html#besca.st.read_matrix">[1]</a>
 </li>
       <li><a href="besca/besca.Import.read_mtx.html#besca.Import.read_mtx">read_mtx() (in module besca.Import)</a>, <a href="import/besca.Import.read_mtx.html#besca.Import.read_mtx">[1]</a>

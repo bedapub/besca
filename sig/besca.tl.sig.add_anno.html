@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>add_anno &mdash; BESCA 2.1 documentation</title>
+  <title>add_anno &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -25,8 +25,6 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,9 +33,11 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="make_anno" href="besca.tl.sig.make_anno.html" />
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -96,9 +96,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#preprocessing">preprocessing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#plotting">plotting</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../besca.html#tools">tools</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurance.html">count_occurance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurance_subset.html">count_occurance_subset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurance_subset_conditions.html">count_occurance_subset_conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurrence.html">count_occurrence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurrence_subset.html">count_occurrence_subset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurrence_subset_conditions.html">count_occurrence_subset_conditions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.annotate_cells_clustering.html">annotate_cells_clustering</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../besca.html#toolkits">toolkits</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#batch-correction">batch correction</a></li>
@@ -106,11 +106,19 @@
 <li class="toctree-l4 current"><a class="reference internal" href="../besca.html#signature-scoring">signature scoring</a><ul class="current">
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.combined_signature_score.html">combined_signature_score</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.compute_signed_score.html">compute_signed_score</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.filter_siggenes.html">filter_siggenes</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.read_GMT_sign.html">read_GMT_sign</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.getset.html">getset</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.score_mw.html">score_mw</a></li>
 <li class="toctree-l5 current"><a class="current reference internal" href="#">add_anno</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.make_anno.html">make_anno</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.read_annotconfig.html">read_annotconfig</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.match_cluster.html">match_cluster</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.obtain_dblabel.html">obtain_dblabel</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.get_gems.html">get_gems</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.insert_gems.html">insert_gems</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.get_similar_geneset.html">get_similar_geneset</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.export_annotconfig.html">export_annotconfig</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#reclustering">reclustering</a></li>
@@ -221,23 +229,27 @@
 <h1>add_anno<a class="headerlink" href="#add-anno" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="besca.tl.sig.add_anno">
-<code class="descclassname">besca.tl.sig.</code><code class="descname">add_anno</code><span class="sig-paren">(</span><em>adata</em>, <em>cNames</em>, <em>cluster='louvain'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_annot.html#add_anno"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.sig.add_anno" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">besca.tl.sig.</code><code class="descname">add_anno</code><span class="sig-paren">(</span><em>adata</em>, <em>cnames</em>, <em>mycol</em>, <em>clusters='leiden'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_annot.html#add_anno"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.sig.add_anno" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds annotation generated with make_anno to a AnnData object
-Takes as input the AnnData object to which annotation will be appended and the large annotation
-Generates 5 new adata.obs columns with annotation at distinct levels
-:param adata: AnnData object that is to be annotated
-:type adata: AnnData
-:param cNames: a list of cluster names generated with make_anno
-:type cNames: panda.DataFrame
-:param cluster: initial cluster used for annotation (column in adata.obs)
-:type cluster: string</p>
+Takes as input the AnnData object to which annotation will be appended and the annotation pd
+Generates a pd.Series that can be added as a adata.obs column with annotation at a level</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the annotated adata object</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>adata</strong> (<em>AnnData</em>) – AnnData object that is to be annotated</li>
+<li><strong>cnames</strong> (<em>panda.DataFrame</em>) – a list of cluster names generated with make_anno</li>
+<li><strong>mycol</strong> (<em>string</em>) – column to be added</li>
+<li><strong>clusters</strong> (<em>string</em>) – initial cluster used for annotation (column in adata.obs)</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">AnnData</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the annotated cells</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pd.Series</p>
+</td>
 </tr>
 </tbody>
 </table>

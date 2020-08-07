@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>labeling &mdash; BESCA 2.1 documentation</title>
+  <title>labeling &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -25,8 +25,6 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,9 +33,11 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
 </head>
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -186,9 +186,9 @@
 <h1>labeling<a class="headerlink" href="#labeling" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="besca.export.labeling">
-<code class="descclassname">besca.export.</code><code class="descname">labeling</code><span class="sig-paren">(</span><em>adata</em>, <em>outpath='/pstore/data/bioinfo/users/hatjek/devel/besca/docs'</em>, <em>column='louvain'</em>, <em>label='LABEL'</em>, <em>filename='cell2labels.tsv'</em>, <em>export_average=True</em>, <em>export_fractpos=True</em>, <em>use_raw=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/export/_export.html#labeling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.export.labeling" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">besca.export.</code><code class="descname">labeling</code><span class="sig-paren">(</span><em>adata</em>, <em>outpath=None</em>, <em>column='leiden'</em>, <em>label='LABEL'</em>, <em>filename='cell2labels.tsv'</em>, <em>export_average=True</em>, <em>export_fractpos=True</em>, <em>use_raw=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/export/_export.html#labeling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.export.labeling" title="Permalink to this definition">¶</a></dt>
 <dd><p>export mapping of cells to specified label to .tsv file</p>
-<p>This is a function with which any type of labeling (i.e. celltype annotation, louvain
+<p>This is a function with which any type of labeling (i.e. celltype annotation, leiden
 clustering, etc.) can be written out to a .tsv file. The generated file can then also be easily
 uploaded to the database since it fullfilles the FAIR document standards.</p>
 <p>To ensure FAIR compatbility label, and file name should not be changed.</p>
@@ -200,7 +200,7 @@ uploaded to the database since it fullfilles the FAIR document standards.</p>
 <li><strong>adata</strong> – </li>
 <li><strong>str | default = current working directory</strong> (<em>outpath</em>) – filepath to the directory in which the results should be outputed, if no directory is
 specified it outputs the results to the current working directory.</li>
-<li><strong>column</strong> (<cite>str</cite> | default = ‘louvain’) – Name of the column in adata.obs that is to be mapped to cell barcodes and written out to file.</li>
+<li><strong>column</strong> (<cite>str</cite> | default = ‘leiden’) – Name of the column in adata.obs that is to be mapped to cell barcodes and written out to file.</li>
 <li><strong>label</strong> (<cite>str</cite> | default = ‘LABEL’) – label above the column when it is written out to file</li>
 <li><strong>filename</strong> (<cite>str</cite> | default = ‘cell2labels.tsv’) – Filename that is written out.</li>
 </ul>

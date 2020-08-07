@@ -1,6 +1,6 @@
-#i mport libraries and dataset
+# import libraries and dataset
 import besca as bc
-adata = bc.datasets.pbmc_storage_processed()
+adata = bc.datasets.Kotliarov2020_processed()
 # define genes
-genes = ['CD3D', 'TMSB4X']
-fig = bc.pl.dot_heatmap(adata, genes=genes, group_by='louvain')
+genes = ['CD3D', 'CD19']
+fig = bc.pl.dot_heatmap(adata, genes=genes, group_by='leiden')

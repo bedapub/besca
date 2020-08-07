@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adding new functions to besca &mdash; BESCA 2.1 documentation</title>
+  <title>adding new functions to besca &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -25,8 +25,6 @@
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -35,9 +33,11 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="besca standard pipeline" href="besca_standard_pipeline.html" /> 
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -225,11 +225,12 @@
 <div class="code-block-caption"><span class="caption-text"><code class="code docutils literal notranslate"><span class="pre">__init__.py</span></code> of plotting module</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">._filter_threshold_plots</span> <span class="k">import</span> <span class="n">kp_genes</span><span class="p">,</span> <span class="n">kp_counts</span><span class="p">,</span> <span class="n">kp_cells</span><span class="p">,</span> <span class="n">max_counts</span><span class="p">,</span> <span class="n">max_genes</span><span class="p">,</span> <span class="n">max_mito</span>
 <span class="kn">from</span> <span class="nn">._split_gene_expression</span> <span class="k">import</span> <span class="n">gene_expr_split</span><span class="p">,</span> <span class="n">gene_expr_split_stacked</span>
-<span class="kn">from</span> <span class="nn">._celltype_quantification</span> <span class="k">import</span> <span class="n">celllabel_quant_boxplot</span><span class="p">,</span> <span class="n">celllabel_quant_stackedbar</span><span class="p">,</span> <span class="n">louvain_quant_stackedbar</span>
+<span class="kn">from</span> <span class="nn">._celltype_quantification</span> <span class="k">import</span> <span class="n">celllabel_quant_boxplot</span><span class="p">,</span> <span class="n">celllabel_quant_stackedbar</span>
 <span class="kn">from</span> <span class="nn">._qc_plots</span> <span class="k">import</span> <span class="n">dropouts</span><span class="p">,</span> <span class="n">librarysize_overview</span><span class="p">,</span> <span class="n">detected_genes</span><span class="p">,</span> <span class="n">library_size</span><span class="p">,</span> <span class="n">transcript_capture_efficiency</span><span class="p">,</span> <span class="n">top_genes_counts</span>
 <span class="kn">from</span> <span class="nn">._general</span> <span class="k">import</span> <span class="n">stacked_split_violin</span>
 <span class="kn">from</span> <span class="nn">._dot_heatmap</span> <span class="k">import</span> <span class="n">dot_heatmap</span><span class="p">,</span> <span class="n">dot_heatmap_split</span><span class="p">,</span> <span class="n">dot_heatmap_split_greyscale</span>
 <span class="kn">from</span> <span class="nn">._update_palette</span> <span class="k">import</span> <span class="n">update_qualitative_palette</span>
+<span class="kn">from</span> <span class="nn">._nomenclature_network</span> <span class="k">import</span> <span class="n">nomenclature_network</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;kp_genes&quot;</span><span class="p">,</span> 
            <span class="s2">&quot;kp_counts&quot;</span><span class="p">,</span> 
@@ -248,11 +249,11 @@
            <span class="s2">&quot;stacked_split_violin&quot;</span><span class="p">,</span> 
            <span class="s2">&quot;celllabel_quant_boxplot&quot;</span><span class="p">,</span> 
            <span class="s2">&quot;celllabel_quant_stackedbar&quot;</span><span class="p">,</span> 
-           <span class="s2">&quot;louvain_quant_stackedbar&quot;</span><span class="p">,</span>
            <span class="s2">&quot;dot_heatmap&quot;</span><span class="p">,</span>
            <span class="s2">&quot;dot_heatmap_split&quot;</span><span class="p">,</span>
            <span class="s2">&quot;dot_heatmap_split_greyscale&quot;</span><span class="p">,</span>
-           <span class="s2">&quot;update_qualitative_palette&quot;</span><span class="p">]</span>
+           <span class="s2">&quot;update_qualitative_palette&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;nomenclature_network&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>

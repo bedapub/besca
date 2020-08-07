@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>kp_genes &mdash; BESCA 2.1 documentation</title>
+  <title>kp_genes &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -25,8 +25,6 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,13 +33,15 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="kp_counts" href="besca.pl.kp_counts.html" />
-    <link rel="prev" title="top_counts_genes" href="../preprocessing/besca.pp.top_counts_genes.html" /> 
+    <link rel="prev" title="normalize_geometric" href="../preprocessing/besca.pp.normalize_geometric.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -112,11 +112,11 @@
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.stacked_split_violin.html">stacked_split_violin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.celllabel_quant_boxplot.html">celllabel_quant_boxplot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.celllabel_quant_stackedbar.html">celllabel_quant_stackedbar</a></li>
-<li class="toctree-l3"><a class="reference internal" href="besca.pl.louvain_quant_stackedbar.html">louvain_quant_stackedbar</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.dot_heatmap.html">dot_heatmap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.dot_heatmap_split.html">dot_heatmap_split</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.dot_heatmap_split_greyscale.html">dot_heatmap_split_greyscale</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.update_qualitative_palette.html">update_qualitative_palette</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.nomenclature_network.html">nomenclature_network</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#tools">tools</a></li>
@@ -256,7 +256,10 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">kp_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_genes</span> <span class="o">=</span> <span class="n">min_genes</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href="../plotting/besca-pl-kp_genes-1.py">Source code</a>)</p>
+<p>(<a class="reference external" href="../plotting/besca-pl-kp_genes-1.py">Source code</a>, <a class="reference external" href="../plotting/besca-pl-kp_genes-1.png">png</a>, <a class="reference external" href="../plotting/besca-pl-kp_genes-1.hires.png">hires.png</a>, <a class="reference external" href="../plotting/besca-pl-kp_genes-1.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="../_images/besca-pl-kp_genes-12.png" src="../_images/besca-pl-kp_genes-12.png" />
+</div>
 </dd></dl>
 
 </div>
@@ -272,7 +275,7 @@
         <a href="besca.pl.kp_counts.html" class="btn btn-neutral float-right" title="kp_counts" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../preprocessing/besca.pp.top_counts_genes.html" class="btn btn-neutral float-left" title="top_counts_genes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../preprocessing/besca.pp.normalize_geometric.html" class="btn btn-neutral float-left" title="normalize_geometric" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

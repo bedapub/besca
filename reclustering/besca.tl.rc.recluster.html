@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>recluster &mdash; BESCA 2.1 documentation</title>
+  <title>recluster &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -25,8 +25,6 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,13 +33,15 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="annotate_new_cellnames" href="besca.tl.rc.annotate_new_cellnames.html" />
-    <link rel="prev" title="make_anno" href="../sig/besca.tl.sig.make_anno.html" /> 
+    <link rel="prev" title="export_annotconfig" href="../sig/besca.tl.sig.export_annotconfig.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -96,9 +96,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#preprocessing">preprocessing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#plotting">plotting</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../besca.html#tools">tools</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurance.html">count_occurance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurance_subset.html">count_occurance_subset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurance_subset_conditions.html">count_occurance_subset_conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurrence.html">count_occurrence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurrence_subset.html">count_occurrence_subset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurrence_subset_conditions.html">count_occurrence_subset_conditions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.annotate_cells_clustering.html">annotate_cells_clustering</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../besca.html#toolkits">toolkits</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#batch-correction">batch correction</a></li>
@@ -216,13 +216,13 @@
 <h1>recluster<a class="headerlink" href="#recluster" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="besca.tl.rc.recluster">
-<code class="descclassname">besca.tl.rc.</code><code class="descname">recluster</code><span class="sig-paren">(</span><em>adata</em>, <em>celltype</em>, <em>celltype_label='louvain'</em>, <em>min_mean=0.0125</em>, <em>max_mean=4</em>, <em>min_disp=0.5</em>, <em>resolution=1.0</em>, <em>regress_out_key=None</em>, <em>random_seed=0</em>, <em>show_plot_filter=False</em>, <em>method='louvain'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/rc/_reclustering.html#recluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.rc.recluster" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">besca.tl.rc.</code><code class="descname">recluster</code><span class="sig-paren">(</span><em>adata</em>, <em>celltype</em>, <em>celltype_label='leiden'</em>, <em>min_mean=0.0125</em>, <em>max_mean=4</em>, <em>min_disp=0.5</em>, <em>resolution=1.0</em>, <em>regress_out_key=None</em>, <em>random_seed=0</em>, <em>show_plot_filter=False</em>, <em>method='leiden'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/rc/_reclustering.html#recluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.rc.recluster" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform subclustering on specific celltype to identify subclusters.</p>
 <p>Extract all cells that belong to the pre-labeled celltype into a new
 data subset. This datasubset is initialized with the raw data contained in adata.raw. New highly
 variable genes are selected and a new clustering is performed. The function returns the adata
 subset with the new clustering annotation.</p>
-<p>This can be performed on louvain clusters by setting celltype_label = ‘louvain’ and passing the
+<p>This can be performed on leiden clusters by setting celltype_label = ‘leiden’ and passing the
 clusters that are to be selected for reclustering as strings or tuple of strings to the parameter
 celltype.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -230,11 +230,10 @@ celltype.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>adata</strong> – the complete AnnData object of the Dataset. A louvain clustering must have already been performed
-and the clusterannotation saved in adata.obs.louvain</li>
+<li><strong>adata</strong> – the complete AnnData object of the Dataset.</li>
 <li><strong>celltype</strong> (<cite>str</cite> or (<cite>str</cite>)) – string identifying the cluster which is to be filtered out, if more than one is to be selected please
 pass them as a tuple not as a list!</li>
-<li><strong>str | default = 'louvain'</strong> (<em>celltype_label</em>) – string identifying which column in adata.obs will be matching with the celltype argument.</li>
+<li><strong>celltype_label</strong> (<cite>str</cite> | default = ‘leiden’) – string identifying which column in adata.obs will be matching with the celltype argument.</li>
 <li><strong>min_mean</strong> (<cite>float</cite> | default = 0.0125) – the minimum gene expression a gene must have to be considered highly variable</li>
 <li><strong>max_mean</strong> (<cite>float</cite> | default = 4) – the maximum gene expression a gene can have to be considered highly variable</li>
 <li><strong>min_disp</strong> (<cite>float</cite> | default = 0.5) – the minimum dispersion a gene must have to be considered highly variable</li>
@@ -280,7 +279,7 @@ detection should be displayed or not</li>
         <a href="besca.tl.rc.annotate_new_cellnames.html" class="btn btn-neutral float-right" title="annotate_new_cellnames" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../sig/besca.tl.sig.make_anno.html" class="btn btn-neutral float-left" title="make_anno" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../sig/besca.tl.sig.export_annotconfig.html" class="btn btn-neutral float-left" title="export_annotconfig" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

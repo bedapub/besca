@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>annotate_cells_clustering &mdash; BESCA 2.1 documentation</title>
+  <title>annotate_cells_clustering &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -25,8 +25,6 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,13 +33,15 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="batch_correct" href="../bcor/besca.tl.bcor.batch_correct.html" />
-    <link rel="prev" title="count_occurance_subset_conditions" href="besca.tl.count_occurance_subset_conditions.html" /> 
+    <link rel="prev" title="count_occurrence_subset_conditions" href="besca.tl.count_occurrence_subset_conditions.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -96,9 +96,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#preprocessing">preprocessing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#plotting">plotting</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../besca.html#tools">tools</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="besca.tl.count_occurance.html">count_occurance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="besca.tl.count_occurance_subset.html">count_occurance_subset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="besca.tl.count_occurance_subset_conditions.html">count_occurance_subset_conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.tl.count_occurrence.html">count_occurrence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.tl.count_occurrence_subset.html">count_occurrence_subset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.tl.count_occurrence_subset_conditions.html">count_occurrence_subset_conditions</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">annotate_cells_clustering</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../besca.html#toolkits">toolkits</a></li>
 </ul>
@@ -206,7 +206,7 @@
 <h1>annotate_cells_clustering<a class="headerlink" href="#annotate-cells-clustering" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="besca.tl.annotate_cells_clustering">
-<code class="descclassname">besca.tl.</code><code class="descname">annotate_cells_clustering</code><span class="sig-paren">(</span><em>adata</em>, <em>new_cluster_labels</em>, <em>new_annotation_label='celltype'</em>, <em>clustering_label='louvain'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/_annotate_cellnames.html#annotate_cells_clustering"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.annotate_cells_clustering" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">besca.tl.</code><code class="descname">annotate_cells_clustering</code><span class="sig-paren">(</span><em>adata</em>, <em>new_cluster_labels</em>, <em>new_annotation_label='celltype'</em>, <em>clustering_label='leiden'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/_annotate_cellnames.html#annotate_cells_clustering"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.annotate_cells_clustering" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to add annotation to adata.obs based on clustering
 This function replaces the original cluster labels located in the column clustering_label with
 the new values specified in the list new_cluster_lables. The values in this list need to be in the
@@ -249,7 +249,7 @@ The order of this can be checked by running
         <a href="../bcor/besca.tl.bcor.batch_correct.html" class="btn btn-neutral float-right" title="batch_correct" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="besca.tl.count_occurance_subset_conditions.html" class="btn btn-neutral float-left" title="count_occurance_subset_conditions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="besca.tl.count_occurrence_subset_conditions.html" class="btn btn-neutral float-left" title="count_occurrence_subset_conditions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

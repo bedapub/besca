@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>celllabel_quant_stackedbar &mdash; BESCA 2.1 documentation</title>
+  <title>celllabel_quant_stackedbar &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -25,8 +25,6 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,12 +33,14 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="louvain_quant_stackedbar" href="besca.pl.louvain_quant_stackedbar.html" />
+    <link rel="next" title="dot_heatmap" href="besca.pl.dot_heatmap.html" />
     <link rel="prev" title="celllabel_quant_boxplot" href="besca.pl.celllabel_quant_boxplot.html" /> 
 </head>
 
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -112,11 +112,11 @@
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.stacked_split_violin.html">stacked_split_violin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.celllabel_quant_boxplot.html">celllabel_quant_boxplot</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">celllabel_quant_stackedbar</a></li>
-<li class="toctree-l3"><a class="reference internal" href="besca.pl.louvain_quant_stackedbar.html">louvain_quant_stackedbar</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.dot_heatmap.html">dot_heatmap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.dot_heatmap_split.html">dot_heatmap_split</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.dot_heatmap_split_greyscale.html">dot_heatmap_split_greyscale</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.update_qualitative_palette.html">update_qualitative_palette</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.nomenclature_network.html">nomenclature_network</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#tools">tools</a></li>
@@ -246,8 +246,9 @@
 </table>
 <p class="rubric">Example</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc_storage_processed_bbknn</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">celllabel_quant_stackedbar</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">count_variable</span> <span class="o">=</span> <span class="s1">&#39;louvain&#39;</span><span class="p">,</span> <span class="n">subset_variable</span> <span class="o">=</span> <span class="s1">&#39;donor&#39;</span><span class="p">);</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">Kotliarov2020_processed</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span>   <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span> <span class="p">{</span><span class="s1">&#39;batch&#39;</span> <span class="p">:</span>  <span class="s1">&#39;category&#39;</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">celllabel_quant_stackedbar</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">count_variable</span> <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">subset_variable</span> <span class="o">=</span> <span class="s1">&#39;donor&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href="../plotting/besca-pl-celllabel_quant_stackedbar-1.py">Source code</a>)</p>
@@ -263,7 +264,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="besca.pl.louvain_quant_stackedbar.html" class="btn btn-neutral float-right" title="louvain_quant_stackedbar" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="besca.pl.dot_heatmap.html" class="btn btn-neutral float-right" title="dot_heatmap" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="besca.pl.celllabel_quant_boxplot.html" class="btn btn-neutral float-left" title="celllabel_quant_boxplot" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -1,0 +1,6 @@
+leiden_quant_stackedbar
+=======================
+
+.. currentmodule:: besca.pl
+
+.. autofunction:: leiden_quant_stackedbar

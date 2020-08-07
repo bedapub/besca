@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>besca.pl._celltype_quantification &mdash; BESCA 2.1 documentation</title>
+  <title>besca.pl._celltype_quantification &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -25,8 +25,6 @@
         <script type="text/javascript" src="../../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -35,9 +33,11 @@
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -161,13 +161,15 @@
 <span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="k">import</span> <span class="n">subplots</span><span class="p">,</span> <span class="n">tight_layout</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">melt</span>
-<span class="kn">from</span> <span class="nn">..tl._count_occurances</span> <span class="k">import</span> <span class="n">count_occurance_subset</span><span class="p">,</span> <span class="n">count_occurance_subset_conditions</span>
+<span class="kn">from</span> <span class="nn">..tl._count_occurrences</span> <span class="k">import</span> <span class="n">count_occurrence_subset</span><span class="p">,</span> <span class="n">count_occurrence_subset_conditions</span>
 
 <div class="viewcode-block" id="celllabel_quant_boxplot"><a class="viewcode-back" href="../../../plotting/besca.pl.celllabel_quant_boxplot.html#besca.pl.celllabel_quant_boxplot">[docs]</a><span class="k">def</span> <span class="nf">celllabel_quant_boxplot</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
                             <span class="n">count_variable</span><span class="p">,</span>
                             <span class="n">subset_variable</span><span class="p">,</span>
                             <span class="n">condition_identifier</span><span class="p">,</span>
-                            <span class="n">plot_percentage</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+                            <span class="n">plot_percentage</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                            <span class="n">condition_order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                            <span class="n">myh</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">myw</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span><span class="n">mypal</span><span class="o">=</span><span class="s1">&#39;Paired&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; generate a box and whisker plot with overlayed swarm plot of celltype abundances</span>
 
 <span class="sd">    This function takes a condition identifier to generate plots in which you can</span>
@@ -177,51 +179,45 @@
 <span class="sd">    ----------</span>
 <span class="sd">    data: &#39;DataFrame&#39;</span>
 <span class="sd">        tidy dataframe that is outputed by the function besca.tl.compare_count_subsets(..., make_tidy = True)</span>
+<span class="sd">    count_variable: `str`</span>
+<span class="sd">        obs on which to count - e.g. clusters or cell types</span>
+<span class="sd">    subset_variable: `str`</span>
+<span class="sd">        obs for stratification - e.g. donor, sample, experiment</span>
 <span class="sd">    condition_identifier: `str`</span>
-<span class="sd">        same condition_identifier used to generate data</span>
+<span class="sd">        same condition_identifier used to generate data, used as hue - e.g. disease, storage, treatment</span>
 <span class="sd">    plot_percentages: `bool` | default = True</span>
 <span class="sd">        boolian indicating if the percentages or the total counts should be plotted</span>
-
+<span class="sd">    condition_order: `list` | default = None</span>
+<span class="sd">        list with the order in which the conditions should be plotted, for consistency</span>
+<span class="sd">    myh: `integer` | default = 4</span>
+<span class="sd">        height of the figure</span>
+<span class="sd">    myw: `integer` | default = 8</span>
+<span class="sd">        width of the figure</span>
+<span class="sd">    mypal: `string` | default = &quot;Paired&quot;</span>
+<span class="sd">        color palette for boxplots e.g. Paired, Blues_d        </span>
+<span class="sd">    </span>
+<span class="sd">    </span>
 <span class="sd">    returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    Figure</span>
 
-<span class="sd">    Example</span>
-<span class="sd">    -------</span>
-
-<span class="sd">    &gt;&gt;&gt; import besca as bc</span>
-<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.pbmc_storage_processed_bbknn()</span>
-<span class="sd">    &gt;&gt;&gt; fig = bc.pl.celllabel_quant_boxplot(adata, count_variable = &#39;louvain&#39;, subset_variable = &#39;donor&#39;, condition_identifier = &#39;storage_condition&#39;,  plot_percentage = True);</span>
-
-<span class="sd">    .. plot::</span>
-
-<span class="sd">        &gt;&gt;&gt; import besca as bc</span>
-<span class="sd">        &gt;&gt;&gt; adata = bc.datasets.pbmc_storage_processed_bbknn()</span>
-<span class="sd">        &gt;&gt;&gt; fig = bc.pl.celllabel_quant_boxplot(adata, count_variable = &#39;louvain&#39;, subset_variable = &#39;donor&#39;, condition_identifier = &#39;storage_condition&#39;,  plot_percentage = True);</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">#generate dataframe to plot</span>
-    <span class="k">if</span> <span class="n">plot_percentage</span><span class="p">:</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">count_occurance_subset_conditions</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> 
-                                                 <span class="n">subset_variable</span> <span class="o">=</span> <span class="n">subset_variable</span><span class="p">,</span> 
-                                                 <span class="n">count_variable</span> <span class="o">=</span> <span class="n">count_variable</span><span class="p">,</span> 
-                                                 <span class="n">condition_identifier</span> <span class="o">=</span> <span class="n">condition_identifier</span><span class="p">,</span>  
-                                                 <span class="n">return_percentage</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">count_occurance_subset_conditions</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> 
-                                                 <span class="n">subset_variable</span> <span class="o">=</span> <span class="n">subset_variable</span><span class="p">,</span> 
-                                                 <span class="n">count_variable</span> <span class="o">=</span> <span class="n">count_variable</span><span class="p">,</span> 
-                                                 <span class="n">condition_identifier</span> <span class="o">=</span> <span class="n">condition_identifier</span><span class="p">,</span>  
-                                                 <span class="n">return_percentage</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">count_occurrence_subset_conditions</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
+                                             <span class="n">subset_variable</span> <span class="o">=</span> <span class="n">subset_variable</span><span class="p">,</span>
+                                             <span class="n">count_variable</span> <span class="o">=</span> <span class="n">count_variable</span><span class="p">,</span>
+                                             <span class="n">condition_identifier</span> <span class="o">=</span> <span class="n">condition_identifier</span><span class="p">,</span>
+                                             <span class="n">return_percentage</span> <span class="o">=</span> <span class="n">plot_percentage</span><span class="p">)</span>
 
+    <span class="k">if</span> <span class="n">condition_order</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+        <span class="n">condition_order</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">condition_identifier</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="p">)</span>
+        
     <span class="c1">#add count_variable to dataframe as individual column</span>
     <span class="n">data</span><span class="p">[</span><span class="n">count_variable</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
     <span class="c1">#generate a tidy dataframe</span>
-    <span class="k">if</span> <span class="n">plot_percentage</span><span class="p">:</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">melt</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">value_name</span> <span class="o">=</span> <span class="s1">&#39;percentage&#39;</span><span class="p">,</span> <span class="n">id_vars</span> <span class="o">=</span> <span class="n">count_variable</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">melt</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">value_name</span> <span class="o">=</span> <span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">id_vars</span> <span class="o">=</span> <span class="n">count_variable</span><span class="p">)</span>
+    <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;percentage&#39;</span> <span class="k">if</span> <span class="n">plot_percentage</span> <span class="k">else</span> <span class="s1">&#39;count&#39;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">melt</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">value_name</span> <span class="o">=</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">id_vars</span> <span class="o">=</span> <span class="n">count_variable</span><span class="p">)</span>
 
     <span class="c1">#add columns to properly identify condition and subset</span>
     <span class="n">new</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;variable&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">expand</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
@@ -232,19 +228,17 @@
     <span class="c1">#create a new instance of a figure</span>
     <span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">)</span> <span class="o">=</span> <span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="n">myh</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="n">myw</span><span class="p">)</span>
 
     <span class="c1">#format the plot</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">plot_percentage</span><span class="p">:</span>
-        <span class="n">ax1</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">count_variable</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;percentage&#39;</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="n">condition_identifier</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Blues_d&quot;</span><span class="p">,</span> <span class="n">dodge</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">fliersize</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">ax1</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">swarmplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">count_variable</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;percentage&#39;</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="n">condition_identifier</span><span class="p">,</span> <span class="n">dodge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Black&#39;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span> 
-        <span class="n">ax1</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">count_variable</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="n">condition_identifier</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Blues_d&quot;</span><span class="p">,</span> <span class="n">dodge</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">fliersize</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">ax1</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">swarmplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">count_variable</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="n">condition_identifier</span><span class="p">,</span> <span class="n">dodge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Black&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">count_variable</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="n">condition_identifier</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="n">mypal</span><span class="p">,</span> <span class="n">dodge</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">fliersize</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="n">hue_order</span><span class="o">=</span><span class="n">condition_order</span><span class="p">)</span>
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">swarmplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">count_variable</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="n">condition_identifier</span><span class="p">,</span> <span class="n">dodge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Black&#39;</span><span class="p">,</span><span class="n">hue_order</span><span class="o">=</span><span class="n">condition_order</span><span class="p">)</span>
+    <span class="n">handles</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">condition_order</span><span class="p">)],</span> <span class="n">labels</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">condition_order</span><span class="p">)])</span>
 
     <span class="n">ax1</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;bottom&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_linewidth</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">ax1</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_linewidth</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -254,7 +248,7 @@
     <span class="n">ax1</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelrotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>  <span class="n">length</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
     <span class="c1">#fix figure axis to include legend</span>
-    <span class="n">tight_layout</span><span class="p">()</span>
+    <span class="c1">#tight_layout()</span>
 
     <span class="c1">#return the generated figure</span>
     <span class="k">return</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span></div>
@@ -267,65 +261,12 @@
 <span class="sd">    parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    adata: AnnData</span>
-<span class="sd">      the AnnData object </span>
+<span class="sd">      the AnnData object</span>
 <span class="sd">    subset_variable: `str`</span>
 <span class="sd">        string identifying the column name of adata.obs along which the AnnData object should be subsetted</span>
 <span class="sd">    count_variable: `str` | default  = &#39;celltype&#39;</span>
 <span class="sd">        string identiyfing the column of adata.obs containing the labels to be counted</span>
-<span class="sd">    </span>
-<span class="sd">    returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    Figure</span>
-<span class="sd">    </span>
-<span class="sd">    Example</span>
-<span class="sd">    -------</span>
 
-<span class="sd">    &gt;&gt;&gt; import besca as bc</span>
-<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.pbmc_storage_processed_bbknn()</span>
-<span class="sd">    &gt;&gt;&gt; fig = bc.pl.celllabel_quant_stackedbar(adata, count_variable = &#39;louvain&#39;, subset_variable = &#39;donor&#39;);</span>
-
-<span class="sd">    .. plot::</span>
-
-<span class="sd">        &gt;&gt;&gt; import besca as bc</span>
-<span class="sd">        &gt;&gt;&gt; adata = bc.datasets.pbmc_storage_processed_bbknn()</span>
-<span class="sd">        &gt;&gt;&gt; fig = bc.pl.celllabel_quant_stackedbar(adata, count_variable = &#39;louvain&#39;, subset_variable = &#39;donor&#39;);</span>
-<span class="sd">    </span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">counts_celltype</span> <span class="o">=</span> <span class="n">count_occurance_subset</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">subset_variable</span><span class="p">,</span> <span class="n">count_variable</span> <span class="o">=</span><span class="n">count_variable</span><span class="p">,</span> <span class="n">return_percentage</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-    <span class="n">percentages</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="n">counts_celltype</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">counts_celltype</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-    
-    <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">counts_celltype</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">():</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">counts_celltype</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cell</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-        <span class="n">percentage</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
-        <span class="n">percentages</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cell</span><span class="p">]</span> <span class="o">=</span> <span class="n">percentage</span>
-
-    <span class="n">fig</span> <span class="o">=</span> <span class="n">percentages</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;percentage&#39;</span><span class="p">)</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-    
-    <span class="c1">#fix figure axis to include legend</span>
-    <span class="n">tight_layout</span><span class="p">()</span>
-
-    <span class="c1">#return figure</span>
-    <span class="k">return</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="louvain_quant_stackedbar"><a class="viewcode-back" href="../../../plotting/besca.pl.louvain_quant_stackedbar.html#besca.pl.louvain_quant_stackedbar">[docs]</a><span class="k">def</span> <span class="nf">louvain_quant_stackedbar</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
-                             <span class="n">subset_variable</span><span class="p">,</span>
-                             <span class="n">count_variable</span> <span class="o">=</span> <span class="s1">&#39;louvain&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Generate a stacked bar plot of the percentage of cells in each louvain cluster from each AnnData subset</span>
-
-<span class="sd">    In contrast to the celllabel_quant_stackedbar function which can also be used to visualize the lovain clusters</span>
-<span class="sd">    this function also sorts the louvain clusters in proper order on the x-Axis.</span>
-
-<span class="sd">    parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    adata: AnnData</span>
-<span class="sd">      the AnnData object </span>
-<span class="sd">    subset_variable: `str`</span>
-<span class="sd">        string identifying the column name of adata.obs along which the AnnData object should be subsetted</span>
-<span class="sd">    count_variable: `str` | default  = &#39;celltype&#39;</span>
-<span class="sd">        string identiyfing the column of adata.obs containing the labels to be counted</span>
-<span class="sd">    </span>
 <span class="sd">    returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    Figure</span>
@@ -334,30 +275,27 @@
 <span class="sd">    -------</span>
 
 <span class="sd">    &gt;&gt;&gt; import besca as bc</span>
-<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.pbmc_storage_processed_bbknn()</span>
-<span class="sd">    &gt;&gt;&gt; fig = bc.pl.louvain_quant_stackedbar(adata, subset_variable = &#39;donor&#39;);</span>
+<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.Kotliarov2020_processed()</span>
+<span class="sd">    &gt;&gt;&gt; adata.obs   = adata.obs.astype( {&#39;batch&#39; :  &#39;category&#39;})</span>
+<span class="sd">    &gt;&gt;&gt; fig = bc.pl.celllabel_quant_stackedbar(adata, count_variable = &#39;leiden&#39;, subset_variable = &#39;donor&#39;)</span>
 
 <span class="sd">    .. plot::</span>
 
 <span class="sd">        &gt;&gt;&gt; import besca as bc</span>
-<span class="sd">        &gt;&gt;&gt; adata = bc.datasets.pbmc_storage_processed_bbknn()</span>
-<span class="sd">        &gt;&gt;&gt; fig = bc.pl.louvain_quant_stackedbar(adata, subset_variable = &#39;donor&#39;);</span>
-<span class="sd">    </span>
+<span class="sd">        &gt;&gt;&gt; adata = bc.datasets.Kotliarov2020_processed()</span>
+<span class="sd">        &gt;&gt;&gt; adata.obs   = adata.obs.astype( {&#39;batch&#39; :  &#39;category&#39;})</span>
+<span class="sd">        &gt;&gt;&gt; fig = bc.pl.celllabel_quant_stackedbar(adata, count_variable = &#39;leiden&#39;, subset_variable = &#39;batch&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">counts_celltype</span> <span class="o">=</span> <span class="n">count_occurance_subset</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">subset_variable</span><span class="p">,</span> <span class="n">count_variable</span> <span class="o">=</span><span class="n">count_variable</span><span class="p">,</span> <span class="n">return_percentage</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">counts_celltype</span> <span class="o">=</span> <span class="n">count_occurrence_subset</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">subset_variable</span><span class="p">,</span> <span class="n">count_variable</span> <span class="o">=</span><span class="n">count_variable</span><span class="p">,</span> <span class="n">return_percentage</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
     <span class="n">percentages</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="n">counts_celltype</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">counts_celltype</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-    
+
     <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">counts_celltype</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">():</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">counts_celltype</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cell</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
         <span class="n">percentage</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
         <span class="n">percentages</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cell</span><span class="p">]</span> <span class="o">=</span> <span class="n">percentage</span>
 
-    <span class="n">percentages</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">percentages</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
-    <span class="n">percentages</span> <span class="o">=</span> <span class="n">percentages</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
-
     <span class="n">fig</span> <span class="o">=</span> <span class="n">percentages</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;percentage&#39;</span><span class="p">)</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;louvain cluster&#39;</span><span class="p">)</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 
     <span class="c1">#fix figure axis to include legend</span>
@@ -365,6 +303,7 @@
 
     <span class="c1">#return figure</span>
     <span class="k">return</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span></div>
+
 </pre></div>
 
            </div>

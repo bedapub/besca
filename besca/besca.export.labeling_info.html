@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>labeling_info &mdash; BESCA 2.1 documentation</title>
+  <title>labeling_info &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -25,8 +25,6 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,9 +33,11 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
 </head>
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -186,7 +186,7 @@
 <h1>labeling_info<a class="headerlink" href="#labeling-info" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="besca.export.labeling_info">
-<code class="descclassname">besca.export.</code><code class="descname">labeling_info</code><span class="sig-paren">(</span><em>outpath='/pstore/data/bioinfo/users/hatjek/devel/besca/docs'</em>, <em>description='louvain clustering'</em>, <em>public=False</em>, <em>default=True</em>, <em>expert=False</em>, <em>reference=False</em>, <em>method='louvain'</em>, <em>annotated_version_of='-'</em>, <em>filename='labelinfo.tsv'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/export/_export.html#labeling_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.export.labeling_info" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">besca.export.</code><code class="descname">labeling_info</code><span class="sig-paren">(</span><em>outpath=None</em>, <em>description='leiden clustering'</em>, <em>public=False</em>, <em>default=True</em>, <em>expert=False</em>, <em>reference=False</em>, <em>method='leiden'</em>, <em>annotated_version_of='-'</em>, <em>filename='labelinfo.tsv'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/export/_export.html#labeling_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.export.labeling_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>write out labeling info for uploading to database</p>
 <p>This functions outputs the file labelinfo.tsv which is needed to annotate a written out
 labeling in the scseq database.</p>
@@ -196,19 +196,19 @@ labeling in the scseq database.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>outpath</strong> (<cite>str</cite> | default = current working directory) – The filepath as a string indicating the location where the file should be written out to.</li>
-<li><strong>description</strong> (<cite>str</cite> | default = ‘louvain clustering’) – string describing what type of information is saved in the corresponding labeling.</li>
+<li><strong>description</strong> (<cite>str</cite> | default = ‘leiden clustering’) – string describing what type of information is saved in the corresponding labeling.</li>
 <li><strong>public</strong> (<cite>bool</cite> | default = False) – boolian indicator if the contained labeling information is available in the public domain.</li>
-<li><strong>bool | default = True</strong> (<em>default</em>) – boolian indicator if the labeling was created using a standardized process e.g. the louvain
+<li><strong>bool | default = True</strong> (<em>default</em>) – boolian indicator if the labeling was created using a standardized process e.g. the leiden
 clusters outputed by the standard pipeline (this should be false if expert is true)</li>
 <li><strong>expert</strong> (<cite>bool</cite> | default = False) – boolian indicator if the labeling was created by an ‘expert’ i.e. manually done (this should
 be false if default is true)</li>
 <li><strong>reference</strong> (<cite>bool</cite> | default = True) – boolian indicator if this is the labeling (e.g. celltype annotation) that should be used for further analysis
 (there should only be one reference labeling per study)</li>
-<li><strong>method</strong> (<cite>str</cite> | default = ‘louvain’) – string indicating the type of method that was applied, e.g. if the labeling is of a clustering
+<li><strong>method</strong> (<cite>str</cite> | default = ‘leiden’) – string indicating the type of method that was applied, e.g. if the labeling is of a clustering
 which clustering algorithm was used.</li>
 <li><strong>annotated_version_of</strong> (<cite>str</cite> | default = ‘-‘) – string identifying of what othe labeling/dataset this is an annotated version of (so for
-example if the labeling is celltype annotation of a louvain clustering then this would
-reference the louvain clsutering that was used to obtain the clusters that were then
+example if the labeling is celltype annotation of a leiden clustering then this would
+reference the leiden clsutering that was used to obtain the clusters that were then
 labeled here)</li>
 <li><strong>filename</strong> (<cite>str</cite> | default = ‘labelinfo.tsv’) – string indicating the filename that should be used. This is per default set to the correct
 file name for uploading to the scseq database.</li>

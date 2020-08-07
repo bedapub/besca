@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>besca.pl._filter_threshold_plots &mdash; BESCA 2.1 documentation</title>
+  <title>besca.pl._filter_threshold_plots &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -25,8 +25,6 @@
         <script type="text/javascript" src="../../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -35,9 +33,11 @@
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -165,12 +165,12 @@
 <span class="kn">import</span> <span class="nn">anndata</span>
 <span class="kn">from</span> <span class="nn">..datasets._mito</span> <span class="k">import</span> <span class="n">get_mito_genes</span>
 
-<div class="viewcode-block" id="kp_genes"><a class="viewcode-back" href="../../../plotting/besca.pl.kp_genes.html#besca.pl.kp_genes">[docs]</a><span class="k">def</span> <span class="nf">kp_genes</span> <span class="p">(</span><span class="n">adata</span><span class="p">,</span> 
+<div class="viewcode-block" id="kp_genes"><a class="viewcode-back" href="../../../plotting/besca.pl.kp_genes.html#besca.pl.kp_genes">[docs]</a><span class="k">def</span> <span class="nf">kp_genes</span> <span class="p">(</span><span class="n">adata</span><span class="p">,</span>
               <span class="n">threshold</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
               <span class="n">min_genes</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
               <span class="n">ax</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;visualize the minimum gene per cell threshold.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Generates a &quot;knee-plot&quot; to visualize the chosen threshold for the minimum number of genes that a cell expresses to validate if this is a good threshold.</span>
 
 <span class="sd">    Parameters</span>
@@ -188,10 +188,10 @@
 <span class="sd">    -------</span>
 <span class="sd">    None</span>
 <span class="sd">        Figure is displayed</span>
-<span class="sd">        </span>
+
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
-<span class="sd">    </span>
+
 <span class="sd">    Generate a &quot;knee-plot&quot; for a minimum of 600 expressed genes per cell for an example dataset.</span>
 
 <span class="sd">    &gt;&gt;&gt; import besca as bc</span>
@@ -201,7 +201,7 @@
 <span class="sd">    &gt;&gt;&gt; fig, ax1 = plt.subplots(1)</span>
 <span class="sd">    &gt;&gt;&gt; bc.pl.kp_genes(adata, min_genes = min_genes, ax = ax1)</span>
 
-<span class="sd">    .. plot:: </span>
+<span class="sd">    .. plot::</span>
 
 <span class="sd">        &gt;&gt;&gt; import besca as bc</span>
 <span class="sd">        &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
@@ -211,16 +211,16 @@
 <span class="sd">        &gt;&gt;&gt; bc.pl.kp_genes(adata, min_genes = min_genes, ax = ax1)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">nbr_cells</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> 
+    <span class="n">nbr_cells</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
-    
+
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">&gt;</span><span class="n">threshold</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)[</span><span class="mi">0</span><span class="p">]));</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">,</span><span class="n">basey</span><span class="o">=</span><span class="mi">10</span><span class="p">);</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">,</span><span class="n">basex</span><span class="o">=</span><span class="mi">10</span><span class="p">);</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Number of expressed genes&quot;</span><span class="p">);</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Cells&quot;</span><span class="p">);</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Gene expressed if count &gt; &#39;</span> <span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">threshold</span><span class="p">));</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">min_genes</span><span class="p">,</span><span class="n">xmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">xmax</span><span class="o">=</span><span class="n">nbr_cells</span> <span class="o">*</span> <span class="mf">1.3</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span><span class="n">linestyles</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">);</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Expressed genes [count &gt; &#39;</span> <span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">threshold</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;]&#39;</span><span class="p">);</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">min_genes</span><span class="p">,</span><span class="n">xmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">xmax</span><span class="o">=</span><span class="n">nbr_cells</span> <span class="o">*</span> <span class="mf">1.3</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span><span class="n">linestyles</span><span class="o">=</span><span class="s2">&quot;dotted&quot;</span><span class="p">);</span>
 
     <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
 
@@ -246,11 +246,11 @@
 <span class="sd">    -------</span>
 <span class="sd">    None</span>
 <span class="sd">        figure is displayed</span>
-<span class="sd">    </span>
-<span class="sd">    </span>
+
+
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
-<span class="sd">    </span>
+
 <span class="sd">    Generate a &quot;knee-plot&quot; for a minimum of 600 UMI counts per cell for an example dataset.</span>
 
 <span class="sd">    &gt;&gt;&gt; import besca as bc</span>
@@ -260,8 +260,8 @@
 <span class="sd">    &gt;&gt;&gt; fig, ax1 = plt.subplots(1)</span>
 <span class="sd">    &gt;&gt;&gt; bc.pl.kp_counts(adata, min_counts = min_counts, ax = ax1)</span>
 
-<span class="sd">    .. plot:: </span>
-<span class="sd">    </span>
+<span class="sd">    .. plot::</span>
+
 <span class="sd">        &gt;&gt;&gt; import besca as bc</span>
 <span class="sd">        &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
 <span class="sd">        &gt;&gt;&gt; adata = bc.datasets.pbmc3k_raw()</span>
@@ -270,21 +270,21 @@
 <span class="sd">        &gt;&gt;&gt; bc.pl.kp_counts(adata, min_counts = min_counts, ax = ax1)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">nbr_cells</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> 
+    <span class="n">nbr_cells</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
-    
+
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">,</span><span class="n">basey</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">,</span><span class="n">basex</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Number of UMI counts&quot;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Cells&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;counts per cell&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">min_counts</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="n">nbr_cells</span><span class="o">*</span><span class="mf">1.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linestyles</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Counts per cell&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">min_counts</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="n">nbr_cells</span><span class="o">*</span><span class="mf">1.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linestyles</span><span class="o">=</span><span class="s2">&quot;dotted&quot;</span><span class="p">)</span>
 
     <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="kp_cells"><a class="viewcode-back" href="../../../plotting/besca.pl.kp_cells.html#besca.pl.kp_cells">[docs]</a><span class="k">def</span> <span class="nf">kp_cells</span> <span class="p">(</span><span class="n">adata</span><span class="p">,</span>  
+<div class="viewcode-block" id="kp_cells"><a class="viewcode-back" href="../../../plotting/besca.pl.kp_cells.html#besca.pl.kp_cells">[docs]</a><span class="k">def</span> <span class="nf">kp_cells</span> <span class="p">(</span><span class="n">adata</span><span class="p">,</span>
               <span class="n">threshold</span><span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
               <span class="n">min_cells</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
               <span class="n">ax</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
@@ -310,11 +310,11 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    None</span>
-<span class="sd">        Figure is displayed </span>
+<span class="sd">        Figure is displayed</span>
 
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
-<span class="sd">    </span>
+
 <span class="sd">    Generates a &quot;knee-plot&quot; for a the minimum number of cells expressing a gene in a given dataset.</span>
 
 <span class="sd">    &gt;&gt;&gt; import besca as bc</span>
@@ -324,8 +324,8 @@
 <span class="sd">    &gt;&gt;&gt; fig, ax1 = plt.subplots(1)</span>
 <span class="sd">    &gt;&gt;&gt; bc.pl.kp_cells(adata, min_cells = min_cells, ax = ax1)</span>
 
-<span class="sd">    .. plot:: </span>
-<span class="sd">    </span>
+<span class="sd">    .. plot::</span>
+
 <span class="sd">        &gt;&gt;&gt; import besca as bc</span>
 <span class="sd">        &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
 <span class="sd">        &gt;&gt;&gt; adata = bc.datasets.pbmc3k_raw()</span>
@@ -333,9 +333,9 @@
 <span class="sd">        &gt;&gt;&gt; fig, ax1 = plt.subplots(1)</span>
 <span class="sd">        &gt;&gt;&gt; bc.pl.kp_cells(adata, min_cells = min_cells, ax = ax1)</span>
 
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">nbr_cells</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> 
+    <span class="n">nbr_cells</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
 
@@ -344,7 +344,7 @@
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">,</span> <span class="n">basex</span> <span class="o">=</span> <span class="mi">10</span><span class="p">);</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;genes&quot;</span><span class="p">);</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;number of cells expressing a gene&quot;</span><span class="p">);</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;number of cells expressing a gene if threshold &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">threshold</span><span class="p">));</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Cells that express a gene [count &gt; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">threshold</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;]&#39;</span><span class="p">);</span>
 
     <span class="n">cutoff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)))</span> <span class="o">&gt;</span> <span class="n">min_cells</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">cutoff</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nbr_cells</span><span class="o">*</span><span class="mf">1.05</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s2">&quot;dotted&quot;</span><span class="p">);</span>
@@ -371,11 +371,11 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    None</span>
-<span class="sd">        Figure is displayed </span>
-<span class="sd">    </span>
+<span class="sd">        Figure is displayed</span>
+
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
-<span class="sd">    </span>
+
 <span class="sd">    Generates a &quot;knee-plot&quot; for a maximum UMI count of 6500 for the example dataset.</span>
 
 <span class="sd">    &gt;&gt;&gt; import besca as bc</span>
@@ -385,8 +385,8 @@
 <span class="sd">    &gt;&gt;&gt; fig, ax1 = plt.subplots(1)</span>
 <span class="sd">    &gt;&gt;&gt; bc.pl.max_counts(adata, max_counts = max_counts, ax = ax1)</span>
 
-<span class="sd">    .. plot:: </span>
-<span class="sd">    </span>
+<span class="sd">    .. plot::</span>
+
 <span class="sd">        &gt;&gt;&gt; import besca as bc</span>
 <span class="sd">        &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
 <span class="sd">        &gt;&gt;&gt; adata = bc.datasets.pbmc3k_raw()</span>
@@ -395,42 +395,27 @@
 <span class="sd">        &gt;&gt;&gt; bc.pl.max_counts(adata, max_counts = max_counts, ax = ax1)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_counts&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_genes&#39;</span><span class="p">)</span><span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">x</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_counts&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-        <span class="n">y</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_genes&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-
-        <span class="n">data_plot</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;n_counts&#39;</span><span class="p">:</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;n_genes&#39;</span><span class="p">:</span><span class="n">y</span><span class="p">})</span>
-        <span class="n">min_genes</span> <span class="o">=</span> <span class="mi">100</span>
-
-        <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
-
-        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_plot</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;n_counts&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;n_genes&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">);</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">max_counts</span><span class="p">,</span> <span class="n">min_genes</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s2">&quot;dotted&quot;</span><span class="p">);</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;n_counts&quot;</span><span class="p">);</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;n_genes&quot;</span><span class="p">);</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;max counts cutoff&#39;</span><span class="p">);</span>
-
-        <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_counts&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;n_counts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_genes&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;n_genes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
 
-        <span class="n">x</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_counts&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-        <span class="n">y</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_genes&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_counts&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_genes&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
-        <span class="n">data_plot</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;n_counts&#39;</span><span class="p">:</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;n_genes&#39;</span><span class="p">:</span><span class="n">y</span><span class="p">})</span>
-        <span class="n">min_genes</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">data_plot</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;n_counts&#39;</span><span class="p">:</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;n_genes&#39;</span><span class="p">:</span><span class="n">y</span><span class="p">})</span>
+    <span class="n">min_genes</span> <span class="o">=</span> <span class="mi">100</span>
 
-        <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
 
-        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_plot</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;n_counts&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;n_genes&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">);</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">max_counts</span><span class="p">,</span> <span class="n">min_genes</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s2">&quot;dotted&quot;</span><span class="p">);</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;n_counts&quot;</span><span class="p">);</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;n_genes&quot;</span><span class="p">);</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;max counts cutoff&#39;</span><span class="p">);</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
 
-        <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_plot</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;n_counts&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;n_genes&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">rasterized</span> <span class="o">=</span> <span class="kc">True</span><span class="p">);</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">max_counts</span><span class="p">,</span> <span class="n">min_genes</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s2">&quot;dotted&quot;</span><span class="p">);</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;n_counts&quot;</span><span class="p">);</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;n_genes&quot;</span><span class="p">);</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;max counts cutoff&#39;</span><span class="p">);</span>
 
+    <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="max_genes"><a class="viewcode-back" href="../../../plotting/besca.pl.max_genes.html#besca.pl.max_genes">[docs]</a><span class="k">def</span> <span class="nf">max_genes</span> <span class="p">(</span><span class="n">adata</span><span class="p">,</span>
                <span class="n">max_genes</span> <span class="o">=</span> <span class="mi">5000</span><span class="p">,</span>
@@ -452,47 +437,32 @@
 <span class="sd">    -------</span>
 <span class="sd">    None</span>
 <span class="sd">        Figure is displayed</span>
-<span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_counts&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_genes&#39;</span><span class="p">)</span><span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">x</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_counts&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-        <span class="n">y</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_genes&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
-        <span class="n">data_plot</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;n_counts&#39;</span><span class="p">:</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;n_genes&#39;</span><span class="p">:</span><span class="n">y</span><span class="p">})</span>
-        <span class="n">min_UMI</span> <span class="o">=</span> <span class="mi">200</span>
-
-        <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
-
-        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_plot</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;n_counts&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;n_genes&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">);</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">max_genes</span><span class="p">,</span> <span class="n">min_UMI</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s2">&quot;dotted&quot;</span><span class="p">);</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;n_counts&quot;</span><span class="p">);</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;n_genes&quot;</span><span class="p">);</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;max gene cutoff&#39;</span><span class="p">);</span>
-
-        <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-
-    <span class="k">else</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_counts&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;n_counts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_genes&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;n_genes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
 
-        <span class="n">x</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_counts&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-        <span class="n">y</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_genes&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_counts&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_genes&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
-        <span class="n">data_plot</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;n_counts&#39;</span><span class="p">:</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;n_genes&#39;</span><span class="p">:</span><span class="n">y</span><span class="p">})</span>
-        <span class="n">min_UMI</span> <span class="o">=</span> <span class="mi">200</span>
+    <span class="n">data_plot</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;n_counts&#39;</span><span class="p">:</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;n_genes&#39;</span><span class="p">:</span><span class="n">y</span><span class="p">})</span>
+    <span class="n">min_UMI</span> <span class="o">=</span> <span class="mi">200</span>
 
-        <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
 
-        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_plot</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;n_counts&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;n_genes&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">);</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">max_genes</span><span class="p">,</span> <span class="n">min_UMI</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s2">&quot;dotted&quot;</span><span class="p">);</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;n_counts&quot;</span><span class="p">);</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;n_genes&quot;</span><span class="p">);</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;max gene cutoff&#39;</span><span class="p">);</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_plot</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;n_counts&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;n_genes&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">rasterized</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">max_genes</span><span class="p">,</span> <span class="n">min_UMI</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s2">&quot;dotted&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;n_counts&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;n_genes&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Filtering by the maximum gene count&#39;</span><span class="p">)</span>
 
-        <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
+    <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="max_mito"><a class="viewcode-back" href="../../../plotting/besca.pl.max_mito.html#besca.pl.max_mito">[docs]</a><span class="k">def</span> <span class="nf">max_mito</span> <span class="p">(</span><span class="n">adata</span><span class="p">,</span>  
+<div class="viewcode-block" id="max_mito"><a class="viewcode-back" href="../../../plotting/besca.pl.max_mito.html#besca.pl.max_mito">[docs]</a><span class="k">def</span> <span class="nf">max_mito</span> <span class="p">(</span><span class="n">adata</span><span class="p">,</span>
               <span class="n">max_mito</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
               <span class="n">annotation_type</span> <span class="o">=</span> <span class="s1">&#39;SYMBOL&#39;</span><span class="p">,</span>
               <span class="n">species</span> <span class="o">=</span> <span class="s1">&#39;human&#39;</span><span class="p">,</span>
@@ -508,7 +478,7 @@
 <span class="sd">        The annotated data matrix.</span>
 <span class="sd">    threshold: `int` | default = 0</span>
 <span class="sd">        integer value that defines the minimum expression threshold for a gene to be defined as expressed. Default value is 1.</span>
-<span class="sd">    min_cells: `int` | default = 2 </span>
+<span class="sd">    min_cells: `int` | default = 2</span>
 <span class="sd">        visualize the chosen minimum number of cells that need to express a gene threshold</span>
 <span class="sd">    ax: `axes` | default = None</span>
 <span class="sd">        pass the axes class to which your figure should be added</span>
@@ -516,8 +486,8 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    None</span>
-<span class="sd">        Figure is displayed </span>
-<span class="sd">    </span>
+<span class="sd">        Figure is displayed</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_counts&#39;</span><span class="p">)</span><span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -530,20 +500,20 @@
         <span class="c1">#generate plot with cutoff</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
 
-        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_plot</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;n_counts&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">);</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_plot</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;n_counts&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">rasterized</span> <span class="o">=</span> <span class="kc">True</span><span class="p">);</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;n_counts&quot;</span><span class="p">);</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;percent_mito&quot;</span><span class="p">);</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;mitochondrial gene content in dataset before filtering&#39;</span><span class="p">);</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Mitochondrial gene content&#39;</span><span class="p">);</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">max_mito</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s2">&quot;dotted&quot;</span><span class="p">);</span>
 
         <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-    
+
     <span class="k">elif</span> <span class="n">annotation_type</span> <span class="o">==</span> <span class="s1">&#39;SYMBOL&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">species</span> <span class="o">==</span> <span class="s1">&#39;human&#39;</span><span class="p">:</span>
 
             <span class="c1"># Extract mitochondrial genes</span>
             <span class="n">mito_genes</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span> <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;MT-&#39;</span><span class="p">)]</span>
-                    
+
             <span class="c1"># for each cell compute fraction of counts in mito genes vs. all genes</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;adding percent mitochondrial genes to dataframe for species human&#39;</span><span class="p">)</span>
             <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">adata</span><span class="p">[:,</span> <span class="n">mito_genes</span><span class="p">]</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span>
@@ -557,21 +527,21 @@
             <span class="c1">#generate plot with cutoff</span>
             <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
 
-            <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_plot</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;n_counts&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">);</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_plot</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;n_counts&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">rasterized</span> <span class="o">=</span> <span class="kc">True</span><span class="p">);</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;n_counts&quot;</span><span class="p">);</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;percent_mito&quot;</span><span class="p">);</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;mitochondrial gene content in dataset before filtering&#39;</span><span class="p">);</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">max_mito</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s2">&quot;dotted&quot;</span><span class="p">);</span>
 
-            <span class="k">if</span> <span class="n">copy</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span> 
+            <span class="k">if</span> <span class="n">copy</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
                 <span class="k">return</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">species</span> <span class="o">==</span> <span class="s1">&#39;mouse&#39;</span><span class="p">:</span>        
+        <span class="k">elif</span> <span class="n">species</span> <span class="o">==</span> <span class="s1">&#39;mouse&#39;</span><span class="p">:</span>
             <span class="c1"># Extract mitochondrial genes</span>
             <span class="n">mito_genes</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span> <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;mt-&#39;</span><span class="p">)]</span>
-                    
+
             <span class="c1"># for each cell compute fraction of counts in mito genes vs. all genes</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;adding percent mitochondrial genes to dataframe for species mouse&#39;</span><span class="p">)</span>
             <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">adata</span><span class="p">[:,</span> <span class="n">mito_genes</span><span class="p">]</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span>
@@ -585,13 +555,13 @@
             <span class="c1">#generate plot with cutoff</span>
             <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
 
-            <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_plot</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;n_counts&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">);</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_plot</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;n_counts&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">rasterized</span> <span class="o">=</span> <span class="kc">True</span><span class="p">);</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;n_counts&quot;</span><span class="p">);</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;percent_mito&quot;</span><span class="p">);</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;mitochondrial gene content in dataset before filtering&#39;</span><span class="p">);</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">max_mito</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s2">&quot;dotted&quot;</span><span class="p">);</span>
 
-            <span class="k">if</span> <span class="n">copy</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span> 
+            <span class="k">if</span> <span class="n">copy</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
                 <span class="k">return</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
@@ -609,7 +579,7 @@
         <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">adata</span><span class="p">[:,</span> <span class="n">mito_genes</span><span class="p">]</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span>
         <span class="c1"># add the total counts per cell as observations-annotation to adata</span>
         <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;n_counts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span>
-        
+
         <span class="c1">#generate data for plot</span>
         <span class="n">x</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_counts&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
         <span class="n">z</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -618,18 +588,18 @@
 
         <span class="c1">#generate plot with cutoff</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_plot</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;n_counts&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_plot</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;n_counts&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">rasterized</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;n_counts&quot;</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;percent_mito&quot;</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;mitochondrial gene content in dataset before filtering&#39;</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">max_mito</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s2">&quot;dotted&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">copy</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span> 
+        <span class="k">if</span> <span class="n">copy</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
             <span class="k">return</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
 
-    <span class="k">else</span><span class="p">:</span> 
+    <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Calculating &quot;percent_mito&quot; and &quot;n_genes&quot; is currently only implemented for either SYMBOL gene symbols or ENSEMBL gene IDs.&#39;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Please supply an adata object where adata.obs contains these values already.&#39;</span><span class="p">)</span></div>
 </pre></div>

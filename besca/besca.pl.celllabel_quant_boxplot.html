@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>celllabel_quant_boxplot &mdash; BESCA 2.1 documentation</title>
+  <title>celllabel_quant_boxplot &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -25,8 +25,6 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,9 +33,11 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
 </head>
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -186,7 +186,7 @@
 <h1>celllabel_quant_boxplot<a class="headerlink" href="#celllabel-quant-boxplot" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="besca.pl.celllabel_quant_boxplot">
-<code class="descclassname">besca.pl.</code><code class="descname">celllabel_quant_boxplot</code><span class="sig-paren">(</span><em>adata</em>, <em>count_variable</em>, <em>subset_variable</em>, <em>condition_identifier</em>, <em>plot_percentage=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pl/_celltype_quantification.html#celllabel_quant_boxplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.pl.celllabel_quant_boxplot" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">besca.pl.</code><code class="descname">celllabel_quant_boxplot</code><span class="sig-paren">(</span><em>adata</em>, <em>count_variable</em>, <em>subset_variable</em>, <em>condition_identifier</em>, <em>plot_percentage=True</em>, <em>condition_order=None</em>, <em>myh=4</em>, <em>myw=8</em>, <em>mypal='Paired'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pl/_celltype_quantification.html#celllabel_quant_boxplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.pl.celllabel_quant_boxplot" title="Permalink to this definition">¶</a></dt>
 <dd><p>generate a box and whisker plot with overlayed swarm plot of celltype abundances</p>
 <p>This function takes a condition identifier to generate plots in which you can
 compare the celltype abundances between different conditions.</p>
@@ -196,8 +196,14 @@ compare the celltype abundances between different conditions.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>data</strong> (<em>'DataFrame'</em>) – tidy dataframe that is outputed by the function besca.tl.compare_count_subsets(…, make_tidy = True)</li>
-<li><strong>condition_identifier</strong> (<cite>str</cite>) – same condition_identifier used to generate data</li>
+<li><strong>count_variable</strong> (<cite>str</cite>) – obs on which to count - e.g. clusters or cell types</li>
+<li><strong>subset_variable</strong> (<cite>str</cite>) – obs for stratification - e.g. donor, sample, experiment</li>
+<li><strong>condition_identifier</strong> (<cite>str</cite>) – same condition_identifier used to generate data, used as hue - e.g. disease, storage, treatment</li>
 <li><strong>plot_percentages</strong> (<cite>bool</cite> | default = True) – boolian indicating if the percentages or the total counts should be plotted</li>
+<li><strong>condition_order</strong> (<cite>list</cite> | default = None) – list with the order in which the conditions should be plotted, for consistency</li>
+<li><strong>myh</strong> (<cite>integer</cite> | default = 4) – height of the figure</li>
+<li><strong>myw</strong> (<cite>integer</cite> | default = 8) – width of the figure</li>
+<li><strong>mypal</strong> (<cite>string</cite> | default = “Paired”) – color palette for boxplots e.g. Paired, Blues_d</li>
 </ul>
 </td>
 </tr>
@@ -209,13 +215,6 @@ compare the celltype abundances between different conditions.</p>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc_storage_processed_bbknn</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">celllabel_quant_boxplot</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">count_variable</span> <span class="o">=</span> <span class="s1">&#39;louvain&#39;</span><span class="p">,</span> <span class="n">subset_variable</span> <span class="o">=</span> <span class="s1">&#39;donor&#39;</span><span class="p">,</span> <span class="n">condition_identifier</span> <span class="o">=</span> <span class="s1">&#39;storage_condition&#39;</span><span class="p">,</span>  <span class="n">plot_percentage</span> <span class="o">=</span> <span class="kc">True</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>(<a class="reference external" href="../besca/besca-pl-celllabel_quant_boxplot-1.py">Source code</a>)</p>
 </dd></dl>
 
 </div>

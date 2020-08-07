@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>raw_to_mtx &mdash; BESCA 2.1 documentation</title>
+  <title>raw_to_mtx &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -25,8 +25,6 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,12 +33,14 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="louvain" href="besca.export.louvain.html" />
+    <link rel="next" title="clustering" href="besca.export.clustering.html" />
     <link rel="prev" title="X_to_mtx" href="besca.export.X_to_mtx.html" /> 
 </head>
 
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -100,13 +100,13 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../besca.html#export">export</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="besca.export.X_to_mtx.html">X_to_mtx</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">raw_to_mtx</a></li>
-<li class="toctree-l3"><a class="reference internal" href="besca.export.louvain.html">louvain</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.export.clustering.html">clustering</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.export.labeling.html">labeling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.export.labeling_info.html">labeling_info</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.export.analysis_metadata.html">analysis_metadata</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.export.generate_gep.html">generate_gep</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.export.ranked_genes.html">ranked_genes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.export.pseudobulk.html">pseudobulk</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#standardworkflow">standardworkflow</a></li>
@@ -210,7 +210,7 @@
 <h1>raw_to_mtx<a class="headerlink" href="#raw-to-mtx" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="besca.export.raw_to_mtx">
-<code class="descclassname">besca.export.</code><code class="descname">raw_to_mtx</code><span class="sig-paren">(</span><em>adata</em>, <em>outpath='/pstore/data/bioinfo/users/hatjek/devel/besca/docs'</em>, <em>write_metadata=False</em>, <em>geneannotation='ENSEMBL'</em>, <em>additional_geneannotation=None</em>, <em>C_path='/pstore/data/bioinfo/users/hatjek/devel/besca/besca/export/reformat'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/export/_export.html#raw_to_mtx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.export.raw_to_mtx" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">besca.export.</code><code class="descname">raw_to_mtx</code><span class="sig-paren">(</span><em>adata</em>, <em>outpath='/pstore/home/julienla/Code/Besca/besca_dev/docs'</em>, <em>write_metadata=False</em>, <em>geneannotation='ENSEMBL'</em>, <em>additional_geneannotation=None</em>, <em>C_path=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/export/_export.html#raw_to_mtx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.export.raw_to_mtx" title="Permalink to this definition">¶</a></dt>
 <dd><p>export adata.raw to .mtx (matrix.mtx, genes.tsv, barcodes, tsv)</p>
 <p>exports the counts contained in adata.raw.X to a matrix.mtx file (in sparse format),
 genes taken from adata.raw.var_names to genes.tsv and the
@@ -259,7 +259,7 @@ are contained as additional gene annotation in adata.var</li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="besca.export.louvain.html" class="btn btn-neutral float-right" title="louvain" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="besca.export.clustering.html" class="btn btn-neutral float-right" title="clustering" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="besca.export.X_to_mtx.html" class="btn btn-neutral float-left" title="X_to_mtx" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

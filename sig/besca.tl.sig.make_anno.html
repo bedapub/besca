@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>make_anno &mdash; BESCA 2.1 documentation</title>
+  <title>make_anno &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -25,8 +25,6 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,12 +33,14 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="recluster" href="../reclustering/besca.tl.rc.recluster.html" />
+    <link rel="next" title="read_annotconfig" href="besca.tl.sig.read_annotconfig.html" />
     <link rel="prev" title="add_anno" href="besca.tl.sig.add_anno.html" /> 
 </head>
 
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -96,9 +96,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#preprocessing">preprocessing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#plotting">plotting</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../besca.html#tools">tools</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurance.html">count_occurance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurance_subset.html">count_occurance_subset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurance_subset_conditions.html">count_occurance_subset_conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurrence.html">count_occurrence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurrence_subset.html">count_occurrence_subset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurrence_subset_conditions.html">count_occurrence_subset_conditions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.annotate_cells_clustering.html">annotate_cells_clustering</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../besca.html#toolkits">toolkits</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#batch-correction">batch correction</a></li>
@@ -106,11 +106,19 @@
 <li class="toctree-l4 current"><a class="reference internal" href="../besca.html#signature-scoring">signature scoring</a><ul class="current">
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.combined_signature_score.html">combined_signature_score</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.compute_signed_score.html">compute_signed_score</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.filter_siggenes.html">filter_siggenes</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.read_GMT_sign.html">read_GMT_sign</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.getset.html">getset</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.score_mw.html">score_mw</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.add_anno.html">add_anno</a></li>
 <li class="toctree-l5 current"><a class="current reference internal" href="#">make_anno</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.read_annotconfig.html">read_annotconfig</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.match_cluster.html">match_cluster</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.obtain_dblabel.html">obtain_dblabel</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.get_gems.html">get_gems</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.insert_gems.html">insert_gems</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.get_similar_geneset.html">get_similar_geneset</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.export_annotconfig.html">export_annotconfig</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#reclustering">reclustering</a></li>
@@ -221,27 +229,31 @@
 <h1>make_anno<a class="headerlink" href="#make-anno" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="besca.tl.sig.make_anno">
-<code class="descclassname">besca.tl.sig.</code><code class="descname">make_anno</code><span class="sig-paren">(</span><em>mypFrame</em>, <em>myc</em>, <em>signame</em>, <em>f</em>, <em>CD45threshold=0.3</em>, <em>species='human'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_annot.html#make_anno"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.sig.make_anno" title="Permalink to this definition">¶</a></dt>
-<dd><p>Annotate Immune cells and some other cell types (melanoma, endothelial)
+<code class="descclassname">besca.tl.sig.</code><code class="descname">make_anno</code><span class="sig-paren">(</span><em>df</em>, <em>sigscores</em>, <em>sigconfig</em>, <em>levsk</em>, <em>lab='celltype'</em>, <em>toexclude=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_annot.html#make_anno"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.sig.make_anno" title="Permalink to this definition">¶</a></dt>
+<dd><p>Annotate cell types
 Based on a dataframe of -log10pvals, a cutoff and a signature set generate cell annotation
 Hierarchical model of Immune cell annotation.
 It expects a specific set of signatures with a common prefix (signame) and specified suffixes indicating
-the cell type.
-:param mypFrame: a dataframe of -log10pvals per signature and cell cluster
-:type mypFrame: panda.DataFrame
-:param myc: threshold used for cluster attribution
-:type myc: ‘numpy.float64’
-:param f: a dataframe with fraction genes expressed per cluster
-:type f: panda.DataFrame
-:param signame: signature base name
-:type signame: ‘str’</p>
+the cell type.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">String of cluster labels</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>mypFrame</strong> (<em>panda.DataFrame</em>) – a dataframe of -log10pvals per signature and cell cluster</li>
+<li><strong>sigscores</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – a dictionary with cluster attribution per signature</li>
+<li><strong>sigconfig</strong> (<em>panda.DataFrame</em>) – a dataframe with the configurati  on information</li>
+<li><strong>levsk</strong> (<em>list of str</em>) – String of distinct levels based on configuration file</li>
+<li><strong>lab</strong> (<em>'str'</em>) – cell type category base name</li>
+<li><strong>toexclude</strong> (<em>list of str</em>) – String of cell types to ignore in the annotation process</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of str</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>cnames</strong> – a dataframe with cluster to cell type attribution per distinct levels</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">panda.DataFrame</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -257,7 +269,7 @@ the cell type.
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../reclustering/besca.tl.rc.recluster.html" class="btn btn-neutral float-right" title="recluster" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="besca.tl.sig.read_annotconfig.html" class="btn btn-neutral float-right" title="read_annotconfig" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="besca.tl.sig.add_anno.html" class="btn btn-neutral float-left" title="add_anno" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

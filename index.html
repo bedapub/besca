@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Welcome to besca’s documentation! &mdash; BESCA 2.1 documentation</title>
+  <title>Welcome to besca’s documentation! &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -25,8 +25,6 @@
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -35,9 +33,11 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="besca" href="besca.html" /> 
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -187,17 +187,17 @@
 </div>
 <div class="section" id="welcome-to-besca-s-documentation">
 <h1>Welcome to besca’s documentation!<a class="headerlink" href="#welcome-to-besca-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>The besca (BEDA’s single cell sequencing analysis) package contains many usefull python functions to use for your single-cell analysis.</p>
+<p>The besca (BEDA’s single-cell sequencing analysis) package builds upon the scanpy library and offers additional data structures and functions for single-cell analysis.</p>
 <img alt="_images/besca_outline.jpg" class="align-center" src="_images/besca_outline.jpg" />
-<p>The package has been grouped into 5 categories:</p>
+<p>The package has grouped into 6 modules:</p>
 <ul class="simple">
-<li><a class="reference internal" href="besca.html#preprocessing-functions"><span class="std std-ref">preprocessing functions</span></a>: this submodule contains all functions relevant to data preprocessing</li>
-<li><a class="reference internal" href="besca.html#plotting-functions"><span class="std std-ref">plotting functions</span></a>: additional plot types not available in the standard scanpy package</li>
-<li><a class="reference internal" href="besca.html#tools-functions"><span class="std std-ref">tools</span></a>: contains additional tools to e.g. perform differential gene analysis</li>
-<li><a class="reference internal" href="besca.html#import-functions"><span class="std std-ref">import</span></a>/<a class="reference internal" href="besca.html#export-functions"><span class="std std-ref">export</span></a>: collection of functions to export/load data from the FAIR data format</li>
-<li><a class="reference internal" href="besca.html#standardworkflow-functions"><span class="std std-ref">standardworkflow</span></a>: contains functions optimized for use in our standard scsequencing analysis pipeline</li>
+<li><a class="reference internal" href="besca.html#preprocessing-functions"><span class="std std-ref">preprocessing functions</span></a>: the <cite>pp</cite> module contains functions relevant for data preprocessing.</li>
+<li><a class="reference internal" href="besca.html#plotting-functions"><span class="std std-ref">plotting functions</span></a>: the <cite>pl</cite> module offers additional plot types not available in the scanpy package</li>
+<li><a class="reference internal" href="besca.html#tools-functions"><span class="std std-ref">tools</span></a>: the <cite>tl</cite> module contains additional tools, for instance tools to perform differential gene analysis</li>
+<li><a class="reference internal" href="besca.html#standardworkflow-functions"><span class="std std-ref">standardworkflow</span></a>: the <cite>st</cite> module contains functions optimized for our standard single-cell sequencing analysis pipeline</li>
+<li><a class="reference internal" href="besca.html#import-functions"><span class="std std-ref">import</span></a>/<a class="reference internal" href="besca.html#export-functions"><span class="std std-ref">export</span></a>: the <cite>Import</cite> and <cite>export</cite> modules are collection of functions to export/load data from the FAIR data format</li>
 </ul>
-<p>In addition you will find example code and output (including some short tutorials) <a class="reference internal" href="auto_examples/index.html"><span class="doc">here</span></a>, aswell as extensive documentation on <a class="reference internal" href="adding_new_functions.html#adding-new-functions"><span class="std std-ref">adding functions to besca</span></a> and <span class="xref std std-ref">maintaining the package</span>.</p>
+<p>In addition you will find example code and output (including some short tutorials) <a class="reference internal" href="auto_examples/index.html"><span class="doc">here</span></a>, as well as extensive documentation on <a class="reference internal" href="adding_new_functions.html#adding-new-functions"><span class="std std-ref">adding functions to besca</span></a>.</p>
 </div>
 
 

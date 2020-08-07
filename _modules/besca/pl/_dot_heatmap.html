@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>besca.pl._dot_heatmap &mdash; BESCA 2.1 documentation</title>
+  <title>besca.pl._dot_heatmap &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -25,8 +25,6 @@
         <script type="text/javascript" src="../../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -35,9 +33,11 @@
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -157,7 +157,8 @@
            <div itemprop="articleBody">
             
   <h1>Source code for besca.pl._dot_heatmap</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="k">import</span> <span class="n">Circle</span>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="k">import</span> <span class="n">Circle</span>
 <span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="k">import</span> <span class="n">Normalize</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">log10</span><span class="p">,</span> <span class="n">ceil</span>
 <span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="k">import</span> <span class="n">subplots</span><span class="p">,</span> <span class="n">get_cmap</span><span class="p">,</span> <span class="n">figure</span>
@@ -323,21 +324,20 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 
-<span class="sd">    &gt;&gt;&gt; #i mport libraries and dataset</span>
+<span class="sd">    &gt;&gt;&gt; # import libraries and dataset</span>
 <span class="sd">    &gt;&gt;&gt; import besca as bc</span>
-<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.pbmc_storage_processed()</span>
-<span class="sd">    &gt;&gt;&gt; # define genes</span>
-<span class="sd">    &gt;&gt;&gt; genes = [&#39;CD3D&#39;, &#39;TMSB4X&#39;]</span>
-<span class="sd">    &gt;&gt;&gt; fig = bc.pl.dot_heatmap(adata, genes=genes, group_by=&#39;donor&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.Kotliarov2020_processed()</span>
+<span class="sd">    &gt;&gt;&gt; genes = [&#39;CD3D&#39;, &#39;CD19&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; fig = bc.pl.dot_heatmap(adata, genes=genes, group_by=&#39;leiden&#39;)</span>
 
 <span class="sd">    .. plot::</span>
 
-<span class="sd">        &gt;&gt;&gt; #i mport libraries and dataset</span>
+<span class="sd">        &gt;&gt;&gt; # import libraries and dataset</span>
 <span class="sd">        &gt;&gt;&gt; import besca as bc</span>
-<span class="sd">        &gt;&gt;&gt; adata = bc.datasets.pbmc_storage_processed()</span>
+<span class="sd">        &gt;&gt;&gt; adata = bc.datasets.Kotliarov2020_processed()</span>
 <span class="sd">        &gt;&gt;&gt; # define genes</span>
-<span class="sd">        &gt;&gt;&gt; genes = [&#39;CD3D&#39;, &#39;TMSB4X&#39;]</span>
-<span class="sd">        &gt;&gt;&gt; fig = bc.pl.dot_heatmap(adata, genes=genes, group_by=&#39;louvain&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; genes = [&#39;CD3D&#39;, &#39;CD19&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; fig = bc.pl.dot_heatmap(adata, genes=genes, group_by=&#39;leiden&#39;)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">#check to ensure genes does not contain any duplicates</span>
@@ -561,7 +561,7 @@
 
     <span class="k">if</span> <span class="n">switch_axis</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sub_num_cols</span><span class="p">):</span>
-            <span class="n">adata_subset</span> <span class="o">=</span> <span class="n">adata_plot</span><span class="p">[</span><span class="n">adata_plot</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">group_by</span><span class="p">)</span> <span class="o">==</span> <span class="n">groups</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">:]</span>
+            <span class="n">adata_subset</span> <span class="o">=</span> <span class="n">adata_plot</span><span class="p">[</span><span class="n">adata_plot</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">group_by</span><span class="p">)</span> <span class="o">==</span> <span class="n">groups</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="n">adata_subset</span><span class="o">.</span><span class="n">var_names_make_unique</span><span class="p">()</span>
             <span class="n">label</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
             <span class="n">label</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
@@ -575,7 +575,7 @@
                     <span class="n">_generate_circle</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">radius</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax1</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sub_num_rows</span><span class="p">):</span>
-            <span class="n">adata_subset</span> <span class="o">=</span> <span class="n">adata_plot</span><span class="p">[</span><span class="n">adata_plot</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">group_by</span><span class="p">)</span> <span class="o">==</span> <span class="n">groups</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">:]</span>
+            <span class="n">adata_subset</span> <span class="o">=</span> <span class="n">adata_plot</span><span class="p">[</span><span class="n">adata_plot</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">group_by</span><span class="p">)</span> <span class="o">==</span> <span class="n">groups</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="n">adata_subset</span><span class="o">.</span><span class="n">var_names_make_unique</span><span class="p">()</span>
             <span class="n">label</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
             <span class="n">label</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
@@ -606,7 +606,7 @@
 <div class="viewcode-block" id="dot_heatmap_split"><a class="viewcode-back" href="../../../plotting/besca.pl.dot_heatmap_split.html#besca.pl.dot_heatmap_split">[docs]</a><span class="k">def</span> <span class="nf">dot_heatmap_split</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> 
                       <span class="n">genes</span><span class="p">,</span> 
                       <span class="n">split_by</span><span class="p">,</span>
-                      <span class="n">group_by</span> <span class="o">=</span> <span class="s1">&#39;louvain&#39;</span><span class="p">,</span> 
+                      <span class="n">group_by</span> <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span> 
                       <span class="n">plot_absolute</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> 
                       <span class="n">raw</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> 
                       <span class="n">color_maps</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="s1">&#39;Blues&#39;</span><span class="p">],</span> 
@@ -669,25 +669,20 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 
-<span class="sd">    &gt;&gt;&gt; #import libraries and dataset</span>
+<span class="sd">    &gt;&gt;&gt; # import libraries and dataset</span>
 <span class="sd">    &gt;&gt;&gt; import besca as bc</span>
-<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.pbmc_storage_processed()</span>
-<span class="sd">    &gt;&gt;&gt; #filter out one donor to have two &quot;conditions&quot;</span>
-<span class="sd">    &gt;&gt;&gt; adata = adata[adata.obs.donor != &#39;Donor_3A&#39;,:]</span>
-<span class="sd">    &gt;&gt;&gt; # define genes</span>
-<span class="sd">    &gt;&gt;&gt; genes = [&#39;CD3D&#39;, &#39;TMSB4X&#39;]</span>
-<span class="sd">    &gt;&gt;&gt; fig = bc.pl.dot_heatmap_split(adata, genes=genes, group_by=&#39;louvain&#39;, split_by = &#39;donor&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.Haber2017_processed()</span>
+<span class="sd">    &gt;&gt;&gt; genes = [&#39;Defa22&#39;, &#39;Defa24&#39;, &#39;Gm15284&#39;, &#39;Reg4&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; fig = bc.pl.dot_heatmap_split(adata, genes=genes, group_by=&#39;leiden&#39;, split_by = &#39;donor&#39;)</span>
 
 <span class="sd">    .. plot::</span>
 
-<span class="sd">        &gt;&gt;&gt; #import libraries and dataset</span>
+<span class="sd">        &gt;&gt;&gt; # import libraries and dataset</span>
 <span class="sd">        &gt;&gt;&gt; import besca as bc</span>
-<span class="sd">        &gt;&gt;&gt; adata = bc.datasets.pbmc_storage_processed()</span>
-<span class="sd">        &gt;&gt;&gt; #filter out one donor to have two &quot;conditions&quot;</span>
-<span class="sd">        &gt;&gt;&gt; adata = adata[adata.obs.donor != &#39;Donor_3A&#39;,:]</span>
+<span class="sd">        &gt;&gt;&gt; adata = bc.datasets.Haber2017_processed()</span>
 <span class="sd">        &gt;&gt;&gt; # define genes</span>
-<span class="sd">        &gt;&gt;&gt; genes = [&#39;CD3D&#39;, &#39;TMSB4X&#39;]</span>
-<span class="sd">        &gt;&gt;&gt; fig = bc.pl.dot_heatmap_split(adata, genes=genes, group_by=&#39;louvain&#39;, split_by = &#39;donor&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; genes = [&#39;Defa22&#39;, &#39;Defa24&#39;, &#39;Gm15284&#39;, &#39;Reg4&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; fig = bc.pl.dot_heatmap_split(adata, genes=genes, group_by=&#39;leiden&#39;, split_by = &#39;donor&#39;)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -971,7 +966,7 @@
             <span class="n">adata_subset_plot</span> <span class="o">=</span> <span class="n">input_data</span><span class="p">[</span><span class="n">conditions</span><span class="p">[</span><span class="n">c</span><span class="p">]]</span>
             <span class="c1">#iterate through the groups (here on the x-axis)</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">colranges</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">))):</span>
-                <span class="n">adata_subset</span> <span class="o">=</span> <span class="n">adata_subset_plot</span><span class="p">[</span><span class="n">adata_subset_plot</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">group_by</span><span class="p">)</span> <span class="o">==</span> <span class="n">groups</span><span class="p">[</span><span class="n">g</span><span class="p">],</span> <span class="p">:]</span>
+                <span class="n">adata_subset</span> <span class="o">=</span> <span class="n">adata_subset_plot</span><span class="p">[</span><span class="n">adata_subset_plot</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">group_by</span><span class="p">)</span> <span class="o">==</span> <span class="n">groups</span><span class="p">[</span><span class="n">g</span><span class="p">],</span> <span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
                 <span class="c1">#iterate through all of the genes</span>
                 <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sub_num_rows</span><span class="p">):</span>
                     <span class="n">data</span> <span class="o">=</span> <span class="n">_get_expression_table</span><span class="p">(</span><span class="n">adata_subset</span><span class="p">,</span> <span class="n">genes</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">color_map</span><span class="o">=</span> <span class="n">color_maps</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="n">max_expression</span><span class="o">=</span> <span class="n">max_expression</span><span class="p">)</span>
@@ -986,7 +981,7 @@
             <span class="n">adata_subset_plot</span> <span class="o">=</span> <span class="n">input_data</span><span class="p">[</span><span class="n">conditions</span><span class="p">[</span><span class="n">c</span><span class="p">]]</span>
             <span class="c1">#iterate through the groups (here on the y-axis)</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sub_num_rows</span><span class="p">):</span>
-                <span class="n">adata_subset</span> <span class="o">=</span> <span class="n">adata_subset_plot</span><span class="p">[</span><span class="n">adata_subset_plot</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">group_by</span><span class="p">)</span> <span class="o">==</span> <span class="n">groups</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">:]</span>
+                <span class="n">adata_subset</span> <span class="o">=</span> <span class="n">adata_subset_plot</span><span class="p">[</span><span class="n">adata_subset_plot</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">group_by</span><span class="p">)</span> <span class="o">==</span> <span class="n">groups</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
                 <span class="c1">#iterate through all of the genes</span>
                 <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">g</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">colranges</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">genes</span><span class="p">))):</span>
                     <span class="n">data</span> <span class="o">=</span> <span class="n">_get_expression_table</span><span class="p">(</span><span class="n">adata_subset</span><span class="p">,</span> <span class="n">genes</span><span class="p">[</span><span class="n">g</span><span class="p">],</span> <span class="n">color_map</span><span class="o">=</span> <span class="n">color_maps</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="n">max_expression</span><span class="o">=</span> <span class="n">max_expression</span><span class="p">)</span>
@@ -1096,30 +1091,6 @@
 <span class="sd">        A matplotlib figure element containing the generated plot. To save the figure this plot will need</span>
 <span class="sd">        to be passed to a parameter and saved in a second step through the fig.savefig() function call.</span>
 
-<span class="sd">    Examples</span>
-<span class="sd">    --------</span>
-
-<span class="sd">    &gt;&gt;&gt; #import libraries and dataset</span>
-<span class="sd">    &gt;&gt;&gt; import besca as bc</span>
-<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.pbmc_storage_processed()</span>
-<span class="sd">    &gt;&gt;&gt; #filter out one donor to have two &quot;conditions&quot;</span>
-<span class="sd">    &gt;&gt;&gt; adata = adata[adata.obs.donor != &#39;Donor_3A&#39;,:]</span>
-<span class="sd">    &gt;&gt;&gt; # define genes</span>
-<span class="sd">    &gt;&gt;&gt; genes = [&#39;CD3D&#39;, &#39;TMSB4X&#39;]</span>
-<span class="sd">    &gt;&gt;&gt; abbreviations = [&#39;D1&#39;, &#39;D2&#39;]</span>
-<span class="sd">    &gt;&gt;&gt; fig = bc.pl.dot_heatmap_split_greyscale(adata, genes=genes, group_by=&#39;louvain&#39;, split_by = &#39;donor&#39;, abbreviations = abbreviations)</span>
-
-<span class="sd">    .. plot::</span>
-
-<span class="sd">        &gt;&gt;&gt; #import libraries and dataset</span>
-<span class="sd">        &gt;&gt;&gt; import besca as bc</span>
-<span class="sd">        &gt;&gt;&gt; adata = bc.datasets.pbmc_storage_processed()</span>
-<span class="sd">        &gt;&gt;&gt; #filter out one donor to have two &quot;conditions&quot;</span>
-<span class="sd">        &gt;&gt;&gt; adata = adata[adata.obs.donor != &#39;Donor_3A&#39;,:]</span>
-<span class="sd">        &gt;&gt;&gt; # define genes</span>
-<span class="sd">        &gt;&gt;&gt; genes = [&#39;CD3D&#39;, &#39;TMSB4X&#39;]</span>
-<span class="sd">        &gt;&gt;&gt; abbreviations = [&#39;D1&#39;, &#39;D2&#39;]</span>
-<span class="sd">        &gt;&gt;&gt; fig = bc.pl.dot_heatmap_split_greyscale(adata, genes=genes, group_by=&#39;louvain&#39;, split_by = &#39;donor&#39;, , abbreviations = abbreviations)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -1396,7 +1367,7 @@
             <span class="n">adata_subset_plot</span> <span class="o">=</span> <span class="n">input_data</span><span class="p">[</span><span class="n">conditions</span><span class="p">[</span><span class="n">c</span><span class="p">]]</span>
             <span class="c1">#iterate through the groups (here on the x-axis)</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">colranges</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">))):</span>
-                <span class="n">adata_subset</span> <span class="o">=</span> <span class="n">adata_subset_plot</span><span class="p">[</span><span class="n">adata_subset_plot</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">group_by</span><span class="p">)</span> <span class="o">==</span> <span class="n">groups</span><span class="p">[</span><span class="n">g</span><span class="p">],</span> <span class="p">:]</span>
+                <span class="n">adata_subset</span> <span class="o">=</span> <span class="n">adata_subset_plot</span><span class="p">[</span><span class="n">adata_subset_plot</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">group_by</span><span class="p">)</span> <span class="o">==</span> <span class="n">groups</span><span class="p">[</span><span class="n">g</span><span class="p">],</span> <span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
                 <span class="c1">#iterate through all of the genes</span>
                 <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sub_num_rows</span><span class="p">):</span>
                     <span class="n">data</span> <span class="o">=</span> <span class="n">_get_expression_table</span><span class="p">(</span><span class="n">adata_subset</span><span class="p">,</span> <span class="n">genes</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">color_map</span><span class="o">=</span> <span class="s1">&#39;Greys&#39;</span><span class="p">,</span> <span class="n">max_expression</span><span class="o">=</span> <span class="n">max_expression</span><span class="p">)</span>
@@ -1411,7 +1382,7 @@
             <span class="n">adata_subset_plot</span> <span class="o">=</span> <span class="n">input_data</span><span class="p">[</span><span class="n">conditions</span><span class="p">[</span><span class="n">c</span><span class="p">]]</span>
             <span class="c1">#iterate through the groups (here on the y-axis)</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sub_num_rows</span><span class="p">):</span>
-                <span class="n">adata_subset</span> <span class="o">=</span> <span class="n">adata_subset_plot</span><span class="p">[</span><span class="n">adata_subset_plot</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">group_by</span><span class="p">)</span> <span class="o">==</span> <span class="n">groups</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">:]</span>
+                <span class="n">adata_subset</span> <span class="o">=</span> <span class="n">adata_subset_plot</span><span class="p">[</span><span class="n">adata_subset_plot</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">group_by</span><span class="p">)</span> <span class="o">==</span> <span class="n">groups</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
                 <span class="c1">#iterate through all of the genes</span>
                 <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">g</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">colranges</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">genes</span><span class="p">))):</span>
                     <span class="n">data</span> <span class="o">=</span> <span class="n">_get_expression_table</span><span class="p">(</span><span class="n">adata_subset</span><span class="p">,</span> <span class="n">genes</span><span class="p">[</span><span class="n">g</span><span class="p">],</span> <span class="n">color_map</span><span class="o">=</span> <span class="s1">&#39;Greys&#39;</span><span class="p">,</span> <span class="n">max_expression</span><span class="o">=</span> <span class="n">max_expression</span><span class="p">)</span>

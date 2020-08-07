@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>read_mtx &mdash; BESCA 2.1 documentation</title>
+  <title>read_mtx &mdash; BESCA 2.2 documentation</title>
   
 
   
@@ -25,8 +25,6 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,9 +33,11 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
 </head>
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                2.1
+                2.2
               </div>
             
           
@@ -186,23 +186,26 @@
 <h1>read_mtx<a class="headerlink" href="#read-mtx" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="besca.Import.read_mtx">
-<code class="descclassname">besca.Import.</code><code class="descname">read_mtx</code><span class="sig-paren">(</span><em>filepath</em>, <em>annotation=True</em>, <em>use_genes='SYMBOL'</em>, <em>species='human'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/Import/_read.html#read_mtx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.Import.read_mtx" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read matrix.mtx, genes.tsv, barcodes.tsv to AnnData object.</p>
-<p>By specifiying an input folder this function reads the contained matrix.mtx,
+<code class="descclassname">besca.Import.</code><code class="descname">read_mtx</code><span class="sig-paren">(</span><em>filepath</em>, <em>annotation=True</em>, <em>use_genes='SYMBOL'</em>, <em>species='human'</em>, <em>citeseq=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/Import/_read.html#read_mtx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.Import.read_mtx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read matrix.mtx, genes.tsv, barcodes.tsv to AnnData object.
+By specifiying an input folder this function reads the contained matrix.mtx,
 genes.tsv and barcodes.tsv files to an AnnData object. In case annotation = True
-it also adds the annotation contained in metadata.tsv to the object.</p>
+it also adds the annotation contained in metadata.tsv to the object.
+:param filepath: filepath as string to the directory containg the matrix.mtx, genes.tsv,</p>
+<blockquote>
+<div>barcodes.tsv and if applicable metadata.tsv</div></blockquote>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>filepath</strong> (<cite>str</cite>) – filepath as string to the directory containg the matrix.mtx, genes.tsv,
-barcodes.tsv and if applicable metadata.tsv</li>
 <li><strong>annotation</strong> (<cite>bool</cite> (default = True)) – boolian identifier if an annotation file is also located in the folder
 and should be added to the AnnData object</li>
 <li><strong>use_genes</strong> (<cite>str</cite>) – either SYMBOL or ENSEMBL. Other genenames are not yet supported.</li>
 <li><strong>species</strong> (<cite>str</cite> | default = ‘human’) – string specifying the species, only needs to be used when no Gene Symbols
 are supplied and you only have the ENSEMBLE gene ids to perform a lookup.</li>
+<li><strong>citeseq</strong> (<em>'gex_only'</em><em> or </em><em>'citeseq_only'</em><em> or </em><em>None | default = None</em>) – string indicating if only gene expression values (gex_only) or only protein
+expression values (‘citeseq_only’) or everything is read if None is specified</li>
 </ul>
 </td>
 </tr>
