@@ -88,3 +88,25 @@ Start a jupyter notebook.
 jupyter-notebook --ip=* --no-browser
 ```
 You can now run the jupyter notebooks coming with besca.
+
+
+
+
+## Datasets and Analysis notebooks
+
+
+Besca run-examples and datasets annotations notebook can be found in:
+
+
+[https://github.com/bedapub/besca_publication_results](https://github.com/bedapub/besca_publication_results)
+
+
+All processed datasets were uploaded to Zenodo, within the Besca community:
+
+[https://zenodo.org/communities/besca/](https://zenodo.org/communities/besca/)
+
+
+
+
+
+
