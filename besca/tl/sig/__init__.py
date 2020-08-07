@@ -19,5 +19,5 @@ __all__ = ['combined_signature_score',
            'obtain_dblabel',
            'get_gems',
            'insert_gems',
-           'get_similar_geneset'
+           'get_similar_geneset',
            'export_annotconfig']

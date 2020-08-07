@@ -167,7 +167,7 @@ def filter_gene_list(adata,
     -------
     >>> import besca as bc
     >>> import os
-    >>> adata = bc.datasets.pbmc_storage_raw()
+    >>> adata = bc.datasets.pbmc_raw()
     >>> adata.n_vars
     >>> # TO COMPLETE reference_mito_file = 'path2file.tsv'
     >>> # adata = bc.pp.filter_gene_list(adata, file_path=reference_mito_file, use_genes='SYMBOL')

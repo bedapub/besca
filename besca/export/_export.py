@@ -9,11 +9,11 @@ import pkg_resources
 #Functions to export AnnData objects to FAIR dataformat
 
 def X_to_mtx(adata,
-             outpath = os.getcwd(),
+             outpath = None,
              write_metadata = False, 
              geneannotation = 'SYMBOL',
              additional_geneannotation = 'ENSEMBL', 
-             C_path = pkg_resources.resource_filename('besca', 'export/reformat')):
+             C_path = None):
     """export adata object to mtx format (matrix.mtx, genes.tsv, barcodes.tsv)
 
     exports the counts contained in adata.X to a matrix.mtx file (in sparse format),
@@ -50,7 +50,10 @@ def X_to_mtx(adata,
         writes out files to the specified output directory
     
     """
-
+    if outpath is None:
+        outpath = os.getcwd()
+    if C_path is None:
+        C_path = pkg_resources.resource_filename('besca', 'export/reformat')
     ### check if the outdir exists if not create
     if not os.path.exists(outpath):
         os.makedirs(outpath)
@@ -151,7 +154,7 @@ def raw_to_mtx(adata,
                write_metadata = False,
                geneannotation = 'ENSEMBL',
                additional_geneannotation = None,
-               C_path = pkg_resources.resource_filename('besca', 'export/reformat')):
+               C_path = None ):
 
     """ export adata.raw to .mtx (matrix.mtx, genes.tsv, barcodes, tsv)
 
@@ -191,7 +194,8 @@ def raw_to_mtx(adata,
         writes out files to the specified output directory
 
     """
-
+    if C_path is None:
+        C_path= pkg_resources.resource_filename('besca', 'export/reformat')
     ### write out matrix.mtx as float with 3 significant digits
     print('writing out matrix.mtx ...')
     if adata.raw.X is None:
@@ -555,7 +559,7 @@ def raw_to_mtx_python(adata,
 
 
 def clustering(adata,  
-            outpath = os.getcwd(),
+            outpath = None,
             export_average = True,
             export_fractpos = True,
             method = 'leiden'):               
@@ -582,6 +586,8 @@ def clustering(adata,
         files are written out.
 
     """
+    if outpath is None:
+        outpath = os.getcwd()
     if( not method in ['leiden', 'louvain']):
         raise ValueError("method argument should be leiden or louvain")
     cluster_data = adata.obs.get(method).to_frame(name='LABEL')
@@ -598,53 +604,14 @@ def clustering(adata,
     return(None)
 
     
-def louvain(adata,
-            outpath = os.getcwd(),
-            export_average = True,
-            export_fractpos = True):    
-    """ export mapping of cells to clusters to .tsv file
 
-    This function exports the labels saved in adata.obs.louvain and the corresponding cell barcode to the file cell2labels.tsv.
-    See clustering( function. Louvain left for compatability)
-    parameters
-    ----------
-    adata:
-    outpath: `str` | default = current working directory
-        filepath to the directory in which the results should be outputed, if no directory is 
-        specified it outputs the results to the current working directory.
-    export_average: `bool` | default = True
-        boolian indicator if the average gene expression of each cluster should be exported to file
-    export_fractpos: `bool` | default = True
-        boolian indicator if the fraction of positive cells (i.e. cells that express the gene) should
-        be exported to file
-
-    returns
-    -------
-    None
-        files are written out.
-
-    """
-    louvain_data = adata.obs.louvain.to_frame(name='LABEL')
-    if louvain_data is None:
-        sys.exit('need to perform louvain clustering before exporting')
-    #perform export calling the general export function
-    labeling(adata,
-             outpath = outpath, 
-             column = 'louvain', 
-             label = 'LABEL', 
-             filename = 'cell2labels.tsv', 
-             export_average = export_average, 
-             export_fractpos= export_fractpos)
-    return(None)
-    sys.exit(0)
-
-def labeling_info(outpath = os.getcwd(),
-                  description = 'louvain clustering',
+def labeling_info(outpath = None,
+                  description = 'leiden clustering',
                   public = False,
                   default = True,
                   expert = False,
                   reference = False,
-                  method = 'louvain',
+                  method = 'leiden',
                   annotated_version_of = '-',
                   filename = 'labelinfo.tsv'):
     """ write out labeling info for uploading to database
@@ -656,12 +623,12 @@ def labeling_info(outpath = os.getcwd(),
     ----------
     outpath: `str` | default = current working directory
         The filepath as a string indicating the location where the file should be written out to.
-    description: `str` | default = 'louvain clustering'
+    description: `str` | default = 'leiden clustering'
         string describing what type of information is saved in the corresponding labeling.
     public: `bool` | default = False
         boolian indicator if the contained labeling information is available in the public domain.
     default_ `bool` | default = True
-        boolian indicator if the labeling was created using a standardized process e.g. the louvain 
+        boolian indicator if the labeling was created using a standardized process e.g. the leiden 
         clusters outputed by the standard pipeline (this should be false if expert is true)
     expert: `bool` | default = False
         boolian indicator if the labeling was created by an 'expert' i.e. manually done (this should 
@@ -669,13 +636,13 @@ def labeling_info(outpath = os.getcwd(),
     reference: `bool` | default = True
         boolian indicator if this is the labeling (e.g. celltype annotation) that should be used for further analysis
         (there should only be one reference labeling per study)
-    method: `str` | default = 'louvain'
+    method: `str` | default = 'leiden'
         string indicating the type of method that was applied, e.g. if the labeling is of a clustering
         which clustering algorithm was used.
     annotated_version_of: `str` | default = '-'
         string identifying of what othe labeling/dataset this is an annotated version of (so for 
-        example if the labeling is celltype annotation of a louvain clustering then this would 
-        reference the louvain clsutering that was used to obtain the clusters that were then 
+        example if the labeling is celltype annotation of a leiden clustering then this would 
+        reference the leiden clsutering that was used to obtain the clusters that were then 
         labeled here)
     filename: `str` | default = 'labelinfo.tsv'
         string indicating the filename that should be used. This is per default set to the correct 
@@ -687,6 +654,8 @@ def labeling_info(outpath = os.getcwd(),
         results are written out to a file instead
 
     """
+    if outpath is None:
+        outpath = os.getcwd()
     if public:
         Public = 'TRUE'
     else:
@@ -718,8 +687,8 @@ def labeling_info(outpath = os.getcwd(),
     sys.exit(0)
 
 def labeling(adata,
-             outpath = os.getcwd(),
-             column = 'louvain',
+             outpath = None,
+             column = 'leiden',
              label  = 'LABEL',
              filename = 'cell2labels.tsv',
              export_average = True,
@@ -727,7 +696,7 @@ def labeling(adata,
              use_raw = True):
     """export mapping of cells to specified label to .tsv file
 
-    This is a function with which any type of labeling (i.e. celltype annotation, louvain 
+    This is a function with which any type of labeling (i.e. celltype annotation, leiden 
     clustering, etc.) can be written out to a .tsv file. The generated file can then also be easily 
     uploaded to the database since it fullfilles the FAIR document standards. 
 
@@ -739,7 +708,7 @@ def labeling(adata,
     outpath `str` | default = current working directory
         filepath to the directory in which the results should be outputed, if no directory is 
         specified it outputs the results to the current working directory.
-    column: `str` | default = 'louvain'
+    column: `str` | default = 'leiden'
         Name of the column in adata.obs that is to be mapped to cell barcodes and written out to file.
     label: `str` | default = 'LABEL'
         label above the column when it is written out to file
@@ -752,6 +721,8 @@ def labeling(adata,
         files are written out.
 
     """
+    if outpath is None:
+        outpath = os.getcwd()
     data = adata.obs.get(column).to_frame(name=label)
     if data is None:
         sys.exit('please specify column name that is present in adata.obs')
@@ -878,7 +849,7 @@ def labeling(adata,
 
 
 def analysis_metadata(adata,
-                      outpath=os.getcwd(),
+                      outpath= None,
                       filename='analysis_metadata.tsv',
                       total_counts=True,
                       n_pcs=3,
@@ -915,6 +886,8 @@ def analysis_metadata(adata,
         file is written out.
 
     """
+    if outpath is None:
+        outpath = os.getcwd()
     #add cellbarcodes to index
     data = DataFrame(data=None, index=adata.obs_names)
 
@@ -958,7 +931,7 @@ def analysis_metadata(adata,
 
 def ranked_genes(adata, 
                  type = 'wilcox',
-                 outpath = os.getcwd(),
+                 outpath = None,
                  geneannotation = 'SYMBOL',
                  additional_geneannotation = 'ENSEMBL'):
     """export marker genes for each cluster to .gct file
@@ -990,7 +963,8 @@ def ranked_genes(adata,
         writes results to file in output directory
 
     """
-    
+    if outpath is None:
+        outpath = os.getcwd()
     if adata.uns.get('rank_genes_groups') is None:
         sys.exit('need to rank genes before export, please run: scanpy.api.tl.rank_genes() before proceeding with export')
     else:
@@ -1120,7 +1094,7 @@ def ranked_genes(adata,
     sys.exit(0)
 
 def pseudobulk(adata,
-             outpath = os.getcwd(),
+             outpath = None,
              column = 'celltype0',
              label  = 'celltype0',
              split_condition  = 'donor',
@@ -1153,6 +1127,8 @@ def pseudobulk(adata,
         merged dataframe
 
     """
+    if outpath is None:
+        outpath = os.getcwd()
     data = adata.obs.get(column).to_frame(name=label)
     if data is None:
         sys.exit('please specify a column name that is present in adata.obs')
@@ -1226,7 +1202,7 @@ def generate_gep(adata,
                  filename='gep_basis_vector.csv',
                  column='<last_column>',
                  annot='ENSEMBL',
-                 outpath=os.getcwd()):
+                 outpath = None):
     """Generate Gene Expression Profile (GEP) from scRNA-seq annotations
 
     Reads in the AnnData object, taking only the pre-filtered highly variable genes 
@@ -1261,7 +1237,8 @@ def generate_gep(adata,
         files are written out
 
     """
-
+    if outpath is None:
+        outpath = os.getcwd()
     ### check if the outdir exists if not create
     if not os.path.exists(outpath):
         os.makedirs(outpath)
