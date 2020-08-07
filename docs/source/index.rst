@@ -27,4 +27,4 @@ The package has grouped into 6 modules:
 - :ref:`standardworkflow <standardworkflow-functions>`: the `st` module contains functions optimized for our standard single-cell sequencing analysis pipeline
 - :ref:`import<import-functions>`/:ref:`export <export-functions>`: the `Import` and `export` modules are collection of functions to export/load data from the FAIR data format
 
-In addition you will find example code and output (including some short tutorials) :doc:`here <auto_examples/index>`, as well as extensive documentation on :ref:`adding functions to besca <adding-new-functions>` and :ref:`maintaining the package <besca-maintenance>`.
+In addition you will find example code and output (including some short tutorials) :doc:`here <auto_examples/index>`, as well as extensive documentation on :ref:`adding functions to besca <adding-new-functions>`.
