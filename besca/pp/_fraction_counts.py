@@ -39,7 +39,7 @@ def fraction_counts(adata, species='human', name='percent_mito',
 
     >>> import besca as bc
     >>> import os
-    >>> adata = bc.datasets.pbmc_storage_raw()
+    >>> adata = bc.datasets.pbmc_raw()
     >>> adata.obs.head(5)
     >>> bc.pp.fraction_counts(adata,  'human', use_genes='SYMBOL')
     >>> adata.obs.head(5)

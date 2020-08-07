@@ -25,7 +25,7 @@ def check_dl( filename, url):
         Annotated data matrix.
     """
     try:
-        adata = read(filename, backup_url = url, cache= True)
+        adata = read(filename, backup_url = url, cache= False)
     except Exception:
         raise URLError(f'\n\n\n {filename} could not be downloaded from {url}; \n Please download it manually and store it in your besca installation: besca/datasets/data/')
     return adata
