@@ -119,13 +119,12 @@ fibroblast of lung	fibroblast of lung	CL:0002553	LungFibroblast	3					fibroblast
 follicular B cell	follicular B cell	CL:0000843	FollicularBcell	4			B cell	CL:0000236	lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 Fraction A pre-pro B cell	Fraction A pre-pro B cell	CL:0002045	FrAPreProBcell	4			pro-B cell	CL:0000826	lymphoid lineage restricted progenitor cell	CL:0000838 	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 GABAergic neuron	GABAergic neuron	CL:0000617	GABAergicN	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
-GABAergic neuron	GABAergic neuron	CL:0000617	GABAergicN	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
 GAD1_GAD2_CPLX3-positive neuron		DB:0000033	Neuron_GAD1_GAD2_CPLX3	4			GABAergic neuron	CL:0000617	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
-GAD1_GAD2_HTR3A-positive neuron		DB:0000034	Neuron_GAD1_GAD2_HTR3A	3			GABAergic neuron	CL:0000617	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+GAD1_GAD2_HTR3A-positive neuron		DB:0000034	Neuron_GAD1_GAD2_HTR3A	4			GABAergic neuron	CL:0000617	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
 GAD1_GAD2_ID2-positive neuron		DB:0000038	Neuron_GAD1_GAD2_ID2	4			GABAergic neuron	CL:0000617	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
 GAD1_GAD2_PVALB-positive neuron		DB:0000032	Neuron_GAD1_GAD2_PVALB	4			GABAergic neuron	CL:0000617	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
 GAD1_GAD2_SST-positive neuron		DB:0000042	Neuron_GAD1_GAD2_SST	4			GABAergic neuron	CL:0000617	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
-GAD1_GAD2_TAC2-positive neuron		DB:0000035	Neuron_GAD1_GAD2_TAC2	3			GABAergic neuron	CL:0000617	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+GAD1_GAD2_TAC2-positive neuron		DB:0000035	Neuron_GAD1_GAD2_TAC2	4			GABAergic neuron	CL:0000617	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
 GAD1_GAD2_VIP-positive neuron		DB:0000041	Neuron_GAD1_GAD2_VIP	4			GABAergic neuron	CL:0000617	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
 GAD1_GAD2-positive neuron		DB:0000029	Neuron_GAD1_GAD2	4			GABAergic neuron	CL:0000617	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
 GAD1-positive neuron		DB:0000028	Neuron_GAD1	4			GABAergic neuron	CL:0000617	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
