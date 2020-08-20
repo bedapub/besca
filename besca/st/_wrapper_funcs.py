@@ -261,7 +261,7 @@ def clr_normalize(adata, results_folder):
     return(adata)
 
 
-def highly_variable_genes(adata):
+def highly_variable_genes(adata, batch_key=None):
     start = time()
 
     # take log1p
@@ -269,7 +269,7 @@ def highly_variable_genes(adata):
     print('log1p taken of adata')
 
     filter_result = sc_highly_variable_genes(
-        adata, min_mean=0.0125, max_mean=3, min_disp=0.5, inplace=False)
+        adata, min_mean=0.0125, max_mean=3, min_disp=0.5, inplace=False, batch_key=batch_key)
     pl_highly_variable_genes(filter_result, save='.hvg.png', show=True)
 
     adata = adata[:, filter_result.highly_variable == True]

@@ -1,4 +1,5 @@
 from scanpy.api.pp import filter_genes_dispersion, log1p, regress_out, neighbors
+from scanpy.api.pp import highly_variable_genes as sc_highly_variable_genes
 from scanpy.api.pp import scale as sc_scale
 from scanpy.api.tl import umap, louvain, leiden
 from scanpy.api.tl import pca as sc_pca
@@ -16,7 +17,8 @@ def recluster(adata,
               regress_out_key = None,
               random_seed = 0,
               show_plot_filter = False,
-              method = 'leiden'):
+              method = 'leiden', 
+              batch_key = None):
     """ Perform subclustering on specific celltype to identify subclusters.
 
     Extract all cells that belong to the pre-labeled celltype into a new 
@@ -51,9 +53,11 @@ def recluster(adata,
     show_plot_filter: `bool` | default = False
         boolian value indicating if a plot showing the filtering results for highly variable gene 
         detection should be displayed or not
-    method: `str` | default = 'louvain' 
+    method: `str` | default = 'leiden' 
         clustering method to use for the reclustering of the datasubset. Possible:louvain/leiden
-
+    batch_key: `str` | default = None 
+        Specify a batch key if the HVG calculation should be done per batch
+        
     Returns
     -------
 
@@ -87,13 +91,14 @@ def recluster(adata,
     cluster_subset.raw = cluster_subset
 
     #identify highly variable genes
-    filter_result = filter_genes_dispersion(cluster_subset.X, min_mean = min_mean, max_mean = max_mean, min_disp = min_disp)
+    filter_result = sc_highly_variable_genes(cluster_subset, min_mean = min_mean, 
+                                             max_mean = max_mean, min_disp = min_disp,  inplace=False, batch_key=batch_key)
     if show_plot_filter:
         plot_filter(filter_result)
-    print('In total', str(sum(filter_result.gene_subset)), 'highly variable genes selected within cluster')
-
+    print('In total', str(sum(filter_result.highly_variable)), 'highly variable genes selected within cluster')
+    
     #apply filter
-    cluster_subset = _subset_adata(cluster_subset, filter_result.gene_subset, axis = 1, raw = False)
+    cluster_subset = _subset_adata(cluster_subset, filter_result.highly_variable, axis = 1, raw = False)
 
     #perform further processing
     log1p(cluster_subset)
