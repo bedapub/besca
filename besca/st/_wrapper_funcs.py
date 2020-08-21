@@ -14,7 +14,7 @@ from numpy import cumsum
 from pandas import DataFrame
 # import scanpy functions
 from scanpy.plotting import highly_variable_genes as pl_highly_variable_genes
-from sscanpy.plotting import pca as sc_pl_pca
+from scanpy.plotting import pca as sc_pl_pca
 from scanpy.plotting import umap as sc_pl_umap
 from scanpy.preprocessing import highly_variable_genes as sc_highly_variable_genes
 from scanpy.preprocessing import log1p, neighbors, normalize_per_cell
