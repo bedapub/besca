@@ -13,18 +13,18 @@ from matplotlib.pyplot import subplots
 from numpy import cumsum
 from pandas import DataFrame
 # import scanpy functions
-from scanpy.api.pl import highly_variable_genes as pl_highly_variable_genes
-from scanpy.api.pl import pca as sc_pl_pca
-from scanpy.api.pl import umap as sc_pl_umap
-from scanpy.api.pp import highly_variable_genes as sc_highly_variable_genes
-from scanpy.api.pp import log1p, neighbors, normalize_per_cell
-from scanpy.api.pp import regress_out as sc_regress_out
-from scanpy.api.pp import scale as sc_scale
-from scanpy.api.tl import leiden as sc_leiden
-from scanpy.api.tl import louvain as sc_louvain
-from scanpy.api.tl import pca as sc_pca
-from scanpy.api.tl import rank_genes_groups
-from scanpy.api.tl import umap as sc_umap
+from scanpy.plotting import highly_variable_genes as pl_highly_variable_genes
+from sscanpy.plotting import pca as sc_pl_pca
+from scanpy.plotting import umap as sc_pl_umap
+from scanpy.preprocessing import highly_variable_genes as sc_highly_variable_genes
+from scanpy.preprocessing import log1p, neighbors, normalize_per_cell
+from scanpy.preprocessing import regress_out as sc_regress_out
+from scanpy.preprocessing import scale as sc_scale
+from scanpy.tools import leiden as sc_leiden
+from scanpy.tools import louvain as sc_louvain
+from scanpy.tools import pca as sc_pca
+from scanpy.tools import rank_genes_groups
+from scanpy.tools import umap as sc_umap
 
 
 # import other besca functions
@@ -156,7 +156,7 @@ def read_matrix(root_path,
         are supplied and you only have the ENSEMBLE gene ids to perform a lookup.
     citeseq: 'gex_only' or 'citeseq_only' or None | default = None
         string indicating if only gene expression values (gex_only) or only protein
-        expression values ('citeseq_only') or everything is read if None is specified 
+        expression values ('citeseq_only') or everything is read if None is specified
     Returns
     -------
     returns an AnnData object
@@ -325,11 +325,11 @@ def pca_neighbors_umap(adata, results_folder, nrpcs=50, nrpcs_neigh=None, nrneig
     adata: `ÀnnData`
         AnnData object that is to be exported
     results_folder: `str`
-        path to the results folder 
+        path to the results folder
     nrpcs: int | nrpcs = 50
         number of principle components to calculate
     nrpcs_neigh: int | nrpcs_neigh = 50
-        number of principle components to use for nearest neighbor calculation. 
+        number of principle components to use for nearest neighbor calculation.
         When set to None the number is chosen automatically. For .n_vars < 50, .X is used, otherwise ‘X_pca’ is used with 50 components.
     nrneigh: int | nrpcs = None
         number of principle components to calculate
@@ -407,7 +407,7 @@ def clustering(adata, results_folder, myres=1, method='leiden'):
     adata: `ÀnnData`
         AnnData object that is to be exported
     results_folder: `str`
-        path to the results folder 
+        path to the results folder
     myres: int
         resolution for the algorithm
     method: `str`
