@@ -1,6 +1,6 @@
 #general libraries
 import os
-from scanpy.api.tl import rank_genes_groups
+from scanpy.tools import rank_genes_groups
 from pandas import DataFrame, read_csv, concat
 from numpy import sign, log10, inf, max, abs, floor, arange, round, sort
 from plotly.offline import plot as plotly_plot
@@ -56,7 +56,7 @@ def extract_info_rank_genes_groups(adata):
     #make index into ENSEMBL instead of symbol
     scores.set_index('ENSEMBL', inplace=True)
     scores.index.names = ['NAME']
-    
+
     # get pvalues
     #initialize dataframe for storing the pvalues
     pvalues = DataFrame({'n_' + key[:1]: rank_genes[key][groups [0]] for key in ['names', 'pvals']})
@@ -79,7 +79,7 @@ def extract_info_rank_genes_groups(adata):
     #make index into ENSEMBL instead of symbol
     pvalues.set_index('ENSEMBL', inplace=True)
     pvalues.index.names = ['NAME']
-    
+
     #get logFC
     logFC = DataFrame({'n_' + key[:1]: rank_genes[key][groups [0]] for key in ['names', 'logfoldchanges']})
     logFC.rename(columns={'n_l':groups[0], 'n_n':'NAME'}, inplace=True)
@@ -101,7 +101,7 @@ def extract_info_rank_genes_groups(adata):
     #make index into ENSEMBL instead of symbol
     logFC.set_index('ENSEMBL', inplace=True)
     logFC.index.names = ['NAME']
-    
+
     #get FDRs
     FDRs = DataFrame({'n_' + key[:1]: rank_genes[key][groups [0]] for key in ['names', 'pvals_adj']})
     FDRs.rename(columns={'n_p':groups[0], 'n_n':'NAME'}, inplace=True)
@@ -123,10 +123,10 @@ def extract_info_rank_genes_groups(adata):
         #make index into ENSEMBL instead of symbol
     FDRs.set_index('ENSEMBL', inplace=True)
     FDRs.index.names = ['NAME']
-    
+
     return(scores, pvalues, logFC, FDRs)
 
-def perform_dge(adata, 
+def perform_dge(adata,
                 design_matrix,
                 differentiating_criteria,
                 constant_criteria,
@@ -137,12 +137,12 @@ def perform_dge(adata,
 
     This function automatically generates top_tables and rank_files for a list of comparisons
     in a dataset. The comparison you wish to perform need to be identified in a so called design
-    matrix (see below). 
+    matrix (see below).
 
     This function is capable of handling comparisons where you wish to compare
     two conditions in a subset of the dataset, e.g. treatment vs control in the celltype CD4 T-cell.
     The conditions must be annotated in a column adata.obs, this represents the differentiating_criteria.
-    This column may only have two different labels! The subsets in which this comparison should be made 
+    This column may only have two different labels! The subsets in which this comparison should be made
     must be annotated in another column represented by 'constant_criteria'. This column may have as
     many labels as you wish.
 
@@ -162,7 +162,7 @@ def perform_dge(adata,
     adata: `AnnData`
         AnnData object containing
     design_matrix: `pandas.DataFrame`
-        pandas.DataFrame containing all the comparisons that are to be made. 
+        pandas.DataFrame containing all the comparisons that are to be made.
     method: `str`
         one of 't-test', 'wilcoxon', 't-test_overestim_var', 'logreg'
     """
@@ -242,7 +242,7 @@ def perform_dge(adata,
             #replace all 0 values with the smallest number possible in python
             smallest_num = 1e-308
             top_table.replace(0,1e-308, inplace = True)
-            
+
             #generate rank files
             rank_file = top_table.get(['SYMBOL', 'P-value', 'logFC'])
             rank_file['value'] =  abs(log10(rank_file['P-value']))*sign(rank_file['logFC'])
@@ -272,7 +272,7 @@ def perform_dge(adata,
             else:
                 sys.exit('need to specify type as one of \'wilcoxon\' or \'t-test_overestim_var\'  or \'t-test\' or \'logreg\'')
 
-        
+
             #write out rankfile
             rank_file.to_csv(rank_File, sep = '\t', index=False, header=False, float_format='%.2f')
             print(rank_File, 'written out')
@@ -327,12 +327,12 @@ def plot_interactive_volcano(top_table_path,
     group1_label = group1.replace('log2cp10k_', '')
     group2 = df.columns[10]
     group2_label = group2.replace('log2cp10k_', '')
-    
+
     def generate_data_trace(df, threshold):
         """Helper function to iteratively generate the different traces that are plotted.
         """
         df_filtered = df[df.log2cp10k > threshold]
-        
+
         #get annotation per point
         gene = ['Gene Symbol: '+gene +'<br>' for gene in df_filtered.SYMBOL.tolist()]
         expression = ['log2cp10k: '+str(expr) +'<br>' for expr in df_filtered.log2cp10k.tolist()]
@@ -394,13 +394,13 @@ def plot_interactive_volcano(top_table_path,
 
     def generate_pvalue_button(value):
         button = {'method': 'restyle',
-                  'args':["transforms[0].value", value], 
+                  'args':["transforms[0].value", value],
                   'label': str(value)}
         return(button)
 
     def generate_logFC_button(value):
         button = {'method': 'restyle',
-                  'args':["transforms[1].value", value], 
+                  'args':["transforms[1].value", value],
                   'label': str(value)}
         return(button)
 
@@ -408,7 +408,7 @@ def plot_interactive_volcano(top_table_path,
         visible = [False]*total
         visible[number] = True
         button = {'method': 'restyle',
-                  'args':[{'visible': visible}], 
+                  'args':[{'visible': visible}],
                   'label': str(value)}
         return(button)
 
@@ -432,7 +432,7 @@ def plot_interactive_volcano(top_table_path,
                             x = 0.2,
                             xanchor = 'left',
                             y = 1.07,
-                            yanchor = 'top' 
+                            yanchor = 'top'
                         ),
                         dict(buttons=list(logFC_buttons),
                             direction = 'down',
@@ -441,7 +441,7 @@ def plot_interactive_volcano(top_table_path,
                             x = 0.55,
                             xanchor = 'middle',
                             y = 1.07,
-                            yanchor = 'top' 
+                            yanchor = 'top'
                         ),
                         dict(buttons=list(cp10k_buttons),
                             direction = 'down',
@@ -450,7 +450,7 @@ def plot_interactive_volcano(top_table_path,
                             x = 0.85,
                             xanchor = 'middle',
                             y = 1.07,
-                            yanchor = 'top' 
+                            yanchor = 'top'
                         ),
                     ])
 
@@ -488,8 +488,8 @@ def plot_interactive_volcano(top_table_path,
 
 def get_de(adata,mygroup, demethod='wilcoxon',topnr=5000, logfc=1,padj=0.05):
     """ Get a table of significant DE genes at certain cutoffs
-    Based on an AnnData object and an annotation category (e.g. louvain) runs 
-    scanpy's rank_genes_groups using a specified method with specified cutoffs 
+    Based on an AnnData object and an annotation category (e.g. louvain) runs
+    scanpy's rank_genes_groups using a specified method with specified cutoffs
     (nr. genes, logfc, padj) and returns a df with the results
     parameters
     ----------
@@ -500,11 +500,11 @@ def get_de(adata,mygroup, demethod='wilcoxon',topnr=5000, logfc=1,padj=0.05):
     demethod: `str`
         one of 't-test', 'wilcoxon', 't-test_overestim_var', 'logreg'
     topnr: `int`
-        the number of top genes in the DE analysis 
+        the number of top genes in the DE analysis
     padj: `float`
-        log fold-change cutoff 
+        log fold-change cutoff
     logfc: `float`
-        adjusted p-value cutoff    
+        adjusted p-value cutoff
     returns
     -------
     delist

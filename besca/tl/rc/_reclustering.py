@@ -1,13 +1,13 @@
-from scanpy.api.pp import filter_genes_dispersion, log1p, regress_out, neighbors
-from scanpy.api.pp import highly_variable_genes as sc_highly_variable_genes
-from scanpy.api.pp import scale as sc_scale
-from scanpy.api.tl import umap, louvain, leiden
-from scanpy.api.tl import pca as sc_pca
-from scanpy.api.pl import filter_genes_dispersion as plot_filter
+from scanpy.preprocessing import filter_genes_dispersion, log1p, regress_out, neighbors
+from scanpy.preprocessing  import highly_variable_genes as sc_highly_variable_genes
+from scanpy.preprocessing  import scale as sc_scale
+from scanpy.tools import umap, louvain, leiden
+from scanpy.tools import pca as sc_pca
+from scanpy.plotting import filter_genes_dispersion as plot_filter
 from ..._helper import subset_adata as _subset_adata
 import sys
 
-def recluster(adata, 
+def recluster(adata,
               celltype,
               celltype_label = 'leiden',
               min_mean = 0.0125,
@@ -17,22 +17,22 @@ def recluster(adata,
               regress_out_key = None,
               random_seed = 0,
               show_plot_filter = False,
-              method = 'leiden', 
+              method = 'leiden',
               batch_key = None):
     """ Perform subclustering on specific celltype to identify subclusters.
 
-    Extract all cells that belong to the pre-labeled celltype into a new 
+    Extract all cells that belong to the pre-labeled celltype into a new
     data subset. This datasubset is initialized with the raw data contained in adata.raw. New highly
-    variable genes are selected and a new clustering is performed. The function returns the adata 
+    variable genes are selected and a new clustering is performed. The function returns the adata
     subset with the new clustering annotation.
 
     This can be performed on leiden clusters by setting celltype_label = 'leiden' and passing the
     clusters that are to be selected for reclustering as strings or tuple of strings to the parameter
-    celltype. 
+    celltype.
 
     Parameters
     ----------
-    adata: 
+    adata:
         the complete AnnData object of the Dataset.
     celltype: `str` or (`str`)
         string identifying the cluster which is to be filtered out, if more than one is to be selected please
@@ -42,22 +42,22 @@ def recluster(adata,
     min_mean: `float` | default = 0.0125
         the minimum gene expression a gene must have to be considered highly variable
     max_mean: `float` | default = 4
-        the maximum gene expression a gene can have to be considered highly variable        
+        the maximum gene expression a gene can have to be considered highly variable
     min_disp: `float` | default = 0.5
         the minimum dispersion a gene must have to be considered highly variable
     regress_out_key: `list of str` | default = None
-        A list of string identifiers of the adata.obs columns that should be regressed out before 
+        A list of string identifiers of the adata.obs columns that should be regressed out before
         performing clustering. If None then no regress_out is calculated.
     random_seed: `int` | default = 0
         the random seed that is used to produce reproducible PCA, clustering and UMAP results
     show_plot_filter: `bool` | default = False
-        boolian value indicating if a plot showing the filtering results for highly variable gene 
+        boolian value indicating if a plot showing the filtering results for highly variable gene
         detection should be displayed or not
-    method: `str` | default = 'leiden' 
+    method: `str` | default = 'leiden'
         clustering method to use for the reclustering of the datasubset. Possible:louvain/leiden
-    batch_key: `str` | default = None 
+    batch_key: `str` | default = None
         Specify a batch key if the HVG calculation should be done per batch
-        
+
     Returns
     -------
 
@@ -85,18 +85,18 @@ def recluster(adata,
         for i in range(len(celltype)):
             filter = filter | (adata.obs.get(celltype_label) == celltype[i])
         cluster_subset = _subset_adata(adata, filter)
-    else: 
+    else:
         sys.exit('specify cluster input as a string or tuple')
 
     cluster_subset.raw = cluster_subset
 
     #identify highly variable genes
-    filter_result = sc_highly_variable_genes(cluster_subset, min_mean = min_mean, 
+    filter_result = sc_highly_variable_genes(cluster_subset, min_mean = min_mean,
                                              max_mean = max_mean, min_disp = min_disp,  inplace=False, batch_key=batch_key)
     if show_plot_filter:
         plot_filter(filter_result)
     print('In total', str(sum(filter_result.highly_variable)), 'highly variable genes selected within cluster')
-    
+
     #apply filter
     cluster_subset = _subset_adata(cluster_subset, filter_result.highly_variable, axis = 1, raw = False)
 
@@ -122,21 +122,21 @@ def annotate_new_cellnames(adata,
                            method = 'leiden'):
     """annotate new cellnames to each of the subclusters identified by running recluster.
 
-    Give each subcluster a new celltype identifier. Can only be run on an AnnData subset that has already been 
-    reclustered, e.g. using the recluster function also available in this package. The list of 
-    provided names must be of equal length to the number of subclusters in the AnnData subset. 
+    Give each subcluster a new celltype identifier. Can only be run on an AnnData subset that has already been
+    reclustered, e.g. using the recluster function also available in this package. The list of
+    provided names must be of equal length to the number of subclusters in the AnnData subset.
     The order must be the same as the order of the clusters identifiers (integer expected).
 
     Parameters
     ----------
     adata:
         complete AnnData object from which the subset was extracted. Must contain adata.obs.celltype.
-    cluster_subset: 
+    cluster_subset:
         AnnData subset on which a reclustering has been run. Must contain adata.obs.celltype.
     names: `[str]`
-        list of strings containing the new celltype annotation. Order and Length must mach the 
+        list of strings containing the new celltype annotation. Order and Length must mach the
         lexicographic order of the louvain clusters in the AnnData susbet.
-    celltype_label: 
+    celltype_label:
     new_label: `str` | default = 'celltype'
         string specifying under which label in adata.obs the new annotation should be saved
         (it will overwrite existing annotations under this name)
@@ -148,7 +148,7 @@ def annotate_new_cellnames(adata,
     returns
     -------
 
-    Complete AnnData object with the new celltype annotations in the adata.obs.new_label column for 
+    Complete AnnData object with the new celltype annotations in the adata.obs.new_label column for
     the subclusters.
 
     Examples
@@ -167,18 +167,18 @@ def annotate_new_cellnames(adata,
         print('these are the clusters that need to be annotated:')
         print(str(clusters))
         sys.exit('incorrect number of cluster names supplied')
-    else: 
+    else:
         if adata.obs.get(new_label) is None:
             #if the column 'new_label' did not previously exist then create it
            adata.obs[new_label] = 'not_labeled'
         else:
             print('NOTE: overwriting labels for the selected cells saved in adata.obs.' + new_label + ' with the new labels')
         new_annotation = cluster_subset.obs.get(method).to_frame(name= new_label).copy()
-        
+
         for i in range(0, len(clusters)):
             new_annotation[new_label].replace(clusters[i], names[i], inplace = True)
-        
+
         #update anndata object with the new annotation
         adata.obs.update(new_annotation)
 
-        return(None)  
+        return(None)
