@@ -7,18 +7,18 @@ tutorials
 .. toctree::
    :hidden:
    :maxdepth: 2
-   
+
    tutorials/notebook1_data_processing_pbmc3k.ipynb
    tutorials/notebook2_celltype_annotation_pbmc3k.ipynb
    tutorials/notebook3_batch_correction.ipynb
    tutorials/auto_annot_tutorial.ipynb
    tutorials_html/bescape_tutorial.html
    tutorials_html/adata_to_eset.html
-   
+
 
 single cell sequencing general tutorials
 ---------------------------------------------------------------
-   
+
 This tutorial will give you a general introduction into single-cell sequencing analysis using scanpy and besca. It is divided into three seperate notebooks that should be looked at in consecutive order (they build up on results from the previous notebooks).
 
 **Part 1**: :doc:`data processing <tutorials/notebook1_data_processing_pbmc3k>` 
@@ -39,7 +39,7 @@ you can download it from `here <github.com/bedapub/besca/blob/master/docs/source
  :doc:`here <tutorials/auto_annot_tutorial>`.
 
 
-Bescape: Cell deconvolution tutorial
+Bescape: cell deconvolution tutorial
 ---------------------------------------------------------------
 
 
