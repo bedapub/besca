@@ -1,5 +1,5 @@
-from scanpy.api import AnnData
-from scanpy.api.pp import mnn_correct
+from scanpy import AnnData
+from scanpy.external.pp import mnn_correct
 from pandas import DataFrame
 import scipy
 
