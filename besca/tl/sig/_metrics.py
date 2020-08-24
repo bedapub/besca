@@ -3,7 +3,7 @@
 # import using the python version 1.3.2 at least is a prerequisit!
 # needs to be checked in all functions
 
-from scanpy.api.tl  import score_genes
+from scanpy.tools  import score_genes
 
 
 def _handle_signature(signature, method, adata, signature_name,
