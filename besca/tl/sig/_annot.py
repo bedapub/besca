@@ -3,7 +3,7 @@
 
 from numpy import array, log, where
 from pandas import DataFrame, read_csv
-from scanpy.api import AnnData
+from scanpy import AnnData
 from scipy.stats import mannwhitneyu
 
 
@@ -55,7 +55,7 @@ def score_mw(f, mymarkers):
     """ Score Clusters based on a set of immune signatures to generate a df of pvals
     Takes as an input a dataframe with fractions per clusters and a dictionary of signatures
     Performs a Mann-Whitney test per each column and Signature, returns -10logpValues
-    
+
     Parameters
     ----------
     f: panda.DataFrame
@@ -83,7 +83,7 @@ def add_anno(adata, cnames, mycol, clusters='leiden'):
     """ Adds annotation generated with make_anno to a AnnData object
     Takes as input the AnnData object to which annotation will be appended and the annotation pd
     Generates a pd.Series that can be added as a adata.obs column with annotation at a level
-    
+
     Parameters
     ----------
     adata: AnnData
@@ -116,8 +116,8 @@ def add_anno(adata, cnames, mycol, clusters='leiden'):
 
 
 def read_annotconfig(configfile):
-    """ Reads the configuration file for signature-based hierarhical annotation. 
-    
+    """ Reads the configuration file for signature-based hierarhical annotation.
+
     Parameters
     ----------
      configfile: 'str'
@@ -155,7 +155,7 @@ def export_annotconfig(sigconfig, levsk, resultsFolder, analysisName = ''):
     """ Export the configuration defined in sigconfig and levsk
     Order might changed compared to the original sig. config file.
     But numerical order within a same category (same parents) should be respected.
-    
+
     Parameters
     ----------
     sigconfig: panda.DataFrame
@@ -165,7 +165,7 @@ def export_annotconfig(sigconfig, levsk, resultsFolder, analysisName = ''):
     resultsFolder: 'str'
         results folder. where the annotation will also be stored
     analysisName: 'str'
-        will prefix the saved config file       
+        will prefix the saved config file
     """
     it_order = 0 # Iterative order.
     config_t = sigconfig.copy()
@@ -174,7 +174,7 @@ def export_annotconfig(sigconfig, levsk, resultsFolder, analysisName = ''):
       for element in child :
               get_order[element] = it_order
               it_order +=1
-    config_t['Order'] = config_t.index.map(get_order) 
+    config_t['Order'] = config_t.index.map(get_order)
     config_t.to_csv( resultsFolder + analysisName + '_config.tsv' ,  sep = '\t' )
 
 
@@ -188,7 +188,7 @@ def make_anno(df, sigscores, sigconfig, levsk, lab='celltype', toexclude=[]):
     Hierarchical model of Immune cell annotation.
     It expects a specific set of signatures with a common prefix (signame) and specified suffixes indicating
     the cell type.
-    
+
     Parameters
     ----------
     mypFrame: panda.DataFrame
@@ -280,7 +280,7 @@ def match_cluster(adata, obsquery, obsqueryval, obsref='leiden', cutoff=0.5):
     Parameters
     ----------
     adata: AnnData
-      AnnData object 
+      AnnData object
     obsquery: 'str'
       adata.obs category name used for querying
     obsqueryval: 'str'
@@ -306,17 +306,17 @@ def match_cluster(adata, obsquery, obsqueryval, obsref='leiden', cutoff=0.5):
 
 def obtain_dblabel(nomenclature_file, cnames):
     """ Matches the cnames obtained by the make_annot function
-    to the db label (standardized label). 
+    to the db label (standardized label).
 
     parameters
     ---------
-    nomenclature_file: 'str' 
+    nomenclature_file: 'str'
       path to the nomenclature file (one available in besca/datasets)
     cnames: panda.DataFrame
         a dataframe with cluster to cell type attribution per distinct levels
 
     returns
-    ------- 
+    -------
     panda.DataFrame containing the different levels of the nomenclature  indexed by cluster
     (based on cnames index)
     """

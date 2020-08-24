@@ -37,7 +37,7 @@ def add_var_column(adata, colname = 'SYMBOL', attempFix = True):
     if( not colname in adata.var.columns) :
         if attempFix:
             print(f'Creating empty {colname} column;  please check if {colname} is not in the index of adata.var')
-            adata.var[colname] = 'N.A.'   
+            adata.var[colname] = 'N.A.'
         else:
             raise Exception('adata.var needs column named {colname}' )
     return(adata)
@@ -63,7 +63,7 @@ def assert_adata(adata: AnnData, attempFix = True):
             print( 'Creating columns CELL in adata.obs using adata.obs.index.')
         else:
             raise Exception('Required CELL columns in observations')
-    
+
     if not all( adata.obs_names == adata.obs['CELL']):
         raise Exception('Required indexing of adata.obs by CELL column')
     if not issparse(adata.X):
@@ -109,7 +109,7 @@ def read_mtx(
         are supplied and you only have the ENSEMBLE gene ids to perform a lookup.
     citeseq: 'gex_only' or 'citeseq_only' or None | default = None
         string indicating if only gene expression values (gex_only) or only protein
-        expression values ('citeseq_only') or everything is read if None is specified 
+        expression values ('citeseq_only') or everything is read if None is specified
 
     Returns
     -------
@@ -164,7 +164,7 @@ def read_mtx(
                 adata = adata[:, adata.var.feature_type == 'Gene Expression'].copy()
         if citeseq == 'citeseq_only':
             adata = adata[:, adata.var.feature_type == 'Antibody Capture'].copy()
-            
+
     if annotation == True:
         print('adding annotation')
         adata.obs = pd.read_csv(os.path.join(filepath, 'metadata.tsv'), sep='\\t',engine='python')
