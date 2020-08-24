@@ -507,8 +507,8 @@ def Segerstolpe2016_processed():
 
     """
 
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/standard_workflow_besca2_0_annotated.h5ad')
-    adata = check_dl(filename, url = 'https://zenodo.org/record/3928276/files/standard_workflow_besca2_0_annotated.h5ad?download=1')
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Segerstolpe2016_processed.h5ad')
+    adata = check_dl(filename, url = 'https://zenodo.org/record/3928276/files/Segerstolpe2016_processed.h5ad?download=1')
     return adata
 
 
