@@ -21,5 +21,6 @@ if __name__ == '__main__':
         packages=find_packages(),
         zip_safe=False,
         package_data={'besca.datasets.data': ['*.h5ad'], 'besca.st': ['*.css'],
+                      'besca.datasets.nomenclature': ['*.tsv'],
                       'besca.datasets.mito_files': ['*.tsv'], 'besca.export': ['reformat'], 'besca.datasets.genesets': ['*.gmt', '*.tsv']},
         install_requires=requires)
