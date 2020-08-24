@@ -204,12 +204,12 @@ def export_celltype(adata, basepath):
 
     #export celltypes
     labeling(adata=adata,
-             outpath = join(basepath, 'labelings', 'celltype'), 
-             column='celltype')
+             outpath = join(basepath, 'labelings', 'dblabel'), 
+             column='dblabel')
 
-    labeling_info(outpath = join(basepath, 'labelings', 'celltype'),
-                  method='manual celltype annotation based on marker expression',
-                  annotated_version_of='louvain', 
+    labeling_info(outpath = join(basepath, 'labelings', 'dblabel'),
+                  method='celltype annotation based on marker expression',
+                  annotated_version_of='leiden', 
                   expert=True, 
                   default=False, 
                   public=False, 
