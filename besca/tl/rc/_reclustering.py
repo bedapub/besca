@@ -70,10 +70,10 @@ def recluster(adata,
     For a more detailed example of the entire reclustering process please refer to the code examples.
 
     >>> import besca as bc
-    >>> import scanpy.api as sc
+    >>> import scanpy as sc
     >>> adata = bc.datasets.pbmc3k_processed()
     >>> adata_subset = bc.tl.rc.recluster(adata, celltype=('0', '1', '3', '6'), resolution = 1.3)
-    >>> sc.pl.umap(adata_subset, color = ['louvain', 'CD3G', 'CD8A', 'CD4', 'IL7R', 'NKG7', 'GNLY'])
+    >>> sc.pl.umap(adata_subset, color = ['leiden', 'CD3G', 'CD8A', 'CD4', 'IL7R', 'NKG7', 'GNLY'])
 
     """
     if( not method in ['leiden', 'louvain']):

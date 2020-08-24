@@ -12,9 +12,9 @@ def extract_info_rank_genes_groups(adata):
     """This function extracts information from adata.uns[rank_gene_groups] to pandas.DataFrames
 
     This function outputs 4 pandas.DataFrames which contain the scores, pvalues, logFC, and FDRs
-    calculated by scanpy.api.tl.rank_gene_groups() and saved to adata.uns['rank_gene_groups'].
+    calculated by scanpy.tl.rank_gene_groups() and saved to adata.uns['rank_gene_groups'].
 
-    This function can only be run on AnnData objects that have already been passed to scanpy.api.tl.rank_gene_groups().
+    This function can only be run on AnnData objects that have already been passed to scanpy.tl.rank_gene_groups().
 
     parameters
     ----------
