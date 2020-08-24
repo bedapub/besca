@@ -10,6 +10,8 @@ The package has been grouped into 3 categories:
 
 For more information please view the package documentation: https://bedapub.github.io/besca/
 
+Please find our preprint posted on bioRxiv here: https://biorxiv.org/cgi/content/short/2020.08.11.245795v1
+
 If you are interested in contributing you can check the repository wiki for helpful information on contributing: https://github.com/bedapub/besca/wiki
 
 ## Installation

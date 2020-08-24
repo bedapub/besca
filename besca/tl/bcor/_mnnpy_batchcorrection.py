@@ -1,16 +1,16 @@
-from scanpy.api import AnnData
-from scanpy.api.pp import mnn_correct
+from scanpy import AnnData
+from scanpy.external.pp import mnn_correct
 from pandas import DataFrame
 import scipy
 
 def batch_correct(adata, batch_to_correct):
     """function to perform batch correction
 
-    mnnpy batch correction with the batch specified by batch_to_correct using all the 
+    mnnpy batch correction with the batch specified by batch_to_correct using all the
     genes contained in adata. Before running this function the highly variable genes should be selected.
 
     This function will return a corrected AnnData object without any .raw! please use the function postprocess_mnnpy to generate
-    a complete AnnData object which contains the corrected values and the original raw. Because of this pleae ensure that you do 
+    a complete AnnData object which contains the corrected values and the original raw. Because of this pleae ensure that you do
     not save the output of this function to the variable adata!
 
     parameters
@@ -30,8 +30,8 @@ def batch_correct(adata, batch_to_correct):
     for i in range(batchNum):
         batchData.append(adata[adata.obs [batch_to_correct] == batches [i]].copy())
     corrected = mnn_correct(*batchData, var_index = None, batch_key = batch_to_correct, do_concatenate = True, svd_mode='svd', save_raw = False)
-    (corrected [0]).var = adata.var.copy() 
-    # otherwise, the symbols and n_cells columns will be identical copies for each batch, with modified names 
+    (corrected [0]).var = adata.var.copy()
+    # otherwise, the symbols and n_cells columns will be identical copies for each batch, with modified names
     return(corrected[0])
 
 
@@ -40,10 +40,10 @@ def postprocess_mnnpy(adata, bdata):
 
     After running mnnpy_mnncorrect we obtain ann AnnData object bdata. Since mnn_correct automatically
     truncates all the genes contained in .raw to contain only the highly variable genes this function
-    creates a new AnnData object that contains .X from bdata but .raw from AnnData (which still contains all the 
+    creates a new AnnData object that contains .X from bdata but .raw from AnnData (which still contains all the
     genes, not only the highly variable ones).
 
-    Before creation of the new AnnData object the matrices are sorted according to cellbarcode so 
+    Before creation of the new AnnData object the matrices are sorted according to cellbarcode so
     that we ensure the labelings are correct.
 
     parameters
@@ -83,7 +83,7 @@ def postprocess_mnnpy(adata, bdata):
     new_adata.raw = raw
 
     #ensure that indices are preserved
-    adata.obs_names = adata.obs.CELL 
+    adata.obs_names = adata.obs.CELL
     adata.obs.index = adata.obs.CELL
 
     return(new_adata)
