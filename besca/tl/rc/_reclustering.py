@@ -18,7 +18,8 @@ def recluster(adata,
               random_seed = 0,
               show_plot_filter = False,
               method = 'leiden',
-              batch_key = None):
+              batch_key = None, 
+              n_shared=3):
     """ Perform subclustering on specific celltype to identify subclusters.
 
     Extract all cells that belong to the pre-labeled celltype into a new
@@ -57,7 +58,9 @@ def recluster(adata,
         clustering method to use for the reclustering of the datasubset. Possible:louvain/leiden
     batch_key: `str` | default = None
         Specify a batch key if the HVG calculation should be done per batch
-
+    n_share: `int` | default = 3
+        Divide the nr. of batched by this nr. to get the shared HVGs considered (e.g. >=1/3 of samples)
+        
     Returns
     -------
 
@@ -90,21 +93,27 @@ def recluster(adata,
 
     cluster_subset.raw = cluster_subset
 
-    #identify highly variable genes
-    filter_result = sc_highly_variable_genes(cluster_subset, min_mean = min_mean,
-                                             max_mean = max_mean, min_disp = min_disp,  inplace=False, batch_key=batch_key)
+    #identify highly variable genes    
+    sc_highly_variable_genes(cluster_subset, min_mean=min_mean, max_mean=max_mean, min_disp=min_disp, 
+                                             inplace=True, batch_key=batch_key)
+    
+    if (batch_key!=None):
+        hvglist=cluster_subset.var['highly_variable'].copy()
+        hvglist.loc[cluster_subset.var['highly_variable_nbatches']>=len(set(cluster_subset.obs[batch_key]))/n_shared,]=True
+        cluster_subset.var['highly_variable']=hvglist.copy()
+        
     if show_plot_filter:
-        plot_filter(filter_result)
-    print('In total', str(sum(filter_result.highly_variable)), 'highly variable genes selected within cluster')
+        pl_highly_variable_genes(cluster_subset, show=True)
+    print('In total', str(sum(cluster_subset.var.highly_variable)), 'highly variable genes selected within cluster')
 
     #apply filter
-    cluster_subset = _subset_adata(cluster_subset, filter_result.highly_variable, axis = 1, raw = False)
+    cluster_subset = _subset_adata(cluster_subset, cluster_subset.var.highly_variable, axis = 1, raw = False)
 
     #perform further processing
-    log1p(cluster_subset)
+    # log1p(cluster_subset) # data already logged 
     if regress_out_key is not None:
         regress_out(cluster_subset, keys = regress_out_key)
-    sc_scale(cluster_subset)
+    sc_scale(cluster_subset, max_value=10)
     sc_pca(cluster_subset, random_state = random_seed, svd_solver='arpack') #using `svd_solver='arpack' ensures that the PCA leads to reproducible results
     neighbors(cluster_subset, n_neighbors=10, random_state = random_seed)
     umap(cluster_subset, random_state = random_seed)
