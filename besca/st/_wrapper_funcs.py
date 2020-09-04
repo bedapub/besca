@@ -261,18 +261,23 @@ def clr_normalize(adata, results_folder):
     return(adata)
 
 
-def highly_variable_genes(adata, batch_key=None):
+def highly_variable_genes(adata, batch_key=None, n_shared=3):
     start = time()
 
     # take log1p
     log1p(adata)
     print('log1p taken of adata')
 
-    filter_result = sc_highly_variable_genes(
-        adata, min_mean=0.0125, max_mean=3, min_disp=0.5, inplace=False, batch_key=batch_key)
-    pl_highly_variable_genes(filter_result, save='.hvg.png', show=True)
+    sc_highly_variable_genes(adata, min_mean=0.0125, max_mean=3, min_disp=0.5, 
+                                             inplace=True, batch_key=batch_key)
+    if (batch_key!=None):
+        hvglist=adata.var['highly_variable'].copy()
+        hvglist.loc[adata.var['highly_variable_nbatches']>=len(set(adata.obs[batch_key]))/n_shared,]=True
+        adata.var['highly_variable']=hvglist.copy()
 
-    adata = adata[:, filter_result.highly_variable == True]
+    pl_highly_variable_genes(adata, save='.hvg.png', show=True)
+
+    adata = adata[:, adata.var.highly_variable == True]
 
     # logging
     logging.info('After feature selection of highly variable genes: ' +
