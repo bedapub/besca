@@ -6,6 +6,7 @@ from ._general import stacked_split_violin
 from ._dot_heatmap import dot_heatmap, dot_heatmap_split, dot_heatmap_split_greyscale
 from ._update_palette import update_qualitative_palette
 from ._nomenclature_network import nomenclature_network
+from ._riverplot import riverplot_2categories
 
 __all__ = ["kp_genes", 
            "kp_counts", 
@@ -28,4 +29,5 @@ __all__ = ["kp_genes",
            "dot_heatmap_split",
            "dot_heatmap_split_greyscale",
            "update_qualitative_palette",
-           "nomenclature_network"]
+           "nomenclature_network",
+           "riverplot_2categories"]
