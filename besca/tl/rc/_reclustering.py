@@ -19,7 +19,7 @@ def recluster(adata,
               show_plot_filter = False,
               method = 'leiden',
               batch_key = None, 
-              n_shared=3):
+              n_shared=2):
     """ Perform subclustering on specific celltype to identify subclusters.
 
     Extract all cells that belong to the pre-labeled celltype into a new
