@@ -261,7 +261,7 @@ def clr_normalize(adata, results_folder):
     return(adata)
 
 
-def highly_variable_genes(adata, batch_key=None, n_shared=3):
+def highly_variable_genes(adata, batch_key=None, n_shared=2):
     start = time()
 
     # take log1p
