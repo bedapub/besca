@@ -1130,11 +1130,11 @@ def pseudobulk(adata,
     """
     if outpath is None:
         outpath = os.getcwd()
-    data = adata.obs.get(column).to_frame(name=label)
+    data = adata.obs.get(column)
     if data is None:
         sys.exit('please specify a column name that is present in adata.obs')
         
-    data = adata.obs.get(column).to_frame(name=main_condition)
+    data = adata.obs.get(main_condition)
     if data is None:
         sys.exit('please specify a condition name that is present in adata.obs')
     
