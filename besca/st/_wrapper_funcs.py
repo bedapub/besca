@@ -262,6 +262,21 @@ def clr_normalize(adata, results_folder):
 
 
 def highly_variable_genes(adata, batch_key=None, n_shared=2):
+    """Calculate highly variable genes and return filtered adata
+    ----------
+    adata: `AnnData`
+      AnnData object for which HVGs are to be calculated
+    batch_key: `str` (default = None)
+        Specify adata.obs column to be used as batch. HVGs will then be calculated per batch. 
+    n_shared: `int`
+        requirement for selection of HVGs - HVGs shared in nr_samples/n_shared will be included. 
+        A higher value will result in a less stringent selection, e.g. with 2 HVGs need to be present 
+        in at least 50% of the samples. 
+    Returns
+    -------
+    returns an AnnData object with only HVG
+  """
+
     start = time()
 
     # take log1p
