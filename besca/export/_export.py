@@ -1098,7 +1098,7 @@ def pseudobulk(adata,
              column = 'celltype0',
              label  = 'celltype0',
              split_condition  = 'donor',
-             todrop =['CELL','input.path','percent_mito','n_counts','n_genes','leiden','celltype0','celltype1','celltype2','celltype3','dblabel']):
+             todrop =['CELL','input.path','percent_mito','n_counts','n_genes','leiden','celltype0','celltype1','celltype2','celltype3','dblabel'], main_condition='CONDITION'):
     """export pseudobulk profiles of cells to .gct files
 
     This is a function with which any type of labeling (i.e. celltype annotation, louvain 
@@ -1120,7 +1120,8 @@ def pseudobulk(adata,
         the experimental unit, e.g. sample ID
     todrop: `list` 
         Several column headers to be excluded from metadata
-
+    main_condition: `str` | default = 'CONDITION'
+        main condition to be outputed in the metadata file
     returns
     -------
     dfmerge: `pd.DataFrame`
@@ -1129,15 +1130,26 @@ def pseudobulk(adata,
     """
     if outpath is None:
         outpath = os.getcwd()
-    data = adata.obs.get(column).to_frame(name=label)
+    
+    data = adata.obs.get(column)
     if data is None:
         sys.exit('please specify a column name that is present in adata.obs')
+    
+    data = adata.obs.get(column).to_frame(name=label)
+        
+    data = adata.obs.get(main_condition)
+    if data is None:
+        sys.exit('please specify a condition name that is present in adata.obs')
     
     ### check if the outdir exists if not create
     if not os.path.exists(outpath):
         os.makedirs(outpath)
     
     ### create adata subsets for each column value
+    adata.obs[split_condition]=adata.obs[split_condition].astype('str')
+    adata.obs[split_condition]=adata.obs[split_condition].astype('category')
+    adata.obs[column]=adata.obs[column].astype('category')
+    
     bulks={}
     myset=list(set(adata.obs[column]))
     for i in myset:
@@ -1192,7 +1204,7 @@ def pseudobulk(adata,
     mysums.columns=myexp
     mysums=mysums.transpose().drop(labels=todrop,axis=1,errors='ignore')
     mysums['ID']=list(mysums.index)
-    colorder = ['ID','CONDITION'] + (mysums.columns.drop(['ID','CONDITION']).tolist())
+    colorder = ['ID',main_condition] + (mysums.columns.drop(['ID',main_condition]).tolist())
     mysums.loc[:,colorder].to_csv(outpath+ 'Pseudobulk.meta',sep='\t',index=False)
 
     return(dfmerge)
