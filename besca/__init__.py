@@ -8,7 +8,7 @@ from . import Import
 
 
 from ._helper import subset_adata, convert_ensembl_to_symbol, \
-                    convert_symbol_to_ensembl, get_raw, get_means, concate_adata
+                    convert_symbol_to_ensembl, get_raw, get_means,get_gmeans, concate_adata
 
 __all__ = ["pl",
            "tl",
@@ -22,6 +22,7 @@ __all__ = ["pl",
            "convert_symbol_to_ensembl",
            "get_raw",
            "get_means",
+           "get_gmeans",
            "concate_adata"]
 
 from ._version import get_versions
