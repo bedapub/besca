@@ -171,8 +171,43 @@ def get_raw(adata):
 
 def get_means(adata,mycat):
     """ Calculates average and fraction expression per category in adata.obs
+    Based artihmetic mean expression and fraction cells expressing gene per category
+    (works on linear scale)
+    parameters
+    ----------
+    adata: AnnData
+      an AnnData object
+    mycat: str
+      the category for summarisation (e.g. louvain, cell_names)
+    returns
+    -------
+    average_obs
+        average gene expression per category
+    fraction_obs
+        fraction cells expressing a gene per category
+    """
+    gene_ids = adata.raw.var.index.values
+    try:
+        x = adata.obs[mycat]
+        adata.obs[mycat]=adata.obs[mycat].astype('category')
+        clusters = adata.obs[mycat].cat.categories
+        obs = expm1.adata.raw[:,gene_ids].X.toarray()
+        obs = DataFrame(obs,columns=gene_ids,index=adata.obs[mycat])
+        average_obs = log1p(obs.groupby(level=0).mean())
+        obs_bool = obs.astype(bool)
+        fraction_obs = obs_bool.groupby(level=0).sum()/obs_bool.groupby(level=0).count()
+    except KeyError:
+        print("Oops!  The adata object does not have the specified column. Options are: ")
+        print (list(adata.obs.columns))
+        average_obs=None
+        fraction_obs=None
+    return(average_obs, fraction_obs)
+
+def get_gmeans(adata,mycat):
+    """ Calculates average and fraction expression per category in adata.obs
     Based on an AnnData object and an annotation category (e.g. louvain) returns 
-    average expression and fraction cells expressing gene per category
+    geometric mean expression and fraction cells expressing gene per category
+    (works on log scale)
     parameters
     ----------
     adata: AnnData
@@ -202,6 +237,7 @@ def get_means(adata,mycat):
         average_obs=None
         fraction_obs=None
     return(average_obs, fraction_obs)
+
 
 def concate_adata(adata1, adata2):
     """ concatenate two adata objects based on the observations
