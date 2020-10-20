@@ -1,227 +1,158 @@
 name: besca_test
 channels:
-- https://repo.anaconda.com/pkgs/main
-- conda-forge
-- defaults
+  - bioconda
+  - conda-forge
+  - defaults
 dependencies:
-- _libgcc_mutex=0.1=main
-- alembic=1.3.3=py_0
-- attrs=19.3.0=py_0
-- backcall=0.1.0=py_0
-- bleach=3.1.0=py_0
-- ca-certificates=2018.11.29=ha4d7672_0
-- cairo=1.14.12=ha4e643d_1006
-- certifi=2018.11.29=py36_1000
-- cffi=1.13.2=py36h8022711_0
-- chardet=3.0.4=py36_1003
-- cryptography=2.8=py36h72c5cf5_1
-- decorator=4.4.1=py_0
-- defusedxml=0.6.0=py_0
-- entrypoints=0.3=py36_1000
-- fontconfig=2.13.1=h2176d3f_1000
-- freetype=2.9.1=h94bbf69_1005
-- fuzzywuzzy=0.17.0=py_0
-- gettext=0.19.8.1=h9745a5d_1001
-- glib=2.58.3=hf63aee3_1001
-- gmp=6.1.2=hf484d3e_1000
-- icu=58.2=hf484d3e_1000
-- idna=2.8=py36_1000
-- igraph=0.7.1=h2166141_1005
-- importlib_metadata=1.4.0=py36_0
-- ipykernel=5.1.3=py36h5ca1d4c_0
-- ipython=7.11.1=py36h5ca1d4c_0
-- ipython_genutils=0.2.0=py_1
-- ipywidgets=7.5.1=py_0
-- jedi=0.15.2=py36_0
-- jinja2=2.10.3=py_0
-- jsonschema=3.2.0=py36_0
-- jupyter=1.0.0=py_2
-- jupyter_client=5.3.4=py36_1
-- jupyter_console=5.1.0=py36_0
-- jupyter_core=4.6.1=py36_0
-- libblas=3.8.0=14_openblas
-- libcblas=3.8.0=14_openblas
-- libffi=3.2.1=hf484d3e_1005
-- libiconv=1.15=h14c3975_1004
-- liblapack=3.8.0=14_openblas
-- libopenblas=0.3.7=h5ec1e0e_6
-- libpng=1.6.36=h84994c4_1000
-- libsodium=1.0.17=h516909a_0
-- libuuid=2.32.1=h14c3975_1000
-- libxcb=1.13=h14c3975_1002
-- libxml2=2.9.8=h143f9aa_1005
-- louvain=0.6.1=py36hf484d3e_2
-- mako=1.1.0=py_0
-- markupsafe=1.1.1=py36h516909a_0
-- mistune=0.8.4=py36h516909a_1000
-- more-itertools=8.1.0=py_0
-- nbclean=0.3.2=pyh5ca1d4c_0
-- nbconvert=5.6.1=py36_0
-- nbformat=5.0.4=py_0
-- nbgrader=0.6.1=py36_0
-- ncurses=6.1=hf484d3e_1002
-- notebook=6.0.3=py36_0
-- numpy=1.17.5=py36h95a1406_0
-- openssl=1.1.1b=h14c3975_0
-- pandoc=2.9.1.1=0
-- pandocfilters=1.4.2=py_1
-- parso=0.5.2=py_0
-- pcre=8.41=hf484d3e_1003
-- pexpect=4.8.0=py36_0
-- pickleshare=0.7.5=py36_1000
-- pip=19.0.3=py36_0
-- pixman=0.34.0=h14c3975_1003
-- prometheus_client=0.7.1=py_0
-- prompt_toolkit=3.0.2=py_0
-- pthread-stubs=0.4=h14c3975_1001
-- ptyprocess=0.6.0=py_1001
-- pycairo=1.18.0=py36h1b9232e_1000
-- pycparser=2.19=py36_1
-- pygments=2.5.2=py_0
-- pyopenssl=19.1.0=py36_0
-- pyqt=4.11.4=py36_3
-- pyrsistent=0.15.7=py36h516909a_0
-- pysocks=1.7.1=py36_0
-- python=3.6.7=h381d211_1004
-- python-dateutil=2.8.1=py_0
-- python-editor=1.0.4=py_0
-- python-igraph=0.7.1.post6=py36h14c3975_1005
-- python-levenshtein=0.12.0=py36h516909a_1001
-- pyzmq=18.1.1=py36h1768529_0
-- qtconsole=4.6.0=py_0
-- readline=7.0=hf8c457e_1001
-- requests=2.22.0=py36_1
-- send2trash=1.5.0=py_0
-- setuptools=40.8.0=py36_0
-- sip=4.18=py36_1
-- six=1.14.0=py36_0
-- sqlalchemy=1.3.13=py36h516909a_0
-- sqlite=3.26.0=h67949de_1000
-- terminado=0.8.3=py36_0
-- testpath=0.4.4=py_0
-- tk=8.6.9=h84994c4_1000
-- tornado=6.0.3=py36h516909a_0
-- tqdm=4.41.1=py_0
-- traitlets=4.3.3=py36_0
-- urllib3=1.25.7=py36_0
-- wcwidth=0.1.8=py_0
-- webencodings=0.5.1=py_1
-- wheel=0.33.1=py36_0
-- widgetsnbextension=3.5.1=py36_0
-- xorg-kbproto=1.0.7=h14c3975_1002
-- xorg-libice=1.0.9=h14c3975_1004
-- xorg-libsm=1.2.3=h4937e3b_1000
-- xorg-libx11=1.6.7=h14c3975_1000
-- xorg-libxau=1.0.9=h14c3975_0
-- xorg-libxdmcp=1.1.2=h14c3975_1007
-- xorg-libxext=1.3.3=h14c3975_1004
-- xorg-libxrender=0.9.10=h14c3975_1002
-- xorg-renderproto=0.11.1=h14c3975_1002
-- xorg-xextproto=7.3.0=h14c3975_1002
-- xorg-xproto=7.0.31=h14c3975_1007
-- xz=5.2.4=h14c3975_1001
-- zeromq=4.3.2=he1b5a44_2
-- zipp=2.0.0=py_2
-- zlib=1.2.11=h14c3975_1004
-- qt=4.8.7=2
-- libgcc-ng=7.3.0=hdf63c60_0
-- libgfortran-ng=7.2.0=hdf63c60_3
-- libstdcxx-ng=7.3.0=hdf63c60_0
-- pip
-  - anndata==0.7.1
-  - annoy==1.15.1
-  - appdirs==1.4.3
-  - atomicwrites==1.3.0
-  - bbknn==1.3.6
-  - beautifulsoup4==4.7.1
-  - bioservices==1.6.0
-  - biothings-client==0.2.0
-  - bottle==0.12.13
-  - Click==7.0
-  - cloudpickle==0.8.0
-  - cmake==3.13.2.post1
-  - colorama==0.4.1
-  - colorlog==4.0.2
-  - colorlover==0.3.0
-  - cufflinks==0.14.6
-  - cycler==0.10.0
-  - Cython==0.29.6
-  - dash==0.39.0
-  - dash-core-components==0.44.0
-  - dash-daq==0.1.0
-  - dash-html-components==0.14.0
-  - dash-renderer==0.20.0
-  - dash-table==3.6.0
-  - dask==1.1.3
-  - distributed==1.18.0
-  - docopt==0.6.2
-  - dominate==2.4.0
-  - easydev==0.9.37
-  - fastcluster==1.1.26
-  - Flask==1.0.2
-  - Flask-Compress==1.4.0
-  - get-version==2.1
-  - gevent==1.4.0
-  - greenlet==0.4.15
-  - grequests==0.3.0
-  - gseapy==0.9.12
-  - h5py==2.9.0
-  - HeapDict==1.0.0
-  - html5lib==1.0.1
-  - itsdangerous==1.1.0
-  - joblib==0.13.2
-  - kiwisolver==1.0.1
-  - legacy-api-wrap==1.2
-  - llvmlite==0.27.1
-  - lxml==4.3.2
-  - matplotlib==3.0.3
-  - mnnpy==0.1.9.5
-  - msgpack-python==0.4.8
-  - MulticoreTSNE==0.1
-  - mygene==3.1.0
-  - natsort==6.0.0
-  - networkx==2.2
-  - nose==1.3.7
-  - numba==0.42.1
-  - numexpr==2.6.9
-  - packaging==20.0
-  - pandas==0.24.1
-  - patsy==0.5.1
-  - plotly==3.7.0
-  - pluggy==0.9.0
-  - psutil==5.5.1
-  - py==1.8.0
-  - -e git+git@github.com:grst/pygenesig.git@b3e7ca0b92757613b53d209d16e35ae9abcf5dbf#egg=pygenesig
-  - -e git+git@github.com:grst/gmt_geo_query.git@5f44b50122330bbd9dc00322aa302003e47bd26f#egg=pygenesig_pipeline
-  - pymongo==3.6.1
-  - pyparsing==2.3.1
-  - PySocks==1.7.1
-  - pytest==4.3.0
-  - pytz==2018.9
-  - PyYAML==3.13
-  - requests-cache==0.4.13
-  - retrying==1.3.3
-  - rpy2==3.0.1
-  - runipy==0.1.5
-  - scanpy==1.4.5.post2
-  - scikit-learn==0.22.1
-  - scipy==1.4.1
-  - seaborn==0.9.0
-  - setuptools-scm==3.4.3
-  - signature-validation==0.1.0
-  - simplegeneric==0.8.1
-  - sklearn==0.0
-  - sortedcontainers==2.1.0
-  - soupsieve==1.8
-  - SQLAlchemy==1.3.13
-  - statsmodels==0.11.0
-  - suds-jurko==0.6
-  - tables==3.4.4
-  - tblib==1.3.2
-  - toolz==0.9.0
-  - umap-learn==0.3.10
-  - Werkzeug==0.14.1
-  - wrapt==1.11.1
-  - xmltodict==0.12.0
-  - zict==0.1.2
+  - _libgcc_mutex=0.1
+  - _openmp_mutex=4.5
+  - ca-certificates=2020.6.20
+  - certifi=2020.6.20
+  - ld_impl_linux-64=2.35
+  - libffi=3.2.1
+  - libgcc-ng=9.3.0
+  - libgomp=9.3.0
+  - libstdcxx-ng=9.3.0
+  - ncurses=6.2
+  - openssl=1.1.1h
+  - pip=20.2.4
+  - python=3.7.8
+  - python_abi=3.7
+  - readline=8.0
+  - setuptools=49.6.0
+  - sqlite=3.33.0
+  - tk=8.6.10
+  - wheel=0.35.1
+  - xz=5.2.5
+  - zlib=1.2.11
+  - pip:
+    - alembic==1.4.3
+    - aniso8601==8.0.0
+    - anndata==0.7.4
+    - annoy==1.17.0
+    - appdirs==1.4.4
+    - argon2-cffi==20.1.0
+    - async-generator==1.10
+    - attrs==20.2.0
+    - backcall==0.2.0
+    - bbknn==1.3.12
+    - biothings-client==0.2.3
+    - bleach==3.2.1
+    - cffi==1.14.3
+    - chardet==3.0.4
+    - click==7.1.2
+    - cycler==0.10.0
+    - cython==0.29.21
+    - decorator==4.4.2
+    - defusedxml==0.6.0
+    - distlib==0.3.1
+    - dominate==2.5.2
+    - entrypoints==0.3
+    - fbpca==1.0
+    - filelock==3.0.12
+    - flask==1.1.2
+    - flask-restful==0.3.8
+    - fuzzywuzzy==0.18.0
+    - geosketch==1.1
+    - get-version==2.1
+    - h5py==2.10.0
+    - idna==2.10
+    - importlib-metadata==2.0.0
+    - intervaltree==2.1.0
+    - ipykernel==5.3.4
+    - ipython==7.18.1
+    - ipython-genutils==0.2.0
+    - ipywidgets==7.5.1
+    - itsdangerous==1.1.0
+    - jedi==0.17.2
+    - jinja2==2.11.2
+    - joblib==0.17.0
+    - jsonschema==3.2.0
+    - jupyter==1.0.0
+    - jupyter-client==6.1.7
+    - jupyter-console==6.2.0
+    - jupyter-core==4.6.3
+    - jupyterlab-pygments==0.1.2
+    - kiwisolver==1.2.0
+    - legacy-api-wrap==1.2
+    - leidenalg==0.8.2
+    - llvmlite==0.34.0
+    - loompy==3.0.6
+    - mako==1.1.3
+    - markupsafe==1.1.1
+    - matplotlib==3.3.2
+    - mistune==0.8.4
+    - mygene==3.1.0
+    - natsort==7.0.1
+    - nbclean==0.3.2
+    - nbclient==0.5.1
+    - nbconvert==6.0.7
+    - nbformat==5.0.8
+    - nbgrader==0.6.1
+    - nest-asyncio==1.4.1
+    - networkx==2.5
+    - nose==1.3.7
+    - notebook==6.1.4
+    - numba==0.51.2
+    - numexpr==2.7.1
+    - numpy==1.19.2
+    - numpy-groupies==0.9.13
+    - packaging==20.4
+    - pandas==1.1.3
+    - pandocfilters==1.4.2
+    - parso==0.7.1
+    - patsy==0.5.1
+    - pexpect==4.8.0
+    - pickleshare==0.7.5
+    - pillow==8.0.0
+    - pipenv==2020.8.13
+    - plotly==4.11.0
+    - prometheus-client==0.8.0
+    - prompt-toolkit==3.0.8
+    - ptyprocess==0.6.0
+    - pycparser==2.20
+    - pydot==1.4.1
+    - pygments==2.7.1
+    - pyparsing==2.4.7
+    - pyrsistent==0.17.3
+    - python-dateutil==2.8.1
+    - python-editor==1.0.4
+    - python-igraph==0.8.3
+    - pytz==2020.1
+    - pyzmq==19.0.2
+    - qtconsole==4.7.7
+    - qtpy==1.9.0
+    - requests==2.24.0
+    - retrying==1.3.3
+    - scanorama==1.6
+    - scanpy==1.6.0
+    - scikit-learn==0.23.2
+    - scipy==1.5.3
+    - scvelo==0.2.2
+    - seaborn==0.11.0
+    - send2trash==1.5.0
+    - setuptools-scm==4.1.2
+    - sinfo==0.3.1
+    - six==1.15.0
+    - sortedcontainers==2.2.2
+    - sqlalchemy==1.3.20
+    - statsmodels==0.11.1
+    - stdlib-list==0.7.0
+    - tables==3.6.1
+    - terminado==0.9.1
+    - testpath==0.4.4
+    - texttable==1.6.3
+    - threadpoolctl==2.1.0
+    - tornado==6.0.4
+    - tqdm==4.50.2
+    - traitlets==5.0.5
+    - umap-learn==0.4.6
+    - urllib3==1.25.11
+    - virtualenv==20.0.35
+    - virtualenv-clone==0.5.4
+    - wcwidth==0.2.5
+    - webencodings==0.5.1
+    - werkzeug==1.0.1
+    - widgetsnbextension==3.5.1
+    - zipp==3.3.1
 
