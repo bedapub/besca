@@ -152,8 +152,8 @@ def Granja2019_processed():
 
     """
 
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/Granja2019.annotated.h5ad')
-    adata = check_dl( filename, url = 'https://zenodo.org/record/3944753/files/Granja2019.annotated.h5ad?download=1')
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Granja2019_annotated.h5ad')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/3944753/files/Granja2019_annotated.h5ad?download=1')
     return adata
 
 
