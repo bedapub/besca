@@ -169,7 +169,7 @@ def get_raw(adata):
     return(adata_raw)
 
 
-def get_ameans(adata,mycat):
+def get_ameans(adata,mycat, condition=None):
     """ Calculates average and fraction expression per category in adata.obs
     Based artihmetic mean expression and fraction cells expressing gene per category
     (works on linear scale). Assumes that values in .raw are log: will exponentiate, 
@@ -179,7 +179,9 @@ def get_ameans(adata,mycat):
     adata: AnnData
       an AnnData object
     mycat: str
-      the category for summarisation (e.g. louvain, cell_names)
+      the category for stratification (e.g. donor, experiment)
+    condition: str
+      the category to be later compared (e.g. treatment, timepoint)
     returns
     -------
     average_obs
@@ -197,12 +199,25 @@ def get_ameans(adata,mycat):
         average_obs = log1p(obs.groupby(level=0).mean())
         obs_bool = obs.astype(bool)
         fraction_obs = obs_bool.groupby(level=0).sum()/obs_bool.groupby(level=0).count()
+        
+        if condition!=None:
+            try:
+                meta=adata.obs.loc[:,[mycat,condition]].drop_duplicates()
+                meta.index=meta[mycat]
+                average_obs[condition]=list(meta[condition][average_obs.index])
+                average_obs['Ind']=list(average_obs.index)
+                fraction_obs[condition]=list(meta[condition][fraction_obs.index])
+                fraction_obs['Ind']=list(fraction_obs.index)
+            except:
+                print("Oops!  The adata object does not have the specified column. Options are: ")
+                print (list(adata.obs.columns))
+        
     except KeyError:
         print("Oops!  The adata object does not have the specified column. Options are: ")
         print (list(adata.obs.columns))
         average_obs=None
         fraction_obs=None
-    return(average_obs, fraction_obs, df)
+    return(average_obs, fraction_obs)
 
 
 def formatmean(average_obs, fraction_obs, what, mycond, myg):
@@ -214,7 +229,7 @@ def formatmean(average_obs, fraction_obs, what, mycond, myg):
 
 
 
-def get_means(adata,mycat):
+def get_means(adata,mycat, condition=None):
     """ Calculates average and fraction expression per category in adata.obs
     Based on an AnnData object and an annotation category (e.g. louvain) returns 
     geometric mean expression if .raw values are log as it simply calculates mean
@@ -224,7 +239,9 @@ def get_means(adata,mycat):
     adata: AnnData
       an AnnData object
     mycat: str
-      the category for summarisation (e.g. louvain, cell_names)
+      the category for stratification (e.g. donor, experiment)
+    condition: str
+      the category to be later compared (e.g. treatment, timepoint)
     returns
     -------
     average_obs
@@ -242,6 +259,19 @@ def get_means(adata,mycat):
         average_obs = obs.groupby(level=0).mean()
         obs_bool = obs.astype(bool)
         fraction_obs = obs_bool.groupby(level=0).sum()/obs_bool.groupby(level=0).count()
+        
+        if condition!=None:
+            try:
+                meta=adata.obs.loc[:,[mycat,condition]].drop_duplicates()
+                meta.index=meta[mycat]
+                average_obs[condition]=list(meta[condition][average_obs.index])
+                average_obs['Ind']=list(average_obs.index)
+                fraction_obs[condition]=list(meta[condition][fraction_obs.index])
+                fraction_obs['Ind']=list(fraction_obs.index)
+            except:
+                print("Oops!  The adata object does not have the specified column. Options are: ")
+                print (list(adata.obs.columns))
+        
     except KeyError:
         print("Oops!  The adata object does not have the specified column. Options are: ")
         print (list(adata.obs.columns))
