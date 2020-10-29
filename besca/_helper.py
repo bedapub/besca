@@ -202,7 +202,17 @@ def get_ameans(adata,mycat):
         print (list(adata.obs.columns))
         average_obs=None
         fraction_obs=None
-    return(average_obs, fraction_obs)
+    return(average_obs, fraction_obs, df)
+
+
+def formatmean(average_obs, fraction_obs, what, mycond, myg):
+    ### Transforms average and fraction expression to pd for plotting
+    df=pd.DataFrame([list(average_obs[myg]),list(fraction_obs[myg]),mycond]).transpose()
+    df.index=average_obs.index
+    df.columns=[myg+'Avg',myg+'Fract',what]
+    return(df)
+
+
 
 def get_means(adata,mycat):
     """ Calculates average and fraction expression per category in adata.obs
