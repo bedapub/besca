@@ -60,7 +60,7 @@ def split_violin(tidy_data,
 
     return(None)
 
-def box_per_ind(plotdata,y_axis,x_axis,order=None,fig_width = 4,fig_height = 3):
+def box_per_ind(plotdata,y_axis,x_axis,order=None,fig_width = 4,fig_height = 3.5):
     """plot boxplot with values per individual.
     
     General plotting function to produce one or multiple boxplots for 
@@ -78,7 +78,7 @@ def box_per_ind(plotdata,y_axis,x_axis,order=None,fig_width = 4,fig_height = 3):
         list identifying the order for the categories on the x_axis
     fig_width: `int` | default = 4
         int value defining figure width
-    fig_height: `int` | default = 3
+    fig_height: `int` | default = 3.5
         int value defining figure height of one figure
         
     returns
@@ -97,8 +97,8 @@ def box_per_ind(plotdata,y_axis,x_axis,order=None,fig_width = 4,fig_height = 3):
     #only retain elements present
     y_axisk=[]
     for y in y_axis:
-        y_axisk=y_axisk+list(set(y).intersection(set(plotdata.columns)))
-    y_axis=y_axisk
+        y_axisk=y_axisk+list(set([y]).intersection(set(plotdata.columns)))
+    y_axis=y_axisk.copy()
         
     #check that we have genes
     if len(y_axis)==0:
