@@ -23,7 +23,7 @@ NClassMonocyte	Genes used for automatic annotation of scRNA-seq derived clusters
 pDC	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	PTPRS	ZFAT	CLEC4C	PTCRA	LAMP5	DNTT	TCF4	CCR9	BCL11A	COX6A2																
 Hematopoietic	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	PTPRC	CORO1A	RAC2	CD53	LAPTM5	CXCR4	LCP1																			
 Blymphocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	CD19	MS4A1	CD79A	CD79B	ITGA8	IGLL5	IGJ	VPREB3	POU2AF1																	
-CD56dimNK	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	CD160	SPON2	FCGR3A	CCL4	FGFBP2	S1PR5	FCRL6																		
+CD56dimNK	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	CD160	SPON2	FCGR3A	CCL4	FGFBP2	S1PR5	FCRL6																			
 CD56brightNK	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	XCL1	SELL	CCR7	FUT7	KLRC1	TNFRSF18																				
 NaiCD4Tcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	SELL	CCR7	TCF7	LEF1	NELL2	PASK	FLT3LG	CAMK4	MAL																	
 NaiCD8Tcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	SELL	CCR7	TCF7	LEF1	NELL2	PASK	FLT3LG	CAMK4	MAL																	
@@ -111,3 +111,4 @@ ILC2	Genes used for automatic annotation of scRNA-seq derived clusters of Intest
 ProlifMyeloid	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	MKI67	PCNA	STMN1	HMGB2																						
 ProlifcDC	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	MKI67	PCNA	STMN1	HMGB2																						
 Mesothelial	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	CCDC80	UPK3B	PLA2G2A	PTGIS	PRG4	CALB2																				
+Platelet	"Genes based on literature and used for annotation of cluster 31 in 70236_TYRP1-TCB_neutrophil_scseq study, derived by Llucia A."	GP1BA	GP9	ITGA2B	ITGB3	PF4	PPBP	CLU																			
