@@ -1,10 +1,22 @@
 import os
-from pandas import DataFrame, read_csv, concat
-from numpy import round, ndarray, where, arange, expm1, zeros, ix_
-from scipy import io, sparse
 import sys
 from io import BytesIO
+
 import pkg_resources
+from numpy import arange, expm1, ix_, ndarray, round, where, zeros
+from pandas import DataFrame, concat, read_csv
+from scipy import io, sparse
+from scipy.io.mmio import MMFile
+
+
+## overwriding _field_template to avoid scientific notations
+class MMFileFixedFormat(MMFile):
+
+    def _field_template(self, field, precision):
+        # Override MMFile._field_template.
+        return f'%.{precision}f\n'
+
+
 
 #Functions to export AnnData objects to FAIR dataformat
 
@@ -85,8 +97,7 @@ def X_to_mtx(adata,
         print('adata.X successfully written to matrix.mtx')
 
     else:
-        io.mmwrite(target=os.path.join(outpath, 'matrix.mtx'), a=E, precision = 2)
-
+        MMFileFixedFormat().write(os.path.join(outpath, 'matrix.mtx'), a=E, precision = 2) 
         print('adata.X successfully written to matrix.mtx. \n Warning: could not use reformat script.')
         
     ### export genes
