@@ -19,7 +19,7 @@ def celllabel_quant_boxplot(adata,
     Parameters
     ----------
     data: 'DataFrame'
-        tidy dataframe that is outputed by the function besca.tl.compare_count_subsets(..., make_tidy = True)
+        tidy dataframe that is outputed by the function besca.tl.count_occurrence_subset_conditions(..., make_tidy = True)
     count_variable: `str`
         obs on which to count - e.g. clusters or cell types
     subset_variable: `str`

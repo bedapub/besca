@@ -12,7 +12,7 @@ Besca standard worklow offers a standardized series of steps from raw-data to fi
 
 
 Besca is distributed with such workflow available as a notebook:
-https://github.com/bedapub/besca/blob/master/workbooks/standard_workflow_besca2.0.ipynb
+https://github.com/bedapub/besca/blob/master/workbooks/standard_workflow_besca2.ipynb
 
 
 The differents individuals steps are described in the tutorial:

@@ -9,8 +9,14 @@ helper functions
 .. autosummary::
 	:toctree: helper_functions
 
-	get_raw
-	subset_adata
+	besca.get_raw
+	besca.subset_adata
+	besca.convert_ensembl_to_symbol
+	besca.convert_symbol_to_ensembl
+	besca.get_raw
+	besca.get_means
+	besca.get_gmeans
+	besca.concate_adata
 
 .. _preprocessing-functions:
 
