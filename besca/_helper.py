@@ -237,7 +237,7 @@ def formatmean(average_obs, fraction_obs, what, mycond, myg):
 
 
 
-def get_means(adata,mycat, condition=None):
+def get_means(adata, mycat, condition=None):
     """ Calculates average and fraction expression per category in adata.obs
     Based on an AnnData object and an annotation category (e.g. louvain) returns 
     geometric mean expression if .raw values are log as it simply calculates mean
