@@ -109,3 +109,7 @@ Basal	Pneumocyte	2	114
 Ionocyte	Epithelial	4	115
 ProlifMonocyte	Myeloid	2	31.5
 ILC2	InnateLymphoid	2	106.5
+ProlifMyeloid	Myeloid	3	81.5
+ProlifcDC	cDC	3	50.5
+Mesothelial	None	2	111
+Platelet	Hematopoietic	2	8.5
