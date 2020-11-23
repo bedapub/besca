@@ -1,24 +1,33 @@
 """
-annotate celltypes
+Annotate celltypes
 ==================
 
-An example workflow using the PBMC3k dataset included with besca illustrating how to annotate celltypes based on louvain clusters.
-This workflow begins with a preprocessed and filtered dataset on which a louvain clustering was already performed. 
+An example workflow using the PBMC3k dataset included with besca illustrating how to annotate celltypes based on leiden clusters.
+This workflow begins with a preprocessed and filtered dataset. 
 Please refer to other tutorials on how to perform these steps.
+
+This shows how to dipslay diffrent markers genes, assign the clusters and if need be to recluster on mixed cluster.
+For PBMC dataset we advised the user to work using the sig-annot or auto-annot procedures which is automated, less error-prone, and
+allow for standardized annotations across datasets.
+
+This is well illustrated in the tutorials (see Notebook 2 )
 
 """
 #load libraries
 import besca as bc 
-import scanpy.api as sc
+import scanpy as sc
+import random 
 
+random.seed(1)
 #load preprocessed dataset (included in BESCA for demonstration purposes)
-adata = bc.datasets.pbmc3k_processed()
+adata = bc.datasets.pbmc3k_filtered()
 
 #need to drop celltype annotation stored in this dataset (only relevant for this tutorial)
-adata.obs.drop(columns = ['celltype'], inplace = True)
+adata.obs.drop(columns = ['leiden'], inplace = True)
 
+sc.tl.leiden(adata)
 #visualize the louvain clusters
-sc.pl.umap(adata, color=['louvain'])
+sc.pl.umap(adata, color=['leiden'])
 
 ##############################################################################
 # visualization of marker genes
@@ -62,14 +71,14 @@ sc.pl.umap(adata, color = ['FCER1A','CD14', 'FCGR3A'])
 # be demonstrated in the rest of this tutorial.
 
 #define high-level celltype annotation
-new_labels = ["mixed", #0
-              "mixed", #1
-              "CD14+ monocyte", #2
-              "mixed", #3
-              "B-cell", #4
+new_labels = ["Tcells", #0
+               "CD14+ monocyte", #1
+              "mixed", #2
+              "Bcells", #3
+              "Tcells", #4
               "FCGR3A+ monocyte", #5
-              "mixed", #6
-              "pDC"] #7
+              "pDC", #6
+              "Tcells"] #7
 
 bc.tl.annotate_cells_clustering(adata, new_labels)
 
@@ -83,24 +92,31 @@ adata.obs['high_level celltype'] = adata.obs.celltype.tolist()
 # reclustering on mixed cell clusters
 # -----------------------------------
 
+
 #perform reclustering on subset using besca function
-adata_subset = bc.tl.rc.recluster(adata, cluster=('0', '1', '3', '6'), resolution = 1.3)
+adata_subset = bc.tl.rc.recluster(adata, celltype =  ('mixed',"Tcells" ), celltype_label= "celltype",  resolution = 1.3)
 
 #visualize important marker genes in reclustering
-sc.pl.umap(adata_subset, color = ['louvain', 'CD3G', 'CD8A', 'CD4', 'IL7R', 'NKG7', 'GNLY'], ncols = 3)
+sc.pl.umap(adata_subset, color = ['leiden', 'CD3G', 'CD8A', 'CD4', 'IL7R', 'NKG7', 'GNLY'], ncols = 3)
 
-#annotate celltypes based on the new louvain clusters
-new_labels = ["CD4 T-cell", #0
+#annotate celltypes based on the new leiden clusters
+new_labels = ["NK cell",#0
               "CD4 T-cell", #1
               "CD4 T-cell", #2
-              "CD8 T-cell", #3
-              "NK cell", #4
+              "CD4 T-cell", #3
+              "CD4 T-cell", #4
               "CD8 T-cell", #5
-              "CD8 T-cell",#6
-              "CD4 T-cell", #7
-              "CD4 T-cell", #8
-              "CD4 T-cell", #9
-              "CD4 T-cell"] #10
+              "CD4 T-cell",#6
+              "CD8 T-cell",#7
+              "CD4 T-cell",#8
+              "CD4 T-cell",#9
+              "CD4 T-cell",#10
+              "CD4 T-cell",#11
+              "CD4 T-cell",#12              
+              "NK cell" #13
+
+              ] 
+              
 
 #merge new celllabels back into the original adata object containing all cells
 #Note: this will overwrite the labels contained in adata.obs.celltype! If you w

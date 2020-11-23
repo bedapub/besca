@@ -20,7 +20,7 @@ max_UMI = 6500
 max_mito = 0.05
 max_genes = 1900
 
-#visualize filtering thresholds
+#Visualize filtering thresholds
 fig, ((ax1, ax2, ax3), (ax4, ax5, ax6))= plt.subplots(ncols=3, nrows=2)
 fig.set_figwidth(15)
 fig.set_figheight(8)

@@ -8,7 +8,7 @@ before proceeding with analysis.
 """
 
 import besca as bc
-import scanpy.api as sc
+import scanpy as sc
 import matplotlib.pyplot as plt
 
 #load example dataset
@@ -28,7 +28,7 @@ max_genes = 1900
 #
 # First the chosen thresholds are visualized to ensure that a suitable cutoff has been chosen.
 
-#visualize filtering thresholds
+#Visualize filtering thresholds
 fig, ((ax1, ax2, ax3), (ax4, ax5, ax6))= plt.subplots(ncols=3, nrows=2)
 fig.set_figwidth(15)
 fig.set_figheight(8)

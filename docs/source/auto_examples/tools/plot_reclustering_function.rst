@@ -1,25 +1,26 @@
-.. note::
-    :class: sphx-glr-download-link-note
+.. only:: html
 
-    Click :ref:`here <sphx_glr_download_auto_examples_tools_plot_reclustering_function.py>` to download the full example code
-.. rst-class:: sphx-glr-example-title
+    .. note::
+        :class: sphx-glr-download-link-note
 
-.. _sphx_glr_auto_examples_tools_plot_reclustering_function.py:
+        Click :ref:`here <sphx_glr_download_auto_examples_tools_plot_reclustering_function.py>`     to download the full example code
+    .. rst-class:: sphx-glr-example-title
+
+    .. _sphx_glr_auto_examples_tools_plot_reclustering_function.py:
 
 
-reclustering on specific leiden clusters
+reclustering on specific louvain clusters
 =========================================
 
 This example demonstrates who to perform a reclustering on a selected subset of
-leiden clusters. You will want to do this for example during the process of celltype
-annotation, when the leiden clusters do not have a sufficient resolution to seperate
+louvain clusters. You will want to do this for example during the process of celltype
+annotation, when the  clusters do not have a sufficient resolution to seperate
 all clusters and mixed cell populations still exist.
 
 
 
-
-
 .. image:: /auto_examples/tools/images/sphx_glr_plot_reclustering_function_001.png
+    :alt: leiden, CD3G, CD8A, CD4, IL7R, NKG7, GNLY
     :class: sphx-glr-single-img
 
 
@@ -29,16 +30,26 @@ all clusters and mixed cell populations still exist.
 
  .. code-block:: none
 
-    In total 1471 highly variable genes selected within cluster
-    NOTE: overwriting labels for the selected cells saved in adata.obs.new_label with the new labels
-    CD4 T-cell          866
-    CD8 T-cell          427
-    CD14+ monocyte      369
-    B-cell              259
-    FCGR3A+ monocyte    177
-    NK cell             162
-    pDC                  19
+    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+
+    is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+    In total 1409 highly variable genes selected within cluster
+    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+
+    is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1192: FutureWarning:
+
+    is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+    not_labeled    943
+    CD4 T-cell     853
+    CD8 T-cell     438
+    NK cell        270
     Name: celltype, dtype: int64
+
+
 
 
 
@@ -46,44 +57,53 @@ all clusters and mixed cell populations still exist.
 |
 
 
-.. code-block:: python
+.. code-block:: default
 
 
     import besca as bc
-    import scanpy.api as sc
+    import scanpy as sc
 
     #load and preprocess data (here we will start from a preprocessed dataset)
     adata = bc.datasets.pbmc3k_processed()
 
     #extract subset using the recluster function whcih is part of the reclustering (rc) toolkit
-    adata_subset = bc.tl.rc.recluster(adata, celltype=('CD4-positive, alpha-beta T cell', 'CD8-positive, alpha-beta T cell'), celltype_label = 'celltype2', resolution = 1)
+    adata_subset = bc.tl.rc.recluster(adata, celltype=('2', '3', '4', '5', '6','8', '9', '10', '11', '12'), celltype_label = 'leiden', resolution = 1.2)
+
+
+
 
     #visualize the new clusters
-    sc.pl.umap(adata_subset, color = ['leiden',  'CD3G', 'CD8A', 'CD8B','CD4', 'IL7R', 'NKG7', 'GNLY'], color_map = 'viridis')
+    sc.pl.umap(adata_subset, color = ['leiden', 'CD3G', 'CD8A', 'CD4', 'IL7R', 'NKG7', 'GNLY'])
 
-    
-    # We advise to go back to the annotation procedures using auto-annot/sig-annot. 
-    # As an example here, we performed an a-priori hand annotation.
-
-    #append new celltype labels to the subclusters
-    new_labels = ["CD4 T-cell", #0
+    #append new celltype labels to the subclusters.
+    # This is an approximative hand annotation that should be dealt into more widths.
+    new_labels = ["NK cell", #0
                   "CD4 T-cell", #1
                   "CD8 T-cell", #2
-                  "NK cell", #3
+                  "CD4 T-cell", #3
                   "CD8 T-cell", #4
                   "CD8 T-cell", #5
-                  "CD4 T-cell",#6
-                  "T cell" #7
+                  "CD4 T-cell", #6
+                  "CD4 T-cell",  #7
+                  "CD4 T-cell",  #8
+                  "CD4 T-cell",  #9
+                  "CD4 T-cell", #10
+                  "CD4 T-cell", #11
+                  "CD4 T-cell" #12
                   ] #10
 
     #merge the labels back into the original adata object
-    #note this will overwrite what ever was saved in adata.obs.celltype
-    bc.tl.rc.annotate_new_cellnames(adata, adata_subset, names=new_labels, new_label = 'celltype_rc')
+    #note this will overwrite what ever was saved in adata.obs.celltype;
+    #Here is was not assigned yet.
+    bc.tl.rc.annotate_new_cellnames(adata, adata_subset, names=new_labels, new_label = 'celltype')
+
+    print(adata.obs.celltype.value_counts())
 
 
-    print(adata.obs.celltype_rc.value_counts())
 
-**Total running time of the script:** ( 0 minutes  16.113 seconds)
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  13.716 seconds)
 
 
 .. _sphx_glr_download_auto_examples_tools_plot_reclustering_function.py:
@@ -96,13 +116,13 @@ all clusters and mixed cell populations still exist.
 
 
 
-  .. container:: sphx-glr-download
+  .. container:: sphx-glr-download sphx-glr-download-python
 
      :download:`Download Python source code: plot_reclustering_function.py <plot_reclustering_function.py>`
 
 
 
-  .. container:: sphx-glr-download
+  .. container:: sphx-glr-download sphx-glr-download-jupyter
 
      :download:`Download Jupyter notebook: plot_reclustering_function.ipynb <plot_reclustering_function.ipynb>`
 
@@ -111,4 +131,4 @@ all clusters and mixed cell populations still exist.
 
  .. rst-class:: sphx-glr-signature
 
-    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.readthedocs.io>`_
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

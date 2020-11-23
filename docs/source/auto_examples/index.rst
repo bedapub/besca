@@ -76,7 +76,7 @@ This is a gallery containing some plotting examples.
 .. only:: html
 
  .. figure:: /auto_examples/plotting/images/thumb/sphx_glr_plot_celltype_quantification_thumb.png
-     :alt: visualize cell fractions
+     :alt: Visualize cell fractions
 
      :ref:`sphx_glr_auto_examples_plotting_plot_celltype_quantification.py`
 
@@ -220,7 +220,7 @@ Demonstration workflows showing you how to peform certain tasks
 .. only:: html
 
  .. figure:: /auto_examples/workflows/images/thumb/sphx_glr_plot_celltype_annotation_thumb.png
-     :alt: annotate celltypes
+     :alt: Annotate celltypes
 
      :ref:`sphx_glr_auto_examples_workflows_plot_celltype_annotation.py`
 
