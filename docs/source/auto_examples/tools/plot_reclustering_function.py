@@ -1,9 +1,9 @@
 """
-reclustering on specific  clusters
+reclustering on specific leiden clusters
 =========================================
 
 This example demonstrates who to perform a reclustering on a selected subset of
- clusters. You will want to do this for example during the process of celltype
+leiden clusters. You will want to do this for example during the process of celltype
 annotation, when the  clusters do not have a sufficient resolution to seperate
 all clusters and mixed cell populations still exist.
 
@@ -39,7 +39,7 @@ new_labels = ["NK cell", #0
               "CD4 T-cell", #10
               "CD4 T-cell", #11
               "CD4 T-cell" #12
-              ] 
+              ] #10
 
 #merge the labels back into the original adata object
 #note this will overwrite what ever was saved in adata.obs.celltype;
