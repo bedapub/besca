@@ -55,7 +55,7 @@ You can use the split violin plot to compare gene expression for two different c
 
  .. code-block:: none
 
-    /pstore/home/julienla/miniconda3/envs/besca_2.2/lib/python3.6/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+    /miniconda3/envs/besca_2.2/lib/python3.6/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
 
     is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
 
