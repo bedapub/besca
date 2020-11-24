@@ -33,7 +33,7 @@ def transcript_capture_efficiency(adata, ax = None):
     
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
-    >>> adata = bc.datasets.brain3k_raw()
+    >>> adata = bc.datasets.pbmc3k_raw()
     >>> fig, ax = plt.subplots(1)
     >>> bc.pl.transcript_capture_efficiency(adata,ax=ax)
     
@@ -41,7 +41,7 @@ def transcript_capture_efficiency(adata, ax = None):
 
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
-        >>> adata = bc.datasets.brain3k_raw()
+        >>> adata = bc.datasets.pbmc3k_raw()
         >>> fig, ax = plt.subplots(1)
         >>> bc.pl.transcript_capture_efficiency(adata,ax=ax)
 
@@ -95,7 +95,7 @@ def library_size(adata,
     
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
-    >>> adata = bc.datasets.brain3k_raw()
+    >>> adata = bc.datasets.pbmc3k_raw()
     >>> fig, ax = plt.subplots(1)
     >>> bc.pl.library_size(adata,ax=ax)
     
@@ -103,7 +103,7 @@ def library_size(adata,
 
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
-        >>> adata = bc.datasets.brain3k_raw()
+        >>> adata = bc.datasets.pbmc3k_raw()
         >>> fig, ax = plt.subplots(1)
         >>> bc.pl.library_size(adata,ax=ax)
 
@@ -149,7 +149,7 @@ def detected_genes(adata,
     
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
-    >>> adata = bc.datasets.brain3k_raw()
+    >>> adata = bc.datasets.pbmc3k_raw()
     >>> fig, ax = plt.subplots(1)
     >>> bc.pl.detected_genes(adata,ax=ax)
     
@@ -157,7 +157,7 @@ def detected_genes(adata,
 
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
-        >>> adata = bc.datasets.brain3k_raw()
+        >>> adata = bc.datasets.pbmc3k_raw()
         >>> fig, ax = plt.subplots(1)
         >>> bc.pl.detected_genes(adata,ax=ax)
 
@@ -201,7 +201,7 @@ def dropouts(adata,
     
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
-    >>> adata = bc.datasets.brain3k_raw()
+    >>> adata = bc.datasets.pbmc3k_raw()
     >>> fig, ax = plt.subplots(1)
     >>> bc.pl.dropouts(adata,ax=ax)
     
@@ -209,7 +209,7 @@ def dropouts(adata,
 
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
-        >>> adata = bc.datasets.brain3k_raw()
+        >>> adata = bc.datasets.pbmc3k_raw()
         >>> fig, ax = plt.subplots(1)
         >>> bc.pl.dropouts(adata,ax=ax)   
 
@@ -253,14 +253,14 @@ def librarysize_overview(adata,
     
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
-    >>> adata = bc.datasets.brain3k_raw()
+    >>> adata = bc.datasets.pbmc3k_raw()
     >>> bc.pl.librarysize_overview(adata)
     
     .. plot:: 
 
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
-        >>> adata = bc.datasets.brain3k_raw()
+        >>> adata = bc.datasets.pbmc3k_raw()
         >>> bc.pl.librarysize_overview(adata)
         
     """
@@ -333,14 +333,14 @@ def top_genes_counts(adata, top_n=25, ax=None):
 
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
-    >>> adata = bc.datasets.brain3k_raw()
+    >>> adata = bc.datasets.pbmc3k_raw()
     >>> bc.pl.top_genes_counts(adata)
 
     .. plot::
 
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
-        >>> adata = bc.datasets.brain3k_raw()
+        >>> adata = bc.datasets.pbmc3k_raw()
         >>> bc.pl.top_genes_counts(adata)
 
     """
