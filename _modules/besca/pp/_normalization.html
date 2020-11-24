@@ -1,0 +1,403 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>besca.pp._normalization &mdash; BESCA 2.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> BESCA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../besca.html">besca</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">code examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../besca_standard_pipeline.html">standard pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../adding_new_functions.html">adding new functions to besca</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">BESCA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>besca.pp._normalization</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for besca.pp._normalization</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+<span class="kn">from</span> <span class="nn">scipy.sparse.csr</span> <span class="kn">import</span> <span class="n">csr_matrix</span>
+<span class="kn">from</span> <span class="nn">anndata._core.views</span> <span class="kn">import</span> <span class="n">SparseCSRView</span>
+
+<span class="k">def</span> <span class="nf">closure</span><span class="p">(</span><span class="n">mat</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Performs closure to ensure that all elements add up to 1.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mat : array_like</span>
+<span class="sd">       a matrix of proportions where</span>
+<span class="sd">       rows = compositions</span>
+<span class="sd">       columns = components</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array_like, np.float64</span>
+<span class="sd">       A matrix of proportions where all of the values</span>
+<span class="sd">       are nonzero and each composition (row) adds up to 1</span>
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">       Raises an error if any values are negative.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">       Raises an error if the matrix has more than 2 dimension.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">       Raises an error if there is a row that has all zeros.</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; from skbio.stats.composition import closure</span>
+<span class="sd">    &gt;&gt;&gt; X = np.array([[2, 2, 6], [4, 4, 2]])</span>
+<span class="sd">    &gt;&gt;&gt; closure(X)</span>
+<span class="sd">    array([[ 0.2,  0.2,  0.6],</span>
+<span class="sd">           [ 0.4,  0.4,  0.2]])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">mat</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot have negative proportions&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mat</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input matrix can only have two dimensions or less&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">mat</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input matrix cannot have rows with all zeros&quot;</span><span class="p">)</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">mat</span> <span class="o">/</span> <span class="n">mat</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mat</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">clr</span><span class="p">(</span><span class="n">mat</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Performs centre log ratio transformation.</span>
+<span class="sd">    This function transforms compositions from Aitchison geometry to</span>
+<span class="sd">    the real space. The :math:`clr` transform is both an isometry and an</span>
+<span class="sd">    isomorphism defined on the following spaces</span>
+<span class="sd">    :math:`clr: S^D \rightarrow U`</span>
+<span class="sd">    where :math:`U=</span>
+<span class="sd">    \{x :\sum\limits_{i=1}^D x = 0 \; \forall x \in \mathbb{R}^D\}`</span>
+<span class="sd">    It is defined for a composition :math:`x` as follows:</span>
+<span class="sd">    .. math::</span>
+<span class="sd">        clr(x) = \ln\left[\frac{x_1}{g_m(x)}, \ldots, \frac{x_D}{g_m(x)}\right]</span>
+<span class="sd">    where :math:`g_m(x) = (\prod\limits_{i=1}^{D} x_i)^{1/D}` is the geometric</span>
+<span class="sd">    mean of :math:`x`.</span>
+
+<span class="sd">    This function is based on the implementation of the clr function within the skbio package.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mat : array_like, float</span>
+<span class="sd">       a matrix of proportions where</span>
+<span class="sd">       rows = compositions and</span>
+<span class="sd">       columns = components</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">         clr transformed matrix</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; from skbio.stats.composition import clr</span>
+<span class="sd">    &gt;&gt;&gt; x = np.array([.1, .3, .4, .2])</span>
+<span class="sd">    &gt;&gt;&gt; clr(x)</span>
+<span class="sd">    array([-0.79451346,  0.30409883,  0.5917809 , -0.10136628])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">closure</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
+    <span class="n">lmat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
+    <span class="n">gm</span> <span class="o">=</span> <span class="n">lmat</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">lmat</span> <span class="o">-</span> <span class="n">gm</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">multiplicative_replacement</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Replace all zeros with small non-zero values</span>
+<span class="sd">    It uses the multiplicative replacement strategy [1]_ ,</span>
+<span class="sd">    replacing zeros with a small positive :math:`\delta`</span>
+<span class="sd">    and ensuring that the compositions still add up to 1.</span>
+
+<span class="sd">    This function is based on the implementation of the multiplicative_replacement function within the skbio package.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mat: array_like</span>
+<span class="sd">       a matrix of proportions where</span>
+<span class="sd">       rows = compositions and</span>
+<span class="sd">       columns = components</span>
+<span class="sd">    delta: float, optional</span>
+<span class="sd">       a small number to be used to replace zeros</span>
+<span class="sd">       If delta is not specified, then the default delta is</span>
+<span class="sd">       :math:`\delta = \frac{1}{N^2}` where :math:`N`</span>
+<span class="sd">       is the number of components</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray, np.float64</span>
+<span class="sd">       A matrix of proportions where all of the values</span>
+<span class="sd">       are nonzero and each composition (row) adds up to 1</span>
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">       Raises an error if negative proportions are created due to a large</span>
+<span class="sd">       `delta`.</span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This method will result in negative proportions if a large delta is chosen.</span>
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] J. A. Martin-Fernandez. &quot;Dealing With Zeros and Missing Values in</span>
+<span class="sd">           Compositional Data Sets Using Nonparametric Imputation&quot;</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; from skbio.stats.composition import multiplicative_replacement</span>
+<span class="sd">    &gt;&gt;&gt; X = np.array([[.2,.4,.4, 0],[0,.5,.5,0]])</span>
+<span class="sd">    &gt;&gt;&gt; multiplicative_replacement(X)</span>
+<span class="sd">    array([[ 0.1875,  0.375 ,  0.375 ,  0.0625],</span>
+<span class="sd">           [ 0.0625,  0.4375,  0.4375,  0.0625]])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">closure</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
+    <span class="n">z_mat</span> <span class="o">=</span> <span class="p">(</span><span class="n">mat</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">num_feats</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">tot</span> <span class="o">=</span> <span class="n">z_mat</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">delta</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">delta</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">num_feats</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="n">zcnts</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">tot</span> <span class="o">*</span> <span class="n">delta</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">zcnts</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The multiplicative replacment created negative &#39;</span>
+                         <span class="s1">&#39;proportions. Consider using a smaller `delta`.&#39;</span><span class="p">)</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">z_mat</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">zcnts</span> <span class="o">*</span> <span class="n">mat</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mat</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+
+<div class="viewcode-block" id="normalize_geometric"><a class="viewcode-back" href="../../../preprocessing/besca.pp.normalize_geometric.html#besca.pp.normalize_geometric">[docs]</a><span class="k">def</span> <span class="nf">normalize_geometric</span> <span class="p">(</span><span class="n">adata</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Perform geometric normalization on CITEseq data.</span>
+<span class="sd">    </span>
+<span class="sd">    Add description of why geometric normalization</span>
+
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata: :class:`~anndata.AnnData`</span>
+<span class="sd">        The annotated data matrix.</span>
+
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    AnnData</span>
+<span class="sd">        updates adata.X to contain the geometrically normalized values.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    </span>
+<span class="sd">    NEED TO IMPLEMENT AN EXAMPLE</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">X</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span>
+
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+    <span class="c1">#if the matrix is sparse make to array</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">==</span> <span class="n">csr_matrix</span><span class="p">:</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span>
+    <span class="c1">#need to add a catch for newly encountered datatype </span>
+    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">==</span> <span class="n">SparseCSRView</span><span class="p">:</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span>
+
+    <span class="c1">#ensure that X is an array otherwise this will cause type issue with multiplicative replacement function</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+    <span class="c1">#replacement of zero values with very small numbers without changing the overall sums</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">multiplicative_replacement</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+    <span class="c1">#centre log ratio transformation</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">clr</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+    <span class="n">adata</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="c1">#adata object is automatically updated</span></div>
+
+
+
+
+
+
+
+    
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, BEDA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

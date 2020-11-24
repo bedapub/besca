@@ -1,0 +1,464 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>performing filtering using besca &mdash; BESCA 2.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="cluster generation" href="plot_pca_neighbors_clustering.html" />
+    <link rel="prev" title="Filtering functions" href="../plotting/plot_filtering.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> BESCA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../besca.html">besca</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">code examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#plotting-examples">Plotting examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#preprocessing">Preprocessing</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">performing filtering using besca</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#visualization-of-thresholds">visualization of thresholds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#application-of-filtering-thresholds">application of filtering thresholds</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="plot_pca_neighbors_clustering.html">cluster generation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#tools">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#workflows">Workflows</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../besca_standard_pipeline.html">standard pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adding_new_functions.html">adding new functions to besca</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">BESCA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Code Examples</a> &raquo;</li>
+        
+      <li>performing filtering using besca</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/auto_examples/preprocessing/plot_example_filtering.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-preprocessing-plot-example-filtering-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="performing-filtering-using-besca">
+<span id="sphx-glr-auto-examples-preprocessing-plot-example-filtering-py"></span><h1>performing filtering using besca<a class="headerlink" href="#performing-filtering-using-besca" title="Permalink to this headline">¶</a></h1>
+<p>This example demonstrates the entire process of filtering out cells/genes ob subpar quality
+before proceeding with analysis.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
+<span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1">#load example dataset</span>
+<span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc3k_raw</span><span class="p">()</span>
+
+<span class="c1">#set standard filtering parameters</span>
+<span class="n">min_genes</span> <span class="o">=</span> <span class="mi">600</span>
+<span class="n">min_cells</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">min_UMI</span> <span class="o">=</span> <span class="mi">600</span>
+<span class="n">max_UMI</span> <span class="o">=</span> <span class="mi">6500</span>
+<span class="n">max_mito</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">max_genes</span> <span class="o">=</span> <span class="mi">1900</span>
+</pre></div>
+</div>
+<div class="section" id="visualization-of-thresholds">
+<h2>visualization of thresholds<a class="headerlink" href="#visualization-of-thresholds" title="Permalink to this headline">¶</a></h2>
+<p>First the chosen thresholds are visualized to ensure that a suitable cutoff has been chosen.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Visualize filtering thresholds</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">((</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">),</span> <span class="p">(</span><span class="n">ax4</span><span class="p">,</span> <span class="n">ax5</span><span class="p">,</span> <span class="n">ax6</span><span class="p">))</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mf">4.5</span><span class="p">)</span>
+
+<span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">kp_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_genes</span><span class="o">=</span><span class="n">min_genes</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax1</span><span class="p">)</span>
+<span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">kp_cells</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_cells</span><span class="o">=</span><span class="n">min_cells</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax2</span><span class="p">)</span>
+<span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">kp_counts</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_counts</span><span class="o">=</span><span class="n">min_UMI</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax3</span><span class="p">)</span>
+<span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">max_counts</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">max_counts</span><span class="o">=</span><span class="n">max_UMI</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax4</span><span class="p">)</span>
+<span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">max_mito</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">max_mito</span><span class="o">=</span><span class="n">max_mito</span><span class="p">,</span> <span class="n">annotation_type</span><span class="o">=</span><span class="s1">&#39;SYMBOL&#39;</span><span class="p">,</span> <span class="n">species</span><span class="o">=</span><span class="s1">&#39;human&#39;</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax5</span><span class="p">)</span>
+<span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">max_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">max_genes</span><span class="o">=</span><span class="n">max_genes</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="Expressed genes [count &gt; 0], Cells that express a gene [count &gt; 0], Counts per cell, max counts cutoff, mitochondrial gene content in dataset before filtering, Filtering by the maximum gene count" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_example_filtering_001.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/Code/Besca/besca/besca/pl/_filter_threshold_plots.py:59: MatplotlibDeprecationWarning:
+
+The &#39;basey&#39; parameter of __init__() has been renamed &#39;base&#39; since Matplotlib 3.3; support for the old name will be dropped two minor releases later.
+
+/Code/Besca/besca/besca/pl/_filter_threshold_plots.py:60: MatplotlibDeprecationWarning:
+
+The &#39;basex&#39; parameter of __init__() has been renamed &#39;base&#39; since Matplotlib 3.3; support for the old name will be dropped two minor releases later.
+
+/Code/Besca/besca/besca/pl/_filter_threshold_plots.py:184: MatplotlibDeprecationWarning:
+
+The &#39;basey&#39; parameter of __init__() has been renamed &#39;base&#39; since Matplotlib 3.3; support for the old name will be dropped two minor releases later.
+
+/Code/Besca/besca/besca/pl/_filter_threshold_plots.py:185: MatplotlibDeprecationWarning:
+
+The &#39;basex&#39; parameter of __init__() has been renamed &#39;base&#39; since Matplotlib 3.3; support for the old name will be dropped two minor releases later.
+
+/Code/Besca/besca/besca/pl/_filter_threshold_plots.py:118: MatplotlibDeprecationWarning:
+
+The &#39;basey&#39; parameter of __init__() has been renamed &#39;base&#39; since Matplotlib 3.3; support for the old name will be dropped two minor releases later.
+
+/Code/Besca/besca/besca/pl/_filter_threshold_plots.py:119: MatplotlibDeprecationWarning:
+
+The &#39;basex&#39; parameter of __init__() has been renamed &#39;base&#39; since Matplotlib 3.3; support for the old name will be dropped two minor releases later.
+
+adding percent mitochondrial genes to dataframe for species human
+/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+
+is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+</pre></div>
+</div>
+</div>
+<div class="section" id="application-of-filtering-thresholds">
+<h2>application of filtering thresholds<a class="headerlink" href="#application-of-filtering-thresholds" title="Permalink to this headline">¶</a></h2>
+<p>Using the chosen thresholds the data is filtered. Before and after filtering results are depicted to compare.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#visualize data before filtering</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">violin</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;n_counts&#39;</span><span class="p">,</span> <span class="s1">&#39;n_genes&#39;</span><span class="p">,</span> <span class="s1">&#39;percent_mito&#39;</span><span class="p">],</span> <span class="n">multi_panel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">jitter</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The AnnData object currently contains:&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s1">&#39;cells and&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="s1">&#39;genes&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+
+<span class="c1">#perform filtering</span>
+<span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">max_counts</span><span class="o">=</span><span class="n">max_UMI</span><span class="p">,</span> <span class="n">max_genes</span><span class="o">=</span><span class="n">max_genes</span><span class="p">,</span> <span class="n">max_mito</span><span class="o">=</span><span class="n">max_mito</span><span class="p">,</span><span class="n">min_genes</span><span class="o">=</span><span class="n">min_genes</span><span class="p">,</span> <span class="n">min_counts</span><span class="o">=</span><span class="n">min_UMI</span><span class="p">,</span> <span class="n">min_cells</span><span class="o">=</span><span class="n">min_cells</span><span class="p">)</span>
+
+<span class="c1">#visualize data after filtering</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">violin</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;n_counts&#39;</span><span class="p">,</span> <span class="s1">&#39;n_genes&#39;</span><span class="p">,</span> <span class="s1">&#39;percent_mito&#39;</span><span class="p">],</span> <span class="n">multi_panel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">jitter</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The AnnData object now contains:&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s1">&#39;cells and&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="s1">&#39;genes&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><img alt="n_counts, n_genes, percent_mito" class="sphx-glr-multi-img" src="../../_images/sphx_glr_plot_example_filtering_002.png" />
+</li>
+<li><img alt="n_counts, n_genes, percent_mito" class="sphx-glr-multi-img" src="../../_images/sphx_glr_plot_example_filtering_003.png" />
+</li>
+</ul>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1192: FutureWarning:
+
+is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+Vertical orientation ignored with only `x` specified.
+
+/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+Vertical orientation ignored with only `x` specified.
+
+/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+Vertical orientation ignored with only `x` specified.
+
+/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+Vertical orientation ignored with only `x` specified.
+
+/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+Vertical orientation ignored with only `x` specified.
+
+/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+Vertical orientation ignored with only `x` specified.
+
+The AnnData object currently contains: 2700 cells and 32738 genes
+AnnData object with n_obs × n_vars = 2700 × 32738
+    obs: &#39;CELL&#39;, &#39;n_counts&#39;, &#39;n_genes&#39;, &#39;percent_mito&#39;
+    var: &#39;ENSEMBL&#39;, &#39;SYMBOL&#39;
+started with  2700  total cells and  32738  total genes
+/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+
+is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+removed 15 cells that expressed more than 1900 genes
+/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+
+is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+removed 385 cells that did not express at least 600  genes
+/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+
+is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+removed 4 cells that had more than 6500  counts
+/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+
+is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+removed 0 cells that did not have at least 600 counts
+/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+
+is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+removed 18036 genes that were not expressed in at least 2 cells
+/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+
+is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+removed  17  cells that expressed  5.0 percent mitochondrial genes or more
+finished with 2279  total cells and 14702 total genes
+/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1192: FutureWarning:
+
+is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+Vertical orientation ignored with only `x` specified.
+
+/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+Vertical orientation ignored with only `x` specified.
+
+/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+Vertical orientation ignored with only `x` specified.
+
+/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+Vertical orientation ignored with only `x` specified.
+
+/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+Vertical orientation ignored with only `x` specified.
+
+/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+Vertical orientation ignored with only `x` specified.
+
+The AnnData object now contains: 2279 cells and 14702 genes
+AnnData object with n_obs × n_vars = 2279 × 14702
+    obs: &#39;CELL&#39;, &#39;n_counts&#39;, &#39;n_genes&#39;, &#39;percent_mito&#39;
+    var: &#39;ENSEMBL&#39;, &#39;SYMBOL&#39;, &#39;n_cells&#39;
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.342 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-preprocessing-plot-example-filtering-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/a2835861a61a42b027d0542562ba6aa8/plot_example_filtering.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_example_filtering.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/5cae7f6ab826134993ad76988fa0d1cf/plot_example_filtering.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_example_filtering.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="plot_pca_neighbors_clustering.html" class="btn btn-neutral float-right" title="cluster generation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../plotting/plot_filtering.html" class="btn btn-neutral float-left" title="Filtering functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, BEDA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,360 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>besca.tl.sig._gems_link &mdash; BESCA 2.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/gallery-dataframe.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> BESCA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../besca.html">besca</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto_examples/index.html">code examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorials.html">tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../besca_standard_pipeline.html">standard pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../adding_new_functions.html">adding new functions to besca</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">BESCA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>besca.tl.sig._gems_link</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for besca.tl.sig._gems_link</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">re</span> <span class="kn">import</span> <span class="nb">compile</span><span class="p">,</span> <span class="n">match</span>
+<span class="kn">from</span> <span class="nn">requests</span> <span class="kn">import</span> <span class="n">post</span><span class="p">,</span> <span class="n">get</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<div class="viewcode-block" id="insert_gems"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.insert_gems.html#besca.tl.sig.insert_gems">[docs]</a><span class="k">def</span> <span class="nf">insert_gems</span><span class="p">(</span><span class="n">BASE_URL</span><span class="p">,</span> <span class="n">genesets</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;setName&#39;</span><span class="p">,</span> <span class="s1">&#39;desc&#39;</span><span class="p">,</span> <span class="s1">&#39;genes&#39;</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;Insert genesets into the local gems server</span>
+<span class="sd">    url_host will depend on GeMs deployement. Could be stored in crendential files.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    BASE_URL: class:`str`</span>
+<span class="sd">        an string  &#39;http://&#39; + hostname + &#39;:&#39; +  localport</span>
+<span class="sd">    genesets: `list`</span>
+<span class="sd">        a list of dict; each dict is a signature; key values should mapp the headers</span>
+<span class="sd">    params: `list` of strings.</span>
+<span class="sd">        The command-line arguments for GMTx file upload (see below) based on GeMs structure</span>
+<span class="sd">    headers: `list` of string</span>
+<span class="sd">        each element is a key of the GEMs setup in place. Minimal requirement for a geneset would be</span>
+<span class="sd">        setName, desc and genes (minimal GMT)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    results: `int`</span>
+<span class="sd">        call results 200 indicates a good request</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">BASE_URL</span><span class="o">+=</span>  <span class="s1">&#39;/api/insert&#39;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">genesets</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>  <span class="c1"># only one geneset as dict</span>
+        <span class="n">genesets</span> <span class="o">=</span> <span class="p">[</span><span class="n">genesets</span><span class="p">]</span>
+    <span class="n">parsed</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">geneset</span> <span class="ow">in</span> <span class="n">genesets</span><span class="p">:</span>
+        <span class="n">sParsed</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">headers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">header</span> <span class="o">!=</span> <span class="s1">&#39;genes&#39;</span><span class="p">:</span>
+                <span class="n">sParsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geneset</span><span class="p">[</span><span class="n">header</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sParsed</span> <span class="o">+=</span> <span class="n">geneset</span><span class="p">[</span><span class="n">header</span><span class="p">]</span>
+    <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sParsed</span><span class="p">)</span>
+    <span class="n">dataIn_1</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;headers&#39;</span><span class="p">:</span> <span class="n">headers</span><span class="p">,</span><span class="s1">&#39;parsed&#39;</span><span class="p">:</span> <span class="n">parsed</span><span class="p">,</span> <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="n">params</span><span class="p">}</span>  
+    <span class="n">returnJSON</span> <span class="o">=</span> <span class="n">post</span><span class="p">(</span><span class="n">BASE_URL</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">dataIn_1</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">returnJSON</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="get_gems"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.get_gems.html#besca.tl.sig.get_gems">[docs]</a><span class="k">def</span> <span class="nf">get_gems</span><span class="p">(</span><span class="n">setName</span><span class="p">,</span> <span class="n">BASE_URL</span><span class="p">,</span>  <span class="n">UP_suffix</span><span class="o">=</span><span class="s1">&#39;_UP&#39;</span><span class="p">,</span> <span class="n">DN_suffix</span><span class="o">=</span><span class="s1">&#39;_DN&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Connect to GEMS, dowload related geneset (specified by setName, can be a prefix/suffix)</span>
+<span class="sd">    and return them</span>
+<span class="sd">    This function combines genesets (signatures) scores (UP and DN) genes.</span>
+<span class="sd">    Non directionaly geneset are by default considered as UP.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    setName: `str` </span>
+<span class="sd">        setName to find in GeMs (can be a subset)</span>
+<span class="sd">    BASE_URL: `str` </span>
+<span class="sd">        GeMS url for the api. Should look like: &#39;http://&#39; + hostname + &#39;:&#39; +  localport </span>
+<span class="sd">    UP_suffix : `str` | default = &quot;_UP&quot;</span>
+<span class="sd">        str suffix indicating that the suffix indicating the signature  is in UP direction.</span>
+<span class="sd">        This should be the end of the signatures names ($)</span>
+<span class="sd">    DN_suffix : `str` | default = &quot;_DN&quot;</span>
+<span class="sd">        str suffix indicating that the suffix indicating the signature is in DN direction.</span>
+<span class="sd">        This should be the end of the signatures names ($)</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    a dictionnary containing the signature names as key, and subdictionnary as direction</span>
+<span class="sd">    (Key could then be : UP or DN). values are then the gene names.</span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; import yaml</span>
+<span class="sd">    &gt;&gt;&gt; with open(&#39;mongocredentials/credential.yml&#39;) as f:</span>
+<span class="sd">            cred = yaml.safe_load(f)</span>
+<span class="sd">    &gt;&gt;&gt; get_GEMS_sign(&#39;Tcell&#39;, BASE_URL =  &#39;http://&#39; + cred[&#39;hostname&#39;] + &#39;:&#39; +  cred[&#39;localport&#39;])</span>
+<span class="sd">    &gt;&gt;&gt; # this code is only displayed not executed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Calling GEMS</span>
+    <span class="n">BASE_URL</span> <span class="o">+=</span> <span class="s1">&#39;/api/genesets&#39;</span>
+    <span class="n">GEMS_command</span><span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;setName&#39;</span><span class="p">:</span> <span class="n">setName</span><span class="p">,</span>
+        <span class="s1">&#39;returnParams&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;setName&#39;</span><span class="p">,</span><span class="s1">&#39;desc&#39;</span><span class="p">,</span> <span class="s1">&#39;genes&#39;</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="n">returnJSON</span> <span class="o">=</span> <span class="n">post</span><span class="p">(</span><span class="n">BASE_URL</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">GEMS_command</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="c1"># Pattern compilation</span>
+    <span class="n">pattern_DN</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="s2">&quot;(\w+)&quot;</span> <span class="o">+</span> <span class="n">DN_suffix</span> <span class="o">+</span> <span class="s2">&quot;$&quot;</span><span class="p">)</span>
+    <span class="n">pattern_UP</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="s2">&quot;(\w+)&quot;</span> <span class="o">+</span> <span class="n">UP_suffix</span> <span class="o">+</span> <span class="s2">&quot;$&quot;</span><span class="p">)</span>
+    <span class="c1"># Signature dict</span>
+    <span class="n">signed_sign</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span><span class="p">(</span><span class="s1">&#39;response&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">returnJSON</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="nb">print</span><span class="p">(</span><span class="n">returnJSON</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">returnJSON</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">])):</span>
+        <span class="n">signature_full_name</span> <span class="o">=</span> <span class="n">returnJSON</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;setName&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">signature_full_name</span><span class="p">):</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">match</span><span class="p">(</span><span class="n">pattern_DN</span><span class="p">,</span> <span class="n">signature_full_name</span><span class="p">)</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
+                <span class="n">signatureName</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">direction</span> <span class="o">=</span> <span class="s2">&quot;DN&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">z</span> <span class="o">=</span> <span class="n">match</span><span class="p">(</span><span class="n">pattern_UP</span><span class="p">,</span> <span class="n">signature_full_name</span><span class="p">)</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
+                    <span class="n">signatureName</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">direction</span> <span class="o">=</span> <span class="s2">&quot;UP&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">signatureName</span> <span class="o">=</span> <span class="n">signature_full_name</span>
+                    <span class="n">direction</span> <span class="o">=</span> <span class="s2">&quot;UP&quot;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">signatureName</span> <span class="ow">in</span> <span class="n">signed_sign</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                <span class="n">signed_sign</span><span class="p">[</span><span class="n">signatureName</span><span class="p">][</span><span class="n">direction</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                                                         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">returnJSON</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;genes&#39;</span><span class="p">]]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">signed_sign</span><span class="p">[</span><span class="n">signatureName</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">direction</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">returnJSON</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;genes&#39;</span><span class="p">]]}</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">verbose</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="s2">&quot;: &quot;</span><span class="p">,</span> <span class="n">signature_full_name</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">signed_sign</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_similar_geneset"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.get_similar_geneset.html#besca.tl.sig.get_similar_geneset">[docs]</a><span class="k">def</span> <span class="nf">get_similar_geneset</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">BASE_URL</span><span class="p">,</span> <span class="n">similarity_coefficient</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;overlap&#39;</span><span class="p">,</span> <span class="n">outputGeneset</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Encapsulating small similary research. Will look for simalirity within GeMs and the mongoDB collections </span>
+<span class="sd">    and returns the associated geneseets. </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    request: `string`</span>
+<span class="sd">        request specificity, if the hosted collection is large, one might need to specify more into details the geneset.</span>
+<span class="sd">    BASE_URL: `str` </span>
+<span class="sd">        GeMS url for the api. Should look like: &#39;http://&#39; + hostname + &#39;:&#39; +  localport</span>
+<span class="sd">    UP_suffix : `str` | default = &quot;_UP&quot;</span>
+<span class="sd">        str suffix indicating that the suffix indicating the signature  is in UP direction.</span>
+<span class="sd">        This should be the end of the signatures names ($)</span>
+<span class="sd">    DN_suffix : `str` | default = &quot;_DN&quot;</span>
+<span class="sd">        str suffix indicating that the suffix indicating the signature is in DN direction.</span>
+<span class="sd">        This should be the end of the signatures names ($)</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    a dictionnary containing the signature names as key, and subdictionnary as direction</span>
+<span class="sd">    (Key could then be : UP or DN). values are then the gene names.</span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; import yaml</span>
+<span class="sd">    &gt;&gt;&gt; with open(&#39;mongocredentials/credential.yml&#39;) as f:</span>
+<span class="sd">            cred = yaml.safe_load(f)</span>
+<span class="sd">    &gt;&gt;&gt; get_similar_geneset(request=&#39;?setName=dz:770_UP&amp;source=CREEDS&amp;user=Public&amp;subtype=disease&#39;,</span>
+<span class="sd">            BASE_URL =  &#39;http://&#39; + cred[&#39;hostname&#39;] + &#39;:&#39; +  cred[&#39;localport&#39;], outputGeneset = True)</span>
+<span class="sd">    &gt;&gt;&gt; # this code is only displayed not executed</span>
+<span class="sd">    &quot;&quot;&quot;</span>   
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span> <span class="s1">&#39;jaccard&#39;</span> <span class="p">,</span> <span class="s1">&#39;overlap&#39;</span><span class="p">]:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span> <span class="s1">&#39;Method should be  jaccard or overlap. &#39;</span> <span class="o">+</span> <span class="n">method</span>  <span class="o">+</span> <span class="s1">&#39; is not a valid choice&#39;</span><span class="p">)</span>
+    <span class="n">BASE_URL_similar</span> <span class="o">=</span>  <span class="n">BASE_URL</span> <span class="o">+</span> <span class="s1">&#39;/api/similar&#39;</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">BASE_URL_similar</span> <span class="o">+</span> <span class="n">request</span> <span class="o">+</span> <span class="s1">&#39;&amp;method=&#39;</span> <span class="o">+</span> <span class="n">method</span> <span class="o">+</span> <span class="s1">&#39;&amp;threshold=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">similarity_coefficient</span><span class="p">)</span>
+    <span class="n">returnJSON</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="k">if</span> <span class="s1">&#39;message&#39;</span> <span class="ow">in</span> <span class="n">returnJSON</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">returnJSON</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="s1">&#39;response&#39;</span> <span class="ow">in</span> <span class="n">returnJSON</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">getChecking</span> <span class="o">=</span> <span class="n">returnJSON</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">outputGeneset</span><span class="p">:</span>
+            <span class="k">return</span><span class="p">(</span> <span class="n">getChecking</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Catching all genesets related to the request&#39;</span><span class="p">)</span>
+            <span class="n">signature_dict</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">el</span>  <span class="ow">in</span> <span class="n">getChecking</span><span class="p">:</span>
+                <span class="n">signature_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>  <span class="n">get_GEMS_sign</span><span class="p">(</span><span class="n">el</span><span class="p">[</span><span class="s1">&#39;setName&#39;</span><span class="p">],</span> <span class="n">BASE_URL</span> <span class="o">=</span>  <span class="n">BASE_URL</span> <span class="p">))</span>
+            <span class="k">return</span><span class="p">(</span> <span class="n">signature_dict</span><span class="p">)</span></div>
+    
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, BEDA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

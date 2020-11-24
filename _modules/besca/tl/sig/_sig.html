@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>besca.tl.sig._sig &mdash; BESCA 2.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/gallery-dataframe.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> BESCA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../besca.html">besca</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto_examples/index.html">code examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorials.html">tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../besca_standard_pipeline.html">standard pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../adding_new_functions.html">adding new functions to besca</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">BESCA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>besca.tl.sig._sig</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for besca.tl.sig._sig</h1><div class="highlight"><pre>
+<span></span><span class="c1"># this file contains the main functions for signature scoring analysis in python using scanpy</span>
+<span class="c1"># import using the python version 1.3.2 at least is a prerequisit! needs to be checked in all functions</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="c1"># for conversion</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">repeat</span>
+
+<span class="kn">from</span> <span class="nn">._helper</span> <span class="kn">import</span> <span class="n">_to_geneid</span>
+<span class="kn">from</span> <span class="nn">._io_sig</span> <span class="kn">import</span> <span class="n">read_GMT_sign</span>
+<span class="kn">from</span> <span class="nn">._metrics</span> <span class="kn">import</span> <span class="n">_handle_signature</span>
+
+
+<div class="viewcode-block" id="filter_siggenes"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.filter_siggenes.html#besca.tl.sig.filter_siggenes">[docs]</a><span class="k">def</span> <span class="nf">filter_siggenes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">signature_dict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Filter all signatures in signature_dict to remove genes not present in adata </span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata: class:`~anndata.AnnData`</span>
+<span class="sd">        An AnnData object (from scanpy). Following besca convention, var names (gene) are HGNC symbol and should match the signatures values.</span>
+<span class="sd">    signature_dict: `dict`</span>
+<span class="sd">        a dictionary of signatures. Nested dictionnaries, key: signature names</span>
+<span class="sd">        Values are a dict  with keys as the directions (UP/DN) and genes names in values.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    signature_dict_filtered: `dict`</span>
+<span class="sd">        a dictionary of signatures. Nested dictionnaries, key: signature names</span>
+<span class="sd">        Values are a dict  with keys as the directions (UP/DN) and genes names in values.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># to add: which signatures were discarded and print (if verbose) genes not found</span>
+    <span class="c1"># to check: what happens if no signature is left?</span>
+
+    <span class="n">signature_dict_filtered</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">signature_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">mym</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="n">item</span><span class="o">.</span><span class="n">strip</span><span class="p">()])</span><span class="o">*</span><span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">mym</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mym</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">signature_dict_filtered</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">mym</span>
+    <span class="k">return</span> <span class="n">signature_dict_filtered</span></div>
+
+
+<div class="viewcode-block" id="combined_signature_score"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.combined_signature_score.html#besca.tl.sig.combined_signature_score">[docs]</a><span class="k">def</span> <span class="nf">combined_signature_score</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">GMT_file</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">signature_dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                             <span class="n">UP_suffix</span><span class="o">=</span><span class="s1">&#39;_UP&#39;</span><span class="p">,</span> <span class="n">DN_suffix</span><span class="o">=</span><span class="s1">&#39;_DN&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;scanpy&#39;</span><span class="p">,</span>
+                             <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                             <span class="n">use_raw</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">conversion</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Super Wrapper function to compute combined signature score for UP and DN scores.</span>
+<span class="sd">    This function combines genesets (signatures) scores compose of UP and DN.</span>
+<span class="sd">    Results are stored in adata.obs with the key: &quot;score_&quot;+ signature_name+&quot;_&quot; + method  .</span>
+<span class="sd">    The scanpy method is the score_gene method from the scanpy python package.</span>
+<span class="sd">    Combination of the scores is done substracting UP and DN (scanpy = UP - DN).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata: class:`~anndata.AnnData`</span>
+<span class="sd">        An AnnData object (from scanpy). Following besca convention, </span>
+<span class="sd">        var names (gene) are HGNC symbol and should match the signatures values.</span>
+<span class="sd">    GMT_file: `str` | default = None</span>
+<span class="sd">        gmt file location containing the geneset</span>
+<span class="sd">    signature_dict: `str` | default = None</span>
+<span class="sd">        pre-loaded signature dictionnary using read_GMT_sign or get_GEMS_sign</span>
+<span class="sd">    UP_suffix : str` | default = &quot;_UP&quot;</span>
+<span class="sd">        str suffix indicating that the suffix indicating the signature in a UP direction (end of the signature).</span>
+<span class="sd">        Can be replaced by &quot;None&quot; (quoted) or any kind of unexpected string to avoid combination.</span>
+<span class="sd">    DN_suffix : str` | default = &quot;_DN&quot;</span>
+<span class="sd">        str suffix indicating that the suffix indicating the signature in a DN direction (end of the signature). </span>
+<span class="sd">        Can be replaced by &quot;None&quot; (quoted) or any kind of unexpected string  to avoid combination.</span>
+<span class="sd">    method: `str` | default = &quot;scanpy&quot;</span>
+<span class="sd">        a string indicating which method to use (&#39;scanpy&#39; available)</span>
+<span class="sd">    overwrite: `boolean` | default = False</span>
+<span class="sd">        If False, will parse the data.obs to only recompute scores that are not present.</span>
+<span class="sd">    verbose: `boolean` | default = False</span>
+<span class="sd">        If True, will print the signature reads. This does not overwrite the scanpy verbosity parameter that should be set separately</span>
+<span class="sd">    use_raw: `boolean` | default = False</span>
+<span class="sd">        If True, computation will be done on adata.raw.X (on adata.X otherwise).</span>
+<span class="sd">    conversion: `a panda serie&#39; | default = None.</span>
+<span class="sd">        If not none, this should contain a serie indexed by x with column containing values y.</span>
+<span class="sd">        This indicate the how to transpose the signatures (from x to y).</span>
+<span class="sd">        Classical example would be indexed by Ensembl id and column would contains HGNC symbol.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None (the adata obs is modified within the function) </span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    &gt;&gt;&gt; #insert example code here</span>
+<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.pbmc3k_filtered()</span>
+<span class="sd">    &gt;&gt;&gt; gmt_file=   &#39;genesets/Immune.txt&#39; # Provided by BESCA datasets check the path</span>
+<span class="sd">    &gt;&gt;&gt; combined_signature_score( adata, GMT_file = gmt_file)</span>
+<span class="sd">    &gt;&gt;&gt; # this code is only displayed not executed</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># RMK : Score could be computed while reading the gmt (one loop less).</span>
+    <span class="c1"># However here we divided geneset provenance and computation.</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="n">GMT_file</span> <span class="ow">is</span> <span class="kc">None</span>  <span class="ow">and</span> <span class="n">signature_dict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+          <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;need to provide either GMT_file or signature_dict gene annotation.&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">GMT_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">signature_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">signature_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span> <span class="n">read_GMT_sign</span><span class="p">(</span>
+                    <span class="n">GMT_file</span><span class="p">,</span> <span class="n">UP_suffix</span><span class="p">,</span> <span class="n">DN_suffix</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span> <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span> 
+                 <span class="n">signature_dict</span> <span class="o">=</span> <span class="n">read_GMT_sign</span><span class="p">(</span>
+                    <span class="n">GMT_file</span><span class="p">,</span> <span class="n">UP_suffix</span><span class="p">,</span> <span class="n">DN_suffix</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">verbose</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">signature_dict</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; signatures obtained&quot;</span><span class="p">)</span>
+    <span class="c1"># More readable than in signatures read. This forces a second loop.</span>
+    <span class="c1">#  Should be optimized later on</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">conversion</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">signature</span> <span class="ow">in</span> <span class="n">signature_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">direction</span> <span class="ow">in</span> <span class="n">signature_dict</span><span class="p">[</span><span class="n">signature</span><span class="p">]:</span>
+                <span class="n">signature_dict</span><span class="p">[</span><span class="n">signature</span><span class="p">][</span><span class="n">direction</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">map</span><span class="p">(</span><span class="n">_to_geneid</span><span class="p">,</span> <span class="n">repeat</span><span class="p">(</span>
+                    <span class="n">conversion</span><span class="p">),</span> <span class="n">signature_dict</span><span class="p">[</span><span class="n">signature</span><span class="p">][</span><span class="n">direction</span><span class="p">])</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="c1"># Filter out signature genes not present in adata</span>
+    <span class="c1"># signature_dict=filter_siggenes(adata, signature_dict)</span>
+    <span class="n">compute_signed_score</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span> <span class="n">signature_dict</span><span class="o">=</span><span class="n">signature_dict</span><span class="p">,</span>
+                         <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">use_raw</span><span class="o">=</span><span class="n">use_raw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="compute_signed_score"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.compute_signed_score.html#besca.tl.sig.compute_signed_score">[docs]</a><span class="k">def</span> <span class="nf">compute_signed_score</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">signature_dict</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;scanpy&#39;</span><span class="p">,</span>
+                         <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_raw</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute signed score combining UP and DN for all signatures in signature_dict</span>
+<span class="sd">    This function combines genesets (signatures) scores.</span>
+<span class="sd">    Results are stored in adata.obs with the key: &quot;score_&quot; + method + signature_name.</span>
+<span class="sd">    Multiples methods can be used to compute geneset scores.</span>
+<span class="sd">    The scanpy method is the score_gene method. </span>
+<span class="sd">    Combination of the scores is done substracting UP and DN (scanpy = UP - DN).</span>
+<span class="sd">    Method in development. Not all options implemented yet.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata: class:`~anndata.AnnData`</span>
+<span class="sd">        An AnnData object (from scanpy). Following besca convention, var names (gene) are HGNC symbol and should match the signatures values.</span>
+<span class="sd">    signature_dict: `dict`</span>
+<span class="sd">        a dictionary of signature. Nested dictionnaries, key: signature names</span>
+<span class="sd">        Values are a dict  with keys as the directions (UP/DN) and genes names in values.</span>
+<span class="sd">    method: `str` | default = scanpy</span>
+<span class="sd">        a string indicating which method to use (&#39;scanpy&#39; available)</span>
+<span class="sd">    overwrite: `boolean` | default = False</span>
+<span class="sd">        If False, will parse the data.obs to only recompute scores that are not present.</span>
+<span class="sd">    use_raw: `boolean` | default = False</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Filter out signature genes not present in adata</span>
+    <span class="c1"># signature_dict=filter_siggenes(adata, signature_dict)</span>
+
+    <span class="p">[</span><span class="n">_handle_signature</span><span class="p">(</span><span class="n">signature_dict</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">adata</span><span class="p">,</span> <span class="n">signature_name</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">,</span>
+                       <span class="n">verbose</span><span class="p">,</span> <span class="n">use_raw</span><span class="p">)</span> <span class="k">for</span> <span class="n">signature_name</span> <span class="ow">in</span> <span class="n">signature_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, BEDA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

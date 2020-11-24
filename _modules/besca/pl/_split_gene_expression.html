@@ -1,0 +1,512 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>besca.pl._split_gene_expression &mdash; BESCA 2.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> BESCA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../besca.html">besca</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">code examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../besca_standard_pipeline.html">standard pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../adding_new_functions.html">adding new functions to besca</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">BESCA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>besca.pl._split_gene_expression</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for besca.pl._split_gene_expression</h1><div class="highlight"><pre>
+<span></span><span class="c1">#generate split plots too compare gene expression between two cellpopulations</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">concat</span><span class="p">,</span> <span class="n">melt</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">subplots</span><span class="p">,</span> <span class="n">gca</span>
+<span class="kn">from</span> <span class="nn">matplotlib.offsetbox</span> <span class="kn">import</span> <span class="n">AnchoredText</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">._general</span> <span class="kn">import</span> <span class="n">stacked_split_violin</span><span class="p">,</span> <span class="n">split_violin</span>
+<span class="kn">from</span> <span class="nn">.._helper</span> <span class="kn">import</span> <span class="n">get_raw</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">_make_tidy</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
+               <span class="n">genes</span><span class="p">,</span>
+               <span class="n">split_variable</span><span class="p">,</span>
+               <span class="n">label_split_variable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">use_raw</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Helper function to generate the tidy dataframes necessary to plot split_gene expression.</span>
+<span class="sd">    </span>
+<span class="sd">    This helper function should only be called in the context of the split gene expression plots.</span>
+
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata: `AnnData`</span>
+<span class="sd">        AnnData object that contains the data you wish to plot</span>
+<span class="sd">    genes: `[str]`</span>
+<span class="sd">        list of strings identifiyng the genes which are to be plotted</span>
+<span class="sd">    split_variable: `str`</span>
+<span class="sd">        string identfying the column which contains the annotation which cell belongs to which group (should only</span>
+<span class="sd">        contain 2 different groups!!) If you have more than 2 groups you will need to look into other visualization techniques.</span>
+<span class="sd">    label_split_variable: `str` | default = None</span>
+<span class="sd">        string indicating which which label the legend should be displayed</span>
+<span class="sd">    use_raw: `bool` | default = True</span>
+<span class="sd">        boolian variable indicating if the gene expression values saved in adata.raw should be plotted or not </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#get labels if not previously defined</span>
+    <span class="k">if</span> <span class="n">label_split_variable</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">label_split_variable</span> <span class="o">=</span> <span class="n">split_variable</span>
+    <span class="c1">#get raw object if using</span>
+    <span class="n">bdata</span> <span class="o">=</span> <span class="n">get_raw</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span> <span class="k">if</span> <span class="n">use_raw</span> <span class="k">else</span> <span class="n">adata</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1">#convert X to array</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">bdata</span><span class="o">.</span><span class="n">X</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">matrixlib</span><span class="o">.</span><span class="n">defmatrix</span><span class="o">.</span><span class="n">matrix</span><span class="p">:</span>
+       <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+       <span class="n">bdata</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">bdata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span>
+
+    <span class="c1">#get index of raw gene names</span>
+    <span class="n">gene_index</span> <span class="o">=</span> <span class="n">bdata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+    <span class="c1">#get index location of genes</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">gene</span> <span class="ow">in</span> <span class="n">genes</span><span class="p">:</span>
+        <span class="n">index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gene_index</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">gene</span><span class="p">))</span>
+
+    <span class="c1">#extract AnnData object containing only the relevant genes (this decreases computational time later)</span>
+    <span class="n">bdata</span> <span class="o">=</span> <span class="n">bdata</span><span class="p">[:,</span> <span class="n">index</span><span class="p">]</span>
+    <span class="c1">#check that group variable only contains two groups</span>
+    <span class="n">groups</span> <span class="o">=</span> <span class="n">bdata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">split_variable</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>    
+    <span class="c1">#perform some basic sanity checks</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;please ensure that the groups you wish to plot againt one another are not more than 2!&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">group1</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1">#extract matrix of gene expression values for each group</span>
+        <span class="n">matrix_group1</span> <span class="o">=</span> <span class="n">bdata</span><span class="p">[</span><span class="n">bdata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">split_variable</span><span class="p">)</span> <span class="o">==</span> <span class="n">group1</span><span class="p">]</span><span class="o">.</span><span class="n">X</span>
+        <span class="n">matrix_group2</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="c1">#get names of two groups we are plotting against each other</span>
+        <span class="n">group1</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">group2</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1">#extract matrix of gene expression values for each group</span>
+        <span class="n">matrix_group1</span> <span class="o">=</span> <span class="n">bdata</span><span class="p">[</span><span class="n">bdata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">split_variable</span><span class="p">)</span> <span class="o">==</span> <span class="n">group1</span><span class="p">]</span><span class="o">.</span><span class="n">X</span>
+        <span class="n">matrix_group2</span> <span class="o">=</span> <span class="n">bdata</span><span class="p">[</span><span class="n">bdata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">split_variable</span><span class="p">)</span> <span class="o">==</span> <span class="n">group2</span><span class="p">]</span><span class="o">.</span><span class="n">X</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;no groups&#39;</span><span class="p">)</span>   
+    <span class="c1">#check that the number of cells contained in the subset is larger than 1</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix_group1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">condition1</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">condition1</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">matrix_group2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix_group2</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">condition2</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">condition2</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">condition2</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1">#generate tidy frame for datasubset of group1</span>
+    <span class="k">if</span> <span class="n">condition1</span><span class="p">:</span>        
+        <span class="c1">#initialize an empty dataframe to save our results for each group into</span>
+        <span class="n">gene_expression_group1</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">matrix_group1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix_group1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1">#extract expression value for each of our genes</span>
+            <span class="c1">#print(&#39;iterating through genes for group1&#39;)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">genes</span><span class="p">)):</span>
+                <span class="c1">#get values for group1</span>
+                <span class="n">gene_expression_group1</span><span class="p">[</span><span class="n">genes</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">matrix_group1</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1">#extract expression value for each of our genes</span>
+            <span class="c1">#print(&#39;iterating through genes for group1&#39;)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">genes</span><span class="p">)):</span>
+                <span class="c1">#get values for group1</span>
+                <span class="n">gene_expression_group1</span><span class="p">[</span><span class="n">genes</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">matrix_group1</span>
+
+        <span class="c1">#make into tidy dataframe and add annotation</span>
+        <span class="n">gene_expression_group1</span> <span class="o">=</span> <span class="n">melt</span><span class="p">(</span><span class="n">gene_expression_group1</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s1">&#39;expression&#39;</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;gene&#39;</span><span class="p">)</span>
+        <span class="n">gene_expression_group1</span><span class="p">[</span><span class="n">label_split_variable</span><span class="p">]</span> <span class="o">=</span> <span class="n">group1</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The dataset containts no cells for condition &#39;</span><span class="p">,</span> <span class="n">group2</span><span class="p">)</span>
+    <span class="c1">#generate tidy frame for datasubset of group2</span>
+    <span class="k">if</span> <span class="n">condition2</span><span class="p">:</span>        
+        <span class="c1">#initialize an empty dataframe to save our results for each group into</span>
+        <span class="n">gene_expression_group2</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">matrix_group2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix_group2</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1">#extract expression value for each of our genes</span>
+            <span class="c1">#print(&#39;iterating through genes for group1&#39;)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">genes</span><span class="p">)):</span>
+                <span class="c1">#get values for group1</span>
+                <span class="n">gene_expression_group2</span><span class="p">[</span><span class="n">genes</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">matrix_group2</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1">#extract expression value for each of our genes</span>
+            <span class="c1">#print(&#39;iterating through genes for group1&#39;)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">genes</span><span class="p">)):</span>
+                <span class="c1">#get values for group1</span>
+                <span class="n">gene_expression_group2</span><span class="p">[</span><span class="n">genes</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">matrix_group2</span>
+        <span class="c1">#make into tidy dataframe and add annotation</span>
+        <span class="n">gene_expression_group2</span> <span class="o">=</span> <span class="n">melt</span><span class="p">(</span><span class="n">gene_expression_group2</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s1">&#39;expression&#39;</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;gene&#39;</span><span class="p">)</span>
+        <span class="n">gene_expression_group2</span><span class="p">[</span><span class="n">label_split_variable</span><span class="p">]</span> <span class="o">=</span> <span class="n">group2</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The dataset contains no cells for second condition.&#39;</span><span class="p">)</span>
+    <span class="c1">#merge dataframes from the two conditions into one</span>
+    <span class="k">if</span> <span class="n">condition1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">condition2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1">#merge two pd dataframes</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">concat</span><span class="p">([</span><span class="n">gene_expression_group1</span><span class="p">,</span> <span class="n">gene_expression_group2</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> 
+    <span class="k">elif</span> <span class="n">condition1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">gene_expression_group1</span>
+    <span class="k">elif</span> <span class="n">condition2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">gene_expression_group2</span>
+    <span class="c1">#return data and successfully exit function</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="gene_expr_split"><a class="viewcode-back" href="../../../plotting/besca.pl.gene_expr_split.html#besca.pl.gene_expr_split">[docs]</a><span class="k">def</span> <span class="nf">gene_expr_split</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
+                    <span class="n">genes</span><span class="p">,</span>
+                    <span class="n">split_variable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">label_split_variable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">use_raw</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; visualize gene expression of two groups as a split violin plot</span>
+
+<span class="sd">    This function generates split violin plots to compare the gene expression levels of </span>
+<span class="sd">    a subset of genes between two groups.</span>
+
+<span class="sd">    If a split_variable is provided it first subsets the provided adata object according to this variable</span>
+<span class="sd">    and generates an individual plot for each of the subsets. In the default run configuration, this function</span>
+<span class="sd">    generates split violin plots where the x-axis contains the genes of interest, the y-axis the expression values</span>
+<span class="sd">    and the hue of the violin plot represents the two groups that are being compared. If plot_genes = True, then </span>
+<span class="sd">    this function returns an individual plot for each gene. Here if a split_variable is used to subset the data the</span>
+<span class="sd">    x-axis then contains all the different datasubsets.</span>
+
+<span class="sd">    If using this function to subset data based on the split_variable the generated figures must be written to an </span>
+<span class="sd">    output directory. The same applies for generating one plot per gene. </span>
+<span class="sd">    </span>
+<span class="sd">    If only looking at one data subset, the figure can also be returned as an object if outdir = None.</span>
+<span class="sd">    </span>
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata : :class:`~anndata.AnnData`</span>
+<span class="sd">        The annotated data matrix used as input</span>
+<span class="sd">    genes: `list`</span>
+<span class="sd">        List of gene ids for which the gene expression levels should be compared</span>
+<span class="sd">    split_variable: `str`</span>
+<span class="sd">        string identfying the column which contains the annotation which cell belongs to which group (should only</span>
+<span class="sd">        contain 2 different groups!!) If you have more than 2 groups you will need to look into other visualization techniques.</span>
+<span class="sd">    use_raw: `bool` (default = True)</span>
+<span class="sd">        boolian indicator if adata.raw data should be used as input for gene expression levels</span>
+<span class="sd">    plot_genes: `bool` | default = False</span>
+<span class="sd">        boolian indicator if one individual plot should be generated per gene or if all the genes should be on the same plot</span>
+<span class="sd">    outdir: `str`</span>
+<span class="sd">        filepath indicating where the generated figures should be saved</span>
+<span class="sd">    fig_width: `int` | default = 15</span>
+<span class="sd">        width of the generated figure</span>
+<span class="sd">    fig_height: `int` | default = 8</span>
+<span class="sd">        height of the generated figure</span>
+<span class="sd">    dpi: `int`</span>
+<span class="sd">        dpi resolution of figures that are saved to file</span>
+<span class="sd">    name: `str` (default = &#39;compare_gene_expression&#39;)</span>
+<span class="sd">        name of generated plots and prefix to exported files</span>
+
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        writes figures to file specified in outdir.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#get labels if not previously defined</span>
+    <span class="k">if</span> <span class="n">label_split_variable</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">label_split_variable</span> <span class="o">=</span> <span class="n">split_variable</span>
+    <span class="c1">### get tidy dataframe</span>
+    <span class="n">data_merged</span> <span class="o">=</span> <span class="n">_make_tidy</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span>
+                             <span class="n">genes</span><span class="o">=</span><span class="n">genes</span><span class="p">,</span>
+                             <span class="n">split_variable</span><span class="o">=</span><span class="n">split_variable</span><span class="p">,</span>
+                             <span class="n">label_split_variable</span><span class="o">=</span><span class="n">label_split_variable</span><span class="p">,</span>
+                             <span class="n">use_raw</span><span class="o">=</span><span class="n">use_raw</span><span class="p">)</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">gca</span><span class="p">()</span>
+
+    <span class="n">split_violin</span><span class="p">(</span><span class="n">tidy_data</span><span class="o">=</span><span class="n">data_merged</span><span class="p">,</span>
+                 <span class="n">x_axis</span><span class="o">=</span><span class="s1">&#39;gene&#39;</span><span class="p">,</span>
+                 <span class="n">y_axis</span><span class="o">=</span><span class="s1">&#39;expression&#39;</span><span class="p">,</span>
+                 <span class="n">split_variable</span><span class="o">=</span><span class="n">label_split_variable</span><span class="p">,</span>
+                 <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="gene_expr_split_stacked"><a class="viewcode-back" href="../../../plotting/besca.pl.gene_expr_split_stacked.html#besca.pl.gene_expr_split_stacked">[docs]</a><span class="k">def</span> <span class="nf">gene_expr_split_stacked</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
+                            <span class="n">genes</span><span class="p">,</span> 
+                            <span class="n">split_variable</span><span class="p">,</span>
+                            <span class="n">label_split_variable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+                            <span class="n">subset_variable</span><span class="o">=</span><span class="s1">&#39;celltype&#39;</span><span class="p">,</span>
+                            <span class="n">label_subset_variable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                            <span class="n">use_raw</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">fig_width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                            <span class="n">fig_height</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                            <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                            <span class="n">inner</span><span class="o">=</span><span class="s1">&#39;stick&#39;</span><span class="p">):</span>
+    
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Stacked violin plot for visualization of genes expression.</span>
+
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata : :class:`~anndata.AnnData`</span>
+<span class="sd">        The annotated data matrix used as input</span>
+<span class="sd">    genes: `list`</span>
+<span class="sd">        List of gene ids for which the gene expression levels should be compared</span>
+<span class="sd">    split_variable: `str`</span>
+<span class="sd">        string identfying the column which contains the annotation which cell belongs to which group (should only</span>
+<span class="sd">        contain 2 different groups!!) If you have more than 2 groups you will need to look into other visualization techniques.</span>
+<span class="sd">    subset_variable: `str`</span>
+<span class="sd">        string identifying the column along which the AnnData object should be split into subsets. Can contain as many groups as you wish. </span>
+<span class="sd">        parameters</span>
+<span class="sd">    use_raw: `bool` (default = True)</span>
+<span class="sd">        boolian indicator if adata.raw data should be used as input for gene expression levels</span>
+<span class="sd">    fig_width: `int` | default = 15</span>
+<span class="sd">        width of the generated figure</span>
+<span class="sd">    fig_height: `int` | default = 8</span>
+<span class="sd">        height of the generated figure</span>
+<span class="sd">    order: lists of strings</span>
+<span class="sd">        Order to plot the categorical levels in</span>
+<span class="sd">    inner: `str` (default = &#39;stick&#39;)</span>
+<span class="sd">        see seaborn violin plot.</span>
+
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    fig</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">label_subset_variable</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">label_subset_variable</span> <span class="o">=</span> <span class="n">label_subset_variable</span>
+    <span class="k">else</span><span class="p">:</span> 
+        <span class="n">label_subset_variable</span> <span class="o">=</span> <span class="n">subset_variable</span>
+
+    <span class="k">if</span> <span class="n">label_split_variable</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">label_split_variable</span> <span class="o">=</span> <span class="n">label_split_variable</span>
+    <span class="k">else</span><span class="p">:</span> 
+        <span class="n">label_split_variable</span> <span class="o">=</span> <span class="n">split_variable</span>  
+
+    <span class="c1">#get tidy data</span>
+
+    <span class="c1">#define subsets</span>
+    <span class="n">subsets</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">subset_variable</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+    <span class="n">data_to_merge</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">subset</span> <span class="ow">in</span> <span class="n">subsets</span><span class="p">:</span>
+        <span class="n">adata_subset</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">subset_variable</span><span class="p">)</span> <span class="o">==</span> <span class="n">subset</span><span class="p">]</span>
+
+        <span class="n">data</span><span class="o">=</span> <span class="n">_make_tidy</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="n">adata_subset</span><span class="p">,</span> 
+                         <span class="n">genes</span><span class="o">=</span><span class="n">genes</span><span class="p">,</span>
+                         <span class="n">split_variable</span><span class="o">=</span><span class="n">split_variable</span><span class="p">,</span>
+                         <span class="n">label_split_variable</span><span class="o">=</span><span class="n">label_split_variable</span><span class="p">,</span>
+                         <span class="n">use_raw</span><span class="o">=</span><span class="n">use_raw</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">label_subset_variable</span><span class="p">]</span><span class="o">=</span><span class="n">subset</span>
+
+        <span class="n">data_to_merge</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">subset</span><span class="p">:</span><span class="n">data</span><span class="p">})</span>
+
+    <span class="c1">#merge all iterations into one dataframe</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;merging a total of &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">subsets</span><span class="p">)),</span> <span class="s1">&#39; datasubset&#39;</span><span class="p">)</span>
+    
+    <span class="c1">#print(&#39;merging datasubset 1&#39;)</span>
+    <span class="n">data_merged</span> <span class="o">=</span> <span class="n">data_to_merge</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">subsets</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">iteration</span> <span class="ow">in</span> <span class="n">subsets</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="c1">#print(&#39;merging subset&#39; + str(variables.index(iteration) + 1))</span>
+        <span class="n">data_merged</span> <span class="o">=</span> <span class="n">concat</span><span class="p">([</span><span class="n">data_merged</span><span class="p">,</span> <span class="n">data_to_merge</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">iteration</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">stacked_split_violin</span><span class="p">(</span><span class="n">tidy_data</span><span class="o">=</span><span class="n">data_merged</span><span class="p">,</span>
+                         <span class="n">x_axis</span><span class="o">=</span><span class="n">label_subset_variable</span><span class="p">,</span>
+                         <span class="n">y_axis</span><span class="o">=</span><span class="s1">&#39;expression&#39;</span><span class="p">,</span>
+                         <span class="n">split_variable</span><span class="o">=</span><span class="n">label_split_variable</span><span class="p">,</span>
+                         <span class="n">subset_variable_label</span><span class="o">=</span><span class="s1">&#39;gene&#39;</span> <span class="p">,</span>
+                         <span class="n">subset_variables</span><span class="o">=</span><span class="n">genes</span><span class="p">,</span>
+                         <span class="n">fig_width</span><span class="o">=</span><span class="n">fig_width</span><span class="p">,</span>
+                         <span class="n">fig_height</span><span class="o">=</span><span class="n">fig_height</span><span class="p">,</span>
+                         <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
+                         <span class="n">inner</span><span class="o">=</span><span class="n">inner</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, BEDA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

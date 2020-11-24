@@ -1,0 +1,337 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Code Examples &mdash; BESCA 2.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Comparing categorical variable" href="plotting/plot_riverplot.html" />
+    <link rel="prev" title="celltype_labeling" href="../standardworkflow/besca.st.celltype_labeling.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> BESCA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../besca.html">besca</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">code examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#plotting-examples">Plotting examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="plotting/plot_riverplot.html">Comparing categorical variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plotting/plot_split_gene_expression.html">plotting gene expression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plotting/plot_qc.html">quality control plots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plotting/plot_celltype_quantification.html">Visualize cell fractions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plotting/plot_filtering.html">Filtering functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#preprocessing">Preprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="preprocessing/plot_example_filtering.html">performing filtering using besca</a></li>
+<li class="toctree-l3"><a class="reference internal" href="preprocessing/plot_pca_neighbors_clustering.html">cluster generation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tools">Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tools/plot_reclustering_function.html">reclustering on specific louvain clusters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#workflows">Workflows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="workflows/plot_celltype_annotation.html">Annotate celltypes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../besca_standard_pipeline.html">standard pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adding_new_functions.html">adding new functions to besca</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">BESCA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Code Examples</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/auto_examples/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="code-examples">
+<span id="sphx-glr-auto-examples"></span><h1>Code Examples<a class="headerlink" href="#code-examples" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div><div class="section" id="plotting-examples">
+<span id="sphx-glr-auto-examples-plotting"></span><h2>Plotting examples<a class="headerlink" href="#plotting-examples" title="Permalink to this headline">¶</a></h2>
+<p>This is a gallery containing some plotting examples.</p>
+<div class="sphx-glr-thumbcontainer" tooltip="This example shows you how to generate riverplots to compare categorical columns,  for example ..."><div class="figure align-default" id="id1">
+<img alt="Comparing categorical variable" src="../_images/sphx_glr_plot_riverplot_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="plotting/plot_riverplot.html#sphx-glr-auto-examples-plotting-plot-riverplot-py"><span class="std std-ref">Comparing categorical variable</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example shows you some of the different plots you can use to plot gene expression."><div class="figure align-default" id="id2">
+<img alt="plotting gene expression" src="../_images/sphx_glr_plot_split_gene_expression_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="plotting/plot_split_gene_expression.html#sphx-glr-auto-examples-plotting-plot-split-gene-expression-py"><span class="std std-ref">plotting gene expression</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example shows you the inbuilt quality control plots from besca."><div class="figure align-default" id="id3">
+<img alt="quality control plots" src="../_images/sphx_glr_plot_qc_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="plotting/plot_qc.html#sphx-glr-auto-examples-plotting-plot-qc-py"><span class="std std-ref">quality control plots</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to generate celltype quantification plots. These types of plots  ..."><div class="figure align-default" id="id4">
+<img alt="Visualize cell fractions" src="../_images/sphx_glr_plot_celltype_quantification_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="plotting/plot_celltype_quantification.html#sphx-glr-auto-examples-plotting-plot-celltype-quantification-py"><span class="std std-ref">Visualize cell fractions</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example shows you how to generate plots to visualize the chosen filter threshold. This way..."><div class="figure align-default" id="id5">
+<img alt="filtering functions" src="../_images/sphx_glr_plot_filtering_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="plotting/plot_filtering.html#sphx-glr-auto-examples-plotting-plot-filtering-py"><span class="std std-ref">Filtering functions</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div></div>
+<div class="section" id="preprocessing">
+<span id="sphx-glr-auto-examples-preprocessing"></span><h2>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h2>
+<p>This section highlights some of the features of the preprocessing functions included within BESCA.</p>
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the entire process of filtering out cells/genes ob subpar quality bef..."><div class="figure align-default" id="id6">
+<img alt="performing filtering using besca" src="../_images/sphx_glr_plot_example_filtering_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="preprocessing/plot_example_filtering.html#sphx-glr-auto-examples-preprocessing-plot-example-filtering-py"><span class="std std-ref">performing filtering using besca</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to perform highly variable gene selection, PCA, nearest neighbor ..."><div class="figure align-default" id="id7">
+<img alt="cluster generation" src="../_images/sphx_glr_plot_pca_neighbors_clustering_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="preprocessing/plot_pca_neighbors_clustering.html#sphx-glr-auto-examples-preprocessing-plot-pca-neighbors-clustering-py"><span class="std std-ref">cluster generation</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div></div>
+<div class="section" id="tools">
+<span id="sphx-glr-auto-examples-tools"></span><h2>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h2>
+<p>This section contains all examples related to besca tools.</p>
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates who to perform a reclustering on a selected subset of louvain cluster..."><div class="figure align-default" id="id8">
+<img alt="reclustering on specific louvain clusters" src="../_images/sphx_glr_plot_reclustering_function_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="tools/plot_reclustering_function.html#sphx-glr-auto-examples-tools-plot-reclustering-function-py"><span class="std std-ref">reclustering on specific louvain clusters</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div></div>
+<div class="section" id="workflows">
+<span id="sphx-glr-auto-examples-workflows"></span><h2>Workflows<a class="headerlink" href="#workflows" title="Permalink to this headline">¶</a></h2>
+<p>Demonstration workflows showing you how to peform certain tasks</p>
+<div class="sphx-glr-thumbcontainer" tooltip="An example workflow using the PBMC3k dataset included with besca illustrating how to annotate c..."><div class="figure align-default" id="id9">
+<img alt="Annotate celltypes" src="../_images/sphx_glr_plot_celltype_annotation_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="workflows/plot_celltype_annotation.html#sphx-glr-auto-examples-workflows-plot-celltype-annotation-py"><span class="std std-ref">Annotate celltypes</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="plotting/plot_riverplot.html" class="btn btn-neutral float-right" title="Comparing categorical variable" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../standardworkflow/besca.st.celltype_labeling.html" class="btn btn-neutral float-left" title="celltype_labeling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, BEDA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

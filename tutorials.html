@@ -1,0 +1,277 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tutorials &mdash; BESCA 2.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="notebook 1 - introduction and data processing" href="tutorials/notebook1_data_processing_pbmc3k.html" />
+    <link rel="prev" title="Annotate celltypes" href="auto_examples/workflows/plot_celltype_annotation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> BESCA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="besca.html">besca</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">code examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/notebook1_data_processing_pbmc3k.html">notebook 1 - introduction and data processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/notebook2_celltype_annotation_pbmc3k.html">notebook 2 - celltype annotation and beyond</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/notebook3_batch_correction.html">notebook 3 - batch correction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/auto_annot_tutorial.html">Automated Annotation Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#single-cell-sequencing-general-tutorials">single cell sequencing general tutorials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#single-cell-auto-annot-tutorial-for-cell-type-annotation">single cell auto_annot tutorial for cell type annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bescape-cell-deconvolution-tutorial">Bescape: cell deconvolution tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="besca_standard_pipeline.html">standard pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adding_new_functions.html">adding new functions to besca</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">BESCA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>tutorials</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/tutorials.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="tutorials">
+<span id="id1"></span><h1>tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="single-cell-sequencing-general-tutorials">
+<h2>single cell sequencing general tutorials<a class="headerlink" href="#single-cell-sequencing-general-tutorials" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial will give you a general introduction into single-cell sequencing analysis using scanpy and besca. It is divided into three seperate notebooks that should be looked at in consecutive order (they build up on results from the previous notebooks).</p>
+<p><strong>Part 1</strong>: <a class="reference internal" href="tutorials/notebook1_data_processing_pbmc3k.html"><span class="doc">data processing</span></a></p>
+<p><strong>Part 2</strong>: <a class="reference internal" href="tutorials/notebook2_celltype_annotation_pbmc3k.html"><span class="doc">celltype annotation</span></a></p>
+<p><strong>Part 3</strong>: <a class="reference internal" href="tutorials/notebook3_batch_correction.html"><span class="doc">batch correction</span></a></p>
+<p>After looking at the introductory tutorial you can download the hands-on tutorial yourself from <a class="reference external" href="github.com/bedapub/besca/blob/master/docs/source/tutorials/scRNAseq_tutorial.ipynb">here</a>  (please save the link as a <code class="code docutils literal notranslate"><span class="pre">.ipynb</span></code> file) and compare with the results published <a class="reference internal" href="tutorials/scRNAseq_tutorial.html"><span class="doc">here</span></a>.</p>
+</div>
+<div class="section" id="single-cell-auto-annot-tutorial-for-cell-type-annotation">
+<h2>single cell auto_annot tutorial for cell type annotation<a class="headerlink" href="#single-cell-auto-annot-tutorial-for-cell-type-annotation" title="Permalink to this headline">¶</a></h2>
+<p>We also provide a tutorial for the auto_annot package, which allows to automatically annotate cell types using supervised machine learning,
+you can download it from <a class="reference external" href="http://github.com/bedapub/besca/blob/master/docs/source/tutorials/auto_annot_tutorial.ipynb">here</a>
+(please save the link as a <code class="code docutils literal notranslate"><span class="pre">.ipynb</span></code> file) and compare with the results published</p>
+<blockquote>
+<div><p><a class="reference internal" href="tutorials/auto_annot_tutorial.html"><span class="doc">here</span></a>.</p>
+</div></blockquote>
+</div>
+<div class="section" id="bescape-cell-deconvolution-tutorial">
+<h2>Bescape: cell deconvolution tutorial<a class="headerlink" href="#bescape-cell-deconvolution-tutorial" title="Permalink to this headline">¶</a></h2>
+<p>Bescape (BESCA proportion estimator) is a deconvolution module. It utilises single-cell annotations coming from the BESCA workflow to build a Gene Expression Profile (GEP). This GEP is used as a basis vector to deconvolute bulk RNA samples i.e. predict cell type proportions within a sample.</p>
+<p><strong>Deconvolution tutorial</strong>:   <a class="reference download internal" download="" href="_downloads/7bb51be8d3526a522d025f9499f1be49/bescape_tutorial.html"><code class="xref download docutils literal notranslate"><span class="pre">Bescape</span></code></a></p>
+<p>Some deconvolution methods provided by Bescape are written in R.
+Thus, we need to convert the AnnData objects to R ExpressionSet objects. This has been semi-automated :</p>
+<p><strong>adata_to_eset tutorial:</strong>   <a class="reference download internal" download="" href="_downloads/d1124a1e5fcaf82c548e7a4eda8bd157/adata_to_eset.html"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tutorials/notebook1_data_processing_pbmc3k.html" class="btn btn-neutral float-right" title="notebook 1 - introduction and data processing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="auto_examples/workflows/plot_celltype_annotation.html" class="btn btn-neutral float-left" title="Annotate celltypes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, BEDA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

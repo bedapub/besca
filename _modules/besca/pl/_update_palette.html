@@ -1,0 +1,267 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>besca.pl._update_palette &mdash; BESCA 2.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> BESCA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../besca.html">besca</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">code examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../besca_standard_pipeline.html">standard pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../adding_new_functions.html">adding new functions to besca</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">BESCA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>besca.pl._update_palette</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for besca.pl._update_palette</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+
+<span class="k">def</span> <span class="nf">check_colors</span><span class="p">(</span> <span class="n">aColor</span> <span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    convert the color given in hex if needed. This avoid warning message a posteriori</span>
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    aColor: ``</span>
+<span class="sd">      color to check; expected tupple. Hex would be returned as input</span>
+
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">       the color in hex </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">aColor</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">aColor</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span> <span class="p">):</span>
+        <span class="k">if</span><span class="p">(</span> <span class="n">aColor</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="p">):</span>
+            <span class="n">r</span>  <span class="o">=</span> <span class="nb">round</span><span class="p">(</span> <span class="n">aColor</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">255</span> <span class="p">)</span>
+            <span class="n">g</span> <span class="o">=</span>  <span class="nb">round</span><span class="p">(</span> <span class="n">aColor</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">255</span> <span class="p">)</span>
+            <span class="n">b</span> <span class="o">=</span>  <span class="nb">round</span><span class="p">(</span> <span class="n">aColor</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="mi">255</span> <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># assuming rgb</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">aColor</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">g</span> <span class="o">=</span> <span class="n">aColor</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">b</span> <span class="o">=</span> <span class="n">aColor</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>    
+        <span class="k">return</span> <span class="s2">&quot;#</span><span class="si">{:02x}{:02x}{:02x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">matchingHex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^#(?:[0-9a-fA-F]</span><span class="si">{3}</span><span class="s1">){1,2}$&#39;</span><span class="p">,</span> <span class="n">aColor</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">matchingHex</span><span class="p">:</span>
+            <span class="k">return</span><span class="p">(</span> <span class="n">aColor</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span> <span class="s1">&#39;Color &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">aColor</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;could not be converted&#39;</span><span class="p">)</span>
+
+
+
+
+<div class="viewcode-block" id="update_qualitative_palette"><a class="viewcode-back" href="../../../plotting/besca.pl.update_qualitative_palette.html#besca.pl.update_qualitative_palette">[docs]</a><span class="k">def</span> <span class="nf">update_qualitative_palette</span><span class="p">(</span> <span class="n">adata</span><span class="p">,</span> <span class="n">palette</span><span class="p">,</span>  <span class="n">group</span> <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">checkColors</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Update adata object such that the umap will adhere to the palette provided.</span>
+<span class="sd">    </span>
+
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata: `AnnData`</span>
+<span class="sd">      the AnnData object </span>
+<span class="sd">    palette: `dict`</span>
+<span class="sd">        dict with keys as the values of the group observation. To avoid warning from matlib it is advised to have \</span>
+<span class="sd">            hex color values</span>
+<span class="sd">    group: `str`</span>
+<span class="sd">        string identifying the column name of adata.obs where colors will be set.</span>
+<span class="sd">    checkColors: `boolean`</span>
+<span class="sd">        check the colors inputed to transform them if needed into a hex values. tupple of RBG of 0-1 values cna be converted. </span>
+<span class="sd">     returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None; update the adata object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cell_pop</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">group</span><span class="p">))</span>  
+    <span class="c1"># Checking Validity</span>
+    <span class="k">if</span><span class="p">(</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">elem</span> <span class="ow">in</span> <span class="n">palette</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>  <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span>  <span class="n">cell_pop</span><span class="p">)):</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Please provide a palette dict containing all element of the group &quot;</span> <span class="o">+</span> <span class="n">group</span><span class="p">)</span>
+    <span class="k">if</span><span class="p">(</span> <span class="n">checkColors</span> <span class="p">)</span> <span class="p">:</span>
+        <span class="n">palette</span><span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">check_colors</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">palette</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="n">sortedKey</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">palette</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">cell_pop</span><span class="p">)</span>
+    <span class="n">sortedKey</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+    <span class="n">newColors</span> <span class="o">=</span> <span class="p">[</span> <span class="n">palette</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sortedKey</span> <span class="p">]</span>
+    <span class="n">newColors</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="n">group</span> <span class="o">+</span> <span class="s1">&#39;_colors&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">newColors</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, BEDA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
