@@ -9,7 +9,7 @@
     .. _sphx_glr_auto_examples_plotting_plot_filtering.py:
 
 
-filtering functions
+Filtering functions
 ===================
 
 This example shows you how to generate plots to visualize the chosen filter threshold.
@@ -28,32 +28,32 @@ This way you can easily check (visually) if your chosen threshold is a good one.
 
  .. code-block:: none
 
-    /Code/Besca/besca/besca/pl/_filter_threshold_plots.py:59: MatplotlibDeprecationWarning:
+    /pstore/home/julienla/Code/Besca/besca/besca/pl/_filter_threshold_plots.py:59: MatplotlibDeprecationWarning:
 
     The 'basey' parameter of __init__() has been renamed 'base' since Matplotlib 3.3; support for the old name will be dropped two minor releases later.
 
-    /Code/Besca/besca/besca/pl/_filter_threshold_plots.py:60: MatplotlibDeprecationWarning:
+    /pstore/home/julienla/Code/Besca/besca/besca/pl/_filter_threshold_plots.py:60: MatplotlibDeprecationWarning:
 
     The 'basex' parameter of __init__() has been renamed 'base' since Matplotlib 3.3; support for the old name will be dropped two minor releases later.
 
-    /Code/Besca/besca/besca/pl/_filter_threshold_plots.py:184: MatplotlibDeprecationWarning:
+    /pstore/home/julienla/Code/Besca/besca/besca/pl/_filter_threshold_plots.py:184: MatplotlibDeprecationWarning:
 
     The 'basey' parameter of __init__() has been renamed 'base' since Matplotlib 3.3; support for the old name will be dropped two minor releases later.
 
-    /Code/Besca/besca/besca/pl/_filter_threshold_plots.py:185: MatplotlibDeprecationWarning:
+    /pstore/home/julienla/Code/Besca/besca/besca/pl/_filter_threshold_plots.py:185: MatplotlibDeprecationWarning:
 
     The 'basex' parameter of __init__() has been renamed 'base' since Matplotlib 3.3; support for the old name will be dropped two minor releases later.
 
-    /Code/Besca/besca/besca/pl/_filter_threshold_plots.py:118: MatplotlibDeprecationWarning:
+    /pstore/home/julienla/Code/Besca/besca/besca/pl/_filter_threshold_plots.py:118: MatplotlibDeprecationWarning:
 
     The 'basey' parameter of __init__() has been renamed 'base' since Matplotlib 3.3; support for the old name will be dropped two minor releases later.
 
-    /Code/Besca/besca/besca/pl/_filter_threshold_plots.py:119: MatplotlibDeprecationWarning:
+    /pstore/home/julienla/Code/Besca/besca/besca/pl/_filter_threshold_plots.py:119: MatplotlibDeprecationWarning:
 
     The 'basex' parameter of __init__() has been renamed 'base' since Matplotlib 3.3; support for the old name will be dropped two minor releases later.
 
     adding percent mitochondrial genes to dataframe for species human
-    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+    /pstore/home/julienla/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
 
     is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
 
@@ -98,7 +98,7 @@ This way you can easily check (visually) if your chosen threshold is a good one.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.497 seconds)
+   **Total running time of the script:** ( 0 minutes  1.581 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plotting_plot_filtering.py:

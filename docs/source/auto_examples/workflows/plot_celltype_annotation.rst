@@ -25,10 +25,11 @@ This is well illustrated in the tutorials (see Notebook 2 )
 
 .. code-block:: default
 
+    import random
+
     #load libraries
-    import besca as bc 
+    import besca as bc
     import scanpy as sc
-    import random 
 
     random.seed(1)
     #load preprocessed dataset (included in BESCA for demonstration purposes)
@@ -55,19 +56,19 @@ This is well illustrated in the tutorials (see Notebook 2 )
 
  .. code-block:: none
 
-    /.local/lib/python3.7/site-packages/anndata/compat/__init__.py:161: FutureWarning:
+    /pstore/home/julienla/.local/lib/python3.7/site-packages/anndata/compat/__init__.py:161: FutureWarning:
 
     Moving element from .uns['neighbors']['distances'] to .obsp['distances'].
 
     This is where adjacency matrices should go now.
 
-    /.local/lib/python3.7/site-packages/anndata/compat/__init__.py:161: FutureWarning:
+    /pstore/home/julienla/.local/lib/python3.7/site-packages/anndata/compat/__init__.py:161: FutureWarning:
 
     Moving element from .uns['neighbors']['connectivities'] to .obsp['connectivities'].
 
     This is where adjacency matrices should go now.
 
-    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1192: FutureWarning:
+    /pstore/home/julienla/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1192: FutureWarning:
 
     is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
 
@@ -146,7 +147,7 @@ Dendritic cells.
 
  .. code-block:: none
 
-    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1192: FutureWarning:
+    /pstore/home/julienla/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1192: FutureWarning:
 
     is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
 
@@ -205,7 +206,7 @@ be demonstrated in the rest of this tutorial.
 
  .. code-block:: none
 
-    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1192: FutureWarning:
+    /pstore/home/julienla/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1192: FutureWarning:
 
     is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
 
@@ -277,16 +278,16 @@ reclustering on mixed cell clusters
 
  .. code-block:: none
 
-    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+    /pstore/home/julienla/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
 
     is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
 
     In total 1412 highly variable genes selected within cluster
-    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+    /pstore/home/julienla/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
 
     is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
 
-    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1192: FutureWarning:
+    /pstore/home/julienla/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1192: FutureWarning:
 
     is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
 
@@ -298,7 +299,7 @@ reclustering on mixed cell clusters
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  23.299 seconds)
+   **Total running time of the script:** ( 0 minutes  22.833 seconds)
 
 
 .. _sphx_glr_download_auto_examples_workflows_plot_celltype_annotation.py:

@@ -54,11 +54,11 @@ quantify specific celllabels as a stacked barplot
 
  .. code-block:: none
 
-    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+    /pstore/home/julienla/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
 
     is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
 
-    /Code/Besca/besca/besca/pl/_celltype_quantification.py:143: UserWarning:
+    /pstore/home/julienla/Code/Besca/besca/besca/pl/_celltype_quantification.py:143: UserWarning:
 
     Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations. 
 
@@ -90,51 +90,51 @@ here each dot represents one Patient, the boxplots are grouped according to tiss
 
  .. code-block:: none
 
-    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+    /pstore/home/julienla/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
 
     is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     9.1% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     70.8% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     63.6% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     50.0% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     29.2% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     72.7% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     36.4% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     66.7% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     16.7% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     18.2% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     8.3% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
@@ -162,47 +162,47 @@ here you can also choose to plot total counts instead of percentages
 
  .. code-block:: none
 
-    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+    /pstore/home/julienla/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
 
     is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     9.1% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     70.8% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     72.7% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     58.3% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     29.2% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     45.5% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     18.2% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     16.7% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     27.3% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
-    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
 
     25.0% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
 
@@ -214,7 +214,7 @@ here you can also choose to plot total counts instead of percentages
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  15.361 seconds)
+   **Total running time of the script:** ( 0 minutes  14.820 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plotting_plot_celltype_quantification.py:

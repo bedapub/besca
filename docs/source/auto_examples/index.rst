@@ -29,6 +29,27 @@ This is a gallery containing some plotting examples.
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows you how to generate riverplots to compare categorical columns,  for example ...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/plotting/images/thumb/sphx_glr_plot_riverplot_thumb.png
+     :alt: Comparing categorical variable
+
+     :ref:`sphx_glr_auto_examples_plotting_plot_riverplot.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/plotting/plot_riverplot
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="This example shows you some of the different plots you can use to plot gene expression.">
 
 .. only:: html
