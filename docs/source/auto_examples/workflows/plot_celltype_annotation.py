@@ -13,10 +13,11 @@ allow for standardized annotations across datasets.
 This is well illustrated in the tutorials (see Notebook 2 )
 
 """
+import random
+
 #load libraries
-import besca as bc 
+import besca as bc
 import scanpy as sc
-import random 
 
 random.seed(1)
 #load preprocessed dataset (included in BESCA for demonstration purposes)
