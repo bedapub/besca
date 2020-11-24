@@ -15,7 +15,6 @@ quality control plots
 This example shows you the inbuilt quality control plots from besca.
 
 
-
 .. code-block:: default
 
 
@@ -104,6 +103,14 @@ dependent on the single-cell sequencing method you used.
 
  .. code-block:: none
 
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/distributions.py:2551: FutureWarning:
+
+    `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/distributions.py:2551: FutureWarning:
+
+    `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+
 
     <Figure size 1100x800 with 3 Axes>
 
@@ -182,6 +189,18 @@ a more or less normal distribution of library size within your dataset.
 
  .. code-block:: none
 
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/distributions.py:2551: FutureWarning:
+
+    `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/distributions.py:305: UserWarning:
+
+    Dataset has 0 variance; skipping density estimate.
+
+    /pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/distributions.py:2551: FutureWarning:
+
+    `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+
 
     <Figure size 1100x800 with 3 Axes>
 
@@ -190,7 +209,7 @@ a more or less normal distribution of library size within your dataset.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.862 seconds)
+   **Total running time of the script:** ( 0 minutes  7.755 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plotting_plot_qc.py:

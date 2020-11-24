@@ -15,7 +15,7 @@ helper functions
 	besca.convert_symbol_to_ensembl
 	besca.get_raw
 	besca.get_means
-	besca.get_gmeans
+	besca.get_ameans
 	besca.concate_adata
 
 .. _preprocessing-functions:

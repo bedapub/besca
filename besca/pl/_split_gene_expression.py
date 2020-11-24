@@ -230,15 +230,36 @@ def gene_expr_split_stacked(adata,
                             inner='stick'):
     
     """
+    Stacked violin plot for visualization of genes expression.
 
     parameters
     ----------
-
+    adata : :class:`~anndata.AnnData`
+        The annotated data matrix used as input
+    genes: `list`
+        List of gene ids for which the gene expression levels should be compared
+    split_variable: `str`
+        string identfying the column which contains the annotation which cell belongs to which group (should only
+        contain 2 different groups!!) If you have more than 2 groups you will need to look into other visualization techniques.
     subset_variable: `str`
         string identifying the column along which the AnnData object should be split into subsets. Can contain as many groups as you wish. 
-    """
-    
+        parameters
+    use_raw: `bool` (default = True)
+        boolian indicator if adata.raw data should be used as input for gene expression levels
+    fig_width: `int` | default = 15
+        width of the generated figure
+    fig_height: `int` | default = 8
+        height of the generated figure
+    order: lists of strings
+        Order to plot the categorical levels in
+    inner: `str` (default = 'stick')
+        see seaborn violin plot.
 
+    returns
+    -------
+    fig
+
+    """
     if label_subset_variable is not None:
         label_subset_variable = label_subset_variable
     else: 
