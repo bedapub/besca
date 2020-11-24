@@ -947,9 +947,9 @@ def ranked_genes(adata,
                  additional_geneannotation = 'ENSEMBL'):
     """export marker genes for each cluster to .gct file
 
-    This function exports the results of scanpy.api.tl.rank_genes_groups() on your AnnData object to a .gct
+    This function exports the results of scanpy.tl.rank_genes_groups() on your AnnData object to a .gct
     file. This file can easily be uploaded into the scsqe database since it follows the FAIR data
-    formats. 
+    formats. It expect the label "rank_genes_groups" and not a personalized one.
 
     A prerequisit for executing this function is that sc.tl.rank_genes_groups() has already been run.
     Through the variables geneannotation and additional_geneannotation you can specify the type of
@@ -959,7 +959,7 @@ def ranked_genes(adata,
     parameters
     ----------
     adata:
-        AnnData object on which scanpy.api.tl.rank_genes_groups has been executed
+        AnnData object on which scanpy.tl.rank_genes_groups has been executed
     type: `str` | 'wilcox' or 't-test overest var'  or 't-test'
     outpath `str` | default = current working directory
         filepath to the directory in which the results should be outputed, if no directory is 
@@ -977,7 +977,7 @@ def ranked_genes(adata,
     if outpath is None:
         outpath = os.getcwd()
     if adata.uns.get('rank_genes_groups') is None:
-        sys.exit('need to rank genes before export, please run: scanpy.api.tl.rank_genes() before proceeding with export')
+        sys.exit('need to rank genes before export, please run: scanpy.tl.rank_genes() before proceeding with export')
     else:
         #extract relevant data from adata object
         rank_genes = adata.uns['rank_genes_groups']

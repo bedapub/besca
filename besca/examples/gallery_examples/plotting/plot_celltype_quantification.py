@@ -1,5 +1,5 @@
 """
-visualize cell fractions
+Visualize cell fractions
 ========================
 
 This example demonstrates how to generate celltype quantification plots. These types of plots 

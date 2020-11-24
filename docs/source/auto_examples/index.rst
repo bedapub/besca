@@ -29,6 +29,27 @@ This is a gallery containing some plotting examples.
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows you how to generate riverplots to compare categorical columns,  for example ...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/plotting/images/thumb/sphx_glr_plot_riverplot_thumb.png
+     :alt: Comparing categorical variable
+
+     :ref:`sphx_glr_auto_examples_plotting_plot_riverplot.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/plotting/plot_riverplot
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="This example shows you some of the different plots you can use to plot gene expression.">
 
 .. only:: html
@@ -76,7 +97,7 @@ This is a gallery containing some plotting examples.
 .. only:: html
 
  .. figure:: /auto_examples/plotting/images/thumb/sphx_glr_plot_celltype_quantification_thumb.png
-     :alt: visualize cell fractions
+     :alt: Visualize cell fractions
 
      :ref:`sphx_glr_auto_examples_plotting_plot_celltype_quantification.py`
 
@@ -220,7 +241,7 @@ Demonstration workflows showing you how to peform certain tasks
 .. only:: html
 
  .. figure:: /auto_examples/workflows/images/thumb/sphx_glr_plot_celltype_annotation_thumb.png
-     :alt: annotate celltypes
+     :alt: Annotate celltypes
 
      :ref:`sphx_glr_auto_examples_workflows_plot_celltype_annotation.py`
 

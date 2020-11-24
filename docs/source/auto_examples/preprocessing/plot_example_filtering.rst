@@ -1,10 +1,12 @@
-.. note::
-    :class: sphx-glr-download-link-note
+.. only:: html
 
-    Click :ref:`here <sphx_glr_download_auto_examples_preprocessing_plot_example_filtering.py>` to download the full example code
-.. rst-class:: sphx-glr-example-title
+    .. note::
+        :class: sphx-glr-download-link-note
 
-.. _sphx_glr_auto_examples_preprocessing_plot_example_filtering.py:
+        Click :ref:`here <sphx_glr_download_auto_examples_preprocessing_plot_example_filtering.py>`     to download the full example code
+    .. rst-class:: sphx-glr-example-title
+
+    .. _sphx_glr_auto_examples_preprocessing_plot_example_filtering.py:
 
 
 performing filtering using besca
@@ -14,13 +16,11 @@ This example demonstrates the entire process of filtering out cells/genes ob sub
 before proceeding with analysis. 
 
 
-
-
-.. code-block:: python
+.. code-block:: default
 
 
     import besca as bc
-    import scanpy.api as sc
+    import scanpy as sc
     import matplotlib.pyplot as plt
 
     #load example dataset
@@ -40,17 +40,17 @@ before proceeding with analysis.
 
 
 
+
 visualization of thresholds
 ---------------------------
 
 First the chosen thresholds are visualized to ensure that a suitable cutoff has been chosen.
 
 
+.. code-block:: default
 
-.. code-block:: python
 
-
-    #visualize filtering thresholds
+    #Visualize filtering thresholds
     fig, ((ax1, ax2, ax3), (ax4, ax5, ax6))= plt.subplots(ncols=3, nrows=2)
     fig.set_figwidth(15)
     fig.set_figheight(8)
@@ -67,6 +67,7 @@ First the chosen thresholds are visualized to ensure that a suitable cutoff has 
 
 
 .. image:: /auto_examples/preprocessing/images/sphx_glr_plot_example_filtering_001.png
+    :alt: Expressed genes [count > 0], Cells that express a gene [count > 0], Counts per cell, max counts cutoff, mitochondrial gene content in dataset before filtering, Filtering by the maximum gene count
     :class: sphx-glr-single-img
 
 
@@ -76,7 +77,37 @@ First the chosen thresholds are visualized to ensure that a suitable cutoff has 
 
  .. code-block:: none
 
+    /Code/Besca/besca/besca/pl/_filter_threshold_plots.py:59: MatplotlibDeprecationWarning:
+
+    The 'basey' parameter of __init__() has been renamed 'base' since Matplotlib 3.3; support for the old name will be dropped two minor releases later.
+
+    /Code/Besca/besca/besca/pl/_filter_threshold_plots.py:60: MatplotlibDeprecationWarning:
+
+    The 'basex' parameter of __init__() has been renamed 'base' since Matplotlib 3.3; support for the old name will be dropped two minor releases later.
+
+    /Code/Besca/besca/besca/pl/_filter_threshold_plots.py:184: MatplotlibDeprecationWarning:
+
+    The 'basey' parameter of __init__() has been renamed 'base' since Matplotlib 3.3; support for the old name will be dropped two minor releases later.
+
+    /Code/Besca/besca/besca/pl/_filter_threshold_plots.py:185: MatplotlibDeprecationWarning:
+
+    The 'basex' parameter of __init__() has been renamed 'base' since Matplotlib 3.3; support for the old name will be dropped two minor releases later.
+
+    /Code/Besca/besca/besca/pl/_filter_threshold_plots.py:118: MatplotlibDeprecationWarning:
+
+    The 'basey' parameter of __init__() has been renamed 'base' since Matplotlib 3.3; support for the old name will be dropped two minor releases later.
+
+    /Code/Besca/besca/besca/pl/_filter_threshold_plots.py:119: MatplotlibDeprecationWarning:
+
+    The 'basex' parameter of __init__() has been renamed 'base' since Matplotlib 3.3; support for the old name will be dropped two minor releases later.
+
     adding percent mitochondrial genes to dataframe for species human
+    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+
+    is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+
+
 
 
 application of filtering thresholds
@@ -85,8 +116,7 @@ application of filtering thresholds
 Using the chosen thresholds the data is filtered. Before and after filtering results are depicted to compare.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     #visualize data before filtering
@@ -111,12 +141,14 @@ Using the chosen thresholds the data is filtered. Before and after filtering res
     *
 
       .. image:: /auto_examples/preprocessing/images/sphx_glr_plot_example_filtering_002.png
-            :class: sphx-glr-multi-img
+          :alt: n_counts, n_genes, percent_mito
+          :class: sphx-glr-multi-img
 
     *
 
       .. image:: /auto_examples/preprocessing/images/sphx_glr_plot_example_filtering_003.png
-            :class: sphx-glr-multi-img
+          :alt: n_counts, n_genes, percent_mito
+          :class: sphx-glr-multi-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -125,25 +157,110 @@ Using the chosen thresholds the data is filtered. Before and after filtering res
 
  .. code-block:: none
 
-    The AnnData object currently contains: 737280 cells and 32738 genes
-    AnnData object with n_obs × n_vars = 737280 × 32738 
-        obs: 'CELL', 'CONDITION', 'experiment', 'donor', 'n_counts', 'n_genes', 'percent_mito'
+    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1192: FutureWarning:
+
+    is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+    Vertical orientation ignored with only `x` specified.
+
+    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+    Vertical orientation ignored with only `x` specified.
+
+    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+    Vertical orientation ignored with only `x` specified.
+
+    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+    Vertical orientation ignored with only `x` specified.
+
+    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+    Vertical orientation ignored with only `x` specified.
+
+    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+    Vertical orientation ignored with only `x` specified.
+
+    The AnnData object currently contains: 2700 cells and 32738 genes
+    AnnData object with n_obs × n_vars = 2700 × 32738
+        obs: 'CELL', 'n_counts', 'n_genes', 'percent_mito'
         var: 'ENSEMBL', 'SYMBOL'
-    started with  737280  total cells and  32738  total genes
+    started with  2700  total cells and  32738  total genes
+    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+
+    is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
     removed 15 cells that expressed more than 1900 genes
-    removed 734965 cells that did not express at least 600  genes
+    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+
+    is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+    removed 385 cells that did not express at least 600  genes
+    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+
+    is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
     removed 4 cells that had more than 6500  counts
+    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+
+    is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
     removed 0 cells that did not have at least 600 counts
-    removed 17843 genes that were not expressed in at least 2 cells
+    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+
+    is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+    removed 18036 genes that were not expressed in at least 2 cells
+    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+
+    is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
     removed  17  cells that expressed  5.0 percent mitochondrial genes or more
-    finished with 2279  total cells and 14895 total genes
-    The AnnData object now contains: 2279 cells and 14895 genes
-    AnnData object with n_obs × n_vars = 2279 × 14895 
-        obs: 'CELL', 'CONDITION', 'experiment', 'donor', 'n_counts', 'n_genes', 'percent_mito'
+    finished with 2279  total cells and 14702 total genes
+    /.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1192: FutureWarning:
+
+    is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+    Vertical orientation ignored with only `x` specified.
+
+    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+    Vertical orientation ignored with only `x` specified.
+
+    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+    Vertical orientation ignored with only `x` specified.
+
+    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+    Vertical orientation ignored with only `x` specified.
+
+    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+    Vertical orientation ignored with only `x` specified.
+
+    /.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/_core.py:1303: UserWarning:
+
+    Vertical orientation ignored with only `x` specified.
+
+    The AnnData object now contains: 2279 cells and 14702 genes
+    AnnData object with n_obs × n_vars = 2279 × 14702
+        obs: 'CELL', 'n_counts', 'n_genes', 'percent_mito'
         var: 'ENSEMBL', 'SYMBOL', 'n_cells'
 
 
-**Total running time of the script:** ( 1 minutes  3.583 seconds)
+
+
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  3.342 seconds)
 
 
 .. _sphx_glr_download_auto_examples_preprocessing_plot_example_filtering.py:
@@ -156,13 +273,13 @@ Using the chosen thresholds the data is filtered. Before and after filtering res
 
 
 
-  .. container:: sphx-glr-download
+  .. container:: sphx-glr-download sphx-glr-download-python
 
      :download:`Download Python source code: plot_example_filtering.py <plot_example_filtering.py>`
 
 
 
-  .. container:: sphx-glr-download
+  .. container:: sphx-glr-download sphx-glr-download-jupyter
 
      :download:`Download Jupyter notebook: plot_example_filtering.ipynb <plot_example_filtering.ipynb>`
 
@@ -171,4 +288,4 @@ Using the chosen thresholds the data is filtered. Before and after filtering res
 
  .. rst-class:: sphx-glr-signature
 
-    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.readthedocs.io>`_
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

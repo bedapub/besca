@@ -309,7 +309,7 @@ def max_mito (adata,
               species = 'human',
               copy = False,
               ax = None):
-    """visulize maximum mitochondrial gene percentage threshold.
+    """visualize maximum mitochondrial gene percentage threshold.
 
     this function generates a knee-plot visualizing a given min_cells cutoff when given an adata object
 

@@ -178,10 +178,11 @@ def get_raw(adata):
 
 
 def get_ameans(adata,mycat, condition=None):
-    """ Calculates average and fraction expression per category in adata.obs
+    """Calculates average and fraction expression per category in adata.obs
     Based artihmetic mean expression and fraction cells expressing gene per category
     (works on linear scale). Assumes that values in .raw are log: will exponentiate, 
     calculate mean and log back. 
+
     parameters
     ----------
     adata: AnnData
@@ -237,8 +238,8 @@ def formatmean(average_obs, fraction_obs, what, mycond, myg):
 
 
 
-def get_means(adata,mycat, condition=None):
-    """ Calculates average and fraction expression per category in adata.obs
+def get_means(adata, mycat, condition=None):
+    """Calculates average and fraction expression per category in adata.obs
     Based on an AnnData object and an annotation category (e.g. louvain) returns 
     geometric mean expression if .raw values are log as it simply calculates mean
     of whatever values are stored in .raw. Also returns fraction cells expressing gene per category. 
@@ -292,7 +293,7 @@ u    parameters
 
 
 def concate_adata(adata1, adata2):
-    """concatenate two adata objects based on the observations
+    """Concatenate two adata objects based on the observations
 
     this function also merges the objects saved in .raw and generates a new combined.raw.
     The obs from adata1 are preserved. Those from adata2 are lost.

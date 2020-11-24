@@ -7,11 +7,12 @@ This example demonstrates how to perform highly variable gene selection, PCA, ne
 """
 
 import besca as bc
-import scanpy.api as sc
+import scanpy as sc
 
 #import example dataset that has previously been filtered
 adata = bc.datasets.pbmc3k_filtered()
-adata
+## We get the raw matrix containing all the initial genes, keeping the filtering on the cells
+adata = bc.get_raw(adata)
 
 ###############################################################################
 # highly variable gene selection
@@ -71,7 +72,7 @@ sc.pp.neighbors(adata, n_neighbors=15, random_state = random_seed, n_pcs=50)
 # louvain clustering
 # ------------------
 
-sc.tl.louvain(adata, random_state=random_seed)
+sc.tl.leiden(adata, random_state=random_seed)
 
 ###############################################################################
 # UMAP and t-SNE generation
@@ -87,5 +88,6 @@ sc.tl.tsne(adata, random_state = random_seed)
 # visualize the results
 # ---------------------
 
-sc.pl.umap(adata, color = ['louvain'])
-sc.pl.tsne(adata, color = ['louvain'])
+sc.pl.umap(adata, color = ['leiden'])
+sc.pl.tsne(adata, color = ['leiden'])
+
