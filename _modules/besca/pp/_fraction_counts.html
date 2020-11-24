@@ -1,0 +1,272 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>besca.pp._fraction_counts &mdash; BESCA 2.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> BESCA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../besca.html">besca</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">code examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../besca_standard_pipeline.html">standard pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../adding_new_functions.html">adding new functions to besca</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">BESCA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>besca.pp._fraction_counts</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for besca.pp._fraction_counts</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">read_csv</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="nb">sum</span><span class="p">,</span> <span class="nb">any</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">..datasets._mito</span> <span class="kn">import</span> <span class="n">get_mito_genes</span>
+
+
+<div class="viewcode-block" id="fraction_counts"><a class="viewcode-back" href="../../../preprocessing/besca.pp.fraction_counts.html#besca.pp.fraction_counts">[docs]</a><span class="k">def</span> <span class="nf">fraction_counts</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">species</span><span class="o">=</span><span class="s1">&#39;human&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">,</span>
+                    <span class="n">use_genes</span><span class="o">=</span><span class="s1">&#39;SYMBOL&#39;</span><span class="p">,</span> <span class="n">specific_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Function to calculate fraction of counts per cell from a gene list.</span>
+<span class="sd">    This function calculates the fraction of counts per cell for</span>
+<span class="sd">    a list of genes (for example mito genes) if no specific file is given.</span>
+<span class="sd">    Note that the input file consists of two columns</span>
+<span class="sd">    (ENSEMBL gene id and gene symbol) tab</span>
+<span class="sd">    separated</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata: `AnnData`</span>
+<span class="sd">        AnnData object</span>
+<span class="sd">    species: `str` | default = human</span>
+<span class="sd">        species for mitochondrial content evaluation</span>
+<span class="sd">    name: `str` | default = percent_mito</span>
+<span class="sd">        String identifying the column name to which the results</span>
+<span class="sd">        should be written to in the AnnData.obs object</span>
+<span class="sd">    use_genes: `SYMBOL` or `ENSEMBL` | default = SYMBOL</span>
+<span class="sd">        String defining whether ENSEMBL id&#39;s or gene symbols are used in the</span>
+<span class="sd">        adata.var_names (defines which column of input gene list is read)</span>
+<span class="sd">    specific_file: `str` | default None.</span>
+<span class="sd">        if indicated, the file will be used to extract the gene list</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        Returns None but updates adata with new column named &#39;name&#39;</span>
+<span class="sd">        containing calculated fraction of counts.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    &gt;&gt;&gt; import besca as bc</span>
+<span class="sd">    &gt;&gt;&gt; import os</span>
+<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.pbmc_raw()</span>
+<span class="sd">    &gt;&gt;&gt; adata.obs.head(5)</span>
+<span class="sd">    &gt;&gt;&gt; bc.pp.fraction_counts(adata,  &#39;human&#39;, use_genes=&#39;SYMBOL&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; adata.obs.head(5)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">specific_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">gene_list</span> <span class="o">=</span> <span class="n">get_mito_genes</span><span class="p">(</span><span class="n">species</span><span class="p">,</span> <span class="n">use_genes</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># ENS_GENE_ID  GENE_SYMBOL (2 cols)</span>
+        <span class="k">if</span> <span class="n">use_genes</span> <span class="o">==</span> <span class="s1">&#39;SYMBOL&#39;</span><span class="p">:</span>
+            <span class="n">gene_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">read_csv</span><span class="p">(</span><span class="n">specific_file</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">use_genes</span> <span class="o">==</span> <span class="s1">&#39;ENSEMBL&#39;</span><span class="p">:</span>
+            <span class="n">gene_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">read_csv</span><span class="p">(</span><span class="n">specific_file</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">genes</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gene_list</span><span class="p">]</span>
+    <span class="c1"># for each cell compute fraction of counts in gene_list vs. all genes</span>
+    <span class="c1"># axis=1 --&gt; sum over rows</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">genes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">n_counts</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">any</span><span class="p">(</span><span class="n">n_counts</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Some of the cells contain no counts. </span><span class="se">\</span>
+<span class="s1">                           Do not forget to remove </span><span class="se">\&#39;</span><span class="s1">empty</span><span class="se">\&#39;</span><span class="s1"> cells from data.&#39;</span><span class="p">)</span>
+            <span class="n">n_counts</span><span class="p">[</span><span class="n">n_counts</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">adata</span><span class="p">[:,</span> <span class="n">genes</span><span class="p">]</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span> <span class="o">/</span> <span class="n">n_counts</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;None of the genes from input list found in data set. </span><span class="se">\</span>
+<span class="s1">               Please ensure you have correctly specified use_genes to match </span><span class="se">\</span>
+<span class="s1">               the type of genes saved in adata.var_names.&#39;</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, BEDA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

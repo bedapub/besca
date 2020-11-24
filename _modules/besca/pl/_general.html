@@ -1,0 +1,499 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>besca.pl._general &mdash; BESCA 2.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> BESCA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../besca.html">besca</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">code examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../besca_standard_pipeline.html">standard pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../adding_new_functions.html">adding new functions to besca</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">BESCA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>besca.pl._general</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for besca.pl._general</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">figure</span><span class="p">,</span> <span class="n">subplots_adjust</span><span class="p">,</span> <span class="n">tight_layout</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">def</span> <span class="nf">split_violin</span><span class="p">(</span><span class="n">tidy_data</span><span class="p">,</span>
+                 <span class="n">x_axis</span><span class="p">,</span>
+                 <span class="n">y_axis</span><span class="p">,</span>
+                 <span class="n">split_variable</span><span class="p">,</span>
+                 <span class="n">order</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">ax</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">inner</span> <span class="o">=</span> <span class="s1">&#39;box&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;plot ssplit violin plots.</span>
+<span class="sd">    </span>
+<span class="sd">    General plotting function to produce split violin plots.</span>
+
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    tidy_data: DataFrame</span>
+<span class="sd">        pandas DataFrame containing the complete data that is to be plotted in a tidy format.</span>
+<span class="sd">    x_axis: `str`</span>
+<span class="sd">        string identifying which column of the DataFrame is to be plotted on the x-axis</span>
+<span class="sd">    y_axis: `str`</span>
+<span class="sd">        string identifying which column of the DataFrame is to be plotted on the y-axis</span>
+<span class="sd">    split_variable: `str`</span>
+<span class="sd">        string identifying which column of the DataFrame is to be used to generate the </span>
+<span class="sd">        split violin plot (can only contain two categories of data!)</span>
+<span class="sd">    subset_variable_label: `str`</span>
+<span class="sd">        string identifiyng which column of the DataFrame contains the variables that </span>
+<span class="sd">        should be used to make datasubsets for each plot of the stacked violin plot</span>
+<span class="sd">    subset_variabels: `list`</span>
+<span class="sd">        list identifying the subsets that should be generated</span>
+<span class="sd">    fig_width: `int` | default = 8</span>
+<span class="sd">        int value defining figure width</span>
+<span class="sd">    fig_height: `int` | default = 4</span>
+<span class="sd">        int value defining figure height of one figure</span>
+<span class="sd">    ax: `axes` | default = None</span>
+<span class="sd">        pass the axes class to which your figure should be added, if none is supplied a new figure is generated</span>
+
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Figure</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+
+    <span class="c1">#set plotting style</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_axis</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_axis</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="n">split_variable</span><span class="p">,</span>  <span class="n">data</span><span class="o">=</span><span class="n">tidy_data</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;muted&quot;</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">order</span> <span class="o">=</span> <span class="n">order</span><span class="p">,</span> <span class="n">inner</span> <span class="o">=</span> <span class="n">inner</span><span class="p">)</span>
+
+    <span class="c1">#shift spines outwards</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;bottom&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_linewidth</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_linewidth</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1">#remove spines</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">offset</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1">#make labels 90 degrees so they are readible</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelrotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>  <span class="n">length</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+<div class="viewcode-block" id="box_per_ind"><a class="viewcode-back" href="../../../plotting/besca.pl.box_per_ind.html#besca.pl.box_per_ind">[docs]</a><span class="k">def</span> <span class="nf">box_per_ind</span><span class="p">(</span><span class="n">plotdata</span><span class="p">,</span><span class="n">y_axis</span><span class="p">,</span><span class="n">x_axis</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">fig_width</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span><span class="n">fig_height</span> <span class="o">=</span> <span class="mf">3.5</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;plot boxplot with values per individual.</span>
+<span class="sd">    </span>
+<span class="sd">    General plotting function to produce one or multiple boxplots for </span>
+<span class="sd">    average/fraction gene expression per individual/sample.</span>
+
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    plotdata: DataFrame</span>
+<span class="sd">        pandas DataFrame containing the complete data that is to be plotted.</span>
+<span class="sd">    x_axis: `str`</span>
+<span class="sd">        string identifying which column of the DataFrame is to be plotted on the x-axis (condition)</span>
+<span class="sd">    y_axis: `list` or `str`</span>
+<span class="sd">        string identifying which column of the DataFrame is to be plotted on the y-axis (genes)</span>
+<span class="sd">    order: `list`</span>
+<span class="sd">        list identifying the order for the categories on the x_axis</span>
+<span class="sd">    fig_width: `int` | default = 4</span>
+<span class="sd">        int value defining figure width</span>
+<span class="sd">    fig_height: `int` | default = 3.5</span>
+<span class="sd">        int value defining figure height of one figure</span>
+<span class="sd">        </span>
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Figure</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1">#set plotting style</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+
+    
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">y_axis</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">:</span>
+        <span class="n">y_axis</span><span class="o">=</span><span class="p">[</span><span class="n">y_axis</span><span class="p">]</span>
+    
+    <span class="c1">#only retain elements present</span>
+    <span class="n">y_axisk</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">y_axis</span><span class="p">:</span>
+        <span class="n">y_axisk</span><span class="o">=</span><span class="n">y_axisk</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">y</span><span class="p">])</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">plotdata</span><span class="o">.</span><span class="n">columns</span><span class="p">)))</span>
+    <span class="n">y_axis</span><span class="o">=</span><span class="n">y_axisk</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        
+    <span class="c1">#check that we have genes</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_axis</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Please select valid gene names&#39;</span><span class="p">)</span>
+
+    <span class="c1">#check that we have the condition</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">x_axis</span> <span class="ow">in</span> <span class="n">plotdata</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Please select a valid condition name&#39;</span><span class="p">)</span>
+        
+    <span class="k">if</span> <span class="n">order</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+        <span class="n">order</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">plotdata</span><span class="p">[</span><span class="n">x_axis</span><span class="p">]))</span>
+        
+    <span class="c1">#determine number of subplots</span>
+    <span class="n">number_of_subplots</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">y_axis</span><span class="p">)</span>
+    
+    <span class="c1">#initiate figure</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">figure</span><span class="p">()</span>
+    
+    <span class="c1">#adjust size of figure if desired</span>
+    <span class="k">if</span> <span class="n">fig_width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="n">fig_width</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">fig_height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="n">fig_height</span> <span class="o">*</span> <span class="n">number_of_subplots</span><span class="p">)</span>
+    
+    <span class="c1">#adjust amount of space between subplots</span>
+    <span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.000</span><span class="p">)</span>
+
+    <span class="c1">#########################################################</span>
+    <span class="c1">#plot first figure (this adds the legend above the plot)</span>
+    <span class="c1">#########################################################</span>
+    
+    <span class="c1">#plot figure</span>
+    <span class="n">ax0</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">number_of_subplots</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax0</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_axis</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_axis</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="n">plotdata</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span><span class="n">palette</span><span class="o">=</span><span class="s2">&quot;muted&quot;</span><span class="p">)</span>
+    <span class="n">ax0</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">stripplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_axis</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_axis</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="n">plotdata</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+    <span class="n">ax0</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax0</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">tick_right</span><span class="p">()</span>
+
+    <span class="c1">#get correct label for the y-axis</span>
+    <span class="n">ax0</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">y_axis</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1">#move legend above the plot</span>
+    <span class="c1">#ax0.legend(loc=9, bbox_to_anchor=(0.5, 1.5), ncol=2)</span>
+
+
+    <span class="c1">#########################################################</span>
+    <span class="c1">#plot all subsequent figures dynamically</span>
+    <span class="c1">#########################################################    </span>
+    <span class="k">if</span> <span class="n">number_of_subplots</span> <span class="o">&gt;=</span><span class="mi">2</span><span class="p">:</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">number_of_subplots</span><span class="p">):</span>
+            
+            <span class="c1">#get indicator for subplot number</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+            
+            <span class="c1">#add subplot</span>
+            <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">number_of_subplots</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">v</span><span class="p">,</span> <span class="n">sharey</span> <span class="o">=</span> <span class="n">ax0</span><span class="p">)</span>
+            <span class="n">ax1</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_axis</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_axis</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="n">plotdata</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span><span class="n">palette</span><span class="o">=</span><span class="s2">&quot;muted&quot;</span><span class="p">)</span>
+            <span class="n">ax1</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">stripplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_axis</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_axis</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="n">plotdata</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">tick_right</span><span class="p">()</span>
+
+            <span class="c1">#get correct label for the y-axis</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">y_axis</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+            <span class="c1">#remove legend since we only need it once</span>
+            <span class="c1">#ax1.get_legend().remove()</span>
+
+        <span class="c1">#set x-axis on the last plot generated to visible</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">ax1</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+    
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ax0</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ax0</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">ax0</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+
+    <span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.000</span><span class="p">)</span>
+
+
+    <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="stacked_split_violin"><a class="viewcode-back" href="../../../plotting/besca.pl.stacked_split_violin.html#besca.pl.stacked_split_violin">[docs]</a><span class="k">def</span> <span class="nf">stacked_split_violin</span><span class="p">(</span><span class="n">tidy_data</span><span class="p">,</span>
+                         <span class="n">x_axis</span><span class="p">,</span>
+                         <span class="n">y_axis</span><span class="p">,</span>
+                         <span class="n">split_variable</span><span class="p">,</span>
+                         <span class="n">subset_variable_label</span><span class="p">,</span>
+                         <span class="n">subset_variables</span><span class="p">,</span>
+                         <span class="n">fig_width</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+                         <span class="n">fig_height</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+                         <span class="n">order</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                         <span class="n">inner</span> <span class="o">=</span> <span class="s1">&#39;box&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; plot stacked split violin plots.</span>
+<span class="sd">    </span>
+<span class="sd">    General plotting function to produce stacked split violin plots.</span>
+
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    tidy_data: DataFrame</span>
+<span class="sd">        pandas DataFrame containing the complete data that is to be plotted in a tidy format.</span>
+<span class="sd">    x_axis: `str`</span>
+<span class="sd">        string identifying which column of the DataFrame is to be plotted on the x-axis</span>
+<span class="sd">    y_axis: `str`</span>
+<span class="sd">        string identifying which column of the DataFrame is to be plotted on the y-axis</span>
+<span class="sd">    split_variable: `str`</span>
+<span class="sd">        string identifying which column of the DataFrame is to be used to generate the </span>
+<span class="sd">        split violin plot (can only contain two categories of data!)</span>
+<span class="sd">    subset_variable_label: `str`</span>
+<span class="sd">        string identifiyng which column of the DataFrame contains the variables that </span>
+<span class="sd">        should be used to make datasubsets for each plot of the stacked violin plot</span>
+<span class="sd">    subset_variabels: `list`</span>
+<span class="sd">        list identifying the subsets that should be generated</span>
+<span class="sd">    fig_width: `int` | default = 8</span>
+<span class="sd">        int value defining figure width</span>
+<span class="sd">    fig_height: `int` | default = 4</span>
+<span class="sd">        int value defining figure height of one figure</span>
+<span class="sd">    order:</span>
+<span class="sd">    inner: &#39;box&#39; or &#39;quartile&#39; or &#39;point&#39; or &#39;stick&#39;</span>
+<span class="sd">        define how the datapoints should be displayed in the violin interior, see seaborns documentation for more details</span>
+
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Figure</span>
+<span class="sd">        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1">#determine number of subplots</span>
+    <span class="n">number_of_subplots</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">subset_variables</span><span class="p">)</span>
+    
+    <span class="c1">#initiate figure</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">figure</span><span class="p">()</span>
+    
+    <span class="c1">#adjust size of figure if desired</span>
+    <span class="k">if</span> <span class="n">fig_width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="n">fig_width</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">fig_height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="n">fig_height</span> <span class="o">*</span> <span class="n">number_of_subplots</span><span class="p">)</span>
+    
+    <span class="c1">#adjust amount of space between subplots</span>
+    <span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.000</span><span class="p">)</span>
+    
+    <span class="c1">#########################################################</span>
+    <span class="c1">#plot first figure (this adds the legend above the plot)</span>
+    <span class="c1">#########################################################</span>
+    
+    <span class="c1">#generate datasubset</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">tidy_data</span><span class="p">[</span><span class="n">tidy_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">subset_variable_label</span><span class="p">)</span> <span class="o">==</span> <span class="n">subset_variables</span><span class="p">[</span><span class="mi">0</span><span class="p">]];</span>
+    
+    <span class="c1">#plot figure</span>
+    <span class="n">ax0</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">number_of_subplots</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax0</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_axis</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_axis</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="n">split_variable</span><span class="p">,</span>  <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;muted&quot;</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">order</span> <span class="o">=</span> <span class="n">order</span><span class="p">,</span> <span class="n">inner</span> <span class="o">=</span> <span class="n">inner</span><span class="p">)</span>
+    <span class="n">ax0</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax0</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">tick_right</span><span class="p">()</span>
+
+    
+    <span class="c1">#get correct label for the y-axis</span>
+    <span class="n">ax0</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">subset_variables</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1">#move legend above the plot</span>
+    <span class="n">ax0</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="c1">#########################################################</span>
+    <span class="c1">#plot all subsequent figures dynamically</span>
+    <span class="c1">#########################################################    </span>
+    <span class="k">if</span> <span class="n">number_of_subplots</span> <span class="o">&gt;=</span><span class="mi">2</span><span class="p">:</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">number_of_subplots</span><span class="p">):</span>
+            <span class="c1">#subset data</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">tidy_data</span><span class="p">[</span><span class="n">tidy_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">subset_variable_label</span><span class="p">)</span> <span class="o">==</span> <span class="n">subset_variables</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+            
+            <span class="c1">#get indicator for subplot number</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+            
+            <span class="c1">#add subplot</span>
+            <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">number_of_subplots</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">v</span><span class="p">,</span> <span class="n">sharey</span> <span class="o">=</span> <span class="n">ax0</span><span class="p">)</span>
+            <span class="n">ax1</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_axis</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_axis</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="n">split_variable</span><span class="p">,</span>  <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;muted&quot;</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">order</span> <span class="o">=</span> <span class="n">order</span><span class="p">,</span> <span class="n">inner</span> <span class="o">=</span> <span class="n">inner</span><span class="p">)</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">tick_right</span><span class="p">()</span>
+
+            <span class="c1">#get correct label for the y-axis</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">subset_variables</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+            <span class="c1">#remove legend since we only need it once</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+
+        <span class="c1">#set x-axis on the last plot generated to visible</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">ax1</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+    
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ax0</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ax0</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">ax0</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+
+    <span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.000</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, BEDA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,403 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>besca.pp._filtering &mdash; BESCA 2.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> BESCA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../besca.html">besca</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">code examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../besca_standard_pipeline.html">standard pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../adding_new_functions.html">adding new functions to besca</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">BESCA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>besca.pp._filtering</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for besca.pp._filtering</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">anndata</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">read_csv</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="nb">sum</span>
+<span class="kn">from</span> <span class="nn">..datasets._mito</span> <span class="kn">import</span> <span class="n">get_mito_genes</span>
+
+<span class="c1">#import helper functions from besca</span>
+<span class="kn">from</span> <span class="nn">.._helper</span> <span class="kn">import</span> <span class="n">get_raw</span>
+
+<div class="viewcode-block" id="filter"><a class="viewcode-back" href="../../../preprocessing/besca.pp.filter.html#besca.pp.filter">[docs]</a><span class="k">def</span> <span class="nf">filter</span> <span class="p">(</span><span class="n">adata</span><span class="p">,</span>
+            <span class="n">max_genes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">min_genes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">max_counts</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">min_counts</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">min_cells</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">max_mito</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">annotation_type</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">species</span> <span class="o">=</span> <span class="s1">&#39;human&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Filter cell outliers based on counts, numbers of genes expressed, number of cells expressing a gene and mitochondrial gene content.</span>
+
+<span class="sd">    Filtering is performed iteratively in the order: max_genes, min_genes, max_counts, min_counts,</span>
+<span class="sd">    min_cells, max_mito.</span>
+
+<span class="sd">    The Thresholds are defined as follows:</span>
+<span class="sd">    max_genes &gt;= n_genes</span>
+<span class="sd">    min_genes &lt;= n_genes</span>
+<span class="sd">    max_counts &gt;= n_counts</span>
+<span class="sd">    min_counts &lt;= n_counts</span>
+<span class="sd">    min_cells &lt;= n_cells</span>
+<span class="sd">    max_mito &gt; percent mito</span>
+
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata: :class:`~anndata.AnnData`</span>
+<span class="sd">        The annotated data matrix.</span>
+<span class="sd">    max_genes: `int` | default = None</span>
+<span class="sd">        integer value specifying the threshold for the maximum number of genes that a cell needs to express</span>
+<span class="sd">    min_genes: `int` | default = None</span>
+<span class="sd">        integer value specifying the threshold for the minimum number of genes that a cell needs to express</span>
+<span class="sd">    max_counts: `int` | default = None</span>
+<span class="sd">        integer value specifying the maximum number of counts that a cell needs to contain</span>
+<span class="sd">    min_counts: `int` | default = None</span>
+<span class="sd">        integer value specifying the minimum number of counts that a cell needs to contain</span>
+<span class="sd">    min_cells: `int` | default = None</span>
+<span class="sd">        integer value specifying the minimum number of cells that need to express a gene for it to be included</span>
+<span class="sd">    max_mito: `float` | default = None</span>
+<span class="sd">        decimalvalue specifying the threshold for the maximum percentage of mitochondrial genes in a cell</span>
+<span class="sd">    annotation_type: `SYMBOL` or `ENSEMBLE` or `None` | default = None</span>
+<span class="sd">        string identifying the type of gene ids contained in adata.var_names, necessary for identifying</span>
+<span class="sd">        mitochondrial genes in case percent_mito is not already included in adata.obs</span>
+
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    AnnData</span>
+<span class="sd">        filters the :class:`~anndata.AnnData` object and potentially adds either `n_genes` or `n_counts` to `adata.obs`.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; import besca as bc</span>
+<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.pbmc3k_raw()</span>
+<span class="sd">    &gt;&gt;&gt; adata.size</span>
+<span class="sd">    &gt;&gt;&gt; adata = bc.pp.filter(adata, max_counts=6500, max_genes=1900, max_mito=0.05, min_genes=600, min_counts=600, min_cells=2)</span>
+<span class="sd">    &gt;&gt;&gt; adata.size</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">anndata</span><span class="o">.</span><span class="n">AnnData</span><span class="p">):</span>
+
+        <span class="c1">#get original number of cells</span>
+        <span class="n">ncells</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">ngenes</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;started with &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">ncells</span><span class="p">),</span> <span class="s1">&#39; total cells and &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">ngenes</span><span class="p">),</span> <span class="s1">&#39; total genes&#39;</span><span class="p">)</span>
+
+
+        <span class="c1">#calculate values if necessary</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">max_counts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">min_counts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_counts&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;n_counts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>        
+        <span class="k">if</span> <span class="p">(</span><span class="n">min_genes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">max_genes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_genes&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;n_genes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">min_cells</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_cells&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;n_cells&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="k">if</span> <span class="n">max_mito</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">mito_list</span> <span class="o">=</span> <span class="n">get_mito_genes</span><span class="p">(</span><span class="n">species</span><span class="p">,</span> <span class="n">annotation_type</span><span class="p">)</span>
+                <span class="n">mito_genes</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">mito_list</span><span class="p">]</span> <span class="c1"># ensembl</span>
+                <span class="c1"># for each cell compute fraction of counts in mito genes vs. all genes</span>
+                <span class="n">n_counts</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span>
+                <span class="n">n_counts</span><span class="p">[</span><span class="n">n_counts</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+                <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">adata</span><span class="p">[:,</span> <span class="n">mito_genes</span><span class="p">]</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span> <span class="o">/</span> <span class="n">n_counts</span>
+
+        <span class="c1">#perform actual filtering for all given parameters</span>
+        <span class="k">if</span> <span class="n">max_genes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">curr_cells</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_genes&#39;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">max_genes</span><span class="p">,:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">new_cells</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;removed&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">curr_cells</span> <span class="o">-</span> <span class="n">new_cells</span><span class="p">),</span> <span class="s1">&#39;cells that expressed more than&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">max_genes</span><span class="p">),</span> <span class="s1">&#39;genes&#39;</span><span class="p">)</span>        
+        <span class="k">if</span> <span class="n">min_genes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">curr_cells</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_genes&#39;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">min_genes</span><span class="p">,:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">new_cells</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;removed&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">curr_cells</span> <span class="o">-</span> <span class="n">new_cells</span><span class="p">),</span> <span class="s1">&#39;cells that did not express at least&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">min_genes</span><span class="p">),</span> <span class="s1">&#39; genes&#39;</span><span class="p">)</span>        
+        <span class="k">if</span> <span class="n">max_counts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">curr_cells</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_counts&#39;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">max_counts</span><span class="p">,:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">new_cells</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;removed&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">curr_cells</span> <span class="o">-</span> <span class="n">new_cells</span><span class="p">),</span> <span class="s1">&#39;cells that had more than&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">max_counts</span><span class="p">),</span> <span class="s1">&#39; counts&#39;</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">min_counts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">curr_cells</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_counts&#39;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">min_counts</span><span class="p">,:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">new_cells</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;removed&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">curr_cells</span> <span class="o">-</span> <span class="n">new_cells</span><span class="p">),</span> <span class="s1">&#39;cells that did not have at least&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">min_counts</span><span class="p">),</span> <span class="s1">&#39;counts&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">min_cells</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">curr_genes</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_cells&#39;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">min_cells</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">new_genes</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;removed&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">curr_genes</span> <span class="o">-</span> <span class="n">new_genes</span><span class="p">),</span> <span class="s1">&#39;genes that were not expressed in at least&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">min_cells</span><span class="p">),</span> <span class="s1">&#39;cells&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">max_mito</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">curr_cells</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">max_mito</span><span class="p">,:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">new_cells</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;removed &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">curr_cells</span> <span class="o">-</span> <span class="n">new_cells</span><span class="p">),</span> <span class="s1">&#39; cells that expressed &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">max_mito</span> <span class="o">*</span> <span class="mi">100</span><span class="p">),</span> <span class="s1">&#39;percent mitochondrial genes or more&#39;</span><span class="p">)</span>
+        
+        <span class="n">ncells_final</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">ngenes_final</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;finished with&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">ncells_final</span><span class="p">),</span> <span class="s1">&#39; total cells and&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">ngenes_final</span><span class="p">),</span> <span class="s1">&#39;total genes&#39;</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">adata</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;please pass an AnnData object as data&#39;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="filter_gene_list"><a class="viewcode-back" href="../../../preprocessing/besca.pp.filter_gene_list.html#besca.pp.filter_gene_list">[docs]</a><span class="k">def</span> <span class="nf">filter_gene_list</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> 
+                     <span class="n">filepath</span><span class="p">,</span>
+                     <span class="n">use_raw</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                     <span class="n">use_genes</span><span class="o">=</span><span class="s1">&#39;SYMBOL&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Function to remove all genes specified in a gene list read from file.</span>
+<span class="sd">        </span>
+<span class="sd">    This function removes all genes in the dataset from a given list of genes (for example mito genes or ribosomal genes).</span>
+<span class="sd">    Note that the input file consists of two columns (ENSEMBL gene id and gene symbol).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata: `AnnData`</span>
+<span class="sd">        AnnData object</span>
+<span class="sd">    filepath: `str` </span>
+<span class="sd">        File path as string point to gene list</span>
+<span class="sd">    use_raw: `bool` | default = True</span>
+<span class="sd">        Boolian indicator if the function should return the filtered raw object or not.</span>
+<span class="sd">    use_genes: `SYMBOL` or `ENSEMBL` | default = SYMBOL</span>
+<span class="sd">        String defining whether ENSEMBL id&#39;s or gene symbols are used in the adata.var_names (defines which column of input gene list is read)</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    AnnData</span>
+<span class="sd">        Returns the filtered AnnData object.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; import besca as bc</span>
+<span class="sd">    &gt;&gt;&gt; import os</span>
+<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.pbmc_raw()</span>
+<span class="sd">    &gt;&gt;&gt; adata.n_vars</span>
+<span class="sd">    &gt;&gt;&gt; # TO COMPLETE reference_mito_file = &#39;path2file.tsv&#39;</span>
+<span class="sd">    &gt;&gt;&gt; # adata = bc.pp.filter_gene_list(adata, file_path=reference_mito_file, use_genes=&#39;SYMBOL&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; # adata.n_vars</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#generate copy of adata object</span>
+    <span class="k">if</span> <span class="n">use_raw</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">adata</span><span class="o">.</span><span class="n">raw</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;WARNING: adata does not contain .raw filtering on regular adata object&#39;</span><span class="p">)</span>
+            <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">adata</span> <span class="o">=</span> <span class="n">get_raw</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">use_genes</span> <span class="o">==</span> <span class="s1">&#39;SYMBOL&#39;</span><span class="p">:</span>
+        <span class="n">gene_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># ENS_GENE_ID  GENE_SYMBOL (2 cols)</span>
+    <span class="k">elif</span> <span class="n">use_genes</span> <span class="o">==</span> <span class="s1">&#39;ENSEMBL&#39;</span><span class="p">:</span>
+        <span class="n">gene_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># ENS_GENE_ID  GENE_SYMBOL (2 cols)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Please supply either SYMBOL or ENSEMBL ids&#39;</span><span class="p">)</span>
+    <span class="n">genes</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">gene_list</span><span class="p">]</span>
+    <span class="c1"># remove all the genes from the list</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">genes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">gene_indexes</span> <span class="o">=</span> <span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">genes</span><span class="p">]</span>
+        <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="n">gene_indexes</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;None of the genes from input list found in data set. Please ensure you have correctly specified use_genes to match the type of genes saved in adata.var_names.&#39;</span><span class="p">)</span>    
+    <span class="k">return</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, BEDA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

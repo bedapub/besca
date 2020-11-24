@@ -1,0 +1,372 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>quality control plots &mdash; BESCA 2.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Visualize cell fractions" href="plot_celltype_quantification.html" />
+    <link rel="prev" title="plotting gene expression" href="plot_split_gene_expression.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> BESCA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../besca.html">besca</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">code examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#plotting-examples">Plotting examples</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="plot_riverplot.html">Comparing categorical variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_split_gene_expression.html">plotting gene expression</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">quality control plots</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#transcript-capture-efficiency">transcript capture efficiency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#overview-of-library-size-unprocessed">overview of library size unprocessed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#most-strongly-expressed-transcripts">most strongly expressed transcripts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#visualize-the-processed-dataset">visualize the processed dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="plot_celltype_quantification.html">Visualize cell fractions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_filtering.html">Filtering functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#preprocessing">Preprocessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#tools">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#workflows">Workflows</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../besca_standard_pipeline.html">standard pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adding_new_functions.html">adding new functions to besca</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">BESCA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Code Examples</a> &raquo;</li>
+        
+      <li>quality control plots</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/auto_examples/plotting/plot_qc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plotting-plot-qc-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="quality-control-plots">
+<span id="sphx-glr-auto-examples-plotting-plot-qc-py"></span><h1>quality control plots<a class="headerlink" href="#quality-control-plots" title="Permalink to this headline">¶</a></h1>
+<p>This example shows you the inbuilt quality control plots from besca.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#import libraries</span>
+<span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+<p>Before beginning any analysis it is useful to take a detailled look at your dataset
+to get an understanding for its characteristics.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#import data</span>
+<span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc3k_raw</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="section" id="transcript-capture-efficiency">
+<h2>transcript capture efficiency<a class="headerlink" href="#transcript-capture-efficiency" title="Permalink to this headline">¶</a></h2>
+<p>Plotting the transcript capture efficiency will give you an overview of the expression
+of genes within cells relative to the total UMI counts.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#transcript capture efficiency</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">transcript_capture_efficiency</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="transcript capture efficiency" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_qc_001.png" />
+</div>
+<div class="section" id="overview-of-library-size-unprocessed">
+<h2>overview of library size unprocessed<a class="headerlink" href="#overview-of-library-size-unprocessed" title="Permalink to this headline">¶</a></h2>
+<p>This gives you an overview of the read distribution per cell. High quality cells
+will have a larger number of reads per cell and this is a parameter you can use to
+filter out low quality cells. The number of reads you would expect per cell is strongly
+dependent on the single-cell sequencing method you used.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">librarysize_overview</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="library size distribution, NODG, dropouts" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_qc_002.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/distributions.py:2551: FutureWarning:
+
+`distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+
+/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/distributions.py:2551: FutureWarning:
+
+`distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+
+
+&lt;Figure size 1100x800 with 3 Axes&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="most-strongly-expressed-transcripts">
+<h2>most strongly expressed transcripts<a class="headerlink" href="#most-strongly-expressed-transcripts" title="Permalink to this headline">¶</a></h2>
+<p>This will let you identify the genes which dominant your experiment
+(generally you would expect mitochondrial and ribosomal genes,
+in this dataset these genes have been removed beforehand).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">top_genes_counts</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="Top 25 genes account for 25.24% of all UMI counts" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_qc_003.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:title={&#39;center&#39;:&#39;Top 25 genes account for 25.24% of all UMI counts&#39;}, xlabel=&#39;fraction of UMI counts per cell&#39;, ylabel=&#39;gene&#39;&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="visualize-the-processed-dataset">
+<h2>visualize the processed dataset<a class="headerlink" href="#visualize-the-processed-dataset" title="Permalink to this headline">¶</a></h2>
+<p>After performing your filtering it is generally a good idea to take another look
+at your dataset to ensure that the filtering parameters used were reasonable.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc3k_processed</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Please note that the displayed counts have already been scaled. You would now expect
+a more or less normal distribution of library size within your dataset.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">librarysize_overview</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="library size distribution, NODG, dropouts" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_qc_004.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/distributions.py:2551: FutureWarning:
+
+`distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+
+/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/distributions.py:305: UserWarning:
+
+Dataset has 0 variance; skipping density estimate.
+
+/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/distributions.py:2551: FutureWarning:
+
+`distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+
+
+&lt;Figure size 1100x800 with 3 Axes&gt;
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  7.755 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plotting-plot-qc-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/8bd305c6802e673c78129b658942b25a/plot_qc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_qc.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/8f359aeef52ff5d367593c22836f1974/plot_qc.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_qc.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="plot_celltype_quantification.html" class="btn btn-neutral float-right" title="Visualize cell fractions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="plot_split_gene_expression.html" class="btn btn-neutral float-left" title="plotting gene expression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, BEDA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
