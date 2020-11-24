@@ -89,9 +89,9 @@ def export_regressedOut(adata, basepath):
 
 
 
-## LEFT FOR COMPATIBILTIY SEE export_clustering for new function
+
 def export_clustering(adata, basepath, method):
-    """ Export louvain to cell mapping to FAIR format for loading into database
+    """ Export cluster to cell mapping to FAIR format for loading into database
 
     wrapper function for louvain and labeling_info with correct folder structure/names
     for loading into the database.
