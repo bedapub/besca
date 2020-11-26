@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>besca.pp._normalization &mdash; BESCA 2.2 documentation</title>
+  <title>besca.pp._normalization &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -63,7 +64,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -158,8 +159,8 @@
             
   <h1>Source code for besca.pp._normalization</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
-<span class="kn">from</span> <span class="nn">scipy.sparse.csr</span> <span class="k">import</span> <span class="n">csr_matrix</span>
-<span class="kn">from</span> <span class="nn">anndata._core.views</span> <span class="k">import</span> <span class="n">SparseCSRView</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse.csr</span> <span class="kn">import</span> <span class="n">csr_matrix</span>
+<span class="kn">from</span> <span class="nn">anndata._core.views</span> <span class="kn">import</span> <span class="n">SparseCSRView</span>
 
 <span class="k">def</span> <span class="nf">closure</span><span class="p">(</span><span class="n">mat</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>

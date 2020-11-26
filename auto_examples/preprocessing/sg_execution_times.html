@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Computation times &mdash; BESCA 2.2 documentation</title>
+  <title>Computation times &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -63,7 +64,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -163,13 +164,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -184,21 +185,21 @@
 </style>
 <div class="section" id="computation-times">
 <span id="sphx-glr-auto-examples-preprocessing-sg-execution-times"></span><h1>Computation times<a class="headerlink" href="#computation-times" title="Permalink to this headline">¶</a></h1>
-<p><strong>00:00.039</strong> total execution time for <strong>auto_examples_preprocessing</strong> files:</p>
-<table border="1" class="docutils">
+<p><strong>41:07.887</strong> total execution time for <strong>auto_examples_preprocessing</strong> files:</p>
+<table class="docutils align-default">
 <colgroup>
-<col width="86%" />
-<col width="8%" />
-<col width="6%" />
+<col style="width: 86%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="plot_example_filtering.html#sphx-glr-auto-examples-preprocessing-plot-example-filtering-py"><span class="std std-ref">performing filtering using besca</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_example_filtering.py</span></code>)</td>
-<td>00:00.020</td>
-<td>0.0 MB</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="plot_pca_neighbors_clustering.html#sphx-glr-auto-examples-preprocessing-plot-pca-neighbors-clustering-py"><span class="std std-ref">cluster generation</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_pca_neighbors_clustering.py</span></code>)</p></td>
+<td><p>41:07.887</p></td>
+<td><p>0.0 MB</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="plot_pca_neighbors_clustering.html#sphx-glr-auto-examples-preprocessing-plot-pca-neighbors-clustering-py"><span class="std std-ref">cluster generation</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_pca_neighbors_clustering.py</span></code>)</td>
-<td>00:00.019</td>
-<td>0.0 MB</td>
+<tr class="row-even"><td><p><a class="reference internal" href="plot_example_filtering.html#sphx-glr-auto-examples-preprocessing-plot-example-filtering-py"><span class="std std-ref">performing filtering using besca</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_example_filtering.py</span></code>)</p></td>
+<td><p>00:00.000</p></td>
+<td><p>0.0 MB</p></td>
 </tr>
 </tbody>
 </table>

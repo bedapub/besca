@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>get_gems &mdash; BESCA 2.2 documentation</title>
+  <title>get_gems &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -122,6 +123,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#reclustering">reclustering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../besca.html#auto-annot">auto-annot</a></li>
 </ul>
 </li>
 </ul>
@@ -206,13 +208,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -227,9 +229,9 @@
 </style>
 <div class="section" id="get-gems">
 <h1>get_gems<a class="headerlink" href="#get-gems" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.tl.sig.get_gems">
-<code class="descclassname">besca.tl.sig.</code><code class="descname">get_gems</code><span class="sig-paren">(</span><em>setName</em>, <em>BASE_URL</em>, <em>UP_suffix='_UP'</em>, <em>DN_suffix='_DN'</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_gems_link.html#get_gems"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.sig.get_gems" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">besca.tl.sig.</code><code class="sig-name descname">get_gems</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">setName</span></em>, <em class="sig-param"><span class="n">BASE_URL</span></em>, <em class="sig-param"><span class="n">UP_suffix</span><span class="o">=</span><span class="default_value">'_UP'</span></em>, <em class="sig-param"><span class="n">DN_suffix</span><span class="o">=</span><span class="default_value">'_DN'</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_gems_link.html#get_gems"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.sig.get_gems" title="Permalink to this definition">¶</a></dt>
 <dd><p>Connect to GEMS, dowload related geneset (specified by setName, can be a prefix/suffix)
 and return them
 This function combines genesets (signatures) scores (UP and DN) genes.
@@ -240,24 +242,23 @@ Non directionaly geneset are by default considered as UP.
 :type BASE_URL: <cite>str</cite>
 :param UP_suffix: str suffix indicating that the suffix indicating the signature  is in UP direction.</p>
 <blockquote>
-<div>This should be the end of the signatures names ($)</div></blockquote>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>DN_suffix</strong> (<cite>str</cite> | default = “_DN”) – str suffix indicating that the suffix indicating the signature is in DN direction.
-This should be the end of the signatures names ($)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
-<li><em>a dictionnary containing the signature names as key, and subdictionnary as direction</em></li>
-<li><strong>(Key could then be</strong> (<em>UP or DN). values are then the gene names.</em>)</li>
+<div><p>This should be the end of the signatures names ($)</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>DN_suffix</strong> (<cite>str</cite> | default = “_DN”) – str suffix indicating that the suffix indicating the signature is in DN direction.
+This should be the end of the signatures names ($)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>a dictionnary containing the signature names as key, and subdictionnary as direction</em></p></li>
+<li><p><strong>(Key could then be</strong> (<em>UP or DN). values are then the gene names.</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</p>
+</dd>
+</dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">yaml</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">yaml</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;mongocredentials/credential.yml&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
 <span class="go">        cred = yaml.safe_load(f)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">get_GEMS_sign</span><span class="p">(</span><span class="s1">&#39;Tcell&#39;</span><span class="p">,</span> <span class="n">BASE_URL</span> <span class="o">=</span>  <span class="s1">&#39;http://&#39;</span> <span class="o">+</span> <span class="n">cred</span><span class="p">[</span><span class="s1">&#39;hostname&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span>  <span class="n">cred</span><span class="p">[</span><span class="s1">&#39;localport&#39;</span><span class="p">])</span>

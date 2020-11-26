@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>scanorama_merge &mdash; BESCA 2.2 documentation</title>
+  <title>scanorama_merge &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -105,7 +106,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#differential-gene-expression">differential gene expression</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#signature-scoring">signature scoring</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#reclustering">reclustering</a></li>
-<li class="toctree-l4 current"><a class="reference internal" href="../besca.html#auto-annot">auto_annot</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../besca.html#auto-annot">auto-annot</a><ul class="current">
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.read_data.html">read_data</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.read_raw.html">read_raw</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.read_adata.html">read_adata</a></li>
@@ -215,13 +216,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -236,32 +237,28 @@
 </style>
 <div class="section" id="scanorama-merge">
 <h1>scanorama_merge<a class="headerlink" href="#scanorama-merge" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.tl.auto_annot.scanorama_merge">
-<code class="descclassname">besca.tl.auto_annot.</code><code class="descname">scanorama_merge</code><span class="sig-paren">(</span><em>adata_trains</em>, <em>adata_pred</em>, <em>keepdimensionality</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/auto_annot/_auto_annot.html#scanorama_merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.auto_annot.scanorama_merge" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">besca.tl.auto_annot.</code><code class="sig-name descname">scanorama_merge</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">adata_trains</span></em>, <em class="sig-param"><span class="n">adata_pred</span></em>, <em class="sig-param"><span class="n">keepdimensionality</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/auto_annot/_auto_annot.html#scanorama_merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.auto_annot.scanorama_merge" title="Permalink to this definition">¶</a></dt>
 <dd><p>corrects datasets using scanorama and merge training datasets subsequently</p>
 <p>This function reads a list of training datasets (at least one) and one testing dataset from .h5ad files and returns a merged and corrected training dataset anndata object, and a corrected testing anndata object.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>adata_trains</strong> (<cite>list</cite>) – list of training dataset adata objects</li>
-<li><strong>adata_pred</strong> (<em>AnnData</em>) – testing dataset anndata object</li>
-<li><strong>keepdimensionality</strong> (<cite>bool</cite>) – determines if we should use all common genes or if we should reduce dimensionality to 100. False not currently implemented</li>
-<li><strong>train_datasets</strong> (<cite>list</cite>) – names of train datasets</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata_trains</strong> (<cite>list</cite>) – list of training dataset adata objects</p></li>
+<li><p><strong>adata_pred</strong> (<em>AnnData</em>) – testing dataset anndata object</p></li>
+<li><p><strong>keepdimensionality</strong> (<cite>bool</cite>) – determines if we should use all common genes or if we should reduce dimensionality to 100. False not currently implemented</p></li>
+<li><p><strong>train_datasets</strong> (<cite>list</cite>) – names of train datasets</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
-<li><em>AnnData</em> – A concatenated and corrected anndata object of all training datasets.</li>
-<li><em>AnnData</em> – An anndata object containing corrected testing dataset.</li>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>AnnData</em> – A concatenated and corrected anndata object of all training datasets.</p></li>
+<li><p><em>AnnData</em> – An anndata object containing corrected testing dataset.</p></li>
 </ul>
 </p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

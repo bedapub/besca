@@ -15,7 +15,6 @@ plotting gene expression
 This example shows you some of the different plots you can use to plot gene expression.
 
 
-
 .. code-block:: default
 
     import besca as bc
@@ -55,7 +54,7 @@ You can use the split violin plot to compare gene expression for two different c
 
  .. code-block:: none
 
-    /pstore/home/julienla/miniconda3/envs/besca_2.2/lib/python3.6/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+    /pstore/home/julienla/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
 
     is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
 
@@ -83,6 +82,10 @@ use a stacked split violin plot to compare this for several genes at the same ti
 
  .. code-block:: none
 
+    /pstore/home/julienla/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+
+    is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
     merging a total of  3  datasubset
 
     <Figure size 640x480 with 2 Axes>
@@ -92,7 +95,7 @@ use a stacked split violin plot to compare this for several genes at the same ti
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  31.507 seconds)
+   **Total running time of the script:** ( 0 minutes  27.807 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plotting_plot_split_gene_expression.py:

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>make_anno &mdash; BESCA 2.2 documentation</title>
+  <title>make_anno &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -122,6 +123,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#reclustering">reclustering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../besca.html#auto-annot">auto-annot</a></li>
 </ul>
 </li>
 </ul>
@@ -206,13 +208,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -227,36 +229,32 @@
 </style>
 <div class="section" id="make-anno">
 <h1>make_anno<a class="headerlink" href="#make-anno" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.tl.sig.make_anno">
-<code class="descclassname">besca.tl.sig.</code><code class="descname">make_anno</code><span class="sig-paren">(</span><em>df</em>, <em>sigscores</em>, <em>sigconfig</em>, <em>levsk</em>, <em>lab='celltype'</em>, <em>toexclude=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_annot.html#make_anno"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.sig.make_anno" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">besca.tl.sig.</code><code class="sig-name descname">make_anno</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df</span></em>, <em class="sig-param"><span class="n">sigscores</span></em>, <em class="sig-param"><span class="n">sigconfig</span></em>, <em class="sig-param"><span class="n">levsk</span></em>, <em class="sig-param"><span class="n">lab</span><span class="o">=</span><span class="default_value">'celltype'</span></em>, <em class="sig-param"><span class="n">toexclude</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_annot.html#make_anno"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.sig.make_anno" title="Permalink to this definition">¶</a></dt>
 <dd><p>Annotate cell types
 Based on a dataframe of -log10pvals, a cutoff and a signature set generate cell annotation
 Hierarchical model of Immune cell annotation.
 It expects a specific set of signatures with a common prefix (signame) and specified suffixes indicating
 the cell type.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>mypFrame</strong> (<em>panda.DataFrame</em>) – a dataframe of -log10pvals per signature and cell cluster</li>
-<li><strong>sigscores</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – a dictionary with cluster attribution per signature</li>
-<li><strong>sigconfig</strong> (<em>panda.DataFrame</em>) – a dataframe with the configurati  on information</li>
-<li><strong>levsk</strong> (<em>list of str</em>) – String of distinct levels based on configuration file</li>
-<li><strong>lab</strong> (<em>'str'</em>) – cell type category base name</li>
-<li><strong>toexclude</strong> (<em>list of str</em>) – String of cell types to ignore in the annotation process</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mypFrame</strong> (<em>panda.DataFrame</em>) – a dataframe of -log10pvals per signature and cell cluster</p></li>
+<li><p><strong>sigscores</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – a dictionary with cluster attribution per signature</p></li>
+<li><p><strong>sigconfig</strong> (<em>panda.DataFrame</em>) – a dataframe with the configurati  on information</p></li>
+<li><p><strong>levsk</strong> (<em>list of str</em>) – String of distinct levels based on configuration file</p></li>
+<li><p><strong>lab</strong> (<em>'str'</em>) – cell type category base name</p></li>
+<li><p><strong>toexclude</strong> (<em>list of str</em>) – String of cell types to ignore in the annotation process</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>cnames</strong> – a dataframe with cluster to cell type attribution per distinct levels</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">panda.DataFrame</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>cnames</strong> – a dataframe with cluster to cell type attribution per distinct levels</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>panda.DataFrame</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>besca.st._wrapper_funcs &mdash; BESCA 2.2 documentation</title>
+  <title>besca.st._wrapper_funcs &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -63,7 +64,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -163,37 +164,37 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="c1"># import other modules</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">makedirs</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span>
-<span class="kn">from</span> <span class="nn">time</span> <span class="k">import</span> <span class="n">time</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">makedirs</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
 <span class="kn">import</span> <span class="nn">bbknn</span>
 <span class="kn">import</span> <span class="nn">scipy</span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="k">import</span> <span class="n">subplots</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">cumsum</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">subplots</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">cumsum</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
 <span class="c1"># import scanpy functions</span>
-<span class="kn">from</span> <span class="nn">scanpy.api.pl</span> <span class="k">import</span> <span class="n">highly_variable_genes</span> <span class="k">as</span> <span class="n">pl_highly_variable_genes</span>
-<span class="kn">from</span> <span class="nn">scanpy.api.pl</span> <span class="k">import</span> <span class="n">pca</span> <span class="k">as</span> <span class="n">sc_pl_pca</span>
-<span class="kn">from</span> <span class="nn">scanpy.api.pl</span> <span class="k">import</span> <span class="n">umap</span> <span class="k">as</span> <span class="n">sc_pl_umap</span>
-<span class="kn">from</span> <span class="nn">scanpy.api.pp</span> <span class="k">import</span> <span class="n">highly_variable_genes</span> <span class="k">as</span> <span class="n">sc_highly_variable_genes</span>
-<span class="kn">from</span> <span class="nn">scanpy.api.pp</span> <span class="k">import</span> <span class="n">log1p</span><span class="p">,</span> <span class="n">neighbors</span><span class="p">,</span> <span class="n">normalize_per_cell</span>
-<span class="kn">from</span> <span class="nn">scanpy.api.pp</span> <span class="k">import</span> <span class="n">regress_out</span> <span class="k">as</span> <span class="n">sc_regress_out</span>
-<span class="kn">from</span> <span class="nn">scanpy.api.pp</span> <span class="k">import</span> <span class="n">scale</span> <span class="k">as</span> <span class="n">sc_scale</span>
-<span class="kn">from</span> <span class="nn">scanpy.api.tl</span> <span class="k">import</span> <span class="n">leiden</span> <span class="k">as</span> <span class="n">sc_leiden</span>
-<span class="kn">from</span> <span class="nn">scanpy.api.tl</span> <span class="k">import</span> <span class="n">louvain</span> <span class="k">as</span> <span class="n">sc_louvain</span>
-<span class="kn">from</span> <span class="nn">scanpy.api.tl</span> <span class="k">import</span> <span class="n">pca</span> <span class="k">as</span> <span class="n">sc_pca</span>
-<span class="kn">from</span> <span class="nn">scanpy.api.tl</span> <span class="k">import</span> <span class="n">rank_genes_groups</span>
-<span class="kn">from</span> <span class="nn">scanpy.api.tl</span> <span class="k">import</span> <span class="n">umap</span> <span class="k">as</span> <span class="n">sc_umap</span>
+<span class="kn">from</span> <span class="nn">scanpy.plotting</span> <span class="kn">import</span> <span class="n">highly_variable_genes</span> <span class="k">as</span> <span class="n">pl_highly_variable_genes</span>
+<span class="kn">from</span> <span class="nn">scanpy.plotting</span> <span class="kn">import</span> <span class="n">pca</span> <span class="k">as</span> <span class="n">sc_pl_pca</span>
+<span class="kn">from</span> <span class="nn">scanpy.plotting</span> <span class="kn">import</span> <span class="n">umap</span> <span class="k">as</span> <span class="n">sc_pl_umap</span>
+<span class="kn">from</span> <span class="nn">scanpy.preprocessing</span> <span class="kn">import</span> <span class="n">highly_variable_genes</span> <span class="k">as</span> <span class="n">sc_highly_variable_genes</span>
+<span class="kn">from</span> <span class="nn">scanpy.preprocessing</span> <span class="kn">import</span> <span class="n">log1p</span><span class="p">,</span> <span class="n">neighbors</span><span class="p">,</span> <span class="n">normalize_per_cell</span>
+<span class="kn">from</span> <span class="nn">scanpy.preprocessing</span> <span class="kn">import</span> <span class="n">regress_out</span> <span class="k">as</span> <span class="n">sc_regress_out</span>
+<span class="kn">from</span> <span class="nn">scanpy.preprocessing</span> <span class="kn">import</span> <span class="n">scale</span> <span class="k">as</span> <span class="n">sc_scale</span>
+<span class="kn">from</span> <span class="nn">scanpy.tools</span> <span class="kn">import</span> <span class="n">leiden</span> <span class="k">as</span> <span class="n">sc_leiden</span>
+<span class="kn">from</span> <span class="nn">scanpy.tools</span> <span class="kn">import</span> <span class="n">louvain</span> <span class="k">as</span> <span class="n">sc_louvain</span>
+<span class="kn">from</span> <span class="nn">scanpy.tools</span> <span class="kn">import</span> <span class="n">pca</span> <span class="k">as</span> <span class="n">sc_pca</span>
+<span class="kn">from</span> <span class="nn">scanpy.tools</span> <span class="kn">import</span> <span class="n">rank_genes_groups</span>
+<span class="kn">from</span> <span class="nn">scanpy.tools</span> <span class="kn">import</span> <span class="n">umap</span> <span class="k">as</span> <span class="n">sc_umap</span>
 
 
 <span class="c1"># import other besca functions</span>
-<span class="kn">from</span> <span class="nn">..</span> <span class="k">import</span> <span class="n">_logging</span> <span class="k">as</span> <span class="n">logs</span>
-<span class="kn">from</span> <span class="nn">..export._export</span> <span class="k">import</span> <span class="n">labeling</span><span class="p">,</span> <span class="n">labeling_info</span>
-<span class="kn">from</span> <span class="nn">..Import._read</span> <span class="k">import</span> <span class="n">read_mtx</span>
-<span class="kn">from</span> <span class="nn">..pp._filtering</span> <span class="k">import</span> <span class="nb">filter</span>
-<span class="kn">from</span> <span class="nn">..pp._normalization</span> <span class="k">import</span> <span class="n">normalize_geometric</span>
-<span class="kn">from</span> <span class="nn">..tl.bcor</span> <span class="k">import</span> <span class="n">batch_correct</span><span class="p">,</span> <span class="n">postprocess_mnnpy</span>
-<span class="kn">from</span> <span class="nn">._FAIR_export</span> <span class="k">import</span> <span class="p">(</span><span class="n">export_clr</span><span class="p">,</span> <span class="n">export_clustering</span><span class="p">,</span> <span class="n">export_cp10k</span><span class="p">,</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">_logging</span> <span class="k">as</span> <span class="n">logs</span>
+<span class="kn">from</span> <span class="nn">..export._export</span> <span class="kn">import</span> <span class="n">labeling</span><span class="p">,</span> <span class="n">labeling_info</span>
+<span class="kn">from</span> <span class="nn">..Import._read</span> <span class="kn">import</span> <span class="n">read_mtx</span>
+<span class="kn">from</span> <span class="nn">..pp._filtering</span> <span class="kn">import</span> <span class="nb">filter</span>
+<span class="kn">from</span> <span class="nn">..pp._normalization</span> <span class="kn">import</span> <span class="n">normalize_geometric</span>
+<span class="kn">from</span> <span class="nn">..tl.bcor</span> <span class="kn">import</span> <span class="n">batch_correct</span><span class="p">,</span> <span class="n">postprocess_mnnpy</span>
+<span class="kn">from</span> <span class="nn">._FAIR_export</span> <span class="kn">import</span> <span class="p">(</span><span class="n">export_clr</span><span class="p">,</span> <span class="n">export_clustering</span><span class="p">,</span> <span class="n">export_cp10k</span><span class="p">,</span>
                            <span class="n">export_metadata</span><span class="p">,</span> <span class="n">export_rank</span><span class="p">,</span> <span class="n">export_regressedOut</span><span class="p">)</span>
 
 
@@ -315,11 +316,11 @@
 <span class="sd">        are supplied and you only have the ENSEMBLE gene ids to perform a lookup.</span>
 <span class="sd">    citeseq: &#39;gex_only&#39; or &#39;citeseq_only&#39; or None | default = None</span>
 <span class="sd">        string indicating if only gene expression values (gex_only) or only protein</span>
-<span class="sd">        expression values (&#39;citeseq_only&#39;) or everything is read if None is specified </span>
+<span class="sd">        expression values (&#39;citeseq_only&#39;) or everything is read if None is specified</span>
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    returns an AnnData object</span>
-<span class="sd">  &quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
     <span class="n">input_path</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">root_path</span><span class="p">,</span> <span class="s1">&#39;raw&#39;</span><span class="p">)</span>
 
@@ -420,18 +421,40 @@
     <span class="k">return</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">highly_variable_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">):</span>
-    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">highly_variable_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">batch_key</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">n_shared</span> <span class="o">=</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate highly variable genes and return filtered adata containing only the HVGs.</span>
 
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata: `AnnData`</span>
+<span class="sd">      AnnData object for which HVGs are to be calculated</span>
+<span class="sd">    batch_key: `str` | default = None</span>
+<span class="sd">        Specify adata.obs column to be used as batch. HVGs will then be calculated per batch. </span>
+<span class="sd">    n_shared: `int` | default = 2</span>
+<span class="sd">        requirement for selection of HVGs - HVGs shared in nr_samples/n_shared will be included. </span>
+<span class="sd">        A higher value will result in a less stringent selection, e.g. with 2 HVGs need to be present </span>
+<span class="sd">        in at least 50% of the samples. </span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    returns an AnnData object with only HVG</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
     <span class="c1"># take log1p</span>
     <span class="n">log1p</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;log1p taken of adata&#39;</span><span class="p">)</span>
 
-    <span class="n">filter_result</span> <span class="o">=</span> <span class="n">sc_highly_variable_genes</span><span class="p">(</span>
-        <span class="n">adata</span><span class="p">,</span> <span class="n">min_mean</span><span class="o">=</span><span class="mf">0.0125</span><span class="p">,</span> <span class="n">max_mean</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_disp</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">pl_highly_variable_genes</span><span class="p">(</span><span class="n">filter_result</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;.hvg.png&#39;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">sc_highly_variable_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_mean</span><span class="o">=</span><span class="mf">0.0125</span><span class="p">,</span> <span class="n">max_mean</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_disp</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> 
+                                             <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">batch_key</span><span class="o">=</span><span class="n">batch_key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">batch_key</span><span class="o">!=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">hvglist</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;highly_variable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">hvglist</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;highly_variable_nbatches&#39;</span><span class="p">]</span><span class="o">&gt;=</span><span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">batch_key</span><span class="p">]))</span><span class="o">/</span><span class="n">n_shared</span><span class="p">,]</span><span class="o">=</span><span class="kc">True</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;highly_variable&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">hvglist</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
-    <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="n">filter_result</span><span class="o">.</span><span class="n">highly_variable</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span>
+    <span class="n">pl_highly_variable_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;.hvg.png&#39;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">highly_variable</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span>
 
     <span class="c1"># logging</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;After feature selection of highly variable genes: &#39;</span> <span class="o">+</span>
@@ -484,11 +507,11 @@
 <span class="sd">    adata: `ÀnnData`</span>
 <span class="sd">        AnnData object that is to be exported</span>
 <span class="sd">    results_folder: `str`</span>
-<span class="sd">        path to the results folder </span>
+<span class="sd">        path to the results folder</span>
 <span class="sd">    nrpcs: int | nrpcs = 50</span>
 <span class="sd">        number of principle components to calculate</span>
 <span class="sd">    nrpcs_neigh: int | nrpcs_neigh = 50</span>
-<span class="sd">        number of principle components to use for nearest neighbor calculation. </span>
+<span class="sd">        number of principle components to use for nearest neighbor calculation.</span>
 <span class="sd">        When set to None the number is chosen automatically. For .n_vars &lt; 50, .X is used, otherwise ‘X_pca’ is used with 50 components.</span>
 <span class="sd">    nrneigh: int | nrpcs = None</span>
 <span class="sd">        number of principle components to calculate</span>
@@ -566,7 +589,7 @@
 <span class="sd">    adata: `ÀnnData`</span>
 <span class="sd">        AnnData object that is to be exported</span>
 <span class="sd">    results_folder: `str`</span>
-<span class="sd">        path to the results folder </span>
+<span class="sd">        path to the results folder</span>
 <span class="sd">    myres: int</span>
 <span class="sd">        resolution for the algorithm</span>
 <span class="sd">    method: `str`</span>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>besca.Import._read &mdash; BESCA 2.2 documentation</title>
+  <title>besca.Import._read &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -63,7 +64,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -158,11 +159,11 @@
             
   <h1>Source code for besca.Import._read</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">scanpy</span> <span class="k">import</span> <span class="n">read</span>
+<span class="kn">from</span> <span class="nn">scanpy</span> <span class="kn">import</span> <span class="n">read</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">anndata</span> <span class="k">import</span> <span class="n">AnnData</span>
-<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="k">import</span> <span class="n">issparse</span><span class="p">,</span> <span class="n">csr_matrix</span>
-<span class="kn">from</span> <span class="nn">.._helper</span> <span class="k">import</span> <span class="n">convert_ensembl_to_symbol</span>
+<span class="kn">from</span> <span class="nn">anndata</span> <span class="kn">import</span> <span class="n">AnnData</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">issparse</span><span class="p">,</span> <span class="n">csr_matrix</span>
+<span class="kn">from</span> <span class="nn">.._helper</span> <span class="kn">import</span> <span class="n">convert_ensembl_to_symbol</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
 
@@ -195,8 +196,8 @@
 <span class="k">def</span> <span class="nf">add_var_column</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">colname</span> <span class="o">=</span> <span class="s1">&#39;SYMBOL&#39;</span><span class="p">,</span> <span class="n">attempFix</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
     <span class="k">if</span><span class="p">(</span> <span class="ow">not</span> <span class="n">colname</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="p">:</span>
         <span class="k">if</span> <span class="n">attempFix</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Creating empty </span><span class="si">{colname}</span><span class="s1"> column;  please check if </span><span class="si">{colname}</span><span class="s1"> is not in the index of adata.var&#39;</span><span class="p">)</span>
-            <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="n">colname</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;N.A.&#39;</span>   
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Creating empty </span><span class="si">{</span><span class="n">colname</span><span class="si">}</span><span class="s1"> column;  please check if </span><span class="si">{</span><span class="n">colname</span><span class="si">}</span><span class="s1"> is not in the index of adata.var&#39;</span><span class="p">)</span>
+            <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="n">colname</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;N.A.&#39;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;adata.var needs column named </span><span class="si">{colname}</span><span class="s1">&#39;</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
@@ -222,7 +223,7 @@
             <span class="nb">print</span><span class="p">(</span> <span class="s1">&#39;Creating columns CELL in adata.obs using adata.obs.index.&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Required CELL columns in observations&#39;</span><span class="p">)</span>
-    
+
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs_names</span> <span class="o">==</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;CELL&#39;</span><span class="p">]):</span>
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Required indexing of adata.obs by CELL column&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">issparse</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">):</span>
@@ -268,7 +269,7 @@
 <span class="sd">        are supplied and you only have the ENSEMBLE gene ids to perform a lookup.</span>
 <span class="sd">    citeseq: &#39;gex_only&#39; or &#39;citeseq_only&#39; or None | default = None</span>
 <span class="sd">        string indicating if only gene expression values (gex_only) or only protein</span>
-<span class="sd">        expression values (&#39;citeseq_only&#39;) or everything is read if None is specified </span>
+<span class="sd">        expression values (&#39;citeseq_only&#39;) or everything is read if None is specified</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -323,7 +324,7 @@
                 <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">feature_type</span> <span class="o">==</span> <span class="s1">&#39;Gene Expression&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">citeseq</span> <span class="o">==</span> <span class="s1">&#39;citeseq_only&#39;</span><span class="p">:</span>
             <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">feature_type</span> <span class="o">==</span> <span class="s1">&#39;Antibody Capture&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            
+
     <span class="k">if</span> <span class="n">annotation</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;adding annotation&#39;</span><span class="p">)</span>
         <span class="n">adata</span><span class="o">.</span><span class="n">obs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;metadata.tsv&#39;</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">t&#39;</span><span class="p">,</span><span class="n">engine</span><span class="o">=</span><span class="s1">&#39;python&#39;</span><span class="p">)</span>

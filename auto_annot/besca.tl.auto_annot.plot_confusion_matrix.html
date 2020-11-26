@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>plot_confusion_matrix &mdash; BESCA 2.2 documentation</title>
+  <title>plot_confusion_matrix &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -105,7 +106,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#differential-gene-expression">differential gene expression</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#signature-scoring">signature scoring</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#reclustering">reclustering</a></li>
-<li class="toctree-l4 current"><a class="reference internal" href="../besca.html#auto-annot">auto_annot</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../besca.html#auto-annot">auto-annot</a><ul class="current">
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.read_data.html">read_data</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.read_raw.html">read_raw</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.read_adata.html">read_adata</a></li>
@@ -215,13 +216,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -236,36 +237,32 @@
 </style>
 <div class="section" id="plot-confusion-matrix">
 <h1>plot_confusion_matrix<a class="headerlink" href="#plot-confusion-matrix" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.tl.auto_annot.plot_confusion_matrix">
-<code class="descclassname">besca.tl.auto_annot.</code><code class="descname">plot_confusion_matrix</code><span class="sig-paren">(</span><em>y_true</em>, <em>y_pred</em>, <em>classes</em>, <em>celltype</em>, <em>normalize=False</em>, <em>title=None</em>, <em>numbers=False</em>, <em>cmap=&lt;matplotlib.colors.LinearSegmentedColormap object&gt;</em>, <em>adata_predicted=None</em>, <em>asymmetric_matrix=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/auto_annot/_auto_annot.html#plot_confusion_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.auto_annot.plot_confusion_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">besca.tl.auto_annot.</code><code class="sig-name descname">plot_confusion_matrix</code><span class="sig-paren">(</span><em class="sig-param">y_true</em>, <em class="sig-param">y_pred</em>, <em class="sig-param">classes</em>, <em class="sig-param">celltype</em>, <em class="sig-param">normalize=False</em>, <em class="sig-param">title=None</em>, <em class="sig-param">numbers=False</em>, <em class="sig-param">cmap=&lt;matplotlib.colors.LinearSegmentedColormap object&gt;</em>, <em class="sig-param">adata_predicted=None</em>, <em class="sig-param">asymmetric_matrix=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/auto_annot/_auto_annot.html#plot_confusion_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.auto_annot.plot_confusion_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>plots confusion matrices</p>
 <p>returns a matplotlib confusion matrix</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>y_true</strong> (<em>pandas.core.series.Series</em>) – ordered series of all true labels</li>
-<li><strong>y_pred</strong> (<em>pandas.core.series.Series</em>) – ordered series of all predicted celltypes</li>
-<li><strong>classes</strong> (<em>numpy.ndarray</em>) – union of true and predictable celltypes</li>
-<li><strong>celltype</strong> (<cite>str</cite>) – celltype column on which the prediction was performed</li>
-<li><strong>normalize</strong> (<cite>bool</cite> | default = False) – whether to return absolute values or to value all celltypes equally</li>
-<li><strong>title</strong> (<cite>str</cite> | default = None) – title to be given to confusion matrix figure in file.</li>
-<li><strong>numbers</strong> (<a href="#id1"><span class="problematic" id="id2">`</span></a>bool`| default = False) – should the numbers be displayed in the plot. Note: is illegible in larger plots</li>
-<li><strong>cmap</strong> (<em>matplotlib.cm | default = plt.cm.Blues</em>) – colour to be used for plotting</li>
-<li><strong>asymmetric_matrix</strong> (<cite>bool</cite> | default = True) – if False returns square confusion matrix, if True it only shows possible combinations</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_true</strong> (<em>pandas.core.series.Series</em>) – ordered series of all true labels</p></li>
+<li><p><strong>y_pred</strong> (<em>pandas.core.series.Series</em>) – ordered series of all predicted celltypes</p></li>
+<li><p><strong>classes</strong> (<em>numpy.ndarray</em>) – union of true and predictable celltypes</p></li>
+<li><p><strong>celltype</strong> (<cite>str</cite>) – celltype column on which the prediction was performed</p></li>
+<li><p><strong>normalize</strong> (<cite>bool</cite> | default = False) – whether to return absolute values or to value all celltypes equally</p></li>
+<li><p><strong>title</strong> (<cite>str</cite> | default = None) – title to be given to confusion matrix figure in file.</p></li>
+<li><p><strong>numbers</strong> (<a href="#id1"><span class="problematic" id="id2">`</span></a>bool`| default = False) – should the numbers be displayed in the plot. Note: is illegible in larger plots</p></li>
+<li><p><strong>cmap</strong> (<em>matplotlib.cm | default = plt.cm.Blues</em>) – colour to be used for plotting</p></li>
+<li><p><strong>asymmetric_matrix</strong> (<cite>bool</cite> | default = True) – if False returns square confusion matrix, if True it only shows possible combinations</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">plot of confusion matrix</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">matplotlib.pyplot.plot</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>plot of confusion matrix</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.pyplot.plot</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

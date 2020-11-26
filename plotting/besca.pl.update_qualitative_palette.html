@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>update_qualitative_palette &mdash; BESCA 2.2 documentation</title>
+  <title>update_qualitative_palette &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -109,6 +110,7 @@
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.top_genes_counts.html">top_genes_counts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.gene_expr_split.html">gene_expr_split</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.gene_expr_split_stacked.html">gene_expr_split_stacked</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.box_per_ind.html">box_per_ind</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.stacked_split_violin.html">stacked_split_violin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.celllabel_quant_boxplot.html">celllabel_quant_boxplot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.celllabel_quant_stackedbar.html">celllabel_quant_stackedbar</a></li>
@@ -117,6 +119,7 @@
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.dot_heatmap_split_greyscale.html">dot_heatmap_split_greyscale</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">update_qualitative_palette</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.nomenclature_network.html">nomenclature_network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.riverplot_2categories.html">riverplot_2categories</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#tools">tools</a></li>
@@ -200,13 +203,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -221,27 +224,23 @@
 </style>
 <div class="section" id="update-qualitative-palette">
 <h1>update_qualitative_palette<a class="headerlink" href="#update-qualitative-palette" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.pl.update_qualitative_palette">
-<code class="descclassname">besca.pl.</code><code class="descname">update_qualitative_palette</code><span class="sig-paren">(</span><em>adata</em>, <em>palette</em>, <em>group='leiden'</em>, <em>checkColors=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pl/_update_palette.html#update_qualitative_palette"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.pl.update_qualitative_palette" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">besca.pl.</code><code class="sig-name descname">update_qualitative_palette</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">adata</span></em>, <em class="sig-param"><span class="n">palette</span></em>, <em class="sig-param"><span class="n">group</span><span class="o">=</span><span class="default_value">'leiden'</span></em>, <em class="sig-param"><span class="n">checkColors</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pl/_update_palette.html#update_qualitative_palette"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.pl.update_qualitative_palette" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update adata object such that the umap will adhere to the palette provided.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>adata</strong> (<cite>AnnData</cite>) – the AnnData object</li>
-<li><strong>palette</strong> (<cite>dict</cite>) – dict with keys as the values of the group observation. To avoid warning from matlib it is advised to have             hex color values</li>
-<li><strong>group</strong> (<cite>str</cite>) – string identifying the column name of adata.obs where colors will be set.</li>
-<li><strong>checkColors</strong> (<cite>boolean</cite>) – check the colors inputed to transform them if needed into a hex values. tupple of RBG of 0-1 values cna be converted.
-returns</li>
-<li><strong>-------</strong> – </li>
-<li><strong>update the adata object.</strong> (<em>None;</em>) – </li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> (<cite>AnnData</cite>) – the AnnData object</p></li>
+<li><p><strong>palette</strong> (<cite>dict</cite>) – dict with keys as the values of the group observation. To avoid warning from matlib it is advised to have             hex color values</p></li>
+<li><p><strong>group</strong> (<cite>str</cite>) – string identifying the column name of adata.obs where colors will be set.</p></li>
+<li><p><strong>checkColors</strong> (<cite>boolean</cite>) – check the colors inputed to transform them if needed into a hex values. tupple of RBG of 0-1 values cna be converted.
+returns</p></li>
+<li><p><strong>-------</strong> – </p></li>
+<li><p><strong>update the adata object.</strong> (<em>None;</em>) – </p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

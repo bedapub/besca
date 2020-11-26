@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>besca.tl.dge._dge &mdash; BESCA 2.2 documentation</title>
+  <title>besca.tl.dge._dge &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
 
@@ -63,7 +64,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -159,21 +160,21 @@
   <h1>Source code for besca.tl.dge._dge</h1><div class="highlight"><pre>
 <span></span><span class="c1">#general libraries</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">scanpy.api.tl</span> <span class="k">import</span> <span class="n">rank_genes_groups</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">read_csv</span><span class="p">,</span> <span class="n">concat</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">sign</span><span class="p">,</span> <span class="n">log10</span><span class="p">,</span> <span class="n">inf</span><span class="p">,</span> <span class="nb">max</span><span class="p">,</span> <span class="nb">abs</span><span class="p">,</span> <span class="n">floor</span><span class="p">,</span> <span class="n">arange</span><span class="p">,</span> <span class="nb">round</span><span class="p">,</span> <span class="n">sort</span>
-<span class="kn">from</span> <span class="nn">plotly.offline</span> <span class="k">import</span> <span class="n">plot</span> <span class="k">as</span> <span class="n">plotly_plot</span>
+<span class="kn">from</span> <span class="nn">scanpy.tools</span> <span class="kn">import</span> <span class="n">rank_genes_groups</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">read_csv</span><span class="p">,</span> <span class="n">concat</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">sign</span><span class="p">,</span> <span class="n">log10</span><span class="p">,</span> <span class="n">inf</span><span class="p">,</span> <span class="nb">max</span><span class="p">,</span> <span class="nb">abs</span><span class="p">,</span> <span class="n">floor</span><span class="p">,</span> <span class="n">arange</span><span class="p">,</span> <span class="nb">round</span><span class="p">,</span> <span class="n">sort</span>
+<span class="kn">from</span> <span class="nn">plotly.offline</span> <span class="kn">import</span> <span class="n">plot</span> <span class="k">as</span> <span class="n">plotly_plot</span>
 
 <span class="c1">#other besca functions</span>
-<span class="kn">from</span> <span class="nn">..._helper</span> <span class="k">import</span> <span class="n">get_raw</span><span class="p">,</span> <span class="n">subset_adata</span>
+<span class="kn">from</span> <span class="nn">..._helper</span> <span class="kn">import</span> <span class="n">get_raw</span><span class="p">,</span> <span class="n">subset_adata</span>
 
 <span class="k">def</span> <span class="nf">extract_info_rank_genes_groups</span><span class="p">(</span><span class="n">adata</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This function extracts information from adata.uns[rank_gene_groups] to pandas.DataFrames</span>
 
 <span class="sd">    This function outputs 4 pandas.DataFrames which contain the scores, pvalues, logFC, and FDRs</span>
-<span class="sd">    calculated by scanpy.api.tl.rank_gene_groups() and saved to adata.uns[&#39;rank_gene_groups&#39;].</span>
+<span class="sd">    calculated by scanpy.tl.rank_gene_groups() and saved to adata.uns[&#39;rank_gene_groups&#39;].</span>
 
-<span class="sd">    This function can only be run on AnnData objects that have already been passed to scanpy.api.tl.rank_gene_groups().</span>
+<span class="sd">    This function can only be run on AnnData objects that have already been passed to scanpy.tl.rank_gene_groups().</span>
 
 <span class="sd">    parameters</span>
 <span class="sd">    ----------</span>
@@ -215,7 +216,7 @@
     <span class="c1">#make index into ENSEMBL instead of symbol</span>
     <span class="n">scores</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;ENSEMBL&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">scores</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">]</span>
-    
+
     <span class="c1"># get pvalues</span>
     <span class="c1">#initialize dataframe for storing the pvalues</span>
     <span class="n">pvalues</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;n_&#39;</span> <span class="o">+</span> <span class="n">key</span><span class="p">[:</span><span class="mi">1</span><span class="p">]:</span> <span class="n">rank_genes</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">groups</span> <span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;names&#39;</span><span class="p">,</span> <span class="s1">&#39;pvals&#39;</span><span class="p">]})</span>
@@ -238,7 +239,7 @@
     <span class="c1">#make index into ENSEMBL instead of symbol</span>
     <span class="n">pvalues</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;ENSEMBL&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">pvalues</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">]</span>
-    
+
     <span class="c1">#get logFC</span>
     <span class="n">logFC</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;n_&#39;</span> <span class="o">+</span> <span class="n">key</span><span class="p">[:</span><span class="mi">1</span><span class="p">]:</span> <span class="n">rank_genes</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">groups</span> <span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;names&#39;</span><span class="p">,</span> <span class="s1">&#39;logfoldchanges&#39;</span><span class="p">]})</span>
     <span class="n">logFC</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;n_l&#39;</span><span class="p">:</span><span class="n">groups</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;n_n&#39;</span><span class="p">:</span><span class="s1">&#39;NAME&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -260,7 +261,7 @@
     <span class="c1">#make index into ENSEMBL instead of symbol</span>
     <span class="n">logFC</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;ENSEMBL&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">logFC</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">]</span>
-    
+
     <span class="c1">#get FDRs</span>
     <span class="n">FDRs</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;n_&#39;</span> <span class="o">+</span> <span class="n">key</span><span class="p">[:</span><span class="mi">1</span><span class="p">]:</span> <span class="n">rank_genes</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">groups</span> <span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;names&#39;</span><span class="p">,</span> <span class="s1">&#39;pvals_adj&#39;</span><span class="p">]})</span>
     <span class="n">FDRs</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;n_p&#39;</span><span class="p">:</span><span class="n">groups</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;n_n&#39;</span><span class="p">:</span><span class="s1">&#39;NAME&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -282,10 +283,10 @@
         <span class="c1">#make index into ENSEMBL instead of symbol</span>
     <span class="n">FDRs</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;ENSEMBL&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">FDRs</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">]</span>
-    
+
     <span class="k">return</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">pvalues</span><span class="p">,</span> <span class="n">logFC</span><span class="p">,</span> <span class="n">FDRs</span><span class="p">)</span>
 
-<div class="viewcode-block" id="perform_dge"><a class="viewcode-back" href="../../../../dge/besca.tl.dge.perform_dge.html#besca.tl.dge.perform_dge">[docs]</a><span class="k">def</span> <span class="nf">perform_dge</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> 
+<div class="viewcode-block" id="perform_dge"><a class="viewcode-back" href="../../../../dge/besca.tl.dge.perform_dge.html#besca.tl.dge.perform_dge">[docs]</a><span class="k">def</span> <span class="nf">perform_dge</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
                 <span class="n">design_matrix</span><span class="p">,</span>
                 <span class="n">differentiating_criteria</span><span class="p">,</span>
                 <span class="n">constant_criteria</span><span class="p">,</span>
@@ -296,12 +297,12 @@
 
 <span class="sd">    This function automatically generates top_tables and rank_files for a list of comparisons</span>
 <span class="sd">    in a dataset. The comparison you wish to perform need to be identified in a so called design</span>
-<span class="sd">    matrix (see below). </span>
+<span class="sd">    matrix (see below).</span>
 
 <span class="sd">    This function is capable of handling comparisons where you wish to compare</span>
 <span class="sd">    two conditions in a subset of the dataset, e.g. treatment vs control in the celltype CD4 T-cell.</span>
 <span class="sd">    The conditions must be annotated in a column adata.obs, this represents the differentiating_criteria.</span>
-<span class="sd">    This column may only have two different labels! The subsets in which this comparison should be made </span>
+<span class="sd">    This column may only have two different labels! The subsets in which this comparison should be made</span>
 <span class="sd">    must be annotated in another column represented by &#39;constant_criteria&#39;. This column may have as</span>
 <span class="sd">    many labels as you wish.</span>
 
@@ -321,7 +322,7 @@
 <span class="sd">    adata: `AnnData`</span>
 <span class="sd">        AnnData object containing</span>
 <span class="sd">    design_matrix: `pandas.DataFrame`</span>
-<span class="sd">        pandas.DataFrame containing all the comparisons that are to be made. </span>
+<span class="sd">        pandas.DataFrame containing all the comparisons that are to be made.</span>
 <span class="sd">    method: `str`</span>
 <span class="sd">        one of &#39;t-test&#39;, &#39;wilcoxon&#39;, &#39;t-test_overestim_var&#39;, &#39;logreg&#39;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -401,7 +402,7 @@
             <span class="c1">#replace all 0 values with the smallest number possible in python</span>
             <span class="n">smallest_num</span> <span class="o">=</span> <span class="mf">1e-308</span>
             <span class="n">top_table</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">1e-308</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-            
+
             <span class="c1">#generate rank files</span>
             <span class="n">rank_file</span> <span class="o">=</span> <span class="n">top_table</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s1">&#39;SYMBOL&#39;</span><span class="p">,</span> <span class="s1">&#39;P-value&#39;</span><span class="p">,</span> <span class="s1">&#39;logFC&#39;</span><span class="p">])</span>
             <span class="n">rank_file</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="nb">abs</span><span class="p">(</span><span class="n">log10</span><span class="p">(</span><span class="n">rank_file</span><span class="p">[</span><span class="s1">&#39;P-value&#39;</span><span class="p">]))</span><span class="o">*</span><span class="n">sign</span><span class="p">(</span><span class="n">rank_file</span><span class="p">[</span><span class="s1">&#39;logFC&#39;</span><span class="p">])</span>
@@ -431,7 +432,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;need to specify type as one of </span><span class="se">\&#39;</span><span class="s1">wilcoxon</span><span class="se">\&#39;</span><span class="s1"> or </span><span class="se">\&#39;</span><span class="s1">t-test_overestim_var</span><span class="se">\&#39;</span><span class="s1">  or </span><span class="se">\&#39;</span><span class="s1">t-test</span><span class="se">\&#39;</span><span class="s1"> or </span><span class="se">\&#39;</span><span class="s1">logreg</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">)</span>
 
-        
+
             <span class="c1">#write out rankfile</span>
             <span class="n">rank_file</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">rank_File</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">float_format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">rank_File</span><span class="p">,</span> <span class="s1">&#39;written out&#39;</span><span class="p">)</span>
@@ -486,12 +487,12 @@
     <span class="n">group1_label</span> <span class="o">=</span> <span class="n">group1</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;log2cp10k_&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
     <span class="n">group2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
     <span class="n">group2_label</span> <span class="o">=</span> <span class="n">group2</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;log2cp10k_&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-    
+
     <span class="k">def</span> <span class="nf">generate_data_trace</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Helper function to iteratively generate the different traces that are plotted.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">df_filtered</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">log2cp10k</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">]</span>
-        
+
         <span class="c1">#get annotation per point</span>
         <span class="n">gene</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Gene Symbol: &#39;</span><span class="o">+</span><span class="n">gene</span> <span class="o">+</span><span class="s1">&#39;&lt;br&gt;&#39;</span> <span class="k">for</span> <span class="n">gene</span> <span class="ow">in</span> <span class="n">df_filtered</span><span class="o">.</span><span class="n">SYMBOL</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]</span>
         <span class="n">expression</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;log2cp10k: &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span> <span class="o">+</span><span class="s1">&#39;&lt;br&gt;&#39;</span> <span class="k">for</span> <span class="n">expr</span> <span class="ow">in</span> <span class="n">df_filtered</span><span class="o">.</span><span class="n">log2cp10k</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]</span>
@@ -553,13 +554,13 @@
 
     <span class="k">def</span> <span class="nf">generate_pvalue_button</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
         <span class="n">button</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s1">&#39;restyle&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;args&#39;</span><span class="p">:[</span><span class="s2">&quot;transforms[0].value&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">],</span> 
+                  <span class="s1">&#39;args&#39;</span><span class="p">:[</span><span class="s2">&quot;transforms[0].value&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">],</span>
                   <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)}</span>
         <span class="k">return</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">generate_logFC_button</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
         <span class="n">button</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s1">&#39;restyle&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;args&#39;</span><span class="p">:[</span><span class="s2">&quot;transforms[1].value&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">],</span> 
+                  <span class="s1">&#39;args&#39;</span><span class="p">:[</span><span class="s2">&quot;transforms[1].value&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">],</span>
                   <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)}</span>
         <span class="k">return</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
 
@@ -567,7 +568,7 @@
         <span class="n">visible</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span><span class="o">*</span><span class="n">total</span>
         <span class="n">visible</span><span class="p">[</span><span class="n">number</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">button</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s1">&#39;restyle&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;args&#39;</span><span class="p">:[{</span><span class="s1">&#39;visible&#39;</span><span class="p">:</span> <span class="n">visible</span><span class="p">}],</span> 
+                  <span class="s1">&#39;args&#39;</span><span class="p">:[{</span><span class="s1">&#39;visible&#39;</span><span class="p">:</span> <span class="n">visible</span><span class="p">}],</span>
                   <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)}</span>
         <span class="k">return</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
 
@@ -591,7 +592,7 @@
                             <span class="n">x</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>
                             <span class="n">xanchor</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span>
                             <span class="n">y</span> <span class="o">=</span> <span class="mf">1.07</span><span class="p">,</span>
-                            <span class="n">yanchor</span> <span class="o">=</span> <span class="s1">&#39;top&#39;</span> 
+                            <span class="n">yanchor</span> <span class="o">=</span> <span class="s1">&#39;top&#39;</span>
                         <span class="p">),</span>
                         <span class="nb">dict</span><span class="p">(</span><span class="n">buttons</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">logFC_buttons</span><span class="p">),</span>
                             <span class="n">direction</span> <span class="o">=</span> <span class="s1">&#39;down&#39;</span><span class="p">,</span>
@@ -600,7 +601,7 @@
                             <span class="n">x</span> <span class="o">=</span> <span class="mf">0.55</span><span class="p">,</span>
                             <span class="n">xanchor</span> <span class="o">=</span> <span class="s1">&#39;middle&#39;</span><span class="p">,</span>
                             <span class="n">y</span> <span class="o">=</span> <span class="mf">1.07</span><span class="p">,</span>
-                            <span class="n">yanchor</span> <span class="o">=</span> <span class="s1">&#39;top&#39;</span> 
+                            <span class="n">yanchor</span> <span class="o">=</span> <span class="s1">&#39;top&#39;</span>
                         <span class="p">),</span>
                         <span class="nb">dict</span><span class="p">(</span><span class="n">buttons</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">cp10k_buttons</span><span class="p">),</span>
                             <span class="n">direction</span> <span class="o">=</span> <span class="s1">&#39;down&#39;</span><span class="p">,</span>
@@ -609,7 +610,7 @@
                             <span class="n">x</span> <span class="o">=</span> <span class="mf">0.85</span><span class="p">,</span>
                             <span class="n">xanchor</span> <span class="o">=</span> <span class="s1">&#39;middle&#39;</span><span class="p">,</span>
                             <span class="n">y</span> <span class="o">=</span> <span class="mf">1.07</span><span class="p">,</span>
-                            <span class="n">yanchor</span> <span class="o">=</span> <span class="s1">&#39;top&#39;</span> 
+                            <span class="n">yanchor</span> <span class="o">=</span> <span class="s1">&#39;top&#39;</span>
                         <span class="p">),</span>
                     <span class="p">])</span>
 
@@ -647,8 +648,8 @@
 
 <div class="viewcode-block" id="get_de"><a class="viewcode-back" href="../../../../dge/besca.tl.dge.get_de.html#besca.tl.dge.get_de">[docs]</a><span class="k">def</span> <span class="nf">get_de</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">mygroup</span><span class="p">,</span> <span class="n">demethod</span><span class="o">=</span><span class="s1">&#39;wilcoxon&#39;</span><span class="p">,</span><span class="n">topnr</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">logfc</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">padj</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Get a table of significant DE genes at certain cutoffs</span>
-<span class="sd">    Based on an AnnData object and an annotation category (e.g. louvain) runs </span>
-<span class="sd">    scanpy&#39;s rank_genes_groups using a specified method with specified cutoffs </span>
+<span class="sd">    Based on an AnnData object and an annotation category (e.g. louvain) runs</span>
+<span class="sd">    scanpy&#39;s rank_genes_groups using a specified method with specified cutoffs</span>
 <span class="sd">    (nr. genes, logfc, padj) and returns a df with the results</span>
 <span class="sd">    parameters</span>
 <span class="sd">    ----------</span>
@@ -659,11 +660,11 @@
 <span class="sd">    demethod: `str`</span>
 <span class="sd">        one of &#39;t-test&#39;, &#39;wilcoxon&#39;, &#39;t-test_overestim_var&#39;, &#39;logreg&#39;</span>
 <span class="sd">    topnr: `int`</span>
-<span class="sd">        the number of top genes in the DE analysis </span>
+<span class="sd">        the number of top genes in the DE analysis</span>
 <span class="sd">    padj: `float`</span>
-<span class="sd">        log fold-change cutoff </span>
+<span class="sd">        log fold-change cutoff</span>
 <span class="sd">    logfc: `float`</span>
-<span class="sd">        adjusted p-value cutoff    </span>
+<span class="sd">        adjusted p-value cutoff</span>
 <span class="sd">    returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    delist</span>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>gene_expr_split_stacked &mdash; BESCA 2.2 documentation</title>
+  <title>gene_expr_split_stacked &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -40,7 +41,7 @@
   <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="stacked_split_violin" href="besca.pl.stacked_split_violin.html" />
+    <link rel="next" title="box_per_ind" href="besca.pl.box_per_ind.html" />
     <link rel="prev" title="gene_expr_split" href="besca.pl.gene_expr_split.html" /> 
 </head>
 
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -109,6 +110,7 @@
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.top_genes_counts.html">top_genes_counts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.gene_expr_split.html">gene_expr_split</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">gene_expr_split_stacked</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.box_per_ind.html">box_per_ind</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.stacked_split_violin.html">stacked_split_violin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.celllabel_quant_boxplot.html">celllabel_quant_boxplot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.celllabel_quant_stackedbar.html">celllabel_quant_stackedbar</a></li>
@@ -117,6 +119,7 @@
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.dot_heatmap_split_greyscale.html">dot_heatmap_split_greyscale</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.update_qualitative_palette.html">update_qualitative_palette</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.nomenclature_network.html">nomenclature_network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.riverplot_2categories.html">riverplot_2categories</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#tools">tools</a></li>
@@ -200,13 +203,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -221,17 +224,33 @@
 </style>
 <div class="section" id="gene-expr-split-stacked">
 <h1>gene_expr_split_stacked<a class="headerlink" href="#gene-expr-split-stacked" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.pl.gene_expr_split_stacked">
-<code class="descclassname">besca.pl.</code><code class="descname">gene_expr_split_stacked</code><span class="sig-paren">(</span><em>adata</em>, <em>genes</em>, <em>split_variable</em>, <em>label_split_variable=None</em>, <em>subset_variable='celltype'</em>, <em>label_subset_variable=None</em>, <em>use_raw=True</em>, <em>fig_width=None</em>, <em>fig_height=None</em>, <em>order=None</em>, <em>inner='stick'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pl/_split_gene_expression.html#gene_expr_split_stacked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.pl.gene_expr_split_stacked" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>subset_variable</strong> (<cite>str</cite>) – string identifying the column along which the AnnData object should be split into subsets. Can contain as many groups as you wish.</td>
-</tr>
-</tbody>
-</table>
+<code class="sig-prename descclassname">besca.pl.</code><code class="sig-name descname">gene_expr_split_stacked</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">adata</span></em>, <em class="sig-param"><span class="n">genes</span></em>, <em class="sig-param"><span class="n">split_variable</span></em>, <em class="sig-param"><span class="n">label_split_variable</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">subset_variable</span><span class="o">=</span><span class="default_value">'celltype'</span></em>, <em class="sig-param"><span class="n">label_subset_variable</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">use_raw</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">fig_width</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fig_height</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">order</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">inner</span><span class="o">=</span><span class="default_value">'stick'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pl/_split_gene_expression.html#gene_expr_split_stacked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.pl.gene_expr_split_stacked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stacked violin plot for visualization of genes expression.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">AnnData</span></code>) – The annotated data matrix used as input</p></li>
+<li><p><strong>genes</strong> (<cite>list</cite>) – List of gene ids for which the gene expression levels should be compared</p></li>
+<li><p><strong>split_variable</strong> (<cite>str</cite>) – string identfying the column which contains the annotation which cell belongs to which group (should only
+contain 2 different groups!!) If you have more than 2 groups you will need to look into other visualization techniques.</p></li>
+<li><p><strong>subset_variable</strong> (<cite>str</cite>) – string identifying the column along which the AnnData object should be split into subsets. Can contain as many groups as you wish.
+parameters</p></li>
+<li><p><strong>use_raw</strong> (<cite>bool</cite> (default = True)) – boolian indicator if adata.raw data should be used as input for gene expression levels</p></li>
+<li><p><strong>fig_width</strong> (<cite>int</cite> | default = 15) – width of the generated figure</p></li>
+<li><p><strong>fig_height</strong> (<cite>int</cite> | default = 8) – height of the generated figure</p></li>
+<li><p><strong>order</strong> (<em>lists of strings</em>) – Order to plot the categorical levels in</p></li>
+<li><p><strong>inner</strong> (<cite>str</cite> (default = ‘stick’)) – see seaborn violin plot.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>fig</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -244,7 +263,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="besca.pl.stacked_split_violin.html" class="btn btn-neutral float-right" title="stacked_split_violin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="besca.pl.box_per_ind.html" class="btn btn-neutral float-right" title="box_per_ind" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="besca.pl.gene_expr_split.html" class="btn btn-neutral float-left" title="gene_expr_split" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

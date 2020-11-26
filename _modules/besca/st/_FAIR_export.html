@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>besca.st._FAIR_export &mdash; BESCA 2.2 documentation</title>
+  <title>besca.st._FAIR_export &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -63,7 +64,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -160,15 +161,15 @@
 <span></span><span class="c1">#this contains wrapper functions to export data into the standard format for the standard pipeline</span>
 
 <span class="c1">#import other functions</span>
-<span class="kn">from</span> <span class="nn">..export._export</span> <span class="k">import</span> <span class="n">X_to_mtx</span><span class="p">,</span> <span class="n">raw_to_mtx</span><span class="p">,</span> <span class="n">clustering</span><span class="p">,</span>  <span class="n">labeling</span><span class="p">,</span> <span class="n">analysis_metadata</span><span class="p">,</span> <span class="n">ranked_genes</span><span class="p">,</span> <span class="n">labeling_info</span>
-<span class="kn">from</span> <span class="nn">..Import._read</span> <span class="k">import</span> <span class="n">read_mtx</span>
-<span class="kn">from</span> <span class="nn">..</span> <span class="k">import</span> <span class="n">_logging</span> <span class="k">as</span> <span class="n">logs</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">makedirs</span>
+<span class="kn">from</span> <span class="nn">..export._export</span> <span class="kn">import</span> <span class="n">X_to_mtx</span><span class="p">,</span> <span class="n">raw_to_mtx</span><span class="p">,</span> <span class="n">clustering</span><span class="p">,</span>  <span class="n">labeling</span><span class="p">,</span> <span class="n">analysis_metadata</span><span class="p">,</span> <span class="n">ranked_genes</span><span class="p">,</span> <span class="n">labeling_info</span>
+<span class="kn">from</span> <span class="nn">..Import._read</span> <span class="kn">import</span> <span class="n">read_mtx</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">_logging</span> <span class="k">as</span> <span class="n">logs</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">makedirs</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">time</span> <span class="k">import</span> <span class="n">time</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">..pp._filtering</span> <span class="k">import</span> <span class="nb">filter</span>
+<span class="kn">from</span> <span class="nn">..pp._filtering</span> <span class="kn">import</span> <span class="nb">filter</span>
 
 <div class="viewcode-block" id="export_cp10k"><a class="viewcode-back" href="../../../standardworkflow/besca.st.export_cp10k.html#besca.st.export_cp10k">[docs]</a><span class="k">def</span> <span class="nf">export_cp10k</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">basepath</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Export raw cp10k to FAIR format for loading into database</span>
@@ -248,9 +249,9 @@
 
 
 
-<span class="c1">## LEFT FOR COMPATIBILTIY SEE export_clustering for new function</span>
+
 <div class="viewcode-block" id="export_clustering"><a class="viewcode-back" href="../../../standardworkflow/besca.st.export_clustering.html#besca.st.export_clustering">[docs]</a><span class="k">def</span> <span class="nf">export_clustering</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">basepath</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Export louvain to cell mapping to FAIR format for loading into database</span>
+    <span class="sd">&quot;&quot;&quot; Export cluster to cell mapping to FAIR format for loading into database</span>
 
 <span class="sd">    wrapper function for louvain and labeling_info with correct folder structure/names</span>
 <span class="sd">    for loading into the database.</span>
@@ -363,12 +364,12 @@
 
     <span class="c1">#export celltypes</span>
     <span class="n">labeling</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span>
-             <span class="n">outpath</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">basepath</span><span class="p">,</span> <span class="s1">&#39;labelings&#39;</span><span class="p">,</span> <span class="s1">&#39;celltype&#39;</span><span class="p">),</span> 
-             <span class="n">column</span><span class="o">=</span><span class="s1">&#39;celltype&#39;</span><span class="p">)</span>
+             <span class="n">outpath</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">basepath</span><span class="p">,</span> <span class="s1">&#39;labelings&#39;</span><span class="p">,</span> <span class="s1">&#39;dblabel&#39;</span><span class="p">),</span> 
+             <span class="n">column</span><span class="o">=</span><span class="s1">&#39;dblabel&#39;</span><span class="p">)</span>
 
-    <span class="n">labeling_info</span><span class="p">(</span><span class="n">outpath</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">basepath</span><span class="p">,</span> <span class="s1">&#39;labelings&#39;</span><span class="p">,</span> <span class="s1">&#39;celltype&#39;</span><span class="p">),</span>
-                  <span class="n">method</span><span class="o">=</span><span class="s1">&#39;manual celltype annotation based on marker expression&#39;</span><span class="p">,</span>
-                  <span class="n">annotated_version_of</span><span class="o">=</span><span class="s1">&#39;louvain&#39;</span><span class="p">,</span> 
+    <span class="n">labeling_info</span><span class="p">(</span><span class="n">outpath</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">basepath</span><span class="p">,</span> <span class="s1">&#39;labelings&#39;</span><span class="p">,</span> <span class="s1">&#39;dblabel&#39;</span><span class="p">),</span>
+                  <span class="n">method</span><span class="o">=</span><span class="s1">&#39;celltype annotation based on marker expression&#39;</span><span class="p">,</span>
+                  <span class="n">annotated_version_of</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> 
                   <span class="n">expert</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
                   <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
                   <span class="n">public</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 

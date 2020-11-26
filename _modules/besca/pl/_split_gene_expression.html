@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>besca.pl._split_gene_expression &mdash; BESCA 2.2 documentation</title>
+  <title>besca.pl._split_gene_expression &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -63,7 +64,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -159,13 +160,13 @@
   <h1>Source code for besca.pl._split_gene_expression</h1><div class="highlight"><pre>
 <span></span><span class="c1">#generate split plots too compare gene expression between two cellpopulations</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">concat</span><span class="p">,</span> <span class="n">melt</span><span class="p">,</span> <span class="n">DataFrame</span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="k">import</span> <span class="n">subplots</span><span class="p">,</span> <span class="n">gca</span>
-<span class="kn">from</span> <span class="nn">matplotlib.offsetbox</span> <span class="k">import</span> <span class="n">AnchoredText</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">concat</span><span class="p">,</span> <span class="n">melt</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">subplots</span><span class="p">,</span> <span class="n">gca</span>
+<span class="kn">from</span> <span class="nn">matplotlib.offsetbox</span> <span class="kn">import</span> <span class="n">AnchoredText</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">._general</span> <span class="k">import</span> <span class="n">stacked_split_violin</span><span class="p">,</span> <span class="n">split_violin</span>
-<span class="kn">from</span> <span class="nn">.._helper</span> <span class="k">import</span> <span class="n">get_raw</span>
+<span class="kn">from</span> <span class="nn">._general</span> <span class="kn">import</span> <span class="n">stacked_split_violin</span><span class="p">,</span> <span class="n">split_violin</span>
+<span class="kn">from</span> <span class="nn">.._helper</span> <span class="kn">import</span> <span class="n">get_raw</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="k">def</span> <span class="nf">_make_tidy</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
@@ -389,15 +390,36 @@
                             <span class="n">inner</span><span class="o">=</span><span class="s1">&#39;stick&#39;</span><span class="p">):</span>
     
     <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Stacked violin plot for visualization of genes expression.</span>
 
 <span class="sd">    parameters</span>
 <span class="sd">    ----------</span>
-
+<span class="sd">    adata : :class:`~anndata.AnnData`</span>
+<span class="sd">        The annotated data matrix used as input</span>
+<span class="sd">    genes: `list`</span>
+<span class="sd">        List of gene ids for which the gene expression levels should be compared</span>
+<span class="sd">    split_variable: `str`</span>
+<span class="sd">        string identfying the column which contains the annotation which cell belongs to which group (should only</span>
+<span class="sd">        contain 2 different groups!!) If you have more than 2 groups you will need to look into other visualization techniques.</span>
 <span class="sd">    subset_variable: `str`</span>
 <span class="sd">        string identifying the column along which the AnnData object should be split into subsets. Can contain as many groups as you wish. </span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    
+<span class="sd">        parameters</span>
+<span class="sd">    use_raw: `bool` (default = True)</span>
+<span class="sd">        boolian indicator if adata.raw data should be used as input for gene expression levels</span>
+<span class="sd">    fig_width: `int` | default = 15</span>
+<span class="sd">        width of the generated figure</span>
+<span class="sd">    fig_height: `int` | default = 8</span>
+<span class="sd">        height of the generated figure</span>
+<span class="sd">    order: lists of strings</span>
+<span class="sd">        Order to plot the categorical levels in</span>
+<span class="sd">    inner: `str` (default = &#39;stick&#39;)</span>
+<span class="sd">        see seaborn violin plot.</span>
 
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    fig</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">label_subset_variable</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">label_subset_variable</span> <span class="o">=</span> <span class="n">label_subset_variable</span>
     <span class="k">else</span><span class="p">:</span> 

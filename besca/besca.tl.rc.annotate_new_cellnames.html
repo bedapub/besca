@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>annotate_new_cellnames &mdash; BESCA 2.2 documentation</title>
+  <title>annotate_new_cellnames &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -63,7 +64,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -163,13 +164,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -184,43 +185,40 @@
 </style>
 <div class="section" id="annotate-new-cellnames">
 <h1>annotate_new_cellnames<a class="headerlink" href="#annotate-new-cellnames" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.tl.rc.annotate_new_cellnames">
-<code class="descclassname">besca.tl.rc.</code><code class="descname">annotate_new_cellnames</code><span class="sig-paren">(</span><em>adata</em>, <em>cluster_subset</em>, <em>names</em>, <em>new_label='celltype'</em>, <em>method='leiden'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/rc/_reclustering.html#annotate_new_cellnames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.rc.annotate_new_cellnames" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">besca.tl.rc.</code><code class="sig-name descname">annotate_new_cellnames</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">adata</span></em>, <em class="sig-param"><span class="n">cluster_subset</span></em>, <em class="sig-param"><span class="n">names</span></em>, <em class="sig-param"><span class="n">new_label</span><span class="o">=</span><span class="default_value">'celltype'</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'leiden'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/rc/_reclustering.html#annotate_new_cellnames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.rc.annotate_new_cellnames" title="Permalink to this definition">¶</a></dt>
 <dd><p>annotate new cellnames to each of the subclusters identified by running recluster.</p>
 <p>Give each subcluster a new celltype identifier. Can only be run on an AnnData subset that has already been
 reclustered, e.g. using the recluster function also available in this package. The list of
 provided names must be of equal length to the number of subclusters in the AnnData subset.
 The order must be the same as the order of the clusters identifiers (integer expected).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>adata</strong> – complete AnnData object from which the subset was extracted. Must contain adata.obs.celltype.</li>
-<li><strong>cluster_subset</strong> – AnnData subset on which a reclustering has been run. Must contain adata.obs.celltype.</li>
-<li><strong>names</strong> (<cite>[str]</cite>) – list of strings containing the new celltype annotation. Order and Length must mach the
-lexicographic order of the louvain clusters in the AnnData susbet.</li>
-<li><strong>celltype_label</strong> – </li>
-<li><strong>new_label</strong> (<cite>str</cite> | default = ‘celltype’) – string specifying under which label in adata.obs the new annotation should be saved
-(it will overwrite existing annotations under this name)</li>
-<li><strong>method</strong> (<cite>str</cite> | default = ‘leiden’) – <p>string indicating the method used for clustering. This string will be used to retrieve the cluster
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> – complete AnnData object from which the subset was extracted. Must contain adata.obs.celltype.</p></li>
+<li><p><strong>cluster_subset</strong> – AnnData subset on which a reclustering has been run. Must contain adata.obs.celltype.</p></li>
+<li><p><strong>names</strong> (<cite>[str]</cite>) – list of strings containing the new celltype annotation. Order and Length must mach the
+lexicographic order of the louvain clusters in the AnnData susbet.</p></li>
+<li><p><strong>celltype_label</strong> – </p></li>
+<li><p><strong>new_label</strong> (<cite>str</cite> | default = ‘celltype’) – string specifying under which label in adata.obs the new annotation should be saved
+(it will overwrite existing annotations under this name)</p></li>
+<li><p><strong>method</strong> (<cite>str</cite> | default = ‘leiden’) – <p>string indicating the method used for clustering. This string will be used to retrieve the cluster
 numbers</p>
 <blockquote>
-<div>in adata.obs and in the cluster_subset. (assuming the same obs column name)</div></blockquote>
-</li>
+<div><p>in adata.obs and in the cluster_subset. (assuming the same obs column name)</p>
+</div></blockquote>
+</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
-<li><em>Complete AnnData object with the new celltype annotations in the adata.obs.new_label column for</em></li>
-<li><em>the subclusters.</em></li>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>Complete AnnData object with the new celltype annotations in the adata.obs.new_label column for</em></p></li>
+<li><p><em>the subclusters.</em></p></li>
 </ul>
 </p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <p>Please refer to the code examples section of the documentation for a complete example of
 the reclustering process.</p>

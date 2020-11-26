@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>filter_siggenes &mdash; BESCA 2.2 documentation</title>
+  <title>filter_siggenes &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -122,6 +123,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#reclustering">reclustering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../besca.html#auto-annot">auto-annot</a></li>
 </ul>
 </li>
 </ul>
@@ -206,13 +208,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -227,30 +229,26 @@
 </style>
 <div class="section" id="filter-siggenes">
 <h1>filter_siggenes<a class="headerlink" href="#filter-siggenes" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.tl.sig.filter_siggenes">
-<code class="descclassname">besca.tl.sig.</code><code class="descname">filter_siggenes</code><span class="sig-paren">(</span><em>adata</em>, <em>signature_dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_sig.html#filter_siggenes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.sig.filter_siggenes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">besca.tl.sig.</code><code class="sig-name descname">filter_siggenes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">adata</span></em>, <em class="sig-param"><span class="n">signature_dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_sig.html#filter_siggenes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.sig.filter_siggenes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filter all signatures in signature_dict to remove genes not present in adata</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>adata</strong> (class:<cite>~anndata.AnnData</cite>) – An AnnData object (from scanpy). Following besca convention, var names (gene) are HGNC symbol and should match the signatures values.</li>
-<li><strong>signature_dict</strong> (<cite>dict</cite>) – a dictionary of signatures. Nested dictionnaries, key: signature names
-Values are a dict  with keys as the directions (UP/DN) and genes names in values.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> (class:<cite>~anndata.AnnData</cite>) – An AnnData object (from scanpy). Following besca convention, var names (gene) are HGNC symbol and should match the signatures values.</p></li>
+<li><p><strong>signature_dict</strong> (<cite>dict</cite>) – a dictionary of signatures. Nested dictionnaries, key: signature names
+Values are a dict  with keys as the directions (UP/DN) and genes names in values.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>signature_dict_filtered</strong> – a dictionary of signatures. Nested dictionnaries, key: signature names
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>signature_dict_filtered</strong> – a dictionary of signatures. Nested dictionnaries, key: signature names
 Values are a dict  with keys as the directions (UP/DN) and genes names in values.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><cite>dict</cite></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>dict</cite></p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

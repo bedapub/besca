@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>analysis_metadata &mdash; BESCA 2.2 documentation</title>
+  <title>analysis_metadata &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -187,13 +188,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -208,38 +209,34 @@
 </style>
 <div class="section" id="analysis-metadata">
 <h1>analysis_metadata<a class="headerlink" href="#analysis-metadata" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.export.analysis_metadata">
-<code class="descclassname">besca.export.</code><code class="descname">analysis_metadata</code><span class="sig-paren">(</span><em>adata</em>, <em>outpath=None</em>, <em>filename='analysis_metadata.tsv'</em>, <em>total_counts=True</em>, <em>n_pcs=3</em>, <em>umap=True</em>, <em>tsne=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/export/_export.html#analysis_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.export.analysis_metadata" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">besca.export.</code><code class="sig-name descname">analysis_metadata</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">adata</span></em>, <em class="sig-param"><span class="n">outpath</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">filename</span><span class="o">=</span><span class="default_value">'analysis_metadata.tsv'</span></em>, <em class="sig-param"><span class="n">total_counts</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">n_pcs</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">umap</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">tsne</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/export/_export.html#analysis_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.export.analysis_metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>export plotting coordinates to analysis_metadata.tsv</p>
 <p>This function exports the indicated plotting coordinates or calculated PCAs to a .tsv file. This
 can be used to either transfer the data between different analysis platforms but can also be
 uploaded to the scseq database sicne the file follows the FAIR document format.</p>
 <p>To ensure FAIR compatibility the filename should not be changed.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>adata</strong> – </li>
-<li><strong>str | default = current working directory</strong> (<em>outpath</em>) – filepath to the directory in which the results should be outputed, if no directory is
-specified it outputs the results to the current working directory.</li>
-<li><strong>filename</strong> (<cite>str</cite> | default = ‘analysis_metadata.tsv’) – filename of the file that is to be written out</li>
-<li><strong>total_counts</strong> (<cite>bool</cite> | default = True) – boolian indicator if total counts should be written out or not</li>
-<li><strong>n_pcs</strong> (<cite>int</cite> | default = 3) – indicates number of PCA components that should be written out. If 0 no PCA components will be written out</li>
-<li><strong>umap</strong> (<cite>bool</cite> | default = True) – boolian indicator if UMAP coordinates should be written out.</li>
-<li><strong>tsne</strong> (<cite>bool</cite> | default = False) – boolian indicator if tSNE coordinates should be written out.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> – </p></li>
+<li><p><strong>str | default = current working directory</strong> (<em>outpath</em>) – filepath to the directory in which the results should be outputed, if no directory is
+specified it outputs the results to the current working directory.</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite> | default = ‘analysis_metadata.tsv’) – filename of the file that is to be written out</p></li>
+<li><p><strong>total_counts</strong> (<cite>bool</cite> | default = True) – boolian indicator if total counts should be written out or not</p></li>
+<li><p><strong>n_pcs</strong> (<cite>int</cite> | default = 3) – indicates number of PCA components that should be written out. If 0 no PCA components will be written out</p></li>
+<li><p><strong>umap</strong> (<cite>bool</cite> | default = True) – boolian indicator if UMAP coordinates should be written out.</p></li>
+<li><p><strong>tsne</strong> (<cite>bool</cite> | default = False) – boolian indicator if tSNE coordinates should be written out.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">file is written out.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)">None</a></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>file is written out.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

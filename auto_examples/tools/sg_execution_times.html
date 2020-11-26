@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Computation times &mdash; BESCA 2.2 documentation</title>
+  <title>Computation times &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -63,7 +64,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -163,13 +164,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -184,17 +185,17 @@
 </style>
 <div class="section" id="computation-times">
 <span id="sphx-glr-auto-examples-tools-sg-execution-times"></span><h1>Computation times<a class="headerlink" href="#computation-times" title="Permalink to this headline">¶</a></h1>
-<p><strong>00:00.019</strong> total execution time for <strong>auto_examples_tools</strong> files:</p>
-<table border="1" class="docutils">
+<p><strong>00:13.716</strong> total execution time for <strong>auto_examples_tools</strong> files:</p>
+<table class="docutils align-default">
 <colgroup>
-<col width="84%" />
-<col width="9%" />
-<col width="7%" />
+<col style="width: 84%" />
+<col style="width: 9%" />
+<col style="width: 7%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="plot_reclustering_function.html#sphx-glr-auto-examples-tools-plot-reclustering-function-py"><span class="std std-ref">reclustering on specific leiden clusters</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_reclustering_function.py</span></code>)</td>
-<td>00:00.019</td>
-<td>0.0 MB</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="plot_reclustering_function.html#sphx-glr-auto-examples-tools-plot-reclustering-function-py"><span class="std std-ref">reclustering on specific louvain clusters</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_reclustering_function.py</span></code>)</p></td>
+<td><p>00:13.716</p></td>
+<td><p>0.0 MB</p></td>
 </tr>
 </tbody>
 </table>

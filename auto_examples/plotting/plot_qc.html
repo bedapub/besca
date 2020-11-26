@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>quality control plots &mdash; BESCA 2.2 documentation</title>
+  <title>quality control plots &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -40,7 +41,7 @@
   <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="visualize cell fractions" href="plot_celltype_quantification.html" />
+    <link rel="next" title="Visualize cell fractions" href="plot_celltype_quantification.html" />
     <link rel="prev" title="plotting gene expression" href="plot_split_gene_expression.html" /> 
 </head>
 
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -94,6 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../besca.html">besca</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">code examples</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#plotting-examples">Plotting examples</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="plot_riverplot.html">Comparing categorical variable</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plot_split_gene_expression.html">plotting gene expression</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">quality control plots</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#transcript-capture-efficiency">transcript capture efficiency</a></li>
@@ -102,8 +104,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#visualize-the-processed-dataset">visualize the processed dataset</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="plot_celltype_quantification.html">visualize cell fractions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plot_filtering.html">filtering functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_celltype_quantification.html">Visualize cell fractions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_filtering.html">Filtering functions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#preprocessing">Preprocessing</a></li>
@@ -185,13 +187,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -205,8 +207,8 @@
 }
 </style>
 <div class="sphx-glr-download-link-note admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plotting-plot-qc-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plotting-plot-qc-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="quality-control-plots">
 <span id="sphx-glr-auto-examples-plotting-plot-qc-py"></span><h1>quality control plots<a class="headerlink" href="#quality-control-plots" title="Permalink to this headline">¶</a></h1>
@@ -248,7 +250,16 @@ dependent on the single-cell sequencing method you used.</p>
 </div>
 <img alt="library size distribution, NODG, dropouts" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_qc_002.png" />
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1100x800 with 3 Axes&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/distributions.py:2551: FutureWarning:
+
+`distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+
+/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/distributions.py:2551: FutureWarning:
+
+`distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+
+
+&lt;Figure size 1100x800 with 3 Axes&gt;
 </pre></div>
 </div>
 </div>
@@ -280,15 +291,30 @@ a more or less normal distribution of library size within your dataset.</p>
 </div>
 <img alt="library size distribution, NODG, dropouts" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_qc_004.png" />
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1100x800 with 3 Axes&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/distributions.py:2551: FutureWarning:
+
+`distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+
+/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/distributions.py:305: UserWarning:
+
+Dataset has 0 variance; skipping density estimate.
+
+/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/distributions.py:2551: FutureWarning:
+
+`distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+
+
+&lt;Figure size 1100x800 with 3 Axes&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  5.862 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  7.755 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plotting-plot-qc-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<a class="reference download internal" download="" href="../../_downloads/a945855f8ab7df8de03bb66095758405/plot_qc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_qc.py</span></code></a></div>
+<p><a class="reference download internal" download="" href="../../_downloads/8bd305c6802e673c78129b658942b25a/plot_qc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_qc.py</span></code></a></p>
+</div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<a class="reference download internal" download="" href="../../_downloads/9731648d5db5c12119dd0e4502c18b4a/plot_qc.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_qc.ipynb</span></code></a></div>
+<p><a class="reference download internal" download="" href="../../_downloads/8f359aeef52ff5d367593c22836f1974/plot_qc.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_qc.ipynb</span></code></a></p>
+</div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </div>
@@ -302,7 +328,7 @@ a more or less normal distribution of library size within your dataset.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="plot_celltype_quantification.html" class="btn btn-neutral float-right" title="visualize cell fractions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="plot_celltype_quantification.html" class="btn btn-neutral float-right" title="Visualize cell fractions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="plot_split_gene_expression.html" class="btn btn-neutral float-left" title="plotting gene expression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>reclustering on specific leiden clusters &mdash; BESCA 2.2 documentation</title>
+  <title>reclustering on specific louvain clusters &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -40,7 +41,7 @@
   <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="annotate celltypes" href="../workflows/plot_celltype_annotation.html" />
+    <link rel="next" title="Annotate celltypes" href="../workflows/plot_celltype_annotation.html" />
     <link rel="prev" title="cluster generation" href="../preprocessing/plot_pca_neighbors_clustering.html" /> 
 </head>
 
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -96,7 +97,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#plotting-examples">Plotting examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#preprocessing">Preprocessing</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#tools">Tools</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">reclustering on specific leiden clusters</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">reclustering on specific louvain clusters</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#workflows">Workflows</a></li>
@@ -152,7 +153,7 @@
         
           <li><a href="../index.html">Code Examples</a> &raquo;</li>
         
-      <li>reclustering on specific leiden clusters</li>
+      <li>reclustering on specific louvain clusters</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -176,13 +177,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -196,75 +197,90 @@
 }
 </style>
 <div class="sphx-glr-download-link-note admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-examples-tools-plot-reclustering-function-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-tools-plot-reclustering-function-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="reclustering-on-specific-leiden-clusters">
-<span id="sphx-glr-auto-examples-tools-plot-reclustering-function-py"></span><h1>reclustering on specific leiden clusters<a class="headerlink" href="#reclustering-on-specific-leiden-clusters" title="Permalink to this headline">¶</a></h1>
+<div class="sphx-glr-example-title section" id="reclustering-on-specific-louvain-clusters">
+<span id="sphx-glr-auto-examples-tools-plot-reclustering-function-py"></span><h1>reclustering on specific louvain clusters<a class="headerlink" href="#reclustering-on-specific-louvain-clusters" title="Permalink to this headline">¶</a></h1>
 <p>This example demonstrates who to perform a reclustering on a selected subset of
-leiden clusters. You will want to do this for example during the process of celltype
-annotation, when the leiden clusters do not have a sufficient resolution to seperate
+louvain clusters. You will want to do this for example during the process of celltype
+annotation, when the  clusters do not have a sufficient resolution to seperate
 all clusters and mixed cell populations still exist.</p>
-<img alt="../../_images/sphx_glr_plot_reclustering_function_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_reclustering_function_001.png" />
+<img alt="leiden, CD3G, CD8A, CD4, IL7R, NKG7, GNLY" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_reclustering_function_001.png" />
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>In total 1471 highly variable genes selected within cluster
-NOTE: overwriting labels for the selected cells saved in adata.obs.new_label with the new labels
-CD4 T-cell          866
-CD8 T-cell          427
-CD14+ monocyte      369
-B-cell              259
-FCGR3A+ monocyte    177
-NK cell             162
-pDC                  19
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+
+is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+In total 1409 highly variable genes selected within cluster
+/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+
+is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1192: FutureWarning:
+
+is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+not_labeled    943
+CD4 T-cell     853
+CD8 T-cell     438
+NK cell        270
 Name: celltype, dtype: int64
 </pre></div>
 </div>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">besca</span> <span class="kn">as</span> <span class="nn">bc</span>
-<span class="kn">import</span> <span class="nn">scanpy.api</span> <span class="kn">as</span> <span class="nn">sc</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
+<span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
 
 <span class="c1">#load and preprocess data (here we will start from a preprocessed dataset)</span>
 <span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc3k_processed</span><span class="p">()</span>
 
 <span class="c1">#extract subset using the recluster function whcih is part of the reclustering (rc) toolkit</span>
-<span class="n">adata_subset</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rc</span><span class="o">.</span><span class="n">recluster</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">celltype</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;CD4-positive, alpha-beta T cell&#39;</span><span class="p">,</span> <span class="s1">&#39;CD8-positive, alpha-beta T cell&#39;</span><span class="p">),</span> <span class="n">celltype_label</span> <span class="o">=</span> <span class="s1">&#39;celltype2&#39;</span><span class="p">,</span> <span class="n">resolution</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">adata_subset</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rc</span><span class="o">.</span><span class="n">recluster</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">celltype</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="s1">&#39;6&#39;</span><span class="p">,</span><span class="s1">&#39;8&#39;</span><span class="p">,</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="s1">&#39;11&#39;</span><span class="p">,</span> <span class="s1">&#39;12&#39;</span><span class="p">),</span> <span class="n">celltype_label</span> <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">resolution</span> <span class="o">=</span> <span class="mf">1.2</span><span class="p">)</span>
+
+
+
 
 <span class="c1">#visualize the new clusters</span>
-<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata_subset</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span>  <span class="s1">&#39;CD3G&#39;</span><span class="p">,</span> <span class="s1">&#39;CD8A&#39;</span><span class="p">,</span> <span class="s1">&#39;CD8B&#39;</span><span class="p">,</span><span class="s1">&#39;CD4&#39;</span><span class="p">,</span> <span class="s1">&#39;IL7R&#39;</span><span class="p">,</span> <span class="s1">&#39;NKG7&#39;</span><span class="p">,</span> <span class="s1">&#39;GNLY&#39;</span><span class="p">],</span> <span class="n">color_map</span> <span class="o">=</span> <span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata_subset</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="s1">&#39;CD3G&#39;</span><span class="p">,</span> <span class="s1">&#39;CD8A&#39;</span><span class="p">,</span> <span class="s1">&#39;CD4&#39;</span><span class="p">,</span> <span class="s1">&#39;IL7R&#39;</span><span class="p">,</span> <span class="s1">&#39;NKG7&#39;</span><span class="p">,</span> <span class="s1">&#39;GNLY&#39;</span><span class="p">])</span>
 
-
-<span class="c1"># We advise to go back to the annotation procedures using auto-annot/sig-annot.</span>
-<span class="c1"># As an example here, we performed an a-priori hand annotation.</span>
-
-<span class="c1">#append new celltype labels to the subclusters</span>
-<span class="n">new_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CD4 T-cell&quot;</span><span class="p">,</span> <span class="c1">#0</span>
+<span class="c1">#append new celltype labels to the subclusters.</span>
+<span class="c1"># This is an approximative hand annotation that should be dealt into more widths.</span>
+<span class="n">new_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;NK cell&quot;</span><span class="p">,</span> <span class="c1">#0</span>
               <span class="s2">&quot;CD4 T-cell&quot;</span><span class="p">,</span> <span class="c1">#1</span>
               <span class="s2">&quot;CD8 T-cell&quot;</span><span class="p">,</span> <span class="c1">#2</span>
-              <span class="s2">&quot;NK cell&quot;</span><span class="p">,</span> <span class="c1">#3</span>
+              <span class="s2">&quot;CD4 T-cell&quot;</span><span class="p">,</span> <span class="c1">#3</span>
               <span class="s2">&quot;CD8 T-cell&quot;</span><span class="p">,</span> <span class="c1">#4</span>
               <span class="s2">&quot;CD8 T-cell&quot;</span><span class="p">,</span> <span class="c1">#5</span>
-              <span class="s2">&quot;CD4 T-cell&quot;</span><span class="p">,</span><span class="c1">#6</span>
-              <span class="s2">&quot;T cell&quot;</span> <span class="c1">#7</span>
+              <span class="s2">&quot;CD4 T-cell&quot;</span><span class="p">,</span> <span class="c1">#6</span>
+              <span class="s2">&quot;CD4 T-cell&quot;</span><span class="p">,</span>  <span class="c1">#7</span>
+              <span class="s2">&quot;CD4 T-cell&quot;</span><span class="p">,</span>  <span class="c1">#8</span>
+              <span class="s2">&quot;CD4 T-cell&quot;</span><span class="p">,</span>  <span class="c1">#9</span>
+              <span class="s2">&quot;CD4 T-cell&quot;</span><span class="p">,</span> <span class="c1">#10</span>
+              <span class="s2">&quot;CD4 T-cell&quot;</span><span class="p">,</span> <span class="c1">#11</span>
+              <span class="s2">&quot;CD4 T-cell&quot;</span> <span class="c1">#12</span>
               <span class="p">]</span> <span class="c1">#10</span>
 
 <span class="c1">#merge the labels back into the original adata object</span>
-<span class="c1">#note this will overwrite what ever was saved in adata.obs.celltype</span>
-<span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rc</span><span class="o">.</span><span class="n">annotate_new_cellnames</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">adata_subset</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">new_labels</span><span class="p">,</span> <span class="n">new_label</span> <span class="o">=</span> <span class="s1">&#39;celltype_rc&#39;</span><span class="p">)</span>
+<span class="c1">#note this will overwrite what ever was saved in adata.obs.celltype;</span>
+<span class="c1">#Here is was not assigned yet.</span>
+<span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rc</span><span class="o">.</span><span class="n">annotate_new_cellnames</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">adata_subset</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">new_labels</span><span class="p">,</span> <span class="n">new_label</span> <span class="o">=</span> <span class="s1">&#39;celltype&#39;</span><span class="p">)</span>
 
-
-<span class="k">print</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">celltype_rc</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">celltype</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  16.113 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  13.716 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-tools-plot-reclustering-function-py">
-<div class="sphx-glr-download docutils container">
-<a class="reference download internal" download="" href="../../_downloads/226b53b5fd0faaadf6f2fb6cb799eaa7/plot_reclustering_function.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_reclustering_function.py</span></code></a></div>
-<div class="sphx-glr-download docutils container">
-<a class="reference download internal" download="" href="../../_downloads/a28bff95a22f08ae8554880a2837fa8b/plot_reclustering_function.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_reclustering_function.ipynb</span></code></a></div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/10f908b25596b66489ed21c238008956/plot_reclustering_function.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_reclustering_function.py</span></code></a></p>
 </div>
-<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/0de26b5265e98db5104623cd8b12c823/plot_reclustering_function.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_reclustering_function.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </div>
 
 
@@ -275,7 +291,7 @@ Name: celltype, dtype: int64
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../workflows/plot_celltype_annotation.html" class="btn btn-neutral float-right" title="annotate celltypes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../workflows/plot_celltype_annotation.html" class="btn btn-neutral float-right" title="Annotate celltypes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../preprocessing/plot_pca_neighbors_clustering.html" class="btn btn-neutral float-left" title="cluster generation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

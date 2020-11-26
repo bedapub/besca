@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Welcome to besca’s documentation! &mdash; BESCA 2.2 documentation</title>
+  <title>Welcome to besca’s documentation! &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -64,7 +65,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -164,13 +165,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -191,11 +192,11 @@
 <img alt="_images/besca_outline.jpg" class="align-center" src="_images/besca_outline.jpg" />
 <p>The package has grouped into 6 modules:</p>
 <ul class="simple">
-<li><a class="reference internal" href="besca.html#preprocessing-functions"><span class="std std-ref">preprocessing functions</span></a>: the <cite>pp</cite> module contains functions relevant for data preprocessing.</li>
-<li><a class="reference internal" href="besca.html#plotting-functions"><span class="std std-ref">plotting functions</span></a>: the <cite>pl</cite> module offers additional plot types not available in the scanpy package</li>
-<li><a class="reference internal" href="besca.html#tools-functions"><span class="std std-ref">tools</span></a>: the <cite>tl</cite> module contains additional tools, for instance tools to perform differential gene analysis</li>
-<li><a class="reference internal" href="besca.html#standardworkflow-functions"><span class="std std-ref">standardworkflow</span></a>: the <cite>st</cite> module contains functions optimized for our standard single-cell sequencing analysis pipeline</li>
-<li><a class="reference internal" href="besca.html#import-functions"><span class="std std-ref">import</span></a>/<a class="reference internal" href="besca.html#export-functions"><span class="std std-ref">export</span></a>: the <cite>Import</cite> and <cite>export</cite> modules are collection of functions to export/load data from the FAIR data format</li>
+<li><p><a class="reference internal" href="besca.html#preprocessing-functions"><span class="std std-ref">preprocessing functions</span></a>: the <cite>pp</cite> module contains functions relevant for data preprocessing.</p></li>
+<li><p><a class="reference internal" href="besca.html#plotting-functions"><span class="std std-ref">plotting functions</span></a>: the <cite>pl</cite> module offers additional plot types not available in the scanpy package</p></li>
+<li><p><a class="reference internal" href="besca.html#tools-functions"><span class="std std-ref">tools</span></a>: the <cite>tl</cite> module contains additional tools, for instance tools to perform differential gene analysis</p></li>
+<li><p><a class="reference internal" href="besca.html#standardworkflow-functions"><span class="std std-ref">standardworkflow</span></a>: the <cite>st</cite> module contains functions optimized for besca standard single-cell sequencing analysis pipeline</p></li>
+<li><p><a class="reference internal" href="besca.html#import-functions"><span class="std std-ref">import</span></a>/<a class="reference internal" href="besca.html#export-functions"><span class="std std-ref">export</span></a>: the <cite>Import</cite> and <cite>export</cite> modules are collection of functions to export/load data from the FAIR data format</p></li>
 </ul>
 <p>In addition you will find example code and output (including some short tutorials) <a class="reference internal" href="auto_examples/index.html"><span class="doc">here</span></a>, as well as extensive documentation on <a class="reference internal" href="adding_new_functions.html#adding-new-functions"><span class="std std-ref">adding functions to besca</span></a>.</p>
 </div>

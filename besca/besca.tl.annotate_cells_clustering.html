@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>annotate_cells_clustering &mdash; BESCA 2.2 documentation</title>
+  <title>annotate_cells_clustering &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -63,7 +64,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -163,13 +164,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -184,9 +185,9 @@
 </style>
 <div class="section" id="annotate-cells-clustering">
 <h1>annotate_cells_clustering<a class="headerlink" href="#annotate-cells-clustering" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.tl.annotate_cells_clustering">
-<code class="descclassname">besca.tl.</code><code class="descname">annotate_cells_clustering</code><span class="sig-paren">(</span><em>adata</em>, <em>new_cluster_labels</em>, <em>new_annotation_label='celltype'</em>, <em>clustering_label='leiden'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/_annotate_cellnames.html#annotate_cells_clustering"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.annotate_cells_clustering" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">besca.tl.</code><code class="sig-name descname">annotate_cells_clustering</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">adata</span></em>, <em class="sig-param"><span class="n">new_cluster_labels</span></em>, <em class="sig-param"><span class="n">new_annotation_label</span><span class="o">=</span><span class="default_value">'celltype'</span></em>, <em class="sig-param"><span class="n">clustering_label</span><span class="o">=</span><span class="default_value">'leiden'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/_annotate_cellnames.html#annotate_cells_clustering"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.annotate_cells_clustering" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to add annotation to adata.obs based on clustering
 This function replaces the original cluster labels located in the column clustering_label with
 the new values specified in the list new_cluster_lables. The values in this list need to be in the
@@ -194,26 +195,22 @@ same lexicographic order as the cluster values.
 The order of this can be checked by running
 ` sorted(adata.obs.get(clustering_label).unique(), key=int)` or
 ` sorted(adata.obs.get(clustering_label).unique(), key=str)`</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>adata</strong> (<em>AnnData</em>) – the AnnData object that is supposed to recieve a new annotation</li>
-<li><strong>new_cluster_labels</strong> (<cite>list</cite>) – a list in correct lexicographic order of the new cluster labels</li>
-<li><strong>new_annotation_label</strong> (<cite>str</cite> | default = ‘celltype’) – string identifying the name underwhich the new cluster labels should be added to adata.obs</li>
-<li><strong>clustering_label</strong> (<cite>str</cite> | default = ‘louvain’) – string identifying the name underwhich the old cluster labels can be found in adata.obs</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> (<em>AnnData</em>) – the AnnData object that is supposed to recieve a new annotation</p></li>
+<li><p><strong>new_cluster_labels</strong> (<cite>list</cite>) – a list in correct lexicographic order of the new cluster labels</p></li>
+<li><p><strong>new_annotation_label</strong> (<cite>str</cite> | default = ‘celltype’) – string identifying the name underwhich the new cluster labels should be added to adata.obs</p></li>
+<li><p><strong>clustering_label</strong> (<cite>str</cite> | default = ‘louvain’) – string identifying the name underwhich the old cluster labels can be found in adata.obs</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The adata.obs has been updated with a new column containing the new annotation</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">AnnData</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The adata.obs has been updated with a new column containing the new annotation</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>AnnData</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

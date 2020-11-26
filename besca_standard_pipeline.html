@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>besca standard pipeline &mdash; BESCA 2.2 documentation</title>
+  <title>besca standard pipeline &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -165,13 +166,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -188,7 +189,7 @@
 <span id="id1"></span><h1>besca standard pipeline<a class="headerlink" href="#besca-standard-pipeline" title="Permalink to this headline">¶</a></h1>
 <p>Besca standard worklow offers a standardized series of steps from raw-data to filtered one in order to start the annotation processes.</p>
 <p>Besca is distributed with such workflow available as a notebook:
-<a class="reference external" href="https://github.com/bedapub/besca/blob/master/workbooks/standard_workflow_besca2.0.ipynb">https://github.com/bedapub/besca/blob/master/workbooks/standard_workflow_besca2.0.ipynb</a></p>
+<a class="reference external" href="https://github.com/bedapub/besca/blob/master/workbooks/standard_workflow_besca2.ipynb">https://github.com/bedapub/besca/blob/master/workbooks/standard_workflow_besca2.ipynb</a></p>
 <p>The differents individuals steps are described in the tutorial:
 <a class="reference internal" href="tutorials/notebook1_data_processing_pbmc3k.html"><span class="doc">data processing</span></a></p>
 <p>And different examples are available in the publication results repository:</p>

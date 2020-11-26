@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>besca.export._export &mdash; BESCA 2.2 documentation</title>
+  <title>besca.export._export &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -63,7 +64,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -158,12 +159,24 @@
             
   <h1>Source code for besca.export._export</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">read_csv</span><span class="p">,</span> <span class="n">concat</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="nb">round</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">where</span><span class="p">,</span> <span class="n">arange</span><span class="p">,</span> <span class="n">expm1</span><span class="p">,</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">ix_</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">io</span><span class="p">,</span> <span class="n">sparse</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="n">BytesIO</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+
 <span class="kn">import</span> <span class="nn">pkg_resources</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">arange</span><span class="p">,</span> <span class="n">expm1</span><span class="p">,</span> <span class="n">ix_</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">,</span> <span class="nb">round</span><span class="p">,</span> <span class="n">where</span><span class="p">,</span> <span class="n">zeros</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">concat</span><span class="p">,</span> <span class="n">read_csv</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">io</span><span class="p">,</span> <span class="n">sparse</span>
+<span class="kn">from</span> <span class="nn">scipy.io.mmio</span> <span class="kn">import</span> <span class="n">MMFile</span>
+
+
+<span class="c1">## overwriding _field_template to avoid scientific notations</span>
+<span class="k">class</span> <span class="nc">MMFileFixedFormat</span><span class="p">(</span><span class="n">MMFile</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">_field_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">precision</span><span class="p">):</span>
+        <span class="c1"># Override MMFile._field_template.</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;%.</span><span class="si">{</span><span class="n">precision</span><span class="si">}</span><span class="s1">f</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+
 
 <span class="c1">#Functions to export AnnData objects to FAIR dataformat</span>
 
@@ -237,15 +250,14 @@
         <span class="c1">#write out temporary matrix to created pipe</span>
         <span class="n">io</span><span class="o">.</span><span class="n">mmwrite</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">f_in</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">E</span><span class="p">,</span> <span class="n">precision</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
 
-        <span class="kn">from</span> <span class="nn">subprocess</span> <span class="k">import</span> <span class="n">run</span>
+        <span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">run</span>
         <span class="n">f_out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s1">&#39;matrix.mtx&#39;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
         <span class="n">run</span><span class="p">([</span><span class="n">C_path</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">],</span> <span class="nb">input</span><span class="o">=</span><span class="n">f_in</span><span class="o">.</span><span class="n">getvalue</span><span class="p">(),</span> <span class="n">stdout</span><span class="o">=</span><span class="n">f_out</span><span class="p">)</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;adata.X successfully written to matrix.mtx&#39;</span><span class="p">)</span>
 
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">io</span><span class="o">.</span><span class="n">mmwrite</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s1">&#39;matrix.mtx&#39;</span><span class="p">),</span> <span class="n">a</span><span class="o">=</span><span class="n">E</span><span class="p">,</span> <span class="n">precision</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
-
+        <span class="n">MMFileFixedFormat</span><span class="p">()</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s1">&#39;matrix.mtx&#39;</span><span class="p">),</span> <span class="n">a</span><span class="o">=</span><span class="n">E</span><span class="p">,</span> <span class="n">precision</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> 
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;adata.X successfully written to matrix.mtx. </span><span class="se">\n</span><span class="s1"> Warning: could not use reformat script.&#39;</span><span class="p">)</span>
         
     <span class="c1">### export genes</span>
@@ -373,7 +385,7 @@
     <span class="c1">#write out temporary matrix to created pipe</span>
     <span class="n">io</span><span class="o">.</span><span class="n">mmwrite</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">f_in</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">E</span><span class="p">,</span> <span class="n">precision</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
     
-    <span class="kn">from</span> <span class="nn">subprocess</span> <span class="k">import</span> <span class="n">run</span>
+    <span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">run</span>
     <span class="n">f_out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s1">&#39;matrix.mtx&#39;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
     <span class="n">run</span><span class="p">([</span><span class="n">C_path</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">],</span> <span class="nb">input</span><span class="o">=</span><span class="n">f_in</span><span class="o">.</span><span class="n">getvalue</span><span class="p">(),</span> <span class="n">stdout</span><span class="o">=</span><span class="n">f_out</span><span class="p">)</span>
     
@@ -1095,9 +1107,9 @@
                  <span class="n">additional_geneannotation</span> <span class="o">=</span> <span class="s1">&#39;ENSEMBL&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;export marker genes for each cluster to .gct file</span>
 
-<span class="sd">    This function exports the results of scanpy.api.tl.rank_genes_groups() on your AnnData object to a .gct</span>
+<span class="sd">    This function exports the results of scanpy.tl.rank_genes_groups() on your AnnData object to a .gct</span>
 <span class="sd">    file. This file can easily be uploaded into the scsqe database since it follows the FAIR data</span>
-<span class="sd">    formats. </span>
+<span class="sd">    formats. It expect the label &quot;rank_genes_groups&quot; and not a personalized one.</span>
 
 <span class="sd">    A prerequisit for executing this function is that sc.tl.rank_genes_groups() has already been run.</span>
 <span class="sd">    Through the variables geneannotation and additional_geneannotation you can specify the type of</span>
@@ -1107,7 +1119,7 @@
 <span class="sd">    parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    adata:</span>
-<span class="sd">        AnnData object on which scanpy.api.tl.rank_genes_groups has been executed</span>
+<span class="sd">        AnnData object on which scanpy.tl.rank_genes_groups has been executed</span>
 <span class="sd">    type: `str` | &#39;wilcox&#39; or &#39;t-test overest var&#39;  or &#39;t-test&#39;</span>
 <span class="sd">    outpath `str` | default = current working directory</span>
 <span class="sd">        filepath to the directory in which the results should be outputed, if no directory is </span>
@@ -1125,7 +1137,7 @@
     <span class="k">if</span> <span class="n">outpath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;rank_genes_groups&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;need to rank genes before export, please run: scanpy.api.tl.rank_genes() before proceeding with export&#39;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;need to rank genes before export, please run: scanpy.tl.rank_genes() before proceeding with export&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1">#extract relevant data from adata object</span>
         <span class="n">rank_genes</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="s1">&#39;rank_genes_groups&#39;</span><span class="p">]</span>
@@ -1257,7 +1269,7 @@
              <span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;celltype0&#39;</span><span class="p">,</span>
              <span class="n">label</span>  <span class="o">=</span> <span class="s1">&#39;celltype0&#39;</span><span class="p">,</span>
              <span class="n">split_condition</span>  <span class="o">=</span> <span class="s1">&#39;donor&#39;</span><span class="p">,</span>
-             <span class="n">todrop</span> <span class="o">=</span><span class="p">[</span><span class="s1">&#39;CELL&#39;</span><span class="p">,</span><span class="s1">&#39;input.path&#39;</span><span class="p">,</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">,</span><span class="s1">&#39;n_counts&#39;</span><span class="p">,</span><span class="s1">&#39;n_genes&#39;</span><span class="p">,</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span><span class="s1">&#39;celltype0&#39;</span><span class="p">,</span><span class="s1">&#39;celltype1&#39;</span><span class="p">,</span><span class="s1">&#39;celltype2&#39;</span><span class="p">,</span><span class="s1">&#39;celltype3&#39;</span><span class="p">,</span><span class="s1">&#39;dblabel&#39;</span><span class="p">]):</span>
+             <span class="n">todrop</span> <span class="o">=</span><span class="p">[</span><span class="s1">&#39;CELL&#39;</span><span class="p">,</span><span class="s1">&#39;input.path&#39;</span><span class="p">,</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">,</span><span class="s1">&#39;n_counts&#39;</span><span class="p">,</span><span class="s1">&#39;n_genes&#39;</span><span class="p">,</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span><span class="s1">&#39;celltype0&#39;</span><span class="p">,</span><span class="s1">&#39;celltype1&#39;</span><span class="p">,</span><span class="s1">&#39;celltype2&#39;</span><span class="p">,</span><span class="s1">&#39;celltype3&#39;</span><span class="p">,</span><span class="s1">&#39;dblabel&#39;</span><span class="p">],</span> <span class="n">main_condition</span><span class="o">=</span><span class="s1">&#39;CONDITION&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;export pseudobulk profiles of cells to .gct files</span>
 
 <span class="sd">    This is a function with which any type of labeling (i.e. celltype annotation, louvain </span>
@@ -1279,7 +1291,8 @@
 <span class="sd">        the experimental unit, e.g. sample ID</span>
 <span class="sd">    todrop: `list` </span>
 <span class="sd">        Several column headers to be excluded from metadata</span>
-
+<span class="sd">    main_condition: `str` | default = &#39;CONDITION&#39;</span>
+<span class="sd">        main condition to be outputed in the metadata file</span>
 <span class="sd">    returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    dfmerge: `pd.DataFrame`</span>
@@ -1288,15 +1301,26 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">outpath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">column</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+    
+    <span class="n">data</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;please specify a column name that is present in adata.obs&#39;</span><span class="p">)</span>
+    
+    <span class="n">data</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">column</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+        
+    <span class="n">data</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">main_condition</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;please specify a condition name that is present in adata.obs&#39;</span><span class="p">)</span>
     
     <span class="c1">### check if the outdir exists if not create</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">outpath</span><span class="p">):</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">outpath</span><span class="p">)</span>
     
     <span class="c1">### create adata subsets for each column value</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">split_condition</span><span class="p">]</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">split_condition</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;str&#39;</span><span class="p">)</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">split_condition</span><span class="p">]</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">split_condition</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
+    
     <span class="n">bulks</span><span class="o">=</span><span class="p">{}</span>
     <span class="n">myset</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">column</span><span class="p">]))</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">myset</span><span class="p">:</span>
@@ -1351,7 +1375,7 @@
     <span class="n">mysums</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="n">myexp</span>
     <span class="n">mysums</span><span class="o">=</span><span class="n">mysums</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="n">todrop</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
     <span class="n">mysums</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">mysums</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-    <span class="n">colorder</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="s1">&#39;CONDITION&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">mysums</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="s1">&#39;CONDITION&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+    <span class="n">colorder</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="n">main_condition</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">mysums</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="n">main_condition</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
     <span class="n">mysums</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">colorder</span><span class="p">]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">outpath</span><span class="o">+</span> <span class="s1">&#39;Pseudobulk.meta&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">return</span><span class="p">(</span><span class="n">dfmerge</span><span class="p">)</span>

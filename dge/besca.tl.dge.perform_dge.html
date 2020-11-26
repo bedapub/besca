@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>perform_dge &mdash; BESCA 2.2 documentation</title>
+  <title>perform_dge &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -110,6 +111,7 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#signature-scoring">signature scoring</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#reclustering">reclustering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../besca.html#auto-annot">auto-annot</a></li>
 </ul>
 </li>
 </ul>
@@ -194,13 +196,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -215,9 +217,9 @@
 </style>
 <div class="section" id="perform-dge">
 <h1>perform_dge<a class="headerlink" href="#perform-dge" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.tl.dge.perform_dge">
-<code class="descclassname">besca.tl.dge.</code><code class="descname">perform_dge</code><span class="sig-paren">(</span><em>adata</em>, <em>design_matrix</em>, <em>differentiating_criteria</em>, <em>constant_criteria</em>, <em>basepath</em>, <em>min_cells_per_group=30</em>, <em>method='wilcoxon'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/dge/_dge.html#perform_dge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.dge.perform_dge" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">besca.tl.dge.</code><code class="sig-name descname">perform_dge</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">adata</span></em>, <em class="sig-param"><span class="n">design_matrix</span></em>, <em class="sig-param"><span class="n">differentiating_criteria</span></em>, <em class="sig-param"><span class="n">constant_criteria</span></em>, <em class="sig-param"><span class="n">basepath</span></em>, <em class="sig-param"><span class="n">min_cells_per_group</span><span class="o">=</span><span class="default_value">30</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'wilcoxon'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/dge/_dge.html#perform_dge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.dge.perform_dge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform differential gene expression between two conditions over many adata subsets.</p>
 <p>This function automatically generates top_tables and rank_files for a list of comparisons
 in a dataset. The comparison you wish to perform need to be identified in a so called design
@@ -234,24 +236,20 @@ represents one comparison that is to be made. The first column labeled ‘Group1
 contains a tuple identifying the first group for that comparison and the
 second column labeled ‘Group2’ contains a tuple identifying the second group for
 the comparison. The tuple has the form (differentiating_criteria, constant_criteria).</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#example of a Design Matrix</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#example of a Design Matrix</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">celltypes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CD4 T-cell&#39;</span><span class="p">,</span> <span class="s1">&#39;CD8 T-cell&#39;</span><span class="p">,</span> <span class="s1">&#39;B-cell&#39;</span><span class="p">,</span> <span class="s1">&#39;myeloid cell&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">design_matrix</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Group1&#39;</span><span class="p">:[(</span><span class="s1">&#39;PBMC&#39;</span><span class="p">,</span> <span class="n">celltype</span><span class="p">)</span> <span class="k">for</span> <span class="n">celltype</span> <span class="ow">in</span> <span class="n">celltypes</span><span class="p">],</span> <span class="s1">&#39;Group2&#39;</span><span class="p">:[(</span><span class="s1">&#39;Skin&#39;</span><span class="p">,</span> <span class="n">celltype</span><span class="p">)</span> <span class="k">for</span> <span class="n">celltype</span> <span class="ow">in</span> <span class="n">celltypes</span><span class="p">]})</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>adata</strong> (<cite>AnnData</cite>) – AnnData object containing</li>
-<li><strong>design_matrix</strong> (<cite>pandas.DataFrame</cite>) – pandas.DataFrame containing all the comparisons that are to be made.</li>
-<li><strong>method</strong> (<cite>str</cite>) – one of ‘t-test’, ‘wilcoxon’, ‘t-test_overestim_var’, ‘logreg’</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> (<cite>AnnData</cite>) – AnnData object containing</p></li>
+<li><p><strong>design_matrix</strong> (<cite>pandas.DataFrame</cite>) – pandas.DataFrame containing all the comparisons that are to be made.</p></li>
+<li><p><strong>method</strong> (<cite>str</cite>) – one of ‘t-test’, ‘wilcoxon’, ‘t-test_overestim_var’, ‘logreg’</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

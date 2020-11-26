@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>besca.pl._celltype_quantification &mdash; BESCA 2.2 documentation</title>
+  <title>besca.pl._celltype_quantification &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -63,7 +64,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -158,10 +159,10 @@
             
   <h1>Source code for besca.pl._celltype_quantification</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="k">import</span> <span class="n">subplots</span><span class="p">,</span> <span class="n">tight_layout</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">subplots</span><span class="p">,</span> <span class="n">tight_layout</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">melt</span>
-<span class="kn">from</span> <span class="nn">..tl._count_occurrences</span> <span class="k">import</span> <span class="n">count_occurrence_subset</span><span class="p">,</span> <span class="n">count_occurrence_subset_conditions</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">melt</span>
+<span class="kn">from</span> <span class="nn">..tl._count_occurrences</span> <span class="kn">import</span> <span class="n">count_occurrence_subset</span><span class="p">,</span> <span class="n">count_occurrence_subset_conditions</span>
 
 <div class="viewcode-block" id="celllabel_quant_boxplot"><a class="viewcode-back" href="../../../plotting/besca.pl.celllabel_quant_boxplot.html#besca.pl.celllabel_quant_boxplot">[docs]</a><span class="k">def</span> <span class="nf">celllabel_quant_boxplot</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
                             <span class="n">count_variable</span><span class="p">,</span>
@@ -178,7 +179,7 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data: &#39;DataFrame&#39;</span>
-<span class="sd">        tidy dataframe that is outputed by the function besca.tl.compare_count_subsets(..., make_tidy = True)</span>
+<span class="sd">        tidy dataframe that is outputed by the function besca.tl.count_occurrence_subset_conditions(..., make_tidy = True)</span>
 <span class="sd">    count_variable: `str`</span>
 <span class="sd">        obs on which to count - e.g. clusters or cell types</span>
 <span class="sd">    subset_variable: `str`</span>

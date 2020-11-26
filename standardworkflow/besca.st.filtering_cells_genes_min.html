@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>filtering_cells_genes_min &mdash; BESCA 2.2 documentation</title>
+  <title>filtering_cells_genes_min &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -189,13 +190,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -210,9 +211,9 @@
 </style>
 <div class="section" id="filtering-cells-genes-min">
 <h1>filtering_cells_genes_min<a class="headerlink" href="#filtering-cells-genes-min" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.st.filtering_cells_genes_min">
-<code class="descclassname">besca.st.</code><code class="descname">filtering_cells_genes_min</code><span class="sig-paren">(</span><em>adata</em>, <em>standard_min_cells</em>, <em>standard_min_genes</em>, <em>standard_min_counts</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/st/_wrapper_funcs.html#filtering_cells_genes_min"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.st.filtering_cells_genes_min" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">besca.st.</code><code class="sig-name descname">filtering_cells_genes_min</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">adata</span></em>, <em class="sig-param"><span class="n">standard_min_cells</span></em>, <em class="sig-param"><span class="n">standard_min_genes</span></em>, <em class="sig-param"><span class="n">standard_min_counts</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/st/_wrapper_funcs.html#filtering_cells_genes_min"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.st.filtering_cells_genes_min" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

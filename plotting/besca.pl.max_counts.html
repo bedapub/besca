@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>max_counts &mdash; BESCA 2.2 documentation</title>
+  <title>max_counts &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -109,6 +110,7 @@
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.top_genes_counts.html">top_genes_counts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.gene_expr_split.html">gene_expr_split</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.gene_expr_split_stacked.html">gene_expr_split_stacked</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.box_per_ind.html">box_per_ind</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.stacked_split_violin.html">stacked_split_violin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.celllabel_quant_boxplot.html">celllabel_quant_boxplot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.celllabel_quant_stackedbar.html">celllabel_quant_stackedbar</a></li>
@@ -117,6 +119,7 @@
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.dot_heatmap_split_greyscale.html">dot_heatmap_split_greyscale</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.update_qualitative_palette.html">update_qualitative_palette</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.nomenclature_network.html">nomenclature_network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.riverplot_2categories.html">riverplot_2categories</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#tools">tools</a></li>
@@ -200,13 +203,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -221,33 +224,29 @@
 </style>
 <div class="section" id="max-counts">
 <h1>max_counts<a class="headerlink" href="#max-counts" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.pl.max_counts">
-<code class="descclassname">besca.pl.</code><code class="descname">max_counts</code><span class="sig-paren">(</span><em>adata</em>, <em>max_counts=10000</em>, <em>ax=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pl/_filter_threshold_plots.html#max_counts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.pl.max_counts" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">besca.pl.</code><code class="sig-name descname">max_counts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">adata</span></em>, <em class="sig-param"><span class="n">max_counts</span><span class="o">=</span><span class="default_value">10000</span></em>, <em class="sig-param"><span class="n">ax</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pl/_filter_threshold_plots.html#max_counts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.pl.max_counts" title="Permalink to this definition">¶</a></dt>
 <dd><p>visualize maximum UMI counts per cell threshold.</p>
 <p>this function generates a knee-plot visualizing a given min_cells cutoff when given an adata object</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>adata</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">AnnData</span></code>) – The annotated data matrix.</li>
-<li><strong>max_counts</strong> (<cite>int</cite> | default = 10000) – visualize the chosen maximum UMI counts cutoff</li>
-<li><strong>ax</strong> (<cite>axes</cite> | default = None) – pass the axes class to which your figure should be added</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">AnnData</span></code>) – The annotated data matrix.</p></li>
+<li><p><strong>max_counts</strong> (<cite>int</cite> | default = 10000) – visualize the chosen maximum UMI counts cutoff</p></li>
+<li><p><strong>ax</strong> (<cite>axes</cite> | default = None) – pass the axes class to which your figure should be added</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Figure is displayed</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)">None</a></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Figure is displayed</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
+</dd>
+</dl>
 <p class="rubric">Example</p>
 <p>Generates a “knee-plot” for a maximum UMI count of 6500 for the example dataset.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc3k_raw</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">max_counts</span> <span class="o">=</span> <span class="mi">6500</span>
@@ -256,7 +255,7 @@
 </pre></div>
 </div>
 <p>(<a class="reference external" href="../plotting/besca-pl-max_counts-1.py">Source code</a>, <a class="reference external" href="../plotting/besca-pl-max_counts-1.png">png</a>, <a class="reference external" href="../plotting/besca-pl-max_counts-1.hires.png">hires.png</a>, <a class="reference external" href="../plotting/besca-pl-max_counts-1.pdf">pdf</a>)</p>
-<div class="figure">
+<div class="figure align-default">
 <img alt="../_images/besca-pl-max_counts-12.png" src="../_images/besca-pl-max_counts-12.png" />
 </div>
 </dd></dl>

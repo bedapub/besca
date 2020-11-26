@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>intersect_genes &mdash; BESCA 2.2 documentation</title>
+  <title>intersect_genes &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -105,7 +106,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#differential-gene-expression">differential gene expression</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#signature-scoring">signature scoring</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#reclustering">reclustering</a></li>
-<li class="toctree-l4 current"><a class="reference internal" href="../besca.html#auto-annot">auto_annot</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../besca.html#auto-annot">auto-annot</a><ul class="current">
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.read_data.html">read_data</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.read_raw.html">read_raw</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.read_adata.html">read_adata</a></li>
@@ -215,13 +216,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -236,30 +237,26 @@
 </style>
 <div class="section" id="intersect-genes">
 <h1>intersect_genes<a class="headerlink" href="#intersect-genes" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.tl.auto_annot.intersect_genes">
-<code class="descclassname">besca.tl.auto_annot.</code><code class="descname">intersect_genes</code><span class="sig-paren">(</span><em>adata_train</em>, <em>adata_pred</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/auto_annot/_auto_annot.html#intersect_genes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.auto_annot.intersect_genes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">besca.tl.auto_annot.</code><code class="sig-name descname">intersect_genes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">adata_train</span></em>, <em class="sig-param"><span class="n">adata_pred</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/auto_annot/_auto_annot.html#intersect_genes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.auto_annot.intersect_genes" title="Permalink to this definition">¶</a></dt>
 <dd><p>removes all genes not in all datasets</p>
 <p>removes all genes not contained in all datasets</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>adata_train</strong> (<em>AnnData</em>) – training dataset anndata object</li>
-<li><strong>adata_pred</strong> (<em>AnnData</em>) – testing dataset anndata object</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata_train</strong> (<em>AnnData</em>) – training dataset anndata object</p></li>
+<li><p><strong>adata_pred</strong> (<em>AnnData</em>) – testing dataset anndata object</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
-<li><em>AnnData</em> – An anndata object containing training dataset with non-shared genes removed</li>
-<li><em>AnnData</em> – An anndata object containing testing dataset with non-shared genes removed</li>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>AnnData</em> – An anndata object containing training dataset with non-shared genes removed</p></li>
+<li><p><em>AnnData</em> – An anndata object containing testing dataset with non-shared genes removed</p></li>
 </ul>
 </p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

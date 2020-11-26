@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>labeling &mdash; BESCA 2.2 documentation</title>
+  <title>labeling &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -187,13 +188,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -208,36 +209,32 @@
 </style>
 <div class="section" id="labeling">
 <h1>labeling<a class="headerlink" href="#labeling" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.export.labeling">
-<code class="descclassname">besca.export.</code><code class="descname">labeling</code><span class="sig-paren">(</span><em>adata</em>, <em>outpath=None</em>, <em>column='leiden'</em>, <em>label='LABEL'</em>, <em>filename='cell2labels.tsv'</em>, <em>export_average=True</em>, <em>export_fractpos=True</em>, <em>use_raw=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/export/_export.html#labeling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.export.labeling" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">besca.export.</code><code class="sig-name descname">labeling</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">adata</span></em>, <em class="sig-param"><span class="n">outpath</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">column</span><span class="o">=</span><span class="default_value">'leiden'</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">'LABEL'</span></em>, <em class="sig-param"><span class="n">filename</span><span class="o">=</span><span class="default_value">'cell2labels.tsv'</span></em>, <em class="sig-param"><span class="n">export_average</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">export_fractpos</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">use_raw</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/export/_export.html#labeling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.export.labeling" title="Permalink to this definition">¶</a></dt>
 <dd><p>export mapping of cells to specified label to .tsv file</p>
 <p>This is a function with which any type of labeling (i.e. celltype annotation, leiden
 clustering, etc.) can be written out to a .tsv file. The generated file can then also be easily
 uploaded to the database since it fullfilles the FAIR document standards.</p>
 <p>To ensure FAIR compatbility label, and file name should not be changed.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>adata</strong> – </li>
-<li><strong>str | default = current working directory</strong> (<em>outpath</em>) – filepath to the directory in which the results should be outputed, if no directory is
-specified it outputs the results to the current working directory.</li>
-<li><strong>column</strong> (<cite>str</cite> | default = ‘leiden’) – Name of the column in adata.obs that is to be mapped to cell barcodes and written out to file.</li>
-<li><strong>label</strong> (<cite>str</cite> | default = ‘LABEL’) – label above the column when it is written out to file</li>
-<li><strong>filename</strong> (<cite>str</cite> | default = ‘cell2labels.tsv’) – Filename that is written out.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> – </p></li>
+<li><p><strong>str | default = current working directory</strong> (<em>outpath</em>) – filepath to the directory in which the results should be outputed, if no directory is
+specified it outputs the results to the current working directory.</p></li>
+<li><p><strong>column</strong> (<cite>str</cite> | default = ‘leiden’) – Name of the column in adata.obs that is to be mapped to cell barcodes and written out to file.</p></li>
+<li><p><strong>label</strong> (<cite>str</cite> | default = ‘LABEL’) – label above the column when it is written out to file</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite> | default = ‘cell2labels.tsv’) – Filename that is written out.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">files are written out.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)">None</a></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>files are written out.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

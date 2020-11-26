@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>besca.tl.sig._io_sig &mdash; BESCA 2.2 documentation</title>
+  <title>besca.tl.sig._io_sig &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
 
@@ -63,7 +64,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -159,8 +160,8 @@
   <h1>Source code for besca.tl.sig._io_sig</h1><div class="highlight"><pre>
 <span></span><span class="c1"># this file contains the functions to read / import signatures</span>
 <span class="c1"># for signature score computations</span>
-<span class="kn">from</span> <span class="nn">re</span> <span class="k">import</span> <span class="nb">compile</span><span class="p">,</span> <span class="n">match</span>
-<span class="kn">from</span> <span class="nn">requests</span> <span class="k">import</span> <span class="n">post</span>
+<span class="kn">from</span> <span class="nn">re</span> <span class="kn">import</span> <span class="nb">compile</span><span class="p">,</span> <span class="n">match</span>
+<span class="kn">from</span> <span class="nn">requests</span> <span class="kn">import</span> <span class="n">post</span>
 
 
 <div class="viewcode-block" id="read_GMT_sign"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.read_GMT_sign.html#besca.tl.sig.read_GMT_sign">[docs]</a><span class="k">def</span> <span class="nf">read_GMT_sign</span><span class="p">(</span><span class="n">GMT_file</span><span class="p">,</span> <span class="n">UP_suffix</span><span class="o">=</span><span class="s1">&#39;_UP&#39;</span><span class="p">,</span> <span class="n">DN_suffix</span><span class="o">=</span><span class="s1">&#39;_DN&#39;</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>stacked_split_violin &mdash; BESCA 2.2 documentation</title>
+  <title>stacked_split_violin &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -41,7 +42,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="celllabel_quant_boxplot" href="besca.pl.celllabel_quant_boxplot.html" />
-    <link rel="prev" title="gene_expr_split_stacked" href="besca.pl.gene_expr_split_stacked.html" /> 
+    <link rel="prev" title="box_per_ind" href="besca.pl.box_per_ind.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -109,6 +110,7 @@
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.top_genes_counts.html">top_genes_counts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.gene_expr_split.html">gene_expr_split</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.gene_expr_split_stacked.html">gene_expr_split_stacked</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.box_per_ind.html">box_per_ind</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">stacked_split_violin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.celllabel_quant_boxplot.html">celllabel_quant_boxplot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.celllabel_quant_stackedbar.html">celllabel_quant_stackedbar</a></li>
@@ -117,6 +119,7 @@
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.dot_heatmap_split_greyscale.html">dot_heatmap_split_greyscale</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.update_qualitative_palette.html">update_qualitative_palette</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.nomenclature_network.html">nomenclature_network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.riverplot_2categories.html">riverplot_2categories</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#tools">tools</a></li>
@@ -200,13 +203,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -221,39 +224,35 @@
 </style>
 <div class="section" id="stacked-split-violin">
 <h1>stacked_split_violin<a class="headerlink" href="#stacked-split-violin" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.pl.stacked_split_violin">
-<code class="descclassname">besca.pl.</code><code class="descname">stacked_split_violin</code><span class="sig-paren">(</span><em>tidy_data</em>, <em>x_axis</em>, <em>y_axis</em>, <em>split_variable</em>, <em>subset_variable_label</em>, <em>subset_variables</em>, <em>fig_width=8</em>, <em>fig_height=4</em>, <em>order=None</em>, <em>inner='box'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pl/_general.html#stacked_split_violin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.pl.stacked_split_violin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">besca.pl.</code><code class="sig-name descname">stacked_split_violin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tidy_data</span></em>, <em class="sig-param"><span class="n">x_axis</span></em>, <em class="sig-param"><span class="n">y_axis</span></em>, <em class="sig-param"><span class="n">split_variable</span></em>, <em class="sig-param"><span class="n">subset_variable_label</span></em>, <em class="sig-param"><span class="n">subset_variables</span></em>, <em class="sig-param"><span class="n">fig_width</span><span class="o">=</span><span class="default_value">8</span></em>, <em class="sig-param"><span class="n">fig_height</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">order</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">inner</span><span class="o">=</span><span class="default_value">'box'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pl/_general.html#stacked_split_violin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.pl.stacked_split_violin" title="Permalink to this definition">¶</a></dt>
 <dd><p>plot stacked split violin plots.</p>
 <p>General plotting function to produce stacked split violin plots.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>tidy_data</strong> (<em>DataFrame</em>) – pandas DataFrame containing the complete data that is to be plotted in a tidy format.</li>
-<li><strong>x_axis</strong> (<cite>str</cite>) – string identifying which column of the DataFrame is to be plotted on the x-axis</li>
-<li><strong>y_axis</strong> (<cite>str</cite>) – string identifying which column of the DataFrame is to be plotted on the y-axis</li>
-<li><strong>split_variable</strong> (<cite>str</cite>) – string identifying which column of the DataFrame is to be used to generate the
-split violin plot (can only contain two categories of data!)</li>
-<li><strong>subset_variable_label</strong> (<cite>str</cite>) – string identifiyng which column of the DataFrame contains the variables that
-should be used to make datasubsets for each plot of the stacked violin plot</li>
-<li><strong>subset_variabels</strong> (<cite>list</cite>) – list identifying the subsets that should be generated</li>
-<li><strong>fig_width</strong> (<cite>int</cite> | default = 8) – int value defining figure width</li>
-<li><strong>fig_height</strong> (<cite>int</cite> | default = 4) – int value defining figure height of one figure</li>
-<li><strong>order</strong> – </li>
-<li><strong>inner</strong> (<em>'box'</em><em> or </em><em>'quartile'</em><em> or </em><em>'point'</em><em> or </em><em>'stick'</em>) – define how the datapoints should be displayed in the violin interior, see seaborns documentation for more details</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tidy_data</strong> (<em>DataFrame</em>) – pandas DataFrame containing the complete data that is to be plotted in a tidy format.</p></li>
+<li><p><strong>x_axis</strong> (<cite>str</cite>) – string identifying which column of the DataFrame is to be plotted on the x-axis</p></li>
+<li><p><strong>y_axis</strong> (<cite>str</cite>) – string identifying which column of the DataFrame is to be plotted on the y-axis</p></li>
+<li><p><strong>split_variable</strong> (<cite>str</cite>) – string identifying which column of the DataFrame is to be used to generate the
+split violin plot (can only contain two categories of data!)</p></li>
+<li><p><strong>subset_variable_label</strong> (<cite>str</cite>) – string identifiyng which column of the DataFrame contains the variables that
+should be used to make datasubsets for each plot of the stacked violin plot</p></li>
+<li><p><strong>subset_variabels</strong> (<cite>list</cite>) – list identifying the subsets that should be generated</p></li>
+<li><p><strong>fig_width</strong> (<cite>int</cite> | default = 8) – int value defining figure width</p></li>
+<li><p><strong>fig_height</strong> (<cite>int</cite> | default = 4) – int value defining figure height of one figure</p></li>
+<li><p><strong>order</strong> – </p></li>
+<li><p><strong>inner</strong> (<em>'box'</em><em> or </em><em>'quartile'</em><em> or </em><em>'point'</em><em> or </em><em>'stick'</em>) – define how the datapoints should be displayed in the violin interior, see seaborns documentation for more details</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Figure</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Figure</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -269,7 +268,7 @@ should be used to make datasubsets for each plot of the stacked violin plot</li>
         <a href="besca.pl.celllabel_quant_boxplot.html" class="btn btn-neutral float-right" title="celllabel_quant_boxplot" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="besca.pl.gene_expr_split_stacked.html" class="btn btn-neutral float-left" title="gene_expr_split_stacked" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="besca.pl.box_per_ind.html" class="btn btn-neutral float-left" title="box_per_ind" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>read_mtx &mdash; BESCA 2.2 documentation</title>
+  <title>read_mtx &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -63,7 +64,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -163,13 +164,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -184,39 +185,36 @@
 </style>
 <div class="section" id="read-mtx">
 <h1>read_mtx<a class="headerlink" href="#read-mtx" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.Import.read_mtx">
-<code class="descclassname">besca.Import.</code><code class="descname">read_mtx</code><span class="sig-paren">(</span><em>filepath</em>, <em>annotation=True</em>, <em>use_genes='SYMBOL'</em>, <em>species='human'</em>, <em>citeseq=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/Import/_read.html#read_mtx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.Import.read_mtx" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">besca.Import.</code><code class="sig-name descname">read_mtx</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filepath</span></em>, <em class="sig-param"><span class="n">annotation</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">use_genes</span><span class="o">=</span><span class="default_value">'SYMBOL'</span></em>, <em class="sig-param"><span class="n">species</span><span class="o">=</span><span class="default_value">'human'</span></em>, <em class="sig-param"><span class="n">citeseq</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/Import/_read.html#read_mtx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.Import.read_mtx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read matrix.mtx, genes.tsv, barcodes.tsv to AnnData object.
 By specifiying an input folder this function reads the contained matrix.mtx,
 genes.tsv and barcodes.tsv files to an AnnData object. In case annotation = True
 it also adds the annotation contained in metadata.tsv to the object.
 :param filepath: filepath as string to the directory containg the matrix.mtx, genes.tsv,</p>
 <blockquote>
-<div>barcodes.tsv and if applicable metadata.tsv</div></blockquote>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>annotation</strong> (<cite>bool</cite> (default = True)) – boolian identifier if an annotation file is also located in the folder
-and should be added to the AnnData object</li>
-<li><strong>use_genes</strong> (<cite>str</cite>) – either SYMBOL or ENSEMBL. Other genenames are not yet supported.</li>
-<li><strong>species</strong> (<cite>str</cite> | default = ‘human’) – string specifying the species, only needs to be used when no Gene Symbols
-are supplied and you only have the ENSEMBLE gene ids to perform a lookup.</li>
-<li><strong>citeseq</strong> (<em>'gex_only'</em><em> or </em><em>'citeseq_only'</em><em> or </em><em>None | default = None</em>) – string indicating if only gene expression values (gex_only) or only protein
-expression values (‘citeseq_only’) or everything is read if None is specified</li>
+<div><p>barcodes.tsv and if applicable metadata.tsv</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>annotation</strong> (<cite>bool</cite> (default = True)) – boolian identifier if an annotation file is also located in the folder
+and should be added to the AnnData object</p></li>
+<li><p><strong>use_genes</strong> (<cite>str</cite>) – either SYMBOL or ENSEMBL. Other genenames are not yet supported.</p></li>
+<li><p><strong>species</strong> (<cite>str</cite> | default = ‘human’) – string specifying the species, only needs to be used when no Gene Symbols
+are supplied and you only have the ENSEMBLE gene ids to perform a lookup.</p></li>
+<li><p><strong>citeseq</strong> (<em>'gex_only'</em><em> or </em><em>'citeseq_only'</em><em> or </em><em>None | default = None</em>) – string indicating if only gene expression values (gex_only) or only protein
+expression values (‘citeseq_only’) or everything is read if None is specified</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">returns an AnnData object</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>returns an AnnData object</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

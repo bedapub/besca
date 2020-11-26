@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>export_annotconfig &mdash; BESCA 2.2 documentation</title>
+  <title>export_annotconfig &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -122,6 +123,7 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#reclustering">reclustering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../besca.html#auto-annot">auto-annot</a></li>
 </ul>
 </li>
 </ul>
@@ -206,13 +208,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -227,26 +229,22 @@
 </style>
 <div class="section" id="export-annotconfig">
 <h1>export_annotconfig<a class="headerlink" href="#export-annotconfig" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.tl.sig.export_annotconfig">
-<code class="descclassname">besca.tl.sig.</code><code class="descname">export_annotconfig</code><span class="sig-paren">(</span><em>sigconfig</em>, <em>levsk</em>, <em>resultsFolder</em>, <em>analysisName=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_annot.html#export_annotconfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.sig.export_annotconfig" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">besca.tl.sig.</code><code class="sig-name descname">export_annotconfig</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sigconfig</span></em>, <em class="sig-param"><span class="n">levsk</span></em>, <em class="sig-param"><span class="n">resultsFolder</span></em>, <em class="sig-param"><span class="n">analysisName</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_annot.html#export_annotconfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.sig.export_annotconfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Export the configuration defined in sigconfig and levsk
 Order might changed compared to the original sig. config file.
 But numerical order within a same category (same parents) should be respected.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>sigconfig</strong> (<em>panda.DataFrame</em>) – a dataframe with the config details</li>
-<li><strong>levsk</strong> (<em>list of str</em>) – String of distinct levels based on configuration file</li>
-<li><strong>resultsFolder</strong> (<em>'str'</em>) – results folder. where the annotation will also be stored</li>
-<li><strong>analysisName</strong> (<em>'str'</em>) – will prefix the saved config file</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sigconfig</strong> (<em>panda.DataFrame</em>) – a dataframe with the config details</p></li>
+<li><p><strong>levsk</strong> (<em>list of str</em>) – String of distinct levels based on configuration file</p></li>
+<li><p><strong>resultsFolder</strong> (<em>'str'</em>) – results folder. where the annotation will also be stored</p></li>
+<li><p><strong>analysisName</strong> (<em>'str'</em>) – will prefix the saved config file</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>get_de &mdash; BESCA 2.2 documentation</title>
+  <title>get_de &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -110,6 +111,7 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#signature-scoring">signature scoring</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#reclustering">reclustering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../besca.html#auto-annot">auto-annot</a></li>
 </ul>
 </li>
 </ul>
@@ -194,13 +196,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -215,9 +217,9 @@
 </style>
 <div class="section" id="get-de">
 <h1>get_de<a class="headerlink" href="#get-de" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.tl.dge.get_de">
-<code class="descclassname">besca.tl.dge.</code><code class="descname">get_de</code><span class="sig-paren">(</span><em>adata</em>, <em>mygroup</em>, <em>demethod='wilcoxon'</em>, <em>topnr=5000</em>, <em>logfc=1</em>, <em>padj=0.05</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/dge/_dge.html#get_de"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.dge.get_de" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">besca.tl.dge.</code><code class="sig-name descname">get_de</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">adata</span></em>, <em class="sig-param"><span class="n">mygroup</span></em>, <em class="sig-param"><span class="n">demethod</span><span class="o">=</span><span class="default_value">'wilcoxon'</span></em>, <em class="sig-param"><span class="n">topnr</span><span class="o">=</span><span class="default_value">5000</span></em>, <em class="sig-param"><span class="n">logfc</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">padj</span><span class="o">=</span><span class="default_value">0.05</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/dge/_dge.html#get_de"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.dge.get_de" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a table of significant DE genes at certain cutoffs
 Based on an AnnData object and an annotation category (e.g. louvain) runs
 scanpy’s rank_genes_groups using a specified method with specified cutoffs
@@ -234,16 +236,14 @@ scanpy’s rank_genes_groups using a specified method with specified cutoffs
 :type padj: <cite>float</cite>
 :param logfc: adjusted p-value cutoff
 :type logfc: <cite>float</cite></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a list of panda DataFrames of differentially expressed genes</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">delist</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a list of panda DataFrames of differentially expressed genes</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>delist</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

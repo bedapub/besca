@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>batch_correct &mdash; BESCA 2.2 documentation</title>
+  <title>batch_correct &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -109,6 +110,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#differential-gene-expression">differential gene expression</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#signature-scoring">signature scoring</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#reclustering">reclustering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../besca.html#auto-annot">auto-annot</a></li>
 </ul>
 </li>
 </ul>
@@ -193,13 +195,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -214,29 +216,25 @@
 </style>
 <div class="section" id="batch-correct">
 <h1>batch_correct<a class="headerlink" href="#batch-correct" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.tl.bcor.batch_correct">
-<code class="descclassname">besca.tl.bcor.</code><code class="descname">batch_correct</code><span class="sig-paren">(</span><em>adata</em>, <em>batch_to_correct</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/bcor/_mnnpy_batchcorrection.html#batch_correct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.bcor.batch_correct" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">besca.tl.bcor.</code><code class="sig-name descname">batch_correct</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">adata</span></em>, <em class="sig-param"><span class="n">batch_to_correct</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/bcor/_mnnpy_batchcorrection.html#batch_correct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.bcor.batch_correct" title="Permalink to this definition">¶</a></dt>
 <dd><p>function to perform batch correction</p>
 <p>mnnpy batch correction with the batch specified by batch_to_correct using all the
 genes contained in adata. Before running this function the highly variable genes should be selected.</p>
 <p>This function will return a corrected AnnData object without any .raw! please use the function postprocess_mnnpy to generate
 a complete AnnData object which contains the corrected values and the original raw. Because of this pleae ensure that you do
 not save the output of this function to the variable adata!</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>adata</strong> (<em>AnnData</em>) – AnnData objec that is to be batch corrected</li>
-<li><strong>batch_to_correct</strong> (<em>'str'</em>) – string identifiyng the column which contains the batches that are to be corrected</li>
-<li><strong>returns</strong> – </li>
-<li><strong>AnnData</strong> – the corrected AnnData object (raw values have been truncated to the highly variable genes)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> (<em>AnnData</em>) – AnnData objec that is to be batch corrected</p></li>
+<li><p><strong>batch_to_correct</strong> (<em>'str'</em>) – string identifiyng the column which contains the batches that are to be corrected</p></li>
+<li><p><strong>returns</strong> – </p></li>
+<li><p><strong>AnnData</strong> – the corrected AnnData object (raw values have been truncated to the highly variable genes)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

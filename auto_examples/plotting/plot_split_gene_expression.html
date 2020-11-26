@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>plotting gene expression &mdash; BESCA 2.2 documentation</title>
+  <title>plotting gene expression &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -41,7 +42,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="quality control plots" href="plot_qc.html" />
-    <link rel="prev" title="Code Examples" href="../index.html" /> 
+    <link rel="prev" title="Comparing categorical variable" href="plot_riverplot.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -94,13 +95,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../besca.html">besca</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">code examples</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#plotting-examples">Plotting examples</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="plot_riverplot.html">Comparing categorical variable</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">plotting gene expression</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#compare-two-conditions">compare two conditions</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="plot_qc.html">quality control plots</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plot_celltype_quantification.html">visualize cell fractions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plot_filtering.html">filtering functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_celltype_quantification.html">Visualize cell fractions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_filtering.html">Filtering functions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#preprocessing">Preprocessing</a></li>
@@ -182,13 +184,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -202,8 +204,8 @@
 }
 </style>
 <div class="sphx-glr-download-link-note admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plotting-plot-split-gene-expression-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plotting-plot-split-gene-expression-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="plotting-gene-expression">
 <span id="sphx-glr-auto-examples-plotting-plot-split-gene-expression-py"></span><h1>plotting gene expression<a class="headerlink" href="#plotting-gene-expression" title="Permalink to this headline">¶</a></h1>
@@ -222,7 +224,7 @@
 </div>
 <img alt="plot split gene expression" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_split_gene_expression_001.png" />
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/pstore/home/julienla/miniconda3/envs/besca_2.2/lib/python3.6/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/pstore/home/julienla/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
 
 is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
 </pre></div>
@@ -233,17 +235,23 @@ is_categorical is deprecated and will be removed in a future version.  Use is_ca
 </div>
 <img alt="plot split gene expression" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_split_gene_expression_002.png" />
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>merging a total of  3  datasubset
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/pstore/home/julienla/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
+
+is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+merging a total of  3  datasubset
 
 &lt;Figure size 640x480 with 2 Axes&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  31.507 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  27.807 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plotting-plot-split-gene-expression-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<a class="reference download internal" download="" href="../../_downloads/8de411020d59ee6e487c7477a0f5d3c8/plot_split_gene_expression.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_split_gene_expression.py</span></code></a></div>
+<p><a class="reference download internal" download="" href="../../_downloads/9d74fc3036add12f61f68daf48795aee/plot_split_gene_expression.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_split_gene_expression.py</span></code></a></p>
+</div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<a class="reference download internal" download="" href="../../_downloads/2ce1636ede2318159c4e4066d6a4f3af/plot_split_gene_expression.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_split_gene_expression.ipynb</span></code></a></div>
+<p><a class="reference download internal" download="" href="../../_downloads/2197508c44a4704bb5bfed84712857d6/plot_split_gene_expression.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_split_gene_expression.ipynb</span></code></a></p>
+</div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </div>
@@ -260,7 +268,7 @@ is_categorical is deprecated and will be removed in a future version.  Use is_ca
         <a href="plot_qc.html" class="btn btn-neutral float-right" title="quality control plots" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../index.html" class="btn btn-neutral float-left" title="Code Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="plot_riverplot.html" class="btn btn-neutral float-left" title="Comparing categorical variable" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

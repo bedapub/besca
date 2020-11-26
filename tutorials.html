@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tutorials &mdash; BESCA 2.2 documentation</title>
+  <title>tutorials &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -41,7 +42,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="notebook 1 - introduction and data processing" href="tutorials/notebook1_data_processing_pbmc3k.html" />
-    <link rel="prev" title="annotate celltypes" href="auto_examples/workflows/plot_celltype_annotation.html" /> 
+    <link rel="prev" title="Annotate celltypes" href="auto_examples/workflows/plot_celltype_annotation.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -96,13 +97,11 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">tutorials</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/notebook1_data_processing_pbmc3k.html">notebook 1 - introduction and data processing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/notebook2_celltype_annotation_pbmc3k.html">notebook 2 - celltype annotation and beyond</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/notebook2_celltype_annotation_pbmc3k.html#Hierarchical-signature-enrichment-based-approach-for-cell-type-annotation-for-Hematopoeitic-cells">Hierarchical signature-enrichment based approach for cell type annotation for Hematopoeitic cells</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/notebook3_batch_correction.html">notebook 3 - batch correction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/auto_annot_tutorial.html">Automated Annotation Workflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/auto_annot_tutorial.html#Done!">Done!</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#single-cell-sequencing-general-tutorials">single cell sequencing general tutorials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#single-cell-auto-annot-tutorial-for-cell-type-annotation">single cell auto_annot tutorial for cell type annotation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#bescape-cell-deconvolution-tutorial">Bescape: Cell deconvolution tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bescape-cell-deconvolution-tutorial">Bescape: cell deconvolution tutorial</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="besca_standard_pipeline.html">standard pipeline</a></li>
@@ -176,13 +175,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -210,18 +209,19 @@
 <div class="section" id="single-cell-auto-annot-tutorial-for-cell-type-annotation">
 <h2>single cell auto_annot tutorial for cell type annotation<a class="headerlink" href="#single-cell-auto-annot-tutorial-for-cell-type-annotation" title="Permalink to this headline">¶</a></h2>
 <p>We also provide a tutorial for the auto_annot package, which allows to automatically annotate cell types using supervised machine learning,
-you can download it from <a class="reference external" href="github.com/bedapub/besca/blob/master/docs/source/tutorials/auto_annot_tutorial.ipynb">here</a>
+you can download it from <a class="reference external" href="http://github.com/bedapub/besca/blob/master/docs/source/tutorials/auto_annot_tutorial.ipynb">here</a>
 (please save the link as a <code class="code docutils literal notranslate"><span class="pre">.ipynb</span></code> file) and compare with the results published</p>
 <blockquote>
-<div><a class="reference internal" href="tutorials/auto_annot_tutorial.html"><span class="doc">here</span></a>.</div></blockquote>
+<div><p><a class="reference internal" href="tutorials/auto_annot_tutorial.html"><span class="doc">here</span></a>.</p>
+</div></blockquote>
 </div>
 <div class="section" id="bescape-cell-deconvolution-tutorial">
-<h2>Bescape: Cell deconvolution tutorial<a class="headerlink" href="#bescape-cell-deconvolution-tutorial" title="Permalink to this headline">¶</a></h2>
+<h2>Bescape: cell deconvolution tutorial<a class="headerlink" href="#bescape-cell-deconvolution-tutorial" title="Permalink to this headline">¶</a></h2>
 <p>Bescape (BESCA proportion estimator) is a deconvolution module. It utilises single-cell annotations coming from the BESCA workflow to build a Gene Expression Profile (GEP). This GEP is used as a basis vector to deconvolute bulk RNA samples i.e. predict cell type proportions within a sample.</p>
-<p><strong>Deconvolution tutorial</strong>:   <a class="reference download internal" download="" href="_downloads/7e538445dce7a180745aa8a78946fa75/bescape_tutorial.html"><code class="xref download docutils literal notranslate"><span class="pre">Bescape</span></code></a></p>
+<p><strong>Deconvolution tutorial</strong>:   <a class="reference download internal" download="" href="_downloads/7bb51be8d3526a522d025f9499f1be49/bescape_tutorial.html"><code class="xref download docutils literal notranslate"><span class="pre">Bescape</span></code></a></p>
 <p>Some deconvolution methods provided by Bescape are written in R.
 Thus, we need to convert the AnnData objects to R ExpressionSet objects. This has been semi-automated :</p>
-<p><strong>adata_to_eset tutorial:</strong>   <a class="reference download internal" download="" href="_downloads/5940d65e60699f4d14a2a2600a02350b/adata_to_eset.html"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a></p>
+<p><strong>adata_to_eset tutorial:</strong>   <a class="reference download internal" download="" href="_downloads/d1124a1e5fcaf82c548e7a4eda8bd157/adata_to_eset.html"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a></p>
 </div>
 </div>
 
@@ -236,7 +236,7 @@ Thus, we need to convert the AnnData objects to R ExpressionSet objects. This ha
         <a href="tutorials/notebook1_data_processing_pbmc3k.html" class="btn btn-neutral float-right" title="notebook 1 - introduction and data processing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="auto_examples/workflows/plot_celltype_annotation.html" class="btn btn-neutral float-left" title="annotate celltypes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="auto_examples/workflows/plot_celltype_annotation.html" class="btn btn-neutral float-left" title="Annotate celltypes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

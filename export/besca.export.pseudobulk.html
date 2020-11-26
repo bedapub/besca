@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pseudobulk &mdash; BESCA 2.2 documentation</title>
+  <title>pseudobulk &mdash; BESCA 2.3 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -187,13 +188,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -208,36 +209,33 @@
 </style>
 <div class="section" id="pseudobulk">
 <h1>pseudobulk<a class="headerlink" href="#pseudobulk" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.export.pseudobulk">
-<code class="descclassname">besca.export.</code><code class="descname">pseudobulk</code><span class="sig-paren">(</span><em>adata, outpath=None, column='celltype0', label='celltype0', split_condition='donor', todrop=['CELL', 'input.path', 'percent_mito', 'n_counts', 'n_genes', 'leiden', 'celltype0', 'celltype1', 'celltype2', 'celltype3', 'dblabel']</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/export/_export.html#pseudobulk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.export.pseudobulk" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">besca.export.</code><code class="sig-name descname">pseudobulk</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">adata</span></em>, <em class="sig-param"><span class="n">outpath</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">column</span><span class="o">=</span><span class="default_value">'celltype0'</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">'celltype0'</span></em>, <em class="sig-param"><span class="n">split_condition</span><span class="o">=</span><span class="default_value">'donor'</span></em>, <em class="sig-param"><span class="n">todrop</span><span class="o">=</span><span class="default_value">['CELL', 'input.path', 'percent_mito', 'n_counts', 'n_genes', 'leiden', 'celltype0', 'celltype1', 'celltype2', 'celltype3', 'dblabel']</span></em>, <em class="sig-param"><span class="n">main_condition</span><span class="o">=</span><span class="default_value">'CONDITION'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/export/_export.html#pseudobulk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.export.pseudobulk" title="Permalink to this definition">¶</a></dt>
 <dd><p>export pseudobulk profiles of cells to .gct files</p>
 <p>This is a function with which any type of labeling (i.e. celltype annotation, louvain
 clustering, etc.) can be written out to several .gct files as well as a single metadata file.</p>
 <p>To ensure FAIR compatbility label, and file name should not be changed.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>adata</strong> – </li>
-<li><strong>str | default = current working directory</strong> (<em>outpath</em>) – filepath to the directory in which the results should be outputed, if no directory is
-specified it outputs the results to the current working directory.</li>
-<li><strong>column</strong> (<cite>str</cite> | default = ‘celltype0’) – Name of the column in adata.obs that is to be mapped to cell barcodes and written out to file.</li>
-<li><strong>label</strong> (<cite>str</cite> | default = ‘celltype0’) – label above the column when it is written out to several files</li>
-<li><strong>split_condition</strong> (<cite>str</cite> | default = ‘experiment’) – the experimental unit, e.g. sample ID</li>
-<li><strong>todrop</strong> (<cite>list</cite>) – Several column headers to be excluded from metadata</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> – </p></li>
+<li><p><strong>str | default = current working directory</strong> (<em>outpath</em>) – filepath to the directory in which the results should be outputed, if no directory is
+specified it outputs the results to the current working directory.</p></li>
+<li><p><strong>column</strong> (<cite>str</cite> | default = ‘celltype0’) – Name of the column in adata.obs that is to be mapped to cell barcodes and written out to file.</p></li>
+<li><p><strong>label</strong> (<cite>str</cite> | default = ‘celltype0’) – label above the column when it is written out to several files</p></li>
+<li><p><strong>split_condition</strong> (<cite>str</cite> | default = ‘experiment’) – the experimental unit, e.g. sample ID</p></li>
+<li><p><strong>todrop</strong> (<cite>list</cite>) – Several column headers to be excluded from metadata</p></li>
+<li><p><strong>main_condition</strong> (<cite>str</cite> | default = ‘CONDITION’) – main condition to be outputed in the metadata file</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>dfmerge</strong> – merged dataframe</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><cite>pd.DataFrame</cite></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>dfmerge</strong> – merged dataframe</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>pd.DataFrame</cite></p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
