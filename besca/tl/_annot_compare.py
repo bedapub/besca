@@ -40,7 +40,7 @@ def report(
     parameters
     ----------
     adata_pred: AnnData
-        original adata object with 'auto_annot' column
+        original adata object with name_prediction column
     celltype: `str`
         celltype column on which the prediction was performed
     method: `str`
@@ -76,7 +76,7 @@ def report(
     if "X_umap" not in adata_pred.obsm:
         sc.tl.umap(adata_pred)
 
-    if name_prediction not in adata_pred.obsm:
+    if name_prediction not in adata_pred.obs.keys():
         sys.exit(
             name_prediction
             + " label not found in the predicted dataset (should be in obs)"
