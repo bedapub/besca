@@ -15,6 +15,10 @@ from sklearn.metrics import (
     make_scorer,
 )
 
+from ..pl._riverplot import riverplot_2categories
+
+
+
 
 def report(
     adata_pred,
@@ -69,7 +73,9 @@ def report(
 
     returns
     -------
-    0
+    Figure
+        A matplotlib figure element containing the riveplot generated for interactive display.
+        
     """
 
     # calculate umaps for plot
@@ -127,74 +133,80 @@ def report(
         report_writer.writerow(["classification report"])
         sklearn_report.to_csv(report, header=True)
 
-        # make umap
-        sc.settings.set_figure_params(dpi=240)
+    # make umap
+    sc.settings.set_figure_params(dpi=240)
 
-        sc.pl.umap(
-            adata_pred,
-            color=[celltype, name_prediction, clustering],
-            legend_loc="on data",
-            legend_fontsize=7,
-            save=".ondata_" + analysis_name + ".png",
-        )
-        sc.pl.umap(
-            adata_pred,
-            color=[celltype, name_prediction, clustering],
-            legend_fontsize=7,
-            wspace=1.5,
-            save="." + analysis_name + ".png",
-        )
-        sc.settings.set_figure_params(dpi=60)
+    sc.pl.umap(
+        adata_pred,
+        color=[celltype, name_prediction, clustering],
+        legend_loc="on data",
+        legend_fontsize=7,
+        save=".ondata_" + analysis_name + ".png",
+    )
+    sc.pl.umap(
+        adata_pred,
+        color=[celltype, name_prediction, clustering],
+        legend_fontsize=7,
+        wspace=1.5,
+        save="." + analysis_name + ".png",
+    )
+    sc.settings.set_figure_params(dpi=60)
 
-        # make conf matrices (4)
-        class_names = np.unique(
-            np.concatenate((adata_pred.obs[celltype], adata_pred.obs[name_prediction]))
+    # make conf matrices (4)
+    class_names = np.unique(
+        np.concatenate((adata_pred.obs[celltype], adata_pred.obs[name_prediction]))
+    )
+    np.set_printoptions(precision=2)
+    # Plot non-normalized confusion matrix
+    plot_confusion_matrix(
+        adata_pred.obs[celltype],
+        adata_pred.obs[name_prediction],
+        classes=class_names,
+        celltype=celltype,
+        name_prediction=name_prediction, 
+        title="Confusion matrix, without normalization",
+        numbers=False,
+        adata_predicted=adata_pred,
+        asymmetric_matrix=asymmetric_matrix,
+    )
+    plt.savefig(
+        os.path.join(
+             "./figures/" + method + "_confusion_matrix_"
+            + analysis_name
+            + "_"
+            + celltype
+            + ".svg"
         )
-        np.set_printoptions(precision=2)
-        # Plot non-normalized confusion matrix
-        plot_confusion_matrix(
-            adata_pred.obs[celltype],
-            adata_pred.obs[name_prediction],
-            classes=class_names,
-            celltype=celltype,
-            name_prediction=name_prediction, 
-            title="Confusion matrix, without normalization",
-            numbers=False,
-            adata_predicted=adata_pred,
-            asymmetric_matrix=asymmetric_matrix,
-        )
-        plt.savefig(
-            os.path.join(
-                "./figures/SVM_confusion_matrix_"
-                + analysis_name
-                + "_"
-                + celltype
-                + ".svg"
-            )
-        )
+    )
 
-        # Plot normalized confusion matrix with numbers
-        plot_confusion_matrix(
-            adata_pred.obs[celltype],
-            adata_pred.obs[name_prediction],
-            classes=class_names,
-            celltype=celltype,
-            name_prediction=name_prediction, 
-            normalize=True,
-            title="Normalized confusion matrix",
-            numbers=False,
-            adata_predicted=adata_pred,
-            asymmetric_matrix=asymmetric_matrix,
+    # Plot normalized confusion matrix with numbers
+    plot_confusion_matrix(
+        adata_pred.obs[celltype],
+        adata_pred.obs[name_prediction],
+        classes=class_names,
+        celltype=celltype,
+        name_prediction=name_prediction, 
+        normalize=True,
+        title="Normalized confusion matrix",
+        numbers=False,
+        adata_predicted=adata_pred,
+        asymmetric_matrix=asymmetric_matrix,
+    )
+    plt.savefig(
+        os.path.join(
+            "./figures/" + method + "_confusion_matrix_norm_"
+            + analysis_name
+            + "_"
+            + celltype
+            + ".svg"
         )
-        plt.savefig(
-            os.path.join(
-                "./figures/SVM_confusion_matrix_norm_"
-                + analysis_name
-                + "_"
-                + celltype
-                + ".svg"
-            )
-        )
+    )
+
+    # plot basic riverplot
+    fig = riverplot_2categories( adata=adata_pred, categories=[celltype, name_prediction])
+    fig.show()
+    return fig
+
 
 
 def plot_confusion_matrix(
