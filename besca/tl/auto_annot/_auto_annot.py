@@ -1,4 +1,5 @@
 import csv
+import os
 import sys
 
 import numpy as np
@@ -16,6 +17,8 @@ from sklearn.model_selection import (GridSearchCV, StratifiedShuffleSplit,
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC, LinearSVC
 from sklearn.utils.multiclass import unique_labels
+
+from .._annot_compare import report
 
 
 def read_data(train_paths, train_datasets, test_path, test_dataset, use_raw = False):
@@ -718,3 +721,58 @@ def predict_proba(classifier, scaler, adata_pred, threshold = 0):
     pred.to_csv("SVM_Pred_Labels_inter_jupyter.csv", index=False)
 
     return results, prob 
+
+
+
+
+
+def report(adata_pred, celltype, method, analysis_name, train_datasets, test_dataset, merge, use_raw = False, genes_to_use = 'all', remove_nonshared = False, clustering = 'leiden', asymmetric_matrix = True):
+    """ reports basic metrics, produces confusion matrices and plots umap of prediction
+    Writes out a csv file containing all accuracy and f1 scores.
+    Writes normalized and absolute confusion matrices, as well as umap prediction comparisons to ./figures.
+    
+    parameters
+    ----------
+    adata_pred: AnnData
+        original adata object with 'auto_annot' column
+    celltype: `str`
+        celltype column on which the prediction was performed
+    method: `str`
+        method that was used for prediction.
+    analysis_name: `str`
+        name of the analyis, used for writing files
+    train_datasets: `list`
+        list of used training datasets
+    test_dataset: `str`
+        name of test dataset
+    merge: `str`
+        what merging was performed
+    use_raw: `bool`  | default = False
+        if anndata.raw was used
+    genes_to_use: `list` or `string` | default = 'all'
+        what geneset wsa used
+    remove_nonshared: `bool`|default = False
+    clustering: `str` | default = leiden
+        clustering that was used in original analysis of testing set, needed for umap plotting
+    asymmetric_matrix: `bool` | default = True
+        if False returns square confusion matrix, if True it only shows possible combinations
+    returns
+    -------
+    0
+    """
+    fig = report(
+        adata_pred = adata_pred,
+        celltype = celltype,
+        method = method,
+        analysis_name = analysis_name,
+        train_datasets = train_datasets,
+        test_dataset = test_dataset,
+        merge = merge,
+        name_prediction="auto_annot",
+        name_report="auto_annot",
+        use_raw=use_raw,
+        genes_to_use=genes_to_use,
+        remove_nonshared=remove_nonshared,
+        clustering=clustering,
+        asymmetric_matrix=asymmetric_matrix,
+)
