@@ -4,7 +4,7 @@ import sys
 from pandas import DataFrame
 from scipy import sparse
 from pandas import concat
-
+from math import expm1
 
 def subset_adata(adata, filter_criteria, raw=True, axis=0):
     """Subset AnnData object into new object
