@@ -18,7 +18,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC, LinearSVC
 from sklearn.utils.multiclass import unique_labels
 
-from .._annot_compare import report
+from .._annot_compare import report as report_generic
 
 
 def read_data(train_paths, train_datasets, test_path, test_dataset, use_raw = False):
@@ -760,7 +760,7 @@ def report(adata_pred, celltype, method, analysis_name, train_datasets, test_dat
     -------
     0
     """
-    fig = report(
+    fig = report_generic(
         adata_pred = adata_pred,
         celltype = celltype,
         method = method,
