@@ -1,23 +1,26 @@
-import sys
-import os
 import csv
-import scipy
-import scanpy as sc
-import scvelo as scv
-import pandas as pd
-import numpy as np
+import os
+import sys
+
 import matplotlib
 import matplotlib.pyplot as plt
-from sklearn.svm import LinearSVC,SVC
-from sklearn.linear_model import SGDClassifier, LogisticRegressionCV, LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import f1_score, make_scorer, accuracy_score, classification_report, confusion_matrix
-from sklearn.utils.multiclass import unique_labels
+import numpy as np
+import pandas as pd
+import scanorama as scan
+import scanpy as sc
+import scipy
+import scvelo as scv
 from sklearn.calibration import CalibratedClassifierCV
-from sklearn.model_selection import cross_validate
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import (LogisticRegression, LogisticRegressionCV,
+                                  SGDClassifier)
+from sklearn.metrics import (accuracy_score, classification_report,
+                             confusion_matrix, f1_score, make_scorer)
+from sklearn.model_selection import (GridSearchCV, StratifiedShuffleSplit,
+                                     cross_validate, train_test_split)
 from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split, StratifiedShuffleSplit, GridSearchCV
-import scanorama as scan 
+from sklearn.svm import SVC, LinearSVC
+from sklearn.utils.multiclass import unique_labels
 
 
 def read_data(train_paths, train_datasets, test_path, test_dataset, use_raw = False):
