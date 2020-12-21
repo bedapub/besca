@@ -128,6 +128,8 @@ def read_adata(train_paths, train_datasets, test_path, test_dataset):
     adata_pred =scv.read(os.path.join(test_path, test_dataset))
     return adata_trains, adata_pred
 
+
+
 def merge_data(adata_trains, adata_pred, genes_to_use = 'all', merge = 'scanorama'):
 
     """ read adata files of training and testing datasets
@@ -161,10 +163,9 @@ def merge_data(adata_trains, adata_pred, genes_to_use = 'all', merge = 'scanoram
         adata_trains, adata_pred = remove_genes(adata_trains, adata_pred, genes_to_use)
     
     # merge datasets if there are multiple training_datasets
-    
     if merge == 'naive':
         print('merging naively')
-        adata_train = naive_merge(adata_trains, train_datasets)
+        adata_train = naive_merge(adata_trains, adata_pred)
     # implement scanorama and scanorama integrated
     if merge == 'scanorama':
         print('merging with scanorama')
@@ -325,7 +326,7 @@ def intersect_genes(adata_train, adata_pred):
     return adata_train, adata_pred
 
 
-def remove_nonshared(adata_train, adata_pred):
+def remove_nonshared(adata_train, adata_pred, celltype='dblabel'):
 
     """ removes all celltypes not in all datasets
     
@@ -337,6 +338,8 @@ def remove_nonshared(adata_train, adata_pred):
         training dataset anndata object
     adata_pred: AnnData
         testing dataset anndata object
+    celltype: str
+        names of columns to compare.
 
     
     returns
