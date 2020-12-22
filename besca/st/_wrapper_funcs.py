@@ -390,7 +390,11 @@ def pca_neighbors_umap(adata, results_folder, nrpcs=50, nrpcs_neigh=None, nrneig
     # neighbors
     if(method == 'bbknn'):
         if('batch' in adata.obs.columns):
-            bbknn.bbknn(adata)
+            if len( set(adata.obs.get('batch'))) == 1:
+                print('column "batch" only contains one value. We cannot correct for those; BBKNN is NOT applied.')
+                
+            else: 
+                 bbknn.bbknn(adata)
         else:
             sys.exit(
                 'bbknn correction requires a column "batch" in the observations.')
