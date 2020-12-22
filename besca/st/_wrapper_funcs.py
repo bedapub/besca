@@ -510,21 +510,10 @@ def additional_labeling(adata, labeling_to_use, labeling_name, labeling_descript
     None
       writes out several files to folder results_folder/labelings/<labeling_name>
     """
-    start = time()
-
-    # calculate marker genes for labeling
-    rank_genes_groups(adata, labeling_to_use, method='wilcoxon',
-                      use_raw=True, n_genes=adata.raw.X.shape[1])
-    print('rank genes per label calculated using method wilcoxon.')
-
-    logging.info(
-        'Marker gene detection performed on a per-label basis using the method wilcoxon.')
-    logging.info('\tTime for marker gene detection: ' +
-                 str(round(time()-start, 3))+'s')
-
+    
     outpath_ = os.path.join(results_folder, 'labelings', labeling_name)
     # export labeling
-    start = time()
+    start1 = time()
     labeling(adata, column=labeling_to_use, outpath=outpath_)
     # generate labelinfo.tsv file
     labeling_info(outpath=outpath_,
@@ -535,12 +524,26 @@ def additional_labeling(adata, labeling_to_use, labeling_name, labeling_descript
                   reference=True,
                   method=labeling_author,
                   annotated_version_of=' -')
-    export_rank(adata, basepath=results_folder,
-                type='wilcox', labeling_name=labeling_name)
 
+    start2 = time()
+    # If labeling is only one values, we do not export ranmk
+    if len( set(adata.obs.get(labeling_to_use))) != 1:
+        # calculate marker genes for labeling
+        rank_genes_groups(adata, labeling_to_use, method='wilcoxon',
+                      use_raw=True, n_genes=adata.raw.X.shape[1])
+        print('rank genes per label calculated using method wilcoxon.')
+
+        logging.info(
+            'Marker gene detection performed on a per-label basis using the method wilcoxon.')
+        logging.info('\tTime for marker gene detection: ' +
+                 str(round(time()-start2, 3))+'s')
+        export_rank(adata, basepath=results_folder,
+                type='wilcox', labeling_name=labeling_name)
+    else:
+        print( labeling_to_use  + ' only contains one group; Ranks were not exported' )
     logging.info('Label level analysis and marker genes exported to file.')
     logging.info('\tTime for export of cluster level analysis: ' +
-                 str(round(time()-start, 3))+'s')
+                 str(round(time()-start1, 3))+'s')
     return(adata)
 
 
