@@ -266,7 +266,7 @@ def clr_normalize(adata, results_folder):
 
 
 
-def dsb_normalize(adata_prot, raw_path, ana_path,  example_dataset = False,  hto = None,  numi_min = 2, numi_max = 3.5):
+def dsb_normalize(adata_prot, raw_path, ana_path,  example_dataset = False, hto = False,  numi_min = 2, numi_max = 3.5):
     """Perform DSB normalization. If isotypes are present among the Ab, please make sure that the relevant Ab have 'isotype' in their names. The function also generate a QC plot when negative cells are imputed from UMI threshold. Please have a look at it and eventually adapt the numi_min and numi_max. It is highly advised to use this function if hto/ isotypes are available as they lead to higher-confidence negative droplets. The function is a wrapper adapter from https://github.com/niaid/dsb. 
     
     Parameters
@@ -311,7 +311,7 @@ do_dsb <- function(raw_path, ana_path, example_dataset = FALSE, hto = NA, numi_m
     mat_prot <- as.matrix(mat_prot)
   }
   
-  if(length(hto) > 1) message('Using HTO to define negative droplets.')
+  if(length(hto) > 1) message('Using HTO to define negative droplets.') else hto <- NA
   
   # ------------------------
   
