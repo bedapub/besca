@@ -1,8 +1,8 @@
 dblabel	dblabelEFO	EFO	short_dblabel	is_level	l4	l4EFO	l3	l3EFO	l2	l2EFO	l1	l1EFO	l0	l0EFO
-cell name to be used	associated EFO term (if present)	"term ID (EFO if present, internal otherwise)"	short name used for plotting	hierarchy level	hierarchy level 4									
+cell name to be used	associated EFO term (if present)	term ID (EFO if present, internal otherwise)	short name used for plotting	hierarchy level	hierarchy level 4									
 acinar cell	acinar cell	CL:0000622	Acinar	3					glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
-"activated CD4-positive, alpha-beta T cell"	"activated CD4-positive, alpha-beta T cell"	CL:0000896	ActCD4Tcell	5	"CD4-positive, alpha-beta T cell"	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-"activated CD8-positive, alpha-beta T cell"	"activated CD8-positive, alpha-beta T cell"	CL:0000906	ActCD8Tcell	5	"CD8-positive, alpha-beta T cell"	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+activated CD4-positive, alpha-beta T cell	activated CD4-positive, alpha-beta T cell	CL:0000896	ActCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+activated CD8-positive, alpha-beta T cell	activated CD8-positive, alpha-beta T cell	CL:0000906	ActCD8Tcell	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 activated T cell		DB:0000043	ActTcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 alveolar macrophage	alveolar macrophage	CL:0000583	AlvelolarMacrophage	5	lung macrophage	CL:1001603	macrophage	CL:0000235	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 amacrine cell	amacrine cell	CL:0000561	Amacrine	2							neural cell	CL:0002319	animal cell	CL:0000548
@@ -34,17 +34,17 @@ cardiac muscle cell	cardiac muscle cell	CL:0000746	CardiacMuscle	4			striated mu
 CCR7-positive myeloid dendritic cell		DB:0000004	cDC_CCR7	4			myeloid dendritic cell	CL:0000782	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 CD141-positive myeloid dendritic cell	CD141-positive myeloid dendritic cell	CL:0002394	cDC1	5			myeloid dendritic cell	CL:0002394	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 CD1c-positive myeloid dendritic cell	CD1c-positive myeloid dendritic cell	CL:0002399	cDC2	5			myeloid dendritic cell	CL:0002394	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-CD4-positive helper T cell	CD4-positive helper T cell	CL:0000492	ThCD4Tcell	5	"CD4-positive, alpha-beta T cell"	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-"CD4-positive, alpha-beta cytotoxic T cell"	"CD4-positive, alpha-beta cytotoxic T cell"	CL:0000934	CytotoxCD4Tcell	5	"CD4-positive, alpha-beta T cell"	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-"CD4-positive, alpha-beta memory T cell"	"CD4-positive, alpha-beta memory T cell"	CL:0000897	MemCD4Tcell	5	"CD4-positive, alpha-beta T cell"	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-"CD4-positive, alpha-beta T cell"	"CD4-positive, alpha-beta T cell"	CL:0000624	CD4Tcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CD4-positive helper T cell	CD4-positive helper T cell	CL:0000492	ThCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CD4-positive, alpha-beta cytotoxic T cell	CD4-positive, alpha-beta cytotoxic T cell	CL:0000934	CytotoxCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CD4-positive, alpha-beta memory T cell	CD4-positive, alpha-beta memory T cell	CL:0000897	MemCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CD4-positive, alpha-beta T cell	CD4-positive, alpha-beta T cell	CL:0000624	CD4Tcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 CD56-bright cytokine secreting natural killer cell	CD56-bright cytokine secreting natural killer cell	CL:0000938	CD56brightNK	5	natural killer cell	CL:0000623	innate lymphoid cell	CL:0001065	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-"CD8-positive, alpha-beta cytokine secreting effector T cell"	"CD8-positive, alpha-beta cytokine secreting effector T cell"	CL:0000908	CytokineCD8Tcell	5	"CD8-positive, alpha-beta T cell"	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-"CD8-positive, alpha-beta cytotoxic T cell"	"CD8-positive, alpha-beta cytotoxic T cell"	CL:0000794	CytotoxCD8Tcell	5	"CD8-positive, alpha-beta T cell"	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-"CD8-positive, alpha-beta memory T cell"	"CD8-positive, alpha-beta memory T cell"	CL:0000909	MemCD8Tcell	5	"CD8-positive, alpha-beta T cell"	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-"CD8-positive, alpha-beta T cell"	"CD8-positive, alpha-beta T cell"	CL:0000625	CD8Tcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-"central memory CD4-positive, alpha-beta T cell"	"central memory CD4-positive, alpha-beta T cell"	CL:0000904	CMCD4Tcell	5	"CD4-positive, alpha-beta T cell"	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-"central memory CD8-positive, alpha-beta T cell"	"central memory CD8-positive, alpha-beta T cell"	CL:0000907	CMCD8Tcell	5	"CD8-positive, alpha-beta T cell"	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CD8-positive, alpha-beta cytokine secreting effector T cell	CD8-positive, alpha-beta cytokine secreting effector T cell	CL:0000908	CytokineCD8Tcell	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CD8-positive, alpha-beta cytotoxic T cell	CD8-positive, alpha-beta cytotoxic T cell	CL:0000794	CytotoxCD8Tcell	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CD8-positive, alpha-beta memory T cell	CD8-positive, alpha-beta memory T cell	CL:0000909	MemCD8Tcell	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+CD8-positive, alpha-beta T cell	CD8-positive, alpha-beta T cell	CL:0000625	CD8Tcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+central memory CD4-positive, alpha-beta T cell	central memory CD4-positive, alpha-beta T cell	CL:0000904	CMCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+central memory CD8-positive, alpha-beta T cell	central memory CD8-positive, alpha-beta T cell	CL:0000907	CMCD8Tcell	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 central nervous system macrophage	central nervous system macrophage	CL:0000878	CNSMacrophage	4			macrophage	CL:0000235	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 central nervous system neuron	central nervous system neuron	CL:2000029	CNSNeuron	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
 central nervous system pericyte	central nervous system pericyte	CL:0002575	CNSPericyte	3					pericyte cell	CL:0000669	connective tissue cell	CL:0002320	animal cell	CL:0000548
@@ -75,9 +75,9 @@ doublet		DB:0000008	Doublet	1									animal cell	CL:0000548
 duct epithelial cell	duct epithelial cell	CL:0000068	DuctEpithelial	2							epithelial cell	CL:0000066	animal cell	CL:0000548
 early pro-B cell	early pro-B cell	CL:0002046	EarlyProBcell	4			pro-B cell	CL:0000826	lymphoid lineage restricted progenitor cell	CL:0000838 	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 ecto-epithelial cell	ecto-epithelial cell	CL:0002077	EctoEpithelial	2							epithelial cell	CL:0000066	animal cell	CL:0000548
-"effector CD4-positive, alpha-beta T cell"	"effector CD4-positive, alpha-beta T cell"	CL:0001044	EffCD4Tcell	5	"CD4-positive, alpha-beta T cell"	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-"effector memory CD4-positive, alpha-beta T cell"	"effector memory CD4-positive, alpha-beta T cell"	CL:0000905	EMCD4Tcell	5	"CD4-positive, alpha-beta T cell"	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-"effector memory CD8-positive, alpha-beta T cell"	"effector memory CD8-positive, alpha-beta T cell"	CL:0000913	EMCD8Tcell	5	"CD8-positive, alpha-beta T cell"	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+effector CD4-positive, alpha-beta T cell	effector CD4-positive, alpha-beta T cell	CL:0001044	EffCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+effector memory CD4-positive, alpha-beta T cell	effector memory CD4-positive, alpha-beta T cell	CL:0000905	EMCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+effector memory CD8-positive, alpha-beta T cell	effector memory CD8-positive, alpha-beta T cell	CL:0000913	EMCD8Tcell	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 effector T cell	effector T cell	CL:0000911	EffTcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 embryonic cell	embryonic cell	CL:0002321	Embryonic	1									animal cell	CL:0000548
 embryonic stem cell	embryonic stem cell	CL:0002322	EmbryonicStem	3					stem cell	CL:0000034	precursor cell	CL:0011115	animal cell	CL:0000548
@@ -112,8 +112,8 @@ erythroblast	erythroblast	CL:0000765	Erythroblast	3					erythroid lineage cell	C
 erythrocyte	erythrocyte	CL:0000232	Erythrocyte	3					erythroid lineage cell	CL:0000764	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 erythroid lineage cell	erythroid lineage cell	CL:0000764	Erythroid	2							hematopoietic cell	CL:0000988	animal cell	CL:0000548
 excitatory neuron	excitatory neuron	CL:0008030	ExcitatoryN	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
-"exhausted-like CD4-positive, alpha-beta T cell"		DB:0000002	ExhCD4Tcell	5	"CD4-positive, alpha-beta T cell"	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-"exhausted-like CD8-positive, alpha-beta T cell"		DB:0000005	ExhCD8Tcell	5	"CD8-positive, alpha-beta T cell"	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+exhausted-like CD4-positive, alpha-beta T cell		DB:0000002	ExhCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+exhausted-like CD8-positive, alpha-beta T cell		DB:0000005	ExhCD8Tcell	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 fibroblast	fibroblast	CL:0000057	Fibroblast	2							connective tissue cell	CL:0002320	animal cell	CL:0000548
 fibroblast of lung	fibroblast of lung	CL:0002553	LungFibroblast	3					fibroblast	CL:0000057	connective tissue cell	CL:0002320	animal cell	CL:0000548
 follicular B cell	follicular B cell	CL:0000843	FollicularBcell	4			B cell	CL:0000236	lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
@@ -154,8 +154,8 @@ IgA plasma cell	IgA plasma cell	CL:0000987	IgAPlasma	4			plasma cell	CL:0000786	
 IgG plasma cell	IgG plasma cell	CL:0000985	IgGPlasma	4			plasma cell	CL:0000786	lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 IgM or IgA plasma cell		DB:0000044	IgMorIgAPlasma	4			plasma cell	CL:0000786	lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 IgM plasma cell	IgM plasma cell	CL:0000986	IgMPlasma	4			plasma cell	CL:0000786	lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-"IL7R-max CD4-positive, alpha-beta cytotoxic T cell"		DB:0000040	CD4Tcell_IL7Rmax	5	"CD4-positive, alpha-beta T cell"	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-"IL7R-max CD8-positive, alpha-beta cytotoxic T cell"		DB:0000007	CD8Tcell_IL7Rmax	5	"CD8-positive, alpha-beta T cell"	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+IL7R-max CD4-positive, alpha-beta cytotoxic T cell		DB:0000040	CD4Tcell_IL7Rmax	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+IL7R-max CD8-positive, alpha-beta cytotoxic T cell		DB:0000007	CD8Tcell_IL7Rmax	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 immature B cell	immature B cell	CL:0000816	ImmatureBcell	4			B cell	CL:0000236	lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 immature conventional dendritic cell	immature conventional dendritic cell	CL:0000840	ImmaturecDC	4			myeloid dendritic cell	CL:0002394	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 immature enterocyte		DB:0000009	ImmatureEnterocyte	5	enterocyte	CL:0000584	intestinal epithelial cell	CL:0002563	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
@@ -232,8 +232,8 @@ myeloid T cell doublet		DB:0000014	MyeloTcell	2							hematopoietic cell	CL:0000
 myofibroblast cell	myofibroblast cell	CL:0000186	Myofibroblast	2							contractile cell	CL:0000183	animal cell	CL:0000548
 naive B cell	naive B cell	CL:0000788	NaiBcell	4			B cell	CL:0000236	lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 naive T cell	naive T cell	CL:0000898	NaiTcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-"naive thymus-derived CD4-positive, alpha-beta T cell"	"naive thymus-derived CD4-positive, alpha-beta T cell"	CL:0000895	NaiCD4Tcell	5	"CD4-positive, alpha-beta T cell"	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-"naive thymus-derived CD8-positive, alpha-beta T cell"	"naive thymus-derived CD8-positive, alpha-beta T cell"	CL:0000900	NaiCD8Tcell	5	"CD8-positive, alpha-beta T cell"	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+naive thymus-derived CD4-positive, alpha-beta T cell	naive thymus-derived CD4-positive, alpha-beta T cell	CL:0000895	NaiCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+naive thymus-derived CD8-positive, alpha-beta T cell	naive thymus-derived CD8-positive, alpha-beta T cell	CL:0000900	NaiCD8Tcell	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 natural killer cell	natural killer cell	CL:0000623	NKcell	4			innate lymphoid cell	CL:0001065	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 natural killer or T cell		DB:0000015	NKorTcell	3					lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 neoplastic cell	neoplastic cell	CL:0001063	Neoplastic	0										
@@ -279,8 +279,8 @@ pro-B cell	pro-B cell	CL:0000826	ProBcell	3					lymphoid lineage restricted prog
 pro-T cell	pro-T cell	CL:0000827	ProTcell	3					lymphoid lineage restricted progenitor cell	CL:0000838 	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 proerythroblast	proerythroblast	CL:0000547	Proerythroblast	3					erythroid lineage cell	CL:0000764	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 proliferating B cell		DB:0000018	ProlifBcell	4			B cell	CL:0000236	lymphocyte of B lineage	CL:0000945	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-"proliferating CD4-positive, alpha-beta T cell"		DB:0000022	ProlifCD4Tcell	5	"CD4-positive, alpha-beta T cell"	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-"proliferating CD8-positive, alpha-beta T cell"		DB:0000003	ProlifCD8Tcell	5	"CD8-positive, alpha-beta T cell"	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+proliferating CD4-positive, alpha-beta T cell		DB:0000022	ProlifCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+proliferating CD8-positive, alpha-beta T cell		DB:0000003	ProlifCD8Tcell	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 proliferating monocyte		DB:0000020	ProlifMonocyte	3			monocyte	CL:0000576	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 proliferating neuron		DB:0000013	ProlifNeuron	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
 proliferating T cell		DB:0000021	ProlifTcell	3			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
@@ -303,6 +303,7 @@ rod bipolar cell	rod bipolar cell	CL:0000751	RodBipolar	5	retinal bipolar neuron
 SATB2_EBF3_GLYT1-positive amacrine cell		DB:0000039	Amacrine_SATB2_EBF3_GLYT1	3					amacrine cell	CL:0000561	neural cell	CL:0002319	animal cell	CL:0000548
 Schwann cell	Schwann cell	CL:0002573	Schwann	3					glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
 secretory cell	secretory cell	CL:0000151	Secretory	1									animal cell	CL:0000548
+secretory progenitor		DB:x	SecretoryPC	3					glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
 Sertoli cell	Sertoli cell	CL:0000216	Sertoli	2							epithelial cell	CL:0000066	animal cell	CL:0000548
 short term hematopoietic stem cell	short term hematopoietic stem cell	CL:0002033	STHematoStem	4			hematopoietic stem cell	CL:0000037	hematopoietic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 skeletal muscle satellite cell	skeletal muscle satellite cell	CL:0000594	MuscleSatellite	3					muscle precursor cell	CL:0000680	precursor cell	CL:0011115	animal cell	CL:0000548
@@ -324,8 +325,8 @@ striated muscle cell	striated muscle cell	CL:0000737	StriatedMuscle	3					muscle
 stromal cell	stromal cell	CL:0000499	Stromal	2							connective tissue cell	CL:0002320	animal cell	CL:0000548
 stromal cell of bone marrow	stromal cell of bone marrow	CL:0010001	StromalBoneMarrow	3					bone marrow cell	CL:0002092	bone cell	CL:0001035	animal cell	CL:0000548
 T cell	T cell	CL:0000084	Tcell	3					lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-T-helper 1 cell	T-helper 1 cell	CL:0000545	Th1CD4Tcell	5	"CD4-positive, alpha-beta T cell"	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
-T-helper 17 cell	T-helper 17 cell	CL:0000899	Th17CD4Tcell	5	"CD4-positive, alpha-beta T cell"	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+T-helper 1 cell	T-helper 1 cell	CL:0000545	Th1CD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+T-helper 17 cell	T-helper 17 cell	CL:0000899	Th17CD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 tanycyte	tanycyte	CL:0002085	Tanycyte	5	astrocyte	CL:0000127	macrogial cell	CL:0000126	glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
 tracheal epithelial cell	tracheal epithelial cell	CL:0000307	TrachealEpithelial	4			respiratory epithelial cell	CL:0002368	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
 transit amplifying cell		DB:0000024	TAmplifying	4			intestinal epithelial cell	CL:0002563	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
@@ -339,3 +340,5 @@ exhausted B cell		DB:0000051	ExhBcell	4			B cell	CL:0000236	lymphocyte of B line
 mesothelial cell	mesothelial cell	CL:0000077	Mesothelial	1									animal cell	CL:0000548
 proliferating myeloid leukocyte		DB:0000052	ProlifMyeloid	3					myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 proliferating myeloid dendritic cell		DB:0000053	ProlifcDC	4			myeloid dendritic cell	CL:0000782	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
+proliferating epithelial fate stem cell		DB:0000073	ProlifEpithelialStem	5	epithelial fate stem cell	CL:0000036	somatic stem cell	CL:0000723	stem cell	CL:0000034	precursor cell	CL:0011115	animal cell	CL:0000548
+proliferating enterocyte progenitor		DB:0000074	ProlifEnterocytePC	5	enterocyte progenitor	DB:0000037	intestinal epithelial cell	CL:0002563	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
