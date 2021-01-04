@@ -386,26 +386,29 @@ def pca_neighbors_umap(adata, results_folder, nrpcs=50, nrpcs_neigh=None, nrneig
     fig.savefig(join(results_folder, 'figures', 'PCA.png'))
 
     # display(fig)
+    # Inner function for simple pca-umap witrhout any correctuon
+    def run_no_correction():
+        neighbors(adata, n_neighbors=nrneigh,
+        random_state=random_state, n_pcs=nrpcs_neigh)
+        print('Nearest neighbors calculated with n_neighbors = '+str(nrneigh))
+        if nrpcs_neigh == 0:
+            print('Using .X to calculate nearest neighbors instead of PCs.')
+            logging.info(
+                    'Neighborhood analysis performed with .X instead of PCs.') 
 
     # neighbors
     if(method == 'bbknn'):
         if('batch' in adata.obs.columns):
             if len( set(adata.obs.get('batch'))) == 1:
                 print('column "batch" only contains one value. We cannot correct for those; BBKNN is NOT applied.')
-                
+                run_no_correction()
             else: 
                  bbknn.bbknn(adata)
         else:
             sys.exit(
                 'bbknn correction requires a column "batch" in the observations.')
     else:
-        neighbors(adata, n_neighbors=nrneigh,
-                  random_state=random_state, n_pcs=nrpcs_neigh)
-        print('Nearest neighbors calculated with n_neighbors = '+str(nrneigh))
-        if nrpcs_neigh == 0:
-            print('Using .X to calculate nearest neighbors instead of PCs.')
-            logging.info(
-                'Neighborhood analysis performed with .X instead of PCs.')
+        run_no_correction()
     # umap
     sc_umap(adata, random_state=random_state)
     print('UMAP coordinates calculated.')
