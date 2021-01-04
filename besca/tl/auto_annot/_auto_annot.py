@@ -2,6 +2,7 @@ import csv
 import os
 import sys
 
+
 import numpy as np
 import pandas as pd
 import scanorama as scan
@@ -763,6 +764,7 @@ def report(adata_pred, celltype, method, analysis_name, train_datasets, test_dat
     -------
     0
     """
+    print("besca.tl.auto_annot.report(...) is deprecated( besca > 2.3); please use besca.tl.report(...)")
     fig = report_generic(
         adata_pred = adata_pred,
         celltype = celltype,
