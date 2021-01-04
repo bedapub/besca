@@ -1,7 +1,42 @@
 # this file contains the functions to read / import signatures
 # for signature score computations
+import sys
 from re import compile, match
+
 from requests import post
+
+
+def convert_to_directed(signature_dict, direction = 'UP'):
+    """ Convert a simple dictionary into one with direction compatible with 
+
+    Parameters
+    ----------
+    signature_dict: `str` | default = None
+        gmt file location containing the geneset
+    direction : `str` | default = "UP"
+        str suffix indicating that the suffix indicating the signature direction. 
+        Expected UP or DN
+
+    Returns
+    -------
+    a dictionnary containing the signature names as key. \
+    Value are a subdictionnary where key are direction(UP or DN).\
+
+    Example
+    -------
+    >>> import os
+    >>> import besca as bc
+    >>> bescapath = os.path.split(os.path.dirname(bc.__file__))[0]
+    >>> gmt_file= bescapath + '/besca/datasets/genesets/Immune.gmt'
+    >>> mymarkers = bc.tl.sig.read_GMT_sign(gmt_file,directed=False)
+    >>> bc.tl.sig.convert_to_directed( mymarkers, 'UP')
+    """
+    if ( direction != 'UP' ) and (direction != 'DN'):
+        sys.exit('expecting direction UP or DN for directed signature dictionnary.')
+    signed_sign = {}
+    for signature, genes in signature_dict.items():
+        signed_sign[signature] = {direction: genes}
+    return signed_sign
 
 
 def read_GMT_sign(GMT_file, UP_suffix='_UP', DN_suffix='_DN', directed=True, verbose=False):
