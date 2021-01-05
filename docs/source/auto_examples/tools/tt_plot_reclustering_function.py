@@ -10,7 +10,7 @@ all clusters and mixed cell populations still exist.
 """
 
 import besca as bc
-import scanpy.api as sc
+import scanpy as sc
 
 #load and preprocess data (here we will start from a preprocessed dataset)
 adata = bc.datasets.pbmc3k_processed()
