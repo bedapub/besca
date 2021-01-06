@@ -59,12 +59,12 @@ PancreaticAcinar	Epithelial	4	58.5
 EpsilonPancreatic	Enteroendocrine	1	67
 PancStellate	Fibroblast	3	68
 Cholangiocyte	Epithelial	2	69
-TAmplifying	Epithelial	1	100
+TAmplifying	Epithelial	2	100
 EntericGlial	Glial	1	71
-Enterocyte	Epithelial	2	72
+Enterocyte	Epithelial	2.5	72
 Enteroendocrine	Epithelial	1.5	50.5
 Goblet	Epithelial	1.5	74
-Paneth	Epithelial	1.25	75
+Paneth	Epithelial	2	75
 Brush	Epithelial	2	70.5
 Adipocyte	None	1	78
 Chondrocyte	None	1	86
@@ -86,7 +86,7 @@ InflamMonocyte	Myeloid	2	93
 Neural	None	1	60.5
 FollicularBcell	Bcell	1	95
 GermCenterBcell	Bcell	1	96
-ImmatureEnterocyte	Epithelial	2	80.6
+ImmatureEnterocyte	Epithelial	1.5	80.6
 ImmatureGoblet	Epithelial	2	90.5
 EnterocytePC	Epithelial	1.5	91.5
 EpithelialStem	Epithelial	2	85.5
@@ -113,3 +113,6 @@ ProlifMyeloid	Myeloid	3	81.5
 ProlifcDC	cDC	3	50.5
 Mesothelial	None	2	111
 Platelet	Hematopoietic	2	8.5
+ProlifTAmplifying	TAmplifying	2.5	112
+ProlifEpithelialStem	EpithelialStem	2	113
+ProlifEnterocytePC	EnterocytePC	2	114
