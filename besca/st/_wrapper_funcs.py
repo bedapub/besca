@@ -545,22 +545,29 @@ def pca_neighbors_umap(adata, results_folder, nrpcs=50, nrpcs_neigh=None, nrneig
     fig.savefig(join(results_folder, 'figures', 'PCA.png'))
 
     # display(fig)
-
-    # neighbors
-    if(method == 'bbknn'):
-        if('batch' in adata.obs.columns):
-            bbknn.bbknn(adata)
-        else:
-            sys.exit(
-                'bbknn correction requires a column "batch" in the observations.')
-    else:
+    # Inner function for simple pca-umap witrhout any correctuon
+    def run_no_correction():
         neighbors(adata, n_neighbors=nrneigh,
-                  random_state=random_state, n_pcs=nrpcs_neigh)
+        random_state=random_state, n_pcs=nrpcs_neigh)
         print('Nearest neighbors calculated with n_neighbors = '+str(nrneigh))
         if nrpcs_neigh == 0:
             print('Using .X to calculate nearest neighbors instead of PCs.')
             logging.info(
-                'Neighborhood analysis performed with .X instead of PCs.')
+                    'Neighborhood analysis performed with .X instead of PCs.') 
+
+    # neighbors
+    if(method == 'bbknn'):
+        if('batch' in adata.obs.columns):
+            if len( set(adata.obs.get('batch'))) == 1:
+                print('column "batch" only contains one value. We cannot correct for those; BBKNN is NOT applied.')
+                run_no_correction()
+            else: 
+                 bbknn.bbknn(adata)
+        else:
+            sys.exit(
+                'bbknn correction requires a column "batch" in the observations.')
+    else:
+        run_no_correction()
     # umap
     sc_umap(adata, random_state=random_state)
     print('UMAP coordinates calculated.')
@@ -669,21 +676,10 @@ def additional_labeling(adata, labeling_to_use, labeling_name, labeling_descript
     None
       writes out several files to folder results_folder/labelings/<labeling_name>
     """
-    start = time()
-
-    # calculate marker genes for labeling
-    rank_genes_groups(adata, labeling_to_use, method='wilcoxon',
-                      use_raw=True, n_genes=adata.raw.X.shape[1])
-    print('rank genes per label calculated using method wilcoxon.')
-
-    logging.info(
-        'Marker gene detection performed on a per-label basis using the method wilcoxon.')
-    logging.info('\tTime for marker gene detection: ' +
-                 str(round(time()-start, 3))+'s')
-
+    
     outpath_ = os.path.join(results_folder, 'labelings', labeling_name)
     # export labeling
-    start = time()
+    start1 = time()
     labeling(adata, column=labeling_to_use, outpath=outpath_)
     # generate labelinfo.tsv file
     labeling_info(outpath=outpath_,
@@ -694,12 +690,26 @@ def additional_labeling(adata, labeling_to_use, labeling_name, labeling_descript
                   reference=True,
                   method=labeling_author,
                   annotated_version_of=' -')
-    export_rank(adata, basepath=results_folder,
-                type='wilcox', labeling_name=labeling_name)
 
+    start2 = time()
+    # If labeling is only one values, we do not export ranmk
+    if len( set(adata.obs.get(labeling_to_use))) != 1:
+        # calculate marker genes for labeling
+        rank_genes_groups(adata, labeling_to_use, method='wilcoxon',
+                      use_raw=True, n_genes=adata.raw.X.shape[1])
+        print('rank genes per label calculated using method wilcoxon.')
+
+        logging.info(
+            'Marker gene detection performed on a per-label basis using the method wilcoxon.')
+        logging.info('\tTime for marker gene detection: ' +
+                 str(round(time()-start2, 3))+'s')
+        export_rank(adata, basepath=results_folder,
+                type='wilcox', labeling_name=labeling_name)
+    else:
+        print( labeling_to_use  + ' only contains one group; Ranks were not exported' )
     logging.info('Label level analysis and marker genes exported to file.')
     logging.info('\tTime for export of cluster level analysis: ' +
-                 str(round(time()-start, 3))+'s')
+                 str(round(time()-start1, 3))+'s')
     return(adata)
 
 
