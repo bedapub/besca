@@ -533,7 +533,7 @@ def additional_labeling(adata, labeling_to_use, labeling_name, labeling_descript
                   annotated_version_of=' -')
 
     start2 = time()
-    # If labeling is only one values, we do not export ranmk
+    # If labeling is only one value, we do not export rank
     if len( set(adata.obs.get(labeling_to_use))) != 1:
         # calculate marker genes for labeling
         rank_genes_groups(adata, labeling_to_use, method='wilcoxon',
