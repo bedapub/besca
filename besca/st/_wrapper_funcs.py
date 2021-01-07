@@ -25,6 +25,7 @@ from scanpy.tools import louvain as sc_louvain
 from scanpy.tools import pca as sc_pca
 from scanpy.tools import rank_genes_groups
 from scanpy.tools import umap as sc_umap
+from scanpy import read_csv as sc_read_csv
 import rpy2.robjects as robjects
 
 # import other besca functions
@@ -404,7 +405,7 @@ do_dsb <- function(raw_path, ana_path, example_dataset = FALSE, hto = NA, numi_m
              hto = hto,  
              numi_min = numi_min,
              numi_max = numi_max)
-    a = sc.read_csv(os.path.join(ana_path, 'dsb_norm_matrix.csv'))
+    a = sc_read_csv(os.path.join(ana_path, 'dsb_norm_matrix.csv'))
     a.obs = adata_prot.obs
     a.var = adata_prot.var
     a.raw = adata_prot.copy()
