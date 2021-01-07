@@ -7,7 +7,7 @@ from requests import post
 
 
 def convert_to_directed(signature_dict, direction = 'UP'):
-    """ Convert a simple dictionary into one with direction compatible with 
+    """ Convert a simple dictionary into one with direction compatible with combined_signature_score
 
     Parameters
     ----------
@@ -84,7 +84,7 @@ def read_GMT_sign(GMT_file, UP_suffix='_UP', DN_suffix='_DN', directed=True, ver
         signature_full_name = temp_split[0]
         if len(temp_split) < 3:
             if(verbose):
-                print("Skipping empty entry" + signature_full_name)
+                print("Skipping empty entry; less than 3 fields for " + signature_full_name)
             continue
         # Skipping empty lines in gmt files
         if len(signature_full_name):
