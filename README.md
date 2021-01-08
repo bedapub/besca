@@ -24,10 +24,10 @@ pip install git+https://github.com/bedapub/besca.git
 
 Besca comes with a binary called reformat written in C and was compiled in linux-64. Therefore, besca runs exclusively on linux-64.
 
-Some of the functions provided by Besca were developped in R (version 4.0.1). Please install the required libraries by running the script located in the besca folder:
+Some of the functions provided by Besca were developped in R (version 4.0.1). Please install the required libraries by running the script Rlibs.R :
 
 ```
-Rscript besca/Rlibs.R your_R_library_path
+Rscript Rlibs.R your_R_library_path
  ```
 
 ### Set the executable flag to the binary file `reformat` <a name="binary"></a>
