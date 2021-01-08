@@ -7,6 +7,7 @@ import sys
 from os import makedirs
 from os.path import join
 from time import time
+
 import bbknn
 import scipy
 from matplotlib.pyplot import subplots
@@ -16,7 +17,8 @@ from pandas import DataFrame
 from scanpy.plotting import highly_variable_genes as pl_highly_variable_genes
 from scanpy.plotting import pca as sc_pl_pca
 from scanpy.plotting import umap as sc_pl_umap
-from scanpy.preprocessing import highly_variable_genes as sc_highly_variable_genes
+from scanpy.preprocessing import \
+    highly_variable_genes as sc_highly_variable_genes
 from scanpy.preprocessing import log1p, neighbors, normalize_per_cell
 from scanpy.preprocessing import regress_out as sc_regress_out
 from scanpy.preprocessing import scale as sc_scale
@@ -25,7 +27,6 @@ from scanpy.tools import louvain as sc_louvain
 from scanpy.tools import pca as sc_pca
 from scanpy.tools import rank_genes_groups
 from scanpy.tools import umap as sc_umap
-
 
 # import other besca functions
 from .. import _logging as logs
