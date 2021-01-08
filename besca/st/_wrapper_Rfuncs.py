@@ -1,7 +1,8 @@
 
 import os
-from scanpy import read_csv as sc_read_csv
+
 import rpy2.robjects as robjects
+from scanpy import read_csv as sc_read_csv
 
 
 def dsb_normalize(adata_prot, raw_path, ana_path,  example_dataset = False, hto = False,  numi_min = 2, numi_max = 3.5):
