@@ -8,6 +8,7 @@ import pandas as pd
 import scanorama as scan
 import scanpy as sc
 import scipy
+import scvi
 import scvelo as scv
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.ensemble import RandomForestClassifier
@@ -780,4 +781,108 @@ def report(adata_pred, celltype, method, analysis_name, train_datasets, test_dat
         remove_nonshared=remove_nonshared,
         clustering=clustering,
         asymmetric_matrix=asymmetric_matrix,
+)
+
+def scanvi_predict(adata_trains, adata_pred, celltype):
+    """ merges all datasets and predicts on testing set with scANVI. Note that unlike auto_annot predict, merging and fitting is all combined in one function.
+
+    parameters
+    ----------
+    adata_trains: list
+        List of training datasets
+    adata_pred: AnnData
+        AnnData object containing testing dataset
+     celltype: string
+        Column to be used as training label
+
+     returns
+     -------
+    adata_train: AnnData
+        Merged training datasets with new representation stored in obsm
+    adata_pred: AnnData
+        Test dataset with predictions in obs and new representation in obsm
+    adata_concat: AnnData
+        Both adata_train and adata_pred concatenated to one dataset
+     """
+    adata_concat = adata_pred.concatenate(*adata_trains)
+    genes_used = adata_concat.var.index.tolist()
+    adata_concat.layers["counts"] = adata_concat.raw[:, genes_used].X
+
+    adata_concat.obs["scvi_training_labels"] = (adata_concat.obs.batch == "0")
+    adata_concat.obs.scvi_training_labels[adata_concat.obs.scvi_training_labels == True] = "unlabeled"
+    adata_concat.obs.scvi_training_labels[adata_concat.obs.scvi_training_labels == False] = adata_concat.obs[celltype]
+
+    print("setting up anndata for sciv")
+    scvi.data.setup_anndata(adata_concat, layer="counts", batch_key="batch", labels_key="scvi_training_labels")
+
+    lvae = scvi.model.SCANVI(adata_concat, "unlabeled", use_cuda=True, n_latent=30, n_layers=2)
+
+    print("train lvae")
+    lvae.train(n_epochs_semisupervised=100)
+    adata_concat.obs["C_scANVI"] = lvae.predict(adata_concat)
+    adata_concat.obsm["X_scANVI"] = lvae.get_latent_representation(adata_concat)
+
+    adata_pred = adata_concat[adata_concat.obs.batch == "0"]
+    adata_train = adata_concat[adata_concat.obs.batch != "0"]
+
+    return adata_train, adata_pred, adata_concat
+
+
+def scvi_merge(adata_trains, adata_pred):
+    """ merges all datasets and stores learnt representation in obsm
+
+    parameters
+    ----------
+    adata_trains: list
+        List of training datasets
+    adata_pred: AnnData
+        AnnData object containing testing dataset
+
+     returns
+     -------
+    adata_train: AnnData
+        Merged training datasets with new representation stored in obsm
+    adata_pred: AnnData
+        Test dataset with new representation in obsm
+    adata_concat: AnnData
+        Both adata_train and adata_pred concatenated to one dataset with new representation stored in obsm
+     """
+
+    adata_concat = adata_pred.concatenate(*adata_trains)
+    genes_used = adata_concat.var.index.tolist()
+    adata_concat.layers["counts"] = adata_concat.raw[:, genes_used].X
+    scvi.data.setup_anndata(adata_concat, layer="counts", batch_key="batch")
+    vae = scvi.model.SCVI(adata_concat)
+    print("training scvi vae")
+    vae.train()
+    adata_concat.obsm["X_scVI"] = vae.get_latent_representation()
+
+    adata_pred = adata_concat[adata_concat.obs.batch == "0"]
+    adata_train = adata_concat[adata_concat.obs.batch != "0"]
+
+    return adata_train, adata_pred, adata_concat
+
+def visualise_scvi_merge(adata_concat):
+    """ plots a umap of all merged datasets coloured by dataset of origin.
+
+    parameters
+    ----------
+    adata_concat: AnnData
+        Both adata_train and adata_pred concatenated to one dataset with new representation stored in obsm
+     """
+
+    if "X_scVI" in adata_concat.obsm:
+        sc.pp.neighbors(adata_concat, use_rep="X_scVI")
+    if "X_scANVI" in adata_concat.obsm:
+        sc.pp.neighbors(adata_concat, use_rep="X_scANVI")
+    else:
+        print("No scVI or scANVI representation found!")
+        return
+    sc.tl.leiden(adata_concat)
+    sc.tl.umap(adata_concat)
+    sc.pl.umap(
+    adata_concat,
+    color=["batch", "leiden"],
+    frameon=False,
+    ncols=1,
 )
