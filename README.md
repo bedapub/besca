@@ -24,11 +24,6 @@ pip install git+https://github.com/bedapub/besca.git
 
 Besca comes with a binary called reformat written in C and was compiled in linux-64. Therefore, besca runs exclusively on linux-64.
 
-Some of the functions provided by Besca were developped in R (version 4.0.1). Please install the required libraries by running the script Rlibs.R :
-
-```
-Rscript Rlibs.R your_R_library_path
- ```
 
 ### Set the executable flag to the binary file `reformat` <a name="binary"></a>
 
@@ -81,6 +76,23 @@ Now following the [instrution above](#binary) to set the executable flag to the 
 You should now have successfully installed besca.
 
 In case you met any problems, please report an issue.
+
+
+### R dependencies for additional methods
+
+Although the standard workflow can be run without any R dependencies, BESCA can run a selection of performant methods developed in R. These additional methods are: 
+
+- `isOutlier` from `scater`: for outlier detection and filtering recommendations (coming soon). 
+- `SCTransform` : one of the normalization methods proposed by the `Seurat` package (coming soon).
+- `maxLikGlobalDimEst` from `intrinsicDimension` : for the estimation of the number of dimensions to use for clustering (coming soon).
+- `deviance` and `VST`: for highly-variable genes selection (coming soon).
+- `DSB`: for denoising ADT count data based on background noise. 
+
+If you want to run one of these methods in the workflow, please install the required libraries by running the following command in the `besca` directory :
+
+```
+Rscript Rlibs.R your_R_library_path
+ ```
 
 ## Running besca on a HPC with a SLURM worklod manager  
 
