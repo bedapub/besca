@@ -17,6 +17,26 @@ class MMFileFixedFormat(MMFile):
         return f'%.{precision}f\n'
 
 
+def write__MMFILE( C_path, E, outpath):
+    #check if executable is actually executable on the system
+    def is_exe(fpath):
+        return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
+    if is_exe(C_path):
+        #create a temporary file to pipe the output from io.mmwrite to
+        f_in = BytesIO()
+        
+        #write out temporary matrix to created pipe
+        io.mmwrite(target=f_in, a=E, precision = 2)
+
+        from subprocess import run
+        f_out = open(os.path.join(outpath, 'matrix.mtx'), "w")
+        run([C_path, "-"], input=f_in.getvalue(), stdout=f_out)
+
+        print('adata.X successfully written to matrix.mtx')
+
+    else:
+        MMFileFixedFormat().write(os.path.join(outpath, 'matrix.mtx'), a=E, precision = 2) 
+        print('adata.X successfully written to matrix.mtx. \n Warning: could not use reformat script.')
 
 #Functions to export AnnData objects to FAIR dataformat
 
@@ -78,28 +98,7 @@ def X_to_mtx(adata,
     else:
         E = adata.X.tocsr().T #transpose back into the same format as we imported it
 
-    
-    #check if executable is actually executable on the system
-    def is_exe(fpath):
-        return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
-
-    if is_exe(C_path):
-        #create a temporary file to pipe the output from io.mmwrite to
-        f_in = BytesIO()
-        
-        #write out temporary matrix to created pipe
-        io.mmwrite(target=f_in, a=E, precision = 2)
-
-        from subprocess import run
-        f_out = open(os.path.join(outpath, 'matrix.mtx'), "w")
-        run([C_path, "-"], input=f_in.getvalue(), stdout=f_out)
-
-        print('adata.X successfully written to matrix.mtx')
-
-    else:
-        MMFileFixedFormat().write(os.path.join(outpath, 'matrix.mtx'), a=E, precision = 2) 
-        print('adata.X successfully written to matrix.mtx. \n Warning: could not use reformat script.')
-        
+    write__MMFILE( C_path, E, outpath)
     ### export genes
     
     #get genes to export
@@ -219,18 +218,8 @@ def raw_to_mtx(adata,
     ### check if the outdir exists if not create
     if not os.path.exists(outpath):
         os.makedirs(outpath)
-        
-    #create a temporary file to pipe the output from io.mmwrite to
-    f_in = BytesIO()
-    #write out temporary matrix to created pipe
-    io.mmwrite(target=f_in, a=E, precision = 2)
     
-    from subprocess import run
-    f_out = open(os.path.join(outpath, 'matrix.mtx'), "w")
-    run([C_path, "-"], input=f_in.getvalue(), stdout=f_out)
-    
-    print('adata.raw.X successfully written to matrix.mtx')
-
+    write__MMFILE( C_path, E, outpath)
     ### export genes
     
     #get genes to export
