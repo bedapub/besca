@@ -1,11 +1,9 @@
 
 import os
-
-import rpy2.robjects as robjects
 from scanpy import read_csv as sc_read_csv
+import importlib
 
-
-def dsb_normalize(adata_prot, raw_path, ana_path,  example_dataset = False, hto = False,  numi_min = 2, numi_max = 3.5):
+def dsb_normalize(adata_prot, raw_path, ana_path, rlib_loc = '',  example_dataset = False, hto = False,  numi_min = 2, numi_max = 3.5):
     """Perform DSB normalization. If isotypes are present among the Ab, please make sure that the relevant Ab have 'isotype' in their names. The function also generate a QC plot when negative cells are imputed from UMI threshold. Please have a look at it and eventually adapt the numi_min and numi_max. It is highly advised to use this function if hto/ isotypes are available as they lead to higher-confidence negative droplets. The function is a wrapper adapter from https://github.com/niaid/dsb. 
     
     Parameters
@@ -16,6 +14,8 @@ def dsb_normalize(adata_prot, raw_path, ana_path,  example_dataset = False, hto 
         Path to the 'raw' folder. 
     ana_path: `str`
         Path to the 'citeseqDSB' analysis folder. Default should be of form 'analyzed/ANALYSIS_NAME/citeseqDSB'
+    rlib_loc: 
+        R library location that will be added to the default .libPaths() to locate the required packages. 
     example_dataset: `bool`  
         Logical, whether example_dataset is being used or not. 
     hto: 
@@ -23,14 +23,36 @@ def dsb_normalize(adata_prot, raw_path, ana_path,  example_dataset = False, hto 
     numi_min: `int`
         Minimum log10 RNA count per cell to use as a threshold to select the negative droplets if HTOs are not given. 
     numi_max: `int`
-        Maximum log10 RNA count per cell to use as a threshold to select the negative droplets if HTOs are not given.   
+        Maximum log10 RNA count per cell to use as a threshold to select the negative droplets if HTOs are not given. 
+    
 
     Returns
     -------
     returns an AnnData object with DSB-normalized counts. 
-    """
-
-    robjects.r('''
+    """    
+    
+    rpy2_import = importlib.util.find_spec('rpy2')
+    if rpy2_import is None:
+        raise ImportError(
+            "dsb_normalize requires rpy2. Install with pip install rpy2")
+    from rpy2.robjects.packages import importr
+    import rpy2.robjects as ro
+    
+    ro.globalenv['rlib_loc'] = rlib_loc
+    ro.r('.libPaths(c(.libPaths(), rlib_loc))')
+    ro.r('suppressPackageStartupMessages(library(vctrs))')
+    ro.r('suppressPackageStartupMessages(library(ggplot2))')
+    ro.r('suppressPackageStartupMessages(library(patchwork))')
+    ro.r('suppressPackageStartupMessages(library(dsb))')
+    ro.r('suppressPackageStartupMessages(library(tidyverse))')
+    ro.r('suppressPackageStartupMessages(library(magrittr))')
+    ro.r('suppressPackageStartupMessages(library(data.table))')
+    ro.r('suppressPackageStartupMessages(library(Matrix))')
+    ro.r('suppressPackageStartupMessages(library(DropletUtils))')
+    ro.r('suppressPackageStartupMessages(library(readr))')
+        
+        
+    ro.r('''
     do_dsb <- function(raw_path, ana_path, example_dataset = FALSE, hto = NA, numi_min = 2, numi_max = 3.5 ){
     message("Reading input data...")
     if (example_dataset){
@@ -136,7 +158,7 @@ def dsb_normalize(adata_prot, raw_path, ana_path,  example_dataset = False, hto 
     
     }   
         ''')
-    r_do_dsb = robjects.r['do_dsb']
+    r_do_dsb = ro.r['do_dsb']
     r_do_dsb(raw_path = raw_path,
              ana_path = ana_path,
              example_dataset = example_dataset,
