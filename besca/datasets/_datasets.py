@@ -5,9 +5,8 @@ import os
 import urllib.request
 from urllib.error import URLError
 
-import pkg_resources
-
 import pandas
+import pkg_resources
 from scanpy import read
 
 
@@ -100,7 +99,7 @@ def Granja2019_citeSeq():
 
     """
     filename = pkg_resources.resource_filename('besca', 'datasets/data/scADT_Healthy_counts.csv')
-    urllib.request.urlretrieve ("https://zenodo.org/record/3944753/files/scADT_Healthy_counts.csv?download=1", filename)
+    urllib.request.urlretrieve ("https://zenodo.org/record/4419527/files/scADT_Healthy_counts.csv?download=1", filename)
     citeSeq  = pandas.read_csv(filename, sep = '\t')
     return citeSeq
 
@@ -128,7 +127,7 @@ def Granja2019_raw():
     """
 
     filename = pkg_resources.resource_filename('besca', 'datasets/data/Granja2019_raw.h5ad')
-    adata = check_dl( filename, url = 'https://zenodo.org/record/3944753/files/Granja2019_raw.h5ad?download=1')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/4419527/files/Granja2019_raw.h5ad?download=1')
     return adata
 
 
@@ -136,7 +135,9 @@ def Granja2019_raw():
 def Granja2019_processed():
     """Processed data from Granja et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol. 2019.
 
-     The data consists of processed gene expression and CITE-seq counts of single cells from healthy bone marrow, CD34+ bone marow, peripheral blood, and MPAL donors. Data was filtered and celltypes were annotated.
+     The data consists of processed gene expression and CITE-seq counts of single cells from healthy bone marrow, CD34+ bone marow, peripheral blood, and MPAL donors.
+     Data was filtered and celltypes were annotated.
+     Citeseq data was normalized with CLR/DSB and the corresponding clustering and UMAP is also present in this dataset.
 
     Returns
     -------
@@ -153,7 +154,7 @@ def Granja2019_processed():
     """
 
     filename = pkg_resources.resource_filename('besca', 'datasets/data/Granja2019_annotated.h5ad')
-    adata = check_dl( filename, url = 'https://zenodo.org/record/3944753/files/Granja2019_annotated.h5ad?download=1')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/4419527/files/Granja2019_annotated.h5ad?download=1')
     return adata
 
 
