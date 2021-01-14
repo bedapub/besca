@@ -91,6 +91,7 @@ Although the standard workflow can be run without any R dependencies, BESCA can 
 If you want to run one of these methods in the workflow, please install the required libraries by running the following command in the `besca` directory :
 
 ```
+pip install rpy2
 Rscript Rlibs.R your_R_library_path
  ```
 
