@@ -83,7 +83,7 @@ def Baron2016_processed():
 
 
 def Granja2019_citeSeq():
-    """Citeseq table from GSE139369 mixed-phenotype acute leukemia; healthy sample only
+    """Citeseq raw data from GSE139369 mixed-phenotype acute leukemia; healthy sample only
       [Granja JM, Klemm S, McGinnis LM, Kathiria AS et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol 2019 Dec;37(12):1458-1465. PMID: 31792411.]
 
     Returns
@@ -98,10 +98,10 @@ def Granja2019_citeSeq():
     >>> protein_table
 
     """
-    filename = pkg_resources.resource_filename('besca', 'datasets/data/scADT_Healthy_counts.csv')
-    urllib.request.urlretrieve ("https://zenodo.org/record/4419527/files/scADT_Healthy_counts.csv?download=1", filename)
-    citeSeq  = pandas.read_csv(filename, sep = '\t')
-    return citeSeq
+    
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/Granja2019_adt_raw.h5ad')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/4419527/files/Granja2019_adt_raw.h5ad?download=1')
+    return adata
 
 
 
@@ -211,6 +211,30 @@ def Haber2017_processed():
 
 
 
+def Kotliarov2020_citeSeq():
+    """Raw ADT counts from Kotliarov et al. Broad immune activation underlies shared set point signatures for vaccine responsiveness in healthy individuals and disease activity in patients with lupus. Nat Med. 2020
+
+    The data consists of raw ADT expression and CITE-seq counts of single cells from 53,201 single cells from healthy high and low influenza vaccination responders.
+
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Raw data matrix.
+
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.Kotliarov2020_citeseq()
+    >>> adata
+
+    """
+
+    filename = pkg_resources.resource_filename('besca', 'datasets/data/kotliarov_adt_raw.h5ad')
+    adata = check_dl( filename, url ='https://zenodo.org/record/4350119/files/kotliarov_adt_raw.h5ad?download=1')
+    return adata
+
+
 def Kotliarov2020_raw():
     """Raw counts from Kotliarov et al. Broad immune activation underlies shared set point signatures for vaccine responsiveness in healthy individuals and disease activity in patients with lupus. Nat Med. 2020
 
@@ -234,7 +258,7 @@ def Kotliarov2020_raw():
     adata = check_dl( filename, url ='https://zenodo.org/record/3938290/files/Kotliarov2020_raw.h5ad?download=1')
     return adata
 
-
+                     
 
 def Kotliarov2020_processed():
     """Processed data from Kotliarov et al. Broad immune activation underlies shared set point signatures for vaccine responsiveness in healthy individuals and disease activity in patients with lupus. Nat Med. 2020
