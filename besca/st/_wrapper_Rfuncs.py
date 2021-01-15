@@ -4,7 +4,7 @@ from scanpy import read_csv as sc_read_csv
 import importlib
 
 def dsb_normalize(adata_prot, raw_path, ana_path, rlib_loc = '',  example_dataset = False, hto = False,  numi_min = 2, numi_max = 3.5):
-    """Perform DSB normalization. If isotypes are present among the Ab, please make sure that the relevant Ab have 'isotype' in their names. The function also generate a QC plot when negative cells are imputed from UMI threshold. Please have a look at it and eventually adapt the numi_min and numi_max. It is highly advised to use this function if hto/ isotypes are available as they lead to higher-confidence negative droplets. The function is a wrapper adapter from https://github.com/niaid/dsb. 
+    """Perform DSB normalization. If isotypes are present among the proteins, please make sure that the relevant protein have 'isotype' in their names (gene symbols). The function also generate a QC plot when negative cells are imputed from UMI threshold. Please have a look at it and eventually adapt the numi_min and numi_max. It is highly advised to use this function if HTOs/ isotypes are available as they lead to higher-confidence negative droplets. The function is a wrapper adapter from https://github.com/niaid/dsb. Please visit their page for more information on the algorithm. 
     
     Parameters
     ----------
@@ -153,7 +153,7 @@ def dsb_normalize(adata_prot, raw_path, ana_path, rlib_loc = '',  example_datase
     message("Saving file with normalized proteins in")
     message(file.path(ana_path, 'citeseq', 'normalized_counts', "dsb_norm_matrix.csv"))
     # Done! you can also save the resulting normalized matrix for integration with scanpy etc
-    write_delim(as.data.frame(t(mtx)), file = file.path(ana_path, "dsb_norm_matrix.csv"),delim = "," )
+    write_delim(as.data.frame(t(mtx)), file.path(ana_path, "dsb_norm_matrix.csv"),delim = "," )
     
     
     }   
