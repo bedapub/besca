@@ -387,7 +387,7 @@ def pbmc3k_raw():
     """
 
     filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_raw.h5ad')
-    adata =  check_dl( filename, url = 'https://zenodo.org/record/3948150/files/pbmc3k_raw.h5ad?download=1')
+    adata =  check_dl( filename, url = 'https://zenodo.org/record/4441679/files/pbmc3k_raw.h5ad?download=1')
     return adata
 
 def pbmc3k_filtered():
@@ -410,7 +410,7 @@ def pbmc3k_filtered():
     """
 
     filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_filtered.h5ad')
-    adata = check_dl( filename, url='https://zenodo.org/record/3948150/files/pbmc3k_filtered.h5ad?download=1')
+    adata = check_dl( filename, url='https://zenodo.org/record/4441679/files/pbmc3k_filtered.h5ad?download=1')
     return adata
 
 def pbmc3k_processed():
@@ -434,7 +434,7 @@ def pbmc3k_processed():
     """
 
     filename = pkg_resources.resource_filename('besca', 'datasets/data/pbmc3k_processed.h5ad')
-    adata = check_dl(filename, url='https://zenodo.org/record/3948150/files/pbmc3k_processed.h5ad?download=1')
+    adata = check_dl(filename, url='https://zenodo.org/record/4441679/files/pbmc3k_processed.h5ad?download=1')
     return adata
 
 
