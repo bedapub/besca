@@ -2,9 +2,115 @@
 import os
 from scanpy import read_csv as sc_read_csv
 import importlib
+from scanpy.tools import pca as sc_pca
+
+def maxLikGlobalDimEst(adata, k = 20, nrpcs=50, rlib_loc = ''):
+    """
+    Estimates the intrinsic dimensionality of the data, based on the 'maxLikGlobalDimEst' function of the 'intrinsicDimension' R package.
+    
+    Parameters
+    ----------
+    adata: `AnnData`
+        AnnData object of RNA counts.
+    k: `
+        Number of neighbours to use in the 'maxLikGlobalDimEst'. Choosing k between 10 and 20 generally yields the best results. 
+    nrpcs:
+        Number of PCs to compute initially before estimating the dimensionality. Consider increasing it for very high dimensional data. 
+    rlib_loc: `str`
+        R library location that will be added to the default .libPaths() to locate the required packages. 
+  
+    Returns
+    -------
+    Returns the estimated intrinsic dimensionality of the data that can be used for graph clustering. 
+    """
+    
+    rpy2_import = importlib.util.find_spec('rpy2')
+    if rpy2_import is None:
+        raise ImportError(
+            "maxLikGlobalDimEst requires rpy2. Install with pip install rpy2")
+    import rpy2.robjects as ro
+    import anndata2ri
+    from scipy.sparse import issparse
+
+    ro.globalenv['rlib_loc'] = rlib_loc
+    ro.r('.libPaths(c(.libPaths(), rlib_loc))')
+    ro.r('suppressPackageStartupMessages(library(intrinsicDimension))')
+
+    random_state = 0
+    print('Using random_state = 0 for all the following calculations')
+    sc_pca(adata, svd_solver='arpack', random_state=0, n_comps=nrpcs)
+    adata.obsm['X_pca'] *= -1  # multiply by -1 to match Seurat
+    
+    ro.globalenv['pcs'] = adata.obsm['X_pca']
+    ro.globalenv['k'] = k
+    ro.r('n <- maxLikGlobalDimEst(as.matrix(pcs), k=k, unbiased=TRUE)')
+
+    ro.r('message("Estimated dimensionality: ", round(n$dim.est, 2))')
+
+    n_dimest = ro.r('n$dim.est')
+
+    return n_dimest
+
+
+
+def deviance(adata, n_genes = 4000, rlib_loc = ''):
+    """
+    Wrapper of the 'deviance' method of highly-variable gene selection, included in the 'scry' R package.  
+    
+    Parameters
+    ----------
+    adata: `AnnData`
+        AnnData object of RNA counts.
+    n_genes: `
+        Number of highly-variable genes to return. 
+    rlib_loc: `str`
+        R library location that will be added to the default .libPaths() to locate the required packages. 
+  
+    Returns
+    -------
+    returns an AnnData object reduced to the highly-variable genes. 
+    """
+    rpy2_import = importlib.util.find_spec('rpy2')
+    if rpy2_import is None:
+        raise ImportError(
+            "deviance requires rpy2. Install with pip install rpy2")
+    from rpy2.robjects.packages import importr
+    import rpy2.robjects as ro
+    import anndata2ri
+    from scipy.sparse import issparse
+    
+    anndata2ri.activate()
+    
+    ro.globalenv['rlib_loc'] = rlib_loc
+    ro.r('.libPaths(c(.libPaths(), rlib_loc))')
+    ro.r('suppressPackageStartupMessages(library(scry))')
+    ro.r('suppressPackageStartupMessages(library(Seurat))')
+    
+    if issparse(adata.X):
+        if not adata.X.has_sorted_indices:
+            adata.X.sort_indices()
+    for key in adata.layers:
+        if issparse(adata.layers[key]):
+            if not adata.layers[key].has_sorted_indices:
+                adata.layers[key].sort_indices()
+
+    ro.globalenv['adata'] = adata
+    ro.globalenv['n'] = n_genes
+    print('Reducing the data to', n_genes, 'variable genes.')
+    ro.globalenv['rownam'] = adata.var.index
+    ro.r('seurat_obj = as.Seurat(adata, counts="X", data = NULL)')
+    ro.r('adata <- t(as.matrix(seurat_obj@assays$RNA@counts))')
+    ro.r('out <- devianceFeatureSelection(adata)')
+    ro.r('out <- sort(devianceFeatureSelection(adata),decreasing = TRUE)[1:n] ')
+    hvgs_r =  ro.r('rownam[order(out, decreasing = TRUE)][1:n]')
+    adata = adata[:,list(hvgs_r)]
+    adata.var['highly_variable'] = True
+    
+    return adata
+
 
 def dsb_normalize(adata_prot, raw_path, ana_path, rlib_loc = '',  example_dataset = False, hto = False,  numi_min = 2, numi_max = 3.5):
-    """Perform DSB normalization. If isotypes are present among the Ab, please make sure that the relevant Ab have 'isotype' in their names. The function also generate a QC plot when negative cells are imputed from UMI threshold. Please have a look at it and eventually adapt the numi_min and numi_max. It is highly advised to use this function if hto/ isotypes are available as they lead to higher-confidence negative droplets. The function is a wrapper adapter from https://github.com/niaid/dsb. 
+    """Performs DSB normalization. If isotypes are present among the Ab, please make sure that the relevant Ab have 'isotype' in their names. The function also generate a QC plot when negative cells are imputed from UMI threshold. Please have a look at it and eventually adapt the numi_min and numi_max. It is highly advised to use this function if hto/ isotypes are available as they lead to higher-confidence negative droplets. The function is a wrapper adapter from https://github.com/niaid/dsb. 
     
     Parameters
     ----------
@@ -37,6 +143,8 @@ def dsb_normalize(adata_prot, raw_path, ana_path, rlib_loc = '',  example_datase
             "dsb_normalize requires rpy2. Install with pip install rpy2")
     from rpy2.robjects.packages import importr
     import rpy2.robjects as ro
+    import anndata2ri
+    from scipy.sparse import issparse
     
     ro.globalenv['rlib_loc'] = rlib_loc
     ro.r('.libPaths(c(.libPaths(), rlib_loc))')
@@ -50,7 +158,6 @@ def dsb_normalize(adata_prot, raw_path, ana_path, rlib_loc = '',  example_datase
     ro.r('suppressPackageStartupMessages(library(Matrix))')
     ro.r('suppressPackageStartupMessages(library(DropletUtils))')
     ro.r('suppressPackageStartupMessages(library(readr))')
-        
         
     ro.r('''
     do_dsb <- function(raw_path, ana_path, example_dataset = FALSE, hto = NA, numi_min = 2, numi_max = 3.5 ){
