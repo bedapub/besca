@@ -53,6 +53,8 @@ def combined_signature_score(adata, GMT_file = None, signature_dict = None,
     The scanpy method is the score_gene method from the scanpy python package.
     Combination of the scores is done substracting UP and DN (scanpy = UP - DN).
 
+    If you do not have a signature dictionary composed with direction; please see bc.tl.sig.convert_to_directed
+
     Parameters
     ----------
     adata: class:`~anndata.AnnData`
@@ -87,9 +89,10 @@ def combined_signature_score(adata, GMT_file = None, signature_dict = None,
     Example
     -------
 
-    >>> #insert example code here
-    >>> adata = bc.datasets.pbmc3k_filtered()
-    >>> gmt_file=   'genesets/Immune.txt' # Provided by BESCA datasets check the path
+    >>> import os
+    >>> import besca as bc
+    >>> bescapath = os.path.split(os.path.dirname(bc.__file__))[0]
+    >>> gmt_file= bescapath + '/besca/datasets/genesets/Immune.gmt'
     >>> combined_signature_score( adata, GMT_file = gmt_file)
     >>> # this code is only displayed not executed
 
