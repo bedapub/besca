@@ -15,7 +15,12 @@ if (!require("data.table")) install.packages("data.table", lib = libloc)
 if (!require("Matrix")) install.packages("Matrix", lib = libloc)
 if (!require("ggplot2")) install.packages("ggplot2", lib = libloc)
 if (!require("readr")) install.packages("readr", lib = libloc)
+if (!require("Seurat")) install.packages("Seurat", lib = libloc)
+if (!require("intrinsicDimension")) install.packages("intrinsicDimension", lib = libloc)
+if (!require("scater")) install.packages("scater", lib = libloc)
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager",lib = libloc)
 if (!require("DropletUtils")) BiocManager::install("DropletUtils", lib = libloc)
+if (!require("scry")) BiocManager::install("scry", lib = libloc)
+
 
