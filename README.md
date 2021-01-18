@@ -80,14 +80,13 @@ In case you met any problems, please report an issue.
 
 ### R dependencies for additional methods
 
-Although the standard workflow can be run without any R dependencies, BESCA can run a selection of performant methods developed in R. These additional methods are : 
-[label](http://example.com)
+Although the standard workflow can be run without any R dependencies, BESCA can run a selection of performant methods developed in R. These additional methods are :
 
-- [`isOutlier`](https://www.rdocumentation.org/packages/scater/versions/1.0.4/topics/isOutlier) from `scater`: for outlier detection and filtering recommendations. 
-- [`SCTransform`](https://rdrr.io/github/satijalab/seurat/man/SCTransform.html) : one of the normalization methods proposed by the `Seurat` package.
-- [`maxLikGlobalDimEst`](https://cran.r-project.org/web/packages/intrinsicDimension/intrinsicDimension.pdf) from `intrinsicDimension` : for the estimation of the number of dimensions to use for clustering.
-- [`deviance`](https://rdrr.io/bioc/scry/man/devianceFeatureSelection.html) and [`VST`](https://rdrr.io/github/satijalab/seurat/man/SCTransform.html): for highly-variable genes selection.
-- [`DSB`](https://github.com/niaid/dsb): for denoising ADT count data based on background noise. 
+- [`isOutlier`](https://www.rdocumentation.org/packages/scater/versions/1.0.4/topics/isOutlier) from `scater`: for outlier detection and filtering recommendations. Implemented in the `besca.pp.valOutlier` function.  
+- [`SCTransform`](https://rdrr.io/github/satijalab/seurat/man/SCTransform.html) : one of the normalization methods proposed by the `Seurat` package. Implemented in the `besca.pp.scTransform` function. 
+- [`maxLikGlobalDimEst`](https://cran.r-project.org/web/packages/intrinsicDimension/intrinsicDimension.pdf) from `intrinsicDimension` : for an estimation of the number of dimensions to use for clustering. Implemented in the `besca.st.maxLikGlobalDimEst` function. 
+- [`deviance`](https://rdrr.io/bioc/scry/man/devianceFeatureSelection.html) and [`VST`](https://rdrr.io/github/satijalab/seurat/man/SCTransform.html): for highly-variable genes selection. Implemented in the `besca.st.deviance` function. 
+- [`DSB`](https://github.com/niaid/dsb): for denoising ADT counts data based on background noise. Implemented in the `besca.st.dsb_normalize` function.  
 
 If you want to run one of these methods in the workflow, please install the required libraries by running the following commands in the `besca` installation directory (or simply download the `Rlibs.R` file):
 
@@ -95,7 +94,7 @@ If you want to run one of these methods in the workflow, please install the requ
 pip install rpy2 anndata2ri
 Rscript Rlibs.R your_R_library_path
  ```
-In the standard workflow notebook, all of these methods are controlled through the `rlib_loc` option but it is of course possible to manually switch between them and the standard workflow. 
+In the standard workflow notebook, all of these methods are controlled through the `r_methods` option but it is of course possible to manually switch between them and the standard workflow. Please also specify the location of your R library with the `rlib_loc` option of the notebook.  
 
 ## Running besca on a HPC with a SLURM worklod manager  
 
