@@ -1,7 +1,7 @@
 # this file contains the main functions for signature scoring analysis in python using scanpy
-# import using the python version 1.3.2 at least is a prerequisit! needs to be checked in all functions
 
 import sys
+
 # for conversion
 from itertools import repeat
 
@@ -11,7 +11,7 @@ from ._metrics import _handle_signature
 
 
 def filter_siggenes(adata, signature_dict):
-    """Filter all signatures in signature_dict to remove genes not present in adata 
+    """Filter all signatures in signature_dict to remove genes not present in adata
 
     Parameters
     ----------
@@ -36,17 +36,25 @@ def filter_siggenes(adata, signature_dict):
     for key, value in signature_dict.items():
         mym = []
         for item in value:
-            if (sum(adata.raw.var.index.isin([item.strip()])*1) > 0):
+            if sum(adata.raw.var.index.isin([item.strip()]) * 1) > 0:
                 mym.append(item.strip())
-        if (len(mym) > 1):
+        if len(mym) > 1:
             signature_dict_filtered[key] = mym
     return signature_dict_filtered
 
 
-def combined_signature_score(adata, GMT_file = None, signature_dict = None,
-                             UP_suffix='_UP', DN_suffix='_DN', method='scanpy',
-                             overwrite=False, verbose=False,
-                             use_raw=None, conversion=None):
+def combined_signature_score(
+    adata,
+    GMT_file=None,
+    signature_dict=None,
+    UP_suffix="_UP",
+    DN_suffix="_DN",
+    method="scanpy",
+    overwrite=False,
+    verbose=False,
+    use_raw=None,
+    conversion=None,
+):
     """Super Wrapper function to compute combined signature score for UP and DN scores.
     This function combines genesets (signatures) scores compose of UP and DN.
     Results are stored in adata.obs with the key: "score_"+ signature_name+"_" + method  .
@@ -58,7 +66,7 @@ def combined_signature_score(adata, GMT_file = None, signature_dict = None,
     Parameters
     ----------
     adata: class:`~anndata.AnnData`
-        An AnnData object (from scanpy). Following besca convention, 
+        An AnnData object (from scanpy). Following besca convention,
         var names (gene) are HGNC symbol and should match the signatures values.
     GMT_file: `str` | default = None
         gmt file location containing the geneset
@@ -68,7 +76,7 @@ def combined_signature_score(adata, GMT_file = None, signature_dict = None,
         str suffix indicating that the suffix indicating the signature in a UP direction (end of the signature).
         Can be replaced by "None" (quoted) or any kind of unexpected string to avoid combination.
     DN_suffix : str` | default = "_DN"
-        str suffix indicating that the suffix indicating the signature in a DN direction (end of the signature). 
+        str suffix indicating that the suffix indicating the signature in a DN direction (end of the signature).
         Can be replaced by "None" (quoted) or any kind of unexpected string  to avoid combination.
     method: `str` | default = "scanpy"
         a string indicating which method to use ('scanpy' available)
@@ -85,7 +93,7 @@ def combined_signature_score(adata, GMT_file = None, signature_dict = None,
 
     Returns
     -------
-    None (the adata obs is modified within the function) 
+    None (the adata obs is modified within the function)
     Example
     -------
 
@@ -100,38 +108,54 @@ def combined_signature_score(adata, GMT_file = None, signature_dict = None,
     """
     # RMK : Score could be computed while reading the gmt (one loop less).
     # However here we divided geneset provenance and computation.
-    if ( GMT_file is None  and signature_dict is None):
-          sys.exit('need to provide either GMT_file or signature_dict gene annotation.')
+    if GMT_file is None and signature_dict is None:
+        sys.exit("need to provide either GMT_file or signature_dict gene annotation.")
     if not GMT_file is None:
-            if signature_dict is not None:
-                signature_dict.update( read_GMT_sign(
-                    GMT_file, UP_suffix, DN_suffix, True, verbose) )
-            else: 
-                 signature_dict = read_GMT_sign(
-                    GMT_file, UP_suffix, DN_suffix, True, verbose)
-    if (verbose):
+        if signature_dict is not None:
+            signature_dict.update(
+                read_GMT_sign(GMT_file, UP_suffix, DN_suffix, True, verbose)
+            )
+        else:
+            signature_dict = read_GMT_sign(
+                GMT_file, UP_suffix, DN_suffix, True, verbose
+            )
+    if verbose:
         print(str(len(signature_dict)) + " signatures obtained")
     # More readable than in signatures read. This forces a second loop.
     #  Should be optimized later on
-    if (conversion is not None):
+    if conversion is not None:
         for signature in signature_dict.keys():
             for direction in signature_dict[signature]:
-                signature_dict[signature][direction] = [i for i in map(_to_geneid, repeat(
-                    conversion), signature_dict[signature][direction]) if i is not None]
+                signature_dict[signature][direction] = [
+                    i
+                    for i in map(
+                        _to_geneid,
+                        repeat(conversion),
+                        signature_dict[signature][direction],
+                    )
+                    if i is not None
+                ]
     # Filter out signature genes not present in adata
     # signature_dict=filter_siggenes(adata, signature_dict)
-    compute_signed_score(adata=adata, signature_dict=signature_dict,
-                         method=method, overwrite=overwrite, verbose=verbose, use_raw=use_raw)
+    compute_signed_score(
+        adata=adata,
+        signature_dict=signature_dict,
+        method=method,
+        overwrite=overwrite,
+        verbose=verbose,
+        use_raw=use_raw,
+    )
     return None
 
 
-def compute_signed_score(adata, signature_dict, method='scanpy',
-                         overwrite=False, verbose=False, use_raw=None):
+def compute_signed_score(
+    adata, signature_dict, method="scanpy", overwrite=False, verbose=False, use_raw=None
+):
     """Compute signed score combining UP and DN for all signatures in signature_dict
     This function combines genesets (signatures) scores.
     Results are stored in adata.obs with the key: "score_" + method + signature_name.
     Multiples methods can be used to compute geneset scores.
-    The scanpy method is the score_gene method. 
+    The scanpy method is the score_gene method.
     Combination of the scores is done substracting UP and DN (scanpy = UP - DN).
     Method in development. Not all options implemented yet.
 
@@ -156,6 +180,10 @@ def compute_signed_score(adata, signature_dict, method='scanpy',
     # Filter out signature genes not present in adata
     # signature_dict=filter_siggenes(adata, signature_dict)
 
-    [_handle_signature(signature_dict, method, adata, signature_name, overwrite,
-                       verbose, use_raw) for signature_name in signature_dict.keys()]
+    [
+        _handle_signature(
+            signature_dict, method, adata, signature_name, overwrite, verbose, use_raw
+        )
+        for signature_name in signature_dict.keys()
+    ]
     return None
