@@ -46,7 +46,7 @@ def filter_siggenes(adata, signature_dict):
 def combined_signature_score(adata, GMT_file = None, signature_dict = None,
                              UP_suffix='_UP', DN_suffix='_DN', method='scanpy',
                              overwrite=False, verbose=False,
-                             use_raw=True, conversion=None):
+                             use_raw=None, conversion=None):
     """Super Wrapper function to compute combined signature score for UP and DN scores.
     This function combines genesets (signatures) scores compose of UP and DN.
     Results are stored in adata.obs with the key: "score_"+ signature_name+"_" + method  .
@@ -76,7 +76,7 @@ def combined_signature_score(adata, GMT_file = None, signature_dict = None,
         If False, will parse the data.obs to only recompute scores that are not present.
     verbose: `boolean` | default = False
         If True, will print the signature reads. This does not overwrite the scanpy verbosity parameter that should be set separately
-    use_raw: `boolean` | default = False
+    use_raw: `boolean` | default = None
         If True, computation will be done on adata.raw.X (on adata.X otherwise).
     conversion: `a panda serie' | default = None.
         If not none, this should contain a serie indexed by x with column containing values y.
@@ -92,8 +92,9 @@ def combined_signature_score(adata, GMT_file = None, signature_dict = None,
     >>> import os
     >>> import besca as bc
     >>> bescapath = os.path.split(os.path.dirname(bc.__file__))[0]
+    >>> adata = bc.datasets.pbmc3k_processed()
     >>> gmt_file= bescapath + '/besca/datasets/genesets/Immune.gmt'
-    >>> combined_signature_score( adata, GMT_file = gmt_file)
+    >>> bc.tl.sig.combined_signature_score( adata, GMT_file = gmt_file)
     >>> # this code is only displayed not executed
 
     """
@@ -125,7 +126,7 @@ def combined_signature_score(adata, GMT_file = None, signature_dict = None,
 
 
 def compute_signed_score(adata, signature_dict, method='scanpy',
-                         overwrite=False, verbose=False, use_raw=False):
+                         overwrite=False, verbose=False, use_raw=None):
     """Compute signed score combining UP and DN for all signatures in signature_dict
     This function combines genesets (signatures) scores.
     Results are stored in adata.obs with the key: "score_" + method + signature_name.
@@ -145,7 +146,7 @@ def compute_signed_score(adata, signature_dict, method='scanpy',
         a string indicating which method to use ('scanpy' available)
     overwrite: `boolean` | default = False
         If False, will parse the data.obs to only recompute scores that are not present.
-    use_raw: `boolean` | default = False
+    use_raw: `boolean` | default = None
 
     Returns
     -------
