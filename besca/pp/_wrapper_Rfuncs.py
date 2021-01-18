@@ -6,20 +6,20 @@ import scanpy as sc
 
 def valOutlier(adata, nmads = 3, rlib_loc = ''):
     """
-    Estimates the thresholds to use for gene/cell filtering based on outliers calculated from the deviation to the median QCs. Wrapper function based on 'isOutlier' function of the 'scater' R package. 
+    Estimates and returns the thresholds to use for gene/cell filtering based on outliers calculated from the deviation to the median QCs. Wrapper function based on 'isOutlier' function of the 'scater' R package. 
     
     Parameters
     ----------
     adata: `AnnData`
         Unfiltered AnnData object of RNA counts.
-    nmads: 
+    nmads: `int`
         Number of median absolute deviation to use as threshold for outlier detection. Lenient NMADS (3 to 5) generally yield the best results.
     rlib_loc: `str`
         R library location that will be added to the default .libPaths() to locate the required packages. 
   
     Returns
     -------
-    Prints as log messages the estimated best parameters to set considering the QC distribution. 
+    The estimated parameters to set in the besca workflow considering the QC distribution. 
     """
     
     rpy2_import = importlib.util.find_spec('rpy2')
@@ -94,19 +94,45 @@ def valOutlier(adata, nmads = 3, rlib_loc = ''):
       message('standard_min_cells: ', round(lower_expressed, 2), ', removing ', rm_expressed, ' genes')
       message('standard_min_counts: ', round(lower_sum,2), ', removing ', rm_sum, ' cells')
       message('standard_n_genes: ', round(higher_detected, 2), ', removing ', rm_high_detected, ' cells')
-      if(!length(mito) == 0) message('standard_percent_mito: ', round(max_mito, 2), ', removing ', rm_mito, ' cells')
+      if(!length(mito) == 0) {
+          message('standard_percent_mito: ', round(max_mito, 2), ', removing ', rm_mito, ' cells')
+      } else {
+          message('No mitochondrial gene detected.')
+          max_mito <- 1
+      }
       message('standard_max_counts: ', round(higher_sum, 2), ', removing ', rm_high_sum, ' cells')
-
+      
+      return(c(round(lower_detected,2), 
+            round(lower_expressed, 2), 
+            round(lower_sum,2), 
+            round(higher_detected, 2), 
+            round(max_mito, 2), 
+            round(higher_sum, 2)))
     }
 
      ''')
     ro.globalenv['nmads'] = nmads
-    ro.r('valOutlier(dat, nmads = nmads)')
+    return ro.r('valOutlier(dat, nmads = nmads)')
     
 
-def scTransform(adata, output_file=None, hvg = False, n_genes = 4000, rlib_loc = ''):
+def scTransform(adata, hvg = False, n_genes = 4000, rlib_loc = ''):
     """
     Function to call scTransform normalization or HVG selection from Python. Modified from https://github.com/normjam/benchmark/blob/master/normbench/methods/ad2seurat.py. 
+    
+    Parameters
+    ----------
+    adata: `AnnData`
+        AnnData object of RNA counts.
+    hvg: `boolean`
+        Should the hvg method be used (returning a reduced adata object) or the normalization method (returning a normalized adata). 
+    n_genes: `int`
+        Number of hvgs to return if the hvg method is selected. A selection of 4000-5000 generally yields the best results. 
+    rlib_loc: `str`
+        R library location that will be added to the default .libPaths() to locate the required packages. 
+  
+    Returns
+    -------
+    returns an AnnData object reduced to the highly-variable genes. 
     """
     
     rpy2_import = importlib.util.find_spec('rpy2')

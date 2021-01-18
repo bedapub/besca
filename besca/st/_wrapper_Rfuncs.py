@@ -45,11 +45,11 @@ def maxLikGlobalDimEst(adata, k = 20, nrpcs=50, rlib_loc = ''):
     ro.globalenv['k'] = k
     ro.r('n <- maxLikGlobalDimEst(as.matrix(pcs), k=k, unbiased=TRUE)')
 
-    ro.r('message("Estimated dimensionality: ", round(n$dim.est, 2))')
+    ro.r('message("Estimated dimensionality: ", round(n$dim.est))')
 
-    n_dimest = ro.r('n$dim.est')
+    n_dimest = ro.r('round(n$dim.est)')
 
-    return n_dimest
+    return int(n_dimest[0])
 
 
 
@@ -61,8 +61,8 @@ def deviance(adata, n_genes = 4000, rlib_loc = ''):
     ----------
     adata: `AnnData`
         AnnData object of RNA counts.
-    n_genes: `
-        Number of highly-variable genes to return. 
+    n_genes: `int`
+        Number of highly-variable genes to return. A selection of 4000-5000 generally yields the best results. 
     rlib_loc: `str`
         R library location that will be added to the default .libPaths() to locate the required packages. 
   
@@ -120,11 +120,11 @@ def dsb_normalize(adata_prot, raw_path, ana_path, rlib_loc = '',  example_datase
         Path to the 'raw' folder. 
     ana_path: `str`
         Path to the 'citeseqDSB' analysis folder. Default should be of form 'analyzed/ANALYSIS_NAME/citeseqDSB'
-    rlib_loc: 
+    rlib_loc: `str`
         R library location that will be added to the default .libPaths() to locate the required packages. 
     example_dataset: `bool`  
         Logical, whether example_dataset is being used or not. 
-    hto: 
+    hto: `str`
         List of string, either 'Negative' or 'Positive' for each cell, corresponding to the result of the HTO demultiplexing. NaN if the information is not provided. 
     numi_min: `int`
         Minimum log10 RNA count per cell to use as a threshold to select the negative droplets if HTOs are not given. 
