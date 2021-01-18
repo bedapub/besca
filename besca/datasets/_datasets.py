@@ -206,7 +206,7 @@ def Haber2017_processed():
     """
 
     filename = pkg_resources.resource_filename('besca', 'datasets/data/haber_processed.h5ad')
-    adata = check_dl( filename, url = 'https://zenodo.org/record/3935782/files/haber_processed.h5ad?download=1')
+    adata = check_dl( filename, url = 'https://zenodo.org/record/4447233/files/haber_processed.h5ad?download=1')
     return adata
 
 
