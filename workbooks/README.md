@@ -20,3 +20,6 @@ Auto-annot tutorial notebook:
 Bescape notebooks
 - [bescape_tutorial.ipynb](https://github.com/bedapub/besca/blob/master/docs/source/tutorials/bescape_tutorial.ipynb)
 - [adata_to_eset.ipynb](https://github.com/bedapub/besca/blob/master/docs/source/tutorials/adata_to_eset.ipynb)
+
+Additional examples and notebooks are available from the Besca manuscript repository:
+https://github.com/bedapub/besca_publication_results
