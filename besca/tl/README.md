@@ -2,5 +2,5 @@
 
 bcor = batch correction  
 rc = reclustering  
-dge = differential gene expression
+dge = differential gene expression  
 sig = signature scoring  
