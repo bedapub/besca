@@ -21,3 +21,4 @@ scvelo
 umap-learn
 sinfo
 pydot
+scipy
