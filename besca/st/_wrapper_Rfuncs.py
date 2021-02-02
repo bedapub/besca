@@ -2,6 +2,8 @@
 import os
 from scanpy import read_csv as sc_read_csv
 import importlib
+from ._FAIR_export import export_norm_citeseq
+import logging
 
 def dsb_normalize(adata_prot, raw_path, ana_path, rlib_loc = '',  example_dataset = False, hto = False,  numi_min = 2, numi_max = 3.5):
     """Perform DSB normalization. If isotypes are present among the proteins, please make sure that the relevant protein have 'isotype' in their names (gene symbols). The function also generate a QC plot when negative cells are imputed from UMI threshold. Please have a look at it and eventually adapt the numi_min and numi_max. It is highly advised to use this function if HTOs/ isotypes are available as they lead to higher-confidence negative droplets. The function is a wrapper adapter from https://github.com/niaid/dsb. Please visit their page for more information on the algorithm. 
@@ -13,7 +15,7 @@ def dsb_normalize(adata_prot, raw_path, ana_path, rlib_loc = '',  example_datase
     raw_path: `str` 
         Path to the 'raw' folder. 
     ana_path: `str`
-        Path to the 'citeseqDSB' analysis folder. Default should be of form 'analyzed/ANALYSIS_NAME/citeseqDSB'
+        Path to the 'citeseq' analysis folder. When used in the Besca workflow, should be of form 'analyzed/ANALYSIS_NAME/citeseq/citeseq'
     rlib_loc: 
         R library location that will be added to the default .libPaths() to locate the required packages. 
     example_dataset: `bool`  
@@ -171,5 +173,7 @@ def dsb_normalize(adata_prot, raw_path, ana_path, rlib_loc = '',  example_datase
     a.raw = adata_prot.copy()
     a.layers['counts'] = adata_prot.layers["counts"]
     adata_prot = a
+    export_norm_citeseq(adata_prot, basepath=ana_path)
+    logging.info('DSB values exported to file.')
 
     return(adata_prot)

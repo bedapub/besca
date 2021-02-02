@@ -35,7 +35,7 @@ from ..Import._read import read_mtx
 from ..pp._filtering import filter
 from ..pp._normalization import normalize_geometric
 from ..tl.bcor import batch_correct, postprocess_mnnpy
-from ._FAIR_export import (export_clr, export_clustering, export_cp10k,
+from ._FAIR_export import (export_norm_citeseq, export_clustering, export_cp10k,
                            export_metadata, export_rank, export_regressedOut)
 
 
@@ -254,7 +254,7 @@ def clr_normalize(adata, results_folder):
 
     # export to file
     start = time()
-    export_clr(adata, basepath=results_folder)
+    export_norm_citeseq(adata, basepath=results_folder)
 
     logging.info('CLR values exported to file.')
     logging.info("\tTime for CLR export: "+str(round(time()-start, 3))+'s')

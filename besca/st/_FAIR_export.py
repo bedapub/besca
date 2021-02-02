@@ -37,8 +37,8 @@ def export_cp10k(adata, basepath):
              geneannotation='SYMBOL',
              additional_geneannotation='ENSEMBL')
 
-def export_clr(adata, basepath):
-    """ Export clr corrected CiteSeq data to FAIR format for loading into database
+def export_norm_citeseq(adata, basepath):
+    """ Export corrected CiteSeq data to FAIR format for loading into database
 
     wrapper function for X_to_mtx with correct folder structure for loading into database.
 
@@ -58,7 +58,7 @@ def export_clr(adata, basepath):
     
     #call wrapper function
     X_to_mtx(adata=adata,
-             outpath=join(basepath, 'normalized_counts', 'clr'),
+             outpath=join(basepath, 'normalized_counts'),
              write_metadata=True,
              geneannotation='SYMBOL',
              additional_geneannotation='ENSEMBL')
