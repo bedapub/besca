@@ -14,4 +14,6 @@ if (!require("magrittr")) install.packages("magrittr", lib = libloc)
 if (!require("data.table")) install.packages("data.table", lib = libloc)
 if (!require("Matrix")) install.packages("Matrix", lib = libloc)
 if (!require("DropletUtils")) with_libpaths(new = libloc, install_github("MarioniLab/DropletUtils"))
+if (!require("BiocManager")) install.packages("BiocManager", lib = libloc)
+if (!require("scater")) BiocManager::install("scater", lib = libloc)
 
