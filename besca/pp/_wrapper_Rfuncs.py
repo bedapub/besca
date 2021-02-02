@@ -81,7 +81,8 @@ def valOutlier(adata, nmads = 3, rlib_loc = ''):
       rm_high_detected <- sum(isOutlier(stats_cells$detected, nmads = nmads, type = 'higher'))
 
       if(!length(mito) == 0){
-        max_mito <- as.numeric(attr(isOutlier(stats_cells$subsets_Mito_percent , nmads = nmads, type = 'higher'), 'thresholds')['higher'])
+        max_mito <- as.numeric(attr(isOutlier(stats_cells$subsets_Mito_percent , nmads = nmads, type = 'higher'), 'thresholds')['higher'])/100
+        if(max_mito>1) max_mito <- 1
         rm_mito <- sum(isOutlier(stats_cells$subsets_Mito_percent, nmads = nmads, type = 'higher'))
       }
 
