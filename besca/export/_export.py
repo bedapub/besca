@@ -202,79 +202,22 @@ def raw_to_mtx(adata,
         writes out files to the specified output directory
 
     """
-    if C_path is None:
-        C_path= pkg_resources.resource_filename('besca', 'export/reformat')
-    ### write out matrix.mtx as float with 3 significant digits
-    print('writing out matrix.mtx ...')
+    
+    
     if adata.raw.X is None:
         sys.exit(1, 'adata does not have .raw')
-    elif type(adata.raw.X) == ndarray:
-        E = sparse.csr_matrix(adata.raw.X).T
-    else:
-        E = adata.raw.X.tocsr().T #transpose back into the same format as we imported it
+    print( "adata raw will be written out")
+
+    adata_bis = adata.raw.copy()
+    adata_bis.obs = adata.obs.copy()
+    X_to_mtx(adata_bis,
+             outpath = outpath,
+             write_metadata = write_metadata, 
+             geneannotation = geneannotation,
+             additional_geneannotation = additional_geneannotation, 
+             C_path = C_path)
     
-    ### check if the outdir exists if not create
-    if not os.path.exists(outpath):
-        os.makedirs(outpath)
-    
-    write__MMFILE( C_path, E, outpath)
-    ### export genes
-    
-    #get genes to export
-    if geneannotation== 'SYMBOL':
-        genes_SYMBOL = adata.raw.var_names.tolist()
-        #get additional annotation saved in adata.var
-        if additional_geneannotation is not None:
-            genes_ENSEMBL = adata.raw.var.get(additional_geneannotation)
-        else:
-            print('No ENSEMBL gene ids provided, Besca will fill the respective columns in genes.tsv with NA')
-            genes_ENSEMBL = ['NA']*len(genes_SYMBOL)
 
-    elif geneannotation == 'ENSEMBL':
-        genes_ENSEMBL = adata.raw.var_names.tolist()
-        #get additional annotation saved in adata.var
-        if additional_geneannotation is not None:
-            genes_SYMBOL = adata.raw.var.get(additional_geneannotation)
-        else:
-            print('No SYMBOLS provided, Besca will fill the respective columns in genes.tsv with NA')
-            genes_SYMBOL = ['NA']*len(genes_ENSEMBL)
-    else:
-        sys.exit('need to provide either \'ENSEMBL\' or \'SYMBOL\' gene annotation.')
-
-    feature = None
-    #add catch to write out type of annotation 
-    if 'feature_type' in adata.var.columns:
-        print('feature annotation is present and will be written out')
-        feature = True
-        gene_feature = adata.var.get('feature_type')
-
-    #write the genes out in the correct format (first ENSEMBL THEN SYMBOL)
-    with open (os.path.join(outpath, 'genes.tsv'), "w") as fp:
-        if feature is not None:
-            for ENSEMBL, symbol, feature in zip(genes_ENSEMBL, genes_SYMBOL, gene_feature):
-                fp.write(ENSEMBL+"\t"+ symbol+"\t"+ feature +"\n")
-        else:
-            for ENSEMBL, symbol in zip(genes_ENSEMBL, genes_SYMBOL):
-                fp.write(ENSEMBL+"\t"+ symbol+"\n")
-        fp.close()
-        print('genes successfully written out to genes.tsv from adata.raw')
-
-    ### write out the cellbarcodes
-    cellbarcodes = adata.obs_names.tolist()
-    with open(os.path.join(outpath, 'barcodes.tsv'), "w") as fp:
-        for barcode in cellbarcodes:
-            fp.write(barcode+"\n")
-        fp.close()
-        print('cellbarcodes successfully written out to barcodes.tsv')
-
-    ### export annotation
-    if write_metadata == True:
-        annotation = adata.obs
-        annotation.to_csv(os.path.join(outpath, 'metadata.tsv'), sep = '\t', header = True, index = True)
-        print('annotation successfully written out to metadata.tsv')
-
-    return(None)
-    sys.exit(0)
 
 
 def clustering(adata,  
