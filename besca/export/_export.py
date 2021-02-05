@@ -3,6 +3,7 @@ import sys
 from io import BytesIO
 
 import pkg_resources
+from  .._helper import get_raw
 from numpy import arange, expm1, ix_, ndarray, round, where, zeros
 from pandas import DataFrame, concat, read_csv
 from scipy import io, sparse
@@ -39,7 +40,6 @@ def write__MMFILE( C_path, E, outpath):
         print('adata.X successfully written to matrix.mtx. \n Warning: could not use reformat script.')
 
 #Functions to export AnnData objects to FAIR dataformat
-
 def X_to_mtx(adata,
              outpath = None,
              write_metadata = False, 
@@ -62,7 +62,8 @@ def X_to_mtx(adata,
     
     parameters
     ----------
-    adata:
+    adata: AnnData
+        the AnnData object that should be exported
     outpath `str` | default = current working directory
         filepath to the directory in which the results should be outputed, if no directory is 
         specified it outputs the results to the current working directory.
@@ -108,7 +109,7 @@ def X_to_mtx(adata,
         if additional_geneannotation is not None:
             genes_ENSEMBL = adata.var.get(additional_geneannotation)
         else:
-            print('No ensembel gene ids provided, will fill the respective columns in genes.tsv with NA')
+            print('No ENSEMBL gene ids provided, Besca will fill the respective columns in genes.tsv with NA')
             genes_ENSEMBL = ['NA']*len(genes_SYMBOL)
 
     elif geneannotation == 'ENSEMBL':
@@ -117,7 +118,7 @@ def X_to_mtx(adata,
         if additional_geneannotation is not None:
             genes_SYMBOL = adata.var.get(additional_geneannotation)
         else:
-            print('No SYMBOLSprovided, will fill the respective columns in genes.tsv with NA')
+            print('No SYMBOLS provided, Besca will fill the respective columns in genes.tsv with NA')
             genes_SYMBOL = ['NA']*len(genes_ENSEMBL)
 
     else:
@@ -150,10 +151,9 @@ def X_to_mtx(adata,
         print('cellbarcodes successfully written out to barcodes.tsv')
 
     ### export annotation
-
     if write_metadata == True:
         annotation = adata.obs
-        annotation.to_csv(os.path.join(outpath, 'metadata.tsv'), sep = '\t', header = True, index = None)
+        annotation.to_csv(os.path.join(outpath, 'metadata.tsv'), sep = '\t', header = True, index = True)
         print('annotation successfully written out to metadata.tsv')
 
     return(None)
@@ -184,7 +184,8 @@ def raw_to_mtx(adata,
 
     parameters
     ----------
-    adata:
+    adata: `AnnData`
+        the AnnData object which raw that should be exported 
     outpath `str` | default = current working directory
         filepath to the directory in which the results should be outputed, if no directory is 
         specified it outputs the results to the current working directory.
@@ -204,358 +205,21 @@ def raw_to_mtx(adata,
         writes out files to the specified output directory
 
     """
-    if C_path is None:
-        C_path= pkg_resources.resource_filename('besca', 'export/reformat')
-    ### write out matrix.mtx as float with 3 significant digits
-    print('writing out matrix.mtx ...')
+    
+    
     if adata.raw.X is None:
         sys.exit(1, 'adata does not have .raw')
-    elif type(adata.raw.X) == ndarray:
-        E = sparse.csr_matrix(adata.raw.X).T
-    else:
-        E = adata.raw.X.tocsr().T #transpose back into the same format as we imported it
+    print( "adata raw will be written out")
+
+    adata_bis = get_raw(adata)
+    X_to_mtx(adata_bis,
+             outpath = outpath,
+             write_metadata = write_metadata, 
+             geneannotation = geneannotation,
+             additional_geneannotation = additional_geneannotation, 
+             C_path = C_path)
     
-    ### check if the outdir exists if not create
-    if not os.path.exists(outpath):
-        os.makedirs(outpath)
-    
-    write__MMFILE( C_path, E, outpath)
-    ### export genes
-    
-    #get genes to export
-    if geneannotation== 'SYMBOL':
-        genes_SYMBOL = adata.raw.var_names.tolist()
-        #get additional annotation saved in adata.var
-        if additional_geneannotation is not None:
-            genes_ENSEMBL = adata.raw.var.get(additional_geneannotation)
-        else:
-            print('No ensembel gene ids provided, will fill the respective columns in genes.tsv with NA')
-            genes_ENSEMBL = ['NA']*len(genes_SYMBOL)
 
-    elif geneannotation == 'ENSEMBL':
-        genes_ENSEMBL = adata.raw.var_names.tolist()
-        #get additional annotation saved in adata.var
-        if additional_geneannotation is not None:
-            genes_SYMBOL = adata.raw.var.get(additional_geneannotation)
-        else:
-            print('No SYMBOL symbols provided, will fill the respective columns in genes.tsv with NA')
-            genes_SYMBOL = ['NA']*len(genes_ENSEMBL)
-    else:
-        sys.exit('need to provide either \'ENSEMBL\' or \'SYMBOL\' gene annotation.')
-
-    feature = None
-    #add catch to write out type of annotation 
-    if 'feature_type' in adata.var.columns:
-        print('feature annotation is present and will be written out')
-        feature = True
-        gene_feature = adata.var.get('feature_type')
-
-    #write the genes out in the correct format (first ENSEMBL THEN SYMBOL)
-    with open (os.path.join(outpath, 'genes.tsv'), "w") as fp:
-        if feature is not None:
-            for ENSEMBL, symbol, feature in zip(genes_ENSEMBL, genes_SYMBOL, gene_feature):
-                fp.write(ENSEMBL+"\t"+ symbol+"\t"+ feature +"\n")
-        else:
-            for ENSEMBL, symbol in zip(genes_ENSEMBL, genes_SYMBOL):
-                fp.write(ENSEMBL+"\t"+ symbol+"\n")
-        fp.close()
-        print('genes successfully written out to genes.tsv from adata.raw')
-
-    ### write out the cellbarcodes
-    cellbarcodes = adata.obs_names.tolist()
-    with open(os.path.join(outpath, 'barcodes.tsv'), "w") as fp:
-        for barcode in cellbarcodes:
-            fp.write(barcode+"\n")
-        fp.close()
-        print('cellbarcodes successfully written out to barcodes.tsv')
-
-    ### export annotation
-
-    if write_metadata == True:
-        annotation = adata.obs
-        annotation.to_csv(os.path.join(outpath, 'metadata.tsv'), sep = '\t', header = True, index = None)
-        print('annotation successfully written out to metadata.tsv')
-
-    return(None)
-    sys.exit(0)
-
-def X_to_mtx_python(adata,
-                    outpath = os.getcwd(),
-                    write_metadata = False, 
-                    geneannotation = 'SYMBOL',
-                    additional_geneannotation = 'ENSEMBL'):
-    """export adata object to mtx format (matrix.mtx, genes.tsv, barcodes.tsv) (ONLY USING PYTHON)
-
-    exports the counts contained in adata.X to a matrix.mtx file (in sparse format),
-    genes taken from adata.var_names (and if applicable adata.var) to genes.tsv and the 
-    cellbarcodes from adata.obs_names to barcodes.tsv. If annotation = True, then the entire 
-    pd.Dataframe contained in adata.obs is in addition exported to metadata.tsv.
-
-    Through the parameter geneannotation you can specify which type of geneidentifer is saved in 
-    adata.var_names. You can pass an additional string to the parameter additional_geneannotation
-    which specifies under which column name in adata.var an additional geneannotation can be 
-    found. Currently this function is only capable of dealing with geneannotation of the type 
-    ENSEMBL or SYMBOL. This feature is intended to conserve the correct order of ENSEMBL IDs and 
-    SYMBOLS in the genes.tsv file.
-
-    If the outpath directory does not exist, this function automatically generates it.
-
-    This is a slower version of this function that does not rely on external C-Programms. The default
-    version of this function that is used in most cases 'X_to_mtx' does rely on this program.
-
-    parameters
-    ----------
-    adata:
-    outpath `str` | default = current working directory
-        filepath to the directory in which the results should be outputed, if no directory is 
-        specified it outputs the results to the current working directory.
-    write_metadata: `bool` | default = False
-        boolian indicator if the annotation contained in adata.obs should be exported as well 
-    geneannotation: `'ENSEMBL'` or `'SYMBOL'`
-        string indicator of the type of gene annotation saved in adata.var_names
-    additional_geneannotation: `str` | default = None
-        string identifying the coloumn name in which either the SYMBOL or the ENSEMBL geneids
-        are contained as additional gene annotation in adata.var
-
-    returns
-    -------
-    None
-        writes out files to the specified output directory
-
-    """
-
-    ### check if the outdir exists if not create
-    if not os.path.exists(outpath):
-        os.makedirs(outpath)
-
-    ### write out matrix.mtx as float with 3 significant digits
-    print('writing out matrix.mtx ...')
-
-    if type(adata.X) == ndarray:
-        E = sparse.csr_matrix(adata.X).T
-    else:
-        E = adata.X.tocsr().T #transpose back into the same format as we imported it
-    #write out temporary matrix
-    io.mmwrite(os.path.join(outpath, 'tmp.mtx'), E, precision = 2)
-    
-    #transform the temporary matrix into the correct version that shows floats with 3 significant digits
-    tmp = read_csv(os.path.join(outpath, 'tmp.mtx'), skiprows=3, sep=' ', index_col=None, header=None)
-    with open (os.path.join(outpath, 'tmp.mtx'),"r") as fp_in:
-        with open (os.path.join(outpath, 'matrix.mtx'),"w") as fp_out:
-    # first, copy the first three lines
-            for _ in range(3):
-                line = fp_in.readline()
-                fp_out.write(line)
-    with open (os.path.join(outpath, 'matrix.mtx'),"a") as fp_out:
-        tmp.to_csv(fp_out, sep=' ', header=None, float_format="%.3f", index=False)
-
-    
-    #remove temporary file
-    os.remove(os.path.join(outpath, 'tmp.mtx'))
-    print('adata.X successfully written to matrix.mtx')
-
-    ### export genes
-    
-    #get genes to export
-    if geneannotation == 'SYMBOL':
-        genes_SYMBOL = adata.var_names.tolist()
-        #get additional annotation saved in adata.var
-        if additional_geneannotation is not None:
-            genes_ENSEMBL = adata.var.get(additional_geneannotation)
-        else:
-            print('No ensembel gene ids provided, will fill the respective columns in genes.tsv with NA')
-            genes_ENSEMBL = ['NA']*len(genes_SYMBOL)
-
-    elif geneannotation == 'ENSEMBL':
-        genes_ENSEMBL = adata.var_names.tolist()
-        #get additional annotation saved in adata.var
-        if additional_geneannotation is not None:
-            genes_SYMBOL = adata.var.get(additional_geneannotation)
-        else:
-            print('No SYMBOLSprovided, will fill the respective columns in genes.tsv with NA')
-            genes_SYMBOL = ['NA']*len(genes_ENSEMBL)
-
-    else:
-        sys.exit('need to provide either \'ENSEMBL\' or \'SYMBOL\' gene annotation.')
-
-    feature = None
-    #add catch to write out type of annotation 
-    if 'feature_type' in adata.var.columns:
-        print('feature annotation is present and will be written out')
-        feature = True
-        gene_feature = adata.var.get('feature_type')
-
-    #write the genes out in the correct format (first ENSEMBL THEN SYMBOL)
-    with open (os.path.join(outpath, 'genes.tsv'), "w") as fp:
-        if feature is not None:
-            for ENSEMBL, symbol, feature in zip(genes_ENSEMBL, genes_SYMBOL, gene_feature):
-                fp.write(ENSEMBL+"\t"+ symbol+"\t"+ feature +"\n")
-        else:
-            for ENSEMBL, symbol in zip(genes_ENSEMBL, genes_SYMBOL):
-                fp.write(ENSEMBL+"\t"+ symbol+"\n")
-        fp.close()
-        print('genes successfully written out to genes.tsv')
-
-
-    ### write out the cellbarcodes
-    cellbarcodes = adata.obs_names.tolist()
-    with open(os.path.join(outpath, 'barcodes.tsv'), "w") as fp:
-        for barcode in cellbarcodes:
-            fp.write(barcode+"\n")
-        fp.close()
-        print('cellbarcodes successfully written out to barcodes.tsv')
-
-    ### export annotation
-
-    if write_metadata == True:
-        annotation = adata.obs
-        annotation.to_csv(os.path.join(outpath, 'metadata.tsv'), sep = '\t', header = True, index = None)
-        print('annotation successfully written out to metadata.tsv')
-
-    return(None)
-    sys.exit(0)
-
-def raw_to_mtx_python(adata,
-                      outpath = os.getcwd(),
-                      write_metadata = False,
-                      geneannotation = 'ENSEMBL',
-                      additional_geneannotation = None):
-    """ export adata.raw to .mtx (matrix.mtx, genes.tsv, barcodes, tsv) (ONLY USING PYTHON)
-
-    exports the counts contained in adata.raw.X to a matrix.mtx file (in sparse format),
-    genes taken from adata.raw.var_names to genes.tsv and the 
-    cellbarcodes from adata.obs_names to barcodes.tsv. If annotation = True, then the entire 
-    pd.Dataframe contained in adata.obs is in addition exported to metadata.tsv.
-
-    Through the parameter genetannotation you can specify which type of geneidentifer is saved in 
-    adata.raw.var_names. You can pass an additional string to the parameter additional_geneannotation
-    which specifies under which column name in adata.raw.var an additional geneannotation can be 
-    found. Currently this function is only capable of dealing with geneannotation of the type 
-    ENSEMBL or SYMBOL. This feature is intended to conserve the correct order of ENSEMBL IDs and 
-    SYMBOL symbols in the genes.tsv file.
-
-    If the outpath directory does not exist, this function automatically generates it.
-
-    This is a slower version of this function that does not rely on external C-Programms. The default
-    verison of this function that is used in most cases 'X_to_mtx' does rely on this program.
-
-    parameters
-    ----------
-    adata:
-    outpath `str` | default = current working directory
-        filepath to the directory in which the results should be outputed, if no directory is 
-        specified it outputs the results to the current working directory.
-    write_metadata: `bool` | default = False
-        boolian indicator if the annotation contained in adata.obs should be exported as well 
-    geneannotation: `'ENSEMBL` or `'SYMBOL`
-        string indicator of the type of gene annotation saved in adata.var_names
-    additional_geneannotation: `str` | default = None
-        string identifying the coloumn name in which either the SYMBOL symbols or the ENSEMBL geneids
-        are contained as additional gene annotation in adata.var
-
-    returns
-    -------
-    None
-        writes out files to the specified output directory
-
-    """
-
-    ### write out matrix.mtx as float with 3 significant digits
-    print('writing out matrix.mtx ...')
-    if adata.raw.X is None:
-        sys.exit(1, 'adata does not have .raw')
-    elif type(adata.raw.X) == ndarray:
-        E = sparse.csr_matrix(adata.raw.X).T
-    else:
-        E = adata.raw.X.tocsr().T #transpose back into the same format as we imported it
-    
-    ### check if the outdir exists if not create
-    if not os.path.exists(outpath):
-        os.makedirs(outpath)
-
-    #write out temporary matrix
-    io.mmwrite(os.path.join(outpath, 'tmp.mtx'), E, precision = 2)
-    
-    #transform the temporary matrix into the correct version that shows floats with 3 significant digits
-    with open(os.path.join(outpath, 'tmp.mtx'), "r") as fp_in:
-        with open(os.path.join(outpath, 'matrix.mtx'), "w") as fp_out:
-            #copy the first three lines
-            for i in range(3):
-                line = fp_in.readline()
-                fp_out.write(line)
-            #now read the rest of the lines
-            while True:
-                line = fp_in.readline()
-                if not line:
-                    break
-                n1, n2, val = line.split(' ')
-                fp_out.write('{} {} {:.3f}'.format(n1, n2, float(val)))
-                fp_out.write('\n')
-        fp_out.close()
-    fp_in.close()
-    
-    #remove temporary file
-    os.remove(os.path.join(outpath, 'tmp.mtx'))
-    print('adata.raw.X successfully written to matrix.mtx')
-
-    ### export genes
-    
-    #get genes to export
-    if geneannotation== 'SYMBOL':
-        genes_SYMBOL = adata.raw.var_names.tolist()
-        #get additional annotation saved in adata.var
-        if additional_geneannotation is not None:
-            genes_ENSEMBL = adata.raw.var.get(additional_geneannotation)
-        else:
-            print('No ensembel gene ids provided, will fill the respective columns in genes.tsv with NA')
-            genes_ENSEMBL = ['NA']*len(genes_SYMBOL)
-
-    elif geneannotation == 'ENSEMBL':
-        genes_ENSEMBL = adata.raw.var_names.tolist()
-        #get additional annotation saved in adata.var
-        if additional_geneannotation is not None:
-            genes_SYMBOL = adata.raw.var.get(additional_geneannotation)
-        else:
-            print('No SYMBOL symbols provided, will fill the respective columns in genes.tsv with NA')
-            genes_SYMBOL = ['NA']*len(genes_ENSEMBL)
-    else:
-        sys.exit('need to provide either \'ENSEMBL\' or \'SYMBOL\' gene annotation.')
-
-    feature = None
-    #add catch to write out type of annotation 
-    if 'feature_type' in adata.var.columns:
-        print('feature annotation is present and will be written out')
-        feature = True
-        gene_feature = adata.var.get('feature_type')
-
-    #write the genes out in the correct format (first ENSEMBL THEN SYMBOL)
-    with open (os.path.join(outpath, 'genes.tsv'), "w") as fp:
-        if feature is not None:
-            for ENSEMBL, symbol, feature in zip(genes_ENSEMBL, genes_SYMBOL, gene_feature):
-                fp.write(ENSEMBL+"\t"+ symbol+"\t"+ feature +"\n")
-        else:
-            for ENSEMBL, symbol in zip(genes_ENSEMBL, genes_SYMBOL):
-                fp.write(ENSEMBL+"\t"+ symbol+"\n")
-        fp.close()
-        print('genes successfully written out to genes.tsv')
-
-    ### write out the cellbarcodes
-    cellbarcodes = adata.obs_names.tolist()
-    with open(os.path.join(outpath, 'barcodes.tsv'), "w") as fp:
-        for barcode in cellbarcodes:
-            fp.write(barcode+"\n")
-        fp.close()
-        print('cellbarcodes successfully written out to barcodes.tsv')
-
-    ### export annotation
-
-    if write_metadata == True:
-        annotation = adata.obs
-        annotation.to_csv(os.path.join(outpath, 'metadata.tsv'), sep = '\t', header = True, index = None)
-        print('annotation successfully written out to metadata.tsv')
-
-    return(None)
-    sys.exit(0)
 
 
 def clustering(adata,  
@@ -569,7 +233,8 @@ def clustering(adata,
 
     parameters
     ----------
-    adata:
+    adata: `AnnData`
+        the AnnData object containing the clusters
     outpath: `str` | default = current working directory
         filepath to the directory in which the results should be outputed, if no directory is 
         specified it outputs the results to the current working directory.
@@ -704,7 +369,8 @@ def labeling(adata,
 
     parameters
     ----------
-    adata:
+    adata: `AnnData`
+        the AnnData object containing the label
     outpath `str` | default = current working directory
         filepath to the directory in which the results should be outputed, if no directory is 
         specified it outputs the results to the current working directory.
@@ -865,7 +531,8 @@ def analysis_metadata(adata,
     
     parameters
     ----------
-    adata:
+    adata: `AnnData`
+        the AnnData object containing the metadata 
     outpath `str` | default = current working directory
         filepath to the directory in which the results should be outputed, if no directory is 
         specified it outputs the results to the current working directory.
@@ -947,7 +614,7 @@ def ranked_genes(adata,
 
     parameters
     ----------
-    adata:
+    adata: `AnnData`
         AnnData object on which scanpy.tl.rank_genes_groups has been executed
     type: `str` | 'wilcox' or 't-test overest var'  or 't-test'
     outpath `str` | default = current working directory
@@ -1108,7 +775,8 @@ def pseudobulk(adata,
 
     parameters
     ----------
-    adata:
+    adata: `AnnData`
+        the AnnData object containing the labeling 
     outpath `str` | default = current working directory
         filepath to the directory in which the results should be outputed, if no directory is 
         specified it outputs the results to the current working directory.
@@ -1231,7 +899,8 @@ def generate_gep(adata,
 
     parameters
     ----------
-    adata:
+    adata: `AnnData`
+        the AnnData object that should be exported
     filename 'str' | default = 'gep_basis_vector.csv'
         name of output file
     column: `str` | default = '<last_column>'
