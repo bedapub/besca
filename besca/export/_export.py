@@ -39,7 +39,6 @@ def write__MMFILE( C_path, E, outpath):
         print('adata.X successfully written to matrix.mtx. \n Warning: could not use reformat script.')
 
 #Functions to export AnnData objects to FAIR dataformat
-
 def X_to_mtx(adata,
              outpath = None,
              write_metadata = False, 
@@ -108,7 +107,7 @@ def X_to_mtx(adata,
         if additional_geneannotation is not None:
             genes_ENSEMBL = adata.var.get(additional_geneannotation)
         else:
-            print('No ensembel gene ids provided, will fill the respective columns in genes.tsv with NA')
+            print('No ENSEMBL gene ids provided, Besca will fill the respective columns in genes.tsv with NA')
             genes_ENSEMBL = ['NA']*len(genes_SYMBOL)
 
     elif geneannotation == 'ENSEMBL':
@@ -117,7 +116,7 @@ def X_to_mtx(adata,
         if additional_geneannotation is not None:
             genes_SYMBOL = adata.var.get(additional_geneannotation)
         else:
-            print('No SYMBOLSprovided, will fill the respective columns in genes.tsv with NA')
+            print('No SYMBOLS provided, Besca will fill the respective columns in genes.tsv with NA')
             genes_SYMBOL = ['NA']*len(genes_ENSEMBL)
 
     else:
@@ -150,10 +149,9 @@ def X_to_mtx(adata,
         print('cellbarcodes successfully written out to barcodes.tsv')
 
     ### export annotation
-
     if write_metadata == True:
         annotation = adata.obs
-        annotation.to_csv(os.path.join(outpath, 'metadata.tsv'), sep = '\t', header = True, index = None)
+        annotation.to_csv(os.path.join(outpath, 'metadata.tsv'), sep = '\t', header = True, index = True)
         print('annotation successfully written out to metadata.tsv')
 
     return(None)
@@ -229,7 +227,7 @@ def raw_to_mtx(adata,
         if additional_geneannotation is not None:
             genes_ENSEMBL = adata.raw.var.get(additional_geneannotation)
         else:
-            print('No ensembel gene ids provided, will fill the respective columns in genes.tsv with NA')
+            print('No ENSEMBL gene ids provided, Besca will fill the respective columns in genes.tsv with NA')
             genes_ENSEMBL = ['NA']*len(genes_SYMBOL)
 
     elif geneannotation == 'ENSEMBL':
@@ -238,7 +236,7 @@ def raw_to_mtx(adata,
         if additional_geneannotation is not None:
             genes_SYMBOL = adata.raw.var.get(additional_geneannotation)
         else:
-            print('No SYMBOL symbols provided, will fill the respective columns in genes.tsv with NA')
+            print('No SYMBOLS provided, Besca will fill the respective columns in genes.tsv with NA')
             genes_SYMBOL = ['NA']*len(genes_ENSEMBL)
     else:
         sys.exit('need to provide either \'ENSEMBL\' or \'SYMBOL\' gene annotation.')
@@ -270,10 +268,9 @@ def raw_to_mtx(adata,
         print('cellbarcodes successfully written out to barcodes.tsv')
 
     ### export annotation
-
     if write_metadata == True:
         annotation = adata.obs
-        annotation.to_csv(os.path.join(outpath, 'metadata.tsv'), sep = '\t', header = True, index = None)
+        annotation.to_csv(os.path.join(outpath, 'metadata.tsv'), sep = '\t', header = True, index = True)
         print('annotation successfully written out to metadata.tsv')
 
     return(None)
