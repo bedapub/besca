@@ -61,7 +61,8 @@ def X_to_mtx(adata,
     
     parameters
     ----------
-    adata:
+    adata: AnnData
+        the AnnData object that should be exported
     outpath `str` | default = current working directory
         filepath to the directory in which the results should be outputed, if no directory is 
         specified it outputs the results to the current working directory.
@@ -182,7 +183,8 @@ def raw_to_mtx(adata,
 
     parameters
     ----------
-    adata:
+    adata: `AnnData`
+        the AnnData object which raw that should be exported 
     outpath `str` | default = current working directory
         filepath to the directory in which the results should be outputed, if no directory is 
         specified it outputs the results to the current working directory.
@@ -231,7 +233,8 @@ def clustering(adata,
 
     parameters
     ----------
-    adata:
+    adata: `AnnData`
+        the AnnData object containing the clusters
     outpath: `str` | default = current working directory
         filepath to the directory in which the results should be outputed, if no directory is 
         specified it outputs the results to the current working directory.
@@ -366,7 +369,8 @@ def labeling(adata,
 
     parameters
     ----------
-    adata:
+    adata: `AnnData`
+        the AnnData object containing the label
     outpath `str` | default = current working directory
         filepath to the directory in which the results should be outputed, if no directory is 
         specified it outputs the results to the current working directory.
@@ -527,7 +531,8 @@ def analysis_metadata(adata,
     
     parameters
     ----------
-    adata:
+    adata: `AnnData`
+        the AnnData object containing the metadata 
     outpath `str` | default = current working directory
         filepath to the directory in which the results should be outputed, if no directory is 
         specified it outputs the results to the current working directory.
@@ -609,7 +614,7 @@ def ranked_genes(adata,
 
     parameters
     ----------
-    adata:
+    adata: `AnnData`
         AnnData object on which scanpy.tl.rank_genes_groups has been executed
     type: `str` | 'wilcox' or 't-test overest var'  or 't-test'
     outpath `str` | default = current working directory
@@ -770,7 +775,8 @@ def pseudobulk(adata,
 
     parameters
     ----------
-    adata:
+    adata: `AnnData`
+        the AnnData object containing the labeling 
     outpath `str` | default = current working directory
         filepath to the directory in which the results should be outputed, if no directory is 
         specified it outputs the results to the current working directory.
@@ -893,7 +899,8 @@ def generate_gep(adata,
 
     parameters
     ----------
-    adata:
+    adata: `AnnData`
+        the AnnData object that should be exported
     filename 'str' | default = 'gep_basis_vector.csv'
         name of output file
     column: `str` | default = '<last_column>'
