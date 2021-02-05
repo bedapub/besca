@@ -33,7 +33,7 @@ def valOutlier(adata, nmads = 3, rlib_loc = ''):
     anndata2ri.activate()
 
     ro.globalenv['rlib_loc'] = rlib_loc
-    ro.r('.libPaths(c(.libPaths(), rlib_loc))')
+    ro.r('.libPaths(c(rlib_loc, .libPaths()))')
     ro.r('suppressPackageStartupMessages(library(scater))')
     ro.r('suppressPackageStartupMessages(library(Matrix))')
     ro.r('suppressPackageStartupMessages(library(Seurat))')
@@ -146,7 +146,7 @@ def scTransform(adata, hvg = False, n_genes = 4000, rlib_loc = ''):
     from scipy.sparse import issparse
     
     ro.globalenv['rlib_loc'] = rlib_loc
-    ro.r('.libPaths(c(.libPaths(), rlib_loc))')
+    ro.r('.libPaths(c(rlib_loc, .libPaths()))')
     ro.r('suppressPackageStartupMessages(library(Seurat))')
     ro.r('suppressPackageStartupMessages(library(scater))')
     anndata2ri.activate()
