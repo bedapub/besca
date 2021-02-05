@@ -3,6 +3,7 @@ import sys
 from io import BytesIO
 
 import pkg_resources
+from  .._helper import get_raw
 from numpy import arange, expm1, ix_, ndarray, round, where, zeros
 from pandas import DataFrame, concat, read_csv
 from scipy import io, sparse
@@ -210,8 +211,7 @@ def raw_to_mtx(adata,
         sys.exit(1, 'adata does not have .raw')
     print( "adata raw will be written out")
 
-    adata_bis = adata.raw.copy()
-    adata_bis.obs = adata.obs.copy()
+    adata_bis = get_raw(adata)
     X_to_mtx(adata_bis,
              outpath = outpath,
              write_metadata = write_metadata, 
