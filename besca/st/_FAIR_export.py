@@ -44,7 +44,7 @@ def export_clr(adata, basepath):
 
     parameters
     ----------
-    adata: `ÀnnData`
+    adata: `AnnData`
         AnnData object that is to be exported. Needs to be CiteSeq data.
     basepath: `str`
         root path to the Analysis folder (i.e. ../analyzed/<ANALYSIS_NAME>)
