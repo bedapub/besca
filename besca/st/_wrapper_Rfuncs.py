@@ -33,7 +33,7 @@ def maxLikGlobalDimEst(adata, k = 20, nrpcs=50, rlib_loc = ''):
     from scipy.sparse import issparse
 
     ro.globalenv['rlib_loc'] = rlib_loc
-    ro.r('.libPaths(c(.libPaths(), rlib_loc))')
+    ro.r('.libPaths(c(rlib_loc, .libPaths()))')
     ro.r('suppressPackageStartupMessages(library(intrinsicDimension))')
 
     random_state = 0
@@ -82,7 +82,7 @@ def deviance(adata, n_genes = 4000, rlib_loc = ''):
     anndata2ri.activate()
     
     ro.globalenv['rlib_loc'] = rlib_loc
-    ro.r('.libPaths(c(.libPaths(), rlib_loc))')
+    ro.r('.libPaths(c(rlib_loc, .libPaths()))')
     ro.r('suppressPackageStartupMessages(library(scry))')
     ro.r('suppressPackageStartupMessages(library(Seurat))')
     
@@ -148,7 +148,7 @@ def dsb_normalize(adata_prot, raw_path, ana_path, rlib_loc = '',  example_datase
     from scipy.sparse import issparse
     
     ro.globalenv['rlib_loc'] = rlib_loc
-    ro.r('.libPaths(c(.libPaths(), rlib_loc))')
+    ro.r('.libPaths(c(rlib_loc, .libPaths()))')
     ro.r('suppressPackageStartupMessages(library(vctrs))')
     ro.r('suppressPackageStartupMessages(library(ggplot2))')
     ro.r('suppressPackageStartupMessages(library(patchwork))')

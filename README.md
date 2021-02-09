@@ -95,6 +95,8 @@ If you want to run one of these methods in the workflow, please install the requ
 pip install rpy2 anndata2ri
 Rscript Rlibs.R your_R_library_path
  ```
+To minimize risks conflicts between libraries, it is advised to set your `your_R_library_path` to your conda environment path, typically `~/.conda/envs/[environnement_name]/lib/R/library`.
+ 
 In the standard workflow notebook, all of these methods are controlled through the `r_methods` option but it is of course possible to manually switch between them and the standard workflow. Please also specify the location of your R library with the `rlib_loc` option of the notebook.  
 
 ## Running besca on an HPC with a SLURM workload manager  
