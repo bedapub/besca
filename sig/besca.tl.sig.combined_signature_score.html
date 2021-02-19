@@ -1,35 +1,14 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>combined_signature_score &mdash; BESCA 2.3 documentation</title>
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
@@ -39,6 +18,31 @@
   <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="compute_signed_score" href="besca.tl.sig.compute_signed_score.html" />
@@ -83,6 +87,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -101,6 +106,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurrence_subset.html">count_occurrence_subset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurrence_subset_conditions.html">count_occurrence_subset_conditions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.annotate_cells_clustering.html">annotate_cells_clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.report.html">report</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.plot_confusion_matrix.html">plot_confusion_matrix</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../besca.html#toolkits">toolkits</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#batch-correction">batch correction</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#differential-gene-expression">differential gene expression</a></li>
@@ -120,6 +127,7 @@
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.insert_gems.html">insert_gems</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.get_similar_geneset.html">get_similar_geneset</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.export_annotconfig.html">export_annotconfig</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.convert_to_directed.html">convert_to_directed</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#reclustering">reclustering</a></li>
@@ -142,6 +150,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -176,11 +185,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../besca.html">besca</a> &raquo;</li>
         
@@ -189,7 +200,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/sig/besca.tl.sig.combined_signature_score.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -231,12 +242,13 @@
 <h1>combined_signature_score<a class="headerlink" href="#combined-signature-score" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="besca.tl.sig.combined_signature_score">
-<code class="sig-prename descclassname">besca.tl.sig.</code><code class="sig-name descname">combined_signature_score</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">adata</span></em>, <em class="sig-param"><span class="n">GMT_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">signature_dict</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">UP_suffix</span><span class="o">=</span><span class="default_value">'_UP'</span></em>, <em class="sig-param"><span class="n">DN_suffix</span><span class="o">=</span><span class="default_value">'_DN'</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'scanpy'</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">use_raw</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">conversion</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_sig.html#combined_signature_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.sig.combined_signature_score" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">besca.tl.sig.</span></code><code class="sig-name descname"><span class="pre">combined_signature_score</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GMT_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UP_suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_UP'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DN_suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_DN'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'scanpy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_sig.html#combined_signature_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.tl.sig.combined_signature_score" title="Permalink to this definition">¶</a></dt>
 <dd><p>Super Wrapper function to compute combined signature score for UP and DN scores.
 This function combines genesets (signatures) scores compose of UP and DN.
 Results are stored in adata.obs with the key: “<a href="#id3"><span class="problematic" id="id4">score_</span></a>”+ signature_name+”_” + method  .
 The scanpy method is the score_gene method from the scanpy python package.
 Combination of the scores is done substracting UP and DN (scanpy = UP - DN).</p>
+<p>If you do not have a signature dictionary composed with direction; please see bc.tl.sig.convert_to_directed</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -251,7 +263,7 @@ Can be replaced by “None” (quoted) or any kind of unexpected string  to avoi
 <li><p><strong>method</strong> (<cite>str</cite> | default = “scanpy”) – a string indicating which method to use (‘scanpy’ available)</p></li>
 <li><p><strong>overwrite</strong> (<cite>boolean</cite> | default = False) – If False, will parse the data.obs to only recompute scores that are not present.</p></li>
 <li><p><strong>verbose</strong> (<cite>boolean</cite> | default = False) – If True, will print the signature reads. This does not overwrite the scanpy verbosity parameter that should be set separately</p></li>
-<li><p><strong>use_raw</strong> (<cite>boolean</cite> | default = False) – If True, computation will be done on adata.raw.X (on adata.X otherwise).</p></li>
+<li><p><strong>use_raw</strong> (<cite>boolean</cite> | default = None) – If True, computation will be done on adata.raw.X (on adata.X otherwise).</p></li>
 <li><p><strong>conversion</strong> (<a href="#id1"><span class="problematic" id="id2">`</span></a>a panda serie’ | default = None.) – If not none, this should contain a serie indexed by x with column containing values y.
 This indicate the how to transpose the signatures (from x to y).
 Classical example would be indexed by Ensembl id and column would contains HGNC symbol.</p></li>
@@ -265,10 +277,12 @@ Classical example would be indexed by Ensembl id and column would contains HGNC 
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#insert example code here</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc3k_filtered</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">gmt_file</span><span class="o">=</span>   <span class="s1">&#39;genesets/Immune.txt&#39;</span> <span class="c1"># Provided by BESCA datasets check the path</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">combined_signature_score</span><span class="p">(</span> <span class="n">adata</span><span class="p">,</span> <span class="n">GMT_file</span> <span class="o">=</span> <span class="n">gmt_file</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bescapath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">bc</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc3k_processed</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gmt_file</span><span class="o">=</span> <span class="n">bescapath</span> <span class="o">+</span> <span class="s1">&#39;/besca/datasets/genesets/Immune.gmt&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">combined_signature_score</span><span class="p">(</span> <span class="n">adata</span><span class="p">,</span> <span class="n">GMT_file</span> <span class="o">=</span> <span class="n">gmt_file</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># this code is only displayed not executed</span>
 </pre></div>
 </div>
@@ -281,29 +295,29 @@ Classical example would be indexed by Ensembl id and column would contains HGNC 
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="besca.tl.sig.compute_signed_score.html" class="btn btn-neutral float-right" title="compute_signed_score" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../dge/besca.tl.dge.get_de.html" class="btn btn-neutral float-left" title="get_de" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="besca.tl.sig.compute_signed_score.html" class="btn btn-neutral float-right" title="compute_signed_score" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../dge/besca.tl.dge.get_de.html" class="btn btn-neutral float-left" title="get_de" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, BEDA
+        &#169; Copyright 2020, BEDA.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -311,7 +325,6 @@ Classical example would be indexed by Ensembl id and column would contains HGNC 
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

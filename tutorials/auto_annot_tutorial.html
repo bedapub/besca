@@ -1,35 +1,14 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Automated Annotation Workflow &mdash; BESCA 2.3 documentation</title>
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
@@ -39,6 +18,31 @@
   <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="besca standard pipeline" href="../besca_standard_pipeline.html" />
@@ -83,6 +87,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -125,6 +130,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -159,11 +165,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../tutorials.html">tutorials</a> &raquo;</li>
         
@@ -172,7 +180,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/tutorials/auto_annot_tutorial.ipynb.txt" rel="nofollow"> View page source</a>
           
         
@@ -191,21 +199,35 @@
 /* CSS for nbsphinx extension */
 
 /* remove conflicting styling from Sphinx themes */
-div.nbinput.container,
-div.nbinput.container div.prompt,
-div.nbinput.container div.input_area,
-div.nbinput.container div[class*=highlight],
-div.nbinput.container div[class*=highlight] pre,
-div.nboutput.container,
-div.nboutput.container div.prompt,
-div.nboutput.container div.output_area,
-div.nboutput.container div[class*=highlight],
-div.nboutput.container div[class*=highlight] pre {
-    background: none;
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
     border: none;
-    padding: 0 0;
+    padding: 0;
     margin: 0;
     box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
 }
 
 /* avoid gaps between output lines */
@@ -306,7 +328,7 @@ div.nboutput.container div.output_area {
 div.nbinput.container div.input_area {
     border: 1px solid #e0e0e0;
     border-radius: 2px;
-    background: #f5f5f5;
+    /*background: #f5f5f5;*/
 }
 
 /* override MathJax center alignment in output cells */
@@ -372,6 +394,7 @@ div.nboutput.container div.output_area.rendered_html,
 div.nboutput.container div.output_area > div.output_javascript,
 div.nboutput.container div.output_area:not(.rendered_html) > img{
     padding: 5px;
+    margin: 0;
 }
 
 /* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
@@ -537,7 +560,7 @@ confusion matrices can be generated.</p>
 <p>Kotliarov Y, Sparks R, Martins AJ, et al. Broad immune activation underlies shared set point signatures for vaccine responsiveness in healthy individuals and disease activity in patients with lupus. Nat Med. 2020;26(4):618-629. doi:10.1038/s41591-020-0769-8</p>
 <p>A detailed analysis of the annotation performed below can be found in figure 3 of the publication on besca.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -549,7 +572,7 @@ confusion matrices can be generated.</p>
 </div>
 <p>You can also load your own dataset from the file system. Specify folders where .h5ad files are found and their names. The datasets that are already annotated and should be used for training. If you only use one dataset please use list of one. These load functions are useful in particular when the datasets have been processed with the besca standard pipeline. Alternatively, datasets can be loaded in any fashion, if more suitable.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -562,7 +585,7 @@ confusion matrices can be generated.</p>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -572,7 +595,7 @@ confusion matrices can be generated.</p>
 </div>
 <p>One training dataset’s label column is not named “dblabel”. We need to create a column so that all datasets used contain a column that are named according to the previously specified variable celltype and that contain the labels.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -582,7 +605,7 @@ confusion matrices can be generated.</p>
 </div>
 <p>In this case the testing dataset is already annotated to demonstrate the methodology. All datasets adhere to the same naming convention.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -591,17 +614,17 @@ confusion matrices can be generated.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[naive thymus-derived CD8-positive, alpha-beta ..., naive B cell, central memory CD4-positive, alpha-beta T cell, non-classical monocyte, IL7R-max CD8-positive, alpha-beta cytotoxic T ..., naive thymus-derived CD4-positive, alpha-beta ..., classical monocyte, CD8-positive, alpha-beta cytotoxic T cell, cytotoxic CD56-dim natural killer cell, CD1c-positive myeloid dendritic cell]
-Categories (10, object): [naive thymus-derived CD8-positive, alpha-beta ..., naive B cell, central memory CD4-positive, alpha-beta T cell, non-classical monocyte, ..., classical monocyte, CD8-positive, alpha-beta cytotoxic T cell, cytotoxic CD56-dim natural killer cell, CD1c-positive myeloid dendritic cell]
+[&#39;naive thymus-derived CD8-positive, alpha-beta..., &#39;naive B cell&#39;, &#39;central memory CD4-positive, alpha-beta T cell&#39;, &#39;classical monocyte&#39;, &#39;IL7R-max CD8-positive, alpha-beta cytotoxic T..., &#39;non-classical monocyte&#39;, &#39;naive thymus-derived CD4-positive, alpha-beta..., &#39;CD8-positive, alpha-beta cytotoxic T cell&#39;, &#39;cytotoxic CD56-dim natural killer cell&#39;, &#39;CD1c-positive myeloid dendritic cell&#39;]
+Categories (10, object): [&#39;naive thymus-derived CD8-positive, alpha-beta..., &#39;naive B cell&#39;, &#39;central memory CD4-positive, alpha-beta T cell&#39;, &#39;classical monocyte&#39;, ..., &#39;naive thymus-derived CD4-positive, alpha-beta..., &#39;CD8-positive, alpha-beta cytotoxic T cell&#39;, &#39;cytotoxic CD56-dim natural killer cell&#39;, &#39;CD1c-positive myeloid dendritic cell&#39;]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -610,18 +633,18 @@ Categories (10, object): [naive thymus-derived CD8-positive, alpha-beta ..., nai
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[naive thymus-derived CD4-positive, alpha-beta ..., classical monocyte, naive B cell, lymphocyte of B lineage, naive thymus-derived CD8-positive, alpha-beta ..., ..., IL7R-max CD8-positive, alpha-beta cytotoxic T ..., hematopoietic multipotent progenitor cell, myeloid leukocyte, basophil, plasma cell]
+[&#39;naive thymus-derived CD4-positive, alpha-beta..., &#39;classical monocyte&#39;, &#39;naive B cell&#39;, &#39;lymphocyte of B lineage&#39;, &#39;naive thymus-derived CD8-positive, alpha-beta..., ..., &#39;IL7R-max CD8-positive, alpha-beta cytotoxic T..., &#39;hematopoietic multipotent progenitor cell&#39;, &#39;myeloid leukocyte&#39;, &#39;basophil&#39;, &#39;plasma cell&#39;]
 Length: 25
-Categories (25, object): [naive thymus-derived CD4-positive, alpha-beta ..., classical monocyte, naive B cell, lymphocyte of B lineage, ..., hematopoietic multipotent progenitor cell, myeloid leukocyte, basophil, plasma cell]
+Categories (25, object): [&#39;naive thymus-derived CD4-positive, alpha-beta..., &#39;classical monocyte&#39;, &#39;naive B cell&#39;, &#39;lymphocyte of B lineage&#39;, ..., &#39;hematopoietic multipotent progenitor cell&#39;, &#39;myeloid leukocyte&#39;, &#39;basophil&#39;, &#39;plasma cell&#39;]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -630,14 +653,14 @@ Categories (25, object): [naive thymus-derived CD4-positive, alpha-beta ..., cla
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[cytotoxic CD56-dim natural killer cell, naive thymus-derived CD8-positive, alpha-beta ..., naive thymus-derived CD4-positive, alpha-beta ..., classical monocyte, CD8-positive, alpha-beta cytotoxic T cell, ..., regulatory T cell, CD1c-positive myeloid dendritic cell, plasmacytoid dendritic cell, erythrocyte, plasma cell]
+[&#39;cytotoxic CD56-dim natural killer cell&#39;, &#39;naive thymus-derived CD8-positive, alpha-beta..., &#39;naive thymus-derived CD4-positive, alpha-beta..., &#39;classical monocyte&#39;, &#39;CD8-positive, alpha-beta cytotoxic T cell&#39;, ..., &#39;regulatory T cell&#39;, &#39;CD1c-positive myeloid dendritic cell&#39;, &#39;plasmacytoid dendritic cell&#39;, &#39;erythrocyte&#39;, &#39;plasma cell&#39;]
 Length: 14
-Categories (14, object): [cytotoxic CD56-dim natural killer cell, naive thymus-derived CD8-positive, alpha-beta ..., naive thymus-derived CD4-positive, alpha-beta ..., classical monocyte, ..., CD1c-positive myeloid dendritic cell, plasmacytoid dendritic cell, erythrocyte, plasma cell]
+Categories (14, object): [&#39;cytotoxic CD56-dim natural killer cell&#39;, &#39;naive thymus-derived CD8-positive, alpha-beta..., &#39;naive thymus-derived CD4-positive, alpha-beta..., &#39;classical monocyte&#39;, ..., &#39;CD1c-positive myeloid dendritic cell&#39;, &#39;plasmacytoid dendritic cell&#39;, &#39;erythrocyte&#39;, &#39;plasma cell&#39;]
 </pre></div></div>
 </div>
 </div>
@@ -646,7 +669,7 @@ Categories (14, object): [cytotoxic CD56-dim natural killer cell, naive thymus-d
 <h2>Correct datasets (e.g. using scanorama) and merge training datasets<a class="headerlink" href="#Correct-datasets-(e.g. using-scanorama)-and-merge-training-datasets" title="Permalink to this headline">¶</a></h2>
 <p>This function merges training datasets, removes unwanted genes, and if scanorama is used corrects for datasets.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -662,13 +685,12 @@ Categories (14, object): [cytotoxic CD56-dim natural killer cell, naive thymus-d
 merging with scanorama
 using scanorama rn
 Found 207 genes among all datasets
-[[0.         0.69557349 0.47404153]
- [0.         0.         0.99201278]
+[[0.         0.69100623 0.47164537]
+ [0.         0.         0.9908147 ]
  [0.         0.         0.        ]]
 Processing datasets (1, 2)
 Processing datasets (0, 1)
 Processing datasets (0, 2)
-integrating training set
 </pre></div></div>
 </div>
 </div>
@@ -676,7 +698,7 @@ integrating training set
 <h2>Train the classifier<a class="headerlink" href="#Train-the-classifier" title="Permalink to this headline">¶</a></h2>
 <p>The returned scaler is fitted on the training dataset (to zero mean and scaled to unit variance). The scaling will then be applied to the counts in the testing dataset and then the classifier is applied to the scaled testing dataset (see next step, adata_predict()). This function will run multiple jobs in parallel if if logistic regression was specified as method.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -689,7 +711,7 @@ integrating training set
 <h2>Prediction<a class="headerlink" href="#Prediction" title="Permalink to this headline">¶</a></h2>
 <p>Use fitted model to predict celltypes in adata_pred (adata_test_corrected in our case). In the case of logistic regression, the threshold specifies the probability that needs to be reached to annotate a cell type or will be annotated as “unknown” if not reached. The threshold should be set to 0 or left out for SVM.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -700,7 +722,7 @@ integrating training set
 <p>The prediction was added in a new column called ‘auto_annot’.</p>
 <p>If in addition to the most likely class you would like to have all class probabilities returned use the following function. (This is only a sensible choice if using logistic regression.)</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -713,7 +735,7 @@ integrating training set
 <h2>Output<a class="headerlink" href="#Output" title="Permalink to this headline">¶</a></h2>
 <p>The adata object that includes the predicted cell type annotation can be written out as h5ad file.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -722,8 +744,8 @@ integrating training set
 </div>
 </div>
 <p>If the testing dataset included already a cell type annotation, a report can be generated and written, which includes metrics, confusion matrices and comparative umap plots. The report creates standardised overview figures, for a more detailed control of figure layout other besca and scanpy figure functions should be used.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -732,62 +754,9 @@ integrating training set
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-WARNING: saving figure to file figures/umap.ondata_auto_annot_tutorial.png
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_annot_tutorial_45_1.png" class="no-scaled-link" src="../_images/tutorials_auto_annot_tutorial_45_1.png" style="width: 2803px; height: 901px;" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-WARNING: saving figure to file figures/umap.auto_annot_tutorial.png
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_annot_tutorial_45_3.png" class="no-scaled-link" src="../_images/tutorials_auto_annot_tutorial_45_3.png" style="width: 5919px; height: 901px;" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Confusion matrix, without normalization
-Normalized confusion matrix
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_annot_tutorial_45_5.png" class="no-scaled-link" src="../_images/tutorials_auto_annot_tutorial_45_5.png" style="width: 996px; height: 651px;" />
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_annot_tutorial_45_6.png" class="no-scaled-link" src="../_images/tutorials_auto_annot_tutorial_45_6.png" style="width: 992px; height: 651px;" />
-</div>
-</div>
 <p>If we change our threshold, we can vary the amount of cells labelled as unknown, depending on the confidence required from the predictions. Let’s try 0.7</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -796,8 +765,8 @@ Normalized confusion matrix
 </div>
 </div>
 <p>We observe that many more cells, where the assignment is not unambiguous are now labelled as unknown.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -806,65 +775,12 @@ Normalized confusion matrix
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-WARNING: saving figure to file figures/umap.ondata_auto_annot_tutorial.png
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_annot_tutorial_49_1.png" class="no-scaled-link" src="../_images/tutorials_auto_annot_tutorial_49_1.png" style="width: 2803px; height: 901px;" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-WARNING: saving figure to file figures/umap.auto_annot_tutorial.png
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_annot_tutorial_49_3.png" class="no-scaled-link" src="../_images/tutorials_auto_annot_tutorial_49_3.png" style="width: 5919px; height: 901px;" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Confusion matrix, without normalization
-Normalized confusion matrix
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_annot_tutorial_49_5.png" class="no-scaled-link" src="../_images/tutorials_auto_annot_tutorial_49_5.png" style="width: 996px; height: 682px;" />
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_annot_tutorial_49_6.png" class="no-scaled-link" src="../_images/tutorials_auto_annot_tutorial_49_6.png" style="width: 992px; height: 682px;" />
-</div>
-</div>
 </div>
 <div class="section" id="Let’s-try-another-classifier-(SVM)">
 <h2>Let’s try another classifier (SVM)<a class="headerlink" href="#Let’s-try-another-classifier-(SVM)" title="Permalink to this headline">¶</a></h2>
 <p>Especially when thresholds are not used, SVMs can be tried as alternative classifiers.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -878,7 +794,7 @@ Normalized confusion matrix
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -886,8 +802,8 @@ Normalized confusion matrix
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -895,25 +811,8 @@ Normalized confusion matrix
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-merging with scanorama
-using scanorama rn
-Found 207 genes among all datasets
-[[0.   0.7  0.47]
- [0.   0.   0.99]
- [0.   0.   0.  ]]
-Processing datasets (1, 2)
-Processing datasets (0, 1)
-Processing datasets (0, 2)
-integrating training set
-</pre></div></div>
-</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -922,7 +821,7 @@ integrating training set
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -931,7 +830,7 @@ integrating training set
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -939,8 +838,8 @@ integrating training set
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -949,65 +848,12 @@ integrating training set
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-WARNING: saving figure to file figures/umap.ondata_auto_annot_tutorial_svm.png
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_annot_tutorial_58_1.png" class="no-scaled-link" src="../_images/tutorials_auto_annot_tutorial_58_1.png" style="width: 2803px; height: 901px;" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-WARNING: saving figure to file figures/umap.auto_annot_tutorial_svm.png
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_annot_tutorial_58_3.png" class="no-scaled-link" src="../_images/tutorials_auto_annot_tutorial_58_3.png" style="width: 5919px; height: 901px;" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Confusion matrix, without normalization
-Normalized confusion matrix
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_annot_tutorial_58_5.png" class="no-scaled-link" src="../_images/tutorials_auto_annot_tutorial_58_5.png" style="width: 996px; height: 682px;" />
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_annot_tutorial_58_6.png" class="no-scaled-link" src="../_images/tutorials_auto_annot_tutorial_58_6.png" style="width: 992px; height: 682px;" />
-</div>
-</div>
 </div>
 <div class="section" id="Let’s-try-with-a-specified-gene-set">
 <h2>Let’s try with a specified gene set<a class="headerlink" href="#Let’s-try-with-a-specified-gene-set" title="Permalink to this headline">¶</a></h2>
 <p>Gene sets from GeMS or user specified genesets, can, if carefully chosen, significantly decrease computation time, withouth leading to a performance decrease.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1020,8 +866,8 @@ Normalized confusion matrix
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1032,25 +878,8 @@ Normalized confusion matrix
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[&#39;RETN&#39;,
- &#39;FCRL5&#39;,
- &#39;TIMP2&#39;,
- &#39;CTSS&#39;,
- &#39;IL13&#39;,
- &#39;NFKB2&#39;,
- &#39;SLC45A2&#39;,
- &#39;TIMP1&#39;,
- &#39;BLM&#39;,
- &#39;CD34&#39;]
-</pre></div></div>
-</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1058,8 +887,8 @@ Normalized confusion matrix
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1067,25 +896,8 @@ Normalized confusion matrix
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-merging with scanorama
-using scanorama rn
-Found 77 genes among all datasets
-[[0.   0.69 0.51]
- [0.   0.   0.98]
- [0.   0.   0.  ]]
-Processing datasets (1, 2)
-Processing datasets (0, 1)
-Processing datasets (0, 2)
-integrating training set
-</pre></div></div>
-</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1094,7 +906,7 @@ integrating training set
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1103,7 +915,7 @@ integrating training set
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1111,67 +923,14 @@ integrating training set
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">auto_annot</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="n">adata_predicted</span><span class="p">,</span> <span class="n">celltype</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">analysis_name</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">merge</span><span class="p">,</span> <span class="n">use_raw</span><span class="p">,</span> <span class="n">genes_to_use</span><span class="p">,</span> <span class="n">clustering</span> <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-WARNING: saving figure to file figures/umap.ondata_auto_annot_tutorial_geneset.png
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_annot_tutorial_68_1.png" class="no-scaled-link" src="../_images/tutorials_auto_annot_tutorial_68_1.png" style="width: 2803px; height: 901px;" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-WARNING: saving figure to file figures/umap.auto_annot_tutorial_geneset.png
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_annot_tutorial_68_3.png" class="no-scaled-link" src="../_images/tutorials_auto_annot_tutorial_68_3.png" style="width: 5919px; height: 901px;" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Confusion matrix, without normalization
-Normalized confusion matrix
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_annot_tutorial_68_5.png" class="no-scaled-link" src="../_images/tutorials_auto_annot_tutorial_68_5.png" style="width: 996px; height: 662px;" />
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_annot_tutorial_68_6.png" class="no-scaled-link" src="../_images/tutorials_auto_annot_tutorial_68_6.png" style="width: 992px; height: 662px;" />
 </div>
 </div>
 </div>
@@ -1185,29 +944,29 @@ Normalized confusion matrix
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../besca_standard_pipeline.html" class="btn btn-neutral float-right" title="besca standard pipeline" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="notebook3_batch_correction.html" class="btn btn-neutral float-left" title="notebook 3 - batch correction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="../besca_standard_pipeline.html" class="btn btn-neutral float-right" title="besca standard pipeline" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="notebook3_batch_correction.html" class="btn btn-neutral float-left" title="notebook 3 - batch correction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, BEDA
+        &#169; Copyright 2020, BEDA.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -1215,7 +974,6 @@ Normalized confusion matrix
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

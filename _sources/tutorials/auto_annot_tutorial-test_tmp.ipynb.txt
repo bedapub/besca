@@ -1,0 +1,661 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Automated Annotation Workflow"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This workflow uses the auto_annot tools from besca to newly annotate a scRNAseq dataset based on one or more preannotated datasets. Ideally, these datasets come from a similar tissue and condition. If multiple training datasets are used, the performance is dependent on all dataset being annotated to the same resolution with broadly similar cell types. \n",
+    "\n",
+    "We use supervised machine learning methods to annotate each individual cell utilizing methods like support vector machines (SVM) or logistic regression.\n",
+    "\n",
+    "First, the traning dataset(s) and the testing dataset are loaded from h5ad files or made available as adata objects. Next, the training and testing datasets are corrected using scanorama, and the training datasets are then merged into one anndata object. Then, the classifier is trained utilizing the merged training data. Finally, the classifier is applied to the testing dataset to predict the cell types. If the testing dataset is already annotated (to test the algorithm), a report including confusion matrices can be generated."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import besca as bc\n",
+    "import scanpy as sc"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Parameter specification"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Give your analysis a name."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "analysis_name = 'auto_annot_tutorial' # The analysis name will be used to name the output files"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Specify column name of celltype annotation you want to train on."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "celltype ='dblabel' # This needs to be a column in the .obs of the training datasets (and test dataset if you want to generate a report)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Choose a method:\n",
+    "\n",
+    "- linear: Support Vector Machine with Linear Kernel\n",
+    "- sgd: Support Vector Machine with Linear Kernel using Stochastic Gradient Descent\n",
+    "- rbf: Support Vector Machine with radial basis function kernel. Very time intensive, use only on small datasets.\n",
+    "- logistic_regression: Standard logistic classifier iwth multinomial loss.\n",
+    "- logistic_regression_ovr: Logistic Regression with one versus rest classification.\n",
+    "- logistic_regression_elastic: Logistic Regression with elastic loss, cross validates among multiple l1 ratios."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "method = 'logistic_regression'"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Specify merge method. Needs to be either scanorama or naive."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "merge = 'scanorama' # We recommend to use scanorama here"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Decide if you want to use the raw format or highly variable genes. Raw increases computational time and does not necessarily improve predictions."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "use_raw = False # We recommend to use False here"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "You can choose to only consider a subset of genes from a signature set or use all genes."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "genes_to_use = 'all' # We suggest to use all here, but the runtime is strongly improved if you select an appropriate gene set"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Data loading"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Read in all training sets and the testing set."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We will use a publicly available PBMC dataset, including ~3000 cells, as testing dataset. For the training dataset we use another PBMC dataset that is delivered with besca.\n",
+    "The training datasets used are from:\n",
+    "\n",
+    "Granja JM, Klemm S, McGinnis LM, et al. Single-cell multiomic analysis identifies regulatory programs in mixed-phenotype acute leukemia. Nat Biotechnol. 2019;37(12):1458-1465. doi:10.1038/s41587-019-0332-7 \n",
+    "\n",
+    "and\n",
+    "\n",
+    "Kotliarov Y, Sparks R, Martins AJ, et al. Broad immune activation underlies shared set point signatures for vaccine responsiveness in healthy individuals and disease activity in patients with lupus. Nat Med. 2020;26(4):618-629. doi:10.1038/s41591-020-0769-8\n",
+    "\n",
+    "A detailed analysis of the annotation performed below can be found in figure 3 of the publication on besca."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "URLError",
+     "evalue": "<urlopen error \n\n\n /pstore/home/julienla/Code/Besca/besca_dev/besca/datasets/data/Kotliarov2020_processed_citeseq_merged_annotated.h5ad could not be downloaded from https://zenodo.org/record/3938290/files/Kotliarov2020_processed_citeseq_merged_annotated.h5ad?download=1; \n Please download it manually and store it in your besca installation: besca/datasets/data/>",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mOSError\u001b[0m                                   Traceback (most recent call last)",
+      "\u001b[0;32m~/Code/Besca/besca_dev/besca/datasets/_datasets.py\u001b[0m in \u001b[0;36mcheck_dl\u001b[0;34m(filename, url)\u001b[0m\n\u001b[1;32m     27\u001b[0m     \u001b[0;32mtry\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 28\u001b[0;31m         \u001b[0madata\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mread\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mfilename\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mbackup_url\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0murl\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mcache\u001b[0m\u001b[0;34m=\u001b[0m \u001b[0;32mFalse\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     29\u001b[0m     \u001b[0;32mexcept\u001b[0m \u001b[0mException\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.local/lib/python3.7/site-packages/scanpy/readwrite.py\u001b[0m in \u001b[0;36mread\u001b[0;34m(filename, backed, sheet, ext, delimiter, first_column_names, backup_url, cache, cache_compression, **kwargs)\u001b[0m\n\u001b[1;32m    121\u001b[0m             \u001b[0mcache_compression\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0mcache_compression\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 122\u001b[0;31m             \u001b[0;34m**\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    123\u001b[0m         )\n",
+      "\u001b[0;32m~/.local/lib/python3.7/site-packages/scanpy/readwrite.py\u001b[0m in \u001b[0;36m_read\u001b[0;34m(filename, backed, sheet, ext, delimiter, first_column_names, backup_url, cache, cache_compression, suppress_cache_warning, **kwargs)\u001b[0m\n\u001b[1;32m    699\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0msheet\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 700\u001b[0;31m             \u001b[0;32mreturn\u001b[0m \u001b[0mread_h5ad\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mfilename\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mbacked\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0mbacked\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    701\u001b[0m         \u001b[0;32melse\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.local/lib/python3.7/site-packages/anndata/_io/h5ad.py\u001b[0m in \u001b[0;36mread_h5ad\u001b[0;34m(filename, backed, as_sparse, as_sparse_fmt, chunk_size)\u001b[0m\n\u001b[1;32m    399\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 400\u001b[0;31m     \u001b[0;32mwith\u001b[0m \u001b[0mh5py\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mFile\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mfilename\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m\"r\"\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mas\u001b[0m \u001b[0mf\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    401\u001b[0m         \u001b[0md\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m{\u001b[0m\u001b[0;34m}\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.local/lib/python3.7/site-packages/h5py/_hl/files.py\u001b[0m in \u001b[0;36m__init__\u001b[0;34m(self, name, mode, driver, libver, userblock_size, swmr, rdcc_nslots, rdcc_nbytes, rdcc_w0, track_order, **kwds)\u001b[0m\n\u001b[1;32m    407\u001b[0m                                \u001b[0mfapl\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mfcpl\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0mmake_fcpl\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mtrack_order\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0mtrack_order\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 408\u001b[0;31m                                swmr=swmr)\n\u001b[0m\u001b[1;32m    409\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.local/lib/python3.7/site-packages/h5py/_hl/files.py\u001b[0m in \u001b[0;36mmake_fid\u001b[0;34m(name, mode, userblock_size, fapl, fcpl, swmr)\u001b[0m\n\u001b[1;32m    172\u001b[0m             \u001b[0mflags\u001b[0m \u001b[0;34m|=\u001b[0m \u001b[0mh5f\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mACC_SWMR_READ\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 173\u001b[0;31m         \u001b[0mfid\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mh5f\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mopen\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mname\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mflags\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mfapl\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0mfapl\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    174\u001b[0m     \u001b[0;32melif\u001b[0m \u001b[0mmode\u001b[0m \u001b[0;34m==\u001b[0m \u001b[0;34m'r+'\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32mh5py/_objects.pyx\u001b[0m in \u001b[0;36mh5py._objects.with_phil.wrapper\u001b[0;34m()\u001b[0m\n",
+      "\u001b[0;32mh5py/_objects.pyx\u001b[0m in \u001b[0;36mh5py._objects.with_phil.wrapper\u001b[0;34m()\u001b[0m\n",
+      "\u001b[0;32mh5py/h5f.pyx\u001b[0m in \u001b[0;36mh5py.h5f.open\u001b[0;34m()\u001b[0m\n",
+      "\u001b[0;31mOSError\u001b[0m: Unable to open file (truncated file: eof = 744488960, sblock->base_addr = 0, stored_eof = 974992499)",
+      "\nDuring handling of the above exception, another exception occurred:\n",
+      "\u001b[0;31mURLError\u001b[0m                                  Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-9-9ebf32cc17fa>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0madata_test\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mbc\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdatasets\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mpbmc3k_processed\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;31m# Dataset to be annotated (it's already annotated in this case for testing)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      2\u001b[0m \u001b[0madata_test_orig\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0madata_test\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcopy\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;31m# Make a copy of the testing data, which will be annotated in .obs, but not further modified\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 3\u001b[0;31m \u001b[0madata_train_list\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0mbc\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdatasets\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mGranja2019_processed\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mbc\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdatasets\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mKotliarov2020_processed\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;31m# List of annotated training datasets\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;32m~/Code/Besca/besca_dev/besca/datasets/_datasets.py\u001b[0m in \u001b[0;36mKotliarov2020_processed\u001b[0;34m()\u001b[0m\n\u001b[1;32m    256\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    257\u001b[0m     \u001b[0mfilename\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mpkg_resources\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mresource_filename\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'besca'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m'datasets/data/Kotliarov2020_processed_citeseq_merged_annotated.h5ad'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 258\u001b[0;31m     \u001b[0madata\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mcheck_dl\u001b[0m\u001b[0;34m(\u001b[0m \u001b[0mfilename\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0murl\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m'https://zenodo.org/record/3938290/files/Kotliarov2020_processed_citeseq_merged_annotated.h5ad?download=1'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    259\u001b[0m     \u001b[0;32mreturn\u001b[0m \u001b[0madata\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    260\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/Code/Besca/besca_dev/besca/datasets/_datasets.py\u001b[0m in \u001b[0;36mcheck_dl\u001b[0;34m(filename, url)\u001b[0m\n\u001b[1;32m     28\u001b[0m         \u001b[0madata\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mread\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mfilename\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mbackup_url\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0murl\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mcache\u001b[0m\u001b[0;34m=\u001b[0m \u001b[0;32mFalse\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     29\u001b[0m     \u001b[0;32mexcept\u001b[0m \u001b[0mException\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 30\u001b[0;31m         \u001b[0;32mraise\u001b[0m \u001b[0mURLError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34mf'\\n\\n\\n {filename} could not be downloaded from {url}; \\n Please download it manually and store it in your besca installation: besca/datasets/data/'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     31\u001b[0m     \u001b[0;32mreturn\u001b[0m \u001b[0madata\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     32\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mURLError\u001b[0m: <urlopen error \n\n\n /pstore/home/julienla/Code/Besca/besca_dev/besca/datasets/data/Kotliarov2020_processed_citeseq_merged_annotated.h5ad could not be downloaded from https://zenodo.org/record/3938290/files/Kotliarov2020_processed_citeseq_merged_annotated.h5ad?download=1; \n Please download it manually and store it in your besca installation: besca/datasets/data/>"
+     ]
+    }
+   ],
+   "source": [
+    "adata_test = bc.datasets.pbmc3k_processed() # Dataset to be annotated (it's already annotated in this case for testing)\n",
+    "adata_test_orig = adata_test.copy() # Make a copy of the testing data, which will be annotated in .obs, but not further modified\n",
+    "adata_train_list = [bc.datasets.Granja2019_processed(), \n",
+    "                    sc.rea] # List of annotated training datasets"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "You can also load your own dataset from the file system. Specify folders where .h5ad files are found and their names. The datasets that are already annotated and should be used for training. If you only use one dataset please use list of one. These load functions are useful in particular when the datasets have been processed with the besca standard pipeline. Alternatively, datasets can be loaded in any fashion, if more suitable."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#test_dataset_path = '/path/to/test/dataset/folder'\n",
+    "#test_dataset = 'testdataset.h5ad'\n",
+    "#\n",
+    "#train_dataset_paths = ['/path/to/train/dataset/folder1', '/path/to/train/dataset/folder2']\n",
+    "#train_datasets = ['traindataset1.h5ad', 'traindataset2.h5ad']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#adata_train_list, adata_test, adata_test_orig = bc.tl.auto_annot.read_data(train_paths = train_dataset_paths, train_datasets= train_datasets, test_path=  test_dataset_path, test_dataset= test_dataset, use_raw = use_raw)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "One training dataset's label column is not named \"dblabel\". We need to create a column so that all datasets used contain a column that are named according to the previously specified variable celltype and that contain the labels."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "adata_train_list[1].obs['dblabel']= adata_train_list[1].obs['celltype3']"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "In this case the testing dataset is already annotated to demonstrate the methodology. All datasets adhere to the same naming convention."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "adata_test.obs.dblabel.unique()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "adata_train_list[0].obs.dblabel.unique()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "adata_train_list[1].obs.dblabel.unique()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Correct datasets (e.g. using scanorama) and merge training datasets"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This function merges training datasets, removes unwanted genes, and if scanorama is used corrects for datasets."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "adata_train, adata_test_corrected = bc.tl.auto_annot.merge_data(adata_train_list, adata_test, genes_to_use = genes_to_use, merge = merge)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Train the classifier"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The returned scaler is fitted on the training dataset (to zero mean and scaled to unit variance). The scaling will then be applied to the counts in the testing dataset and then the classifier is applied to the scaled testing dataset (see next step, adata_predict()). This function will run multiple jobs in parallel if if logistic regression was specified as method."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "scrolled": false
+   },
+   "outputs": [],
+   "source": [
+    "classifier, scaler = bc.tl.auto_annot.fit(adata_train, method, celltype, njobs=10)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Prediction"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Use fitted model to predict celltypes in adata_pred (adata_test_corrected in our case).  In the case of logistic regression, the threshold specifies the probability that needs to be reached to annotate a cell type or will be annotated as \"unknown\" if not reached. The threshold should be set to 0 or left out for SVM."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "adata_predicted = bc.tl.auto_annot.adata_predict(classifier = classifier, scaler = scaler, adata_pred = adata_test_corrected, adata_orig = adata_test_orig, threshold = 0.1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The prediction was added in a new column called 'auto_annot'."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "If in addition to the most likely class you would like to have all class probabilities returned use the following function. (This is only a sensible choice if using logistic regression.)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "adata_predicted = bc.tl.auto_annot.adata_pred_prob(classifier = classifier, scaler = scaler, adata_pred = adata_test_corrected, adata_orig = adata_test_orig, threshold = 0.1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Output"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The adata object that includes the predicted cell type annotation can be written out as h5ad file."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "adata_predicted.write('/tmp/adata_predicted.h5ad')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "If the testing dataset included already a cell type annotation, a report can be generated and written, which includes metrics,  confusion matrices and comparative umap plots. The report creates standardised overview figures, for a more detailed control of figure layout other besca and scanpy figure functions should be used."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "%matplotlib inline\n",
+    "bc.tl.auto_annot.report(adata_predicted, celltype, method, analysis_name, False, merge, use_raw, genes_to_use, clustering = 'leiden')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "If we change our threshold, we can vary the amount of cells labelled as unknown, depending on the confidence required from the predictions. Let's try 0.7"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "adata_predicted = bc.tl.auto_annot.adata_predict(classifier = classifier, scaler = scaler, adata_pred = adata_test_corrected, adata_orig = adata_test_orig, threshold = 0.7)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We observe that many more cells, where the assignment is not unambiguous are now labelled as unknown."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "%matplotlib inline\n",
+    "bc.tl.auto_annot.report(adata_predicted, celltype, method, analysis_name, False, merge, use_raw, genes_to_use, clustering = 'leiden')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Let's try another classifier (SVM)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Especially when thresholds are not used, SVMs can be tried as alternative classifiers."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "analysis_name = 'auto_annot_tutorial_svm' \n",
+    "celltype ='dblabel' #column name of celltype of interest\n",
+    "method = 'linear'  # rbf or linear or sgd, rbf extremely slow cannot recommend, logistic_regression recommended, as you can get probabilities, random_forest is a fast but not very powerful option (in current implementation)\n",
+    "merge = 'scanorama'\n",
+    "use_raw = False\n",
+    "genes_to_use = 'all'"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "adata_test = adata_test_orig.copy()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "adata_train, adata_test_corrected = bc.tl.auto_annot.merge_data(adata_train_list, adata_test, genes_to_use = genes_to_use, merge = merge)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "classifier, scaler = bc.tl.auto_annot.fit(adata_train, method, celltype)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "adata_predicted = bc.tl.auto_annot.adata_predict(classifier = classifier, scaler = scaler, adata_pred = adata_test_corrected, adata_orig = adata_test_orig)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "adata_predicted.write('/tmp/adata_predicted_svm.h5ad')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "%matplotlib inline\n",
+    "bc.tl.auto_annot.report(adata_predicted, celltype, method, analysis_name, False, merge, use_raw, genes_to_use, clustering = 'leiden')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Let's try with a specified gene set"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Gene sets from GeMS or user specified genesets, can, if carefully chosen, significantly decrease computation time, withouth leading to a performance decrease."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "analysis_name = 'auto_annot_tutorial_geneset' \n",
+    "celltype ='dblabel' #column name of celltype of interest\n",
+    "method = 'linear'  # rbf or linear or sgd, rbf extremely slow cannot recommend, logistic_regression recommended, as you can get probabilities, random_forest is a fast but not very powerful option (in current implementation)\n",
+    "merge = 'scanorama'\n",
+    "use_raw = False\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "annotSigns = bc.datasets.load_immune_signatures()\n",
+    "allGenes = lambda annotSigns: [item for sublist in annotSigns for item in sublist]\n",
+    "genes_to_use = list(set(allGenes(list(annotSigns.values())))) \n",
+    "display(genes_to_use[:10])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "adata_test = adata_test_orig.copy()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "adata_train, adata_test_corrected = bc.tl.auto_annot.merge_data(adata_train_list, adata_test, genes_to_use = genes_to_use, merge = merge)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "classifier, scaler = bc.tl.auto_annot.fit(adata_train, method, celltype)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "adata_predicted = bc.tl.auto_annot.adata_predict(classifier = classifier, scaler = scaler, adata_pred = adata_test_corrected, adata_orig = adata_test_orig)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "adata_predicted.write('/tmp/adata_predicted_svm.h5ad')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "%matplotlib inline\n",
+    "bc.tl.auto_annot.report(adata_predicted, celltype, method, analysis_name, False, merge, use_raw, genes_to_use, clustering = 'leiden')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Done!"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "besca_dev",
+   "language": "python",
+   "name": "besca_dev"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.9"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

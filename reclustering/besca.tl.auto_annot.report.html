@@ -1,34 +1,14 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>report &mdash; BESCA 2.2 documentation</title>
+  <title>report &mdash; BESCA 2.3 documentation</title>
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
@@ -38,10 +18,33 @@
   <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="plot_confusion_matrix" href="besca.tl.auto_annot.plot_confusion_matrix.html" />
-    <link rel="prev" title="predict" href="besca.tl.auto_annot.predict.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -65,7 +68,7 @@
             
             
               <div class="version">
-                2.2
+                2.3
               </div>
             
           
@@ -82,6 +85,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -90,56 +94,8 @@
             
             
               <p class="caption"><span class="caption-text">contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../besca.html">besca</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../besca.html#helper-functions">helper functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../besca.html#preprocessing">preprocessing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../besca.html#plotting">plotting</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../besca.html#tools">tools</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurrence.html">count_occurrence</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurrence_subset.html">count_occurrence_subset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurrence_subset_conditions.html">count_occurrence_subset_conditions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.annotate_cells_clustering.html">annotate_cells_clustering</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="../besca.html#toolkits">toolkits</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="../besca.html#batch-correction">batch correction</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../besca.html#differential-gene-expression">differential gene expression</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../besca.html#signature-scoring">signature scoring</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../besca.html#reclustering">reclustering</a></li>
-<li class="toctree-l4 current"><a class="reference internal" href="../besca.html#auto-annot">auto_annot</a><ul class="current">
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.read_data.html">read_data</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.read_raw.html">read_raw</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.read_adata.html">read_adata</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.merge_data.html">merge_data</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.naive_merge.html">naive_merge</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.scanorama_merge.html">scanorama_merge</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.remove_genes.html">remove_genes</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.intersect_genes.html">intersect_genes</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.remove_nonshared.html">remove_nonshared</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.fit.html">fit</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.linear_svm.html">linear_svm</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.rbf_svm.html">rbf_svm</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.sgd_svm.html">sgd_svm</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.random_forest.html">random_forest</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.logistic_regression.html">logistic_regression</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.logistic_regression_ovr.html">logistic_regression_ovr</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.logistic_regression_elastic.html">logistic_regression_elastic</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.adata_predict.html">adata_predict</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.predict.html">predict</a></li>
-<li class="toctree-l5 current"><a class="current reference internal" href="#">report</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.plot_confusion_matrix.html">plot_confusion_matrix</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.adata_pred_prob.html">adata_pred_prob</a></li>
-<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.predict_proba.html">predict_proba</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../besca.html#import">Import</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../besca.html#export">export</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../besca.html#standardworkflow">standardworkflow</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../besca.html">besca</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">code examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials.html">tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../besca_standard_pipeline.html">standard pipeline</a></li>
@@ -149,6 +105,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -183,20 +140,20 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="../besca.html">besca</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>report</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/reclustering/besca.tl.auto_annot.report.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -215,13 +172,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -236,40 +193,36 @@
 </style>
 <div class="section" id="report">
 <h1>report<a class="headerlink" href="#report" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="besca.tl.auto_annot.report">
-<code class="descclassname">besca.tl.auto_annot.</code><code class="descname">report</code><span class="sig-paren">(</span><em>adata_pred</em>, <em>celltype</em>, <em>method</em>, <em>analysis_name</em>, <em>train_datasets</em>, <em>test_dataset</em>, <em>merge</em>, <em>use_raw=False</em>, <em>genes_to_use='all'</em>, <em>remove_nonshared=False</em>, <em>clustering='leiden'</em>, <em>asymmetric_matrix=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/auto_annot/_auto_annot.html#report"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.auto_annot.report" title="Permalink to this definition">¶</a></dt>
-<dd><p>reports basic metrics, produces confusion matrices and plots umap of prediction</p>
-<p>Writes out a csv file containing all accuracy and f1 scores.
+<code class="sig-prename descclassname"><span class="pre">besca.tl.auto_annot.</span></code><code class="sig-name descname"><span class="pre">report</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata_pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">celltype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_datasets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">genes_to_use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_nonshared</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'leiden'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asymmetric_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/auto_annot/_auto_annot.html#report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.tl.auto_annot.report" title="Permalink to this definition">¶</a></dt>
+<dd><p>reports basic metrics, produces confusion matrices and plots umap of prediction
+Writes out a csv file containing all accuracy and f1 scores.
 Writes normalized and absolute confusion matrices, as well as umap prediction comparisons to ./figures.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>adata_pred</strong> (<em>AnnData</em>) – original adata object with ‘auto_annot’ column</li>
-<li><strong>celltype</strong> (<cite>str</cite>) – celltype column on which the prediction was performed</li>
-<li><strong>method</strong> (<cite>str</cite>) – method that was used for prediction.</li>
-<li><strong>analysis_name</strong> (<cite>str</cite>) – name of the analyis, used for writing files</li>
-<li><strong>train_datasets</strong> (<cite>list</cite>) – list of used training datasets</li>
-<li><strong>test_dataset</strong> (<cite>str</cite>) – name of test dataset</li>
-<li><strong>merge</strong> (<cite>str</cite>) – what merging was performed</li>
-<li><strong>use_raw</strong> (<cite>bool</cite>  | default = False) – if anndata.raw was used</li>
-<li><strong>genes_to_use</strong> (<cite>list</cite> or <cite>string</cite> | default = ‘all’) – what geneset wsa used</li>
-<li><strong>remove_nonshared</strong> (<a href="#id1"><span class="problematic" id="id2">`</span></a>bool`|default = False) – </li>
-<li><strong>clustering</strong> (<cite>str</cite> | default = leiden) – clustering that was used in original analysis of testing set, needed for umap plotting</li>
-<li><strong>asymmetric_matrix</strong> (<cite>bool</cite> | default = True) – if False returns square confusion matrix, if True it only shows possible combinations</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata_pred</strong> (<em>AnnData</em>) – original adata object with ‘auto_annot’ column</p></li>
+<li><p><strong>celltype</strong> (<cite>str</cite>) – celltype column on which the prediction was performed</p></li>
+<li><p><strong>method</strong> (<cite>str</cite>) – method that was used for prediction.</p></li>
+<li><p><strong>analysis_name</strong> (<cite>str</cite>) – name of the analyis, used for writing files</p></li>
+<li><p><strong>train_datasets</strong> (<cite>list</cite>) – list of used training datasets</p></li>
+<li><p><strong>test_dataset</strong> (<cite>str</cite>) – name of test dataset</p></li>
+<li><p><strong>merge</strong> (<cite>str</cite>) – what merging was performed</p></li>
+<li><p><strong>use_raw</strong> (<cite>bool</cite>  | default = False) – if anndata.raw was used</p></li>
+<li><p><strong>genes_to_use</strong> (<cite>list</cite> or <cite>string</cite> | default = ‘all’) – what geneset wsa used</p></li>
+<li><p><strong>remove_nonshared</strong> (<a href="#id1"><span class="problematic" id="id2">`</span></a>bool`|default = False) – </p></li>
+<li><p><strong>clustering</strong> (<cite>str</cite> | default = leiden) – clustering that was used in original analysis of testing set, needed for umap plotting</p></li>
+<li><p><strong>asymmetric_matrix</strong> (<cite>bool</cite> | default = True) – if False returns square confusion matrix, if True it only shows possible combinations</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">0</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>0</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -279,29 +232,25 @@ Writes normalized and absolute confusion matrices, as well as umap prediction co
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="besca.tl.auto_annot.plot_confusion_matrix.html" class="btn btn-neutral float-right" title="plot_confusion_matrix" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="besca.tl.auto_annot.predict.html" class="btn btn-neutral float-left" title="predict" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, BEDA
+        &#169; Copyright 2020, BEDA.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -309,7 +258,6 @@ Writes normalized and absolute confusion matrices, as well as umap prediction co
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

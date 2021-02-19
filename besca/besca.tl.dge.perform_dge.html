@@ -1,35 +1,14 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>perform_dge &mdash; BESCA 2.3 documentation</title>
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
@@ -39,6 +18,31 @@
   <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
 </head>
@@ -81,6 +85,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -100,6 +105,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -134,18 +140,20 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>perform_dge</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/besca/besca.tl.dge.perform_dge.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -187,7 +195,7 @@
 <h1>perform_dge<a class="headerlink" href="#perform-dge" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="besca.tl.dge.perform_dge">
-<code class="sig-prename descclassname">besca.tl.dge.</code><code class="sig-name descname">perform_dge</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">adata</span></em>, <em class="sig-param"><span class="n">design_matrix</span></em>, <em class="sig-param"><span class="n">differentiating_criteria</span></em>, <em class="sig-param"><span class="n">constant_criteria</span></em>, <em class="sig-param"><span class="n">basepath</span></em>, <em class="sig-param"><span class="n">min_cells_per_group</span><span class="o">=</span><span class="default_value">30</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'wilcoxon'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/dge/_dge.html#perform_dge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#besca.tl.dge.perform_dge" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">besca.tl.dge.</span></code><code class="sig-name descname"><span class="pre">perform_dge</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">design_matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">differentiating_criteria</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant_criteria</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">basepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_cells_per_group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'wilcoxon'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/dge/_dge.html#perform_dge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.tl.dge.perform_dge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform differential gene expression between two conditions over many adata subsets.</p>
 <p>This function automatically generates top_tables and rank_files for a list of comparisons
 in a dataset. The comparison you wish to perform need to be identified in a so called design
@@ -227,20 +235,25 @@ the comparison. The tuple has the form (differentiating_criteria, constant_crite
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, BEDA
+        &#169; Copyright 2020, BEDA.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -248,7 +261,6 @@ the comparison. The tuple has the form (differentiating_criteria, constant_crite
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

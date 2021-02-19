@@ -1,0 +1,549 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>besca.tl._annot_compare &mdash; BESCA 2.3 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-rendered-html.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> BESCA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../besca.html">besca</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">code examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../besca_standard_pipeline.html">standard pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../adding_new_functions.html">adding new functions to besca</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">BESCA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>besca.tl._annot_compare</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for besca.tl._annot_compare</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">accuracy_score</span><span class="p">,</span>
+    <span class="n">classification_report</span><span class="p">,</span>
+    <span class="n">confusion_matrix</span><span class="p">,</span>
+    <span class="n">f1_score</span><span class="p">,</span>
+    <span class="n">make_scorer</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">..pl._riverplot</span> <span class="kn">import</span> <span class="n">riverplot_2categories</span>
+
+
+
+
+<div class="viewcode-block" id="report"><a class="viewcode-back" href="../../../tools/besca.tl.report.html#besca.tl.report">[docs]</a><span class="k">def</span> <span class="nf">report</span><span class="p">(</span>
+    <span class="n">adata_pred</span><span class="p">,</span>
+    <span class="n">celltype</span><span class="p">,</span>
+    <span class="n">method</span><span class="p">,</span>
+    <span class="n">analysis_name</span><span class="p">,</span>
+    <span class="n">train_datasets</span><span class="p">,</span>
+    <span class="n">test_dataset</span><span class="p">,</span>
+    <span class="n">merge</span><span class="p">,</span>
+    <span class="n">name_prediction</span><span class="o">=</span><span class="s2">&quot;auto_annot&quot;</span><span class="p">,</span>
+    <span class="n">name_report</span><span class="o">=</span><span class="s2">&quot;auto_annot&quot;</span><span class="p">,</span>
+    <span class="n">use_raw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">genes_to_use</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span>
+    <span class="n">remove_nonshared</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">clustering</span><span class="o">=</span><span class="s2">&quot;leiden&quot;</span><span class="p">,</span>
+    <span class="n">asymmetric_matrix</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;reports basic metrics, produces confusion matrices and plots umap of prediction</span>
+
+<span class="sd">    Writes out a csv file containing all accuracy and f1 scores.</span>
+<span class="sd">    Writes normalized and absolute confusion matrices, as well as umap prediction comparisons to ./figures.</span>
+
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adata_pred: AnnData</span>
+<span class="sd">        original adata object with name_prediction column</span>
+<span class="sd">    celltype: `str`</span>
+<span class="sd">        celltype column on which the prediction was performed</span>
+<span class="sd">    method: `str`</span>
+<span class="sd">        method that was used for prediction.</span>
+<span class="sd">    analysis_name: `str`</span>
+<span class="sd">        name of the analyis, used for writing files</span>
+<span class="sd">    train_datasets: `list`</span>
+<span class="sd">        list of used training datasets</span>
+<span class="sd">    test_dataset: `str`</span>
+<span class="sd">        name of test dataset</span>
+<span class="sd">    merge: `str`</span>
+<span class="sd">        what merging was performed</span>
+<span class="sd">    name_prediction : &quot;auto_annot&quot;| default = &quot;auto_annot&quot;</span>
+<span class="sd">        observation name containing the prediction to compare with.</span>
+<span class="sd">    name_report : &quot;auto_annot&quot;| default = &quot;auto_annot&quot;</span>
+<span class="sd">        prefix of the report</span>
+<span class="sd">    use_raw: `bool`  | default = False</span>
+<span class="sd">        if anndata.raw was used</span>
+<span class="sd">    genes_to_use: `list` or `string` | default = &#39;all&#39;</span>
+<span class="sd">        what geneset wsa used</span>
+<span class="sd">    remove_nonshared: `bool`|default = False</span>
+<span class="sd">    clustering: `str` | default = leiden</span>
+<span class="sd">        clustering that was used in original analysis of testing set, needed for umap plotting</span>
+<span class="sd">    asymmetric_matrix: `bool` | default = True</span>
+<span class="sd">        if False returns square confusion matrix, if True it only shows possible combinations</span>
+
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Figure</span>
+<span class="sd">        A matplotlib figure element containing the riveplot generated for interactive display.</span>
+<span class="sd">        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># calculate umaps for plot</span>
+    <span class="k">if</span> <span class="s2">&quot;X_umap&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">adata_pred</span><span class="o">.</span><span class="n">obsm</span><span class="p">:</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata_pred</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">name_prediction</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">adata_pred</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span>
+            <span class="n">name_prediction</span>
+            <span class="o">+</span> <span class="s2">&quot; label not found in the predicted dataset (should be in obs)&quot;</span>
+        <span class="p">)</span>
+    <span class="c1"># get acc</span>
+    <span class="n">acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">adata_pred</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">celltype</span><span class="p">],</span> <span class="n">adata_pred</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">name_prediction</span><span class="p">])</span>
+
+    <span class="c1"># get f1</span>
+    <span class="n">f1</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span>
+        <span class="n">adata_pred</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">celltype</span><span class="p">],</span>
+        <span class="n">adata_pred</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">name_prediction</span><span class="p">],</span>
+        <span class="n">labels</span><span class="o">=</span><span class="n">adata_pred</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">celltype</span><span class="p">],</span>
+        <span class="n">average</span><span class="o">=</span><span class="s2">&quot;macro&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># get report</span>
+
+    <span class="n">report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span>
+        <span class="n">adata_pred</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">celltype</span><span class="p">],</span> <span class="n">adata_pred</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">name_prediction</span><span class="p">],</span> <span class="n">output_dict</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="n">sklearn_report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">report</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+
+    <span class="c1"># csv file with important metrics</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">name_report</span> <span class="o">+</span> <span class="s2">&quot;_report_&quot;</span> <span class="o">+</span> <span class="n">analysis_name</span> <span class="o">+</span> <span class="s2">&quot;.csv&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">report</span><span class="p">:</span>
+        <span class="n">report_writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span>
+            <span class="n">report</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">quotechar</span><span class="o">=</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="n">quoting</span><span class="o">=</span><span class="n">csv</span><span class="o">.</span><span class="n">QUOTE_MINIMAL</span>
+        <span class="p">)</span>
+
+        <span class="n">report_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
+            <span class="p">[</span><span class="s2">&quot;train_dataset = &quot;</span><span class="p">,</span> <span class="n">train_datasets</span><span class="p">,</span> <span class="s2">&quot;test_datset = &quot;</span><span class="p">,</span> <span class="n">test_dataset</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">report_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="s2">&quot;celltype = &quot;</span><span class="p">,</span> <span class="n">celltype</span><span class="p">,</span> <span class="s2">&quot;method = &quot;</span><span class="p">,</span> <span class="n">method</span><span class="p">])</span>
+        <span class="n">report_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="s2">&quot;remove_nonshared = &quot;</span><span class="p">,</span>
+                <span class="n">remove_nonshared</span><span class="p">,</span>
+                <span class="s2">&quot;merge = &quot;</span><span class="p">,</span>
+                <span class="n">merge</span><span class="p">,</span>
+                <span class="s2">&quot;use_raw = &quot;</span><span class="p">,</span>
+                <span class="n">use_raw</span><span class="p">,</span>
+                <span class="s2">&quot;genes_to_use = &quot;</span><span class="p">,</span>
+                <span class="n">genes_to_use</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="n">report_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="s2">&quot;accuracy=&quot;</span><span class="p">,</span> <span class="n">acc</span><span class="p">,</span> <span class="s2">&quot;f1=&quot;</span><span class="p">,</span> <span class="n">f1</span><span class="p">])</span>
+
+        <span class="n">report_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="s2">&quot;classification report&quot;</span><span class="p">])</span>
+        <span class="n">sklearn_report</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">report</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># make umap</span>
+    <span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">240</span><span class="p">)</span>
+
+    <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span>
+        <span class="n">adata_pred</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">celltype</span><span class="p">,</span> <span class="n">name_prediction</span><span class="p">,</span> <span class="n">clustering</span><span class="p">],</span>
+        <span class="n">legend_loc</span><span class="o">=</span><span class="s2">&quot;on data&quot;</span><span class="p">,</span>
+        <span class="n">legend_fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+        <span class="n">save</span><span class="o">=</span><span class="s2">&quot;.ondata_&quot;</span> <span class="o">+</span> <span class="n">analysis_name</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span>
+        <span class="n">adata_pred</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">celltype</span><span class="p">,</span> <span class="n">name_prediction</span><span class="p">,</span> <span class="n">clustering</span><span class="p">],</span>
+        <span class="n">legend_fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+        <span class="n">wspace</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+        <span class="n">save</span><span class="o">=</span><span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">analysis_name</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+
+    <span class="c1"># make conf matrices (4)</span>
+    <span class="n">class_names</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">adata_pred</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">celltype</span><span class="p">],</span> <span class="n">adata_pred</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">name_prediction</span><span class="p">]))</span>
+    <span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="c1"># Plot non-normalized confusion matrix</span>
+    <span class="n">plot_confusion_matrix</span><span class="p">(</span>
+        <span class="n">adata_pred</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">celltype</span><span class="p">],</span>
+        <span class="n">adata_pred</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">name_prediction</span><span class="p">],</span>
+        <span class="n">classes</span><span class="o">=</span><span class="n">class_names</span><span class="p">,</span>
+        <span class="n">celltype</span><span class="o">=</span><span class="n">celltype</span><span class="p">,</span>
+        <span class="n">name_prediction</span><span class="o">=</span><span class="n">name_prediction</span><span class="p">,</span> 
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Confusion matrix, without normalization&quot;</span><span class="p">,</span>
+        <span class="n">numbers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">adata_predicted</span><span class="o">=</span><span class="n">adata_pred</span><span class="p">,</span>
+        <span class="n">asymmetric_matrix</span><span class="o">=</span><span class="n">asymmetric_matrix</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+             <span class="s2">&quot;./figures/&quot;</span> <span class="o">+</span> <span class="n">method</span> <span class="o">+</span> <span class="s2">&quot;_confusion_matrix_&quot;</span>
+            <span class="o">+</span> <span class="n">analysis_name</span>
+            <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
+            <span class="o">+</span> <span class="n">celltype</span>
+            <span class="o">+</span> <span class="s2">&quot;.svg&quot;</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Plot normalized confusion matrix with numbers</span>
+    <span class="n">plot_confusion_matrix</span><span class="p">(</span>
+        <span class="n">adata_pred</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">celltype</span><span class="p">],</span>
+        <span class="n">adata_pred</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">name_prediction</span><span class="p">],</span>
+        <span class="n">classes</span><span class="o">=</span><span class="n">class_names</span><span class="p">,</span>
+        <span class="n">celltype</span><span class="o">=</span><span class="n">celltype</span><span class="p">,</span>
+        <span class="n">name_prediction</span><span class="o">=</span><span class="n">name_prediction</span><span class="p">,</span> 
+        <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Normalized confusion matrix&quot;</span><span class="p">,</span>
+        <span class="n">numbers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">adata_predicted</span><span class="o">=</span><span class="n">adata_pred</span><span class="p">,</span>
+        <span class="n">asymmetric_matrix</span><span class="o">=</span><span class="n">asymmetric_matrix</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="s2">&quot;./figures/&quot;</span> <span class="o">+</span> <span class="n">method</span> <span class="o">+</span> <span class="s2">&quot;_confusion_matrix_norm_&quot;</span>
+            <span class="o">+</span> <span class="n">analysis_name</span>
+            <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
+            <span class="o">+</span> <span class="n">celltype</span>
+            <span class="o">+</span> <span class="s2">&quot;.svg&quot;</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># plot basic riverplot</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">riverplot_2categories</span><span class="p">(</span> <span class="n">adata</span><span class="o">=</span><span class="n">adata_pred</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="n">celltype</span><span class="p">,</span> <span class="n">name_prediction</span><span class="p">])</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">fig</span></div>
+
+
+
+<div class="viewcode-block" id="plot_confusion_matrix"><a class="viewcode-back" href="../../../tools/besca.tl.plot_confusion_matrix.html#besca.tl.plot_confusion_matrix">[docs]</a><span class="k">def</span> <span class="nf">plot_confusion_matrix</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">,</span>
+    <span class="n">y_pred</span><span class="p">,</span>
+    <span class="n">classes</span><span class="p">,</span>
+    <span class="n">celltype</span><span class="p">,</span>
+    <span class="n">name_prediction</span><span class="o">=</span><span class="s2">&quot;auto_annot&quot;</span><span class="p">,</span>
+    <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">numbers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Blues</span><span class="p">,</span>
+    <span class="n">adata_predicted</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">asymmetric_matrix</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;plots confusion matrices</span>
+
+<span class="sd">    returns a matplotlib confusion matrix</span>
+
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    y_true: pandas.core.series.Series</span>
+
+<span class="sd">        ordered series of all true labels</span>
+<span class="sd">    y_pred: pandas.core.series.Series</span>
+<span class="sd">        ordered series of all predicted celltypes</span>
+<span class="sd">    classes: numpy.ndarray</span>
+<span class="sd">        union of true and predictable celltypes</span>
+<span class="sd">    celltype: `str`</span>
+<span class="sd">        celltype column on which the prediction was performed</span>
+<span class="sd">    name_prediction : &quot;auto_annot&quot;| default = &quot;auto_annot&quot;</span>
+<span class="sd">        observation name containing the prediction to compare with.</span>
+<span class="sd">    normalize: `bool` | default = False</span>
+<span class="sd">        whether to return absolute values or to value all celltypes equally</span>
+<span class="sd">    title: `str` | default = None</span>
+<span class="sd">        title to be given to confusion matrix figure in file.</span>
+<span class="sd">    numbers: `bool`| default = False</span>
+<span class="sd">        should the numbers be displayed in the plot. Note: is illegible in larger plots</span>
+<span class="sd">    cmap: matplotlib.cm | default = plt.cm.Blues</span>
+<span class="sd">        colour to be used for plotting</span>
+<span class="sd">    asymmetric_matrix: `bool` | default = True</span>
+<span class="sd">        if False returns square confusion matrix, if True it only shows possible combinations</span>
+
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    matplotlib.pyplot.plot</span>
+<span class="sd">        plot of confusion matrix</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;Agg&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Normalized confusion matrix&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Confusion matrix, without normalization&quot;</span>
+
+    <span class="c1"># Compute confusion matrix</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="c1"># Only use the labels that appear in the data</span>
+    <span class="c1"># classes = classes[unique_labels(y_true, y_pred)]</span>
+    <span class="k">if</span> <span class="n">asymmetric_matrix</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">class_names</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">adata_predicted</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">celltype</span><span class="p">],</span> <span class="n">adata_predicted</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">name_prediction</span><span class="p">])</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">class_names_orig</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">adata_predicted</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">celltype</span><span class="p">])</span>
+        <span class="n">class_names_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">adata_predicted</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">name_prediction</span><span class="p">])</span>
+        <span class="n">test_celltypes_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">class_names</span><span class="p">,</span> <span class="n">class_names_orig</span><span class="p">)</span>
+        <span class="n">train_celltypes_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">class_names</span><span class="p">,</span> <span class="n">class_names_pred</span><span class="p">)</span>
+        <span class="n">cm</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="n">test_celltypes_ind</span><span class="p">,</span> <span class="p">:][:,</span> <span class="n">train_celltypes_ind</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+        <span class="n">cm</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">cm</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Normalized confusion matrix&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Confusion matrix, without normalization&quot;</span><span class="p">)</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+    <span class="c1"># We want to show all ticks...</span>
+    <span class="k">if</span> <span class="n">asymmetric_matrix</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+            <span class="n">xticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+            <span class="n">yticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+            <span class="c1"># ... and label them with the respective list entries</span>
+            <span class="n">xticklabels</span><span class="o">=</span><span class="n">class_names_pred</span><span class="p">,</span>
+            <span class="n">yticklabels</span><span class="o">=</span><span class="n">class_names_orig</span><span class="p">,</span>
+            <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+            <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;True label&quot;</span><span class="p">,</span>
+            <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Predicted label&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+            <span class="n">xticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+            <span class="n">yticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+            <span class="c1"># ... and label them with the respective list entries</span>
+            <span class="n">xticklabels</span><span class="o">=</span><span class="n">classes</span><span class="p">,</span>
+            <span class="n">yticklabels</span><span class="o">=</span><span class="n">classes</span><span class="p">,</span>
+            <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+            <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;True label&quot;</span><span class="p">,</span>
+            <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Predicted label&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="c1"># ax.tick_params(axis=&#39;both&#39;, which=&#39;major&#39;, labelsize=10)</span>
+    <span class="c1"># Rotate the tick labels and set their alignment.</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">rotation_mode</span><span class="o">=</span><span class="s2">&quot;anchor&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Loop over data dimensions and create text annotations.</span>
+    <span class="k">if</span> <span class="n">numbers</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">fmt</span> <span class="o">=</span> <span class="s2">&quot;.2f&quot;</span> <span class="k">if</span> <span class="n">normalize</span> <span class="k">else</span> <span class="s2">&quot;d&quot;</span>
+        <span class="n">thresh</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                    <span class="n">j</span><span class="p">,</span>
+                    <span class="n">i</span><span class="p">,</span>
+                    <span class="nb">format</span><span class="p">(</span><span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">fmt</span><span class="p">),</span>
+                    <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                    <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span> <span class="k">if</span> <span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">thresh</span> <span class="k">else</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+    <span class="c1"># fig.tight_layout()</span>
+    <span class="k">return</span> <span class="n">ax</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, BEDA.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
