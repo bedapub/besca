@@ -110,20 +110,6 @@ conda install -c bioconda bioconductor-scater
 ```
 
 This should install in your conda envrionment the dependencies under : *conda_path/lib/R/library* of your conda environment path.
-To get *conda_path*, please observe the path given by the command
-
-```
-
-conda env list 
-
-```
-
-
-The paths to the R libraries should be present in a variable named rlib_loc while running besca (please see the standard workflow for an example).
-
-
-
-
 
 #### Pip installation
 
@@ -134,7 +120,15 @@ If you want to run one of these methods in the workflow, please install the requ
 pip install rpy2 anndata2ri
 Rscript Rlibs.R your_R_library_path
  ```
-To minimize risks conflicts between libraries, it is advised to set your `your_R_library_path` to your conda environment path, typically `~/.conda/envs/[environnement_name]/lib/R/library`.
+
+
+### Location of the R libraries 
+
+If you used conda, by default, libraries should be installed into your conda environment path, typically `~/.conda/envs/[environnement_name]/lib/R/library`.
+If this is not the right path, please verify the path to your conda enviroment using `conda list env`.
+
+
+To minimize risks conflicts between libraries, it is advised to set your `your_R_library_path` to such path also while using pip.
  
 In the standard workflow notebook, all of these methods are controlled through the `r_methods` option but it is of course possible to manually switch between them and the standard workflow. Please also specify the location of your R library with the `rlib_loc` option of the notebook.  
 
