@@ -11,7 +11,7 @@ if __name__ == '__main__':
         description='collection of BEDA internal python functions for analysing single cell RNAseq data',
         long_description='please view https://pages.github.com/bedapub/besca/',
         classifiers=[
-            'Development Status :: Release 2.3 (Scanpy 1.6)',
+            'Development Status :: Release 2.4 (Scanpy 1.6)',
             'Programming Language :: Python :: 3.7.1',
             'License :: GPLv3'],
         url='https://github.com/bedapub/besca',
