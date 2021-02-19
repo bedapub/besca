@@ -89,6 +89,45 @@ Although the standard workflow can be run without any R dependencies, BESCA can 
 - [`DSB`](https://github.com/niaid/dsb): for denoising ADT counts data based on background noise. Implemented in the `besca.st.dsb_normalize` function.  
 
 
+#### Conda installation
+
+If you used a conda enviroment it is possible to install most needed dependencies using Conda too. 
+
+With an activated environment using:
+
+```
+conda activate besca
+```
+
+
+One can run the commands below:
+
+```
+
+conda install -y -c conda-forge rpy2 r-essentials r-base r-devtools r-withr r-vctrs r-tidyverse r-magrittr r-data.table r-Matrix r-ggplot2 r-readr r-seurat r-intrinsicdimension r-mclust r-sitmo r-patchwork
+conda install -y -c bioconda anndata2ri R bioconductor-dropletutils bioconductor-scry
+conda install -c bioconda bioconductor-scater
+```
+
+This should install in your conda envrionment the dependencies under : *conda_path/lib/R/library* of your conda environment path.
+To get *conda_path*, please observe the path given by the command
+
+```
+
+conda env list 
+
+```
+
+
+The paths to the R libraries should be present in a variable named rlib_loc while running besca (please see the standard workflow for an example).
+
+
+
+
+
+#### Pip installation
+
+
 If you want to run one of these methods in the workflow, please install the required libraries by running the following commands in the `besca` installation directory (or simply download the `Rlibs.R` file):
 
 ```
