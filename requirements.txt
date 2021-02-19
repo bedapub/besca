@@ -3,7 +3,7 @@ flask-restful
 dominate
 requests
 numpy
-scanpy>=1.6
+scanpy==1.6
 plotly
 anndata>=0.7.4
 seaborn
