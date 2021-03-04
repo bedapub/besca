@@ -104,7 +104,8 @@ One can run the commands below:
 
 ```
 
-conda install -y -c conda-forge rpy2 r-essentials r-base r-devtools r-withr r-vctrs r-tidyverse r-magrittr r-data.table r-Matrix r-ggplot2 r-readr r-seurat r-intrinsicdimension r-mclust r-sitmo r-patchwork
+#conda install -y -c conda-forge rpy2 r-essentials r-base r-devtools r-withr r-vctrs r-tidyverse r-magrittr r-data.table r-Matrix r-ggplot2 r-readr r-seurat r-intrinsicdimension r-mclust r-sitmo r-patchwork
+conda install -c conda-forge r=4.0
 conda install -y -c bioconda anndata2ri R bioconductor-dropletutils bioconductor-scry
 conda install -c bioconda bioconductor-scater
 ```
