@@ -118,10 +118,10 @@ If you want to run one of these methods in the workflow, please install the requ
 
 ```
 pip install rpy2 anndata2ri
-<conda_bin_path>/Rscript Rlibs.R <conda_R_library_path>
+<conda_Rscript_bin_path> Rlibs.R <conda_R_library_path>
  ```
-### Location of conda R bin
-`~/.conda/envs/[environnement_name]/bin/`
+### Location of conda Rscript bin
+Typically: <conda_Rscript_bin_path> = `~/.conda/envs/[environnement_name]/bin/Rscript`
 
 ### Location of the conda R library 
 
