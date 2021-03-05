@@ -104,8 +104,7 @@ One can run the commands below:
 
 ```
 
-#conda install -y -c conda-forge rpy2 r-essentials r-base r-devtools r-withr r-vctrs r-tidyverse r-magrittr r-data.table r-Matrix r-ggplot2 r-readr r-seurat r-intrinsicdimension r-mclust r-sitmo r-patchwork
-conda install -c conda-forge r=4.0
+conda install -y -c conda-forge r=4.0 rpy2 r-essentials r-base r-devtools r-withr r-vctrs r-tidyverse r-magrittr r-data.table r-Matrix r-ggplot2 r-readr r-seurat r-intrinsicdimension r-mclust r-sitmo r-patchwork --force-reinstall
 conda install -y -c bioconda anndata2ri R bioconductor-dropletutils bioconductor-scry
 conda install -c bioconda bioconductor-scater
 ```
@@ -119,11 +118,12 @@ If you want to run one of these methods in the workflow, please install the requ
 
 ```
 pip install rpy2 anndata2ri
-Rscript Rlibs.R your_R_library_path
+<conda_Rscript_bin_path> Rlibs.R <conda_R_library_path>
  ```
+### Location of conda Rscript bin
+Typically: <conda_Rscript_bin_path> = `~/.conda/envs/[environnement_name]/bin/Rscript`
 
-
-### Location of the R libraries 
+### Location of the conda R library 
 
 If you used conda, by default, libraries should be installed into your conda environment path, typically `~/.conda/envs/[environnement_name]/lib/R/library`.
 If this is not the right path, please verify the path to your conda enviroment using `conda list env`.
