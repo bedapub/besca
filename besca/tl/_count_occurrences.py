@@ -1,4 +1,5 @@
 from pandas import DataFrame, melt
+from natsort import natsorted
 from .._helper import subset_adata as _subset_adata
 
 def count_occurrence(adata,
@@ -78,7 +79,8 @@ def count_occurrence_subset(adata,
 
     """
     #get subsets
-    subsets = adata.obs.get(subset_variable).value_counts().index.tolist()
+    subsets = natsorted(adata.obs.get(subset_variable).value_counts().index.tolist())
+
     #initialize dictionaries to store data in
     dic_counts = {}
     dic_percentages = {}
