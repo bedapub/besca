@@ -236,8 +236,8 @@ def write_qc(adata_unfiltered,
             colnames  = list(adata.obs.columns)
 
             # get clustering algotithm to plot, if both computed, choose leiden
-            clust_alg = sort([item for item in colnames if item in ['leiden', 'louvain']])
-            img(src = './figures/umap.' + clust_alg + '.png', width='300px')
+            clust_alg = sorted([item for item in colnames if item in ['leiden', 'louvain']])[0]
+            img(src = './figures/umap.' + str(clust_alg) + '.png', width='300px')
 
 
     with open(join(results_folder, 'qc_report.html'), 'w') as f:
