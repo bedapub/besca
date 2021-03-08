@@ -131,7 +131,7 @@ def detected_genes(adata,
     
     parameters
     ----------
-        adata: `AnnData`
+    adata: `AnnData`
         AnnData object containing data that is to be visualized. Genes need to be in coloumns and cells in rows
     ax: `axes` | default = None
         pass the axes class to which your figure should be added
