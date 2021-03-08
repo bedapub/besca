@@ -113,7 +113,7 @@ def library_size(adata,
     else:
         adata_X = adata.X.toarray()
 
-    library_size = np.sum(adata_X, axis = 1)/10e6
+    library_size = np.sum(adata_X, axis = 1)/1e6
 
     ax = ax or plt.gca()
 
@@ -269,7 +269,7 @@ def librarysize_overview(adata,
     else:
         adata_X = adata.X.toarray()
 
-    library_size = np.sum(adata_X, axis = 1)/10e6
+    library_size = np.sum(adata_X, axis = 1)/1e6
     dropouts = np.sum(adata_X == 0, axis = 1)
     NODG = np.sum(adata_X > 0, axis = 1)
 
