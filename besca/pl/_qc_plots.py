@@ -113,7 +113,7 @@ def library_size(adata,
     else:
         adata_X = adata.X.toarray()
 
-    library_size = np.sum(adata_X, axis = 1)/10e6
+    library_size = np.sum(adata_X, axis = 1)/1e6
 
     ax = ax or plt.gca()
 
@@ -131,7 +131,7 @@ def detected_genes(adata,
     
     parameters
     ----------
-    adata: `AnnData`
+        adata: `AnnData`
         AnnData object containing data that is to be visualized. Genes need to be in coloumns and cells in rows
     ax: `axes` | default = None
         pass the axes class to which your figure should be added
@@ -269,7 +269,7 @@ def librarysize_overview(adata,
     else:
         adata_X = adata.X.toarray()
 
-    library_size = np.sum(adata_X, axis = 1)/10e6
+    library_size = np.sum(adata_X, axis = 1)/1e6
     dropouts = np.sum(adata_X == 0, axis = 1)
     NODG = np.sum(adata_X > 0, axis = 1)
 
