@@ -80,20 +80,58 @@ In case you met any problems, please report an issue.
 
 ### R dependencies for additional methods
 
-Although the standard workflow can be run without any R dependencies, BESCA can run a selection of performant methods developed in R. These additional methods are: 
+Although the standard workflow can be run without any R dependencies, BESCA can run a selection of performant methods developed in R. These additional methods are :
 
-- `isOutlier` from `scatter`: for outlier detection and filtering recommendations (coming soon). 
-- `SCTransform`: one of the normalization methods proposed by the `Seurat` package (coming soon).
-- `maxLikGlobalDimEst` from `intrinsicDimension`: for the estimation of the number of dimensions to use for clustering (coming soon).
-- `deviance` and `VST`: for highly-variable genes selection (coming soon).
-- `DSB`: for denoising ADT count data based on background noise. 
+- [`isOutlier`](https://www.rdocumentation.org/packages/scater/versions/1.0.4/topics/isOutlier) from `scater`: for outlier detection and filtering recommendations. Implemented in the `besca.pp.valOutlier` function.  
+- [`SCTransform`](https://rdrr.io/github/satijalab/seurat/man/SCTransform.html) : one of the normalization methods proposed by the `Seurat` package. Implemented in the `besca.pp.scTransform` function. 
+- [`maxLikGlobalDimEst`](https://cran.r-project.org/web/packages/intrinsicDimension/intrinsicDimension.pdf) from `intrinsicDimension` : for an estimation of the number of dimensions to use for clustering. Implemented in the `besca.st.maxLikGlobalDimEst` function. 
+- [`deviance`](https://rdrr.io/bioc/scry/man/devianceFeatureSelection.html) and [`VST`](https://rdrr.io/github/satijalab/seurat/man/SCTransform.html): for highly-variable genes selection. Implemented in the `besca.st.deviance` function. 
+- [`DSB`](https://github.com/niaid/dsb): for denoising ADT counts data based on background noise. Implemented in the `besca.st.dsb_normalize` function.  
 
-If you want to run one of these methods in the workflow, please install the required libraries by running the following command in the `besca` directory :
+
+#### Conda installation
+
+If you used a conda enviroment it is possible to install most needed dependencies using Conda too. 
+
+With an activated environment using:
 
 ```
-pip install rpy2
-Rscript Rlibs.R your_R_library_path
+conda activate besca
+```
+
+
+One can run the commands below:
+
+```
+
+conda install -y -c conda-forge r=4.0 rpy2 r-essentials r-base r-devtools r-withr r-vctrs r-tidyverse r-magrittr r-data.table r-Matrix r-ggplot2 r-readr r-seurat r-intrinsicdimension r-mclust r-sitmo r-patchwork --force-reinstall
+conda install -y -c bioconda anndata2ri R bioconductor-dropletutils bioconductor-scry
+conda install -c bioconda bioconductor-scater
+```
+
+This should install in your conda envrionment the dependencies under : *conda_path/lib/R/library* of your conda environment path.
+
+#### Pip installation
+
+
+If you want to run one of these methods in the workflow, please install the required libraries by running the following commands in the `besca` installation directory (or simply download the `Rlibs.R` file):
+
+```
+pip install rpy2 anndata2ri
+<conda_Rscript_bin_path> Rlibs.R <conda_R_library_path>
  ```
+### Location of conda Rscript bin
+Typically: <conda_Rscript_bin_path> = `~/.conda/envs/[environnement_name]/bin/Rscript`
+
+### Location of the conda R library 
+
+If you used conda, by default, libraries should be installed into your conda environment path, typically `~/.conda/envs/[environnement_name]/lib/R/library`.
+If this is not the right path, please verify the path to your conda enviroment using `conda list env`.
+
+
+To minimize risks conflicts between libraries, it is advised to set your `your_R_library_path` to such path also while using pip.
+ 
+In the standard workflow notebook, all of these methods are controlled through the `r_methods` option but it is of course possible to manually switch between them and the standard workflow. Please also specify the location of your R library with the `rlib_loc` option of the notebook.  
 
 ## Running besca on an HPC with a SLURM workload manager  
 

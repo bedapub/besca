@@ -43,7 +43,7 @@ def _handle_signature(signature, method, adata, signature_name,
     """
     scoreName = 'score_' + signature_name + "_" + method
     if (verbose):
-        print('Computing ' + scoreName + " time 2")
+        print('Computing ' + scoreName )
     if not overwrite:
         if scoreName in adata.obs:
             if (verbose):
