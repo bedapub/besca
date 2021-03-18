@@ -356,7 +356,7 @@ def pca_neighbors_umap(adata, results_folder, nrpcs=50, nrpcs_neigh=None, nrneig
         number of principle components to use for nearest neighbor calculation.
         When set to None the number is chosen automatically. For .n_vars < 50, .X is used, otherwise ‘X_pca’ is used with 50 components.
     nrneigh: int | nrpcs = None
-        number of principle components to calculate
+        number of neighbors to use during PCA/ UMAP calculation
     method: `str`
         Method for nearest neighbor calculation.  Can be set to 'NULL' or bbknn
     '''
