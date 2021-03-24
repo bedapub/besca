@@ -2,6 +2,8 @@
 import os
 from scanpy import read_csv as sc_read_csv
 import importlib
+from ._FAIR_export import export_norm_citeseq
+import logging
 from scanpy.tools import pca as sc_pca
 
 def maxLikGlobalDimEst(adata, k = 20, nrpcs=50, rlib_loc = ''):
@@ -120,7 +122,7 @@ def dsb_normalize(adata_prot, raw_path, ana_path, rlib_loc = '',  example_datase
     raw_path: `str` 
         Path to the 'raw' folder. 
     ana_path: `str`
-        Path to the 'citeseqDSB' analysis folder. Default should be of form 'analyzed/ANALYSIS_NAME/citeseqDSB'
+        Path to the 'citeseq' analysis folder. When used in the Besca workflow, should be of form 'analyzed/ANALYSIS_NAME/citeseq/citeseq'
     rlib_loc: `str`
         R library location that will be added to the default .libPaths() to locate the required packages. 
     example_dataset: `bool`  
@@ -279,5 +281,7 @@ def dsb_normalize(adata_prot, raw_path, ana_path, rlib_loc = '',  example_datase
     a.raw = adata_prot.copy()
     a.layers['counts'] = adata_prot.layers["counts"]
     adata_prot = a
+    export_norm_citeseq(adata_prot, basepath=ana_path)
+    logging.info('DSB values exported to file.')
 
     return(adata_prot)
