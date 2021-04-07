@@ -150,8 +150,21 @@ def count_occurrence_subset_conditions(adata,
         contains the occurrence of each label as a percentage within the datasubset
 
     """
+    
+    data = adata.obs.get(subset_variable)
+    if data is None:
+        sys.exit('please specify a column name (subset_variable) that is present in adata.obs')
+        
     #get subsets
     subsets = adata.obs.get(subset_variable).value_counts().index.tolist()
+    
+    data = adata.obs.get(condition_identifier)
+    if data is None:
+        sys.exit('please specify a column name (condition_identifier) that is present in adata.obs')
+        
+    data = adata.obs.get(count_variable)
+    if data is None:
+        sys.exit('please specify a column name (count_variable) that is present in adata.obs')
 
     #get conditions
     conditions = adata.obs.get(condition_identifier).value_counts().index.tolist()

@@ -196,7 +196,7 @@ def make_anno(df, sigscores, sigconfig, levsk, lab='celltype', toexclude=[]):
     sigscores: dict
       a dictionary with cluster attribution per signature
     sigconfig: panda.DataFrame
-      a dataframe with the configurati  on information
+      a dataframe with the configuration information
     levsk: list of str
       String of distinct levels based on configuration file
     lab: 'str'
