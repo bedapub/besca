@@ -32,6 +32,10 @@ def count_occurrence(adata,
         also contains the occurrence of each label as a percentage
 
     """
+    data = adata.obs.get(count_variable)
+    if data is None:
+        sys.exit('please specify a column name (count_variable) that is present in adata.obs')
+        
     #get counts for specified column
     counts = adata.obs.get(count_variable).value_counts()
     total_counts = sum(counts.tolist())    
@@ -78,6 +82,15 @@ def count_occurrence_subset(adata,
         contains the occurrence of each label as a percentage within the datasubset
 
     """
+    
+    data = adata.obs.get(subset_variable)
+    if data is None:
+        sys.exit('please specify a column name (subset_variable) that is present in adata.obs')
+    
+    data = adata.obs.get(count_variable)
+    if data is None:
+        sys.exit('please specify a column name (count_variable) that is present in adata.obs')
+        
     #get subsets
     subsets = natsorted(adata.obs.get(subset_variable).value_counts().index.tolist())
 
