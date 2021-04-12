@@ -389,9 +389,12 @@ def labeling(adata,
     """
     if outpath is None:
         outpath = os.getcwd()
-    data = adata.obs.get(column).to_frame(name=label)
+        
+    data = adata.obs.get(column)
     if data is None:
-        sys.exit('please specify column name that is present in adata.obs')
+        sys.exit('please specify a column name that is present in adata.obs')
+        
+    data = adata.obs.get(column).to_frame(name=label)
     
     ### check if the outdir exists if not create
     if not os.path.exists(outpath):
@@ -520,7 +523,9 @@ def analysis_metadata(adata,
                       total_counts=True,
                       n_pcs=3,
                       umap=True,
-                      tsne=False):
+                      tsne=False,
+                     percent_mito=True,
+                     n_genes=True):
     """export plotting coordinates to analysis_metadata.tsv
 
     This function exports the indicated plotting coordinates or calculated PCAs to a .tsv file. This
@@ -546,7 +551,11 @@ def analysis_metadata(adata,
         boolian indicator if UMAP coordinates should be written out.
     tsne: `bool` | default = False
         boolian indicator if tSNE coordinates should be written out.
-
+    percent_mito: `bool` | default = True
+        boolian indicator if percent_mito should be written out or not
+    n_genes: `bool` | default = True
+        boolian indicator if n_genes should be written out or not
+        
     returns
     -------
     None
@@ -559,11 +568,23 @@ def analysis_metadata(adata,
     data = DataFrame(data=None, index=adata.obs_names)
 
     if total_counts:
-        if adata.obs.n_counts is None:
-            sys.exit('need to have calculated \'n_counts\' and stored it in adata.obs, consider running \"\"')
+        if 'n_counts' in adata.obs.columns:
+            data['totalCounts'] = adata.obs.n_counts.copy()
         else:
-            data['totalCounts'] = adata.obs.n_counts.copy()    
+            sys.exit('need to have calculated \'n_counts\' and stored it in adata.obs, consider running \"\"')    
 
+    if percent_mito:
+        if 'percent_mito' in adata.obs.columns:
+            data['percent_mito'] = adata.obs.percent_mito.copy()
+        else:
+            print('need to have calculated \'percent_mito\' and stored it in adata.obs, percent mito will not be exported')  
+    
+    if n_genes:
+        if 'n_genes' in adata.obs.columns:
+            data['n_genes'] = adata.obs.n_genes.copy()
+        else:
+            print('need to have calculated \'n_genes\' and stored it in adata.obs, n_genes will not be exported')
+            
     obsm = adata.obsm.to_df()        
     
     if n_pcs > 0:
