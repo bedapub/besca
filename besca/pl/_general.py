@@ -1,5 +1,5 @@
 import seaborn as sns
-from matplotlib.pyplot import figure, subplots_adjust, tight_layout
+from matplotlib.pyplot import figure, subplots_adjust, tight_layout, subplots, setp, gca, tight_layout
 import sys
 
 def split_violin(tidy_data,
@@ -295,3 +295,96 @@ def stacked_split_violin(tidy_data,
     tight_layout()
     subplots_adjust(hspace=0.000)
     return(fig)
+
+def flex_dotplot(df,X,Y,HUE,SIZE,title, mycolors='Reds', myfontsize=15):
+    """Generate a dot plot showing average expression and fraction positive cells 
+
+    This function generates a plot where X and Y axes are flexible. 
+    For each coordinate a circle plot is generated where the size of the circle 
+    represents is specifed by SIZE (typically fraction_pos) and the color of the circle is 
+    specified by HUE (typically average expression). X and Y axis for stratification is also specified, 
+    typically X would be genes and Y cell types. In case of a single gene, Y could be treatments/patients etc. 
+
+
+    parameters
+    ----------
+    df: `pandas.DataFrame`
+        a dataframe containing the data to be plotted
+    X: `str`
+        df column to be plotted on X axis
+    Y: `str`
+        df column to be plotted on Y axis
+    HUE: `str`
+        df column corresponding to dot color (e.g. average expression)
+    SIZE: `str`
+        df column corresponding to dot size (e.g. fraction positive)
+    title: `str`
+        plot title
+    mycolors: `str`
+        color palette e.g. Reds or viridis
+    myfontsize: `int`
+        fontsize for the legend defaults to 15
+        
+    returns
+    -------
+    Figure
+        A matplotlib figure element containing the generated plot. To save the figure this plot will need
+        to be passed to a parameter and saved in a second step through the fig.savefig() function call.
+
+    Examples
+    --------
+
+    >>> # import libraries and dataset
+    >>> import besca as bc
+    >>> adata = bc.datasets.Kotliarov2020_processed()
+    >>> gene = 'CD3D'
+    >>> df=bc.tl.get_singlegenedf(gene, adata, 'CONDITION','dblabel','individual_id')
+    >>> fig = bc.pl.flex_dotplot(df,X,Y,HUE,SIZE,title,yaxisName)
+
+    .. plot::
+
+        >>> # import libraries and dataset
+        >>> import besca as bc
+        >>> adata = bc.datasets.Kotliarov2020_processed()
+        >>> # define genes
+        >>> gene = 'CD3D'
+        >>> df=bc.tl.get_singlegenedf(gene, adata, 'CONDITION','dblabel','individual_id')
+        >>> fig = bc.pl.flex_dotplot(df,X,Y,HUE,SIZE,title,yaxisName)
+
+    """
+    #set plotting style
+    sns.set_style("white")
+    sns.set_style("ticks")
+    
+    #check that we have the conditions
+    if (X in df.columns)==False:
+        sys.exit('Please select a valid condition name - X')
+    if (Y in df.columns)==False:
+        sys.exit('Please select a valid condition name - Y')
+    if (HUE in df.columns)==False:
+        sys.exit('Please select a valid condition name - HUE')
+    if (SIZE in df.columns)==False:
+        sys.exit('Please select a valid condition name - SIZE')
+        
+    xlen=1+int(df[X].nunique()*0.7)  # to "provide" margin space for the labels
+    ylen=1+int(df[Y].nunique()*0.7) 
+    fig, ax = subplots(figsize=(xlen,ylen))
+    #  myplot=sns.scatterplot(data=df,x=X,y=Y,hue=HUE,size=SIZE,sizes=(20,400),palette="viridis",legend="auto")
+  
+    myplot=sns.scatterplot(data=df,x=X,y=Y,hue=HUE,size=SIZE,sizes=(20,400),palette=mycolors)
+    ax.set_title(title,size=15)
+    ax.set_ylabel(Y,color="grey",fontsize=myfontsize)
+    ax.set_xlabel(X,color="grey",fontsize=myfontsize)
+    setp(myplot.get_xticklabels(),rotation=90,fontsize=15)
+    setp(ax.get_legend().get_title(), fontsize=myfontsize) # for legend title
+    setp(ax.get_legend().get_texts(), fontsize=myfontsize-2) # for legend text
+
+    ax.legend(framealpha=0.4,bbox_to_anchor=(1.01, 1),borderaxespad=0.5)
+    mm=my=0.2
+    if (df[X].nunique()>=10):
+        mm=0.05
+    if (df[Y].nunique()>=10):
+        my=0.05
+    gca().margins(x=mm)
+    gca().margins(y=my)
+    tight_layout()
