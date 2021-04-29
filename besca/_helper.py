@@ -1,10 +1,10 @@
 from anndata import AnnData
 import mygene
 import sys
-from pandas import DataFrame
+from pandas import DataFrame, concat
 from scipy import sparse
-from pandas import concat
 from math import expm1
+from numpy import sort
 
 def subset_adata(adata, filter_criteria, raw=True, axis=0):
     """Subset AnnData object into new object
@@ -231,7 +231,7 @@ def get_ameans(adata,mycat, condition=None):
 
 def formatmean(average_obs, fraction_obs, what, mycond, myg):
     ### Transforms average and fraction expression to pd for plotting
-    df=pd.DataFrame([list(average_obs[myg]),list(fraction_obs[myg]),mycond]).transpose()
+    df=DataFrame([list(average_obs[myg]),list(fraction_obs[myg]),mycond]).transpose()
     df.index=average_obs.index
     df.columns=[myg+'Avg',myg+'Fract',what]
     return(df)
@@ -291,6 +291,74 @@ u    parameters
         fraction_obs = None
     return (average_obs, fraction_obs)
 
+def get_singlegenedf(myg, adata, cond1, cond2, cond3):
+    """helper function that for a single genes and adata object returns
+    a pandas.DataFrame with fraction_pos, average expression stratified
+    on the three conditiins specified
+
+
+    parameters
+    ----------
+    myg: `str`
+        df column to be plotted on X axis
+    adata: `AnnData`
+        anndata object containing data that is to be visualized
+    cond1: `str`
+        first condition to be considered, e.g. healthy/disease
+    cond2: `str`
+        second condition to be considered, e.g. cell_type or leiden
+    cond3: `str`
+        third condition to be considered, e.g. readout_id or individual_id
+        
+    returns
+    -------
+    pandas.DataFrame
+        A pandas.DataFrame that can be saved or used for plotting
+
+    Examples
+    --------
+
+    >>> # import libraries and dataset
+    >>> import besca as bc
+    >>> adata = bc.datasets.Kotliarov2020_processed()
+    >>> gene = 'CD3D'
+    >>> df = bc.tl.get_singlegene_df(gene, adata, 'CONDITION','dblabel','individual_id')
+
+    .. plot::
+
+        >>> # import libraries and dataset
+        >>> import besca as bc
+        >>> adata = bc.datasets.Kotliarov2020_processed()
+        >>> # define genes
+        >>> genes = 'CD3D'
+        >>> df = bc.tl.get_singlegene_df(gene, adata, 'CONDITION','dblabel','individual_id')
+
+    """
+    
+    #check that we have the conditions
+    if (cond1 in adata.obs.columns)==False:
+        sys.exit('Please select a valid condition name - cond1')
+    if (cond2 in adata.obs.columns)==False:
+        sys.exit('Please select a valid condition name - cond2')
+    if (cond3 in adata.obs.columns)==False:
+        sys.exit('Please select a valid condition name - cond3')
+        
+    myit1=sort(list(set(adata.obs[cond1]))) ### iterate over elements of condition 1
+    myit2=sort(list(set(adata.obs[cond2]))) ### iterate over elements of condition 2
+    
+    df=DataFrame()
+    for i in myit1:
+        cdata=adata[adata.obs[cond1]==i].copy()
+        myit3=sort(list(set(cdata.obs[cond3]))) ### iterate over elements of condition 3
+        for j in myit3:
+            data=cdata[cdata.obs[cond3]==j].copy()
+            average_obs,fraction_obs=get_means(data,cond2)
+            mylen=len(fraction_obs[myg])
+            df1=DataFrame(data={'Avg':average_obs[myg],'Fct': fraction_obs[myg],
+                                   cond1: [i]*mylen,cond3: [j]*mylen,
+                                   cond2: fraction_obs[myg].index})
+            df=concat([df,df1],ignore_index=True)
+    return df    
 
 def concate_adata(adata1, adata2):
     """Concatenate two adata objects based on the observations
