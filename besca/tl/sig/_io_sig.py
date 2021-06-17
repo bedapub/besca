@@ -38,7 +38,7 @@ def convert_to_directed(signature_dict, direction = 'UP'):
         signed_sign[signature] = {direction: genes}
     return signed_sign
 
-
+        
 def read_GMT_sign(GMT_file, UP_suffix='_UP', DN_suffix='_DN', directed=True, verbose=False):
     """ Read gmt file to extract signed genesets.
     This function combines genesets scores composed of
@@ -118,3 +118,40 @@ def read_GMT_sign(GMT_file, UP_suffix='_UP', DN_suffix='_DN', directed=True, ver
         signed_sign=mymarkersk.copy()        
     return(signed_sign)
 
+def write_gmtx_forgems(signature_dict, GMT_file):
+    """ Writes a gmtx file that can later be uploaded to GeMS. 
+    The input should be standardised, as facilitated by bc.tl.sig.make_gmtx.
+    
+    Parameters
+    ----------
+    signature_dict : `dictionary` 
+        the dictionary containing the signatures to be outputed to a gmtx file
+        prepared with bc.tl.sig.make_gmtx, each signature is itself a dictionary 
+        
+    GMT_file: `str` 
+        gmt file location containing the geneset
+
+ 
+    Example
+    -------
+
+    >>> signature_dict = {'setName': 'Th17Tcell_mc38_user',
+                             'desc': 'T-helper 17 cell markers; coefs are log2FC',
+                             'User': 'user',
+                             'Source': 'internal scseq',
+                             'Subtype': 'onc',
+                             'geneset': 'Pembro_MC38-tumor_dblabel',
+                             'domain': 'cell marker',
+                             'studyID': 'Pembro_MC38-tumor',
+                             'analysisID': 'sw_besca24',
+                             'genes|score': 'Cd163l1 | 10.67\tGm9961 | 10.49\tCdh10}
+    >>> outgmtfile='Celltypemarkers.gmtx'
+    >>> write_gmtx_forgems(signature_dict, GMT_file)
+
+    """
+   
+    with open(GMT_file, 'w') as f:
+        f.writelines('\t'.join(list(signature_dict[next(iter(signature_dict))].keys())[0:len(list(signature_dict[next(iter(signature_dict))].keys()))]) + '\n')
+        for key,value in signature_dict.items():
+            f.writelines('\t'.join(list(value.values())) + '\n')
+    print('Successfully written all signatures to '+ GMT_file)
