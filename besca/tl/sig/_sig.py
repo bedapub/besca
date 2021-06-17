@@ -189,7 +189,7 @@ def compute_signed_score(
     return None
 
 def make_gmtx(setName,desc,User,Source,Subtype,domain,genesetname, 
-              genes,studyID=None,analysisID=None,application=None): 
+              genes,studyID=None,analysisID=None,application=None, coef_type='logFC'): 
     """ Construct a gmtx file according to format conventions for import into Gems. 
     Parameters
     ----------
@@ -221,6 +221,8 @@ def make_gmtx(setName,desc,User,Source,Subtype,domain,genesetname,
         analysis name as in scMongoDB/bescaviz; only when source=internal scseq
     application: `str` | default = None
         specify which application will read the geneset e.g. rtbeda_CIT, bescaviz, celltypeviz
+    coef_type: `str` | default = score
+        specify what the coefficient corresponds too, e.g. logFC, gini, SAM, score, ... 
 
     Returns
     -------
@@ -278,7 +280,7 @@ def make_gmtx(setName,desc,User,Source,Subtype,domain,genesetname,
     #pd1il2vsigsdetails['application']=''
     
     if ('|' in genes ):
-        geneset['genes|score']=genes
+        geneset['genes|'+coef_type]=genes
     else: 
         geneset['genes']=genes
     
