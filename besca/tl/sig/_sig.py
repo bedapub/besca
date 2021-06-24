@@ -189,7 +189,7 @@ def compute_signed_score(
     return None
 
 def make_gmtx(setName,desc,User,Source,Subtype,domain,genesetname, 
-              genes,studyID=None,analysisID=None,application=None, coef_type='logFC'): 
+              genes,studyID=None,analysisID=None,application=None, ,celltype=None,coef_type='logFC'): 
     """ Construct a gmtx file according to format conventions for import into Gems. 
     Parameters
     ----------
@@ -221,6 +221,8 @@ def make_gmtx(setName,desc,User,Source,Subtype,domain,genesetname,
         analysis name as in scMongoDB/bescaviz; only when source=internal scseq
     application: `str` | default = None
         specify which application will read the geneset e.g. rtbeda_CIT, bescaviz, celltypeviz
+    celltype: `str` | default = None
+        for cell markers, specify celltype according to dblabel_short convention to facilitate reuse
     coef_type: `str` | default = score
         specify what the coefficient corresponds too, e.g. logFC, gini, SAM, score, ... 
 
@@ -278,7 +280,11 @@ def make_gmtx(setName,desc,User,Source,Subtype,domain,genesetname,
         'internal scseq', 'pRED', 'Chugai', 'gRED', 'other']:
         print('Prefered source names: Literature scseq, Literature, besca, scseqmongodb, internal scseq, pRED, Chugai, gRED, other')
     #pd1il2vsigsdetails['application']=''
-    
+
+    if (domain=="cell marker"):
+        if (celltype==None): 
+            print(setName 'is missing a celltype. Please specify celltype according to dblabel_short convention.')
+        
     if ('|' in genes ):
         geneset['genes|'+coef_type]=genes
     else: 
