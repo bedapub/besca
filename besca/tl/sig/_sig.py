@@ -189,7 +189,7 @@ def compute_signed_score(
     return None
 
 def make_gmtx(setName,desc,User,Source,Subtype,domain,genesetname, 
-              genes,studyID=None,analysisID=None,application=None, ,celltype=None,coef_type='logFC'): 
+              genes,studyID=None,analysisID=None,application=None, celltype=None,coef_type='logFC'): 
     """ Construct a gmtx file according to format conventions for import into Gems. 
     Parameters
     ----------
@@ -283,10 +283,10 @@ def make_gmtx(setName,desc,User,Source,Subtype,domain,genesetname,
 
     if (domain=="cell marker"):
         if (celltype==None): 
-            print(setName 'is missing a celltype. Please specify celltype according to dblabel_short convention.')
+            print(setName + 'is missing a celltype. Please specify celltype according to dblabel_short convention.')
         
     if ('|' in genes ):
-        geneset['genes|'+coef_type]=genes
+        geneset['genes | '+coef_type]=genes
     else: 
         geneset['genes']=genes
     
