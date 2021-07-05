@@ -243,7 +243,7 @@ def scanorama_merge(adata_trains, adata_pred, keepdimensionality):
     all_adata = naive_merge([nonmerged_adata_train, adata_pred])
     adata_trains.append(adata_pred)
     print('using scanorama rn')
-    integrated, corrected = scan.correct_scanpy(adata_trains, return_dimred=True) 
+    corrected = scan.correct_scanpy(adata_trains, return_dimred=True) 
     print('integrating training set')
     if len(adata_trains) != 2:
         adata_train = sc.AnnData.concatenate(*corrected[:-1])
