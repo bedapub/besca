@@ -303,7 +303,6 @@ rod bipolar cell	rod bipolar cell	CL:0000751	RodBipolar	5	retinal bipolar neuron
 SATB2_EBF3_GLYT1-positive amacrine cell		DB:0000039	Amacrine_SATB2_EBF3_GLYT1	3					amacrine cell	CL:0000561	neural cell	CL:0002319	animal cell	CL:0000548
 Schwann cell	Schwann cell	CL:0002573	Schwann	3					glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
 secretory cell	secretory cell	CL:0000151	Secretory	1									animal cell	CL:0000548
-secretory progenitor		DB:x	SecretoryPC	3					glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
 Sertoli cell	Sertoli cell	CL:0000216	Sertoli	2							epithelial cell	CL:0000066	animal cell	CL:0000548
 short term hematopoietic stem cell	short term hematopoietic stem cell	CL:0002033	STHematoStem	4			hematopoietic stem cell	CL:0000037	hematopoietic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 skeletal muscle satellite cell	skeletal muscle satellite cell	CL:0000594	MuscleSatellite	3					muscle precursor cell	CL:0000680	precursor cell	CL:0011115	animal cell	CL:0000548
@@ -342,3 +341,6 @@ proliferating myeloid leukocyte		DB:0000052	ProlifMyeloid	3					myeloid leukocyt
 proliferating myeloid dendritic cell		DB:0000053	ProlifcDC	4			myeloid dendritic cell	CL:0000782	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 proliferating epithelial fate stem cell		DB:0000073	ProlifEpithelialStem	5	epithelial fate stem cell	CL:0000036	somatic stem cell	CL:0000723	stem cell	CL:0000034	precursor cell	CL:0011115	animal cell	CL:0000548
 proliferating enterocyte progenitor		DB:0000074	ProlifEnterocytePC	5	enterocyte progenitor	DB:0000037	intestinal epithelial cell	CL:0002563	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+proliferating hematopoietic cell		DB:0000075	ProlifHematopoietic	2							hematopoietic cell	CL:0000988	animal cell	CL:0000548
+secretory progenitor		DB:0000076	SecretoryPC	3					glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+B T cell doublet		DB:0000077	BTcell	2							hematopoietic cell	CL:0000988	animal cell	CL:0000548
