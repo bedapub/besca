@@ -815,10 +815,10 @@ def scanvi_predict(adata_trains, adata_pred, celltype):
     print("setting up anndata for sciv")
     scvi.data.setup_anndata(adata_concat, layer="counts", batch_key="batch", labels_key="scvi_training_labels")
 
-    lvae = scvi.model.SCANVI(adata_concat, "unlabeled", use_cuda=True, n_latent=30, n_layers=2)
+    lvae = scvi.model.SCANVI(adata_concat, "unlabeled", n_latent=30, n_layers=2)
 
     print("train lvae")
-    lvae.train(n_epochs_semisupervised=100)
+    lvae.train()
     adata_concat.obs["C_scANVI"] = lvae.predict(adata_concat)
     adata_concat.obsm["X_scANVI"] = lvae.get_latent_representation(adata_concat)
 
