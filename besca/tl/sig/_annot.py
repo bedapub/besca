@@ -107,7 +107,7 @@ def add_anno(adata, cnames, mycol, clusters='leiden'):
     notmatched = list(set(list(cnames.index))-set(newlab))
     if len(notmatched) > 0:
         errm = 'Please check that you have indexed the correct clustering. ' + \
-            len(notmatched) + 'clusterIDs not found in ' + clusters
+            str(len(notmatched)) + 'clusterIDs not found in ' + clusters
         return(errm)
     else:
         for i in list(set(newlab)):
