@@ -4,6 +4,7 @@ from matplotlib.pyplot import subplots, tight_layout
 import seaborn as sns
 import sys
 from pandas import DataFrame, melt
+from natsort import natsorted
 from ..tl._count_occurrences import count_occurrence_subset, count_occurrence_subset_conditions
 
 def celllabel_quant_boxplot(adata,
@@ -130,7 +131,7 @@ def celllabel_quant_stackedbar(adata,
         >>> fig = bc.pl.celllabel_quant_stackedbar(adata, count_variable = 'leiden', subset_variable = 'batch')
     """
     counts_celltype = count_occurrence_subset(adata, subset_variable, count_variable =count_variable, return_percentage = False)
-    percentages = DataFrame(index = counts_celltype.index.tolist(), columns = counts_celltype.columns.tolist())
+    percentages = DataFrame(index = natsorted(counts_celltype.index.tolist()), columns = counts_celltype.columns.tolist())
 
     for cell in counts_celltype.index.tolist():
         data = counts_celltype.loc[cell].tolist()
