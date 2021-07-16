@@ -5,6 +5,7 @@ from ._annot import (add_anno, getset, make_anno, match_cluster,
 from ._io_sig import read_GMT_sign, convert_to_directed, write_gmtx_forgems
 from ._sig import (combined_signature_score, compute_signed_score,
                    filter_siggenes, make_gmtx)
+from ._silhouette import silhouette_computation
 
 __all__ = ['combined_signature_score',
            'compute_signed_score',
@@ -24,4 +25,5 @@ __all__ = ['combined_signature_score',
            'export_annotconfig',
            'convert_to_directed', 
            'make_gmtx',
-          'write_gmtx_forgems']
+          'write_gmtx_forgems',
+          'silhouette_computation']
