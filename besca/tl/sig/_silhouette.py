@@ -1,3 +1,4 @@
+import sys
 from dataclasses import dataclass
 
 import anndata
@@ -20,7 +21,8 @@ def silhouette_computation(
     verbose: bool = False,
 ) -> silhouette_in:
     """Compute the average and per cell (ie samples) silhouette score for
-    the cluster label (should be present in dataobs) (level 3 annotation), computed level 2 annotation and a random cell assignbation.
+    the cluster label (should be present in dataobs) (level 3 annotation),
+    computed level 2 annotation and a random cell assignbation.
     Return a silhouette_in object
 
     parameters
@@ -45,6 +47,11 @@ def silhouette_computation(
     >>> sils.show_samples.get_figure()
 
     """
+    if cluster not in adata.obs.keys():
+        sys.exit(cluster + " label not found in the dataset (should be in obs)")
+    if emb not in adata.obsm.keys():
+        sys.exit(emb + " not found in the dataset (should be in obsm)")
+
     silhouette_avg = sklearn.metrics.silhouette_score(
         adata.obsm[emb], adata.obs.get(cluster)
     )
