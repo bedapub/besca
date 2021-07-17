@@ -305,7 +305,7 @@ def match_cluster(adata, obsquery, obsqueryval, obsref='leiden', cutoff=0.5):
 
 
 
-def obtain_new_label(nomenclature_file, cnames, reference_label='short_dblabel', new_label='dblabel', new_level=None):
+def obtain_new_label(nomenclature_file: str, cnames, reference_label: str ='short_dblabel' , new_label: str ='dblabel', new_level=None):
 
     """ Matches the cnames obtained by the make_annot function or a list of label names
     to the db label (standardized label from a nomenclature file).
@@ -327,6 +327,20 @@ def obtain_new_label(nomenclature_file, cnames, reference_label='short_dblabel',
     -------
     panda.DataFrame containing the different levels of the nomenclature  indexed by cluster
     (based on cnames index)
+
+    
+    Example
+    -------
+    >>> import besca as bc
+    >>> import pkg_resources
+    >>> adata = bc.datasets.pbmc3k_processed()
+    >>> new_cnames = bc.tl.sig.obtain_new_label(
+    ...     nomenclature_file=pkg_resources.resource_filename('besca', 'datasets/nomenclature/CellTypes_v1.tsv'), 
+    ...     cnames=list(adata.obs['dblabel'].cat.categories), 
+    ...     reference_label='dblabel', 
+    ...     new_label = 'dblabel', 
+    ...     new_level = 2)
+
     """
     if type(cnames) == list:
         cnames = DataFrame({'new_label': cnames})
@@ -390,7 +404,7 @@ def obtain_new_label(nomenclature_file, cnames, reference_label='short_dblabel',
     return(new_cnames)
 
 
-def obtain_dblabel(nomenclature_file, cnames, reference_label='short_dblabel'):
+def obtain_dblabel(nomenclature_file : str, cnames, reference_label='short_dblabel'):
     """ Matches the cnames obtained by the make_annot function
     to the db label (standardized label).
 
