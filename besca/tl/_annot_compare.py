@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import scanpy as sc
+
 from sklearn.metrics import (
     accuracy_score,
     classification_report,
@@ -91,6 +92,7 @@ def report(
         
     """
 
+
     # calculate umaps for plot
     if "X_umap" not in adata_pred.obsm:
         sc.tl.umap(adata_pred)
@@ -116,10 +118,10 @@ def report(
         print('f1: ' + str(round(f1,2)))
 
     # get report
-    report = classification_report(
+    class_report = classification_report(
         adata_pred.obs[celltype], adata_pred.obs[name_prediction], output_dict=True
     )
-    sklearn_report = round(pd.DataFrame(report).transpose(), 2)
+    sklearn_report = round(pd.DataFrame(class_report).transpose(), 2)
 
     # get clustering scores
     ami = adjusted_mutual_info_score(adata_pred.obs[celltype], adata_pred.obs[name_prediction])
@@ -133,15 +135,15 @@ def report(
         print('ari: ' + str(round(ari,2)))
         print('silhouette ' + celltype + ': ' + str(round(silhouette_celltype,2)))
         print('silhouette ' + name_prediction + ': ' + str(str(round(silhouette_pred,2))))
-        print('pair confusion matrix: ' + str(pd.DataFrame(pair_conf_m)))
+        print('pair confusion matrix:\n' + str(pd.DataFrame(pair_conf_m)))
 
     # csv file with important metrics
     file_ending = ".txt"
     if delimiter==",":
         file_ending = ".csv"
-    with open(os.path.join(results_folder, name_report + "_report_" + analysis_name + file_ending), mode="w") as report:
+    with open(os.path.join(results_folder, name_report + "_report_" + analysis_name + file_ending), mode="w") as report_file:
         report_writer = csv.writer(
-            report, delimiter=delimiter, quotechar='"', quoting=csv.QUOTE_MINIMAL
+            report_file, delimiter=delimiter, quotechar='"', quoting=csv.QUOTE_MINIMAL
         )
 
         report_writer.writerow(
@@ -168,10 +170,10 @@ def report(
         report_writer.writerow(["silhouette_celltype=", round(silhouette_celltype,2), "silhouette_pred=", round(silhouette_pred,2)])
         
         report_writer.writerow(["pair confusion matrix"])
-        pd.DataFrame(pair_conf_m).to_csv(report, header=True, sep=delimiter)
+        pd.DataFrame(pair_conf_m).to_csv(report_file, header=True, sep=delimiter)
 
         report_writer.writerow(["classification report"])
-        sklearn_report.to_csv(report, header=True, sep=delimiter)
+        sklearn_report.to_csv(report_file, header=True, sep=delimiter)
 
     # make umap
     sc.settings.set_figure_params(dpi=120)
@@ -261,7 +263,8 @@ def report(
             + ".svg"
         )
     )
-
+    
+ 
     return riverplot
 
 
