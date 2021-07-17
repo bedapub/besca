@@ -40,7 +40,8 @@ def report(
     clustering="leiden",
     asymmetric_matrix=True,
     results_folder="./",
-    delimiter=","
+    delimiter=",",
+    verbose=False
 ):
     """reports basic metrics, produces confusion matrices and plots umap of prediction
 
@@ -80,6 +81,8 @@ def report(
         output directory. A figures folder will be generated within it.
     delimiter: `str` | default = ','
         separator between fields in the csv/txt report file
+    verbose: `bool` | default = False
+        print verbose messages to standard out
 
     returns
     -------
@@ -108,6 +111,10 @@ def report(
         average="macro",
     )
 
+    if verbose:
+        print('acc: ' + str(round(acc,2)))
+        print('f1: ' + str(round(f1,2)))
+
     # get report
     report = classification_report(
         adata_pred.obs[celltype], adata_pred.obs[name_prediction], output_dict=True
@@ -120,6 +127,13 @@ def report(
     silhouette_celltype = silhouette_score(adata_pred.obsm['X_umap'], adata_pred.obs.get(celltype))
     silhouette_pred = silhouette_score(adata_pred.obsm['X_umap'], adata_pred.obs.get(name_prediction))
     pair_conf_m = pair_confusion_matrix(adata_pred.obs[celltype], adata_pred.obs[name_prediction])
+
+    if verbose:
+        print('ami: ' + str(round(ami,2)))
+        print('ari: ' + str(round(ari,2)))
+        print('silhouette ' + celltype + ': ' + str(round(silhouette_celltype,2)))
+        print('silhouette ' + name_prediction + ': ' + str(str(round(silhouette_pred,2))))
+        print('pair confusion matrix: ' + str(pd.DataFrame(pair_conf_m)))
 
     # csv file with important metrics
     file_ending = ".txt"
