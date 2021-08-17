@@ -7,12 +7,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import scanpy as sc
+
 from sklearn.metrics import (
     accuracy_score,
     classification_report,
     confusion_matrix,
     f1_score,
     make_scorer,
+    adjusted_mutual_info_score,
+    adjusted_rand_score,
+    silhouette_score,
+    pair_confusion_matrix
 )
 
 from ..pl._riverplot import riverplot_2categories
@@ -25,16 +30,19 @@ def report(
     celltype,
     method,
     analysis_name,
-    train_datasets,
-    test_dataset,
-    merge,
+    train_datasets=[],
+    test_dataset="",
+    merge="",
     name_prediction="auto_annot",
     name_report="auto_annot",
     use_raw=False,
-    genes_to_use="all",
+    genes_to_use="",
     remove_nonshared=False,
     clustering="leiden",
     asymmetric_matrix=True,
+    results_folder="./",
+    delimiter=",",
+    verbose=False
 ):
     """reports basic metrics, produces confusion matrices and plots umap of prediction
 
@@ -70,6 +78,12 @@ def report(
         clustering that was used in original analysis of testing set, needed for umap plotting
     asymmetric_matrix: `bool` | default = True
         if False returns square confusion matrix, if True it only shows possible combinations
+    results_folder: `str` | default = './'
+        output directory. A figures folder will be generated within it.
+    delimiter: `str` | default = ','
+        separator between fields in the csv/txt report file
+    verbose: `bool` | default = False
+        print verbose messages to standard out
 
     returns
     -------
@@ -77,6 +91,7 @@ def report(
         A matplotlib figure element containing the riveplot generated for interactive display.
         
     """
+
 
     # calculate umaps for plot
     if "X_umap" not in adata_pred.obsm:
@@ -98,17 +113,37 @@ def report(
         average="macro",
     )
 
-    # get report
+    if verbose:
+        print('acc: ' + str(round(acc,2)))
+        print('f1: ' + str(round(f1,2)))
 
-    report = classification_report(
+    # get report
+    class_report = classification_report(
         adata_pred.obs[celltype], adata_pred.obs[name_prediction], output_dict=True
     )
-    sklearn_report = pd.DataFrame(report).transpose()
+    sklearn_report = round(pd.DataFrame(class_report).transpose(), 2)
+
+    # get clustering scores
+    ami = adjusted_mutual_info_score(adata_pred.obs[celltype], adata_pred.obs[name_prediction])
+    ari = adjusted_rand_score(adata_pred.obs[celltype], adata_pred.obs[name_prediction])
+    silhouette_celltype = silhouette_score(adata_pred.obsm['X_umap'], adata_pred.obs.get(celltype))
+    silhouette_pred = silhouette_score(adata_pred.obsm['X_umap'], adata_pred.obs.get(name_prediction))
+    pair_conf_m = pair_confusion_matrix(adata_pred.obs[celltype], adata_pred.obs[name_prediction])
+
+    if verbose:
+        print('ami: ' + str(round(ami,2)))
+        print('ari: ' + str(round(ari,2)))
+        print('silhouette ' + celltype + ': ' + str(round(silhouette_celltype,2)))
+        print('silhouette ' + name_prediction + ': ' + str(str(round(silhouette_pred,2))))
+        print('pair confusion matrix:\n' + str(pd.DataFrame(pair_conf_m)))
 
     # csv file with important metrics
-    with open(name_report + "_report_" + analysis_name + ".csv", mode="w") as report:
+    file_ending = ".txt"
+    if delimiter==",":
+        file_ending = ".csv"
+    with open(os.path.join(results_folder, name_report + "_report_" + analysis_name + file_ending), mode="w") as report_file:
         report_writer = csv.writer(
-            report, delimiter=",", quotechar='"', quoting=csv.QUOTE_MINIMAL
+            report_file, delimiter=delimiter, quotechar='"', quoting=csv.QUOTE_MINIMAL
         )
 
         report_writer.writerow(
@@ -128,37 +163,64 @@ def report(
             ]
         )
 
-        report_writer.writerow(["accuracy=", acc, "f1=", f1])
+        report_writer.writerow(["accuracy=", round(acc,2), "f1=", round(f1,2)])
+
+        report_writer.writerow(["clustering report"])
+        report_writer.writerow(["ari=", round(ari,2), "ami=", round(ami,2)])
+        report_writer.writerow(["silhouette_celltype=", round(silhouette_celltype,2), "silhouette_pred=", round(silhouette_pred,2)])
+        
+        report_writer.writerow(["pair confusion matrix"])
+        pd.DataFrame(pair_conf_m).to_csv(report_file, header=True, sep=delimiter)
 
         report_writer.writerow(["classification report"])
-        sklearn_report.to_csv(report, header=True)
+        sklearn_report.to_csv(report_file, header=True, sep=delimiter)
 
     # make umap
-    sc.settings.set_figure_params(dpi=240)
+    sc.settings.set_figure_params(dpi=120)
 
     sc.pl.umap(
         adata_pred,
         color=[celltype, name_prediction, clustering],
         legend_loc="on data",
         legend_fontsize=7,
+        frameon=False,
         save=".ondata_" + analysis_name + ".png",
     )
-    sc.pl.umap(
-        adata_pred,
-        color=[celltype, name_prediction, clustering],
-        legend_fontsize=7,
-        wspace=1.5,
-        save="." + analysis_name + ".png",
-    )
+    for col in [celltype, name_prediction, clustering]:
+        sc.pl.umap(
+            adata_pred,
+            color=col,
+            wspace=1.5,
+            frameon=False,
+            save="." + analysis_name + "_" + col + ".png",
+        )
+    
     sc.settings.set_figure_params(dpi=60)
+    
+    os.makedirs(os.path.join(results_folder, "figures"), exist_ok=True)
 
+
+    # plot basic riverplot
+    riverplot = riverplot_2categories( adata=adata_pred, categories=[celltype, name_prediction])
+    riverplot.show()
+    riverplot.write_image(
+        os.path.join(results_folder, "figures", method + "_riverplot_"
+            + analysis_name
+            + "_"
+            + celltype
+            + "_"
+            + name_prediction
+            + ".svg"
+        )
+    )
+        
     # make conf matrices (4)
     class_names = np.unique(
         np.concatenate((adata_pred.obs[celltype], adata_pred.obs[name_prediction]))
     )
     np.set_printoptions(precision=2)
     # Plot non-normalized confusion matrix
-    plot_confusion_matrix(
+    fig = plot_confusion_matrix(
         adata_pred.obs[celltype],
         adata_pred.obs[name_prediction],
         classes=class_names,
@@ -169,9 +231,9 @@ def report(
         adata_predicted=adata_pred,
         asymmetric_matrix=asymmetric_matrix,
     )
-    plt.savefig(
-        os.path.join(
-             "./figures/" + method + "_confusion_matrix_"
+    fig.show()
+    fig.savefig(
+        os.path.join(results_folder, "figures", method + "_confusion_matrix_"
             + analysis_name
             + "_"
             + celltype
@@ -180,7 +242,7 @@ def report(
     )
 
     # Plot normalized confusion matrix with numbers
-    plot_confusion_matrix(
+    fig = plot_confusion_matrix(
         adata_pred.obs[celltype],
         adata_pred.obs[name_prediction],
         classes=class_names,
@@ -192,20 +254,18 @@ def report(
         adata_predicted=adata_pred,
         asymmetric_matrix=asymmetric_matrix,
     )
-    plt.savefig(
-        os.path.join(
-            "./figures/" + method + "_confusion_matrix_norm_"
+    fig.show()
+    fig.savefig(
+        os.path.join(results_folder, "figures", method + "_confusion_matrix_norm_"
             + analysis_name
             + "_"
             + celltype
             + ".svg"
         )
     )
-
-    # plot basic riverplot
-    fig = riverplot_2categories( adata=adata_pred, categories=[celltype, name_prediction])
-    fig.show()
-    return fig
+    
+ 
+    return riverplot
 
 
 
@@ -255,8 +315,6 @@ def plot_confusion_matrix(
     matplotlib.pyplot.plot
         plot of confusion matrix
     """
-    matplotlib.use("Agg")
-
     if not title:
         if normalize:
             title = "Normalized confusion matrix"
@@ -281,9 +339,9 @@ def plot_confusion_matrix(
 
     if normalize:
         cm = cm.astype("float") / cm.sum(axis=1)[:, np.newaxis]
-        print("Normalized confusion matrix")
-    else:
-        print("Confusion matrix, without normalization")
+    #    print("Normalized confusion matrix")
+    #else:
+    #    print("Confusion matrix, without normalization")
 
     fig, ax = plt.subplots(figsize=(15, 15))
     im = ax.imshow(cm, interpolation="nearest", cmap=cmap)
@@ -332,4 +390,5 @@ def plot_confusion_matrix(
                     color="white" if cm[i, j] > thresh else "black",
                 )
     # fig.tight_layout()
-    return ax
+    
+    return fig

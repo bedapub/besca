@@ -1,10 +1,11 @@
 
 from ._gems_link import (get_gems, insert_gems, get_similar_geneset)
 from ._annot import (add_anno, getset, make_anno, match_cluster,
-                     obtain_dblabel, read_annotconfig, score_mw, export_annotconfig)
+                     obtain_new_label, obtain_dblabel, read_annotconfig, score_mw, export_annotconfig)
 from ._io_sig import read_GMT_sign, convert_to_directed, write_gmtx_forgems
 from ._sig import (combined_signature_score, compute_signed_score,
                    filter_siggenes, make_gmtx)
+from ._silhouette import silhouette_computation
 
 __all__ = ['combined_signature_score',
            'compute_signed_score',
@@ -16,6 +17,7 @@ __all__ = ['combined_signature_score',
            'make_anno',
            'read_annotconfig',
            'match_cluster',
+           'obtain_new_label',
            'obtain_dblabel',
            'get_gems',
            'insert_gems',
@@ -23,4 +25,5 @@ __all__ = ['combined_signature_score',
            'export_annotconfig',
            'convert_to_directed', 
            'make_gmtx',
-          'write_gmtx_forgems']
+          'write_gmtx_forgems',
+          'silhouette_computation']

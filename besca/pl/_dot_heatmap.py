@@ -572,7 +572,11 @@ def dot_heatmap_split(adata,
         #get groups to be plotted on y-axis
 
     #get data for the groups we want to plot against each other
-    conditions = adata_plot.obs.get(split_by).value_counts().index.tolist()
+    if adata.obs.get(split_by).dtype.name == 'category':
+        conditions = adata.obs.get(split_by).cat.categories.tolist()
+    else:
+        conditions = adata_plot.obs.get(split_by).value_counts().index.tolist()
+    
     n_conditions = len(conditions)
 
     if n_conditions != 2:

@@ -107,7 +107,7 @@ def add_anno(adata, cnames, mycol, clusters='leiden'):
     notmatched = list(set(list(cnames.index))-set(newlab))
     if len(notmatched) > 0:
         errm = 'Please check that you have indexed the correct clustering. ' + \
-            len(notmatched) + 'clusterIDs not found in ' + clusters
+            str(len(notmatched)) + 'clusterIDs not found in ' + clusters
         return(errm)
     else:
         for i in list(set(newlab)):
@@ -304,7 +304,107 @@ def match_cluster(adata, obsquery, obsqueryval, obsref='leiden', cutoff=0.5):
     return(list(array(myleiden)[array(myc) > cutoff]))
 
 
-def obtain_dblabel(nomenclature_file, cnames):
+
+def obtain_new_label(nomenclature_file: str, cnames, reference_label: str ='short_dblabel' , new_label: str ='dblabel', new_level=None):
+
+    """ Matches the cnames obtained by the make_annot function or a list of label names
+    to the db label (standardized label from a nomenclature file).
+
+    parameters
+    ---------
+    nomenclature_file: 'str'
+      path to the nomenclature file (one available in besca/datasets)
+    cnames: panda.DataFrame or list
+        a dataframe with cluster to cell type attribution per distinct levels or a list of names
+    reference_label: 'str'
+        column in nomenclature file that corresponds to the names in cnames (short_dblabel if from make_annot function)
+    new_label: 'str'
+        column in nomenclature file that is used for the translation (e.g. 'dblabel' or 'EFO')
+    new_level: int
+        Keep the level if None or translate to a lower level e.g. 0, 1, 2, 3, 4
+
+    returns
+    -------
+    panda.DataFrame containing the different levels of the nomenclature  indexed by cluster
+    (based on cnames index)
+
+    
+    Example
+    -------
+    >>> import besca as bc
+    >>> import pkg_resources
+    >>> adata = bc.datasets.pbmc3k_processed()
+    >>> new_cnames = bc.tl.sig.obtain_new_label(
+    ...     nomenclature_file=pkg_resources.resource_filename('besca', 'datasets/nomenclature/CellTypes_v1.tsv'), 
+    ...     cnames=list(adata.obs['dblabel'].cat.categories), 
+    ...     reference_label='dblabel', 
+    ...     new_label = 'dblabel', 
+    ...     new_level = 2)
+
+    """
+    if type(cnames) == list:
+        cnames = DataFrame({'new_label': cnames})
+        cnames = cnames.set_index(cnames['new_label'])
+        cnames.index.name = None
+
+    
+    nomenclature = read_csv(
+        nomenclature_file, 
+        sep='\t',header=0, 
+        skiprows=range(1, 2)
+    )
+
+    dblabel_dict = {}
+    cat_dict = {}
+
+    for mycol in list(cnames.columns):
+        currentTerm = cnames[mycol]
+
+
+        for cat in list(currentTerm):
+
+            cat_nomenclature = nomenclature.loc[nomenclature[reference_label] == cat, :]
+
+            # Initialize with dblabel, which is kept if is_level==new_level and if no better term can be found 
+            dblabel_dict[cat] = cat_nomenclature['dblabel'].iloc[0]    
+
+            if new_level is not None:
+                is_level = int(cat_nomenclature['is_level'])
+                # If is_level is greater than the new_level, try to find a better one between 0 and new_level, otherwise keep initial dblabel
+                if is_level > int(new_level):
+                    for l in range(0,int(new_level)+1):
+                        if not cat_nomenclature['l' + str(l)].isnull().values.any():
+                            dblabel_dict[cat] = cat_nomenclature['l' + str(l)].iloc[0]
+                # If is_level is smaller than the new_level, try to find a better one between is_level and new_level, otherwise keep initial dblabel
+                elif is_level < int(new_level):        
+                    for l in range(is_level,int(new_level)+1):
+                        if not cat_nomenclature['l' + str(l)].isnull().values.any():
+                            dblabel_dict[cat] = cat_nomenclature['l' + str(l)].iloc[0]
+
+            # We retrieved the dblabel for each category. Let's translate to the new_label if needed:
+            if new_label != 'dblabel':
+                cat_dict[cat] = nomenclature.loc[nomenclature['dblabel'] == dblabel_dict[cat], new_label].iloc[0]
+            else:
+                cat_dict = dblabel_dict
+
+    new_cnames = []
+
+    for mycol in list(cnames.columns):
+        currentTerm = cnames[mycol]
+        try:
+            new_cnames.append(cat_dict[x] for x in list(currentTerm))
+        except:
+            raise Exception(
+                f'Error trying to reach {currentTerm} in nomenclature. Please check if term exist')
+            
+    new_cnames = DataFrame(new_cnames).transpose()
+    new_cnames.columns = cnames.columns
+    new_cnames.index = cnames.index
+    
+    return(new_cnames)
+
+
+def obtain_dblabel(nomenclature_file : str, cnames, reference_label='short_dblabel'):
     """ Matches the cnames obtained by the make_annot function
     to the db label (standardized label).
 
@@ -314,24 +414,15 @@ def obtain_dblabel(nomenclature_file, cnames):
       path to the nomenclature file (one available in besca/datasets)
     cnames: panda.DataFrame
         a dataframe with cluster to cell type attribution per distinct levels
+    reference_label: 'str'
+        column in nomenclature file that corresponds to the names in cnames (dblabel_short if from make_annot function)
 
     returns
     -------
     panda.DataFrame containing the different levels of the nomenclature  indexed by cluster
     (based on cnames index)
     """
-    nomenclature = read_csv(nomenclature_file, sep='\t',
-                            header=0, skiprows=range(1, 2))
-    cnamesDBlabel = []
-    for mycol in list(cnames.columns):
-        currentTerm = cnames[mycol]
-        try:
-            cnamesDBlabel.append([list(nomenclature.loc[nomenclature['short_dblabel'] == x, 'dblabel'])[
-                                 0] for x in list(currentTerm)])
-        except:
-            raise Exception(
-                f'Error trying to reach {currentTerm} in nomenclature. Please check if term exist')
-    cnamesDBlabel = DataFrame(cnamesDBlabel).transpose()
-    cnamesDBlabel.columns = cnames.columns
-    cnamesDBlabel.index = cnames.index
-    return(cnamesDBlabel)
+    return(obtain_new_label(nomenclature_file, cnames, reference_label=reference_label, new_label='dblabel', new_level=None))
+
+
+
