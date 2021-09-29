@@ -84,10 +84,10 @@ Goblet	Epithelial	1.5	74
 Enterocyte	Epithelial	2.5	72
 FollicularBcell	Bcell	1	95
 GermCenterBcell	Bcell	1	96
+Brush	Epithelial	3	76
 ImmatureEnterocyte	Epithelial	1.5	80.6
 ImmatureGoblet	Epithelial	2	90.5
 EnterocytePC	Epithelial	1.5	91.5
-EpithelialStem	Epithelial	2	85.5
 EpithelialStem	Epithelial	2	85.5
 IgAPlasma	Plasma	1.75	102
 IgGPlasma	Plasma	2.5	101
@@ -117,5 +117,7 @@ ProlifEpithelialStem	EpithelialStem	2	113
 ProlifEnterocytePC	EnterocytePC	2	114
 PancreaticEndocrine	Enteroendocrine	2	116
 ProlifHematopoietic	Hematopoietic	2.5	115
+cDC_CD209	cDC	1	30.5
+Th17CD4Tcell	CD4Tcell	4	20.5
 Eosinophil	Granulocyte	1	82.5
 ResourceCD8Tcell	CD8Tcell	2	120
