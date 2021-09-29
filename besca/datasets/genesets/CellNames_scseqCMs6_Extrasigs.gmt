@@ -1,0 +1,32 @@
+Granulocyte_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	ELANE	PRTN3	MS4A3						
+Mast_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	HDC	MS4A2	KIT						
+Tcell_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	CD5	CD6							
+gdTcell_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	TRGV9	KLRG1							
+ExhCD8Tcell_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	CTLA4	TIGIT	CD160	BATF	TOX2	CXCL13			
+NaiCD4Tcell_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	SELL	CCR7							
+NaiCD8Tcell_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	SELL	CCR7							
+CMCD4Tcell_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	CD28								
+CytotoxCD8Tcell_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	CCL5	CST7	FCRL6						
+CytotoxCD4Tcell_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	CCL5	CST7	FCRL6						
+Bcell_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	CD22	TCL1A							
+cDC_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	BATF3	AXL	CCL17	CCL19					
+cDC2_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	PKIB	NDRG2	CD1D	FCGR2B	CLEC4A	FCER1A	CACNA2D3		
+cDC1_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	CCND1	SLAMF8	BATF3	WDFY4	KIAA1598				
+pDC_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	MAP1A	ZFAT	PTPRS	LAMP5	IL3RA				
+NKTcell_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	CD2	CD7	LAT	CD6	CD96	IL32	LAT	CD247	NCAM
+Lymphocyte_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	IL7R	DNTT	CD79A	CD3E	CD2	IL2RB	KLRF1	TCF4	TCL1A
+Plasma_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	DPEP1	CD79A							
+Myeloid_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	CYBB	CD68	AIF1	S100A9	PILRA	TREML1	MPO		
+RegTcell_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	IL2RA	FANK1	ICOS						
+Macrophage_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	MARCO	SIGLEC1	MS4A4A	NPL	CD209	CD163L1	C1QA	C1QB	C1QC
+cDC_CCR7_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	CCR7	FSCN1	LAMP3	EBI3	SYNPO	CD200	SLCO5A1	GPR157	
+ClassMonocyte_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	CLEC4E	TREM1	CD14	RETN	CYP1B1	FOLR3	VCAN		
+NClassMonocyte_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	FCGR3A	SIGLEC10	ICAM4	ZNF703	HAL	CDKN1C	PPP1R17		
+Monocyte_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	PRAM1	FPR1	LILRB2	CSTA					
+Macrophage_MSR1_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	MSR1	MERTK	CXCL12	GPR34	C3	C1QB	MS4A4A	C1QA	CCL18
+Microglia_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	TREM2	CX3CR1	FGD2						
+Macrophage_MARCO_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	G0S2	SLC16A10	FBP1	CXCL3	CXCL8	CCL20	MCEMP1		
+Fibroblast_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	COL6A1	COL1A1	COL3A1	MXRA8					
+InflamFibroblast_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	MMP2	RARRES2	NNMT	CXCL6					
+Macrophage_CXCL9_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	FCGR3A	SLAMF8	CALHM6	FCGR1A	LILRB1				
+Platelet_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	ITGA2B	GP1BA	CTTN	LCN2	F13A1	CLU			
