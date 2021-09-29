@@ -121,3 +121,4 @@ cDC_CD209	cDC	1	30.5
 Th17CD4Tcell	CD4Tcell	4	20.5
 Eosinophil	Granulocyte	1	82.5
 ResourceCD8Tcell	CD8Tcell	2	120
+Microglia	Macrophage	1	121
