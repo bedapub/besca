@@ -77,6 +77,20 @@ You should now have successfully installed besca.
 
 In case you met any problems, please report an issue.
 
+To install [Jupyter Notebook](https://jupyter.readthedocs.io/en/latest/install/notebook-classic.html), type
+
+```
+conda install jupyter
+```
+
+and type 
+
+```
+jupyter notebook
+```
+
+to start a Jupyter Notebook in your browser. See [documentation](https://jupyter.readthedocs.io/en/latest/running.html#running) for further details. 
+
 
 ### R dependencies for additional methods
 
