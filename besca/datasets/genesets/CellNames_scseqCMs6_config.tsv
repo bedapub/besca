@@ -21,7 +21,7 @@ cDC1	cDC	1	19
 cDC2	cDC	1	20.5
 cDC	Myeloid	1	22
 NClassMonocyte	Monocyte	1	48
-pDC	Myeloid	1	23
+pDC	Hematopoietic	1	23
 Hematopoietic	None	0.75	79
 Blymphocyte	Hematopoietic	1.5	9
 CD56dimNK	NKcell	1.5	26
