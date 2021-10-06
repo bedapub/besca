@@ -21,7 +21,7 @@ cDC1	cDC	2	19
 cDC2	cDC	1	20.5
 cDC	Myeloid	1.5	22
 NClassMonocyte	Monocyte	1.5	48
-pDC	Myeloid	1	23
+pDC	Hematopoietic	1	23
 Hematopoietic	None	0.75	79
 Blymphocyte	Hematopoietic	1.5	9
 CD56dimNK	NKcell	1.5	26
@@ -38,8 +38,8 @@ ClassMonocyte	Monocyte	2	22.5
 Macrophage_MARCO	Macrophage	1.75	22.5
 gdTcell	Tcell	1.5	38
 CytotoxCD4Tcell	CD4Tcell	3	34
-CytotoxCD8Tcell	CD8Tcell	3	33
-ExhCD8Tcell	CD8Tcell	2	41
+CytotoxCD8Tcell	CD8Tcell	3	41
+ExhCD8Tcell	CD8Tcell	2	33
 cDC_CCR7	cDC	1	42
 Langerhans	cDC	1	43
 Macrophage_MSR1	Macrophage	1.5	44
