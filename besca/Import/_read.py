@@ -14,11 +14,13 @@ def assert_filepath(filepath):
     ----------
     filepath: `str`
         filepath as string to the directory that is expected to contain at least
-        following files: `matrix.mtx`, `genes.tsv`, and `barcodes.tsv`.
+        following files: `matrix.mtx`, `genes.tsv`, and `barcodes.tsv` OR compressed
+        versions of those files, i.e. `matrix.mtx.gz`, `genes.tsv.gz`, and `barcodes.tsv.gz`
 
     Returns
     -------
-    None if the filepath is valid. If not, an Exception will be raised
+    None if the filepath is valid, returns 'gz' if valid and compressed files, 
+    otherwise an Exception will be raised
     """
     req_files = ['matrix.mtx', 'genes.tsv', 'barcodes.tsv']
     req_files_exist = [os.path.isfile(os.path.join(filepath, x)) for x in
@@ -26,6 +28,14 @@ def assert_filepath(filepath):
     valid = all(req_files_exist)
     if valid:
         return(None)
+
+# Check whether gzipped versions exist:
+    req_files = ['matrix.mtx.gz', 'genes.tsv.gz', 'barcodes.tsv.gz']
+    req_files_exist = [os.path.isfile(os.path.join(filepath, x)) for x in
+            req_files]
+    valid = all(req_files_exist)
+    if valid:
+        return('gz')
     else:
         for ind, exist  in enumerate(req_files_exist):
             if not exist:
@@ -116,16 +126,26 @@ def read_mtx(
     returns an AnnData object
     """
 
-    assert_filepath(filepath)
+    gzfiles = assert_filepath(filepath)
 
+# NEW check whether gzipped version of matrix.mtx exists and if yes, then read the gzipped version otherwise the unzipped version
     print('reading matrix.mtx')
-    adata = read(os.path.join(filepath, 'matrix.mtx'), cache= True).T  #transpose the data
+    if (gzfiles == 'gz'):
+      adata = read(os.path.join(filepath, 'matrix.mtx.gz'), cache= True).T  #transpose the data
+    else:
+      adata = read(os.path.join(filepath, 'matrix.mtx'), cache= True).T  #transpose the data
 
     print('adding cell barcodes')
-    adata.obs_names = pd.read_csv(os.path.join(filepath, 'barcodes.tsv'), header=None)[0]
-
+    if (gzfiles == 'gz'):
+        adata.obs_names = pd.read_csv(os.path.join(filepath, 'barcodes.tsv.gz'), compression='gzip', header=None)[0]
+    else:
+        adata.obs_names = pd.read_csv(os.path.join(filepath, 'barcodes.tsv'), header=None)[0]
+    
     print('adding genes')
-    var_anno = pd.read_csv(os.path.join(filepath, 'genes.tsv'), header=None, sep='\\t',engine='python')
+    if (gzfiles == 'gz'):
+        var_anno = pd.read_csv(os.path.join(filepath, 'genes.tsv.gz'), compression='gzip', header=None, sep='\\t',engine='python')
+    else:
+        var_anno = pd.read_csv(os.path.join(filepath, 'genes.tsv'), header=None, sep='\\t',engine='python')
     symbols = var_anno[1]
     ensembl_id = var_anno[0]
 
