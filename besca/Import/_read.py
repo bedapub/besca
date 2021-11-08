@@ -29,7 +29,7 @@ def assert_filepath(filepath):
     if valid:
         return(None)
 
-# Check whether gzipped versions exist:
+    # Check whether gzipped versions exist:
     req_files = ['matrix.mtx.gz', 'genes.tsv.gz', 'barcodes.tsv.gz']
     req_files_exist = [os.path.isfile(os.path.join(filepath, x)) for x in
             req_files]
@@ -125,30 +125,24 @@ def read_mtx(
     -------
     returns an AnnData object
     """
-
     gzfiles = assert_filepath(filepath)
-
-# NEW check whether gzipped version of matrix.mtx exists and if yes, then read the gzipped version otherwise the unzipped version
-    print('reading matrix.mtx')
     if (gzfiles == 'gz'):
+      print('reading matrix.mtx.gz')
       adata = read(os.path.join(filepath, 'matrix.mtx.gz'), cache= True).T  #transpose the data
+      print('adding cell barcodes')
+      adata.obs_names = pd.read_csv(os.path.join(filepath, 'barcodes.tsv.gz'), compression='gzip', header=None)[0] 
+      print('adding genes')
+      var_anno = pd.read_csv(os.path.join(filepath, 'genes.tsv.gz'), compression='gzip', header=None, sep='\\t',engine='python')
     else:
+      print('reading matrix.mtx')
       adata = read(os.path.join(filepath, 'matrix.mtx'), cache= True).T  #transpose the data
+      print('adding cell barcodes')
+      adata.obs_names = pd.read_csv(os.path.join(filepath, 'barcodes.tsv'), header=None)[0]
+      print('adding genes')
+      var_anno = pd.read_csv(os.path.join(filepath, 'genes.tsv'), header=None, sep='\\t',engine='python')
 
-    print('adding cell barcodes')
-    if (gzfiles == 'gz'):
-        adata.obs_names = pd.read_csv(os.path.join(filepath, 'barcodes.tsv.gz'), compression='gzip', header=None)[0]
-    else:
-        adata.obs_names = pd.read_csv(os.path.join(filepath, 'barcodes.tsv'), header=None)[0]
-    
-    print('adding genes')
-    if (gzfiles == 'gz'):
-        var_anno = pd.read_csv(os.path.join(filepath, 'genes.tsv.gz'), compression='gzip', header=None, sep='\\t',engine='python')
-    else:
-        var_anno = pd.read_csv(os.path.join(filepath, 'genes.tsv'), header=None, sep='\\t',engine='python')
     symbols = var_anno[1]
     ensembl_id = var_anno[0]
-
     adata.var['ENSEMBL'] = ensembl_id.tolist()
     adata.var.index.names = ['index']
 
