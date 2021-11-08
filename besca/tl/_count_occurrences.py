@@ -1,6 +1,10 @@
-from pandas import DataFrame, melt
+import sys
+
 from natsort import natsorted
+from pandas import DataFrame, melt
+
 from .._helper import subset_adata as _subset_adata
+
 
 def count_occurrence(adata,
                     count_variable = 'celltype',
