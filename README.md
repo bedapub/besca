@@ -1,6 +1,6 @@
-# BESCA (BEDA's Single Cell Analysis library)
+# BESCA (BEyond Single Cell Analysis)
 
-The BESCA (BEDA’s single cell sequencing analysis) package contains many useful python functions to use for your single-cell analysis.
+The BESCA (BEyond Single Cell Analysis) package contains many useful python functions to use for your single-cell analysis.
 
 The package has been grouped into 3 categories:  
 
