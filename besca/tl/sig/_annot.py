@@ -212,32 +212,25 @@ def make_anno(df, sigscores, sigconfig, levsk, lab='celltype', toexclude=[]):
 
     # make sure that all levels are present in df, remove toexclude
     levskk = []
-    for x in levsk:
-        tmp = []
-        for y in x:
-            toinc = set(sigscores.keys())-set(toexclude)
-            if y in list(toinc):
-                tmp.append(y)
+    # Iterating throuhg the levels and removing excluded ones
+    toinc = set(sigscores.keys())-set(toexclude)
+    for x in levsk:            
+        tmp = [y for y in x if y in toinc]
         levskk.append(tmp)
-    levsk = levskk.copy()
-
-    sigscoresk = {}
-    for x in sigscores.keys():
-        if not x in toexclude:
-            sigscoresk[x] = sigscores[x]
-    sigscores = sigscoresk.copy()
+    # levskk is the updated level list
+    sigscoresk = {x:sigscores[x] for x in sigscores.keys() if not x in toexclude}
 
     # First part, get cluster identities
     myclust = list(df.columns)
     annol = {}
     for ii in myclust:
         annol[ii] = []
-        for lev in levsk[0]:
-            if ii in sigscores[lev]:
+        for lev in levskk[0]:
+            if ii in sigscoresk[lev]:
                 annol[ii] = lev
                 break
-        if (len(levsk) > 2):
-            for j in range(len(levsk)-1):
+        if (len(levskk) > 2):
+            for j in range(len(levskk)-1):
                 # jj=j+1
                 if len(annol[ii]) == 0:
                     break
@@ -247,11 +240,11 @@ def make_anno(df, sigscores, sigconfig, levsk, lab='celltype', toexclude=[]):
                     sigconfig.loc[sigconfig["Parent"] == str.split(annol[ii], ".")[j], :].index)
                 sublevk = []
                 for x in sublev:
-                    if x in set(list(sigscores.keys())):
+                    if x in set(list(sigscoresk.keys())):
                         sublevk.append(x)
                 sublev = sublevk.copy()
                 for lev in sublev:
-                    if ii in sigscores[lev]:
+                    if ii in sigscoresk[lev]:
                         annol[ii] = annol[ii]+'.'+lev
                         break
 
@@ -262,7 +255,7 @@ def make_anno(df, sigscores, sigconfig, levsk, lab='celltype', toexclude=[]):
             tmp = ['Cell']
         else:
             tmp = str.split(val, ".")
-        for i in range(len(levsk)-len(tmp)):
+        for i in range(len(levskk)-len(tmp)):
             tmp.append(tmp[len(tmp)-1])
         cnames.append(tmp)
     cnames = DataFrame(cnames)
