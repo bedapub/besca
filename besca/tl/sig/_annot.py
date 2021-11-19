@@ -222,46 +222,39 @@ def make_anno(df, sigscores, sigconfig, levsk, lab='celltype', toexclude=[]):
 
     # First part, get cluster identities
     myclust = list(df.columns)
-    annol = {}
-    for ii in myclust:
-        annol[ii] = []
-        for lev in levskk[0]:
-            if ii in sigscoresk[lev]:
-                annol[ii] = lev
-                break
-        if (len(levskk) > 2):
-            for j in range(len(levskk)-1):
-                # jj=j+1
-                if len(annol[ii]) == 0:
+    cnames =  DataFrame(index= myclust)
+    # DATA INITIALISATION; first level
+    colname = lab + '0'
+    cnames[colname] = None
+    for celltype in levskk[0]:
+        for ii in myclust:
+            if ii in sigscoresk[celltype]:
+                if cnames.loc[ii, colname] is None :
+                    cnames.loc[ii,colname] = celltype
+    # ASSIGNED ALL FIRST LEVEL
+    if (len(levskk) > 2):
+        for j in range(len(levskk)-1):
+            parent_col =  lab + str(j)
+            colname = lab + str(j+1)
+            cnames[colname] = None    
+            for ii in myclust:
+                # if no assignement on the previous level; exit
+                if cnames.loc[ii,parent_col ] is None: 
                     break
-                if len(str.split(annol[ii], ".")) < (j+1):
-                    break
+                # Find autorized level
                 sublev = list(
-                    sigconfig.loc[sigconfig["Parent"] == str.split(annol[ii], ".")[j], :].index)
-                sublevk = []
-                for x in sublev:
-                    if x in set(list(sigscoresk.keys())):
-                        sublevk.append(x)
-                sublev = sublevk.copy()
-                for lev in sublev:
+                    sigconfig.loc[sigconfig["Parent"] ==  cnames.loc[ii, parent_col], :].index )
+                # checking that is was not excluded
+                sublevk = [ x for x in sublev if x in toinc] 
+                assigned_type = False
+                for lev in sublevk:
                     if ii in sigscoresk[lev]:
-                        annol[ii] = annol[ii]+'.'+lev
-                        break
-
-    # Second part, transform to pandas
-    cnames = []
-    for key, val in annol.items():
-        if len(val) == 0:
-            tmp = ['Cell']
-        else:
-            tmp = str.split(val, ".")
-        for i in range(len(levskk)-len(tmp)):
-            tmp.append(tmp[len(tmp)-1])
-        cnames.append(tmp)
-    cnames = DataFrame(cnames)
-    cnames.index = annol.keys()
-    cnames.columns = [lab+str(x) for x in list(cnames.columns)]
-
+                        if cnames.loc[ii, colname] is None :
+                            cnames.loc[ii, colname] = lev
+                            assigned_type = True
+                # If no value, put parent value
+                if not assigned_type: 
+                  cnames.loc[ii, colname] = cnames.loc[ii, parent_col]
     return(cnames)
 
 
