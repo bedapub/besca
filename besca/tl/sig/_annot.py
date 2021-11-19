@@ -1,13 +1,12 @@
 # this module contains functions for cell type annotation based on signatures in python using scanpy
-# import using the python version 1.3.2 at least is a prerequisit! needs to be checked in all functions
 
-from numpy import array, log, where
-from pandas import DataFrame, read_csv
+import numpy as np
+import pandas as pd
 from scanpy import AnnData
 from scipy.stats import mannwhitneyu
 
 
-def getset(df, signame_complete, threshold):
+def getset(df: pd.DataFrame, signame_complete : str, threshold) -> set:
     """ Handles missing signatures aux function for make_anno
     Based on a dataframe of p-values, a signature name and a cutoff check if sign is present
     parameters
@@ -30,7 +29,7 @@ def getset(df, signame_complete, threshold):
         return(set())
 
 
-def gene_fr(f, Tcells):
+def gene_fr(f: pd.DataFrame, gene_name: str):
     """ Returns the fraction of cells expressing a gene in distinct clusters
     Takes as an input a dataframe with fractions per clusters and a gene name
     Returns the fraction genes per cluster
@@ -38,7 +37,7 @@ def gene_fr(f, Tcells):
     ----------
     f: panda.DataFrame
       a dataframe of fraction genes per cell as outputted by besca
-    Tcells: 'str'
+    gene_name: 'str'
       gene name
 
     returns
@@ -46,12 +45,12 @@ def gene_fr(f, Tcells):
     panda.Series
         a Series of fractions per cluster and gene
     """
-    k = f.loc[f['Description'].isin(Tcells), ].copy()
+    k = f.loc[f['Description'].isin(gene_name), ].copy()
     k = k.iloc[:, 0:len(k.columns)]
     return(k.mean(axis=0, skipna=True))
 
 
-def score_mw(f, mymarkers):
+def score_mw(f: pd.DataFrame, mymarkers: dict) -> pd.DataFrame:
     """ Score Clusters based on a set of immune signatures to generate a df of pvals
     Takes as an input a dataframe with fractions per clusters and a dictionary of signatures
     Performs a Mann-Whitney test per each column and Signature, returns -10logpValues
@@ -69,17 +68,17 @@ def score_mw(f, mymarkers):
         a dataframe of -10logpValues per cluster and signature
     """
     ids = set(f.iloc[:, 2:len(f.columns)])
-    mypFrame = DataFrame(index=mymarkers.keys(), columns=list(ids))
+    mypFrame = pd.DataFrame(index=mymarkers.keys(), columns=list(ids))
     for key, value in mymarkers.items():
         for i in list(ids):
-            mypFrame.loc[key, i] = -10*log(
+            mypFrame.loc[key, i] = -10*np.log(
                 mannwhitneyu(x=f.loc[f['Description'].isin(value), :][i],
                              y=f[i], alternative='greater').pvalue
             )
     return(mypFrame)
 
 
-def add_anno(adata, cnames, mycol, clusters='leiden'):
+def add_anno(adata : AnnData, cnames : pd.DataFrame, mycol, clusters='leiden'):
     """ Adds annotation generated with make_anno to a AnnData object
     Takes as input the AnnData object to which annotation will be appended and the annotation pd
     Generates a pd.Series that can be added as a adata.obs column with annotation at a level
@@ -115,7 +114,7 @@ def add_anno(adata, cnames, mycol, clusters='leiden'):
         return(newlab)
 
 
-def read_annotconfig(configfile):
+def read_annotconfig(configfile: str):
     """ Reads the configuration file for signature-based hierarhical annotation.
 
     Parameters
@@ -131,7 +130,7 @@ def read_annotconfig(configfile):
         String of distinct levels based on configuration file
     """
     # read the config file
-    sigconfig = read_csv(configfile, sep='\t', index_col=0)
+    sigconfig = pd.read_csv(configfile, sep='\t', index_col=0)
     # Reorder with the specified order. Place better signatures first, only first match will be kept
     sigconfig = sigconfig.sort_values('Order')
     # Consider up to 7 levels
@@ -182,7 +181,7 @@ def export_annotconfig(sigconfig, levsk, resultsFolder, analysisName = ''):
 
 
 
-def make_anno(df, sigscores, sigconfig, levsk, lab='celltype', toexclude=[]):
+def make_anno(df : pd.DataFrame, sigscores : dict, sigconfig : pd.DataFrame, levsk: list, lab : str ='celltype', toexclude : list = []) -> pd.DataFrame:
     """ Annotate cell types
     Based on a dataframe of -log10pvals, a cutoff and a signature set generate cell annotation
     Hierarchical model of Immune cell annotation.
@@ -222,7 +221,7 @@ def make_anno(df, sigscores, sigconfig, levsk, lab='celltype', toexclude=[]):
 
     # First part, get cluster identities
     myclust = list(df.columns)
-    cnames =  DataFrame(index= myclust)
+    cnames =  pd.DataFrame(index= myclust)
     # DATA INITIALISATION; first level
     colname = lab + '0'
     cnames[colname] = None
@@ -258,7 +257,7 @@ def make_anno(df, sigscores, sigconfig, levsk, lab='celltype', toexclude=[]):
     return(cnames)
 
 
-def match_cluster(adata, obsquery, obsqueryval, obsref='leiden', cutoff=0.5):
+def match_cluster(adata : AnnData, obsquery: str, obsqueryval: str, obsref: str ='leiden', cutoff=0.5) -> list:
     """ Matches categories from adata.obs to each other. For a query category specified in obsquery
     and a value specified in obsqueryval, checks which clusters (or other adata.obs categories, obsref)
     contain >50% (or distinct cutoff, cutoff) of cells of the specified kind.
@@ -287,11 +286,11 @@ def match_cluster(adata, obsquery, obsqueryval, obsref='leiden', cutoff=0.5):
     for i in myleiden:
         mysub = adata[adata.obs[obsref].isin([i])].copy()
         myc.append(len(mysub[mysub.obs[obsquery] == obsqueryval])/len(mysub))
-    return(list(array(myleiden)[array(myc) > cutoff]))
+    return(list(np.array(myleiden)[np.array(myc) > cutoff]))
 
 
 
-def obtain_new_label(nomenclature_file: str, cnames, reference_label: str ='short_dblabel' , new_label: str ='dblabel', new_level=None):
+def obtain_new_label(nomenclature_file: str, cnames: pd.DataFrame, reference_label: str ='short_dblabel' , new_label: str ='dblabel', new_level: int =None) -> pd.DataFrame:
 
     """ Matches the cnames obtained by the make_annot function or a list of label names
     to the db label (standardized label from a nomenclature file).
@@ -329,12 +328,12 @@ def obtain_new_label(nomenclature_file: str, cnames, reference_label: str ='shor
 
     """
     if type(cnames) == list:
-        cnames = DataFrame({'new_label': cnames})
+        cnames = pd.DataFrame({'new_label': cnames})
         cnames = cnames.set_index(cnames['new_label'])
         cnames.index.name = None
 
     
-    nomenclature = read_csv(
+    nomenclature = pd.read_csv(
         nomenclature_file, 
         sep='\t',header=0, 
         skiprows=range(1, 2)
@@ -383,7 +382,7 @@ def obtain_new_label(nomenclature_file: str, cnames, reference_label: str ='shor
             raise Exception(
                 f'Error trying to reach {currentTerm} in nomenclature. Please check if term exist')
             
-    new_cnames = DataFrame(new_cnames).transpose()
+    new_cnames = pd.DataFrame(new_cnames).transpose()
     new_cnames.columns = cnames.columns
     new_cnames.index = cnames.index
     
