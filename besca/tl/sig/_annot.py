@@ -241,11 +241,11 @@ def make_anno(df, sigscores, sigconfig, levsk, lab='celltype', toexclude=[]):
                 # if no assignement on the previous level; exit
                 if cnames.loc[ii,parent_col ] is None: 
                     break
-                # Find autorized level
-                sublev = list(
-                    sigconfig.loc[sigconfig["Parent"] ==  cnames.loc[ii, parent_col], :].index )
-                # checking that is was not excluded
-                sublevk = [ x for x in sublev if x in toinc] 
+                # Find child level and removing excluding term                 
+                sublev = set(
+                    sigconfig.loc[sigconfig["Parent"] ==  cnames.loc[ii, parent_col], :].index ).intersection(toinc)
+                # getting the right order using levskk
+                sublevk = [ x for x in levskk[j+1] if x in sublev] 
                 assigned_type = False
                 for lev in sublevk:
                     if ii in sigscoresk[lev]:
