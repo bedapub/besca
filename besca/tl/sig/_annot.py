@@ -237,9 +237,6 @@ def make_anno(df : pd.DataFrame, sigscores : dict, sigconfig : pd.DataFrame, lev
             colname = lab + str(j+1)
             cnames[colname] = None    
             for ii in myclust:
-                # if no assignement on the previous level; exit
-                if cnames.loc[ii,parent_col ] is None: 
-                    break
                 # Find child level and removing excluding term                 
                 sublev = set(
                     sigconfig.loc[sigconfig["Parent"] ==  cnames.loc[ii, parent_col], :].index ).intersection(toinc)
