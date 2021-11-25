@@ -23,3 +23,4 @@ Macrophage_RXRG_scv	Additional genes (less specific) used for automatic annotati
 MonocyteDC_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	C5ar1	Clec4e	Il1rn	Lst1								
 Macrophage_MSR1_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Msr1	Cbr2	Gpr84	Mertk	Ccl7	Igf1	Arg1	C3ar1	C1qc	C1qa		
 ResourceCD8Tcell_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Rasgrp2	Gm26740	Klrg1	Klf3	Klf2	Gm2682	Gm45552					
+MAIT	Additional genes (less specific or lower expressed) whose expression can also be inspected. Derived by LAS 	Il7r	Il18r1	Ccr5	Dpp4								
