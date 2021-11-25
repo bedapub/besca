@@ -10,7 +10,10 @@ The package has been grouped into 3 categories:
 
 For more information please view the package documentation: https://bedapub.github.io/besca/
 
-Please find our preprint posted on bioRxiv here: https://biorxiv.org/cgi/content/short/2020.08.11.245795v2
+Please consider citing our publication if you use Besca for your research:
+
+- Mädler SC, Julien-Laferriere A, Wyss L, Phan M, Sonrel A, Kang ASW, Ulrich E, Schmucki R, Zhang JD, Ebeling M, Badi L, Kam-Thong T, Schwalie PC, Hatje K. <a href="https://doi.org/10.1093/nargab/lqab102" target="_blank">Besca, a single-cell transcriptomics analysis toolkit to accelerate translational research</a>. <i>NAR Genom Bioinform</i>. 2021
+
 
 If you are interested in contributing you can check the repository wiki for helpful information on contributing: https://github.com/bedapub/besca/wiki
 
