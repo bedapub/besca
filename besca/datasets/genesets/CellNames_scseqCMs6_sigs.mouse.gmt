@@ -121,3 +121,4 @@ Th17CD4Tcell	Genes used for automatic annotation of scRNA-seq derived clusters o
 Eosinophil	"Genes derived from human homology and literature. To be further tested and validated. Derived by Alberti Ll, Sep21"	Prg2	Epx	Ear6	Fut9	Ccr3														
 ResourceCD8Tcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Tcf7	Pdcd1	Cd8b1	S1pr5	S1pr1	Ly6c2	Cxcr3	Slamf6	Ccr2	Itgb7	Il7r								
 Microglia	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Gpr84	Mertk	Gpr34	Trem2															
+MAIT	Genes derived from literature and DGE analysis of MAIT cells in WB_Glofit study annotated with reference atlas. Derived by LAS Oct21. Needs more testing in mouse datasets 	Cd8a	Klrb1	Cxcr6	Ccr6	Slc4a10	Ltk													
