@@ -69,7 +69,7 @@ sc.pl.pca_loadings(adata)
 sc.pp.neighbors(adata, n_neighbors=15, random_state = random_seed, n_pcs=50)
 
 ###############################################################################
-# louvain clustering
+# leiden clustering
 # ------------------
 
 sc.tl.leiden(adata, random_state=random_seed)
