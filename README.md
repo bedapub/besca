@@ -1,6 +1,6 @@
-# BESCA (BEDA's Single Cell Analysis library)
+# BESCA (BEyond Single Cell Analysis)
 
-The BESCA (BEDA’s single cell sequencing analysis) package contains many useful python functions to use for your single-cell analysis.
+The BESCA (BEyond Single Cell Analysis) package contains many useful python functions to use for your single-cell analysis.
 
 The package has been grouped into 3 categories:  
 
@@ -10,7 +10,10 @@ The package has been grouped into 3 categories:
 
 For more information please view the package documentation: https://bedapub.github.io/besca/
 
-Please find our preprint posted on bioRxiv here: https://biorxiv.org/cgi/content/short/2020.08.11.245795v2
+Please consider citing our publication if you use Besca for your research:
+
+- Mädler SC, Julien-Laferriere A, Wyss L, Phan M, Sonrel A, Kang ASW, Ulrich E, Schmucki R, Zhang JD, Ebeling M, Badi L, Kam-Thong T, Schwalie PC, Hatje K. <a href="https://doi.org/10.1093/nargab/lqab102" target="_blank">Besca, a single-cell transcriptomics analysis toolkit to accelerate translational research</a>. <i>NAR Genom Bioinform</i>. 2021
+
 
 If you are interested in contributing you can check the repository wiki for helpful information on contributing: https://github.com/bedapub/besca/wiki
 
@@ -76,6 +79,20 @@ Now following the [instruction above](#binary) to set the executable flag to the
 You should now have successfully installed besca.
 
 In case you met any problems, please report an issue.
+
+To install [Jupyter Notebook](https://jupyter.readthedocs.io/en/latest/install/notebook-classic.html), type
+
+```
+conda install jupyter
+```
+
+and type 
+
+```
+jupyter notebook
+```
+
+to start a Jupyter Notebook in your browser. See [documentation](https://jupyter.readthedocs.io/en/latest/running.html#running) for further details. 
 
 
 ### R dependencies for additional methods
