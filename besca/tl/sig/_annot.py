@@ -330,11 +330,7 @@ def obtain_new_label(nomenclature_file: str, cnames: pd.DataFrame, reference_lab
         cnames.index.name = None
 
     
-    nomenclature = pd.read_csv(
-        nomenclature_file, 
-        sep='\t',header=0, 
-        skiprows=range(1, 2)
-    )
+    nomenclature = read_nomenclature( nomenclature_file)
 
     dblabel_dict = {}
     cat_dict = {}
@@ -405,6 +401,70 @@ def obtain_dblabel(nomenclature_file : str, cnames, reference_label='short_dblab
     (based on cnames index)
     """
     return(obtain_new_label(nomenclature_file, cnames, reference_label=reference_label, new_label='dblabel', new_level=None))
+
+
+def read_nomenclature(nomenclature_file: str) -> pd.DataFrame:
+    nomenclature = pd.read_csv(
+        nomenclature_file,
+        sep='\t', header=0,
+        skiprows=range(1, 2)
+    )
+    return(nomenclature)
+
+
+
+def match_label(vector_label: list, nomenclature_file: str, start_column: str = 'dblabel', match_column: str = 'short_dblabel') -> pd.DataFrame:
+  """ Return a table matching values in vector label.
+  It is mean to translate labels , for example for plotting
+
+    Parameters
+    ----------
+    vector_label: `list` 
+        initial list of values to match
+    nomenclature_file: `str` 
+        location of the nomenclature_file
+    start_column: `str` | default = dblabel
+        column to start within the nomenclature 
+    match_column: `str` | default = short_dblabel
+        column to match within the nomenclature 
+
+    Returns
+    -------
+    pd.DataFrame
+        Pandas dataframe containing the matching labels. If matchings labels are not found, the value is kept as is.
+
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> import scanpy as sc
+    >>>    import pkg_resources
+    >>> adata = bc.datasets.pbmc3k_processed()
+    >>> nomenclature_file=pkg_resources.resource_filename('besca', 'datasets/nomenclature/CellTypes_v1.tsv'), 
+    >>> matching_v = bc.tl.sig.match_label(adata.obs.get( "celltype3"),  nomenclature_file)
+    >>> adata.obs['shortlabel'] = adata.obs.get( "celltype3").map( dict(matching_v.values))
+    >>> sc.pl.umap(adata, color = 'short')
+    
+  """
+  nomenclature = read_nomenclature(nomenclature_file)
+  if start_column not in nomenclature.columns:
+        raise KeyError(
+            f"{start_column} not found as one of the nomenclature file columns")
+  if match_column not in nomenclature.columns:
+        raise KeyError(
+            f"{match_column} not found as one of the nomenclature file columns")
+
+  matching_df = nomenclature[nomenclature[start_column].isin(
+        vector_label)][[start_column, match_column]].reset_index(drop=True)
+    # check if values not in
+  missed_values = np.isin(vector_label, nomenclature[start_column])
+  if any(~missed_values):
+        missed = np.array(vector_label)[~missed_values].tolist()
+        print("Non found values in nomenclature files", missed)
+        matching_df = pd.concat([matching_df, pd.DataFrame(
+            {start_column: missed, match_column: missed})])
+  return(matching_df)
+
 
 
 
