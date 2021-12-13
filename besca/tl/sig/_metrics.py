@@ -47,7 +47,7 @@ def _handle_signature(signature, method, adata, signature_name,
     if not overwrite:
         if scoreName in adata.obs:
             if (verbose):
-                    print(signature + 'skipped was already  precomputed with this method (', scoreName, ')')
+                    print(signature_name + ' skipped was already  precomputed with this method (', scoreName, ')')
             return None
     score = [0] * adata.n_obs
     # Not copying columns but rather deleting them afterward is faster. For each direction the column is computed in adata.obs.
