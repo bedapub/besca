@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 
 def nomenclature_network(config_file : str, 
                         selected_roots = [], 
-                        root_term='None'
+                        root_term='None',
                         mywidth =7,myheight=7, font_size=7,
                         node_size=200, node_color='tan', alpha=0.8,
                         ):
