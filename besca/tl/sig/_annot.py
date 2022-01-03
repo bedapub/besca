@@ -340,11 +340,13 @@ def obtain_new_label(nomenclature_file: str, cnames: pd.DataFrame, reference_lab
 
 
         for cat in list(currentTerm):
-
-            cat_nomenclature = nomenclature.loc[nomenclature[reference_label] == cat, :]
-
-            # Initialize with dblabel, which is kept if is_level==new_level and if no better term can be found 
-            dblabel_dict[cat] = cat_nomenclature['dblabel'].iloc[0]    
+            try:             
+                cat_nomenclature = nomenclature.loc[nomenclature[reference_label] == cat, :]
+                # Initialize with dblabel, which is kept if is_level==new_level and if no better term can be found 
+                dblabel_dict[cat] = cat_nomenclature['dblabel'].iloc[0]    
+            except:
+                raise Exception(
+                    f'Error trying to reach {cat} in nomenclature. Please check if term exist')
 
             if new_level is not None:
                 is_level = int(cat_nomenclature['is_level'])
