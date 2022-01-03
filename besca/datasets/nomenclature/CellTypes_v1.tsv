@@ -67,7 +67,7 @@ CMS4 colorectal cancer cell		DB:0000048	CMS4Colorectal	3					colorectal cancer c
 central nervous system macrophage	central nervous system macrophage	CL:0000878	CNSMacrophage	4			macrophage	CL:0000235	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 central nervous system neuron	central nervous system neuron	CL:2000029	CNSNeuron	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
 central nervous system pericyte	central nervous system pericyte	CL:0002575	CNSPericyte	3					pericyte cell	CL:0000669	connective tissue cell	CL:0002320	animal cell	CL:0000548
-colorectal cancer cell		DB:0000049	ColorectalCancer 	2							malignant cell	CL:0001064	neoplastic cell	CL:0001063
+colorectal cancer cell		DB:0000049	ColorectalCancer	2							malignant cell	CL:0001064	neoplastic cell	CL:0001063
 common lymphoid progenitor	common lymphoid progenitor	CL:0000051	CommonLymphoidPC	3					hematopoietic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 common myeloid progenitor	common myeloid progenitor	CL:0000049	CommonMyeloidPC	3					hematopoietic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 cone retinal bipolar cell	cone retinal bipolar cell	CL:0000752	ConeBipolar	5	retinal bipolar neuron	CL:0000748	bipolar neuron	CL:0000103	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
