@@ -460,7 +460,7 @@ def match_label(vector_label: list, nomenclature_file: str, start_column: str = 
   missed_values = np.isin(vector_label, nomenclature[start_column])
   if any(~missed_values):
         missed = np.array(vector_label)[~missed_values].tolist()
-        print("Non found values in nomenclature files", missed)
+        print("Non found values in nomenclature files", set( missed) )
         matching_df = pd.concat([matching_df, pd.DataFrame(
             {start_column: missed, match_column: missed})])
   return(matching_df)
