@@ -8,7 +8,7 @@ MemBcell	Genes used for automatic annotation of scRNA-seq derived clusters of PB
 Myeloid	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	CSF3R	MS4A6A	MS4A7	MNDA	C5AR1	FCGR2A	C3AR1	FPR1	LILRB2	HDC	FCGR3B	CCL22						
 NKcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	NCR1	LIM2	KIR2DL4	KLRC1	IL18RAP	KLRF1												
 NaiBcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	IGHD	IGHM	CD72	TCL1A	FCER2	BTLA	FCRL1											
-Neutrophil	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	ELANE	MPO	PRTN3	CTSG	AZU1	FCGR3B												
+Neutrophil	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	ELANE	MPO	PRTN3	CTSG	AZU1	FCGR3B  CXCR2  												
 Plasma	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	JSRP1	DERL3	FCRL2	FCRL5	IGLL5	TNFRSF17												
 CD4Tcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	CD4	TRAT1	CD40LG	LEF1	TNFRSF4													
 CD8Tcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	CD8A	CD8B																

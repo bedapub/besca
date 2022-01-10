@@ -3,13 +3,13 @@ Bcell	Blymphocyte	1	1.5
 Fibroblast	None	2.75	2
 Endothelial	None	2.5	3
 Epithelial	None	2.5	4
-Granulocyte	Myeloid	1	21
+Granulocyte	Myeloid	0.1	21
 MelMelanoma	None	2.5	60
 MemBcell	Bcell	1.5	8
 Myeloid	Hematopoietic	0.5	12.5
 NKcell	Hematopoietic	1.5	10.2
 NaiBcell	Bcell	1.5	11
-Neutrophil	Granulocyte	1	12
+Neutrophil	Granulocyte	0.6	12
 Plasma	Blymphocyte	1	25
 CD4Tcell	Tcell	0.25	16
 CD8Tcell	Tcell	1.25	14
@@ -97,7 +97,7 @@ ILC3	InnateLymphoid	2	105
 ActTcell	Tcell	2	106
 NaiTcell	Tcell	1	107
 McellGut	Epithelial	2	60.9
-Mast	Myeloid	1	12.5
+Mast	Myeloid	1.5	10.5
 ColorectalCancer	None	2	110
 T1Pneumocyte	Pneumocyte	2	111
 T2Pneumocyte	Pneumocyte	2	112
