@@ -5,7 +5,12 @@ import plotly.graph_objects as go
 import seaborn as sns
 
 
-def riverplot_2categories(adata : anndata.AnnData, categories:list, palette: dict = None, threshold : int = None) -> go :
+def riverplot_2categories(
+    adata: anndata.AnnData,
+    categories: list,
+    palette: dict = None,
+    threshold: int = None,
+) -> go:
     """Generate a riverplot/sanker diagram between two categories.
     parameters
     ----------
@@ -44,16 +49,18 @@ def riverplot_2categories(adata : anndata.AnnData, categories:list, palette: dic
     labels = [x for x in set(df[categories].values.flatten())]
 
     if palette is None:
-        palette = sns.color_palette(
-            "deep", len(labels)).as_hex()
+        palette = sns.color_palette("deep", len(labels)).as_hex()
     pale = {}
     for idx, x in enumerate(labels):
         pale[x] = palette[idx]
     st_df = None
     i = 0
-    st_df = df.groupby([categories[i], categories[i+1]],
-                       observed=True).size().reset_index()
-    st_df.columns = ['source', 'target', 'count']
+    st_df = (
+        df.groupby([categories[i], categories[i + 1]], observed=True)
+        .size()
+        .reset_index()
+    )
+    st_df.columns = ["source", "target", "count"]
 
     labelSource = df.get(categories[0]).cat.categories
     labelTarget = df[categories[1]].cat.categories
@@ -66,23 +73,30 @@ def riverplot_2categories(adata : anndata.AnnData, categories:list, palette: dic
     mappingTarget = {}
     for idx, x in enumerate(labelTarget):
         mappingTarget[x] = idx + startTarget
-    st_df['sourceID'] = st_df['source'].map(mappingSource)
-    st_df['targetID'] = st_df['target'].map(mappingTarget)
+    st_df["sourceID"] = st_df["source"].map(mappingSource)
+    st_df["targetID"] = st_df["target"].map(mappingTarget)
     # Removing "weak" link for clarity
-    if threshold is not None: 
+    if threshold is not None:
         st_df = st_df.loc[st_df.get("count") > threshold]
     data = dict(
-        type='sankey', node=dict(
-            pad=15, thickness=20, line=dict(color='black', width=0.5),
-            label=np.concatenate(
-                (labelSource.to_numpy(), labelTarget.to_numpy())),
-             color=[pale.get(x) for x in np.concatenate(
-                 (labelSource.to_numpy(), labelTarget.to_numpy()))]
-        ),
-        link=dict(source=st_df['sourceID'],
-                  target=st_df['targetID'], value=st_df['count']),
+        type="sankey",
+        node=dict(
+            pad=15,
+            thickness=20,
+            line=dict(color="black", width=0.5),
+            label=np.concatenate((labelSource.to_numpy(), labelTarget.to_numpy())),
+            color=[
+                pale.get(x)
+                for x in np.concatenate(
+                    (labelSource.to_numpy(), labelTarget.to_numpy())
                 )
-        
+            ],
+        ),
+        link=dict(
+            source=st_df["sourceID"], target=st_df["targetID"], value=st_df["count"]
+        ),
+    )
+
     # creating figure
     fig = go.Figure(dict(data=[data]))
-    return(fig)
+    return fig
