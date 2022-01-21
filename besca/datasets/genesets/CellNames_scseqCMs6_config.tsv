@@ -12,8 +12,8 @@ NaiBcell	Bcell	1.5	11
 Neutrophil	Granulocyte	0.15	12
 Plasma	Blymphocyte	1	25
 CD4Tcell	Tcell	0.25	16
-CD8Tcell	Tcell	1.5	14
-Tcell	Hematopoietic	3	10
+CD8Tcell	Tcell	1	14
+Tcell	Hematopoietic	2.25	10
 CD8Tcell_IL7Rmax	CD8Tcell	4	17
 CD4Tcell_IL7Rmax	CD4Tcell	4	17.5
 RegTcell	CD4Tcell	1	18
@@ -34,7 +34,7 @@ ProlifBcell	Bcell	2	31.5
 CMCD4Tcell	CD4Tcell	1.5	32
 EMCD8Tcell	CD8Tcell	2	40
 EMCD4Tcell	CD4Tcell	2	39
-ClassMonocyte	Monocyte	0.75	22.5
+ClassMonocyte	Monocyte	0.6	22.5
 Macrophage_MARCO	Macrophage	1	19.5
 gdTcell	Tcell	1	15
 CytotoxCD4Tcell	CD4Tcell	3	34
@@ -81,7 +81,7 @@ VesselEndothelial	Endothelial	1	89
 Pericyte	Fibroblast	1.5	1.75
 Myofibroblast	Fibroblast	1	91
 InflamFibroblast	Fibroblast	2.5	92
-InflamMonocyte	Monocyte	1	93
+InflamMonocyte	Monocyte	1.5	93
 Neural	None	3	60.5
 FollicularBcell	Bcell	1	95
 GermCenterBcell	Bcell	1	96
@@ -111,7 +111,7 @@ ILC2	InnateLymphoid	2	106.5
 ProlifMyeloid	Myeloid	3	81.5
 ProlifcDC	cDC	3	50.5
 Mesothelial	None	1	111
-Platelet	Hematopoietic	2	8.5
+Platelet	Hematopoietic	2.75	8.5
 ProlifTAmplifying	TAmplifying	2.5	112
 ProlifEpithelialStem	EpithelialStem	2.5	113
 ProlifEnterocytePC	EnterocytePC	2.5	114
@@ -121,4 +121,4 @@ Th17CD4Tcell	CD4Tcell	4	20.5
 Eosinophil	Granulocyte	1	82.5
 Microglia	Macrophage	1	121
 ResourceCD8Tcell	CD8Tcell	4	120
-MAIT	Tcell	3	13.5
+MAIT	Tcell	2	13.5
