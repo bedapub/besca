@@ -6,6 +6,7 @@ from scipy import sparse
 from math import expm1
 from numpy import sort
 
+
 def subset_adata(adata, filter_criteria, raw=True, axis=0):
     """Subset AnnData object into new object
 
@@ -177,11 +178,11 @@ def get_raw(adata):
     return adata_raw
 
 
-def get_ameans(adata,mycat, condition=None):
+def get_ameans(adata, mycat, condition=None):
     """Calculates average and fraction expression per category in adata.obs
     Based artihmetic mean expression and fraction cells expressing gene per category
-    (works on linear scale). Assumes that values in .raw are log: will exponentiate, 
-    calculate mean and log back. 
+    (works on linear scale). Assumes that values in .raw are log: will exponentiate,
+    calculate mean and log back.
 
     parameters
     ----------
@@ -207,57 +208,64 @@ def get_ameans(adata,mycat, condition=None):
         obs = DataFrame(obs, columns=gene_ids, index=adata.obs[mycat])
         average_obs = log1p(obs.groupby(level=0).mean())
         obs_bool = obs.astype(bool)
-        fraction_obs = obs_bool.groupby(level=0).sum()/obs_bool.groupby(level=0).count()
-        
-        if condition!=None:
+        fraction_obs = (
+            obs_bool.groupby(level=0).sum() / obs_bool.groupby(level=0).count()
+        )
+
+        if condition != None:
             try:
-                meta=adata.obs.loc[:,[mycat,condition]].drop_duplicates()
-                meta.index=meta[mycat]
-                average_obs[condition]=list(meta[condition][average_obs.index])
-                average_obs['Ind']=list(average_obs.index)
-                fraction_obs[condition]=list(meta[condition][fraction_obs.index])
-                fraction_obs['Ind']=list(fraction_obs.index)
+                meta = adata.obs.loc[:, [mycat, condition]].drop_duplicates()
+                meta.index = meta[mycat]
+                average_obs[condition] = list(meta[condition][average_obs.index])
+                average_obs["Ind"] = list(average_obs.index)
+                fraction_obs[condition] = list(meta[condition][fraction_obs.index])
+                fraction_obs["Ind"] = list(fraction_obs.index)
             except:
-                print("Oops!  The adata object does not have the specified column. Options are: ")
-                print (list(adata.obs.columns))
-        
+                print(
+                    "Oops!  The adata object does not have the specified column. Options are: "
+                )
+                print(list(adata.obs.columns))
+
     except KeyError:
-        print("Oops!  The adata object does not have the specified column. Options are: ")
-        print (list(adata.obs.columns))
-        average_obs=None
-        fraction_obs=None
-    return(average_obs, fraction_obs)
+        print(
+            "Oops!  The adata object does not have the specified column. Options are: "
+        )
+        print(list(adata.obs.columns))
+        average_obs = None
+        fraction_obs = None
+    return (average_obs, fraction_obs)
 
 
 def formatmean(average_obs, fraction_obs, what, mycond, myg):
     ### Transforms average and fraction expression to pd for plotting
-    df=DataFrame([list(average_obs[myg]),list(fraction_obs[myg]),mycond]).transpose()
-    df.index=average_obs.index
-    df.columns=[myg+'Avg',myg+'Fract',what]
-    return(df)
-
+    df = DataFrame(
+        [list(average_obs[myg]), list(fraction_obs[myg]), mycond]
+    ).transpose()
+    df.index = average_obs.index
+    df.columns = [myg + "Avg", myg + "Fract", what]
+    return df
 
 
 def get_means(adata, mycat, condition=None):
     """Calculates average and fraction expression per category in adata.obs
-    Based on an AnnData object and an annotation category (e.g. louvain) returns 
-    geometric mean expression if .raw values are log as it simply calculates mean
-    of whatever values are stored in .raw. Also returns fraction cells expressing gene per category. 
-    
-u    parameters
-    ----------
-    adata: AnnData
-      an AnnData object
-    mycat: str
-      the category for stratification (e.g. donor, experiment)
-    condition: str
-      the category to be later compared (e.g. treatment, timepoint)
-    returns
-    -------
-    average_obs
-        average gene expression per category
-    fraction_obs
-        fraction cells expressing a gene per category
+        Based on an AnnData object and an annotation category (e.g. louvain) returns
+        geometric mean expression if .raw values are log as it simply calculates mean
+        of whatever values are stored in .raw. Also returns fraction cells expressing gene per category.
+
+    u    parameters
+        ----------
+        adata: AnnData
+          an AnnData object
+        mycat: str
+          the category for stratification (e.g. donor, experiment)
+        condition: str
+          the category to be later compared (e.g. treatment, timepoint)
+        returns
+        -------
+        average_obs
+            average gene expression per category
+        fraction_obs
+            fraction cells expressing a gene per category
     """
     gene_ids = adata.raw.var.index.values
     try:
@@ -268,20 +276,24 @@ u    parameters
         obs = DataFrame(obs, columns=gene_ids, index=adata.obs[mycat])
         average_obs = obs.groupby(level=0).mean()
         obs_bool = obs.astype(bool)
-        fraction_obs = obs_bool.groupby(level=0).sum()/obs_bool.groupby(level=0).count()
-        
-        if condition!=None:
+        fraction_obs = (
+            obs_bool.groupby(level=0).sum() / obs_bool.groupby(level=0).count()
+        )
+
+        if condition != None:
             try:
-                meta=adata.obs.loc[:,[mycat,condition]].drop_duplicates()
-                meta.index=meta[mycat]
-                average_obs[condition]=list(meta[condition][average_obs.index])
-                average_obs['Ind']=list(average_obs.index)
-                fraction_obs[condition]=list(meta[condition][fraction_obs.index])
-                fraction_obs['Ind']=list(fraction_obs.index)
+                meta = adata.obs.loc[:, [mycat, condition]].drop_duplicates()
+                meta.index = meta[mycat]
+                average_obs[condition] = list(meta[condition][average_obs.index])
+                average_obs["Ind"] = list(average_obs.index)
+                fraction_obs[condition] = list(meta[condition][fraction_obs.index])
+                fraction_obs["Ind"] = list(fraction_obs.index)
             except:
-                print("Oops!  The adata object does not have the specified column. Options are: ")
-                print (list(adata.obs.columns))
-        
+                print(
+                    "Oops!  The adata object does not have the specified column. Options are: "
+                )
+                print(list(adata.obs.columns))
+
     except KeyError:
         print(
             "Oops!  The adata object does not have the specified column. Options are: "
@@ -290,6 +302,7 @@ u    parameters
         average_obs = None
         fraction_obs = None
     return (average_obs, fraction_obs)
+
 
 def get_singlegenedf(myg, adata, cond1, cond2, cond3):
     """helper function that for a single genes and adata object returns
@@ -309,7 +322,7 @@ def get_singlegenedf(myg, adata, cond1, cond2, cond3):
         second condition to be considered, e.g. cell_type or leiden
     cond3: `str`
         third condition to be considered, e.g. readout_id or individual_id
-        
+
     returns
     -------
     pandas.DataFrame
@@ -334,31 +347,40 @@ def get_singlegenedf(myg, adata, cond1, cond2, cond3):
         >>> df = bc.tl.get_singlegene_df(gene, adata, 'CONDITION','dblabel','individual_id')
 
     """
-    
-    #check that we have the conditions
-    if (cond1 in adata.obs.columns)==False:
-        sys.exit('Please select a valid condition name - cond1')
-    if (cond2 in adata.obs.columns)==False:
-        sys.exit('Please select a valid condition name - cond2')
-    if (cond3 in adata.obs.columns)==False:
-        sys.exit('Please select a valid condition name - cond3')
-        
-    myit1=sort(list(set(adata.obs[cond1]))) ### iterate over elements of condition 1
-    myit2=sort(list(set(adata.obs[cond2]))) ### iterate over elements of condition 2
-    
-    df=DataFrame()
+
+    # check that we have the conditions
+    if (cond1 in adata.obs.columns) == False:
+        sys.exit("Please select a valid condition name - cond1")
+    if (cond2 in adata.obs.columns) == False:
+        sys.exit("Please select a valid condition name - cond2")
+    if (cond3 in adata.obs.columns) == False:
+        sys.exit("Please select a valid condition name - cond3")
+
+    myit1 = sort(list(set(adata.obs[cond1])))  ### iterate over elements of condition 1
+    myit2 = sort(list(set(adata.obs[cond2])))  ### iterate over elements of condition 2
+
+    df = DataFrame()
     for i in myit1:
-        cdata=adata[adata.obs[cond1]==i].copy()
-        myit3=sort(list(set(cdata.obs[cond3]))) ### iterate over elements of condition 3
+        cdata = adata[adata.obs[cond1] == i].copy()
+        myit3 = sort(
+            list(set(cdata.obs[cond3]))
+        )  ### iterate over elements of condition 3
         for j in myit3:
-            data=cdata[cdata.obs[cond3]==j].copy()
-            average_obs,fraction_obs=get_means(data,cond2)
-            mylen=len(fraction_obs[myg])
-            df1=DataFrame(data={'Avg':average_obs[myg],'Fct': fraction_obs[myg],
-                                   cond1: [i]*mylen,cond3: [j]*mylen,
-                                   cond2: fraction_obs[myg].index})
-            df=concat([df,df1],ignore_index=True)
-    return df    
+            data = cdata[cdata.obs[cond3] == j].copy()
+            average_obs, fraction_obs = get_means(data, cond2)
+            mylen = len(fraction_obs[myg])
+            df1 = DataFrame(
+                data={
+                    "Avg": average_obs[myg],
+                    "Fct": fraction_obs[myg],
+                    cond1: [i] * mylen,
+                    cond3: [j] * mylen,
+                    cond2: fraction_obs[myg].index,
+                }
+            )
+            df = concat([df, df1], ignore_index=True)
+    return df
+
 
 def concate_adata(adata1, adata2):
     """Concatenate two adata objects based on the observations

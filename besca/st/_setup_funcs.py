@@ -1,6 +1,7 @@
 from IPython.display import HTML
 from IPython.display import Javascript
 
+
 def create_button():
     input_form = """
     <div style="background-color:gainsboro; width:600px; padding:20px;">
@@ -18,10 +19,12 @@ def create_button():
         }
     """
 
-    return(HTML(input_form + javascript))
+    return HTML(input_form + javascript)
+
 
 def create_popup():
-    return(Javascript("""
+    return Javascript(
+        """
     function execute(){
             var command = IPython.notebook.execute_cells_below();
             var kernel = IPython.notebook.kernel;
@@ -34,4 +37,5 @@ def create_popup():
             kernel.execute(command);
         }
     if(confirm("Continue running with the chosen standard parameters?")){execute()} else{interrupt()}
-    """))
+    """
+    )

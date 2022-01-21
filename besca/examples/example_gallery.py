@@ -5,7 +5,7 @@ Title of example
 Here goes your description of the example
 """
 
-#start writing some code
+# start writing some code
 
 ###############################################################################
 # sub heading

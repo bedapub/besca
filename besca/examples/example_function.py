@@ -1,10 +1,10 @@
-def function_name(param1 = 'default_value1',
-                  param2 = 'default_value2',
-                  param3 = 'default_value3'):
+def function_name(
+    param1="default_value1", param2="default_value2", param3="default_value3"
+):
     """one-line function description that shows up in summaries.
 
-    more extensive multi line function description explaining exactly what the function 
-    does and is intended for examples for code execution of the function can also be 
+    more extensive multi line function description explaining exactly what the function
+    does and is intended for examples for code execution of the function can also be
     provided here
 
     Parameters
@@ -19,7 +19,7 @@ def function_name(param1 = 'default_value1',
     Returns
     -------
     Type
-        Information on what the function returns 
+        Information on what the function returns
 
     Example
     -------
@@ -27,8 +27,8 @@ def function_name(param1 = 'default_value1',
     >>> #insert example code here
     >>> 1 + 1
     >>> # this code is only displayed not executed
-    
+
     """
 
-    #function body
-    #do something here
+    # function body
+    # do something here
