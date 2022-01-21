@@ -40,7 +40,7 @@ def split_violin(tidy_data,
     -------
     Figure
     """
-    ax = ax or plt.gca()
+    ax = ax or gca()
 
     #set plotting style
     sns.set_style("white")
