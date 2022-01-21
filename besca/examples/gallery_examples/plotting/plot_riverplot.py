@@ -9,9 +9,9 @@ This way you can easily check (visually) discripancies.
 """
 
 
-import besca as bc 
+import besca as bc
 
-#import data
+# import data
 adata = bc.datasets.Baron2016_processed()
 
 ###############################################################################
@@ -19,5 +19,4 @@ adata = bc.datasets.Baron2016_processed()
 # ----------------------
 
 
-bc.pl.riverplot_2categories(adata,  [ 'assigned_cluster', 'celltype2'])
-
+bc.pl.riverplot_2categories(adata, ["assigned_cluster", "celltype2"])

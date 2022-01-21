@@ -2,7 +2,7 @@ import os
 from pandas import read_csv
 
 
-def get_mito_genes(species: str = 'human', annotation_type: str = 'ENSEMBL'):
+def get_mito_genes(species: str = "human", annotation_type: str = "ENSEMBL"):
     """Returns the array of genes annotated as mitochondrial in species.
     Parameters
     ----------
@@ -22,16 +22,15 @@ def get_mito_genes(species: str = 'human', annotation_type: str = 'ENSEMBL'):
     >>> mito_genes
 
     """
-    valid = {'cyno', 'cynomolgus', 'human', 'mouse', 'rat', 'pig'}
+    valid = {"cyno", "cynomolgus", "human", "mouse", "rat", "pig"}
     if species not in valid:
         raise ValueError("species must be one of %s." % valid)
-    ref_mito_file = os.path.dirname(__file__) + '/mito_files/' +  \
-        species + '.mito.tsv'
+    ref_mito_file = os.path.dirname(__file__) + "/mito_files/" + species + ".mito.tsv"
     # ENS_GENE_ID  GENE_SYMBOL (2 cols)
-    if annotation_type == 'SYMBOL':
-        mito_list = list(read_csv(ref_mito_file, header=None, sep='\t')[1])
-    elif annotation_type == 'ENSEMBL':
-        mito_list = list(read_csv(ref_mito_file, header=None, sep='\t')[0])
+    if annotation_type == "SYMBOL":
+        mito_list = list(read_csv(ref_mito_file, header=None, sep="\t")[1])
+    elif annotation_type == "ENSEMBL":
+        mito_list = list(read_csv(ref_mito_file, header=None, sep="\t")[0])
     else:
         raise ValueError("annotation_type must be either SYMBOL or ENSEMBL")
-    return(mito_list)
+    return mito_list

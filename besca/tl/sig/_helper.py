@@ -16,7 +16,7 @@ def _to_geneid(conversionTable, symbol):
 
     Returns
     -------
-    a str, the converted symbol.        
+    a str, the converted symbol.
 
     Example
     -------

@@ -7,23 +7,37 @@ can be used to visually represent the number of cells that belong to a certain s
 
 """
 
-import besca as bc 
+import besca as bc
 
-#import dataset to workwith
+# import dataset to workwith
 adata = bc.datasets.Peng2019_processed()
 
 #####################
-#quantify specific celllabels as a stacked barplot
+# quantify specific celllabels as a stacked barplot
 
-bc.pl.celllabel_quant_stackedbar(adata, count_variable = 'Cell_type', subset_variable = 'Patient')
+bc.pl.celllabel_quant_stackedbar(
+    adata, count_variable="Cell_type", subset_variable="Patient"
+)
 
 
 #####################
 # quantify number of cells belong to each condition in a specific subset
 #
 # here each dot represents one Patient, the boxplots are grouped according to tissue type (Normal or Tumoral)
-bc.pl.celllabel_quant_boxplot(adata, count_variable = 'Cell_type', subset_variable = 'Patient', condition_identifier = 'Type',  plot_percentage = True)
+bc.pl.celllabel_quant_boxplot(
+    adata,
+    count_variable="Cell_type",
+    subset_variable="Patient",
+    condition_identifier="Type",
+    plot_percentage=True,
+)
 
 #####################
 # here you can also choose to plot total counts instead of percentages
-bc.pl.celllabel_quant_boxplot(adata, count_variable = 'Cell_type', subset_variable = 'Patient', condition_identifier = 'Type',  plot_percentage = False)
+bc.pl.celllabel_quant_boxplot(
+    adata,
+    count_variable="Cell_type",
+    subset_variable="Patient",
+    condition_identifier="Type",
+    plot_percentage=False,
+)

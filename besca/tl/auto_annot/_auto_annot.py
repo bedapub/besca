@@ -12,10 +12,13 @@ import scvi
 import scvelo as scv
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import (LogisticRegression, LogisticRegressionCV,
-                                  SGDClassifier)
-from sklearn.model_selection import (GridSearchCV, StratifiedShuffleSplit,
-                                     cross_validate, train_test_split)
+from sklearn.linear_model import LogisticRegression, LogisticRegressionCV, SGDClassifier
+from sklearn.model_selection import (
+    GridSearchCV,
+    StratifiedShuffleSplit,
+    cross_validate,
+    train_test_split,
+)
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC, LinearSVC
 from sklearn.utils.multiclass import unique_labels
@@ -23,19 +26,19 @@ from sklearn.utils.multiclass import unique_labels
 from .._annot_compare import report as report_generic
 
 
-def read_data(train_paths, train_datasets, test_path, test_dataset, use_raw = False):
+def read_data(train_paths, train_datasets, test_path, test_dataset, use_raw=False):
 
-    """ Function to read in  training and testing datasets
-    
+    """Function to read in  training and testing datasets
+
     This function reads a list of training datasets (at least one) and one testing dataset, either from raw or processed. It returns a list of training dataset adata object, and the testing adata object.
-    
+
     parameters
     ----------
     train_paths: `list`
         list of paths where training datasets are located
     train_datasets: `list`
-        a list of names of training datasets (same order as paths) 
-    test_path: `string` 
+        a list of names of training datasets (same order as paths)
+    test_path: `string`
         path of test dataset
     test_dataset: `string`
         name of test dataset
@@ -53,20 +56,27 @@ def read_data(train_paths, train_datasets, test_path, test_dataset, use_raw = Fa
         test dataset anndata object that will not be modified, is used to append prediction column to.
     """
 
-    adata_ignore, adata_orig = read_adata(train_paths, train_datasets, test_path, test_dataset)
+    adata_ignore, adata_orig = read_adata(
+        train_paths, train_datasets, test_path, test_dataset
+    )
 
     if use_raw == True:
-        print('Reading files from raw')
-        adata_trains, adata_pred = read_raw(train_paths, train_datasets, test_path, test_dataset)
+        print("Reading files from raw")
+        adata_trains, adata_pred = read_raw(
+            train_paths, train_datasets, test_path, test_dataset
+        )
     else:
-        print('Reading files')
-        #return(train_datasets)
-        adata_trains, adata_pred = read_adata(train_paths, train_datasets, test_path, test_dataset)
+        print("Reading files")
+        # return(train_datasets)
+        adata_trains, adata_pred = read_adata(
+            train_paths, train_datasets, test_path, test_dataset
+        )
     return adata_trains, adata_pred, adata_orig
 
+
 def read_raw(train_paths, train_datasets, test_path, test_dataset):
-    """ read from adata.raw and revert log1p normalization
-    
+    """read from adata.raw and revert log1p normalization
+
     This function reads a list of training datasets (at least one) and one testing dataset and reverses log1p normalization on the raw set that includes all genes and has not been regressed out
 
     parameters
@@ -74,12 +84,12 @@ def read_raw(train_paths, train_datasets, test_path, test_dataset):
     train_paths: `list`
         list of paths where training datasets are located
     train_datasets: `list`
-        a list of names of training datasets (same order as paths) 
-    test_path: `string` 
+        a list of names of training datasets (same order as paths)
+    test_path: `string`
         path of test dataset
     test_dataset: `string`
         name of test dataset
-    
+
     returns
     -------
     list
@@ -89,31 +99,38 @@ def read_raw(train_paths, train_datasets, test_path, test_dataset):
         An anndata object containing testing dataset
     """
 
-    adata_trains =[]
+    adata_trains = []
     for i in range(len(train_datasets)):
         adata_trains.append(scv.read(os.path.join(train_paths[i], train_datasets[i])))
-        adata_trains[i]= sc.AnnData(X = np.expm1(adata_trains[i].raw.X), obs = adata_trains[i].obs, var= adata_trains[i].raw.var)
-    adata_pred =scv.read(os.path.join(test_path, test_dataset))
-    adata_pred = sc.AnnData(X = np.expm1(adata_pred.raw.X), obs = adata_pred.obs, var= adata_pred[i].raw.var)
-    
+        adata_trains[i] = sc.AnnData(
+            X=np.expm1(adata_trains[i].raw.X),
+            obs=adata_trains[i].obs,
+            var=adata_trains[i].raw.var,
+        )
+    adata_pred = scv.read(os.path.join(test_path, test_dataset))
+    adata_pred = sc.AnnData(
+        X=np.expm1(adata_pred.raw.X), obs=adata_pred.obs, var=adata_pred[i].raw.var
+    )
+
     return adata_trains, adata_pred
 
+
 def read_adata(train_paths, train_datasets, test_path, test_dataset):
-    """ read adata files of training and testing datasets
-    
+    """read adata files of training and testing datasets
+
     This function reads a list of training datasets (at least one) and one testing dataset from .h5ad files and returns a list of training datasets anndata objects, and a testing anndata object.
-    
+
     parameters
     ----------
     train_paths: `list`
         list of paths where training datasets are located
     train_datasets: `list`
-        a list of names of training datasets (same order as paths) 
-    test_path: `string` 
+        a list of names of training datasets (same order as paths)
+    test_path: `string`
         path of test dataset
     test_dataset: `string`
         name of test dataset
-    
+
 
     returns
     -------
@@ -124,33 +141,32 @@ def read_adata(train_paths, train_datasets, test_path, test_dataset):
         An anndata object containing testing dataset
     """
 
-    adata_trains =[]
+    adata_trains = []
     for i in range(len(train_datasets)):
         adata_trains.append(scv.read(os.path.join(train_paths[i], train_datasets[i])))
-    adata_pred =scv.read(os.path.join(test_path, test_dataset))
+    adata_pred = scv.read(os.path.join(test_path, test_dataset))
     return adata_trains, adata_pred
 
 
+def merge_data(adata_trains, adata_pred, genes_to_use="all", merge="scanorama"):
 
-def merge_data(adata_trains, adata_pred, genes_to_use = 'all', merge = 'scanorama'):
+    """read adata files of training and testing datasets
 
-    """ read adata files of training and testing datasets
-    
     This function reads a list of training datasets (at least one) and one testing dataset from .h5ad files and returns a list of training datasets anndata objects, and a testing anndata object.
-    
+
     parameters
     ----------
     adata_trains: `list`
         list of training adata objects
     adata_pred: `list`
         testing adata object
-    train_datasets: `list` 
+    train_datasets: `list`
         list of name of training datasets
     genes_to_use: `list` or `string` | default = 'all'
         if `all` nothing happens, otherwise all genes not found in the list will be removed.
     merge: `string` | default = 'scanorama'
         merges datasets using scanorama. if time is an issue, choose 'naive' for simple concatenation.
-   
+
 
     returns
     -------
@@ -161,33 +177,34 @@ def merge_data(adata_trains, adata_pred, genes_to_use = 'all', merge = 'scanoram
         An anndata object containing corrected testinf adata object with chosen genes
     """
 
-    if genes_to_use != 'all':
+    if genes_to_use != "all":
         adata_trains, adata_pred = remove_genes(adata_trains, adata_pred, genes_to_use)
-    
+
     # merge datasets if there are multiple training_datasets
-    if merge == 'naive':
-        print('merging naively')
+    if merge == "naive":
+        print("merging naively")
         adata_train = naive_merge(adata_trains, adata_pred)
     # implement scanorama and scanorama integrated
-    if merge == 'scanorama':
-        print('merging with scanorama')
+    if merge == "scanorama":
+        print("merging with scanorama")
         adata_train, adata_pred = scanorama_merge(adata_trains, adata_pred, True)
     else:
         adata_train = adata_trains[0]
-    if merge == 'naive' or len(adata_trains) ==1:
-        print('calculating intersection')
-        adata_train, adata_pred = intersect_genes(adata_train, adata_pred)    
+    if merge == "naive" or len(adata_trains) == 1:
+        print("calculating intersection")
+        adata_train, adata_pred = intersect_genes(adata_train, adata_pred)
     return adata_train, adata_pred
 
+
 def naive_merge(adata_trains):
-    """ concatenates training anndata objects
-    
+    """concatenates training anndata objects
+
     parameters
     ----------
     adata_trains: `list`
         list of training anndata objects
     train_datasets: `list`
-        a list of names of training datasets (same order as adata_trains) 
+        a list of names of training datasets (same order as adata_trains)
 
     returns
     -------
@@ -208,25 +225,25 @@ def naive_merge(adata_trains):
             trains.uns.pop(key, None)
     """
 
-    if len(adata_trains) ==1:
+    if len(adata_trains) == 1:
         return adata_trains[0]
     adata_train = adata_trains[0].concatenate(*adata_trains[1:])
     return adata_train
 
 
 def scanorama_merge(adata_trains, adata_pred, keepdimensionality):
-    """ corrects datasets using scanorama and merge training datasets subsequently
-    
+    """corrects datasets using scanorama and merge training datasets subsequently
+
     This function reads a list of training datasets (at least one) and one testing dataset from .h5ad files and returns a merged and corrected training dataset anndata object, and a corrected testing anndata object.
-    
+
     parameters
     ----------
     adata_trains: `list`
         list of training dataset adata objects
     adata_pred: AnnData
         testing dataset anndata object
-    keepdimensionality: `bool` 
-        determines if we should use all common genes or if we should reduce dimensionality to 100. False not currently implemented    
+    keepdimensionality: `bool`
+        determines if we should use all common genes or if we should reduce dimensionality to 100. False not currently implemented
     train_datasets: `list`
         names of train datasets
 
@@ -239,12 +256,12 @@ def scanorama_merge(adata_trains, adata_pred, keepdimensionality):
     """
 
     adata_pred_obssave = adata_pred
-    nonmerged_adata_train = naive_merge(adata_trains) # to have merged obs ready
+    nonmerged_adata_train = naive_merge(adata_trains)  # to have merged obs ready
     all_adata = naive_merge([nonmerged_adata_train, adata_pred])
     adata_trains.append(adata_pred)
-    print('using scanorama rn')
-    corrected = scan.correct_scanpy(adata_trains, return_dimred=True) 
-    print('integrating training set')
+    print("using scanorama rn")
+    corrected = scan.correct_scanpy(adata_trains, return_dimred=True)
+    print("integrating training set")
     if len(adata_trains) != 2:
         adata_train = sc.AnnData.concatenate(*corrected[:-1])
     else:
@@ -260,19 +277,19 @@ def scanorama_merge(adata_trains, adata_pred, keepdimensionality):
 
 
 def remove_genes(adata_trains, adata_pred, genes_to_use):
-    """ removes all genes not in gene set
-    
+    """removes all genes not in gene set
+
     removes all genes from var that are not found in specified gene set list
-    
+
     parameters
     ----------
     adata_trains: `list`
         list of training dataset adata objects
     adata_pred: AnnData
         testing dataset anndata object
-    genes_to_use: `list` 
+    genes_to_use: `list`
         list of genes to be removed
-    
+
 
     returns
     -------
@@ -284,18 +301,18 @@ def remove_genes(adata_trains, adata_pred, genes_to_use):
     """
 
     for i in range(len(adata_trains)):
-        adata_trains[i] = adata_trains[i][:,adata_trains[i].var['SYMBOL'].isin(genes_to_use)]
-    adata_pred = adata_pred[:,adata_pred.var['SYMBOL'].isin(genes_to_use)]
+        adata_trains[i] = adata_trains[i][
+            :, adata_trains[i].var["SYMBOL"].isin(genes_to_use)
+        ]
+    adata_pred = adata_pred[:, adata_pred.var["SYMBOL"].isin(genes_to_use)]
     return adata_trains, adata_pred
 
 
-
-
 def intersect_genes(adata_train, adata_pred):
-    """ removes all genes not in all datasets
-    
+    """removes all genes not in all datasets
+
     removes all genes not contained in all datasets
-    
+
     parameters
     ----------
     adata_train: AnnData
@@ -303,7 +320,7 @@ def intersect_genes(adata_train, adata_pred):
     adata_pred: AnnData
         testing dataset anndata object
 
-    
+
     returns
     -------
     AnnData
@@ -316,24 +333,26 @@ def intersect_genes(adata_train, adata_pred):
     """Find intersecting subset of genes between sample and signature matrix"""
 
     # note: the following lines are a hack to avoid an incomprehensible error when aome values i uns are not the same
-    rmkeys = ['neighbors', 'pca', 'rank_genes_groups', 'celltype_dream_colors']
+    rmkeys = ["neighbors", "pca", "rank_genes_groups", "celltype_dream_colors"]
     for key in rmkeys:
         adata_train.uns.pop(key, None)
         adata_pred.uns.pop(key, None)
 
-    intersection = pd.concat([adata_train.var, adata_pred.var], axis = 1, join='inner') #, on = index
-    intersection = intersection.index#.tolist()
-    adata_train = adata_train[:,adata_train.var.index.isin(intersection)]
-    adata_pred = adata_pred[:,adata_pred.var.index.isin(intersection)]
+    intersection = pd.concat(
+        [adata_train.var, adata_pred.var], axis=1, join="inner"
+    )  # , on = index
+    intersection = intersection.index  # .tolist()
+    adata_train = adata_train[:, adata_train.var.index.isin(intersection)]
+    adata_pred = adata_pred[:, adata_pred.var.index.isin(intersection)]
     return adata_train, adata_pred
 
 
-def remove_nonshared(adata_train, adata_pred, celltype='dblabel'):
+def remove_nonshared(adata_train, adata_pred, celltype="dblabel"):
 
-    """ removes all celltypes not in all datasets
-    
+    """removes all celltypes not in all datasets
+
     NOTE: requires annotated testing dataset
-    
+
     parameters
     ----------
     adata_train: AnnData
@@ -343,7 +362,7 @@ def remove_nonshared(adata_train, adata_pred, celltype='dblabel'):
     celltype: str
         names of columns to compare.
 
-    
+
     returns
     -------
     AnnData
@@ -352,21 +371,23 @@ def remove_nonshared(adata_train, adata_pred, celltype='dblabel'):
     AnnData
         An anndata object containing testing dataset with non-shared celltpyes removed
     """
-    shared = pd.Series(list(set(adata_train.obs[celltype]) & set(adata_pred.obs[celltype])))
+    shared = pd.Series(
+        list(set(adata_train.obs[celltype]) & set(adata_pred.obs[celltype]))
+    )
     adata_train_shared = adata_train[adata_train.obs[celltype].isin(shared)]
     adata_pred_shared = adata_pred[adata_pred.obs[celltype].isin(shared)]
     removed_train = adata_train.obs.shape[0] - adata_train_shared.obs.shape[0]
     removed_test = adata_pred.obs.shape[0] - adata_pred_shared.obs.shape[0]
-    remove_train_percentage = removed_train/ adata_train.obs.shape[0] 
-    remove_test_percentage = removed_test/ adata_pred.obs.shape[0] 
+    remove_train_percentage = removed_train / adata_train.obs.shape[0]
+    remove_test_percentage = removed_test / adata_pred.obs.shape[0]
     return adata_train_shared, adata_pred_shared
 
 
-def fit(adata_train, method, celltype, njobs =10):
-    """ fits classifier on training dataset
-    
+def fit(adata_train, method, celltype, njobs=10):
+    """fits classifier on training dataset
+
     uses specified celltype column as label
-    
+
     parameters
     ----------
     adata_train: AnnData
@@ -379,7 +400,7 @@ def fit(adata_train, method, celltype, njobs =10):
     njobs: int
         number of cores to use, only applies to regression or random forest classifiers
 
-    
+
     returns
     -------
     sklearn.calibration.CalibratedClassifierCV or other classifier class
@@ -393,102 +414,102 @@ def fit(adata_train, method, celltype, njobs =10):
 
     else:
         train = adata_train.X
-    
-    scaler = StandardScaler().fit(train) 
+
+    scaler = StandardScaler().fit(train)
     train = scaler.transform(train)
 
     train = pd.DataFrame(train)
     y_train = adata_train.obs[celltype].ravel()
-    
-    if method == 'linear':
+
+    if method == "linear":
         classifier = linear_svm(train, y_train)
 
-    if method == 'rbf':
+    if method == "rbf":
         classifier = rbf_svm(train, y_train)
 
-    if method == 'sgd':
+    if method == "sgd":
         classifier = sgd_svm(train, y_train)
 
-    if method == 'random_forest':
+    if method == "random_forest":
         classifier = random_forest(train, y_train, njobs)
 
-    if method == 'logistic_regression':
-        classifier = logistic_regression(train, y_train, njobs) 
+    if method == "logistic_regression":
+        classifier = logistic_regression(train, y_train, njobs)
 
-    if method == 'logistic_regression_ovr':
-        classifier = logistic_regression_ovr(train, y_train, njobs) 
+    if method == "logistic_regression_ovr":
+        classifier = logistic_regression_ovr(train, y_train, njobs)
 
-    if method == 'logistic_regression_elastic':
+    if method == "logistic_regression_elastic":
         classifier = logistic_regression_elastic(train, y_train, njobs)
 
     return classifier, scaler
 
 
-
-
 def linear_svm(train, y_train):
 
-    """ fits linear svm on training dataset
-    
+    """fits linear svm on training dataset
+
     parameters
     ----------
     train: pd.DataFrame
         adata_train.X but scaled and as a dataframeelastic
     y_train: pd.DataFrame
             one dimensional dataframe containing class label
-    
+
     returns
     -------
     sklearn.calibration.CalibratedClassifierCV
         trained svm classifier
     """
-    
+
     svm = LinearSVC()
     calib_svm = CalibratedClassifierCV(svm)
     calib_svm.fit(train, y_train)
     return calib_svm
 
+
 def rbf_svm(train, y_train):
 
-    """ fits radial basis function kernel svm on training dataset
-    
+    """fits radial basis function kernel svm on training dataset
+
     parameters
     ----------
     train: pd.DataFrame
         adata_train.X but scaled and as a dataframe
     y_train: pd.DataFrame
             one dimensional dataframe containing class label
-    
+
     returns
     -------
     sklearn.model_selection.GridSearchCV
         trained svm classifier
     """
     C_range = np.logspace(-2, 10, 13)
-    gamma_range = np.logspace(-9, 3, 13)  
-    param_grid = dict(gamma=gamma_range, C=C_range)      
-    cv = StratifiedShuffleSplit(n_splits=5, test_size=0.2, random_state=42)             
-    GS_svm = GridSearchCV(SVC(), param_grid=param_grid, cv=cv, n_jobs = 20) 
+    gamma_range = np.logspace(-9, 3, 13)
+    param_grid = dict(gamma=gamma_range, C=C_range)
+    cv = StratifiedShuffleSplit(n_splits=5, test_size=0.2, random_state=42)
+    GS_svm = GridSearchCV(SVC(), param_grid=param_grid, cv=cv, n_jobs=20)
     GS_svm.fit(train, y_train)
     return GS_svm
 
+
 def sgd_svm(train, y_train):
-    """ fits linear svm on training dataset using stochastic gradient descent
-    
+    """fits linear svm on training dataset using stochastic gradient descent
+
     parameters
     ----------
     train: pd.DataFrame
         adata_train.X but scaled and as a dataframe
     y_train: pd.DataFrame
             one dimensional dataframe containing class label
-    
+
     returns
     -------
     sklearn.calibration.CalibratedClassifierCV
         trained svm classifier
     """
 
-    svm = SGDClassifier(max_iter=1000, tol = 1e-3)
+    svm = SGDClassifier(max_iter=1000, tol=1e-3)
     svm.fit(train, y_train)
     calib_svm = CalibratedClassifierCV(svm)
     calib_svm.fit(train, y_train)
@@ -496,91 +517,119 @@ def sgd_svm(train, y_train):
 
 
 def random_forest(train, y_train, njobs):
-    """ fits a random forest of a thousand esitamtors with balance class weight on training dataset. note: need at least ten nodes
-    
+    """fits a random forest of a thousand esitamtors with balance class weight on training dataset. note: need at least ten nodes
+
     parameters
     ----------
     train: pd.DataFrame
         adata_train.X but scaled and as a dataframe
     y_train: pd.DataFrame
             one dimensional dataframe containing class label
-    
+
     returns
     -------
     sklearn.ensemble.RandomForestClassifier
         trained svm classifier
     """
 
-    clf = RandomForestClassifier(n_estimators= 1000, random_state=0, verbose = 1,class_weight = 'balanced',  n_jobs = njobs)
+    clf = RandomForestClassifier(
+        n_estimators=1000,
+        random_state=0,
+        verbose=1,
+        class_weight="balanced",
+        n_jobs=njobs,
+    )
     clf.fit(train, y_train)
-    
+
     return clf
 
 
 def logistic_regression(train, y_train, njobs):
-    """ multiclass crossvalidated logistic regression with balanced class weight. Requires ten nodes.
-    
+    """multiclass crossvalidated logistic regression with balanced class weight. Requires ten nodes.
+
     parameters
     ----------
     train: pd.DataFrame
         adata_train.X but scaled and as a dataframe
     y_train: pd.DataFrame
             one dimensional dataframe containing class label
-    
+
     returns
     -------
     sklearn.calibration.CalibratedClassifierCV
         trained svm classifier
     """
-    clf = LogisticRegressionCV(random_state=0, verbose= 1, class_weight = 'balanced', n_jobs = njobs, multi_class= 'multinomial').fit(train, y_train) 
+    clf = LogisticRegressionCV(
+        random_state=0,
+        verbose=1,
+        class_weight="balanced",
+        n_jobs=njobs,
+        multi_class="multinomial",
+    ).fit(train, y_train)
     return clf
 
 
 def logistic_regression_ovr(train, y_train, njobs):
-    """ multiclass crossvalidated logistic regression with balanced class weight. Requires ten nodes. Returns OVR probability.
-    
+    """multiclass crossvalidated logistic regression with balanced class weight. Requires ten nodes. Returns OVR probability.
+
     parameters
     ----------
     train: pd.DataFrame
         adata_train.X but scaled and as a dataframe
     y_train: pd.DataFrame
             one dimensional dataframe containing class label
-    
+
     returns
     -------
     sklearn.calibration.CalibratedClassifierCV
         trained
     """
-    clf = LogisticRegressionCV(random_state=0, verbose= 1, class_weight = 'balanced',  n_jobs = njobs, multi_class= 'ovr').fit(train, y_train)
+    clf = LogisticRegressionCV(
+        random_state=0,
+        verbose=1,
+        class_weight="balanced",
+        n_jobs=njobs,
+        multi_class="ovr",
+    ).fit(train, y_train)
 
     return clf
+
 
 def logistic_regression_elastic(train, y_train, njobs):
-    """ multiclass crossvalidated logistic regression with balanced class weight. Requires ten nodes. Uses elastic regularisation.
+    """multiclass crossvalidated logistic regression with balanced class weight. Requires ten nodes. Uses elastic regularisation.
     parameters
     ----------
     train: pd.DataFrame
         adata_train.X but scaled and as a dataframe
     y_train: pd.DataFrame
             one dimensional dataframe containing class label
-    
+
     returns
     -------
     sklearn.calibration.CalibratedClassifierCV
         trained
     """
-    clf = LogisticRegressionCV(penalty = 'elasticnet', solver = 'saga', random_state=0, verbose= 1, class_weight = 'balanced',  n_jobs = njobs, multi_class= 'multinomial',  cv = 3, l1_ratios = [0.15]).fit(train, y_train)
+    clf = LogisticRegressionCV(
+        penalty="elasticnet",
+        solver="saga",
+        random_state=0,
+        verbose=1,
+        class_weight="balanced",
+        n_jobs=njobs,
+        multi_class="multinomial",
+        cv=3,
+        l1_ratios=[0.15],
+    ).fit(train, y_train)
 
     return clf
 
 
+def adata_predict(classifier, scaler, adata_pred, adata_orig, threshold=0):
+    """predicts on testing set using trained classifier
 
-def adata_predict(classifier, scaler,adata_pred, adata_orig, threshold = 0):
-    """ predicts on testing set using trained classifier
-    
     parameters
     ----------
-    test_path: `string` 
+    test_path: `string`
         path of test dataset
     test_dataset: `string`
         name of test dataset
@@ -601,14 +650,15 @@ def adata_predict(classifier, scaler,adata_pred, adata_orig, threshold = 0):
         Original anndata object with annotation added as column
     """
     pred = predict(classifier, scaler, adata_pred, threshold)
-    adata_orig.obs['auto_annot'] = pred
+    adata_orig.obs["auto_annot"] = pred
 
     return adata_orig
 
-def predict(classifier, scaler, adata_pred, threshold = 0):
 
-    """ predicts on testing set using trained classifier
-    
+def predict(classifier, scaler, adata_pred, threshold=0):
+
+    """predicts on testing set using trained classifier
+
     parameters
     ----------
     classifier: sklearn object
@@ -633,27 +683,28 @@ def predict(classifier, scaler, adata_pred, threshold = 0):
     test = scaler.transform(test)
     results = classifier.predict(test)
 
-    if (isinstance(classifier, LogisticRegressionCV) and classifier.multi_class == 'ovr') == False:
+    if (
+        isinstance(classifier, LogisticRegressionCV) and classifier.multi_class == "ovr"
+    ) == False:
         prob = np.max(classifier.predict_proba(test), axis=1)
 
     else:  # in this case we are using ovr logreg
         prob = np.max(scipy.special.expit(classifier.decision_function(test)), axis=1)
 
     unlabeled = np.where(prob < threshold)
-    results[unlabeled] = 'unknown'
+    results[unlabeled] = "unknown"
     pred = pd.DataFrame(results)
 
-    pred.to_csv("SVM_Pred_Labels_inter_jupyter.csv", index = False)
-    return results 
+    pred.to_csv("SVM_Pred_Labels_inter_jupyter.csv", index=False)
+    return results
 
 
+def adata_pred_prob(classifier, scaler, adata_pred, adata_orig, threshold=0):
+    """predicts on testing set using trained classifier and returns class probability for every cell and every class
 
-def adata_pred_prob(classifier, scaler,adata_pred, adata_orig, threshold = 0):
-    """ predicts on testing set using trained classifier and returns class probability for every cell and every class
-    
     parameters
     ----------
-    test_path: `string` 
+    test_path: `string`
         path of test dataset
     test_dataset: `string`
         name of test dataset
@@ -674,14 +725,15 @@ def adata_pred_prob(classifier, scaler,adata_pred, adata_orig, threshold = 0):
     adata_prob = adata_orig.copy()
     pred, prob = predict_proba(classifier, scaler, adata_pred, threshold)
 
-    adata_prob.obs['auto_annot'] = pred
-    adata_prob.obs[classifier.classes_] = pd.DataFrame(prob,  index=adata_prob.obs.index)
+    adata_prob.obs["auto_annot"] = pred
+    adata_prob.obs[classifier.classes_] = pd.DataFrame(prob, index=adata_prob.obs.index)
     return adata_prob
 
-def predict_proba(classifier, scaler, adata_pred, threshold = 0):
 
-    """ predicts on testing set using trained classifier and returns probabilities
-    
+def predict_proba(classifier, scaler, adata_pred, threshold=0):
+
+    """predicts on testing set using trained classifier and returns probabilities
+
     parameters
     ----------
     classifier: sklearn object
@@ -709,33 +761,47 @@ def predict_proba(classifier, scaler, adata_pred, threshold = 0):
 
     results = classifier.predict(test)
 
-    if (isinstance(classifier, LogisticRegressionCV) and classifier.multi_class == 'ovr') == False:
+    if (
+        isinstance(classifier, LogisticRegressionCV) and classifier.multi_class == "ovr"
+    ) == False:
         probmax = np.max(classifier.predict_proba(test), axis=1)
         prob = classifier.predict_proba(test)
         # (pd.DataFrame(prob)) #test if this is needed
 
     else:  # in this case we are using ovr logreg
-        probmax = np.max(scipy.special.expit(classifier.decision_function(test)), axis=1)
-        prob = (scipy.special.expit(classifier.decision_function(test)))
+        probmax = np.max(
+            scipy.special.expit(classifier.decision_function(test)), axis=1
+        )
+        prob = scipy.special.expit(classifier.decision_function(test))
         # (pd.DataFrame(prob))
 
     unlabeled = np.where(probmax < threshold)
-    results[unlabeled] = 'unknown'
+    results[unlabeled] = "unknown"
     pred = pd.DataFrame(results)
 
     pred.to_csv("SVM_Pred_Labels_inter_jupyter.csv", index=False)
 
-    return results, prob 
+    return results, prob
 
 
-
-
-
-def report(adata_pred, celltype, method, analysis_name, train_datasets, test_dataset, merge, use_raw = False, genes_to_use = 'all', remove_nonshared = False, clustering = 'leiden', asymmetric_matrix = True):
-    """ reports basic metrics, produces confusion matrices and plots umap of prediction
+def report(
+    adata_pred,
+    celltype,
+    method,
+    analysis_name,
+    train_datasets,
+    test_dataset,
+    merge,
+    use_raw=False,
+    genes_to_use="all",
+    remove_nonshared=False,
+    clustering="leiden",
+    asymmetric_matrix=True,
+):
+    """reports basic metrics, produces confusion matrices and plots umap of prediction
     Writes out a csv file containing all accuracy and f1 scores.
     Writes normalized and absolute confusion matrices, as well as umap prediction comparisons to ./figures.
-    
+
     parameters
     ----------
     adata_pred: AnnData
@@ -765,15 +831,17 @@ def report(adata_pred, celltype, method, analysis_name, train_datasets, test_dat
     -------
     0
     """
-    print("besca.tl.auto_annot.report(...) is deprecated( besca > 2.3); please use besca.tl.report(...)")
+    print(
+        "besca.tl.auto_annot.report(...) is deprecated( besca > 2.3); please use besca.tl.report(...)"
+    )
     fig = report_generic(
-        adata_pred = adata_pred,
-        celltype = celltype,
-        method = method,
-        analysis_name = analysis_name,
-        train_datasets = train_datasets,
-        test_dataset = test_dataset,
-        merge = merge,
+        adata_pred=adata_pred,
+        celltype=celltype,
+        method=method,
+        analysis_name=analysis_name,
+        train_datasets=train_datasets,
+        test_dataset=test_dataset,
+        merge=merge,
         name_prediction="auto_annot",
         name_report="auto_annot",
         use_raw=use_raw,
@@ -781,10 +849,11 @@ def report(adata_pred, celltype, method, analysis_name, train_datasets, test_dat
         remove_nonshared=remove_nonshared,
         clustering=clustering,
         asymmetric_matrix=asymmetric_matrix,
-)
+    )
+
 
 def scanvi_predict(adata_trains, adata_pred, celltype):
-    """ merges all datasets and predicts on testing set with scANVI. Note that unlike auto_annot predict, merging and fitting is all combined in one function.
+    """merges all datasets and predicts on testing set with scANVI. Note that unlike auto_annot predict, merging and fitting is all combined in one function.
 
     parameters
     ----------
@@ -803,17 +872,26 @@ def scanvi_predict(adata_trains, adata_pred, celltype):
         Test dataset with predictions in obs and new representation in obsm
     adata_concat: AnnData
         Both adata_train and adata_pred concatenated to one dataset
-     """
+    """
     adata_concat = adata_pred.concatenate(*adata_trains)
     genes_used = adata_concat.var.index.tolist()
     adata_concat.layers["counts"] = adata_concat.raw[:, genes_used].X
 
-    adata_concat.obs["scvi_training_labels"] = (adata_concat.obs.batch == "0")
-    adata_concat.obs.scvi_training_labels[adata_concat.obs.scvi_training_labels == True] = "unlabeled"
-    adata_concat.obs.scvi_training_labels[adata_concat.obs.scvi_training_labels == False] = adata_concat.obs[celltype]
+    adata_concat.obs["scvi_training_labels"] = adata_concat.obs.batch == "0"
+    adata_concat.obs.scvi_training_labels[
+        adata_concat.obs.scvi_training_labels == True
+    ] = "unlabeled"
+    adata_concat.obs.scvi_training_labels[
+        adata_concat.obs.scvi_training_labels == False
+    ] = adata_concat.obs[celltype]
 
     print("setting up anndata for sciv")
-    scvi.data.setup_anndata(adata_concat, layer="counts", batch_key="batch", labels_key="scvi_training_labels")
+    scvi.data.setup_anndata(
+        adata_concat,
+        layer="counts",
+        batch_key="batch",
+        labels_key="scvi_training_labels",
+    )
 
     lvae = scvi.model.SCANVI(adata_concat, "unlabeled", n_latent=30, n_layers=2)
 
@@ -829,7 +907,7 @@ def scanvi_predict(adata_trains, adata_pred, celltype):
 
 
 def scvi_merge(adata_trains, adata_pred):
-    """ merges all datasets and stores learnt representation in obsm
+    """merges all datasets and stores learnt representation in obsm
 
     parameters
     ----------
@@ -846,7 +924,7 @@ def scvi_merge(adata_trains, adata_pred):
         Test dataset with new representation in obsm
     adata_concat: AnnData
         Both adata_train and adata_pred concatenated to one dataset with new representation stored in obsm
-     """
+    """
 
     adata_concat = adata_pred.concatenate(*adata_trains)
     genes_used = adata_concat.var.index.tolist()
@@ -862,14 +940,15 @@ def scvi_merge(adata_trains, adata_pred):
 
     return adata_train, adata_pred, adata_concat
 
+
 def visualise_scvi_merge(adata_concat):
-    """ plots a umap of all merged datasets coloured by dataset of origin.
+    """plots a umap of all merged datasets coloured by dataset of origin.
 
     parameters
     ----------
     adata_concat: AnnData
         Both adata_train and adata_pred concatenated to one dataset with new representation stored in obsm
-     """
+    """
 
     if "X_scVI" in adata_concat.obsm:
         sc.pp.neighbors(adata_concat, use_rep="X_scVI")
@@ -881,8 +960,8 @@ def visualise_scvi_merge(adata_concat):
     sc.tl.leiden(adata_concat)
     sc.tl.umap(adata_concat)
     sc.pl.umap(
-    adata_concat,
-    color=["batch", "leiden"],
-    frameon=False,
-    ncols=1,
-)
+        adata_concat,
+        color=["batch", "leiden"],
+        frameon=False,
+        ncols=1,
+    )
