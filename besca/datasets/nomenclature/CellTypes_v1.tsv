@@ -55,7 +55,7 @@ cholangiocyte	cholangiocyte	CL:1000488	Cholangiocyte	3					duct epithelial cell	
 cholinergic neuron	cholinergic neuron	CL:0000108	CholinergicN	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
 choroid plexus epithelial cell	choroid plexus epithelial cell	CL:0000706	ChoroidPlexusEpithelial	4			ependymal cell	CL:0000065	ciliated epithelial cell	CL:0000067	epithelial cell	CL:0000066	animal cell	CL:0000548
 chondrocyte	chondrocyte	CL:0000138	Chondrocyte	2							connective tissue cell	CL:0002320	animal cell	CL:0000548
-ciliated cell	ciliated epithelial cell	CL:0000067	CiliatedEpithelial	2							epithelial cell	CL:0000066	animal cell	CL:0000548
+ciliated epithelial cell	ciliated epithelial cell	CL:0000067	CiliatedEpithelial	2							epithelial cell	CL:0000066	animal cell	CL:0000548
 classical monocyte	classical monocyte	CL:0000860	ClassMonocyte	4			monocyte	CL:0000576	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
 club cell	club cell	CL:0000158	Club	5	bronchial epithelial cell	CL:0002328	respiratory epithelial cell	CL:0002368	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
 central memory CD4-positive, alpha-beta T cell	central memory CD4-positive, alpha-beta T cell	CL:0000904	CMCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
