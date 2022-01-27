@@ -5,6 +5,7 @@ from io import BytesIO
 import pkg_resources
 from numpy import arange, expm1, ix_, ndarray, round, where, zeros
 from pandas import DataFrame, concat, read_csv
+from scanpy import AnnData
 from scipy import io, sparse
 from scipy.io.mmio import MMFile
 
@@ -18,41 +19,14 @@ class MMFileFixedFormat(MMFile):
         return f"%.{precision}f\n"
 
 
-def write__MMFILE(C_path, E, outpath):
-    # check if executable is actually executable on the system
-    def is_exe(fpath):
-        return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
-
-    if is_exe(C_path):
-        # create a temporary file to pipe the output from io.mmwrite to
-        f_in = BytesIO()
-
-        # write out temporary matrix to created pipe
-        io.mmwrite(target=f_in, a=E, precision=2)
-
-        from subprocess import run
-
-        f_out = open(os.path.join(outpath, "matrix.mtx"), "w")
-        run([C_path, "-"], input=f_in.getvalue(), stdout=f_out)
-
-        print("adata.X successfully written to matrix.mtx")
-
-    else:
-        MMFileFixedFormat().write(os.path.join(outpath, "matrix.mtx"), a=E, precision=2)
-        print(
-            "adata.X successfully written to matrix.mtx. \n Warning: could not use reformat script."
-        )
-
-
 # Functions to export AnnData objects to FAIR dataformat
 def X_to_mtx(
-    adata,
-    outpath=None,
-    write_metadata=False,
-    geneannotation="SYMBOL",
-    additional_geneannotation="ENSEMBL",
-    C_path=None,
-):
+    adata: AnnData,
+    outpath: str = None,
+    write_metadata: bool = False,
+    geneannotation: str = "SYMBOL",
+    additional_geneannotation: str = "ENSEMBL",
+) -> None:
     """export adata object to mtx format (matrix.mtx, genes.tsv, barcodes.tsv)
 
     exports the counts contained in adata.X to a matrix.mtx file (in sparse format),
@@ -81,8 +55,6 @@ def X_to_mtx(
     additional_geneannotation: `str` | default = None
         string identifying the coloumn name in which either the SYMBOL or the ENSEMBL geneids
         are contained as additional gene annotation in adata.var
-    C_path: `string` | default = 'pkg_resources.resource_filename('besca', 'export/reformat')'
-        File path to the location of the C-programm that is called to reformat the matrix.mtx file
 
     returns
     -------
@@ -92,8 +64,6 @@ def X_to_mtx(
     """
     if outpath is None:
         outpath = os.getcwd()
-    if C_path is None:
-        C_path = pkg_resources.resource_filename("besca", "export/reformat")
     ### check if the outdir exists if not create
     if not os.path.exists(outpath):
         os.makedirs(outpath)
@@ -106,7 +76,8 @@ def X_to_mtx(
     else:
         E = adata.X.tocsr().T  # transpose back into the same format as we imported it
 
-    write__MMFILE(C_path, E, outpath)
+    MMFileFixedFormat().write(os.path.join(outpath, "matrix.mtx"), a=E, precision=2)
+    print("adata.X successfully written to matrix.mtx.")
     ### export genes
 
     # get genes to export
@@ -176,14 +147,12 @@ def X_to_mtx(
 
 
 def raw_to_mtx(
-    adata,
-    outpath=os.getcwd(),
-    write_metadata=False,
-    geneannotation="ENSEMBL",
-    additional_geneannotation=None,
-    C_path=None,
-):
-
+    adata: AnnData,
+    outpath: str = os.getcwd(),
+    write_metadata: bool = False,
+    geneannotation: str = "ENSEMBL",
+    additional_geneannotation: str = None,
+) -> None:
     """export adata.raw to .mtx (matrix.mtx, genes.tsv, barcodes, tsv)
 
     exports the counts contained in adata.raw.X to a matrix.mtx file (in sparse format),
@@ -214,9 +183,6 @@ def raw_to_mtx(
     additional_geneannotation: `str` | default = None
         string identifying the coloumn name in which either the SYMBOL symbols or the ENSEMBL geneids
         are contained as additional gene annotation in adata.var
-    C_path: `string` | default = pkg_resources.resource_filename('besca', 'export/reformat')
-        File path to the location of the C-programm that is called to reformat the matrix.mtx file
-
     returns
     -------
     None
@@ -235,12 +201,15 @@ def raw_to_mtx(
         write_metadata=write_metadata,
         geneannotation=geneannotation,
         additional_geneannotation=additional_geneannotation,
-        C_path=C_path,
     )
 
 
 def clustering(
-    adata, outpath=None, export_average=True, export_fractpos=True, method="leiden"
+    adata: AnnData,
+    outpath: str = None,
+    export_average: bool = True,
+    export_fractpos: bool = True,
+    method: str = "leiden",
 ):
     """export mapping of cells to clusters to .tsv file
 
@@ -287,16 +256,16 @@ def clustering(
 
 
 def labeling_info(
-    outpath=None,
-    description="leiden clustering",
-    public=False,
-    default=True,
-    expert=False,
-    reference=False,
-    method="leiden",
-    annotated_version_of="-",
-    filename="labelinfo.tsv",
-):
+    outpath: str = None,
+    description: str = "leiden clustering",
+    public: bool = False,
+    default: bool = True,
+    expert: bool = False,
+    reference: bool = False,
+    method: str = "leiden",
+    annotated_version_of: str = "-",
+    filename: str = "labelinfo.tsv",
+) -> None:
     """write out labeling info for uploading to database
 
     This functions outputs the file labelinfo.tsv which is needed to annotate a written out
@@ -388,15 +357,15 @@ def labeling_info(
 
 
 def labeling(
-    adata,
-    outpath=None,
-    column="leiden",
-    label="LABEL",
-    filename="cell2labels.tsv",
-    export_average=True,
-    export_fractpos=True,
-    use_raw=True,
-):
+    adata: AnnData,
+    outpath: str = None,
+    column: str = "leiden",
+    label: str = "LABEL",
+    filename: str = "cell2labels.tsv",
+    export_average: bool = True,
+    export_fractpos: bool = True,
+    use_raw: bool = True,
+) -> None:
     """export mapping of cells to specified label to .tsv file
 
     This is a function with which any type of labeling (i.e. celltype annotation, leiden
@@ -578,15 +547,15 @@ def labeling(
 
 
 def analysis_metadata(
-    adata,
-    outpath=None,
-    filename="analysis_metadata.tsv",
-    total_counts=True,
-    n_pcs=3,
-    umap=True,
-    tsne=False,
-    percent_mito=True,
-    n_genes=True,
+    adata: AnnData,
+    outpath: str = None,
+    filename: str = "analysis_metadata.tsv",
+    total_counts: bool = True,
+    n_pcs: int = 3,
+    umap: bool = True,
+    tsne: bool = False,
+    percent_mito: bool = True,
+    n_genes: bool = True,
 ):
     """export plotting coordinates to analysis_metadata.tsv
 
@@ -698,11 +667,11 @@ def analysis_metadata(
 
 
 def ranked_genes(
-    adata,
-    type="wilcox",
-    outpath=None,
-    geneannotation="SYMBOL",
-    additional_geneannotation="ENSEMBL",
+    adata: AnnData,
+    type: str = "wilcox",
+    outpath: str = None,
+    geneannotation: str = "SYMBOL",
+    additional_geneannotation: str = "ENSEMBL",
 ):
     """export marker genes for each cluster to .gct file
 
@@ -906,12 +875,12 @@ def ranked_genes(
 
 
 def pseudobulk(
-    adata,
-    outpath=None,
-    column="celltype0",
-    label="celltype0",
-    split_condition="donor",
-    todrop=[
+    adata: AnnData,
+    outpath: str = None,
+    column: str = "celltype0",
+    label: str = "celltype0",
+    split_condition: str = "donor",
+    todrop: list = [
         "CELL",
         "input.path",
         "percent_mito",
@@ -924,7 +893,7 @@ def pseudobulk(
         "celltype3",
         "dblabel",
     ],
-    main_condition="CONDITION",
+    main_condition: str = "CONDITION",
 ):
     """export pseudobulk profiles of cells to .gct files
 
@@ -1068,11 +1037,11 @@ def pseudobulk(
 
 
 def generate_gep(
-    adata,
-    filename="gep_basis_vector.csv",
-    column="<last_column>",
-    annot="ENSEMBL",
-    outpath=None,
+    adata: AnnData,
+    filename: str = "gep_basis_vector.csv",
+    column: str = "<last_column>",
+    annot: str = "ENSEMBL",
+    outpath: str = None,
 ):
     """Generate Gene Expression Profile (GEP) from scRNA-seq annotations
 
