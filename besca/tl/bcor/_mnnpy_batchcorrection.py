@@ -3,6 +3,7 @@ from scanpy.external.pp import mnn_correct
 from pandas import DataFrame
 import scipy
 
+
 def batch_correct(adata, batch_to_correct):
     """function to perform batch correction
 
@@ -28,15 +29,22 @@ def batch_correct(adata, batch_to_correct):
     batchNum = len(batches)
     batchData = []
     for i in range(batchNum):
-        batchData.append(adata[adata.obs [batch_to_correct] == batches [i]].copy())
-    corrected = mnn_correct(*batchData, var_index = None, batch_key = batch_to_correct, do_concatenate = True, svd_mode='svd', save_raw = False)
-    (corrected [0]).var = adata.var.copy()
+        batchData.append(adata[adata.obs[batch_to_correct] == batches[i]].copy())
+    corrected = mnn_correct(
+        *batchData,
+        var_index=None,
+        batch_key=batch_to_correct,
+        do_concatenate=True,
+        svd_mode="svd",
+        save_raw=False
+    )
+    (corrected[0]).var = adata.var.copy()
     # otherwise, the symbols and n_cells columns will be identical copies for each batch, with modified names
-    return(corrected[0])
+    return corrected[0]
 
 
 def postprocess_mnnpy(adata, bdata):
-    """ postprocessing to generate a newly functional AnnData object
+    """postprocessing to generate a newly functional AnnData object
 
     After running mnnpy_mnncorrect we obtain ann AnnData object bdata. Since mnn_correct automatically
     truncates all the genes contained in .raw to contain only the highly variable genes this function
@@ -60,7 +68,9 @@ def postprocess_mnnpy(adata, bdata):
         AnnData object with adata.X containing the corrected values and .raw all of the original values
 
     """
-    corrected_matrix = DataFrame(data = bdata.X, index = bdata.obs_names.tolist(), columns = bdata.var_names.tolist())
+    corrected_matrix = DataFrame(
+        data=bdata.X, index=bdata.obs_names.tolist(), columns=bdata.var_names.tolist()
+    )
     corrected_matrix.sort_index(inplace=True)
 
     new_adata = AnnData(corrected_matrix.values)
@@ -69,21 +79,27 @@ def postprocess_mnnpy(adata, bdata):
     new_adata.obs_names = bdata.obs_names.sort_values()
     new_adata.var = bdata.var
 
-    #need to sort raw object to match the batch corrected order
-    raw_matrix = DataFrame(data=(adata.raw.X.todense() if scipy.sparse.issparse(adata.raw.X) else adata.raw.X), index=adata.obs_names.tolist(), columns=adata.raw.var_names.tolist())
+    # need to sort raw object to match the batch corrected order
+    raw_matrix = DataFrame(
+        data=(
+            adata.raw.X.todense() if scipy.sparse.issparse(adata.raw.X) else adata.raw.X
+        ),
+        index=adata.obs_names.tolist(),
+        columns=adata.raw.var_names.tolist(),
+    )
     raw_matrix.sort_index(inplace=True)
 
-    #recreate raw
+    # recreate raw
     raw = AnnData(raw_matrix.values)
     raw.var_names = adata.raw.var_names
     raw.obs_names = adata.obs_names.sort_values()
     raw.var = adata.raw.var
 
-    #add raw back in
+    # add raw back in
     new_adata.raw = raw
 
-    #ensure that indices are preserved
+    # ensure that indices are preserved
     adata.obs_names = adata.obs.CELL
     adata.obs.index = adata.obs.CELL
 
-    return(new_adata)
+    return new_adata

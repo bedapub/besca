@@ -5,9 +5,10 @@ import warnings
 from ..datasets._mito import get_mito_genes
 
 
-def fraction_counts(adata, species='human', name='percent_mito',
-                    use_genes='SYMBOL', specific_file=None):
-    """ Function to calculate fraction of counts per cell from a gene list.
+def fraction_counts(
+    adata, species="human", name="percent_mito", use_genes="SYMBOL", specific_file=None
+):
+    """Function to calculate fraction of counts per cell from a gene list.
     This function calculates the fraction of counts per cell for
     a list of genes (for example mito genes) if no specific file is given.
     Note that the input file consists of two columns
@@ -48,23 +49,27 @@ def fraction_counts(adata, species='human', name='percent_mito',
         gene_list = get_mito_genes(species, use_genes)
     else:
         # ENS_GENE_ID  GENE_SYMBOL (2 cols)
-        if use_genes == 'SYMBOL':
-            gene_list = list(read_csv(specific_file, header=None, sep='\t')[1])
-        elif use_genes == 'ENSEMBL':
-            gene_list = list(read_csv(specific_file, header=None, sep='\t')[0])
+        if use_genes == "SYMBOL":
+            gene_list = list(read_csv(specific_file, header=None, sep="\t")[1])
+        elif use_genes == "ENSEMBL":
+            gene_list = list(read_csv(specific_file, header=None, sep="\t")[0])
     genes = [i for i in adata.var_names if i in gene_list]
     # for each cell compute fraction of counts in gene_list vs. all genes
     # axis=1 --> sum over rows
     if len(genes) > 0:
         n_counts = sum(adata.X, axis=1).A1
-        if (any(n_counts == 0)):
-            warnings.warn('Some of the cells contain no counts. \
-                           Do not forget to remove \'empty\' cells from data.')
-            n_counts[n_counts == 0] = float('inf')
+        if any(n_counts == 0):
+            warnings.warn(
+                "Some of the cells contain no counts. \
+                           Do not forget to remove 'empty' cells from data."
+            )
+            n_counts[n_counts == 0] = float("inf")
         adata.obs[name] = sum(adata[:, genes].X, axis=1).A1 / n_counts
     else:
-        adata.obs[name] = 0.
-        print('None of the genes from input list found in data set. \
+        adata.obs[name] = 0.0
+        print(
+            "None of the genes from input list found in data set. \
                Please ensure you have correctly specified use_genes to match \
-               the type of genes saved in adata.var_names.')
-    return(None)
+               the type of genes saved in adata.var_names."
+        )
+    return None

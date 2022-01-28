@@ -188,32 +188,46 @@ def compute_signed_score(
     ]
     return None
 
-def make_gmtx(setName,desc,User,Source,Subtype,domain,genesetname, 
-              genes,studyID=None,analysisID=None,application=None, celltype=None,coef_type='logFC'): 
-    """ Construct a gmtx file according to format conventions for import into Gems. 
+
+def make_gmtx(
+    setName,
+    desc,
+    User,
+    Source,
+    Subtype,
+    domain,
+    genesetname,
+    genes,
+    studyID=None,
+    analysisID=None,
+    application=None,
+    celltype=None,
+    coef_type="logFC",
+):
+    """Construct a gmtx file according to format conventions for import into Gems.
     Parameters
     ----------
-    setName: `str` 
+    setName: `str`
         informative set name e.g. Pembro_induced_MC38CD8Tcell, Plasma_mdb, TGFB_Stromal_i
-    desc : `str` 
-        informative and verbose signature description; for cell type signatures use nomenclature, 
-        if coef used explain what it represents; link to study if present; e.g. Genes higher expressed in 
+    desc : `str`
+        informative and verbose signature description; for cell type signatures use nomenclature,
+        if coef used explain what it represents; link to study if present; e.g. Genes higher expressed in
         Pembro vs. vehicle in non-naive CD8-positive T cells in MC38 in vivo exp. ID time T2; coefs are log2FC
-    User : `str` 
-        related to signature origin e.g. Public (for literature-derived sets), own user ID for analysis-derived sets, 
+    User : `str`
+        related to signature origin e.g. Public (for literature-derived sets), own user ID for analysis-derived sets,
         rtsquad, scsquad, gred, other
-    Source : `str` 
-        source of the signature,  one of Literature scseq, Literature, besca, scseqmongodb, 
+    Source : `str`
+        source of the signature,  one of Literature scseq, Literature, besca, scseqmongodb,
         internal scseq, pRED, Chugai, gRED, other
-    Subtype : `str` 
+    Subtype : `str`
         specific subtype e.g. onc, all, healthy, disease
-    domain : `str` 
+    domain : `str`
         one of pathway, biological process, cellular component,molecular function, phenotype,
         perturbation, disease, misc, microRNA targets, transcription factor targets, cell marker, tissue marker
-    genesetname: `str` 
-        shared across different signatures of a specific type e.g. besca_marker, dblabel_marker, 
+    genesetname: `str`
+        shared across different signatures of a specific type e.g. besca_marker, dblabel_marker,
         Pembro_induced_MC38CD8Tcell, FirstAuthorYearPublication
-    genes: `str` 
+    genes: `str`
         tab-separated list of genes with/without a coefficient e.g. Vim | 2.4\tBin1 | 2.02 or Vim\tBin1
     studyID: `str` | default = None
         study name as in scMongoDB/bescaviz; only when source=internal scseq
@@ -224,13 +238,13 @@ def make_gmtx(setName,desc,User,Source,Subtype,domain,genesetname,
     celltype: `str` | default = None
         for cell markers, specify celltype according to dblabel_short convention to facilitate reuse
     coef_type: `str` | default = score
-        specify what the coefficient corresponds too, e.g. logFC, gini, SAM, score, ... 
+        specify what the coefficient corresponds too, e.g. logFC, gini, SAM, score, ...
 
     Returns
     -------
     geneset
         a dictionary with populated fields needed to later export the signature to gmtx
-        
+
     Example
     -------
     >>> User='userid'
@@ -246,49 +260,88 @@ def make_gmtx(setName,desc,User,Source,Subtype,domain,genesetname,
     >>> pdout=DEgenes['Pembro'].sort_values('Log2FC', ascending=False)
     >>> genes="\t".join(list(pdout['Name'].astype(str) + " | " + pdout['Log2FC'].round(2).astype(str)))
     >>> signature_dict = bc.tl.sig.make_gmtx(setName,desc,User,Source,Subtype,domain,genesetname,genes,studyID,analysisID)
-    """    
+    """
 
-    geneset={}    
-    geneset['setName']=setName
-    geneset['desc']=desc
-    geneset['User']=User
-    geneset['Source']=Source
-    geneset['Subtype']=Subtype
-    geneset['geneset']=genesetname
-    
-    if (domain in ['pathway', 'biological process', 'cellular component','molecular function','phenotype',
-                    'perturbation', 'disease', 'misc', 'microRNA targets', 'transcription factor targets',
-                    'cell marker', 'tissue marker']):
-        geneset['domain']=domain
-    else: 
-        if (domain==None): 
-            domain='misc'
-            print('You did not specify a domain name, it will be set to misc')
-        print("Recommended domain names are pathway, biological process, cellular component, molecular function, phenotype, perturbation, disease, misc, microRNA targets, transcription factor targets, cell marker, tissue marker")
-        geneset['domain']=domain
-    
-    if (Source=="internal scseq"):
-        if (studyID==None): print("Signatures of type "+Source+" require a studyID, please provide one.")
-        else: geneset['studyID']=studyID 
-        if (analysisID==None): print("Signatures of type "+Source+" require a analysisID, please provide one.")
-        else: geneset['analysisID']=analysisID
-    elif (Source=="besca"):
-        geneset['geneset']='besca_marker'
-        geneset['domain']='cell marker'
-        geneset['application']='rtbeda_CIT, bescaviz, celltypeviz'
-    elif not Source in ['Literature scseq', 'Literature', 'besca', 'scseqmongodb', 
-        'internal scseq', 'pRED', 'Chugai', 'gRED', 'other']:
-        print('Prefered source names: Literature scseq, Literature, besca, scseqmongodb, internal scseq, pRED, Chugai, gRED, other')
-    #pd1il2vsigsdetails['application']=''
+    geneset = {}
+    geneset["setName"] = setName
+    geneset["desc"] = desc
+    geneset["User"] = User
+    geneset["Source"] = Source
+    geneset["Subtype"] = Subtype
+    geneset["geneset"] = genesetname
 
-    if (domain=="cell marker"):
-        if (celltype==None): 
-            print(setName + 'is missing a celltype. Please specify celltype according to dblabel_short convention.')
-        
-    if ('|' in genes ):
-        geneset['genes | '+coef_type]=genes
-    else: 
-        geneset['genes']=genes
-    
-    print('Metadata for signature '+ setName + ' successfully captured')
-    return(geneset)
+    if domain in [
+        "pathway",
+        "biological process",
+        "cellular component",
+        "molecular function",
+        "phenotype",
+        "perturbation",
+        "disease",
+        "misc",
+        "microRNA targets",
+        "transcription factor targets",
+        "cell marker",
+        "tissue marker",
+    ]:
+        geneset["domain"] = domain
+    else:
+        if domain == None:
+            domain = "misc"
+            print("You did not specify a domain name, it will be set to misc")
+        print(
+            "Recommended domain names are pathway, biological process, cellular component, molecular function, phenotype, perturbation, disease, misc, microRNA targets, transcription factor targets, cell marker, tissue marker"
+        )
+        geneset["domain"] = domain
+
+    if Source == "internal scseq":
+        if studyID == None:
+            print(
+                "Signatures of type "
+                + Source
+                + " require a studyID, please provide one."
+            )
+        else:
+            geneset["studyID"] = studyID
+        if analysisID == None:
+            print(
+                "Signatures of type "
+                + Source
+                + " require a analysisID, please provide one."
+            )
+        else:
+            geneset["analysisID"] = analysisID
+    elif Source == "besca":
+        geneset["geneset"] = "besca_marker"
+        geneset["domain"] = "cell marker"
+        geneset["application"] = "rtbeda_CIT, bescaviz, celltypeviz"
+    elif not Source in [
+        "Literature scseq",
+        "Literature",
+        "besca",
+        "scseqmongodb",
+        "internal scseq",
+        "pRED",
+        "Chugai",
+        "gRED",
+        "other",
+    ]:
+        print(
+            "Prefered source names: Literature scseq, Literature, besca, scseqmongodb, internal scseq, pRED, Chugai, gRED, other"
+        )
+    # pd1il2vsigsdetails['application']=''
+
+    if domain == "cell marker":
+        if celltype == None:
+            print(
+                setName
+                + "is missing a celltype. Please specify celltype according to dblabel_short convention."
+            )
+
+    if "|" in genes:
+        geneset["genes | " + coef_type] = genes
+    else:
+        geneset["genes"] = genes
+
+    print("Metadata for signature " + setName + " successfully captured")
+    return geneset

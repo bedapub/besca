@@ -1,3 +1,3 @@
 from ._mnnpy_batchcorrection import postprocess_mnnpy, batch_correct
 
-__all__ = ['batch_correct', 'postprocess_mnnpy']
+__all__ = ["batch_correct", "postprocess_mnnpy"]

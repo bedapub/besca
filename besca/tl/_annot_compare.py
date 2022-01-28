@@ -17,12 +17,10 @@ from sklearn.metrics import (
     adjusted_mutual_info_score,
     adjusted_rand_score,
     silhouette_score,
-    pair_confusion_matrix
+    pair_confusion_matrix,
 )
 
 from ..pl._riverplot import riverplot_2categories
-
-
 
 
 def report(
@@ -42,7 +40,7 @@ def report(
     asymmetric_matrix=True,
     results_folder="./",
     delimiter=",",
-    verbose=False
+    verbose=False,
 ):
     """reports basic metrics, produces confusion matrices and plots umap of prediction
 
@@ -89,9 +87,8 @@ def report(
     -------
     Figure
         A matplotlib figure element containing the riveplot generated for interactive display.
-        
-    """
 
+    """
 
     # calculate umaps for plot
     if "X_umap" not in adata_pred.obsm:
@@ -114,8 +111,8 @@ def report(
     )
 
     if verbose:
-        print('acc: ' + str(round(acc,2)))
-        print('f1: ' + str(round(f1,2)))
+        print("acc: " + str(round(acc, 2)))
+        print("f1: " + str(round(f1, 2)))
 
     # get report
     class_report = classification_report(
@@ -124,24 +121,39 @@ def report(
     sklearn_report = round(pd.DataFrame(class_report).transpose(), 2)
 
     # get clustering scores
-    ami = adjusted_mutual_info_score(adata_pred.obs[celltype], adata_pred.obs[name_prediction])
+    ami = adjusted_mutual_info_score(
+        adata_pred.obs[celltype], adata_pred.obs[name_prediction]
+    )
     ari = adjusted_rand_score(adata_pred.obs[celltype], adata_pred.obs[name_prediction])
-    silhouette_celltype = silhouette_score(adata_pred.obsm['X_umap'], adata_pred.obs.get(celltype))
-    silhouette_pred = silhouette_score(adata_pred.obsm['X_umap'], adata_pred.obs.get(name_prediction))
-    pair_conf_m = pair_confusion_matrix(adata_pred.obs[celltype], adata_pred.obs[name_prediction])
+    silhouette_celltype = silhouette_score(
+        adata_pred.obsm["X_umap"], adata_pred.obs.get(celltype)
+    )
+    silhouette_pred = silhouette_score(
+        adata_pred.obsm["X_umap"], adata_pred.obs.get(name_prediction)
+    )
+    pair_conf_m = pair_confusion_matrix(
+        adata_pred.obs[celltype], adata_pred.obs[name_prediction]
+    )
 
     if verbose:
-        print('ami: ' + str(round(ami,2)))
-        print('ari: ' + str(round(ari,2)))
-        print('silhouette ' + celltype + ': ' + str(round(silhouette_celltype,2)))
-        print('silhouette ' + name_prediction + ': ' + str(str(round(silhouette_pred,2))))
-        print('pair confusion matrix:\n' + str(pd.DataFrame(pair_conf_m)))
+        print("ami: " + str(round(ami, 2)))
+        print("ari: " + str(round(ari, 2)))
+        print("silhouette " + celltype + ": " + str(round(silhouette_celltype, 2)))
+        print(
+            "silhouette " + name_prediction + ": " + str(str(round(silhouette_pred, 2)))
+        )
+        print("pair confusion matrix:\n" + str(pd.DataFrame(pair_conf_m)))
 
     # csv file with important metrics
     file_ending = ".txt"
-    if delimiter==",":
+    if delimiter == ",":
         file_ending = ".csv"
-    with open(os.path.join(results_folder, name_report + "_report_" + analysis_name + file_ending), mode="w") as report_file:
+    with open(
+        os.path.join(
+            results_folder, name_report + "_report_" + analysis_name + file_ending
+        ),
+        mode="w",
+    ) as report_file:
         report_writer = csv.writer(
             report_file, delimiter=delimiter, quotechar='"', quoting=csv.QUOTE_MINIMAL
         )
@@ -163,12 +175,19 @@ def report(
             ]
         )
 
-        report_writer.writerow(["accuracy=", round(acc,2), "f1=", round(f1,2)])
+        report_writer.writerow(["accuracy=", round(acc, 2), "f1=", round(f1, 2)])
 
         report_writer.writerow(["clustering report"])
-        report_writer.writerow(["ari=", round(ari,2), "ami=", round(ami,2)])
-        report_writer.writerow(["silhouette_celltype=", round(silhouette_celltype,2), "silhouette_pred=", round(silhouette_pred,2)])
-        
+        report_writer.writerow(["ari=", round(ari, 2), "ami=", round(ami, 2)])
+        report_writer.writerow(
+            [
+                "silhouette_celltype=",
+                round(silhouette_celltype, 2),
+                "silhouette_pred=",
+                round(silhouette_pred, 2),
+            ]
+        )
+
         report_writer.writerow(["pair confusion matrix"])
         pd.DataFrame(pair_conf_m).to_csv(report_file, header=True, sep=delimiter)
 
@@ -194,26 +213,31 @@ def report(
             frameon=False,
             save="." + analysis_name + "_" + col + ".png",
         )
-    
+
     sc.settings.set_figure_params(dpi=60)
-    
+
     os.makedirs(os.path.join(results_folder, "figures"), exist_ok=True)
 
-
     # plot basic riverplot
-    riverplot = riverplot_2categories( adata=adata_pred, categories=[celltype, name_prediction])
+    riverplot = riverplot_2categories(
+        adata=adata_pred, categories=[celltype, name_prediction]
+    )
     riverplot.show()
     riverplot.write_image(
-        os.path.join(results_folder, "figures", method + "_riverplot_"
+        os.path.join(
+            results_folder,
+            "figures",
+            method
+            + "_riverplot_"
             + analysis_name
             + "_"
             + celltype
             + "_"
             + name_prediction
-            + ".svg"
+            + ".svg",
         )
     )
-        
+
     # make conf matrices (4)
     class_names = np.unique(
         np.concatenate((adata_pred.obs[celltype], adata_pred.obs[name_prediction]))
@@ -225,7 +249,7 @@ def report(
         adata_pred.obs[name_prediction],
         classes=class_names,
         celltype=celltype,
-        name_prediction=name_prediction, 
+        name_prediction=name_prediction,
         title="Confusion matrix, without normalization",
         numbers=False,
         adata_predicted=adata_pred,
@@ -233,11 +257,10 @@ def report(
     )
     fig.show()
     fig.savefig(
-        os.path.join(results_folder, "figures", method + "_confusion_matrix_"
-            + analysis_name
-            + "_"
-            + celltype
-            + ".svg"
+        os.path.join(
+            results_folder,
+            "figures",
+            method + "_confusion_matrix_" + analysis_name + "_" + celltype + ".svg",
         )
     )
 
@@ -247,7 +270,7 @@ def report(
         adata_pred.obs[name_prediction],
         classes=class_names,
         celltype=celltype,
-        name_prediction=name_prediction, 
+        name_prediction=name_prediction,
         normalize=True,
         title="Normalized confusion matrix",
         numbers=False,
@@ -256,17 +279,19 @@ def report(
     )
     fig.show()
     fig.savefig(
-        os.path.join(results_folder, "figures", method + "_confusion_matrix_norm_"
+        os.path.join(
+            results_folder,
+            "figures",
+            method
+            + "_confusion_matrix_norm_"
             + analysis_name
             + "_"
             + celltype
-            + ".svg"
+            + ".svg",
         )
     )
-    
- 
-    return riverplot
 
+    return riverplot
 
 
 def plot_confusion_matrix(
@@ -340,7 +365,7 @@ def plot_confusion_matrix(
     if normalize:
         cm = cm.astype("float") / cm.sum(axis=1)[:, np.newaxis]
     #    print("Normalized confusion matrix")
-    #else:
+    # else:
     #    print("Confusion matrix, without normalization")
 
     fig, ax = plt.subplots(figsize=(15, 15))
@@ -390,5 +415,5 @@ def plot_confusion_matrix(
                     color="white" if cm[i, j] > thresh else "black",
                 )
     # fig.tight_layout()
-    
+
     return fig
