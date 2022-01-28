@@ -6,7 +6,7 @@ from re import compile, match
 from requests import post
 
 
-def convert_to_directed(signature_dict, direction = 'UP'):
+def convert_to_directed(signature_dict, direction="UP"):
     """ Convert a simple dictionary into one with direction compatible with combined_signature_score
 
     Parameters
@@ -31,15 +31,17 @@ def convert_to_directed(signature_dict, direction = 'UP'):
     >>> mymarkers = bc.tl.sig.read_GMT_sign(gmt_file,directed=False)
     >>> bc.tl.sig.convert_to_directed( mymarkers, 'UP')
     """
-    if ( direction != 'UP' ) and (direction != 'DN'):
-        sys.exit('expecting direction UP or DN for directed signature dictionnary.')
+    if (direction != "UP") and (direction != "DN"):
+        sys.exit("expecting direction UP or DN for directed signature dictionnary.")
     signed_sign = {}
     for signature, genes in signature_dict.items():
         signed_sign[signature] = {direction: genes}
     return signed_sign
 
-        
-def read_GMT_sign(GMT_file, UP_suffix='_UP', DN_suffix='_DN', directed=True, verbose=False):
+
+def read_GMT_sign(
+    GMT_file, UP_suffix="_UP", DN_suffix="_DN", directed=True, verbose=False
+):
     """ Read gmt file to extract signed genesets.
     This function combines genesets scores composed of
     UP and DN regulated genes.
@@ -71,7 +73,7 @@ def read_GMT_sign(GMT_file, UP_suffix='_UP', DN_suffix='_DN', directed=True, ver
 
     """
     signFile = open(GMT_file, "r")
-    text_gmt = signFile.read().split('\n')
+    text_gmt = signFile.read().split("\n")
     signFile.close()
     signed_sign = {}
     # Here \S is used as signature might have '-' in their name
@@ -80,58 +82,62 @@ def read_GMT_sign(GMT_file, UP_suffix='_UP', DN_suffix='_DN', directed=True, ver
     pattern_UP = compile("(\S+)" + UP_suffix + "$")
     # TODO: remove this for loop.
     for i in range(0, len(text_gmt)):
-        temp_split = text_gmt[i].split('\t')
+        temp_split = text_gmt[i].split("\t")
         signature_full_name = temp_split[0]
         if len(temp_split) < 3:
-            if(verbose):
-                print("Skipping empty entry; less than 3 fields for " + signature_full_name)
+            if verbose:
+                print(
+                    "Skipping empty entry; less than 3 fields for "
+                    + signature_full_name
+                )
             continue
         # Skipping empty lines in gmt files
         if len(signature_full_name):
             z = match(pattern_DN, signature_full_name)
-            if(z):
+            if z:
                 signatureName = z.groups()[0]
                 direction = "DN"
             else:
                 z = match(pattern_UP, signature_full_name)
-                if(z):
+                if z:
                     signatureName = z.groups()[0]
                     direction = "UP"
                 else:
                     signatureName = signature_full_name
                     direction = "UP"
             # Get the gene names removing empty entry
-            initialValue = temp_split[2:len(temp_split)]
+            initialValue = temp_split[2 : len(temp_split)]
             geneArray = [x for x in initialValue if len(x)]
-            if(signatureName in signed_sign.keys()):
+            if signatureName in signed_sign.keys():
                 signed_sign[signatureName][direction] = geneArray
             else:
                 signed_sign[signatureName] = {direction: geneArray}
-            if (verbose):
+            if verbose:
                 print(i, ": ", signature_full_name)
-                
+
     ### remove UP in case one just wants the signature as a dictionary
-    if (directed==False):
-        mymarkersk={}
+    if directed == False:
+        mymarkersk = {}
         for key, value in signed_sign.items():
-            mymarkersk[key]=value['UP']
-        signed_sign=mymarkersk.copy()        
-    return(signed_sign)
+            mymarkersk[key] = value["UP"]
+        signed_sign = mymarkersk.copy()
+    return signed_sign
+
 
 def write_gmtx_forgems(signature_dict, GMT_file):
-    """ Writes a gmtx file that can later be uploaded to GeMS. 
+    """Writes a gmtx file that can later be uploaded to GeMS.
     The input should be standardised, as facilitated by bc.tl.sig.make_gmtx.
-    
+
     Parameters
     ----------
-    signature_dict : `dictionary` 
+    signature_dict : `dictionary`
         the dictionary containing the signatures to be outputed to a gmtx file
-        prepared with bc.tl.sig.make_gmtx, each signature is itself a dictionary 
-        
-    GMT_file: `str` 
+        prepared with bc.tl.sig.make_gmtx, each signature is itself a dictionary
+
+    GMT_file: `str`
         gmt file location containing the geneset
 
- 
+
     Example
     -------
 
@@ -149,9 +155,16 @@ def write_gmtx_forgems(signature_dict, GMT_file):
     >>> write_gmtx_forgems(signature_dict, GMT_file)
 
     """
-   
-    with open(GMT_file, 'w') as f:
-        f.writelines('\t'.join(list(signature_dict[next(iter(signature_dict))].keys())[0:len(list(signature_dict[next(iter(signature_dict))].keys()))]) + '\n')
-        for key,value in signature_dict.items():
-            f.writelines('\t'.join(list(value.values())) + '\n')
-    print('Successfully written all signatures to '+ GMT_file)
+
+    with open(GMT_file, "w") as f:
+        f.writelines(
+            "\t".join(
+                list(signature_dict[next(iter(signature_dict))].keys())[
+                    0 : len(list(signature_dict[next(iter(signature_dict))].keys()))
+                ]
+            )
+            + "\n"
+        )
+        for key, value in signature_dict.items():
+            f.writelines("\t".join(list(value.values())) + "\n")
+    print("Successfully written all signatures to " + GMT_file)

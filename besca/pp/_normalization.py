@@ -1,6 +1,7 @@
-import numpy as np 
+import numpy as np
 from scipy.sparse.csr import csr_matrix
 from anndata._core.views import SparseCSRView
+
 
 def closure(mat):
     """
@@ -44,6 +45,7 @@ def closure(mat):
     mat = mat / mat.sum(axis=1, keepdims=True)
     return mat.squeeze()
 
+
 def clr(mat):
     r"""
     Performs centre log ratio transformation.
@@ -83,6 +85,7 @@ def clr(mat):
     lmat = np.log(mat)
     gm = lmat.mean(axis=-1, keepdims=True)
     return (lmat - gm).squeeze()
+
 
 def multiplicative_replacement(mat, delta=None):
     r"""Replace all zeros with small non-zero values
@@ -129,26 +132,29 @@ def multiplicative_replacement(mat, delta=None):
     array([[ 0.1875,  0.375 ,  0.375 ,  0.0625],
            [ 0.0625,  0.4375,  0.4375,  0.0625]])
     """
-    
+
     mat = closure(mat)
-    z_mat = (mat == 0)
+    z_mat = mat == 0
 
     num_feats = mat.shape[-1]
     tot = z_mat.sum(axis=-1, keepdims=True)
 
     if delta is None:
-        delta = (1. / num_feats)**2
+        delta = (1.0 / num_feats) ** 2
 
     zcnts = 1 - tot * delta
     if np.any(zcnts) < 0:
-        raise ValueError('The multiplicative replacment created negative '
-                         'proportions. Consider using a smaller `delta`.')
+        raise ValueError(
+            "The multiplicative replacment created negative "
+            "proportions. Consider using a smaller `delta`."
+        )
     mat = np.where(z_mat, delta, zcnts * mat)
     return mat.squeeze()
 
-def normalize_geometric (adata):
+
+def normalize_geometric(adata):
     """Perform geometric normalization on CITEseq data.
-    
+
     Add description of why geometric normalization
 
     parameters
@@ -163,7 +169,7 @@ def normalize_geometric (adata):
 
     Example
     -------
-    
+
     NEED TO IMPLEMENT AN EXAMPLE
 
     """
@@ -172,30 +178,22 @@ def normalize_geometric (adata):
 
     X = np.nan_to_num(X)
 
-    #if the matrix is sparse make to array
+    # if the matrix is sparse make to array
     if type(X) == csr_matrix:
         X = X.todense()
-    #need to add a catch for newly encountered datatype 
+    # need to add a catch for newly encountered datatype
     elif type(X) == SparseCSRView:
         X = X.todense()
 
-    #ensure that X is an array otherwise this will cause type issue with multiplicative replacement function
+    # ensure that X is an array otherwise this will cause type issue with multiplicative replacement function
     X = np.array(X)
 
-    #replacement of zero values with very small numbers without changing the overall sums
+    # replacement of zero values with very small numbers without changing the overall sums
     X = multiplicative_replacement(X)
 
-    #centre log ratio transformation
+    # centre log ratio transformation
     X = clr(X)
 
     adata.X = X
 
-    return(None) #adata object is automatically updated
-
-
-
-
-
-
-
-    
+    return None  # adata object is automatically updated

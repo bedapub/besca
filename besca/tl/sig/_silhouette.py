@@ -43,7 +43,7 @@ def silhouette_computation(
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_processed()
     >>> sils = bc.tl.sig.silhouette_computation (adata)
-    >>> print( sils.average)
+    >>> print( sils.averaged)
     >>> sils.show_samples.get_figure()
 
     """
