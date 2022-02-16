@@ -16,6 +16,7 @@ from ._helper import (
     get_means,
     concate_adata,
     get_singlegenedf,
+    print_software_versions
 )
 
 __all__ = [
