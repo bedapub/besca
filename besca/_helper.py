@@ -5,6 +5,11 @@ from pandas import DataFrame, concat
 from scipy import sparse
 from math import expm1
 from numpy import sort
+from distutils.version import StrictVersion
+import scanpy as sc
+from collections import namedtuple
+import re
+from ._version import get_versions
 
 
 def subset_adata(adata, filter_criteria, raw=True, axis=0):
@@ -481,3 +486,30 @@ def concate_adata(adata1, adata2):
         adata_combined.raw = adata_combined_raw
 
     return adata_combined
+
+
+def print_software_versions():
+    """Print scanpy and besca software versions
+
+    The function prints scanpy and besca software versions and return them
+    as a named tuple.
+
+    returns
+    -------
+    namedtuple
+        A named tuple containing the versions of scanpy and besca. While
+        only the strict versions are printed, the full version strings are
+        returned.
+    """
+
+    scv = sc.__version__
+    if(StrictVersion(scv) >= "1.6"):
+        sc.logging.print_header()
+    else:
+        sc.logging.print_versions()
+    bcver = get_versions()["version"]
+    bcstr = StrictVersion(re.sub("\\+.*$", "", bcver))
+    print("besca=={}".format(bcstr))
+    Versions = namedtuple('Versions', ['scanpy', 'besca'])
+    res = Versions(scanpy=scv, besca=bcver)
+    return res
