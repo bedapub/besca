@@ -16,9 +16,10 @@ from sklearn.metrics import (
     make_scorer,
     adjusted_mutual_info_score,
     adjusted_rand_score,
-    silhouette_score,
-    pair_confusion_matrix,
+    silhouette_score
 )
+
+from sklearn.metrics.cluster import pair_confusion_matrix
 
 from ..pl._riverplot import riverplot_2categories
 
