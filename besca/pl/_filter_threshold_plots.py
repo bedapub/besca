@@ -54,7 +54,7 @@ def kp_genes(adata, threshold=0, min_genes=100, ax=None):
     ax = ax or plt.gca()
 
     ax.plot(-np.sort(-np.array(np.sum(adata.X > threshold, axis=1).T)[0]))
-    ax.set_yscale("log", basey=10)
+    ax.set_yscale("log", base=10)
     ax.set_xscale("log", basex=10)
     ax.set_ylabel("Number of expressed genes")
     ax.set_xlabel("Cells")
@@ -110,7 +110,7 @@ def kp_counts(adata, min_counts=200, ax=None):
     ax = ax or plt.gca()
 
     ax.plot(-np.sort(-np.array(adata.X.sum(axis=1).T)[0]))
-    ax.set_yscale("log", basey=10)
+    ax.set_yscale("log", base=10)
     ax.set_xscale("log", basex=10)
     ax.set_ylabel("Number of UMI counts")
     ax.set_xlabel("Cells")
@@ -175,7 +175,7 @@ def kp_cells(adata, threshold=0, min_cells=2, ax=None):
     ax = ax or plt.gca()
 
     ax.plot(-np.sort(-np.array(np.sum(adata.X > threshold, axis=0))[0]))
-    ax.set_yscale("log", basey=10)
+    ax.set_yscale("log", base=10)
     ax.set_xscale("log", basex=10)
     ax.set_xlabel("genes")
     ax.set_ylabel("number of cells expressing a gene")
