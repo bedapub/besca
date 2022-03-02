@@ -26,7 +26,8 @@ def filter_by_set(strs, universe_set):
     -------
     filter_by_set: `list` of `str`
         A list of gene names that are detected, in the same order as the input
-        except for those that are filtered
+        except for those that are filtered. In case the input is None or an 
+        empty list, an empty list is returned.
         
     Example
     -------
@@ -38,8 +39,12 @@ def filter_by_set(strs, universe_set):
     >>> bc.tl.sig.filter_by_set(['D', 'E', 'A', 'F'], detected)
     ['D', 'E', 'A']
     >>> bc.tl.sig.filter_by_set(None, detected)
-    None
+    []
+    >>> bc.tl.sig.filter_by_set([], detected)
+    []
     """
+    if strs is None or len(strs)==0:
+        return []
     genes = [gene.strip() for gene in strs] ## sometimes the gene names have empty spaces around
     int_gene_set = set(genes).intersection(universe_set)
     int_gene = sorted(int_gene_set, key=genes.index) ## keep the input order
