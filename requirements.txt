@@ -22,3 +22,4 @@ umap-learn
 sinfo
 pydot
 scvi-tools
+ipython
