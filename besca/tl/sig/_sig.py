@@ -79,7 +79,7 @@ def filter_siggenes(adata, signature_dict):
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_processed()
     >>> sigs = {'GeneSet1': ['JUNB', 'ALAD', 'ZNF559', 'NoSuchAGene'],
-    ...            'GeneSet2': ['ITGA1', 'CTCF', 'CAPN10', 'UnknownGene']}
+    ...         'GeneSet2': ['ITGA1', 'CTCF', 'CAPN10', 'UnknownGene']}
     >>> filtered_sigs = bc.tl.sig.filter_siggenes(adata, sigs)
     >>> filtered_sigs
     {'GeneSet1': ['JUNB', 'ALAD', 'ZNF559'], 'GeneSet2': ['ITGA1', 'CTCF', 'CAPN10']}
@@ -108,14 +108,15 @@ def filter_siggenes(adata, signature_dict):
                 else:
                     print('No genes are left after filtering in gene-set '
                           + geneset + ' direction ' +direction)
-        elif type(dir_dict) in ['list', 'tuple']:
-            signature_dict_filtered[geneset] = []
+        elif type(dir_dict) is list or type(dir_dict) is tuple:
             int_gene = filter_by_set(dir_dict, raw_index_set)
             if len(int_gene) >= 1:
                 signature_dict_filtered[geneset] = int_gene
             else:
                 print('No genes are left after filtering in gene-set '
                       + geneset)
+        else:
+            raise ValueError('The signature_dict is not in a valid format.')
     return signature_dict_filtered
 
 
