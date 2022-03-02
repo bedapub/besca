@@ -5,9 +5,9 @@ import sys
 # for conversion
 from itertools import repeat
 
-from _helper import _to_geneid
-from _io_sig import read_GMT_sign
-from _metrics import _handle_signature
+from besca.tl.sig._helper import _to_geneid
+from besca.tl.sig._io_sig import read_GMT_sign
+from besca.tl.sig._metrics import _handle_signature
 
 
 def filter_siggenes(adata, signature_dict):
