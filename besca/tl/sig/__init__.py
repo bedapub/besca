@@ -1,4 +1,4 @@
-from ._annot import (
+from besca.tl.sig._annot import (
     add_anno,
     export_annotconfig,
     getset,
@@ -10,19 +10,22 @@ from ._annot import (
     read_annotconfig,
     score_mw,
 )
-from ._gems_link import get_gems, get_similar_geneset, insert_gems
-from ._io_sig import convert_to_directed, read_GMT_sign, write_gmtx_forgems
-from ._sig import (
+from besca.tl.sig._gems_link import get_gems, get_similar_geneset, insert_gems
+from besca.tl.sig._io_sig import convert_to_directed, read_GMT_sign, write_gmtx_forgems
+from besca.tl.sig._sig import (
     combined_signature_score,
     compute_signed_score,
+    filter_by_set,
     filter_siggenes,
     make_gmtx,
 )
-from ._silhouette import silhouette_computation
+
+from besca.tl.sig._silhouette import silhouette_computation
 
 __all__ = [
     "combined_signature_score",
     "compute_signed_score",
+    "filter_by_set",
     "filter_siggenes",
     "read_GMT_sign",
     "getset",

@@ -9,58 +9,108 @@ from besca.tl.sig._helper import _to_geneid
 from besca.tl.sig._io_sig import read_GMT_sign
 from besca.tl.sig._metrics import _handle_signature
 
+def filter_by_set(strs, universe_set):
+    """Remove strings from the list that are not in the universe set
+    
+   Parameters
+    ----------
+    strs: a `list` or `tuple` or `set` of `str`
+        A sequence (ordered list) or unordered set of strings, which often
+        are HGNC symbol and should match the signatures values. Empty 
+        characters around characters are ignored.
+    universe_set: a `set` of strings
+        a set of strings. The strings in `strs` that are not in this set 
+        are filtered.
 
+    Returns
+    -------
+    filter_by_set: `list` of `str`
+        A list of gene names that are detected, in the same order as the input
+        except for those that are filtered
+        
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> detected = list('ABCDE')
+    >>> bc.tl.sig.filter_by_set(['D', 'E', 'A'], detected)
+    ['D', 'E', 'A']
+    >>> bc.tl.sig.filter_by_set(['D', 'E', 'A', 'F'], detected)
+    ['D', 'E', 'A']
+    >>> bc.tl.sig.filter_by_set(None, detected)
+    None
+    """
+    genes = [gene.strip() for gene in strs] ## sometimes the gene names have empty spaces around
+    int_gene_set = set(genes).intersection(universe_set)
+    int_gene = sorted(int_gene_set, key=genes.index) ## keep the input order
+    return(int_gene)
+                
+    
 def filter_siggenes(adata, signature_dict):
     """Filter all signatures in signature_dict to remove genes not present in adata
 
     Parameters
     ----------
     adata: class:`~anndata.AnnData`
-        An AnnData object (from scanpy). Following besca convention, var names (gene) are HGNC symbol and should match the signatures values.
+        An AnnData object (from scanpy). Following besca convention, var names
+        (genes) are HGNC symbol and should match the signatures values.
     signature_dict: `dict`
-        a dictionary of signatures. Nested dictionaries, key: signature names
-        Values are a dict with keys as the directions (UP/DN) and genes names in values.
-        An example: `{'gs1': {'UP': 'A', 'DN': 'B'}, 'gs2': {'UP': ['C', 'D'], 'DN': ['E', 'A']}}`.
+        a dictionary of signatures. Keys signature names, and values can come 
+        in two variants:
+        * Variant 1: values are a list of gene names as strings. An example: 
+        `{'gs1': ['A', 'B'], 'gs2':['B', 'C']}`;
+        * Variant 2: Values are a dict with keys, for instance directions 
+        (UP/DN), and genes names in values. An example: `{'gs1': {'UP': 'A', 
+        'DN': 'B'}, 'gs2': {'UP': ['C', 'D'], 'DN': ['E', 'A']}}`.
 
     Returns
     -------
     signature_dict_filtered: `dict`
-        a dictionary of signatures. Nested dictionnaries, key: signature names
-        Values are a dict  with keys as the directions (UP/DN) and genes names in values.
+        a dictionary of signatures in the same format as the input.
         
     Example
     -------
 
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_processed()
-    >>> my_signatures = {'GeneSet1': {'UP': ['JUNB', 'ALAD', 'ZNF559', 'NoSuchAGene'],
-    ...                               'DN': ['REM2', 'AKT1', 'GPD2', 'AnotherUnknownGene']},
-    ...                  'GeneSet2': {'UP': ['TOP2A', 'TOP3A', 'MDM2', 'NoSuchAGeneAgain'],
-    ...                               'DN': ['ITGA1', 'CTCF', 'CAPN10', 'AnotherUnknownGeneAgain']},}
-    >>> filtered_signatures = bc.tl.sig.filter_siggenes(adata, my_signatures)
-    >>> filtered_signatures
+    >>> sigs = {'GeneSet1': ['JUNB', 'ALAD', 'ZNF559', 'NoSuchAGene'],
+    ...            'GeneSet2': ['ITGA1', 'CTCF', 'CAPN10', 'UnknownGene']}
+    >>> filtered_sigs = bc.tl.sig.filter_siggenes(adata, sigs)
+    >>> filtered_sigs
+    {'GeneSet1': ['JUNB', 'ALAD', 'ZNF559'], 'GeneSet2': ['ITGA1', 'CTCF', 'CAPN10']}
+    >>> signed_sigs = {'GeneSet1': {'UP': ['JUNB', 'ALAD', 'ZNF559',
+    ...                                              'NoSuchAGene'],
+    ...                               'DN': ['REM2', 'AKT1', 'GPD2', 
+    ...                                              'UnknownGene']},
+    ...                  'GeneSet2': {'UP': ['TOP2A', 'TOP3A', 'MDM2', 
+    ...                                               'NoSuchAGene2'],
+    ...                               'DN': ['ITGA1', 'CTCF', 'CAPN10', 
+    ...                                               'UnknownGene2']}}
+    >>> filtered_signed_sigs = bc.tl.sig.filter_siggenes(adata, signed_sigs)
+    >>> filtered_signed_sigs
     {'GeneSet1': {'UP': ['JUNB', 'ALAD', 'ZNF559'], 'DN': ['REM2', 'AKT1', 'GPD2']}, 'GeneSet2': {'UP': ['TOP2A', 'TOP3A', 'MDM2'], 'DN': ['ITGA1', 'CTCF', 'CAPN10']}}
-
     """
-
-    # to add: which signatures were discarded and print (if verbose) genes not found
-    # to check: what happens if no signature is left?
 
     signature_dict_filtered = {}
     raw_index_set = set(adata.raw.var.index)
     for geneset, dir_dict in signature_dict.items():
-        if type(dir_dict) is not dict:
-            raise ValueError('Values of signature_dict should be dicts containing UP and DN as keys')
-        signature_dict_filtered[geneset] = {}
-        for direction, genes in dir_dict.items():
-            genes = [gene.strip() for gene in genes] ## sometimes the gene names have empty spaces around
-            int_gene_set = set(genes).intersection(raw_index_set)
-            int_gene = sorted(int_gene_set, key=genes.index) ## keep the input order
+        if type(dir_dict) is dict:
+            signature_dict_filtered[geneset] = {}
+            for direction, genes in dir_dict.items():
+                int_gene = filter_by_set(genes, raw_index_set)
+                if len(int_gene) >= 1:
+                    signature_dict_filtered[geneset][direction] = int_gene
+                else:
+                    print('No genes are left after filtering in gene-set '
+                          + geneset + ' direction ' +direction)
+        elif type(dir_dict) in ['list', 'tuple']:
+            signature_dict_filtered[geneset] = []
+            int_gene = filter_by_set(dir_dict, raw_index_set)
             if len(int_gene) >= 1:
-                signature_dict_filtered[geneset][direction] = int_gene
+                signature_dict_filtered[geneset] = int_gene
             else:
                 print('No genes are left after filtering in gene-set '
-                      + geneset + ' direction ' +direction)
+                      + geneset)
     return signature_dict_filtered
 
 
