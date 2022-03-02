@@ -4,6 +4,9 @@ besca.egg-info/
 cache/
 workbooks/test.ipynb
 workbooks/analyzed
+workbooks/standard_workflow_besca2-requirements.txt
+workbooks/*nbconvert.ipynb
+workbooks/*requirements.txt
 figures_testing/
 *~
 *.swp
@@ -17,4 +20,3 @@ README.private.md
 *.h5ad
 *.html
 besca_test
-workbooks/standard_workflow_besca2-requirements.txt
