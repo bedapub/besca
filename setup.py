@@ -22,7 +22,7 @@ if __name__ == '__main__':
           license='GPLv3',
           author='BEDA community',
           author_email='alice.julien-laferriere@roche.com',
-          packages=find_packages(),
+          packages=find_packages(exclude=["devtools", "tests"]),
           zip_safe=False,
           package_data={'besca.datasets.data': ['*.h5ad'],
                         'besca.st': ['*.css'],
