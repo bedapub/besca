@@ -136,7 +136,7 @@ def combined_signature_score(
                     if i is not None
                 ]
     # Filter out signature genes not present in adata
-    # signature_dict=filter_siggenes(adata, signature_dict)
+    signature_dict=filter_siggenes(adata, signature_dict)
     compute_signed_score(
         adata=adata,
         signature_dict=signature_dict,
