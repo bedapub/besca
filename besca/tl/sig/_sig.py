@@ -198,11 +198,11 @@ def compute_signed_score(
 
     """
     # Filter out signature genes not present in adata
-    signature_dict=filter_siggenes(adata, signature_dict)
+    signature_dict_filtered=filter_siggenes(adata, signature_dict)
 
     [
         _handle_signature(
-            signature_dict, method, adata, signature_name, overwrite, verbose, use_raw
+            signature_dict_filtered, method, adata, signature_name, overwrite, verbose, use_raw
         )
         for signature_name in signature_dict.keys()
     ]
