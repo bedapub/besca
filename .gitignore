@@ -15,3 +15,4 @@ pip
 README.private.md
 besca/datasets/data/pbmc_storage*_downsampled.h5ad
 *_venv
+besca/datasets/data/pbmc3k_processed.h5ad
