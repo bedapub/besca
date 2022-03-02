@@ -16,3 +16,5 @@ README.private.md
 *_venv
 *.h5ad
 *.html
+besca_test
+workbooks/standard_workflow_besca2-requirements.txt
