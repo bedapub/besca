@@ -1,5 +1,6 @@
 #!/bin/bash
 
+## the script should run without any error before major release
 
 ## pre-conditions:
 ## 1. you are in the root path of besca, and 
@@ -9,4 +10,5 @@
 for notebook in "standard_workflow_besca2.ipynb" "celltype_annotation_besca.ipynb" "Signature_exports.ipynb" "Testing_Notebook.ipynb"; do
     echo Running notebook "$notebook"
     jupyter nbconvert --to notebook --execute workbooks/"$notebook"
+    jupyter nbconvert --clear-output workbooks/"$notebook"
 done
