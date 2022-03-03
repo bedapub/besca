@@ -6,7 +6,7 @@ from anndata import AnnData
 from scanpy import read
 from scipy.sparse import csr_matrix, issparse
 
-from .._helper import convert_ensembl_to_symbol
+from besca._helper import convert_ensembl_to_symbol
 
 
 def assert_filepath(filepath):

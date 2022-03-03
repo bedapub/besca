@@ -1,7 +1,7 @@
 import os
 from scanpy import read_csv as sc_read_csv
 import importlib
-from ._FAIR_export import export_norm_citeseq
+from besca.st._FAIR_export import export_norm_citeseq
 import logging
 from scanpy.tools import pca as sc_pca
 

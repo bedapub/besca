@@ -1,7 +1,7 @@
 # this contains wrapper functions to export data into the standard format for the standard pipeline
 
 # import other functions
-from ..export._export import (
+from besca.export._export import (
     X_to_mtx,
     raw_to_mtx,
     clustering,
@@ -10,14 +10,14 @@ from ..export._export import (
     ranked_genes,
     labeling_info,
 )
-from ..Import._read import read_mtx
-from .. import _logging as logs
+from besca.Import._read import read_mtx
+from besca import _logging as logs
 from os.path import join
 from os import makedirs
 import os
 from time import time
 import logging
-from ..pp._filtering import filter
+from besca.pp._filtering import filter
 
 
 def export_cp10k(adata, basepath):

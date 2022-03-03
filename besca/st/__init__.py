@@ -1,4 +1,4 @@
-from ._FAIR_export import (
+from besca.st._FAIR_export import (
     export_cp10k,
     export_regressedOut,
     export_norm_citeseq,
@@ -7,7 +7,7 @@ from ._FAIR_export import (
     export_rank,
     export_celltype,
 )
-from ._wrapper_funcs import (
+from besca.st._wrapper_funcs import (
     setup,
     setup_citeseq,
     read_matrix,
@@ -23,9 +23,9 @@ from ._wrapper_funcs import (
     additional_labeling,
     celltype_labeling,
 )
-from ._wrapper_Rfuncs import dsb_normalize, deviance, maxLikGlobalDimEst
-from ._setup_funcs import create_button, create_popup
-from ._qc_report import write_qc
+from besca.st._wrapper_Rfuncs import dsb_normalize, deviance, maxLikGlobalDimEst
+from besca.st._setup_funcs import create_button, create_popup
+from besca.st._qc_report import write_qc
 
 __all__ = [
     "read_matrix",

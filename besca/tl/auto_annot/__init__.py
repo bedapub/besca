@@ -1,4 +1,4 @@
-from ._auto_annot import (
+from besca.tl.auto_annot._auto_annot import (
     read_data,
     read_raw,
     read_adata,
