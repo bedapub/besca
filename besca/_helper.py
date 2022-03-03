@@ -9,7 +9,7 @@ from distutils.version import StrictVersion
 import scanpy as sc
 from collections import namedtuple
 import re
-from ._version import get_versions
+from besca._version import get_versions
 
 
 def subset_adata(adata, filter_criteria, raw=True, axis=0):
