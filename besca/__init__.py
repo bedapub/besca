@@ -41,6 +41,8 @@ __all__ = [
     "get_means",
     "concate_adata",
     "get_singlegenedf",
+    "print_software_versions",
+    "convert_notebook_to_HTML"
 ]
 
 from besca._version import get_versions
