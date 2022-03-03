@@ -1,6 +1,7 @@
 # this file contains the main functions for signature scoring analysis in python using scanpy
 
 import sys
+import logging
 
 # for conversion
 from itertools import repeat
@@ -106,14 +107,14 @@ def filter_siggenes(adata, signature_dict):
                 if len(int_gene) >= 1:
                     signature_dict_filtered[geneset][direction] = int_gene
                 else:
-                    print('No genes are left after filtering in gene-set '
-                          + geneset + ' direction ' +direction)
+                    logging.info('No genes are left after filtering in '
+                          + geneset + ' direction ' + direction)
         elif type(dir_dict) is list or type(dir_dict) is tuple:
             int_gene = filter_by_set(dir_dict, raw_index_set)
             if len(int_gene) >= 1:
                 signature_dict_filtered[geneset] = int_gene
             else:
-                print('No genes are left after filtering in gene-set '
+                logging.info('No genes are left after filtering in '
                       + geneset)
         else:
             raise ValueError('The signature_dict is not in a valid format.')
