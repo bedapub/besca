@@ -21,4 +21,8 @@ cd test_besca/bin
 ## run notebooks
 cd ../../besca
 bash devtools/run_workbooks.bash
+## capture the version that we use
+../../test_besca/bin/pip freeze > devtools/requirements.txt
 ```
+
+You can use `pip install -r devtools/requirements.txt` to get an identical environment in which the test was done.
