@@ -9,7 +9,7 @@ from scanpy import AnnData
 from scipy import io, sparse
 from scipy.io.mmio import MMFile
 
-from .._helper import get_raw
+from besca._helper import get_raw
 
 
 ## overwriding _field_template to avoid scientific notations

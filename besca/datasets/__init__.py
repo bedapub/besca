@@ -1,4 +1,4 @@
-from ._datasets import (
+from besca.datasets._datasets import (
     Baron2016_processed,
     Baron2016_raw,
     Granja2019_citeSeq,
@@ -23,7 +23,7 @@ from ._datasets import (
     pbmc3k_processed,
     pbmc3k_raw,
 )
-from ._mito import get_mito_genes
+from besca.datasets._mito import get_mito_genes
 
 __all__ = [
     "pbmc3k_raw",

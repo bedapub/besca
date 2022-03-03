@@ -5,8 +5,8 @@ from matplotlib.pyplot import subplots, gca
 from matplotlib.offsetbox import AnchoredText
 import sys
 import os
-from ._general import stacked_split_violin, split_violin
-from .._helper import get_raw
+from besca.pl._general import stacked_split_violin, split_violin
+from besca._helper import get_raw
 import numpy as np
 
 

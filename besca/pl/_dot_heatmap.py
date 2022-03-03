@@ -9,7 +9,7 @@ from pandas import DataFrame, Series
 from numpy import ndarray, arange, float32
 
 # import helper functions from besca
-from .._helper import get_raw
+from besca._helper import get_raw
 
 
 def _generate_circle(expression_values, center, radius, ax):

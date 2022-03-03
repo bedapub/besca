@@ -6,7 +6,7 @@ from matplotlib.pyplot import subplots, tight_layout
 from natsort import natsorted
 from pandas import DataFrame, melt
 
-from ..tl._count_occurrences import (
+from besca.tl._count_occurrences import (
     count_occurrence_subset,
     count_occurrence_subset_conditions,
 )
