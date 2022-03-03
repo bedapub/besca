@@ -2,13 +2,13 @@ scipy>=1.5.4
 flask-restful
 dominate
 requests
-numpy>=1.20.2
-scanpy>=1.8.2
+numpy>=1.18.0
+scanpy>=1.7.2
 plotly
 anndata>=0.7.4
 seaborn
 mygene
-pandas>=1.2.3
+pandas>=1.1.0
 matplotlib>=3.5.0
 bbknn
 ipython
