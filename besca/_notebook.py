@@ -4,7 +4,7 @@ from IPython.display import display, Javascript
 from glob import glob
 import os
 import subprocess
-
+import logging
 
 def save_notebook():
     """Use JavaScript to simulate saving notebook, which makes sure
@@ -24,6 +24,7 @@ def save_notebook_return_path():
     save_notebook()
     ipynbs = glob("*.ipynb")
     curr_dir = os.getcwd()
+    max_file = None
     max_mtime = 0
     for fname in ipynbs:
         full_path = os.path.join(curr_dir, fname)
@@ -38,7 +39,12 @@ def convert_notebook_to_HTML():
     """Convert the current notebook to HTML"""
 
     current = save_notebook_return_path()
-    res = subprocess.run(['jupyter', 'nbconvert',
-                          '--to', 'html', current],
-                         shell=False, capture_output=True)
+    if current is not None:
+        res = subprocess.run(['jupyter', 'nbconvert',
+                              '--to', 'html', current],
+                             shell=False, capture_output=True)
+    else:
+        res = None
+        logging.warning('No notebook is found - no conversion is done')
+    
     return(res)
