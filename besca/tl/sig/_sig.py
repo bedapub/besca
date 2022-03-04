@@ -121,6 +121,71 @@ def filter_siggenes(adata, signature_dict):
     return signature_dict_filtered
 
 
+
+def convert_siggenes(signature_dict, conversion):
+    """Convert signature genes with a ortholog conversion Series
+
+    Parameters
+    ----------
+    signature_dict: `dict`
+        a dictionary of signatures. Keys signature names, and values can come 
+        in two variants:
+        * Variant 1: values are a list of gene names as strings. An example: 
+        `{'gs1': ['A', 'B'], 'gs2':['B', 'C']}`;
+        * Variant 2: Values are a dict with keys, for instance directions 
+        (UP/DN), and genes names in values. An example: `{'gs1': {'UP': 'A', 
+        'DN': 'B'}, 'gs2': {'UP': ['C', 'D'], 'DN': ['E', 'A']}}`.
+    conversion: class:`~pandas.Series`
+        An Series object, with gene symbols in other species in index and human gene symbol as values
+
+    Returns
+    -------
+    signature_dict `dict`
+        a dictionary of signatures in the same format as the input, with ortholog genes
+        
+    Example
+    -------
+
+    >>> import pandas as pd
+    >>> sigs = {'GeneSet1': {'UP':['JUNB', 'ALAD'],
+    ...                      'DN':['ZNF559', 'NoSuchAGene']},
+    ...         'GeneSet2': {'UP': ['ITGA1', 'CTCF'], 
+    ...                      'DN': ['CAPN10', 'UnknownGene']}}
+    >>> conversion = pd.Series(['JUNB', 'ALAD', 'ZNF559', 'NoSuchAGene', 
+    ...                         'ITGA1', 'CTCF', 'UnknownGene'],
+    ...                         index=['Junb', 'Alad', 'Znf559', 'Nosuchasagene',
+    ...                         'Itga1', 'Ctcf','Unknowngene'])
+    >>> conv_sigs = convert_siggenes(sigs, conversion)
+    >>> conv_sigs
+    {'GeneSet1': {'UP': ['Junb', 'Alad'], 'DN': ['Znf559', 'Nosuchasagene']}, 'GeneSet2': {'UP': ['Itga1', 'Ctcf'], 'DN': ['Unknowngene']}}
+    """
+    if conversion is None:
+        return signature_dict
+    
+    signature_dict_converted = {}
+    for geneset, dir_dict in signature_dict.items():
+        if type(dir_dict) is dict:
+            signature_dict_converted[geneset] = {}
+            for direction, genes in dir_dict.items():
+                mapped_genes = [g for g in map(_to_geneid, repeat(conversion), genes) if g is not None]
+                if len(mapped_genes) >= 1:
+                    signature_dict_converted[geneset][direction] = mapped_genes
+                else:
+                    logging.info('No genes are left after conversion in '
+                          + geneset + ' direction ' + direction)
+        elif type(dir_dict) is list or type(dir_dict) is tuple:
+            mapped_genes = [g for g in map(_to_geneid, repeat(conversion), genes) if g is not None]
+            if len(mapped_genes) >= 1:
+                signature_dict_converted[geneset] = mapped_genes
+            else:
+                logging.info('No genes are left after filtering in '
+                      + geneset)
+        else:
+            raise ValueError('The signature_dict is not in a valid format.')
+
+    return signature_dict_converted
+
+
 def combined_signature_score(
     adata,
     GMT_file=None,
@@ -201,18 +266,7 @@ def combined_signature_score(
         print(str(len(signature_dict)) + " signatures obtained")
     # More readable than in signatures read. This forces a second loop.
     #  Should be optimized later on
-    if conversion is not None:
-        for signature in signature_dict.keys():
-            for direction in signature_dict[signature]:
-                signature_dict[signature][direction] = [
-                    i
-                    for i in map(
-                        _to_geneid,
-                        repeat(conversion),
-                        signature_dict[signature][direction],
-                    )
-                    if i is not None
-                ]
+    signature_dict = convert_siggenes(signature_dict, conversion)
     # compute signed score
     compute_signed_score(
         adata=adata,
