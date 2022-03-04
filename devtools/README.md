@@ -39,6 +39,6 @@ You can use `pip install -r devtools/requirements.txt` to get an identical envir
 Most packages can be installed by conda, which also manages dependencies. To initialize a conda environment with all dependent packages for besca, go to the root directory and run:
 
 ```
-mamba env create -f environment.yaml ## double check the BESCA URL, sometimes it can be another branch than master
+mamba env create -f environment.yml ## double check the BESCA URL, sometimes it can be another branch than master
 conda activate besca_dev
 ```
