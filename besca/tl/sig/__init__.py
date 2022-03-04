@@ -17,6 +17,7 @@ from besca.tl.sig._sig import (
     compute_signed_score,
     filter_by_set,
     filter_siggenes,
+    convert_siggenes,
     make_gmtx,
 )
 
