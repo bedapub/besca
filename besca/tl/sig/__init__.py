@@ -28,6 +28,7 @@ __all__ = [
     "compute_signed_score",
     "filter_by_set",
     "filter_siggenes",
+    "convert_siggenes",
     "read_GMT_sign",
     "getset",
     "score_mw",
