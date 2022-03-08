@@ -2,10 +2,10 @@ import sys
 import anndata
 from pandas import read_csv
 from numpy import sum
-from ..datasets._mito import get_mito_genes
+from besca.datasets._mito import get_mito_genes
 
 # import helper functions from besca
-from .._helper import get_raw
+from besca._helper import get_raw
 
 
 def filter(

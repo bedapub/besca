@@ -6,7 +6,7 @@ from numpy import sign, log10, inf, max, abs, floor, arange, round, sort
 from plotly.offline import plot as plotly_plot
 
 # other besca functions
-from ..._helper import get_raw, subset_adata
+from besca._helper import get_raw, subset_adata
 
 
 def extract_info_rank_genes_groups(adata):

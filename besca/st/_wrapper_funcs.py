@@ -30,13 +30,13 @@ from scanpy.tools import rank_genes_groups
 from scanpy.tools import umap as sc_umap
 
 # import other besca functions
-from .. import _logging as logs
-from ..export._export import labeling, labeling_info
-from ..Import._read import read_mtx
-from ..pp._filtering import filter
-from ..pp._normalization import normalize_geometric
-from ..tl.bcor import batch_correct, postprocess_mnnpy
-from ._FAIR_export import (
+from besca import _logging as logs
+from besca.export._export import labeling, labeling_info
+from besca.Import._read import read_mtx
+from besca.pp._filtering import filter
+from besca.pp._normalization import normalize_geometric
+from besca.tl.bcor import batch_correct, postprocess_mnnpy
+from besca.st._FAIR_export import (
     export_norm_citeseq,
     export_clustering,
     export_cp10k,

@@ -9,8 +9,8 @@ from shutil import copyfile
 
 # from weasyprint import HTML, CSS
 
-from ..pp._fraction_pos import top_counts_genes
-from .._helper import get_raw
+from besca.pp._fraction_pos import top_counts_genes
+from besca._helper import get_raw
 
 
 def write_qc(

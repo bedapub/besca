@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import os
 import sys
 import anndata
-from ..datasets._mito import get_mito_genes
+from besca.datasets._mito import get_mito_genes
 
 
 def kp_genes(adata, threshold=0, min_genes=100, ax=None):
@@ -54,8 +54,8 @@ def kp_genes(adata, threshold=0, min_genes=100, ax=None):
     ax = ax or plt.gca()
 
     ax.plot(-np.sort(-np.array(np.sum(adata.X > threshold, axis=1).T)[0]))
-    ax.set_yscale("log", basey=10)
-    ax.set_xscale("log", basex=10)
+    ax.set_yscale("log", base=10)
+    ax.set_xscale("log", base=10)
     ax.set_ylabel("Number of expressed genes")
     ax.set_xlabel("Cells")
     ax.set_title("Expressed genes [count > " + str(threshold) + "]")
@@ -110,8 +110,8 @@ def kp_counts(adata, min_counts=200, ax=None):
     ax = ax or plt.gca()
 
     ax.plot(-np.sort(-np.array(adata.X.sum(axis=1).T)[0]))
-    ax.set_yscale("log", basey=10)
-    ax.set_xscale("log", basex=10)
+    ax.set_yscale("log", base=10)
+    ax.set_xscale("log", base=10)
     ax.set_ylabel("Number of UMI counts")
     ax.set_xlabel("Cells")
     ax.set_title("Counts per cell")
@@ -175,8 +175,8 @@ def kp_cells(adata, threshold=0, min_cells=2, ax=None):
     ax = ax or plt.gca()
 
     ax.plot(-np.sort(-np.array(np.sum(adata.X > threshold, axis=0))[0]))
-    ax.set_yscale("log", basey=10)
-    ax.set_xscale("log", basex=10)
+    ax.set_yscale("log", base=10)
+    ax.set_xscale("log", base=10)
     ax.set_xlabel("genes")
     ax.set_ylabel("number of cells expressing a gene")
     ax.set_title("Cells that express a gene [count > " + str(threshold) + "]")

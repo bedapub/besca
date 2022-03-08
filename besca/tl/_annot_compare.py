@@ -21,7 +21,7 @@ from sklearn.metrics import (
 
 from sklearn.metrics.cluster import pair_confusion_matrix
 
-from ..pl._riverplot import riverplot_2categories
+from besca.pl._riverplot import riverplot_2categories
 
 
 def report(

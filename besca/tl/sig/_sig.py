@@ -1,46 +1,189 @@
 # this file contains the main functions for signature scoring analysis in python using scanpy
 
 import sys
+import logging
 
 # for conversion
 from itertools import repeat
 
-from ._helper import _to_geneid
-from ._io_sig import read_GMT_sign
-from ._metrics import _handle_signature
+from besca.tl.sig._helper import _to_geneid
+from besca.tl.sig._io_sig import read_GMT_sign
+from besca.tl.sig._metrics import _handle_signature
 
+def filter_by_set(strs, universe_set):
+    """Remove strings from the list that are not in the universe set
+    
+   Parameters
+    ----------
+    strs: a `list` or `tuple` or `set` of `str`
+        A sequence (ordered list) or unordered set of strings, which often
+        are HGNC symbol and should match the signatures values. Empty 
+        characters around characters are ignored.
+    universe_set: a `set` of strings
+        a set of strings. The strings in `strs` that are not in this set 
+        are filtered.
 
+    Returns
+    -------
+    filter_by_set: `list` of `str`
+        A list of gene names that are detected, in the same order as the input
+        except for those that are filtered. In case the input is None or an 
+        empty list, an empty list is returned.
+        
+    Example
+    -------
+
+    >>> import besca as bc
+    >>> detected = list('ABCDE')
+    >>> bc.tl.sig.filter_by_set(['D', 'E', 'A'], detected)
+    ['D', 'E', 'A']
+    >>> bc.tl.sig.filter_by_set(['D', 'E', 'A', 'F'], detected)
+    ['D', 'E', 'A']
+    >>> bc.tl.sig.filter_by_set(None, detected)
+    []
+    >>> bc.tl.sig.filter_by_set([], detected)
+    []
+    """
+    if strs is None or len(strs)==0:
+        return []
+    genes = [gene.strip() for gene in strs] ## sometimes the gene names have empty spaces around
+    int_gene_set = set(genes).intersection(universe_set)
+    int_gene = sorted(int_gene_set, key=genes.index) ## keep the input order
+    return(int_gene)
+                
+    
 def filter_siggenes(adata, signature_dict):
     """Filter all signatures in signature_dict to remove genes not present in adata
 
     Parameters
     ----------
     adata: class:`~anndata.AnnData`
-        An AnnData object (from scanpy). Following besca convention, var names (gene) are HGNC symbol and should match the signatures values.
+        An AnnData object (from scanpy). Following besca convention, var names
+        (genes) are HGNC symbol and should match the signatures values.
     signature_dict: `dict`
-        a dictionary of signatures. Nested dictionnaries, key: signature names
-        Values are a dict  with keys as the directions (UP/DN) and genes names in values.
+        a dictionary of signatures. Keys signature names, and values can come 
+        in two variants:
+        * Variant 1: values are a list of gene names as strings. An example: 
+        `{'gs1': ['A', 'B'], 'gs2':['B', 'C']}`;
+        * Variant 2: Values are a dict with keys, for instance directions 
+        (UP/DN), and genes names in values. An example: `{'gs1': {'UP': 'A', 
+        'DN': 'B'}, 'gs2': {'UP': ['C', 'D'], 'DN': ['E', 'A']}}`.
 
     Returns
     -------
     signature_dict_filtered: `dict`
-        a dictionary of signatures. Nested dictionnaries, key: signature names
-        Values are a dict  with keys as the directions (UP/DN) and genes names in values.
+        a dictionary of signatures in the same format as the input.
+        
+    Example
+    -------
 
+    >>> import besca as bc
+    >>> adata = bc.datasets.pbmc3k_processed()
+    >>> sigs = {'GeneSet1': ['JUNB', 'ALAD', 'ZNF559', 'NoSuchAGene'],
+    ...         'GeneSet2': ['ITGA1', 'CTCF', 'CAPN10', 'UnknownGene']}
+    >>> filtered_sigs = bc.tl.sig.filter_siggenes(adata, sigs)
+    >>> filtered_sigs
+    {'GeneSet1': ['JUNB', 'ALAD', 'ZNF559'], 'GeneSet2': ['ITGA1', 'CTCF', 'CAPN10']}
+    >>> signed_sigs = {'GeneSet1': {'UP': ['JUNB', 'ALAD', 'ZNF559',
+    ...                                              'NoSuchAGene'],
+    ...                               'DN': ['REM2', 'AKT1', 'GPD2', 
+    ...                                              'UnknownGene']},
+    ...                  'GeneSet2': {'UP': ['TOP2A', 'TOP3A', 'MDM2', 
+    ...                                               'NoSuchAGene2'],
+    ...                               'DN': ['ITGA1', 'CTCF', 'CAPN10', 
+    ...                                               'UnknownGene2']}}
+    >>> filtered_signed_sigs = bc.tl.sig.filter_siggenes(adata, signed_sigs)
+    >>> filtered_signed_sigs
+    {'GeneSet1': {'UP': ['JUNB', 'ALAD', 'ZNF559'], 'DN': ['REM2', 'AKT1', 'GPD2']}, 'GeneSet2': {'UP': ['TOP2A', 'TOP3A', 'MDM2'], 'DN': ['ITGA1', 'CTCF', 'CAPN10']}}
     """
 
-    # to add: which signatures were discarded and print (if verbose) genes not found
-    # to check: what happens if no signature is left?
-
     signature_dict_filtered = {}
-    for key, value in signature_dict.items():
-        mym = []
-        for item in value:
-            if sum(adata.raw.var.index.isin([item.strip()]) * 1) > 0:
-                mym.append(item.strip())
-        if len(mym) > 1:
-            signature_dict_filtered[key] = mym
+    raw_index_set = set(adata.raw.var.index)
+    for geneset, dir_dict in signature_dict.items():
+        if type(dir_dict) is dict:
+            signature_dict_filtered[geneset] = {}
+            for direction, genes in dir_dict.items():
+                int_gene = filter_by_set(genes, raw_index_set)
+                if len(int_gene) >= 1:
+                    signature_dict_filtered[geneset][direction] = int_gene
+                else:
+                    logging.info('No genes are left after filtering in '
+                          + geneset + ' direction ' + direction)
+        elif type(dir_dict) is list or type(dir_dict) is tuple:
+            int_gene = filter_by_set(dir_dict, raw_index_set)
+            if len(int_gene) >= 1:
+                signature_dict_filtered[geneset] = int_gene
+            else:
+                logging.info('No genes are left after filtering in '
+                      + geneset)
+        else:
+            raise ValueError('The signature_dict is not in a valid format.')
     return signature_dict_filtered
+
+
+
+def convert_siggenes(signature_dict, conversion):
+    """Convert signature genes with a ortholog conversion Series
+
+    Parameters
+    ----------
+    signature_dict: `dict`
+        a dictionary of signatures. Keys signature names, and values can come 
+        in two variants:
+        * Variant 1: values are a list of gene names as strings. An example: 
+        `{'gs1': ['A', 'B'], 'gs2':['B', 'C']}`;
+        * Variant 2: Values are a dict with keys, for instance directions 
+        (UP/DN), and genes names in values. An example: `{'gs1': {'UP': 'A', 
+        'DN': 'B'}, 'gs2': {'UP': ['C', 'D'], 'DN': ['E', 'A']}}`.
+    conversion: class:`~pandas.Series`
+        An Series object, with gene symbols in other species in index and human gene symbol as values
+
+    Returns
+    -------
+    signature_dict `dict`
+        a dictionary of signatures in the same format as the input, with ortholog genes
+        
+    Example
+    -------
+
+    >>> import pandas as pd
+    >>> sigs = {'GeneSet1': {'UP':['JUNB', 'ALAD'],
+    ...                      'DN':['ZNF559', 'NoSuchAGene']},
+    ...         'GeneSet2': {'UP': ['ITGA1', 'CTCF'], 
+    ...                      'DN': ['CAPN10', 'UnknownGene']}}
+    >>> conversion = pd.Series(['JUNB', 'ALAD', 'ZNF559', 'NoSuchAGene', 
+    ...                         'ITGA1', 'CTCF', 'UnknownGene'],
+    ...                         index=['Junb', 'Alad', 'Znf559', 'Nosuchasagene',
+    ...                         'Itga1', 'Ctcf','Unknowngene'])
+    >>> conv_sigs = convert_siggenes(sigs, conversion)
+    >>> conv_sigs
+    {'GeneSet1': {'UP': ['Junb', 'Alad'], 'DN': ['Znf559', 'Nosuchasagene']}, 'GeneSet2': {'UP': ['Itga1', 'Ctcf'], 'DN': ['Unknowngene']}}
+    """
+    if conversion is None:
+        return signature_dict
+    
+    signature_dict_converted = {}
+    for geneset, dir_dict in signature_dict.items():
+        if type(dir_dict) is dict:
+            signature_dict_converted[geneset] = {}
+            for direction, genes in dir_dict.items():
+                mapped_genes = [g for g in map(_to_geneid, repeat(conversion), genes) if g is not None]
+                if len(mapped_genes) >= 1:
+                    signature_dict_converted[geneset][direction] = mapped_genes
+                else:
+                    logging.info('No genes are left after conversion in '
+                          + geneset + ' direction ' + direction)
+        elif type(dir_dict) is list or type(dir_dict) is tuple:
+            mapped_genes = [g for g in map(_to_geneid, repeat(conversion), genes) if g is not None]
+            if len(mapped_genes) >= 1:
+                signature_dict_converted[geneset] = mapped_genes
+            else:
+                logging.info('No genes are left after filtering in '
+                      + geneset)
+        else:
+            raise ValueError('The signature_dict is not in a valid format.')
+
+    return signature_dict_converted
 
 
 def combined_signature_score(
@@ -123,20 +266,8 @@ def combined_signature_score(
         print(str(len(signature_dict)) + " signatures obtained")
     # More readable than in signatures read. This forces a second loop.
     #  Should be optimized later on
-    if conversion is not None:
-        for signature in signature_dict.keys():
-            for direction in signature_dict[signature]:
-                signature_dict[signature][direction] = [
-                    i
-                    for i in map(
-                        _to_geneid,
-                        repeat(conversion),
-                        signature_dict[signature][direction],
-                    )
-                    if i is not None
-                ]
-    # Filter out signature genes not present in adata
-    # signature_dict=filter_siggenes(adata, signature_dict)
+    signature_dict = convert_siggenes(signature_dict, conversion)
+    # compute signed score
     compute_signed_score(
         adata=adata,
         signature_dict=signature_dict,
@@ -178,11 +309,11 @@ def compute_signed_score(
 
     """
     # Filter out signature genes not present in adata
-    # signature_dict=filter_siggenes(adata, signature_dict)
+    signature_dict_filtered=filter_siggenes(adata, signature_dict)
 
     [
         _handle_signature(
-            signature_dict, method, adata, signature_name, overwrite, verbose, use_raw
+            signature_dict_filtered, method, adata, signature_name, overwrite, verbose, use_raw
         )
         for signature_name in signature_dict.keys()
     ]
@@ -247,19 +378,25 @@ def make_gmtx(
 
     Example
     -------
-    >>> User='userid'
-    >>> Source='internal scseq'
-    >>> Subtype='onc'
-    >>> domain='perturbation'
-    >>> studyID='Pembro_mouse_MC38'
-    >>> analysisID='besca_sw24'
-    >>> genesetname='Pembro_induced_MC38CD8Tcell'
-    >>> setName='Pembro_induced_MC38CD8Tcell_T1'
-    >>> desc='Genes higher expressed in Pembro vs. vehicle in CD8-positive T cells in MC38 in vivo exp. ID time T2; coefs are log2FC'
-    >>> DEgenes=bc.tl.dge.get_de(adata,'treatment_id',demethod='wilcoxon',topnr=5000, logfc=myfc,padj=mypval)
-    >>> pdout=DEgenes['Pembro'].sort_values('Log2FC', ascending=False)
+    >>> import besca as bc
+    >>> User = 'nouser'
+    >>> Source = 'pbmc3k_processed'
+    >>> Subtype = 'public'
+    >>> domain = 'perturbation'
+    >>> studyID = 'pbmc3k_processed'
+    >>> analysisID = 'default'
+    >>> genesetname = 'pbmc3k_processed_cluster0'
+    >>> setName = 'pbmc3k_processed_cluster0'
+    >>> desc = 'Genes higher expressed in cluster 0; coefs are log2FC'
+    >>> adata = bc.datasets.pbmc3k_processed()
+    >>> myfc = 1
+    >>> mypval = 0.05
+    >>> DEgenes=bc.tl.dge.get_de(adata,'leiden',demethod='wilcoxon',topnr=5000, logfc=myfc,padj=mypval)
+    >>> pdout=DEgenes['0'].sort_values('Log2FC', ascending=False)
     >>> genes="\t".join(list(pdout['Name'].astype(str) + " | " + pdout['Log2FC'].round(2).astype(str)))
     >>> signature_dict = bc.tl.sig.make_gmtx(setName,desc,User,Source,Subtype,domain,genesetname,genes,studyID,analysisID)
+    Prefered source names: Literature scseq, Literature, besca, scseqmongodb, internal scseq, pRED, Chugai, gRED, other
+    Metadata for signature pbmc3k_processed_cluster0 successfully captured
     """
 
     geneset = {}
@@ -345,3 +482,7 @@ def make_gmtx(
 
     print("Metadata for signature " + setName + " successfully captured")
     return geneset
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()

@@ -2,7 +2,7 @@ import sys
 from pandas import read_csv
 from numpy import sum, any
 import warnings
-from ..datasets._mito import get_mito_genes
+from besca.datasets._mito import get_mito_genes
 
 
 def fraction_counts(
