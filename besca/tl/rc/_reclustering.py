@@ -4,7 +4,7 @@ from scanpy.preprocessing import scale as sc_scale
 from scanpy.tools import umap, louvain, leiden
 from scanpy.tools import pca as sc_pca
 from scanpy.plotting import filter_genes_dispersion as plot_filter
-from ..._helper import subset_adata as _subset_adata
+from besca._helper import subset_adata as _subset_adata
 import sys
 
 

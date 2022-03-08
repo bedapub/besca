@@ -23,7 +23,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC, LinearSVC
 from sklearn.utils.multiclass import unique_labels
 
-from .._annot_compare import report as report_generic
+from besca.tl._annot_compare import report as report_generic
 
 
 def read_data(train_paths, train_datasets, test_path, test_dataset, use_raw=False):
