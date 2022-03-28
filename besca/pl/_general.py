@@ -338,8 +338,7 @@ def stacked_split_violin(
     subplots_adjust(hspace=0.000)
     return fig
 
-
-def flex_dotplot(df, X, Y, HUE, SIZE, title, mycolors="Reds", myfontsize=15):
+def flex_dotplot(df,X,Y,HUE,SIZE,title, mycolors='Reds', myfontsize=15,  xfactor=0.7,yfactor=0.6):
     """Generate a dot plot showing average expression and fraction positive cells
 
     This function generates a plot where X and Y axes are flexible.
@@ -367,7 +366,11 @@ def flex_dotplot(df, X, Y, HUE, SIZE, title, mycolors="Reds", myfontsize=15):
         color palette e.g. Reds or viridis
     myfontsize: `int`
         fontsize for the legend defaults to 15
-
+    xfactor: `int`
+        distance coef for xaxis defaults to 0.7 
+    yfactor: `int`
+        distance coef for yaxis defaults to 0.6 
+        
     returns
     -------
     Figure
@@ -382,7 +385,7 @@ def flex_dotplot(df, X, Y, HUE, SIZE, title, mycolors="Reds", myfontsize=15):
     >>> adata = bc.datasets.Kotliarov2020_processed()
     >>> gene = 'CD3D'
     >>> df=bc.tl.get_singlegenedf(gene, adata, 'CONDITION','dblabel','individual_id')
-    >>> fig = bc.pl.flex_dotplot(df,X,Y,HUE,SIZE,title,yaxisName)
+    >>> fig = bc.pl.flex_dotplot(df,'CONDITION','dblabel','Avg','Fct','study_title')
 
     .. plot::
 
@@ -392,7 +395,7 @@ def flex_dotplot(df, X, Y, HUE, SIZE, title, mycolors="Reds", myfontsize=15):
         >>> # define genes
         >>> gene = 'CD3D'
         >>> df=bc.tl.get_singlegenedf(gene, adata, 'CONDITION','dblabel','individual_id')
-        >>> fig = bc.pl.flex_dotplot(df,X,Y,HUE,SIZE,title,yaxisName)
+        >>> fig = bc.pl.flex_dotplot(df,'CONDITION','dblabel','Avg','Fct','study_title')
 
     """
     # set plotting style
@@ -408,19 +411,20 @@ def flex_dotplot(df, X, Y, HUE, SIZE, title, mycolors="Reds", myfontsize=15):
         sys.exit("Please select a valid condition name - HUE")
     if (SIZE in df.columns) == False:
         sys.exit("Please select a valid condition name - SIZE")
-
-    xlen = 1 + int(df[X].nunique() * 0.7)  # to "provide" margin space for the labels
-    ylen = 1 + int(df[Y].nunique() * 0.7)
+    
+    xlen = 1 + int(df[X].nunique() * xfactor)  # to "provide" margin space for the labels
+    ylen = 1 + int(df[Y].nunique() * xfactor)
     fig, ax = subplots(figsize=(xlen, ylen))
     #  myplot=sns.scatterplot(data=df,x=X,y=Y,hue=HUE,size=SIZE,sizes=(20,400),palette="viridis",legend="auto")
 
     myplot = sns.scatterplot(
-        data=df, x=X, y=Y, hue=HUE, size=SIZE, sizes=(20, 400), palette=mycolors
+        data=df, x=X, y=Y, hue=HUE, size=SIZE, sizes=(20, 300), palette=mycolors
     )
-    ax.set_title(title, size=15)
+    ax.set_title(title, size=myfontsize)
     ax.set_ylabel(Y, color="grey", fontsize=myfontsize)
     ax.set_xlabel(X, color="grey", fontsize=myfontsize)
-    setp(myplot.get_xticklabels(), rotation=90, fontsize=15)
+    setp(myplot.get_xticklabels(), rotation=90, fontsize=myfontsize)
+    plt.setp(myplot.get_yticklabels(),fontsize=myfontsize)
     setp(ax.get_legend().get_title(), fontsize=myfontsize)  # for legend title
     setp(ax.get_legend().get_texts(), fontsize=myfontsize - 2)  # for legend text
 
