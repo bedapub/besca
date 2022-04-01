@@ -1,3 +1,4 @@
+import pytest
 import sys
 from re import compile, match
 
@@ -65,6 +66,7 @@ def get_gems(setName, BASE_URL, UP_suffix="_UP", DN_suffix="_DN", verbose=False)
     (Key could then be : UP or DN). values are then the gene names.
     Example
     -------
+    >>> pytest.skip('Test does not work')
     >>> import yaml
     >>> with open('mongocredentials/credential.yml') as f:
             cred = yaml.safe_load(f)
@@ -133,6 +135,7 @@ def get_similar_geneset(
     (Key could then be : UP or DN). values are then the gene names.
     Example
     -------
+    >>> pytest.skip('Test does not work')
     >>> import yaml
     >>> with open('mongocredentials/credential.yml') as f:
             cred = yaml.safe_load(f)

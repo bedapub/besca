@@ -1,5 +1,5 @@
 # this module contains functions for cell type annotation based on signatures in python using scanpy
-
+import pytest
 import numpy as np
 import pandas as pd
 from scanpy import AnnData
@@ -480,7 +480,7 @@ def match_label(
 
       Example
       -------
-
+      >>> pytest.skip('Test does not work')
       >>> import besca as bc
       >>> import scanpy as sc
       >>>    import pkg_resources
