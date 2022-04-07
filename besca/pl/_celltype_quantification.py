@@ -19,8 +19,8 @@ def celllabel_quant_boxplot(
     condition_identifier,
     plot_percentage=True,
     condition_order=None,
-    myh=4,
-    myw=8,
+    height=4,
+    width=8,
     mypal="Paired",
 ):
     """generate a box and whisker plot with overlayed swarm plot of celltype abundances
@@ -42,9 +42,9 @@ def celllabel_quant_boxplot(
         boolian indicating if the percentages or the total counts should be plotted
     condition_order: `list` | default = None
         list with the order in which the conditions should be plotted, for consistency
-    myh: `integer` | default = 4
+    height: `integer` | default = 4
         height of the figure
-    myw: `integer` | default = 8
+    width: `integer` | default = 8
         width of the figure
     mypal: `string` | default = "Paired"
         color palette for boxplots e.g. Paired, Blues_d
@@ -83,8 +83,8 @@ def celllabel_quant_boxplot(
     # create a new instance of a figure
     fig, (ax1) = subplots(1)
     fig.tight_layout()
-    fig.set_figheight(myh)
-    fig.set_figwidth(myw)
+    fig.set_figheight(height)
+    fig.set_figwidth(width)
 
     # format the plot
     sns.set_style("white")
@@ -126,7 +126,7 @@ def celllabel_quant_boxplot(
     return fig
 
 
-def celllabel_quant_stackedbar(adata, subset_variable, count_variable="celltype", plot_percentages=True, myh=4, myw=8):
+def celllabel_quant_stackedbar(adata, subset_variable, count_variable="celltype", plot_percentages=True, height=4, width=8):
     """Generate a stacked bar plot of the percentage or absolute of labelcounts within each AnnData subset
 
     parameters
@@ -139,9 +139,9 @@ def celllabel_quant_stackedbar(adata, subset_variable, count_variable="celltype"
         string identiyfing the column of adata.obs containing the labels to be counted
     plot_percentages: `bool` | default = True
         boolian indicating if the percentages or the total counts should be plotted
-    myh: `integer` | default = 4
+    height: `integer` | default = 4
         height of the figure
-    myw: `integer` | default = 8
+    width: `integer` | default = 8
         width of the figure
             
     returns
@@ -177,7 +177,7 @@ def celllabel_quant_stackedbar(adata, subset_variable, count_variable="celltype"
             data = [x / sum(data) for x in data]
         values.loc[cell] = data
 
-    fig = values.plot(kind="bar", stacked=True, figsize=(myw, myh))
+    fig = values.plot(kind="bar", stacked=True, figsize=(width, height))
     if plot_percentages:
         fig.set_ylabel("percentage")
     else:
