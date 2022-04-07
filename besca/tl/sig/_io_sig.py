@@ -2,6 +2,7 @@
 # for signature score computations
 import pytest
 import sys
+import logging
 from re import compile, match
 
 from requests import post
@@ -144,23 +145,14 @@ def write_gmtx_forgems(signature_dict, GMT_file):
 
     Example
     -------
-    >>> pytest.skip('input not working')
     >>> signature_dict = {'setName': 'Th17Tcell_mc38_user', 'desc': 'T-helper 17 cell markers; coefs are log2FC', 'User': 'user', 'Source': 'internal scseq', 'Subtype': 'onc', 'geneset': 'Pembro_MC38-tumor_dblabel', 'domain': 'cell marker', 'studyID': 'Pembro_MC38-tumor', 'analysisID': 'sw_besca24', 'genes|score': 'Cd163l1 | 10.67\tGm9961 | 10.49\tCdh10'}
     >>> outgmtfile='Celltypemarkers.gmtx'
     >>> write_gmtx_forgems(signature_dict, outgmtfile)
-    # TODO
 
     """
 
     with open(GMT_file, "w") as f:
-        f.writelines(
-            "\t".join(
-                list(signature_dict[next(iter(signature_dict))].keys())[
-                    0 : len(list(signature_dict[next(iter(signature_dict))].keys()))
-                ]
-            )
-            + "\n"
-        )
-        for key, value in signature_dict.items():
-            f.writelines("\t".join(list(value.values())) + "\n")
-    print("Successfully written all signatures to " + GMT_file)
+        f.writelines('\t'.join(list(signature_dict.keys()))+'\n')
+        f.writelines('\t'.join(list(signature_dict.values()))+'\n')
+
+    logging.info("Successfully written all signatures to " + GMT_file)
