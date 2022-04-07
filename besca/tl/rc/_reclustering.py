@@ -1,4 +1,3 @@
-import pytest
 from scanpy.preprocessing import filter_genes_dispersion, log1p, regress_out, neighbors
 from scanpy.preprocessing import highly_variable_genes as sc_highly_variable_genes
 from scanpy.preprocessing import scale as sc_scale
@@ -76,7 +75,6 @@ def recluster(
 
     For a more detailed example of the entire reclustering process please refer to the code examples.
 
-    >>> pytest.skip('Test does not work')
     >>> import besca as bc
     >>> import scanpy as sc
     >>> adata = bc.datasets.pbmc3k_processed()
@@ -118,11 +116,6 @@ def recluster(
 
     if show_plot_filter:
         pl_highly_variable_genes(cluster_subset, show=True)
-    print(
-        "In total",
-        str(sum(cluster_subset.var.highly_variable)),
-        "highly variable genes selected within cluster",
-    )
 
     # apply filter
     cluster_subset = _subset_adata(

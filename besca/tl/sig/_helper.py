@@ -21,9 +21,10 @@ def _to_geneid(conversionTable, symbol):
 
     Example
     -------
-    >>> pytest.skip('Test does not work')
+    >>> import pandas as pd
     >>> x = pd.Series(['aa', 'bb', 'cc', 'dd', 'ee'], index=['a', 'b', 'c', 'd', 'e'])
     >>> _to_geneid( x, 'bb')
+    'b'
     """
     try:
         res = conversionTable[conversionTable == symbol].index.format()[0]

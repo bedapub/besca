@@ -1,4 +1,3 @@
-import pytest
 import sys
 from dataclasses import dataclass
 
@@ -41,12 +40,10 @@ def silhouette_computation(
 
      Example
     -------
-    >>> pytest.skip('Test does not work')
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_processed()
     >>> sils = bc.tl.sig.silhouette_computation (adata)
-    >>> print( sils.averaged)
-    >>> sils.show_samples.get_figure()
+    >>> figure = sils.show_samples.get_figure()
 
     """
     if cluster not in adata.obs.keys():
