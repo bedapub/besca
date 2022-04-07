@@ -1,4 +1,3 @@
-import pytest
 import sys
 import anndata
 from pandas import read_csv

@@ -1,5 +1,4 @@
 # general libraries
-import pytest
 import os
 from scanpy.tools import rank_genes_groups
 from pandas import DataFrame, read_csv, concat

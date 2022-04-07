@@ -1,5 +1,4 @@
 # Quality control plots
-import pytest
 from pandas import DataFrame
 import matplotlib.pyplot as plt
 import seaborn as sns
