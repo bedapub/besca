@@ -259,18 +259,17 @@ def librarysize_overview(adata, bins=100):
 
     Generate overview of the characterisitcs of an example dataset.
 
-    >>> pytest.skip('Test does not work')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
     >>> adata = bc.datasets.pbmc3k_raw()
-    >>> bc.pl.librarysize_overview(adata)
+    >>> overview = bc.pl.librarysize_overview(adata)
 
     .. plot::
 
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
         >>> adata = bc.datasets.pbmc3k_raw()
-        >>> bc.pl.librarysize_overview(adata)
+        >>> overview = bc.pl.librarysize_overview(adata)
 
     """
     if type(adata.X) == np.ndarray:
@@ -339,18 +338,17 @@ def top_genes_counts(adata, top_n=25, ax=None):
 
     Example
     -------
-    >>> pytest.skip('Test does not work')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
     >>> adata = bc.datasets.pbmc3k_raw()
-    >>> bc.pl.top_genes_counts(adata)
+    >>> genes = bc.pl.top_genes_counts(adata)
 
     .. plot::
 
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
         >>> adata = bc.datasets.pbmc3k_raw()
-        >>> bc.pl.top_genes_counts(adata)
+        >>> genes = bc.pl.top_genes_counts(adata)
 
     """
     # calculate total counts and frac_reads

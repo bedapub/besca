@@ -38,13 +38,11 @@ def fraction_counts(
 
     Example
     -------
-    >>> pytest.skip('Test does not work')
     >>> import besca as bc
     >>> import os
-    >>> adata = bc.datasets.pbmc_raw()
-    >>> adata.obs.head(5)
+    >>> adata = bc.datasets.pbmc3k_raw()
     >>> bc.pp.fraction_counts(adata,  'human', use_genes='SYMBOL')
-    >>> adata.obs.head(5)
+    >>> counts = adata.obs.head(5)
     """
     if specific_file is None:
         gene_list = get_mito_genes(species, use_genes)

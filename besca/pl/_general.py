@@ -380,13 +380,13 @@ def flex_dotplot(df,X,Y,HUE,SIZE,title, mycolors='Reds', myfontsize=15,  xfactor
 
     Examples
     --------
-    >>> pytest.skip('Test does not work')
     >>> # import libraries and dataset
     >>> import besca as bc
     >>> adata = bc.datasets.Kotliarov2020_processed()
     >>> gene = 'CD3D'
-    >>> df=bc.tl.get_singlegenedf(gene, adata, 'CONDITION','dblabel','individual_id')
-    >>> fig = bc.pl.flex_dotplot(df,'CONDITION','dblabel','Avg','Fct','study_title')
+    >>> #print(adata.obs.columns)
+    >>> df=bc.get_singlegenedf(gene, adata, 'CONDITION','leiden','sampleid')
+    >>> fig = bc.pl.flex_dotplot(df,'CONDITION','leiden','Avg','Fct','study_title')
 
     .. plot::
 
@@ -395,8 +395,8 @@ def flex_dotplot(df,X,Y,HUE,SIZE,title, mycolors='Reds', myfontsize=15,  xfactor
         >>> adata = bc.datasets.Kotliarov2020_processed()
         >>> # define genes
         >>> gene = 'CD3D'
-        >>> df=bc.tl.get_singlegenedf(gene, adata, 'CONDITION','dblabel','individual_id')
-        >>> fig = bc.pl.flex_dotplot(df,'CONDITION','dblabel','Avg','Fct','study_title')
+        >>> df=bc.get_singlegenedf(gene, adata, 'CONDITION','leiden','sampleid')
+        >>> fig = bc.pl.flex_dotplot(df,'CONDITION','leiden','Avg','Fct','study_title')
 
     """
     # set plotting style
@@ -425,7 +425,7 @@ def flex_dotplot(df,X,Y,HUE,SIZE,title, mycolors='Reds', myfontsize=15,  xfactor
     ax.set_ylabel(Y, color="grey", fontsize=myfontsize)
     ax.set_xlabel(X, color="grey", fontsize=myfontsize)
     setp(myplot.get_xticklabels(), rotation=90, fontsize=myfontsize)
-    plt.setp(myplot.get_yticklabels(),fontsize=myfontsize)
+    setp(myplot.get_yticklabels(),fontsize=myfontsize)
     setp(ax.get_legend().get_title(), fontsize=myfontsize)  # for legend title
     setp(ax.get_legend().get_texts(), fontsize=myfontsize - 2)  # for legend text
 

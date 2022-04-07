@@ -60,13 +60,9 @@ def filter(
 
     Example
     -------
-    >>> pytest.skip('Test does not work')
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_raw()
-    >>> adata.size
-    >>> adata = bc.pp.filter(adata, max_counts=6500, max_genes=1900, max_mito=0.05, min_genes=600, min_counts=600, min_cells=2)
-    >>> adata.size
-
+    >>> adata = bc.pp.filter(adata, max_counts=6500, max_genes=1900, max_mito=0.05, min_genes=600, min_counts=600, min_cells=2, annotation_type='SYMBOL')
 
     """
     if isinstance(adata, anndata.AnnData):
@@ -74,13 +70,6 @@ def filter(
         # get original number of cells
         ncells = adata.shape[0]
         ngenes = adata.shape[1]
-        print(
-            "started with ",
-            str(ncells),
-            " total cells and ",
-            str(ngenes),
-            " total genes",
-        )
 
         # calculate values if necessary
         if max_counts is not None or min_counts is not None:
@@ -111,81 +100,32 @@ def filter(
             curr_cells = adata.shape[0]
             adata = adata[adata.obs.get("n_genes") <= max_genes, :].copy()
             new_cells = adata.shape[0]
-            print(
-                "removed",
-                str(curr_cells - new_cells),
-                "cells that expressed more than",
-                str(max_genes),
-                "genes",
-            )
         if min_genes is not None:
             curr_cells = adata.shape[0]
             adata = adata[adata.obs.get("n_genes") >= min_genes, :].copy()
             new_cells = adata.shape[0]
-            print(
-                "removed",
-                str(curr_cells - new_cells),
-                "cells that did not express at least",
-                str(min_genes),
-                " genes",
-            )
         if max_counts is not None:
             curr_cells = adata.shape[0]
             adata = adata[adata.obs.get("n_counts") <= max_counts, :].copy()
             new_cells = adata.shape[0]
-            print(
-                "removed",
-                str(curr_cells - new_cells),
-                "cells that had more than",
-                str(max_counts),
-                " counts",
-            )
 
         if min_counts is not None:
             curr_cells = adata.shape[0]
             adata = adata[adata.obs.get("n_counts") >= min_counts, :].copy()
             new_cells = adata.shape[0]
-            print(
-                "removed",
-                str(curr_cells - new_cells),
-                "cells that did not have at least",
-                str(min_counts),
-                "counts",
-            )
 
         if min_cells is not None:
             curr_genes = adata.shape[1]
             adata = adata[:, adata.var.get("n_cells") >= min_cells].copy()
             new_genes = adata.shape[1]
-            print(
-                "removed",
-                str(curr_genes - new_genes),
-                "genes that were not expressed in at least",
-                str(min_cells),
-                "cells",
-            )
 
         if max_mito is not None:
             curr_cells = adata.shape[0]
             adata = adata[adata.obs.get("percent_mito") < max_mito, :].copy()
             new_cells = adata.shape[0]
-            print(
-                "removed ",
-                str(curr_cells - new_cells),
-                " cells that expressed ",
-                str(max_mito * 100),
-                "percent mitochondrial genes or more",
-            )
 
         ncells_final = adata.shape[0]
         ngenes_final = adata.shape[1]
-        print(
-            "finished with",
-            str(ncells_final),
-            " total cells and",
-            str(ngenes_final),
-            "total genes",
-        )
 
         return adata
 
@@ -218,11 +158,9 @@ def filter_gene_list(adata, filepath, use_raw=True, use_genes="SYMBOL"):
 
     Example
     -------
-    >>> pytest.skip('Test does not work')
     >>> import besca as bc
     >>> import os
-    >>> adata = bc.datasets.pbmc_raw()
-    >>> adata.n_vars
+    >>> adata = bc.datasets.pbmc3k_raw()
     >>> # TO COMPLETE reference_mito_file = 'path2file.tsv'
     >>> # adata = bc.pp.filter_gene_list(adata, file_path=reference_mito_file, use_genes='SYMBOL')
     >>> # adata.n_vars
