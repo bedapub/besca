@@ -1,4 +1,3 @@
-import pytest
 import sys
 from pandas import read_csv
 from numpy import sum, any

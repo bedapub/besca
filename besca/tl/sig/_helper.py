@@ -1,4 +1,3 @@
-import pytest
 # this file contains the helper functions
 # for signature scoring analysis in python using scanpy
 

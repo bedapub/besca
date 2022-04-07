@@ -1,4 +1,3 @@
-import pytest
 import os
 from pandas import read_csv
 

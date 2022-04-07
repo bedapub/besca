@@ -1,4 +1,3 @@
-import pytest
 import seaborn as sns
 from matplotlib.pyplot import (
     figure,
