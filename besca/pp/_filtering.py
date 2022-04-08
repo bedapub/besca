@@ -1,3 +1,4 @@
+import logging
 import sys
 import anndata
 from pandas import read_csv
@@ -70,6 +71,14 @@ def filter(
         ncells = adata.shape[0]
         ngenes = adata.shape[1]
 
+        logging.info(
+            "started with ",
+            str(ncells),
+            " total cells and ",
+            str(ngenes),
+            " total genes",
+        )
+
         # calculate values if necessary
         if max_counts is not None or min_counts is not None:
             if adata.obs.get("n_counts") is None:
@@ -99,37 +108,89 @@ def filter(
             curr_cells = adata.shape[0]
             adata = adata[adata.obs.get("n_genes") <= max_genes, :].copy()
             new_cells = adata.shape[0]
+            logging.info(
+                "removed",
+                str(curr_cells - new_cells),
+                "cells that expressed more than",
+                str(max_genes),
+                "genes",
+            )
+
         if min_genes is not None:
             curr_cells = adata.shape[0]
             adata = adata[adata.obs.get("n_genes") >= min_genes, :].copy()
             new_cells = adata.shape[0]
+            logging.info(
+                "removed",
+                str(curr_cells - new_cells),
+                "cells that did not express at least",
+                str(min_genes),
+                " genes",
+            )
+
         if max_counts is not None:
             curr_cells = adata.shape[0]
             adata = adata[adata.obs.get("n_counts") <= max_counts, :].copy()
             new_cells = adata.shape[0]
+            logging.info(
+                "removed",
+                str(curr_cells - new_cells),
+                "cells that had more than",
+                str(max_counts),
+                " counts",
+            )
 
         if min_counts is not None:
             curr_cells = adata.shape[0]
             adata = adata[adata.obs.get("n_counts") >= min_counts, :].copy()
             new_cells = adata.shape[0]
+            logging.info(
+                "removed",
+                str(curr_cells - new_cells),
+                "cells that did not have at least",
+                str(min_counts),
+                "counts",
+            )
 
         if min_cells is not None:
             curr_genes = adata.shape[1]
             adata = adata[:, adata.var.get("n_cells") >= min_cells].copy()
             new_genes = adata.shape[1]
+            logging.info(
+                "removed",
+                str(curr_genes - new_genes),
+                "genes that were not expressed in at least",
+                str(min_cells),
+                "cells",
+            )
 
         if max_mito is not None:
             curr_cells = adata.shape[0]
             adata = adata[adata.obs.get("percent_mito") < max_mito, :].copy()
             new_cells = adata.shape[0]
+            logging.info(
+                "removed ",
+                str(curr_cells - new_cells),
+                " cells that expressed ",
+                str(max_mito * 100),
+                "percent mitochondrial genes or more",
+            )
 
         ncells_final = adata.shape[0]
         ngenes_final = adata.shape[1]
 
+        logging.info(
+            "finished with",
+            str(ncells_final),
+            " total cells and",
+            str(ngenes_final),
+            "total genes",
+        )
+
         return adata
 
     else:
-        print("please pass an AnnData object as data")
+        logging.info("please pass an AnnData object as data")
         sys.exit(1)
 
 
@@ -168,7 +229,7 @@ def filter_gene_list(adata, filepath, use_raw=True, use_genes="SYMBOL"):
     # generate copy of adata object
     if use_raw:
         if adata.raw is None:
-            print(
+            logging.info(
                 "WARNING: adata does not contain .raw filtering on regular adata object"
             )
             adata = adata.copy()
@@ -193,7 +254,7 @@ def filter_gene_list(adata, filepath, use_raw=True, use_genes="SYMBOL"):
         gene_indexes = [adata.var_names.tolist().index(x) for x in genes]
         adata = adata[:, gene_indexes]
     else:
-        print(
+        logging.info(
             "None of the genes from input list found in data set. Please ensure you have correctly specified use_genes to match the type of genes saved in adata.var_names."
         )
     return adata

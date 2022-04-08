@@ -1,3 +1,4 @@
+import logging
 import sys
 import anndata
 from numpy import ndarray, mean
@@ -172,6 +173,7 @@ def top_counts_genes(adata, top_n=10):
             else:
                 return sorted.head(top_n)
         else:
+            logging.info("calculating frac_reads")
 
             # calculate fraciton positive for a gene
             bdata = adata.copy()
@@ -224,6 +226,7 @@ def top_expressed_genes(adata, top_n=10):
             else:
                 return sorted.head(top_n)
         else:
+            logging.info("calculating frac_pos")
 
             # calculate fraciton positive for a gene
             bdata = adata.copy()

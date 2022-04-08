@@ -383,7 +383,6 @@ def flex_dotplot(df,X,Y,HUE,SIZE,title, mycolors='Reds', myfontsize=15,  xfactor
     >>> import besca as bc
     >>> adata = bc.datasets.Kotliarov2020_processed()
     >>> gene = 'CD3D'
-    >>> #print(adata.obs.columns)
     >>> df=bc.get_singlegenedf(gene, adata, 'CONDITION','leiden','sampleid')
     >>> fig = bc.pl.flex_dotplot(df,'CONDITION','leiden','Avg','Fct','study_title')
 
