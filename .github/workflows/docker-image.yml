@@ -15,4 +15,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - run: | 
+        docker build . --file Dockerfile --tag besca-base:$(date +%s)
+        docker push besca-base:$(date +%s)
+        docker tag besca-base:$(date +%s) besca-base:latest
+        docker push besca:latest
