@@ -358,6 +358,7 @@ dependencies:
   - zlib=1.2.11=h36c2ea0_1013
   - zstd=1.5.2=ha95c52a_0
   - pip:
+    - git+https://github.com/bedapub/besca.git
     - besca==2.4
     - cython==0.29.28
     - pydeprecate==0.3.1
