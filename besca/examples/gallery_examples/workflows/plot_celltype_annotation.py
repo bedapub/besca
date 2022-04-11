@@ -81,10 +81,9 @@ new_labels = [
     "Tcells",  # 4
     "FCGR3A+ monocyte",  # 5
     "pDC",  # 6
-    "Tcells",
 ]  # 7
 
-bc.tl.annotate_cells_clustering(adata, new_labels)
+bc.tl.annotate_cells_clustering(adata, new_labels) # ISSUE is in this method
 
 # visualize annotation
 sc.pl.umap(adata, color=["celltype"])
@@ -109,8 +108,10 @@ sc.pl.umap(
     ncols=3,
 )
 
+print(adata_subset.obs.get("leiden").value_counts().index.tolist())
+
 # annotate celltypes based on the new leiden clusters
-new_labels = [
+labels = [
     "NK cell",  # 0
     "CD4 T-cell",  # 1
     "CD4 T-cell",  # 2
@@ -124,9 +125,17 @@ new_labels = [
     "CD4 T-cell",  # 10
     "CD4 T-cell",  # 11
     "CD4 T-cell",  # 12
-    "NK cell",  # 13
+    "CD4 T-cell",  # 13
+    "CD4 T-cell",  # 14
+    "CD4 T-cell",  # 15
+    "CD4 T-cell",  # 16
+    "CD4 T-cell",  # 17
+    "CD4 T-cell",  # 18
+    "CD4 T-cell",  # 19
+    "NK cell",  # 20
 ]
 
+new_labels = [labels[i] for i in range(len(adata_subset.obs.get("leiden").value_counts().index.tolist()))]
 
 # merge new celllabels back into the original adata object containing all cells
 # Note: this will overwrite the labels contained in adata.obs.celltype! If you w

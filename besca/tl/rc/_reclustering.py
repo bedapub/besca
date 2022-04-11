@@ -197,7 +197,13 @@ def annotate_new_cellnames(
         logging.info("need to supply as many cluster names as there are clusters")
         logging.info("these are the clusters that need to be annotated:")
         logging.info(str(clusters))
-        sys.exit("incorrect number of cluster names supplied")
+        sys.exit(
+            "Specified "
+            + str(len(names))
+            + " new labels for a total of "
+            + str(len(clusters))
+            + " clusters. Numbers should match! No changes were made.\n"
+        )
     else:
         if adata.obs.get(new_label) is None:
             # if the column 'new_label' did not previously exist then create it
