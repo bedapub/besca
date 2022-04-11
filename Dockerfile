@@ -2,8 +2,10 @@ FROM condaforge/mambaforge:4.12.0-0
 
 LABEL MAINTAINER="paul.geser@roche.com"
 
+SHELL ["/bin/bash", "-c"] 
+
 RUN conda init bash
-#RUN /bin/bash -c 'source /opt/ros/melodic/setup.bash'
+RUN source ~/.bashrc
 RUN mkdir besca_base
 RUN cd besca_base
 COPY . . 
