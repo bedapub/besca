@@ -4,5 +4,8 @@ LABEL MAINTAINER="paul.geser@roche.com"
 
 RUN conda init bash
 #RUN /bin/bash -c 'source /opt/ros/melodic/setup.bash'
+RUN mkdir besca_base
+RUN cd besca_base
+COPY . . 
 RUN mamba env create -f environment.lock.yml
 RUN source activate besca_dev
