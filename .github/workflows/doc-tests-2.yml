@@ -27,5 +27,5 @@ jobs:
           source ~/.bashrc
           ls
           pwd
-          mamba create --name myenv
-          mamba activate myenv
+          mamba env create -f environment.lock.yml
+          mamba activate besca_dev
