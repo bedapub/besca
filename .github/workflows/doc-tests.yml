@@ -12,8 +12,8 @@ jobs:
     name: Example Job
     runs-on: ubuntu-latest
     steps:
-      #- name: Check out the repo
-      #  uses: actions/checkout@v2
+      - name: Check out the repo
+        uses: actions/checkout@v2
       - name: Run the build process with Docker
         uses: addnab/docker-run-action@v3
         with:
