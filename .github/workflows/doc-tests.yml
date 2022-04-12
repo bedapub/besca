@@ -8,8 +8,7 @@ on:
     branches: [ doctests ]
 
 jobs:
-  example:
-    name: Example Job
+  doctest:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
@@ -20,12 +19,6 @@ jobs:
           image: ghcr.io/${{ github.repository }}:latest
           options: -v ${{ github.workspace }}:/var/www
           run: |
-            conda init bash
-            /bin/bash -c "source ~/.bashrc"
-            /bin/bash -c "source activate besca_dev"
-            python -V
             cd /var/www
-            ls
-            pytest --doctest-modules -W ignore::PendingDeprecationWarning
 #using: 'docker'
  #   image: 'docker://ghcr.io/${{ github.repository }}:latest'
