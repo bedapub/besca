@@ -24,10 +24,8 @@ jobs:
             /bin/bash -c "source ~/.bashrc"
             /bin/bash -c "source activate besca_dev"
             python -V
-            pwd
-            ls
             cd /var/www
             ls
-            pwd
+            pytest --doctest-modules -W ignore::PendingDeprecationWarning
 #using: 'docker'
  #   image: 'docker://ghcr.io/${{ github.repository }}:latest'
