@@ -30,5 +30,6 @@ jobs:
           mamba env create -f environment.lock.yml
           mamba activate besca_dev
           pip install pytest
+          pytest -V
           cd besca
           pytest --doctest-modules -W ignore::PendingDeprecationWarning
