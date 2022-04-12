@@ -16,8 +16,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Run the build process with Docker
         uses: addnab/docker-run-action@v3
-          with:
-            image: aschmelyun/cleaver:latest
-            run: echo "Hello test"
+        with:
+          image: aschmelyun/cleaver:latest
+          run: echo "Hello test"
 #using: 'docker'
  #   image: 'docker://ghcr.io/${{ github.repository }}:latest'
