@@ -540,6 +540,7 @@ def Peng2019_processed():
 
     Example
     -------
+    >>> pytest.skip('Could not receive file')
     >>> import besca as bc
     >>> adata = bc.datasets.Peng2019_processed()
 
