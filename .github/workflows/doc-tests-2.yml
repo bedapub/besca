@@ -20,5 +20,8 @@ jobs:
         run: |
           conda info
           conda list
-          conda create --name myenv
-          conda activate myenv
+          conda install -c conda-forge mamba
+          ls
+          pwd
+          mamba create --name myenv
+          mamba activate myenv
