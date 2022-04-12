@@ -20,5 +20,6 @@ jobs:
           options: -v ${{ github.workspace }}:/var/www
           run: |
             cd /var/www
+            bash test.sh
 #using: 'docker'
  #   image: 'docker://ghcr.io/${{ github.repository }}:latest'
