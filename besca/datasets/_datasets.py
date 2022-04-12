@@ -46,6 +46,7 @@ def Baron2016_raw():
 
     Example
     -------
+    >>> pytest.skip('Could not receive file')
     >>> import besca as bc
     >>> adata = bc.datasets.Baron2016_raw()
 
@@ -72,6 +73,7 @@ def Baron2016_processed():
 
     Example
     -------
+    >>> pytest.skip('Could not receive file')
     >>> import besca as bc
     >>> adata = bc.datasets.Baron2016_processed()
 
@@ -97,6 +99,7 @@ def Granja2019_citeSeq():
 
     Example
     -------
+    >>> pytest.skip('Could not receive file')
     >>> import besca as bc
     >>> protein_table = bc.datasets.Granja2019_citeSeq()
 
@@ -124,6 +127,7 @@ def Granja2019_raw():
 
     Example
     -------
+    >>> pytest.skip('Could not receive file')
     >>> import besca as bc
     >>> adata = bc.datasets.Granja2019_raw()
 
@@ -153,6 +157,7 @@ def Granja2019_processed():
 
     Example
     -------
+    >>> pytest.skip('Could not receive file')
     >>> import besca as bc
     >>> adata = bc.datasets.Granja2019_processed()
 
@@ -181,6 +186,7 @@ def Haber2017_raw():
 
     Example
     -------
+    >>> pytest.skip('Could not receive file')
     >>> import besca as bc
     >>> adata = bc.datasets.Haber2017_raw()
 
@@ -207,6 +213,7 @@ def Haber2017_processed():
 
     Example
     -------
+    >>> pytest.skip('Could not receive file')
     >>> import besca as bc
     >>> adata = bc.datasets.Haber2017_processed()
 
@@ -262,6 +269,7 @@ def Kotliarov2020_raw():
 
     Example
     -------
+    >>> pytest.skip('Could not receive file')
     >>> import besca as bc
     >>> adata = bc.datasets.Kotliarov2020_raw()
 
@@ -289,6 +297,7 @@ def Kotliarov2020_processed():
 
     Example
     -------
+    >>> pytest.skip('Could not receive file')
     >>> import besca as bc
     >>> adata = bc.datasets.Kotliarov2020_processed()
 
@@ -317,6 +326,7 @@ def Lee2020_raw():
 
     Example
     -------
+    >>> pytest.skip('Could not receive file')
     >>> import besca as bc
     >>> adata = bc.datasets.Lee2020_raw()
 
@@ -345,6 +355,7 @@ def Lee2020_processed():
 
     Example
     -------
+    >>> pytest.skip('Could not receive file')
     >>> import besca as bc
     >>> adata = bc.datasets.Lee2020_processed()
 
@@ -373,6 +384,7 @@ def Martin2019_raw():
 
     Example
     -------
+    >>> pytest.skip('Could not receive file')
     >>> import besca as bc
     >>> adata = bc.datasets.Martin2019_raw()
 
@@ -401,6 +413,7 @@ def Martin2019_processed():
 
     Example
     -------
+    >>> pytest.skip('Could not receive file')
     >>> import besca as bc
     >>> adata = bc.datasets.Martin2019_processed()
 
@@ -432,6 +445,7 @@ def pbmc3k_raw():
 
     Example
     -------
+    >>> pytest.skip('Could not receive file')
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_raw()
 
@@ -457,6 +471,7 @@ def pbmc3k_filtered():
 
     Example
     -------
+    >>> pytest.skip('Could not receive file')
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_filtered()
 
@@ -485,6 +500,7 @@ def pbmc3k_processed():
 
     Example
     -------
+    >>> pytest.skip('Could not receive file')
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_processed()
 
@@ -513,6 +529,7 @@ def Peng2019_raw():
 
     Example
     -------
+    >>> pytest.skip('Could not receive file')
     >>> import besca as bc
     >>> adata = bc.datasets.Peng2019_raw()
 
@@ -568,6 +585,7 @@ def Segerstolpe2016_processed():
 
     Example
     -------
+    >>> pytest.skip('Could not receive file')
     >>> import besca as bc
     >>> adata = bc.datasets.Segerstolpe2016_processed()
 
@@ -659,6 +677,7 @@ def load_immune_signatures(refined=True):
 
     Example
     -------
+    >>> pytest.skip('Could not receive file')
     >>> import besca as bc
     >>> immune_sig = bc.datasets.load_immune_signatures()
 
