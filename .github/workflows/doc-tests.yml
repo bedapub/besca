@@ -18,6 +18,10 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: ghcr.io/${{ github.repository }}:latest
-          run: conda activate besca_dev
+          run: |
+            conda init bash
+            source ~/.bashrc
+            conda activate besca_dev
+            python -V
 #using: 'docker'
  #   image: 'docker://ghcr.io/${{ github.repository }}:latest'
