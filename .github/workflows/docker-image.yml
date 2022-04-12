@@ -1,3 +1,4 @@
+
 name: Docker Image CI
 
 on:
@@ -7,16 +8,19 @@ on:
     branches: [ doctests ]
 
 jobs:
-
-  build:
-
+  Deploy:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: | 
-        docker build . --file Dockerfile --tag besca-base:$GITHUB_JOB
-        docker push besca-base:$GITHUB_JOB
-        docker tag besca-base:$GITHUB_JOB besca-base:latest
-        docker push besca:latest
+      - name: Checkout Code
+        uses: actions/checkout@v1
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ghcr.io/${{ github.repository }}:${{ github.sha }},ghcr.io/${{ github.repository }}:latest
