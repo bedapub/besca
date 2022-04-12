@@ -21,7 +21,7 @@ jobs:
           run: |
             conda init bash
             /bin/bash -c "source ~/.bashrc"
-            conda activate besca_dev
+            /bin/bash -c "source activate besca_dev"
             python -V
 #using: 'docker'
  #   image: 'docker://ghcr.io/${{ github.repository }}:latest'
