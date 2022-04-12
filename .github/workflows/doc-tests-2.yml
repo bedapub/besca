@@ -17,11 +17,18 @@ jobs:
       - uses: conda-incubator/setup-miniconda@v2
         with:
           miniconda-version: "latest"
-          environment-file: environment.lock.yml
-          activate-environment: besca_dev
       - name: Bash
         shell: bash -l {0}
         run: |
           conda info
           conda list
-          pytest --version
+          conda install -c conda-forge mamba
+          mamba init
+          source ~/.bashrc
+          ls
+          pwd
+          mamba env create -f environment.lock.yml
+          mamba activate besca_dev
+          mamba install -c anaconda pytest
+          cd besca
+          pytest --doctest-modules -W ignore::PendingDeprecationWarning
