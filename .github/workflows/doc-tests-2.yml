@@ -21,6 +21,8 @@ jobs:
           conda info
           conda list
           conda install -c conda-forge mamba
+          mamba init
+          source ~/.bashrc
           ls
           pwd
           mamba create --name myenv
