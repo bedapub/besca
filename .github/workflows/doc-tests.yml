@@ -26,5 +26,8 @@ jobs:
             python -V
             pwd
             ls
+            cd /var/www
+            ls
+            pwd
 #using: 'docker'
  #   image: 'docker://ghcr.io/${{ github.repository }}:latest'
