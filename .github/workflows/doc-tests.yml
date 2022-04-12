@@ -10,8 +10,14 @@ on:
 jobs:
   example:
     name: Example Job
-    using: 'docker'
-    image: 'docker://ghcr.io/${{ github.repository }}:latest'
+    runs-on: ubuntu-latest
     steps:
-      - name: Send greeting
-        run: echo "Hello ${{ github.event.inputs.name }}"
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Run the build process with Docker
+        uses: addnab/docker-run-action@v3
+          with:
+            image: aschmelyun/cleaver:latest
+            run: echo "Hello test"
+#using: 'docker'
+ #   image: 'docker://ghcr.io/${{ github.repository }}:latest'
