@@ -23,5 +23,7 @@ jobs:
             /bin/bash -c "source ~/.bashrc"
             /bin/bash -c "source activate besca_dev"
             python -V
+            pwd
+            ls
 #using: 'docker'
  #   image: 'docker://ghcr.io/${{ github.repository }}:latest'
