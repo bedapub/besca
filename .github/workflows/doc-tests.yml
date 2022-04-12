@@ -20,7 +20,7 @@ jobs:
           image: ghcr.io/${{ github.repository }}:latest
           run: |
             conda init bash
-            source ~/.bashrc
+            /bin/bash -c "source ~/.bashrc"
             conda activate besca_dev
             python -V
 #using: 'docker'
