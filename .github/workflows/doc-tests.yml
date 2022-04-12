@@ -3,9 +3,9 @@ name: Run doctests
 
 on:
   push:
-    branches: [ doctests ]
+    branches: [ tl ]
   pull_request:
-    branches: [ doctests ]
+    branches: [ tl ]
 
 jobs:
   doctest:

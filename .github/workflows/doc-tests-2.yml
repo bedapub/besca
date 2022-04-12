@@ -1,0 +1,27 @@
+
+name: Run doctests 2
+
+on:
+  push:
+    branches: [ doctests ]
+  pull_request:
+    branches: [ doctests ]
+
+jobs:
+  example-2-linux:
+    name: Ex2 Linux
+    runs-on: ubuntu-latest
+    steps:
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniconda-version: "latest"
+      - name: Bash
+        shell: bash -l {0}
+        run: |
+          conda info
+          conda list
+      - name: PowerShell Core
+        shell: pwsh
+        run: |
+          conda info
+          conda list
