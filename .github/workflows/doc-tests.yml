@@ -1,0 +1,16 @@
+
+name: Run doctests
+
+on:
+  push:
+    branches: [ doctests ]
+  pull_request:
+    branches: [ doctests ]
+
+jobs:
+  example:
+    name: Example Job
+    runs-on: ghcr.io/${{ github.repository }}:latest
+    steps:
+      - name: Send greeting
+        run: echo "Hello ${{ github.event.inputs.name }}"

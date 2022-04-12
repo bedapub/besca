@@ -3,12 +3,12 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ doctests ]
+    branches: [ ts ]
   pull_request:
-    branches: [ doctests ]
+    branches: [ ts ]
 
 jobs:
-  Deploy:
+  Build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
