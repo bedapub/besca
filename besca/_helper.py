@@ -517,7 +517,6 @@ from scanpy import read
 def supermethod():
     """
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc3k_processed()
     >>> annData = supermethod()
     """
     filename = pkg_resources.resource_filename(
