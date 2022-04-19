@@ -514,11 +514,11 @@ def print_software_versions():
 
 import pkg_resources
 from scanpy import read
-def test_method():
+def supermethod():
     """
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_processed()
-    >>> annData = test_method()
+    >>> annData = supermethod()
     """
     filename = pkg_resources.resource_filename(
         "besca", "datasets/data/pbmc3k_processed.h5ad"
