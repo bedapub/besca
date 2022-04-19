@@ -1,25 +1,32 @@
 
-name: Run doctests
+name: Run doctests 2
 
 on:
   push:
-    branches: [ tl ]
+    branches: [ doctests ]
   pull_request:
-    branches: [ tl ]
+    branches: [ doctests ]
 
 jobs:
-  doctest:
+  doc-test-job:
+    name: Doctests
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
-      - name: Run the build process with Docker
-        uses: addnab/docker-run-action@v3
+      - uses: conda-incubator/setup-miniconda@v2
         with:
-          image: ghcr.io/${{ github.repository }}:latest
-          options: -v ${{ github.workspace }}:/var/www
-          run: |
-            cd /var/www
-            bash test.sh
-#using: 'docker'
- #   image: 'docker://ghcr.io/${{ github.repository }}:latest'
+          miniconda-version: "latest"
+      - name: Bash
+        shell: bash -l {0}
+        run: |
+          conda install -c conda-forge mamba
+          mamba init
+          source ~/.bashrc
+          mamba env create -f environment.lock.yml
+          mamba activate besca_dev
+          pip install pytest
+          pytest -V
+          cd besca
+          export PYTHONDONTWRITEBYTECODE=1
+          pytest --doctest-modules -W ignore::PendingDeprecationWarning --durations=0 _helper.py
