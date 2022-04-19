@@ -10,6 +10,8 @@ from matplotlib.pyplot import (
 )
 import sys
 
+import pytest
+
 
 def split_violin(
     tidy_data, x_axis, y_axis, split_variable, order=None, ax=None, inner="box"
@@ -379,6 +381,7 @@ def flex_dotplot(df,X,Y,HUE,SIZE,title, mycolors='Reds', myfontsize=15,  xfactor
 
     Examples
     --------
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> # import libraries and dataset
     >>> import besca as bc
     >>> adata = bc.datasets.Kotliarov2020_processed()
@@ -387,7 +390,7 @@ def flex_dotplot(df,X,Y,HUE,SIZE,title, mycolors='Reds', myfontsize=15,  xfactor
     >>> fig = bc.pl.flex_dotplot(df,'CONDITION','leiden','Avg','Fct','study_title')
 
     .. plot::
-
+        >>> pytest.skip('Test is only for here as example and should not be executed')
         >>> # import libraries and dataset
         >>> import besca as bc
         >>> adata = bc.datasets.Kotliarov2020_processed()

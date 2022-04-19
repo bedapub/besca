@@ -1,5 +1,6 @@
 import os
 import sys
+import pytest
 
 import seaborn as sns
 from matplotlib.pyplot import subplots, tight_layout
@@ -144,14 +145,14 @@ def celllabel_quant_stackedbar(adata, subset_variable, count_variable="celltype"
 
     Example
     -------
-
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> adata = bc.datasets.Kotliarov2020_processed()
     >>> adata.obs   = adata.obs.astype( {'batch' :  'category'})
     >>> fig = bc.pl.celllabel_quant_stackedbar(adata, count_variable = 'leiden', subset_variable = 'donor')
 
     .. plot::
-
+        >>> pytest.skip('Test is only for here as example and should not be executed')
         >>> import besca as bc
         >>> adata = bc.datasets.Kotliarov2020_processed()
         >>> adata.obs   = adata.obs.astype( {'batch' :  'category'})

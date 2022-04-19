@@ -8,6 +8,8 @@ from besca._helper import subset_adata as _subset_adata
 import sys
 import logging
 
+import pytest
+
 
 def recluster(
     adata,
@@ -76,6 +78,7 @@ def recluster(
 
     For a more detailed example of the entire reclustering process please refer to the code examples.
 
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> import scanpy as sc
     >>> adata = bc.datasets.pbmc3k_processed()

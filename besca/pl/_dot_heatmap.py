@@ -11,6 +11,8 @@ from numpy import ndarray, arange, float32
 # import helper functions from besca
 from besca._helper import get_raw
 
+import pytest
+
 
 def _generate_circle(expression_values, center, radius, ax):
     """helper function to plot heatmap circle with black outline"""
@@ -177,7 +179,7 @@ def dot_heatmap(
 
     Examples
     --------
-
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> # import libraries and dataset
     >>> import besca as bc
     >>> adata = bc.datasets.Kotliarov2020_processed()
@@ -185,7 +187,7 @@ def dot_heatmap(
     >>> fig = bc.pl.dot_heatmap(adata, genes=genes, group_by='leiden')
 
     .. plot::
-
+        >>> pytest.skip('Test is only for here as example and should not be executed')
         >>> # import libraries and dataset
         >>> import besca as bc
         >>> adata = bc.datasets.Kotliarov2020_processed()
@@ -610,7 +612,7 @@ def dot_heatmap_split(
 
     Examples
     --------
-
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> # import libraries and dataset
     >>> import besca as bc
     >>> adata = bc.datasets.Haber2017_processed()
@@ -618,7 +620,7 @@ def dot_heatmap_split(
     >>> fig = bc.pl.dot_heatmap_split(adata, genes=genes, group_by='leiden', split_by = 'donor')
 
     .. plot::
-
+        >>> pytest.skip('Test is only for here as example and should not be executed')
         >>> # import libraries and dataset
         >>> import besca as bc
         >>> adata = bc.datasets.Haber2017_processed()

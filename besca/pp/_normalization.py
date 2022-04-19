@@ -2,6 +2,8 @@ import numpy as np
 from scipy.sparse.csr import csr_matrix
 from anndata._core.views import SparseCSRView
 
+import pytest
+
 
 def closure(mat):
     """
@@ -28,6 +30,7 @@ def closure(mat):
        Raises an error if there is a row that has all zeros.
     Examples
     --------
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import numpy as np
     >>> import skbio
     >>> from skbio.stats.composition import closure
@@ -76,6 +79,7 @@ def clr(mat):
          clr transformed matrix
     Examples
     --------
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import numpy as np
     >>> from skbio.stats.composition import clr
     >>> x = np.array([.1, .3, .4, .2])
@@ -126,6 +130,7 @@ def multiplicative_replacement(mat, delta=None):
            Compositional Data Sets Using Nonparametric Imputation"
     Examples
     --------
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import numpy as np
     >>> from skbio.stats.composition import multiplicative_replacement
     >>> X = np.array([[.2,.4,.4, 0],[0,.5,.5,0]])

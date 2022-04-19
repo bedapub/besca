@@ -7,6 +7,8 @@ from re import compile, match
 
 from requests import post
 
+import pytest
+
 
 def convert_to_directed(signature_dict, direction="UP"):
     """ Convert a simple dictionary into one with direction compatible with combined_signature_score
@@ -26,6 +28,7 @@ def convert_to_directed(signature_dict, direction="UP"):
 
     Example
     -------
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import os
     >>> import besca as bc
     >>> bescapath = os.path.split(os.path.dirname(bc.__file__))[0]
@@ -69,6 +72,7 @@ def read_GMT_sign(
     Values are then the gene names.
     Example
     -------
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> import pkg_resources
     >>> gmt_file='datasets/genesets/Immune.gmt' # provided in besca
@@ -145,6 +149,7 @@ def write_gmtx_forgems(signature_dict, GMT_file):
 
     Example
     -------
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> signature_dict = {'setName': 'Th17Tcell_mc38_user', 'desc': 'T-helper 17 cell markers; coefs are log2FC', 'User': 'user', 'Source': 'internal scseq', 'Subtype': 'onc', 'geneset': 'Pembro_MC38-tumor_dblabel', 'domain': 'cell marker', 'studyID': 'Pembro_MC38-tumor', 'analysisID': 'sw_besca24', 'genes|score': 'Cd163l1 | 10.67\tGm9961 | 10.49\tCdh10'}
     >>> outgmtfile='Celltypemarkers.gmtx'
     >>> write_gmtx_forgems(signature_dict, outgmtfile)
