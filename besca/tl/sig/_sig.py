@@ -3,6 +3,8 @@
 import sys
 import logging
 
+import pytest
+
 # for conversion
 from itertools import repeat
 
@@ -374,6 +376,7 @@ def make_gmtx(
 
     Example
     -------
+
     >>> import besca as bc
     >>> User = 'nouser'
     >>> Source = 'pbmc3k_processed'
