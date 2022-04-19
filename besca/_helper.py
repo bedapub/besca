@@ -10,8 +10,8 @@ import scanpy as sc
 from collections import namedtuple
 import re
 from besca._version import get_versions
-import pytest
 
+import pytest
 
 def subset_adata(adata, filter_criteria, raw=True, axis=0):
     """Subset AnnData object into new object
@@ -38,8 +38,6 @@ def subset_adata(adata, filter_criteria, raw=True, axis=0):
 
     Examples
     --------
-
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_processed()
     >>> adata_BCELL =  bc.subset_adata( adata, filter_criteria= adata.obs.get('dblabel') == 'naive B cell')
@@ -158,7 +156,6 @@ def get_raw(adata):
 
     Examples
     --------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_processed()
     >>> adata_raw = bc.get_raw(adata)

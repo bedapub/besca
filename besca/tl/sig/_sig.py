@@ -10,8 +10,6 @@ from besca.tl.sig._helper import _to_geneid
 from besca.tl.sig._io_sig import read_GMT_sign
 from besca.tl.sig._metrics import _handle_signature
 
-import pytest
-
 def filter_by_set(strs, universe_set):
     """Remove strings from the list that are not in the universe set
     
@@ -34,7 +32,6 @@ def filter_by_set(strs, universe_set):
         
     Example
     -------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> detected = list('ABCDE')
     >>> bc.tl.sig.filter_by_set(['D', 'E', 'A'], detected)
@@ -78,7 +75,6 @@ def filter_siggenes(adata, signature_dict):
         
     Example
     -------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_processed()
     >>> sigs = {'GeneSet1': ['JUNB', 'ALAD', 'ZNF559', 'NoSuchAGene'],
@@ -147,7 +143,6 @@ def convert_siggenes(signature_dict, conversion):
         
     Example
     -------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import pandas as pd
     >>> sigs = {'GeneSet1': {'UP':['JUNB', 'ALAD'],
     ...                      'DN':['ZNF559', 'NoSuchAGene']},
@@ -241,7 +236,6 @@ def combined_signature_score(
     None (the adata obs is modified within the function)
     Example
     -------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import os
     >>> import besca as bc
     >>> bescapath = os.path.split(os.path.dirname(bc.__file__))[0]
@@ -380,7 +374,6 @@ def make_gmtx(
 
     Example
     -------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> User = 'nouser'
     >>> Source = 'pbmc3k_processed'

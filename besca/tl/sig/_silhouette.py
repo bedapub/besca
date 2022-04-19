@@ -8,9 +8,6 @@ import pandas as pd
 import seaborn as sns
 import sklearn
 
-import pytest
-
-
 @dataclass
 class silhouette_in:
     show_samples: matplotlib.axes  # acces is obj.show_samples.get_figure()
@@ -43,7 +40,6 @@ def silhouette_computation(
 
      Example
     -------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_processed()
     >>> sils = bc.tl.sig.silhouette_computation (adata)
