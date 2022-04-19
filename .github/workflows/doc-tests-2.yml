@@ -28,6 +28,7 @@ jobs:
           pip install pytest
           pytest -V
           cd besca
+          export PYTHONDONTWRITEBYTECODE=1
           pytest --doctest-modules -W ignore::PendingDeprecationWarning &
           while kill -0 $! > /dev/null 2>&1; do
             free -m
