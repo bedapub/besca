@@ -8,6 +8,8 @@ from plotly.offline import plot as plotly_plot
 # other besca functions
 from besca._helper import get_raw, subset_adata
 
+import pytest
+
 
 def extract_info_rank_genes_groups(adata):
     """This function extracts information from adata.uns[rank_gene_groups] to pandas.DataFrames
@@ -184,6 +186,7 @@ def perform_dge(
     second column labeled 'Group2' contains a tuple identifying the second group for
     the comparison. The tuple has the form (differentiating_criteria, constant_criteria).
 
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import pandas as pd
     >>> celltypes = ['CD4 T-cell', 'CD8 T-cell', 'B-cell', 'myeloid cell']
     >>> design_matrix = pd.DataFrame({'Group1':[('PBMC', celltype) for celltype in celltypes], 'Group2':[('Skin', celltype) for celltype in celltypes]})

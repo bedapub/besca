@@ -7,6 +7,8 @@ import scipy
 from sklearn import linear_model
 from numpy import ndarray
 
+import pytest
+
 
 def transcript_capture_efficiency(adata, ax=None):
     """Plot total gene counts vs detection probability.
@@ -30,7 +32,7 @@ def transcript_capture_efficiency(adata, ax=None):
     Example
     -------
     Display transcript capture efficiency plot.
-
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
     >>> adata = bc.datasets.pbmc3k_raw()
@@ -38,7 +40,7 @@ def transcript_capture_efficiency(adata, ax=None):
     >>> bc.pl.transcript_capture_efficiency(adata,ax=ax)
 
     .. plot::
-
+        >>> pytest.skip('Test is only for here as example and should not be executed')
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
         >>> adata = bc.datasets.pbmc3k_raw()
@@ -101,7 +103,7 @@ def library_size(adata, ax=None, bins=100):
     Example
     -------
     Plot distribution of librarysize from an example dataset.
-
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
     >>> adata = bc.datasets.pbmc3k_raw()
@@ -109,7 +111,7 @@ def library_size(adata, ax=None, bins=100):
     >>> bc.pl.library_size(adata,ax=ax)
 
     .. plot::
-
+        >>> pytest.skip('Test is only for here as example and should not be executed')
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
         >>> adata = bc.datasets.pbmc3k_raw()
@@ -154,7 +156,7 @@ def detected_genes(adata, ax=None, bins=100):
     Example
     -------
     Plot number of detected genes from an example dataset.
-
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
     >>> adata = bc.datasets.pbmc3k_raw()
@@ -162,7 +164,7 @@ def detected_genes(adata, ax=None, bins=100):
     >>> bc.pl.detected_genes(adata,ax=ax)
 
     .. plot::
-
+        >>> pytest.skip('Test is only for here as example and should not be executed')
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
         >>> adata = bc.datasets.pbmc3k_raw()
@@ -205,7 +207,7 @@ def dropouts(adata, ax=None, bins=100):
     Example
     -------
     Plot number of dropout genes from an example dataset.
-
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
     >>> adata = bc.datasets.pbmc3k_raw()
@@ -213,7 +215,7 @@ def dropouts(adata, ax=None, bins=100):
     >>> bc.pl.dropouts(adata,ax=ax)
 
     .. plot::
-
+        >>> pytest.skip('Test is only for here as example and should not be executed')
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
         >>> adata = bc.datasets.pbmc3k_raw()
@@ -257,14 +259,14 @@ def librarysize_overview(adata, bins=100):
     -------
 
     Generate overview of the characterisitcs of an example dataset.
-
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
     >>> adata = bc.datasets.pbmc3k_raw()
     >>> overview = bc.pl.librarysize_overview(adata)
 
     .. plot::
-
+        >>> pytest.skip('Test is only for here as example and should not be executed')
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
         >>> adata = bc.datasets.pbmc3k_raw()
@@ -337,13 +339,14 @@ def top_genes_counts(adata, top_n=25, ax=None):
 
     Example
     -------
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
     >>> adata = bc.datasets.pbmc3k_raw()
     >>> genes = bc.pl.top_genes_counts(adata)
 
     .. plot::
-
+        >>> pytest.skip('Test is only for here as example and should not be executed')
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
         >>> adata = bc.datasets.pbmc3k_raw()

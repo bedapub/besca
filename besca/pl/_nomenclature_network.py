@@ -4,6 +4,8 @@ import networkx as nx
 import pandas as pd
 from matplotlib import pyplot as plt
 
+import pytest
+
 
 def nomenclature_network(
     config_file: str,
@@ -38,6 +40,7 @@ def nomenclature_network(
 
     Example
     -------
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> import pkg_resources
     >>> config_file = pkg_resources.resource_filename('besca', 'datasets/genesets/CellNames_scseqCMs6_config.tsv')

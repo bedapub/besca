@@ -8,6 +8,7 @@ from besca.datasets._mito import get_mito_genes
 # import helper functions from besca
 from besca._helper import get_raw
 
+import pytest
 
 def filter(
     adata,
@@ -60,6 +61,7 @@ def filter(
 
     Example
     -------
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_raw()
     >>> adata = bc.pp.filter(adata, max_counts=6500, max_genes=1900, max_mito=0.05, min_genes=600, min_counts=600, min_cells=2, annotation_type='SYMBOL')
@@ -218,6 +220,7 @@ def filter_gene_list(adata, filepath, use_raw=True, use_genes="SYMBOL"):
 
     Example
     -------
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> import os
     >>> adata = bc.datasets.pbmc3k_raw()

@@ -10,6 +10,7 @@ import scanpy as sc
 from collections import namedtuple
 import re
 from besca._version import get_versions
+import pytest
 
 
 def subset_adata(adata, filter_criteria, raw=True, axis=0):
@@ -38,6 +39,7 @@ def subset_adata(adata, filter_criteria, raw=True, axis=0):
     Examples
     --------
 
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_processed()
     >>> adata_BCELL =  bc.subset_adata( adata, filter_criteria= adata.obs.get('dblabel') == 'naive B cell')
@@ -156,7 +158,7 @@ def get_raw(adata):
 
     Examples
     --------
-
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_processed()
     >>> adata_raw = bc.get_raw(adata)
@@ -333,7 +335,7 @@ def get_singlegenedf(myg, adata, cond1, cond2, cond3):
 
     Examples
     --------
-
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> # import libraries and dataset
     >>> import besca as bc
     >>> adata = bc.datasets.Kotliarov2020_processed()
@@ -341,7 +343,7 @@ def get_singlegenedf(myg, adata, cond1, cond2, cond3):
     >>> df = bc.get_singlegenedf(gene, adata, 'CONDITION','celltype0','sampleid')
 
     .. plot::
-
+        >>> pytest.skip('Test is only for here as example and should not be executed')
         >>> # import libraries and dataset
         >>> import besca as bc
         >>> adata = bc.datasets.Kotliarov2020_processed()
