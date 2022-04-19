@@ -20,6 +20,7 @@ jobs:
       - name: Bash
         shell: bash -l {0}
         run: |
+          pwd
           conda install -c conda-forge mamba
           mamba init
           source ~/.bashrc
