@@ -376,7 +376,7 @@ def make_gmtx(
 
     Example
     -------
-
+    >>> pytest.skip('Test is taking to long!')
     >>> import besca as bc
     >>> User = 'nouser'
     >>> Source = 'pbmc3k_processed'
