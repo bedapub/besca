@@ -38,6 +38,7 @@ def subset_adata(adata, filter_criteria, raw=True, axis=0):
 
     Examples
     --------
+    >>> pytest.skip('Test is taking to long!')
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_processed()
     >>> adata_BCELL =  bc.subset_adata( adata, filter_criteria= adata.obs.get('dblabel') == 'naive B cell')
@@ -156,6 +157,7 @@ def get_raw(adata):
 
     Examples
     --------
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_processed()
     >>> adata_raw = bc.get_raw(adata)
@@ -516,9 +518,9 @@ def test_method():
     """
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_processed()
+    >>> annData = test_method()
     """
     filename = pkg_resources.resource_filename(
         "besca", "datasets/data/pbmc3k_processed.h5ad"
     )
-    print(filename)
-    adata = read(filename, cache=False)
+    return read(filename, cache=False)
