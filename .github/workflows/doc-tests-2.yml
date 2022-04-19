@@ -28,4 +28,8 @@ jobs:
           pip install pytest
           pytest -V
           cd besca
-          pytest --doctest-modules -W ignore::PendingDeprecationWarning
+          pytest --doctest-modules -W ignore::PendingDeprecationWarning &
+          while kill -0 $! > /dev/null 2>&1; do
+            free -m
+            sleep 15
+          done
