@@ -7,7 +7,8 @@ This example shows you some of the different plots you can use to plot gene expr
 
 """
 import besca as bc
-
+import pytest
+pytest.skip('Test is only for here as example and should not be executed')
 # import data
 adata = bc.datasets.Haber2017_processed()
 
