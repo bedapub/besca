@@ -21,15 +21,18 @@ jobs:
         shell: bash -l {0}
         run: |
           pwd
-          echo "------------------------"
-          ls
-          echo "------------------------"
-          ls ../
-          echo "------------------------"
-          cd ../
-          mv ./besca ./besca-base
-          mv ./besca-base/* ./
-          ls
+          cd /home/runner/work/besca/besca/besca/datasets/data/
+          #echo "------------------------"
+          #ls
+          #echo "------------------------"
+          #ls ../
+          #echo "------------------------"
+          #cd ../
+          #mv ./besca ./besca-base
+          #mv ./besca-base/* ./
+          #ls
+          #echo "------------------------"
+          #pwd
           conda install -c conda-forge mamba
           mamba init
           source ~/.bashrc
