@@ -509,3 +509,16 @@ def print_software_versions():
     Versions = namedtuple('Versions', ['scanpy', 'besca'])
     res = Versions(scanpy=scv, besca=bcver)
     return res
+
+import pkg_resources
+from scanpy import read
+def test_method():
+    """
+    >>> import besca as bc
+    >>> adata = bc.datasets.pbmc3k_processed()
+    """
+    filename = pkg_resources.resource_filename(
+        "besca", "datasets/data/pbmc3k_processed.h5ad"
+    )
+    print(filename)
+    adata = read(filename, cache=False)
