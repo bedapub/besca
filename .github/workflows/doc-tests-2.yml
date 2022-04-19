@@ -22,6 +22,8 @@ jobs:
         run: |
           pwd
           ls
+          echo "------------------------"
+          ls ../
           conda install -c conda-forge mamba
           mamba init
           source ~/.bashrc
