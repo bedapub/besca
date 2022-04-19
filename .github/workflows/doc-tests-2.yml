@@ -22,8 +22,10 @@ jobs:
         run: |
           pwd
           cd /home/runner/work/besca/besca/besca/datasets/data/
-          #echo "------------------------"
-          #ls
+          echo "------------------------"
+          pwd
+          echo "------------------------"
+          ls
           #echo "------------------------"
           #ls ../
           #echo "------------------------"
