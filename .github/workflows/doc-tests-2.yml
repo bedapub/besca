@@ -21,9 +21,15 @@ jobs:
         shell: bash -l {0}
         run: |
           pwd
+          echo "------------------------"
           ls
           echo "------------------------"
           ls ../
+          echo "------------------------"
+          cd ../
+          mv ./besca ./besca-base
+          mv ./besca-base/* ./
+          ls
           conda install -c conda-forge mamba
           mamba init
           source ~/.bashrc
