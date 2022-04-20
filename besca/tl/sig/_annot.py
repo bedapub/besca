@@ -4,6 +4,8 @@ import pandas as pd
 from scanpy import AnnData
 from scipy.stats import mannwhitneyu
 
+import pytest
+
 def getset(df: pd.DataFrame, signame_complete: str, threshold) -> set:
     """Handles missing signatures aux function for make_anno
     Based on a dataframe of p-values, a signature name and a cutoff check if sign is present
