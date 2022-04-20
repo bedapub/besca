@@ -25,9 +25,8 @@ def frac_reads(adata):
 
     Example
     -------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc3k_raw()
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> bc.pp.frac_reads(adata)
     """
 
@@ -71,9 +70,8 @@ def frac_pos(adata, threshold=0):
 
     Example
     -------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc3k_raw()
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> bc.pp.frac_pos(adata)
 
     """
@@ -113,9 +111,8 @@ def mean_expr(adata):
 
     Example
     -------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc3k_raw()
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> bc.pp.mean_expr(adata)
 
     """
@@ -158,9 +155,8 @@ def top_counts_genes(adata, top_n=10):
 
     Example
     -------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc3k_raw()
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> genes = bc.pp.top_counts_genes(adata)
 
     """
@@ -212,9 +208,8 @@ def top_expressed_genes(adata, top_n=10):
 
     Example
     -------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc3k_raw()
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> genes = bc.pp.top_expressed_genes(adata)
 
     """
