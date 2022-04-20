@@ -512,14 +512,3 @@ def print_software_versions():
     res = Versions(scanpy=scv, besca=bcver)
     return res
 
-import pkg_resources
-from scanpy import read
-def supermethod():
-    """
-    >>> import besca as bc
-    >>> annData = supermethod()
-    """
-    filename = pkg_resources.resource_filename(
-        "besca", "datasets/data/pbmc3k_processed.h5ad"
-    )
-    return read(filename, cache=False)

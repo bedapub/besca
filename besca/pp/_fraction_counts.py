@@ -38,10 +38,11 @@ def fraction_counts(
 
     Example
     -------
+    # TODO fix test with simulated data
     >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> import os
-    >>> adata = bc.datasets.pbmc3k_raw()
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> bc.pp.fraction_counts(adata,  'human', use_genes='SYMBOL')
     >>> counts = adata.obs.head(5)
     """

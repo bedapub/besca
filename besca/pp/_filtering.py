@@ -61,9 +61,9 @@ def filter(
 
     Example
     -------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
+    "">>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc3k_raw()
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> adata = bc.pp.filter(adata, max_counts=6500, max_genes=1900, max_mito=0.05, min_genes=600, min_counts=600, min_cells=2, annotation_type='SYMBOL')
 
     """
@@ -220,10 +220,9 @@ def filter_gene_list(adata, filepath, use_raw=True, use_genes="SYMBOL"):
 
     Example
     -------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> import os
-    >>> adata = bc.datasets.pbmc3k_raw()
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> # TO COMPLETE reference_mito_file = 'path2file.tsv'
     >>> # adata = bc.pp.filter_gene_list(adata, file_path=reference_mito_file, use_genes='SYMBOL')
     >>> # adata.n_vars
