@@ -25,7 +25,8 @@ from besca.datasets._datasets import (
 )
 from besca.datasets._mito import get_mito_genes
 from besca.datasets._helper import (
-    simulated_pbmc3k_raw
+    simulated_pbmc3k_raw,
+    simulated_Kotliarov2020_processed
 )
 
 __all__ = [
@@ -54,4 +55,5 @@ __all__ = [
     "Segerstolpe2016_processed",
     "load_immune_signatures",
     "simulated_pbmc3k_raw",
+    "simulated_Kotliarov2020_processed"
 ]

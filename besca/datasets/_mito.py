@@ -17,7 +17,6 @@ def get_mito_genes(species: str = "human", annotation_type: str = "ENSEMBL"):
 
     Example
     -------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> mito_genes = bc.datasets.get_mito_genes('human')
     >>> mito_genes
