@@ -381,21 +381,19 @@ def flex_dotplot(df,X,Y,HUE,SIZE,title, mycolors='Reds', myfontsize=15,  xfactor
 
     Examples
     --------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> # import libraries and dataset
     >>> import besca as bc
-    >>> adata = bc.datasets.Kotliarov2020_processed()
-    >>> gene = 'CD3D'
+    >>> adata = bc.datasets.simulated_Kotliarov2020_processed()
+    >>> gene = 'Gene_3'
     >>> df=bc.get_singlegenedf(gene, adata, 'CONDITION','leiden','sampleid')
     >>> fig = bc.pl.flex_dotplot(df,'CONDITION','leiden','Avg','Fct','study_title')
 
     .. plot::
-        >>> pytest.skip('Test is only for here as example and should not be executed')
         >>> # import libraries and dataset
         >>> import besca as bc
-        >>> adata = bc.datasets.Kotliarov2020_processed()
+        >>> adata = bc.datasets.simulated_Kotliarov2020_processed()
         >>> # define genes
-        >>> gene = 'CD3D'
+        >>> gene = 'Gene_3'
         >>> df=bc.get_singlegenedf(gene, adata, 'CONDITION','leiden','sampleid')
         >>> fig = bc.pl.flex_dotplot(df,'CONDITION','leiden','Avg','Fct','study_title')
 

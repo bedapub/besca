@@ -80,6 +80,7 @@ def _get_expression_table(adata, gene, color_map, max_expression):
 
         iLoc = adata.var_names.tolist().index(gene)
         expression_values = Series(adata.X[iLoc].flatten()).value_counts().to_frame()
+        #expression_values= Series()
         expression_values.columns = ["counts"]
         expression_values["value"] = expression_values.index.tolist()
         expression_values.sort_values(ascending=True, by="value", axis=0, inplace=True)
@@ -179,20 +180,18 @@ def dot_heatmap(
 
     Examples
     --------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> # import libraries and dataset
     >>> import besca as bc
-    >>> adata = bc.datasets.Kotliarov2020_processed()
-    >>> genes = ['CD3D', 'CD19']
+    >>> adata = bc.datasets.simulated_Kotliarov2020_processed()
+    >>> genes = ['Gene_3', 'Gene_6']
     >>> fig = bc.pl.dot_heatmap(adata, genes=genes, group_by='leiden')
 
     .. plot::
-        >>> pytest.skip('Test is only for here as example and should not be executed')
         >>> # import libraries and dataset
         >>> import besca as bc
-        >>> adata = bc.datasets.Kotliarov2020_processed()
+        >>> adata = bc.datasets.simulated_Kotliarov2020_processed()
         >>> # define genes
-        >>> genes = ['CD3D', 'CD19']
+        >>> genes = ['Gene_3', 'Gene_6']
         >>> fig = bc.pl.dot_heatmap(adata, genes=genes, group_by='leiden')
 
     """
