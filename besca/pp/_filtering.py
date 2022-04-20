@@ -61,7 +61,6 @@ def filter(
 
     Example
     -------
-    "">>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> adata = bc.pp.filter(adata, max_counts=6500, max_genes=1900, max_mito=0.05, min_genes=600, min_counts=600, min_cells=2, annotation_type='SYMBOL')
