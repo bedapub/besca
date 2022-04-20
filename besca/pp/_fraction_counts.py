@@ -39,15 +39,17 @@ def fraction_counts(
     Example
     -------
     # TODO fix test with simulated data
-    >>> pytest.skip('Test is only for here as example and should not be executed')
+    
     >>> import besca as bc
     >>> import os
     >>> adata = bc.datasets.simulated_pbmc3k_raw()
-    >>> bc.pp.fraction_counts(adata,  'human', use_genes='SYMBOL')
+    >>> #print(f"{os.path.dirname(__file__)[:-3]}/datasets/mito_files/test.mito.tsv")
+    >>> bc.pp.fraction_counts(adata,  'human', use_genes='SYMBOL', specific_file=f"{os.path.dirname(__file__)[:-3]}/datasets/mito_files/test.mito.tsv")
     >>> counts = adata.obs.head(5)
     """
     if specific_file is None:
         gene_list = get_mito_genes(species, use_genes)
+        print(gene_list)
     else:
         # ENS_GENE_ID  GENE_SYMBOL (2 cols)
         if use_genes == "SYMBOL":
