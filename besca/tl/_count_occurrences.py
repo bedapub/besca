@@ -39,7 +39,6 @@ def count_occurrence(adata, count_variable="celltype", add_percentage=False):
         sys.exit(
             "please specify a column name (count_variable) that is present in adata.obs"
         )
-
     # get counts for specified column
     counts = adata.obs.get(count_variable).value_counts()
     total_counts = sum(counts.tolist())
@@ -54,7 +53,7 @@ def count_occurrence(adata, count_variable="celltype", add_percentage=False):
         data["Percentage"] = percentages
     return data
 
-
+import logging
 def count_occurrence_subset(
     adata, subset_variable, count_variable="celltype", return_percentage=False
 ):
