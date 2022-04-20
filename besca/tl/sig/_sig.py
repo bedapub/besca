@@ -77,6 +77,7 @@ def filter_siggenes(adata, signature_dict):
         
     Example
     -------
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_processed()
     >>> sigs = {'GeneSet1': ['JUNB', 'ALAD', 'ZNF559', 'NoSuchAGene'],
@@ -238,6 +239,7 @@ def combined_signature_score(
     None (the adata obs is modified within the function)
     Example
     -------
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import os
     >>> import besca as bc
     >>> bescapath = os.path.split(os.path.dirname(bc.__file__))[0]

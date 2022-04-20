@@ -33,19 +33,17 @@ def kp_genes(adata, threshold=0, min_genes=100, ax=None):
     -------
 
     Generate a "knee-plot" for a minimum of 600 expressed genes per cell for an example dataset.
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
-    >>> adata = bc.datasets.pbmc3k_raw()
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> min_genes = 600
     >>> fig, ax1 = plt.subplots(1)
     >>> bc.pl.kp_genes(adata, min_genes = min_genes, ax = ax1)
 
     .. plot::
-        >>> pytest.skip('Test is only for here as example and should not be executed')
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
-        >>> adata = bc.datasets.pbmc3k_raw()
+        >>> adata = bc.datasets.simulated_pbmc3k_raw()
         >>> min_genes = 600
         >>> fig, ax1 = plt.subplots(1)
         >>> bc.pl.kp_genes(adata, min_genes = min_genes, ax = ax1)
@@ -89,19 +87,17 @@ def kp_counts(adata, min_counts=200, ax=None):
     -------
 
     Generate a "knee-plot" for a minimum of 600 UMI counts per cell for an example dataset.
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
-    >>> adata = bc.datasets.pbmc3k_raw()
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> min_counts = 600
     >>> fig, ax1 = plt.subplots(1)
     >>> bc.pl.kp_counts(adata, min_counts = min_counts, ax = ax1)
 
     .. plot::
-        >>> pytest.skip('Test is only for here as example and should not be executed')
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
-        >>> adata = bc.datasets.pbmc3k_raw()
+        >>> adata = bc.datasets.simulated_pbmc3k_raw()
         >>> min_counts = 600
         >>> fig, ax1 = plt.subplots(1)
         >>> bc.pl.kp_counts(adata, min_counts = min_counts, ax = ax1)
@@ -152,19 +148,17 @@ def kp_cells(adata, threshold=0, min_cells=2, ax=None):
     -------
 
     Generates a "knee-plot" for a the minimum number of cells expressing a gene in a given dataset.
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
-    >>> adata = bc.datasets.pbmc3k_raw()
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> min_cells = 2
     >>> fig, ax1 = plt.subplots(1)
     >>> bc.pl.kp_cells(adata, min_cells = min_cells, ax = ax1)
 
     .. plot::
-        >>> pytest.skip('Test is only for here as example and should not be executed')
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
-        >>> adata = bc.datasets.pbmc3k_raw()
+        >>> adata = bc.datasets.simulated_pbmc3k_raw()
         >>> min_cells= 2
         >>> fig, ax1 = plt.subplots(1)
         >>> bc.pl.kp_cells(adata, min_cells = min_cells, ax = ax1)
@@ -213,19 +207,17 @@ def max_counts(adata, max_counts=10000, ax=None):
     -------
 
     Generates a "knee-plot" for a maximum UMI count of 6500 for the example dataset.
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
-    >>> adata = bc.datasets.pbmc3k_raw()
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> max_counts = 6500
     >>> fig, ax1 = plt.subplots(1)
     >>> bc.pl.max_counts(adata, max_counts = max_counts, ax = ax1)
 
     .. plot::
-        >>> pytest.skip('Test is only for here as example and should not be executed')
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
-        >>> adata = bc.datasets.pbmc3k_raw()
+        >>> adata = bc.datasets.simulated_pbmc3k_raw()
         >>> max_counts = 6500
         >>> fig, ax1 = plt.subplots(1)
         >>> bc.pl.max_counts(adata, max_counts = max_counts, ax = ax1)

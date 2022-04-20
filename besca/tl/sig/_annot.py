@@ -342,6 +342,7 @@ def obtain_new_label(
 
     Example
     -------
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> import pkg_resources
     >>> adata = bc.datasets.pbmc3k_processed()
@@ -478,6 +479,7 @@ def match_label(
 
       Example
       -------
+      >>> pytest.skip('Test is only for here as example and should not be executed')
       >>> import besca as bc
       >>> import scanpy as sc
       >>> import pkg_resources
