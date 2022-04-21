@@ -6,8 +6,6 @@ import sys
 import anndata
 from besca.datasets._mito import get_mito_genes
 
-import pytest
-
 def kp_genes(adata, threshold=0, min_genes=100, ax=None):
     """visualize the minimum gene per cell threshold.
 

@@ -4,9 +4,6 @@ import networkx as nx
 import pandas as pd
 from matplotlib import pyplot as plt
 
-import pytest
-
-
 def nomenclature_network(
     config_file: str,
     selected_roots=[],

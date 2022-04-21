@@ -1,7 +1,7 @@
 
-name: Run doctests 2
+name: Run doctests
 
-on: [ push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
   doc-test-job:
@@ -22,7 +22,6 @@ jobs:
           mamba env create -f environment.lock.yml
           mamba activate besca_dev
           pip install pytest
-          pytest -V
           cd besca
           export PYTHONDONTWRITEBYTECODE=1
           pytest --doctest-modules -W ignore::PendingDeprecationWarning --durations=0

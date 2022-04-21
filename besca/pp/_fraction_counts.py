@@ -4,8 +4,6 @@ from numpy import sum, any
 import warnings
 from besca.datasets._mito import get_mito_genes
 
-import pytest
-
 def fraction_counts(
     adata, species="human", name="percent_mito", use_genes="SYMBOL", specific_file=None
 ):

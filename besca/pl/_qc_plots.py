@@ -7,9 +7,6 @@ import scipy
 from sklearn import linear_model
 from numpy import ndarray
 
-import pytest
-
-
 def transcript_capture_efficiency(adata, ax=None):
     """Plot total gene counts vs detection probability.
 

@@ -8,8 +8,6 @@ import pandas as pd
 import seaborn as sns
 import sklearn
 
-import pytest
-
 @dataclass
 class silhouette_in:
     show_samples: matplotlib.axes  # acces is obj.show_samples.get_figure()

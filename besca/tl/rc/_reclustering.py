@@ -8,9 +8,6 @@ from besca._helper import subset_adata as _subset_adata
 import sys
 import logging
 
-import pytest
-
-
 def recluster(
     adata,
     celltype,

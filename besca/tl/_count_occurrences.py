@@ -53,7 +53,7 @@ def count_occurrence(adata, count_variable="celltype", add_percentage=False):
         data["Percentage"] = percentages
     return data
 
-import logging
+
 def count_occurrence_subset(
     adata, subset_variable, count_variable="celltype", return_percentage=False
 ):

@@ -11,8 +11,6 @@ from numpy import ndarray, arange, float32
 # import helper functions from besca
 from besca._helper import get_raw
 
-import pytest
-
 
 def _generate_circle(expression_values, center, radius, ax):
     """helper function to plot heatmap circle with black outline"""

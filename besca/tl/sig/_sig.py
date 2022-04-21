@@ -3,8 +3,6 @@
 import sys
 import logging
 
-import pytest
-
 # for conversion
 from itertools import repeat
 
