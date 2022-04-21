@@ -3,7 +3,6 @@
 
 from anndata import AnnData
 import numpy as np
-import besca as bc
 from scipy.sparse import csr_matrix
 import random
 from pandas.api.types import CategoricalDtype
