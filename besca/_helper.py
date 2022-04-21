@@ -11,8 +11,6 @@ from collections import namedtuple
 import re
 from besca._version import get_versions
 
-import pytest
-
 def subset_adata(adata, filter_criteria, raw=True, axis=0):
     """Subset AnnData object into new object
 
