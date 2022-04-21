@@ -19,9 +19,6 @@ def simulated_pbmc3k_raw(n_var = 100, n_obs = 10):
     adata.var["SYMBOL"] = [f"Gene_{i:d}" for i in range(adata.n_vars)]
     return adata
 
-
-
-
 def simulated_Kotliarov2020_processed(n_var = 25, n_obs = 250):
     raw_data = [[y if bool(random.getrandbits(1)) else -abs(y) for y in x] for x in np.random.exponential(1.6, size=(n_obs, n_var))]
     counts = csr_matrix(raw_data, dtype=np.float32)
@@ -73,18 +70,47 @@ def simulated_pbmc3k_processed(n_var = 25, n_obs = 250):
 
 
 
+def simulated_Haber2017_processed(n_var = 10, n_obs = 1000):
+    raw_data = [[y if bool(random.getrandbits(1)) else -abs(y) for y in x] for x in np.random.exponential(1.6, size=(n_obs, n_var))]
+    counts = csr_matrix(raw_data, dtype=np.float32)
+    raw_adata = AnnData(counts)
+    obs_names = [''.join((random.choice('ACGT') for x in range(14))) for i in range(raw_adata.n_obs)]
+    obs_names = [''.join(f"Donor1.{name}") for name in obs_names]
+    raw_adata.obs["CELL"] = obs_names
+    raw_adata.var_names = [f"Gene_{i:d}" for i in range(raw_adata.n_vars)]
+    raw_adata.var["SYMBOL"] = [f"Gene_{i:d}" for i in range(raw_adata.n_vars)]
+    adata = AnnData(np.asarray(raw_data))
+    adata.raw = raw_adata
+    adata.obs["CELL"] = obs_names
+    adata.obs["leiden"] =  [str(random.randint(0,38)) for x in range(adata.n_obs)]
+    status_type = CategoricalDtype(categories=[f"{x}" for x in range(39)], ordered=True)
+    adata.obs["leiden"] = adata.obs["leiden"].astype(status_type)
+    adata.obs["donor"] =  [''.join(f"donor{random.randint(1,2)}") for x in range(adata.n_obs)]
+    adata.obs["donor"] = adata.obs["donor"].astype("category")
+    adata.var_names = [f"Gene_{i:d}" for i in range(adata.n_vars)]
+    adata.var["SYMBOL"] = [f"Gene_{i:d}" for i in range(adata.n_vars)]
+
+    return adata
 
 
+def simulated_Baron2016_processed(n_var = 100, n_obs = 20):
+    raw_data = np.random.exponential(1.6, size=(n_obs, n_var))
+    counts = csr_matrix(raw_data, dtype=np.float32)
+    raw_adata = AnnData(counts)
+    raw_adata.var_names = [f"Gene_{i:d}" for i in range(raw_adata.n_vars)]
+    raw_adata.var["SYMBOL"] = [f"Gene_{i:d}" for i in range(raw_adata.n_vars)]
+    adata = AnnData(np.asarray(raw_data))
+    adata.raw = raw_adata
+    adata.var_names = [f"Gene_{i:d}" for i in range(adata.n_vars)]
+    adata.var["SYMBOL"] = [f"Gene_{i:d}" for i in range(adata.n_vars)]
+    adata.obs["celltype2"] = np.random.choice(["pancreatic acinar cell", "pancreatic D cell", "mast cell", "myeloid leukocyte"], size=(adata.n_obs,))
+    adata.obs["celltype2"] = adata.obs["celltype2"].astype("category")
+    adata.obs["assigned_cluster"] = np.random.choice(["acinar", "beta", "alpha", "t_cell", "quiescent_stellate"], size=(adata.n_obs,))
+    adata.obs["assigned_cluster"] = adata.obs["assigned_cluster"].astype("category")
+    #print(adata.obs)
+    return adata
 
+""" simulated_Baron2016_processed()
 
-
-
-
-
-
-
-""" adata = simulated_pbmc3k_processed()
-print(adata.obsm)
-base_adata = bc.datasets.pbmc3k_processed()
-print(base_adata.obsm["X_umap"]) """
-
+adata = bc.datasets.Baron2016_processed()
+print(adata.obs["assigned_cluster"]) """
