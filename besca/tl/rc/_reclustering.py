@@ -78,12 +78,11 @@ def recluster(
 
     For a more detailed example of the entire reclustering process please refer to the code examples.
 
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> import scanpy as sc
-    >>> adata = bc.datasets.pbmc3k_processed()
+    >>> adata = bc.datasets.simulated_pbmc3k_processed()
     >>> adata_subset = bc.tl.rc.recluster(adata, celltype=('0', '1', '3', '6'), resolution = 1.3)
-    >>> sc.pl.umap(adata_subset, color = ['leiden', 'CD3G', 'CD8A', 'CD4', 'IL7R', 'NKG7', 'GNLY'])
+    >>> sc.pl.umap(adata_subset, color = ['leiden', 'Gene_4', 'Gene_5', 'Gene_6', 'Gene_10', 'Gene_12', 'Gene_20'])
 
     """
     if not method in ["leiden", "louvain"]:
