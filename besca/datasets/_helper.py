@@ -107,10 +107,4 @@ def simulated_Baron2016_processed(n_var = 100, n_obs = 20):
     adata.obs["celltype2"] = adata.obs["celltype2"].astype("category")
     adata.obs["assigned_cluster"] = np.random.choice(["acinar", "beta", "alpha", "t_cell", "quiescent_stellate"], size=(adata.n_obs,))
     adata.obs["assigned_cluster"] = adata.obs["assigned_cluster"].astype("category")
-    #print(adata.obs)
     return adata
-
-""" simulated_Baron2016_processed()
-
-adata = bc.datasets.Baron2016_processed()
-print(adata.obs["assigned_cluster"]) """
