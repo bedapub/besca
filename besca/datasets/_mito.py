@@ -1,6 +1,5 @@
 import os
 from pandas import read_csv
-import pytest
 
 
 def get_mito_genes(species: str = "human", annotation_type: str = "ENSEMBL"):

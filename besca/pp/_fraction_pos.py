@@ -3,8 +3,6 @@ import sys
 import anndata
 from numpy import ndarray, mean
 
-import pytest
-
 def frac_reads(adata):
     """Cacluate the fraction of reads being attributed to a specific gene.
 

@@ -8,8 +8,6 @@ from besca.datasets._mito import get_mito_genes
 # import helper functions from besca
 from besca._helper import get_raw
 
-import pytest
-
 def filter(
     adata,
     max_genes=None,

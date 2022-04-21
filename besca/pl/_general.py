@@ -10,9 +10,6 @@ from matplotlib.pyplot import (
 )
 import sys
 
-import pytest
-
-
 def split_violin(
     tidy_data, x_axis, y_axis, split_variable, order=None, ax=None, inner="box"
 ):
