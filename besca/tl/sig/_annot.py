@@ -344,10 +344,9 @@ def obtain_new_label(
 
     Example
     -------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
     >>> import pkg_resources
-    >>> adata = bc.datasets.pbmc3k_processed()
+    >>> adata = bc.datasets.simulated_pbmc3k_processed()
     >>> new_cnames = bc.tl.sig.obtain_new_label(
     ...     nomenclature_file=pkg_resources.resource_filename('besca', 'datasets/nomenclature/CellTypes_v1.tsv'),
     ...     cnames=list(adata.obs['dblabel'].cat.categories),
@@ -481,11 +480,10 @@ def match_label(
 
       Example
       -------
-      >>> pytest.skip('Test is only for here as example and should not be executed')
       >>> import besca as bc
       >>> import scanpy as sc
       >>> import pkg_resources
-      >>> adata = bc.datasets.pbmc3k_processed()
+      >>> adata = bc.datasets.simulated_pbmc3k_processed()
       >>> nomenclature_file=pkg_resources.resource_filename('besca', 'datasets/nomenclature/CellTypes_v1.tsv'),
       >>> nomenclature_file=''.join(nomenclature_file)
       >>> matching_v = bc.tl.sig.match_label(adata.obs.get( ["celltype3"]),  nomenclature_file)

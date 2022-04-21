@@ -62,122 +62,29 @@ def simulated_pbmc3k_processed(n_var = 25, n_obs = 250):
     adata.var_names = [f"Gene_{i:d}" for i in range(adata.n_vars)]
     adata.var["SYMBOL"] = [f"Gene_{i:d}" for i in range(adata.n_vars)]
     adata.obs["dblabel"] = np.random.choice(["naive B cell", "central memory CD4-positive, alpha-beta T cell", "classical monocyte"], size=(adata.n_obs,))
+    adata.obs["dblabel"] = adata.obs["dblabel"].astype("category")
+    adata.obs["celltype3"] = np.random.choice(["naive B cell", "CD1c-positive myeloid dendritic cell", "non-classical monocyte"], size=(adata.n_obs,))
+    adata.obs["celltype3"] = adata.obs["celltype3"].astype("category")
     adata.obs["leiden"] =  [str(random.randint(0,12)) for x in range(adata.n_obs)]
     status_type = CategoricalDtype(categories=[f"{x}" for x in range(13)], ordered=True)
     adata.obs["leiden"] = adata.obs["leiden"].astype(status_type)
+    adata.obsm["X_umap"] = np.random.normal(0, 1, size=(adata.n_obs, 2))
     return adata
-""" import scanpy as sc
-from besca._helper import subset_adata as _subset_adata
-from scanpy.preprocessing import highly_variable_genes as sc_highly_variable_genes
-import logging
-from scanpy.preprocessing import scale as sc_scale
-from scanpy.tools import pca as sc_pca
-from scanpy.preprocessing import filter_genes_dispersion, log1p, regress_out, neighbors
-from scanpy.tools import umap, louvain, leiden
-def recluster(
-    adata,
-    celltype,
-    celltype_label="leiden",
-    min_mean=0.0125,
-    max_mean=4,
-    min_disp=0.5,
-    resolution=1.0,
-    regress_out_key=None,
-    random_seed=0,
-    show_plot_filter=False,
-    method="leiden",
-    batch_key=None,
-    n_shared=2,
-):
-
-    >>> import besca as bc
-    >>> import scanpy as sc
-    >>> adata = bc.datasets.simulated_pbmc3k_processed()
-    >>> adata_subset = bc.tl.rc.recluster(adata, celltype=('0', '1', '3', '6'), resolution = 1.3)
-    >>> sc.pl.umap(adata_subset, color = ['leiden', 'Gene_4', 'Gene_5', 'Gene_6', 'Gene_10', 'Gene_12', 'Gene_20'])
 
 
-    if not method in ["leiden", "louvain"]:
-        raise ValueError("method argument should be leiden or louvain")
-    if type(celltype) == str:
-        cluster_subset = _subset_adata(adata, adata.obs.get(celltype_label) == celltype)
-    elif type(celltype) == tuple:
-        print('hey I am a tuple', celltype_label)
-        filter = adata.obs.get(celltype_label) == "NONE"
-        print(filter)
-        for i in range(len(celltype)):
-            filter = filter | (adata.obs.get(celltype_label) == celltype[i])
-        cluster_subset = _subset_adata(adata, filter)
-        print(cluster_subset.var, filter)
-    else:
-        sys.exit("specify cluster input as a string or tuple")
 
-    cluster_subset.raw = cluster_subset
 
-    # identify highly variable genes
-    sc_highly_variable_genes(
-        cluster_subset,
-        min_mean=min_mean,
-        max_mean=max_mean,
-        min_disp=min_disp,
-        inplace=True,
-        batch_key=batch_key,
-    )
 
-    if batch_key != None:
-        hvglist = cluster_subset.var["highly_variable"].copy()
-        hvglist.loc[
-            cluster_subset.var["highly_variable_nbatches"]
-            >= len(set(cluster_subset.obs[batch_key])) / n_shared,
-        ] = True
-        cluster_subset.var["highly_variable"] = hvglist.copy()
 
-    if show_plot_filter:
-        pl_highly_variable_genes(cluster_subset, show=True)
-    logging.info(
-        "In total",
-        str(sum(cluster_subset.var.highly_variable)),
-        "highly variable genes selected within cluster",
-    )
 
-    # apply filter
-    cluster_subset = _subset_adata(
-        cluster_subset, cluster_subset.var.highly_variable, axis=1, raw=False
-    )
 
-    # perform further processing
-    # log1p(cluster_subset) # data already logged
-    if regress_out_key is not None:
-        regress_out(cluster_subset, keys=regress_out_key)
-    sc_scale(cluster_subset, max_value=10)
-    sc_pca(
-        cluster_subset, random_state=random_seed, svd_solver="arpack"
-    )  # using `svd_solver='arpack' ensures that the PCA leads to reproducible results
-    neighbors(cluster_subset, n_neighbors=10, random_state=random_seed)
-    umap(cluster_subset, random_state=random_seed)
-    if method == "louvain":
-        louvain(cluster_subset, resolution=resolution, random_state=random_seed)
-    if method == "leiden":
-        leiden(cluster_subset, resolution=resolution, random_state=random_seed)
 
-    return cluster_subset """
-""" 
-adata = simulated_pbmc3k_processed()
-#print(adata)
-adata_subset = recluster(adata, celltype=('0', '1', '3', '6'), resolution = 1.3)
-#print(adata_subset)
 
-#print('-----------------------------------------')
-#print('-----------------------------------------')
-#print('-----------------------------------------')
 
+
+
+""" adata = simulated_pbmc3k_processed()
+print(adata.obsm)
 base_adata = bc.datasets.pbmc3k_processed()
+print(base_adata.obsm["X_umap"]) """
 
-base_adata_subset = recluster(base_adata, celltype=('0', '1', '3', '6'), resolution = 1.3)
-#print(base_adata_subset)
-#print(base_adata_subset.var)
-#t = sc.pl.umap(base_adata_subset, color = ['leiden', 'CD3G', 'CD8A', 'CD4', 'IL7R', 'NKG7', 'GNLY'])
-#print(t)
-#print(adata_subset.var, adata.var)
-sc.pl.umap(adata_subset, color = ['leiden', 'Gene_4', 'Gene_5', 'Gene_6', 'Gene_10', 'Gene_12', 'Gene_20'])
-"python -c 'from _helper import *; print(simulated_pbmc3k_raw())'" """
