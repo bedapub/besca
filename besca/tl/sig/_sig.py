@@ -77,25 +77,24 @@ def filter_siggenes(adata, signature_dict):
         
     Example
     -------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc3k_processed()
-    >>> sigs = {'GeneSet1': ['JUNB', 'ALAD', 'ZNF559', 'NoSuchAGene'],
-    ...         'GeneSet2': ['ITGA1', 'CTCF', 'CAPN10', 'UnknownGene']}
+    >>> adata = bc.datasets.simulated_pbmc3k_processed()
+    >>> sigs = {'GeneSet1': ['Gene_0', 'Gene_2', 'Gene_3', 'NoSuchAGene'],
+    ...         'GeneSet2': ['Gene_5', 'Gene_6', 'Gene_8', 'UnknownGene']}
     >>> filtered_sigs = bc.tl.sig.filter_siggenes(adata, sigs)
     >>> filtered_sigs
-    {'GeneSet1': ['JUNB', 'ALAD', 'ZNF559'], 'GeneSet2': ['ITGA1', 'CTCF', 'CAPN10']}
-    >>> signed_sigs = {'GeneSet1': {'UP': ['JUNB', 'ALAD', 'ZNF559',
+    {'GeneSet1': ['Gene_0', 'Gene_2', 'Gene_3'], 'GeneSet2': ['Gene_5', 'Gene_6', 'Gene_8']}
+    >>> signed_sigs = {'GeneSet1': {'UP': ['Gene_0', 'Gene_2', 'Gene_3',
     ...                                              'NoSuchAGene'],
-    ...                               'DN': ['REM2', 'AKT1', 'GPD2', 
+    ...                               'DN': ['Gene_5', 'Gene_6', 'Gene_8', 
     ...                                              'UnknownGene']},
-    ...                  'GeneSet2': {'UP': ['TOP2A', 'TOP3A', 'MDM2', 
+    ...                  'GeneSet2': {'UP': ['Gene_10', 'Gene_11', 'Gene_13', 
     ...                                               'NoSuchAGene2'],
-    ...                               'DN': ['ITGA1', 'CTCF', 'CAPN10', 
+    ...                               'DN': ['Gene_14', 'Gene_16', 'Gene_18', 
     ...                                               'UnknownGene2']}}
     >>> filtered_signed_sigs = bc.tl.sig.filter_siggenes(adata, signed_sigs)
     >>> filtered_signed_sigs
-    {'GeneSet1': {'UP': ['JUNB', 'ALAD', 'ZNF559'], 'DN': ['REM2', 'AKT1', 'GPD2']}, 'GeneSet2': {'UP': ['TOP2A', 'TOP3A', 'MDM2'], 'DN': ['ITGA1', 'CTCF', 'CAPN10']}}
+    {'GeneSet1': {'UP': ['Gene_0', 'Gene_2', 'Gene_3'], 'DN': ['Gene_5', 'Gene_6', 'Gene_8']}, 'GeneSet2': {'UP': ['Gene_10', 'Gene_11', 'Gene_13'], 'DN': ['Gene_14', 'Gene_16', 'Gene_18']}}
     """
 
     signature_dict_filtered = {}
@@ -239,11 +238,10 @@ def combined_signature_score(
     None (the adata obs is modified within the function)
     Example
     -------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import os
     >>> import besca as bc
     >>> bescapath = os.path.split(os.path.dirname(bc.__file__))[0]
-    >>> adata = bc.datasets.pbmc3k_processed()
+    >>> adata = bc.datasets.simulated_pbmc3k_processed()
     >>> gmt_file= bescapath + '/besca/datasets/genesets/Immune.gmt'
     >>> bc.tl.sig.combined_signature_score( adata, GMT_file = gmt_file)
     >>> # this code is only displayed not executed
@@ -378,7 +376,7 @@ def make_gmtx(
 
     Example
     -------
-    >>> pytest.skip('Test is taking to long!')
+    
     >>> import besca as bc
     >>> User = 'nouser'
     >>> Source = 'pbmc3k_processed'
@@ -389,7 +387,7 @@ def make_gmtx(
     >>> genesetname = 'pbmc3k_processed_cluster0'
     >>> setName = 'pbmc3k_processed_cluster0'
     >>> desc = 'Genes higher expressed in cluster 0; coefs are log2FC'
-    >>> adata = bc.datasets.pbmc3k_processed()
+    >>> adata = bc.datasets.simulated_pbmc3k_processed()
     >>> myfc = 1
     >>> mypval = 0.05
     >>> DEgenes=bc.tl.dge.get_de(adata,'leiden',demethod='wilcoxon',topnr=5000, logfc=myfc,padj=mypval)

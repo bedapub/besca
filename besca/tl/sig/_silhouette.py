@@ -42,9 +42,8 @@ def silhouette_computation(
 
      Example
     -------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc3k_processed()
+    >>> adata = bc.datasets.simulated_pbmc3k_processed()
     >>> sils = bc.tl.sig.silhouette_computation (adata)
     >>> figure = sils.show_samples.get_figure()
 
