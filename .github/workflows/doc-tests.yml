@@ -1,9 +1,7 @@
 
 name: Run doctests 2
 
-on: |
-  push
-  pull_request
+on: [ push, pull_request]
 
 jobs:
   doc-test-job:
