@@ -8,18 +8,23 @@ from scipy.sparse import csr_matrix
 import random
 from pandas.api.types import CategoricalDtype
 
-def simulated_pbmc3k_raw(n_var = 100, n_obs = 10):
-    counts = csr_matrix(np.random.poisson(1, size=(n_obs, n_var)), dtype=np.float32)
-    adata = AnnData(counts)
-    obs_names = [''.join((random.choice('ACGT') for x in range(14))) for i in range(adata.n_obs)]
-    obs_names = [''.join(f"{name}-1") for name in obs_names]
-    adata.obs_names = obs_names
-    adata.obs["CELL"] = obs_names
-    adata.var_names = [f"Gene_{i:d}" for i in range(adata.n_vars)]
-    adata.var["SYMBOL"] = [f"Gene_{i:d}" for i in range(adata.n_vars)]
-    return adata
 
 def simulated_Kotliarov2020_processed(n_var = 25, n_obs = 250):
+    """Simulated Kotliarov2020 processed data (used for doctests)
+
+    The real Kotliarov2020 processed data can be found under besca.datasets.Kotliarov2020_processed()
+
+    Parameters
+    ----------
+    n_var: `int`
+        optional, n_var size of AnnData matrix, default value 25
+    n_obs: `int`
+        optional, n_obs size of AnnData matrix, default value 250
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+    """
     raw_data = [[y if bool(random.getrandbits(1)) else -abs(y) for y in x] for x in np.random.exponential(1.6, size=(n_obs, n_var))]
     counts = csr_matrix(raw_data, dtype=np.float32)
     raw_adata = AnnData(counts)
@@ -42,7 +47,50 @@ def simulated_Kotliarov2020_processed(n_var = 25, n_obs = 250):
     adata.obs["sampleid"] = [x for x in range(adata.n_obs)]
     return adata
 
+
+def simulated_pbmc3k_raw(n_var = 100, n_obs = 10):
+    """Simulated 3k PBMC raw data (used for doctests)
+
+    The real 3k PBMC raw data can be found under besca.datasets.pbmc3k_raw()
+
+    Parameters
+    ----------
+    n_var: `int`
+        optional, n_var size of AnnData matrix, default value 100
+    n_obs: `int`
+        optional, n_obs size of AnnData matrix, default value 10
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+    """
+    counts = csr_matrix(np.random.poisson(1, size=(n_obs, n_var)), dtype=np.float32)
+    adata = AnnData(counts)
+    obs_names = [''.join((random.choice('ACGT') for x in range(14))) for i in range(adata.n_obs)]
+    obs_names = [''.join(f"{name}-1") for name in obs_names]
+    adata.obs_names = obs_names
+    adata.obs["CELL"] = obs_names
+    adata.var_names = [f"Gene_{i:d}" for i in range(adata.n_vars)]
+    adata.var["SYMBOL"] = [f"Gene_{i:d}" for i in range(adata.n_vars)]
+    return adata
+
+
 def simulated_pbmc3k_processed(n_var = 25, n_obs = 250):
+    """Simulated 3k PBMC processed data (used for doctests)
+
+    The real 3k PBMC processed data can be found under besca.datasets.pbmc3k_processed()
+
+    Parameters
+    ----------
+    n_var: `int`
+        optional, n_var size of AnnData matrix, default value 25
+    n_obs: `int`
+        optional, n_obs size of AnnData matrix, default value 250
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+    """
     raw_data = [[y if bool(random.getrandbits(1)) else -abs(y) for y in x] for x in np.random.exponential(1.6, size=(n_obs, n_var))]
     counts = csr_matrix(raw_data, dtype=np.float32)
     raw_adata = AnnData(counts)
@@ -69,8 +117,22 @@ def simulated_pbmc3k_processed(n_var = 25, n_obs = 250):
     return adata
 
 
-
 def simulated_Haber2017_processed(n_var = 10, n_obs = 1000):
+    """Simulated Haber2017 processed data (used for doctests)
+
+    The real Haber2017 processed data can be found under besca.datasets.Haber2017_processed()
+
+    Parameters
+    ----------
+    n_var: `int`
+        optional, n_var size of AnnData matrix, default value 10
+    n_obs: `int`
+        optional, n_obs size of AnnData matrix, default value 1000
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+    """
     raw_data = [[y if bool(random.getrandbits(1)) else -abs(y) for y in x] for x in np.random.exponential(1.6, size=(n_obs, n_var))]
     counts = csr_matrix(raw_data, dtype=np.float32)
     raw_adata = AnnData(counts)
@@ -89,11 +151,25 @@ def simulated_Haber2017_processed(n_var = 10, n_obs = 1000):
     adata.obs["donor"] = adata.obs["donor"].astype("category")
     adata.var_names = [f"Gene_{i:d}" for i in range(adata.n_vars)]
     adata.var["SYMBOL"] = [f"Gene_{i:d}" for i in range(adata.n_vars)]
-
     return adata
 
 
 def simulated_Baron2016_processed(n_var = 100, n_obs = 20):
+    """Simulated Baron2016 processed data (used for doctests)
+
+    The real Baron2016 processed data can be found under besca.datasets.Baron2016_processed()
+
+    Parameters
+    ----------
+    n_var: `int`
+        optional, n_var size of AnnData matrix, default value 100
+    n_obs: `int`
+        optional, n_obs size of AnnData matrix, default value 20
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+    """
     raw_data = np.random.exponential(1.6, size=(n_obs, n_var))
     counts = csr_matrix(raw_data, dtype=np.float32)
     raw_adata = AnnData(counts)
