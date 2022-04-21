@@ -32,17 +32,15 @@ def riverplot_2categories(
 
     Examples
     --------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> # import libraries and dataset
     >>> import besca as bc
-    >>> adata = bc.datasets.Baron2016_processed()
+    >>> adata = bc.datasets.simulated_Baron2016_processed()
     >>> fig = bc.pl.riverplot_2categories(adata,  [ 'assigned_cluster', 'celltype2'])
 
     .. plot::
-        >>> pytest.skip('Test is only for here as example and should not be executed')
         >>> # import libraries and dataset
         >>> import besca as bc
-        >>> adata = bc.datasets.Baron2016_processed()
+        >>> adata = bc.datasets.simulated_Baron2016_processed()
         >>> # define genes
         >>> genes = bc.pl.riverplot_2categories(adata,  [ 'assigned_cluster', 'celltype2'])
         >>> genes = bc.pl.riverplot_2categories(adata,  [ 'assigned_cluster', 'celltype2'], threshold = 15)

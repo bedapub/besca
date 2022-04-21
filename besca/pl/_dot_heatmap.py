@@ -611,20 +611,18 @@ def dot_heatmap_split(
 
     Examples
     --------
-    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> # import libraries and dataset
     >>> import besca as bc
-    >>> adata = bc.datasets.Haber2017_processed()
-    >>> genes = ['Defa22', 'Defa24', 'Gm15284', 'Reg4']
+    >>> adata = bc.datasets.simulated_Haber2017_processed()
+    >>> genes = ['Gene_1', 'Gene_3', 'Gene_5', 'Gene_6']
     >>> fig = bc.pl.dot_heatmap_split(adata, genes=genes, group_by='leiden', split_by = 'donor')
 
     .. plot::
-        >>> pytest.skip('Test is only for here as example and should not be executed')
         >>> # import libraries and dataset
         >>> import besca as bc
-        >>> adata = bc.datasets.Haber2017_processed()
+        >>> adata = bc.datasets.simulated_Haber2017_processed()
         >>> # define genes
-        >>> genes = ['Defa22', 'Defa24', 'Gm15284', 'Reg4']
+        >>> genes = ['Gene_1', 'Gene_3', 'Gene_5', 'Gene_6']
         >>> fig = bc.pl.dot_heatmap_split(adata, genes=genes, group_by='leiden', split_by = 'donor')
 
     """
