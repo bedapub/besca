@@ -366,4 +366,5 @@ dependencies:
     - pytorch-lightning==1.5.10
     - torch==1.10.2
     - xlrd==1.2.0
+    - scikit-bio==0.5.7
 prefix: /mnt/projects/miniconda3/envs/besca_dev
