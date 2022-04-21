@@ -1,11 +1,9 @@
 
 name: Run doctests 2
 
-on:
-  push:
-    branches: [ doctests ]
-  pull_request:
-    branches: [ doctests ]
+on: |
+  push
+  pull_request
 
 jobs:
   doc-test-job:
