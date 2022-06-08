@@ -16,10 +16,10 @@ def get_mito_genes(species: str = "human", annotation_type: str = "ENSEMBL"):
 
     Example
     -------
-
     >>> import besca as bc
     >>> mito_genes = bc.datasets.get_mito_genes('human')
     >>> mito_genes
+    ['ENSG00000198695', 'ENSG00000198712', 'ENSG00000198727', 'ENSG00000198763', 'ENSG00000198786', 'ENSG00000198804', 'ENSG00000198840', 'ENSG00000198886', 'ENSG00000198888', 'ENSG00000198899', 'ENSG00000198938', 'ENSG00000212907', 'ENSG00000228253']
 
     """
     valid = {"cyno", "cynomolgus", "human", "mouse", "rat", "pig"}

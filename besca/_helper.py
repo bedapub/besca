@@ -159,9 +159,7 @@ def get_raw(adata):
 
     >>> import besca as bc
     >>> adata = bc.datasets.pbmc3k_processed()
-    >>> print(adata)
     >>> adata_raw = bc.get_raw(adata)
-    >>> print(adata_raw)
 
     """
 
@@ -340,7 +338,7 @@ def get_singlegenedf(myg, adata, cond1, cond2, cond3):
     >>> import besca as bc
     >>> adata = bc.datasets.Kotliarov2020_processed()
     >>> gene = 'CD3D'
-    >>> df = bc.tl.get_singlegene_df(gene, adata, 'CONDITION','dblabel','individual_id')
+    >>> df = bc.get_singlegenedf(gene, adata, 'CONDITION','celltype0','sampleid')
 
     .. plot::
 
@@ -349,10 +347,9 @@ def get_singlegenedf(myg, adata, cond1, cond2, cond3):
         >>> adata = bc.datasets.Kotliarov2020_processed()
         >>> # define genes
         >>> genes = 'CD3D'
-        >>> df = bc.tl.get_singlegene_df(gene, adata, 'CONDITION','dblabel','individual_id')
+        >>> df = bc.get_singlegenedf(gene, adata, 'CONDITION','celltype0','sampleid')
 
     """
-
     # check that we have the conditions
     if (cond1 in adata.obs.columns) == False:
         sys.exit("Please select a valid condition name - cond1")

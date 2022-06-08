@@ -1,3 +1,4 @@
+import pytest
 import sys
 from re import compile, match
 
@@ -65,11 +66,11 @@ def get_gems(setName, BASE_URL, UP_suffix="_UP", DN_suffix="_DN", verbose=False)
     (Key could then be : UP or DN). values are then the gene names.
     Example
     -------
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import yaml
     >>> with open('mongocredentials/credential.yml') as f:
-            cred = yaml.safe_load(f)
+    ...     cred = yaml.safe_load(f)
     >>> get_GEMS_sign('Tcell', BASE_URL =  'http://' + cred['hostname'] + ':' +  cred['localport'])
-    >>> # this code is only displayed not executed
     """
     # Calling GEMS
     BASE_URL += "/api/genesets"
@@ -133,9 +134,10 @@ def get_similar_geneset(
     (Key could then be : UP or DN). values are then the gene names.
     Example
     -------
+    >>> pytest.skip('Test is only for here as example and should not be executed')
     >>> import yaml
     >>> with open('mongocredentials/credential.yml') as f:
-            cred = yaml.safe_load(f)
+    ...     cred = yaml.safe_load(f)
     >>> get_similar_geneset(request='?setName=dz:770_UP&source=CREEDS&user=Public&subtype=disease',
             BASE_URL =  'http://' + cred['hostname'] + ':' +  cred['localport'], outputGeneset = True)
     >>> # this code is only displayed not executed
