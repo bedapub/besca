@@ -29,11 +29,12 @@ def closure(mat):
     Examples
     --------
     >>> import numpy as np
+    >>> import skbio
     >>> from skbio.stats.composition import closure
     >>> X = np.array([[2, 2, 6], [4, 4, 2]])
     >>> closure(X)
-    array([[ 0.2,  0.2,  0.6],
-           [ 0.4,  0.4,  0.2]])
+    array([[0.2, 0.2, 0.6],
+           [0.4, 0.4, 0.2]])
     """
     mat = np.atleast_2d(mat)
     if np.any(mat < 0):
@@ -129,8 +130,8 @@ def multiplicative_replacement(mat, delta=None):
     >>> from skbio.stats.composition import multiplicative_replacement
     >>> X = np.array([[.2,.4,.4, 0],[0,.5,.5,0]])
     >>> multiplicative_replacement(X)
-    array([[ 0.1875,  0.375 ,  0.375 ,  0.0625],
-           [ 0.0625,  0.4375,  0.4375,  0.0625]])
+    array([[0.1875, 0.375 , 0.375 , 0.0625],
+           [0.0625, 0.4375, 0.4375, 0.0625]])
     """
 
     mat = closure(mat)

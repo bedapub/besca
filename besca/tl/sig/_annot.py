@@ -1,5 +1,4 @@
 # this module contains functions for cell type annotation based on signatures in python using scanpy
-
 import numpy as np
 import pandas as pd
 from scanpy import AnnData
@@ -480,15 +479,15 @@ def match_label(
 
       Example
       -------
-
       >>> import besca as bc
       >>> import scanpy as sc
-      >>>    import pkg_resources
+      >>> import pkg_resources
       >>> adata = bc.datasets.pbmc3k_processed()
       >>> nomenclature_file=pkg_resources.resource_filename('besca', 'datasets/nomenclature/CellTypes_v1.tsv'),
-      >>> matching_v = bc.tl.sig.match_label(adata.obs.get( "celltype3"),  nomenclature_file)
+      >>> nomenclature_file=''.join(nomenclature_file)
+      >>> matching_v = bc.tl.sig.match_label(adata.obs.get( ["celltype3"]),  nomenclature_file)
       >>> adata.obs['shortlabel'] = adata.obs.get( "celltype3").map( dict(matching_v.values))
-      >>> sc.pl.umap(adata, color = 'short')
+      >>> sc.pl.umap(adata, color=['shortlabel'])
 
     """
     nomenclature = read_nomenclature(nomenclature_file)

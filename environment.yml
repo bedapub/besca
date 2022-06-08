@@ -4,6 +4,7 @@ channels:
  - bioconda
  - defaults
 dependencies:
+ - python=3.9
  - scipy>=1.5.4
  - flask-restful>=0.3.9
  - dominate>=2.6.0

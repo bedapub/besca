@@ -1,4 +1,5 @@
 """
+# TODO
 plotting gene expression
 ========================
 
@@ -22,9 +23,9 @@ bc.pl.gene_expr_split(adata, genes=["Defa24", "Gm15284"], split_variable="donor"
 #
 # use a stacked split violin plot to compare this for several genes at the same time
 
-bc.pl.gene_expr_split_stacked(
+bc.pl.gene_expr_split_stacked( # ISSUE is in this method
     adata=adata,
     genes=["Defa24", "Gm15284"],
     split_variable="donor",
-    subset_variable="region",
+    subset_variable="region_x",
 )
