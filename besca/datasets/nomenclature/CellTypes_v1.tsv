@@ -395,5 +395,5 @@ motor neuron	motor neuron	CL:0000100	MotorN	4			efferent neuron	CL:0000527	neuro
 efferent neuron	efferent neuron	CL:0000527	EfferentN	3					neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
 fat cell	fat cell	CL:0000136	Adipocyte	2							connective tissue cell	CL:0002320	animal cell	CL:0000548
 epicardial adipocyte	epicardial adipocyte	CL:1000309	EpicardialAdipocyte	3					fat cell	CL:0000136 	connective tissue cell	CL:0002320	animal cell	CL:0000548
-SLC17A6_PVALB-positive neuron		DB:0000085	Neuron_SLC17A6_PVALB	4			glutamatergic neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548	ebelingm
-proliferating killer cell		DB:0000086	ProlifNKcell	5	natural killer cell	CL:0000623	innate lymphoid cell	CL:0001065	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548	schwalip
+SLC17A6_PVALB-positive neuron		DB:0000085	Neuron_SLC17A6_PVALB	4			glutamatergic neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+proliferating killer cell		DB:0000086	ProlifNKcell	5	natural killer cell	CL:0000623	innate lymphoid cell	CL:0001065	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	animal cell	CL:0000548
