@@ -71,11 +71,8 @@ def filter(
         ngenes = adata.shape[1]
 
         logging.info(
-            "started with ",
-            str(ncells),
-            " total cells and ",
-            str(ngenes),
-            " total genes",
+            "started with %d total cells and %d total genes",
+            ncells, ngenes
         )
 
         # calculate values if necessary
@@ -108,11 +105,9 @@ def filter(
             adata = adata[adata.obs.get("n_genes") <= max_genes, :].copy()
             new_cells = adata.shape[0]
             logging.info(
-                "removed",
-                str(curr_cells - new_cells),
-                "cells that expressed more than",
-                str(max_genes),
-                "genes",
+                "removed %d cells that expressed more than %d genes",
+                curr_cells - new_cells,
+                max_genes
             )
 
         if min_genes is not None:
@@ -120,11 +115,9 @@ def filter(
             adata = adata[adata.obs.get("n_genes") >= min_genes, :].copy()
             new_cells = adata.shape[0]
             logging.info(
-                "removed",
-                str(curr_cells - new_cells),
-                "cells that did not express at least",
-                str(min_genes),
-                " genes",
+                "removed %d cells that did not express at least %d genes",
+                curr_cells - new_cells,
+                min_genes
             )
 
         if max_counts is not None:
@@ -132,11 +125,9 @@ def filter(
             adata = adata[adata.obs.get("n_counts") <= max_counts, :].copy()
             new_cells = adata.shape[0]
             logging.info(
-                "removed",
-                str(curr_cells - new_cells),
-                "cells that had more than",
-                str(max_counts),
-                " counts",
+                "removed %d cells that had more than %d counts",
+                curr_cells - new_cells,
+                max_counts
             )
 
         if min_counts is not None:
@@ -144,11 +135,9 @@ def filter(
             adata = adata[adata.obs.get("n_counts") >= min_counts, :].copy()
             new_cells = adata.shape[0]
             logging.info(
-                "removed",
-                str(curr_cells - new_cells),
-                "cells that did not have at least",
-                str(min_counts),
-                "counts",
+                "removed %d cells that did not have at least %d counts",
+                curr_cells - new_cells,
+                min_counts
             )
 
         if min_cells is not None:
@@ -156,11 +145,10 @@ def filter(
             adata = adata[:, adata.var.get("n_cells") >= min_cells].copy()
             new_genes = adata.shape[1]
             logging.info(
-                "removed",
-                str(curr_genes - new_genes),
-                "genes that were not expressed in at least",
-                str(min_cells),
-                "cells",
+                "removed %d genes that were not expressed"
+                "in at least %d cells",
+                curr_genes - new_genes,
+                min_cells,
             )
 
         if max_mito is not None:
@@ -168,28 +156,25 @@ def filter(
             adata = adata[adata.obs.get("percent_mito") < max_mito, :].copy()
             new_cells = adata.shape[0]
             logging.info(
-                "removed ",
-                str(curr_cells - new_cells),
-                " cells that expressed ",
-                str(max_mito * 100),
-                "percent mitochondrial genes or more",
+                "removed %d cells that expressed"
+                "%d%% mitochondrial genes or more",
+                curr_cells - new_cells,
+                max_mito * 100
             )
 
         ncells_final = adata.shape[0]
         ngenes_final = adata.shape[1]
 
         logging.info(
-            "finished with",
-            str(ncells_final),
-            " total cells and",
-            str(ngenes_final),
-            "total genes",
+            "finished with %d total cells and total genes",
+            ncells_final,
+            ngenes_final
         )
 
         return adata
 
     else:
-        logging.info("please pass an AnnData object as data")
+        logging.error("please pass an AnnData object as data")
         sys.exit(1)
 
 
@@ -228,8 +213,8 @@ def filter_gene_list(adata, filepath, use_raw=True, use_genes="SYMBOL"):
     # generate copy of adata object
     if use_raw:
         if adata.raw is None:
-            logging.info(
-                "WARNING: adata does not contain .raw filtering on regular adata object"
+            logging.warning(
+                "adata does not contain .raw filtering on regular adata object"
             )
             adata = adata.copy()
         else:
@@ -253,7 +238,7 @@ def filter_gene_list(adata, filepath, use_raw=True, use_genes="SYMBOL"):
         gene_indexes = [adata.var_names.tolist().index(x) for x in genes]
         adata = adata[:, gene_indexes]
     else:
-        logging.info(
+        logging.warning(
             "None of the genes from input list found in data set. Please ensure you have correctly specified use_genes to match the type of genes saved in adata.var_names."
         )
     return adata
