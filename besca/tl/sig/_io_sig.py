@@ -1,12 +1,10 @@
 # this file contains the functions to read / import signatures
 # for signature score computations
-import pytest
 import sys
 import logging
 from re import compile, match
 
 from requests import post
-
 
 def convert_to_directed(signature_dict, direction="UP"):
     """ Convert a simple dictionary into one with direction compatible with combined_signature_score

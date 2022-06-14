@@ -39,7 +39,6 @@ def count_occurrence(adata, count_variable="celltype", add_percentage=False):
         sys.exit(
             "please specify a column name (count_variable) that is present in adata.obs"
         )
-
     # get counts for specified column
     counts = adata.obs.get(count_variable).value_counts()
     total_counts = sum(counts.tolist())

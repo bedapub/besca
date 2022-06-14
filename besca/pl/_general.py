@@ -10,7 +10,6 @@ from matplotlib.pyplot import (
 )
 import sys
 
-
 def split_violin(
     tidy_data, x_axis, y_axis, split_variable, order=None, ax=None, inner="box"
 ):
@@ -381,18 +380,17 @@ def flex_dotplot(df,X,Y,HUE,SIZE,title, mycolors='Reds', myfontsize=15,  xfactor
     --------
     >>> # import libraries and dataset
     >>> import besca as bc
-    >>> adata = bc.datasets.Kotliarov2020_processed()
-    >>> gene = 'CD3D'
+    >>> adata = bc.datasets.simulated_Kotliarov2020_processed()
+    >>> gene = 'Gene_3'
     >>> df=bc.get_singlegenedf(gene, adata, 'CONDITION','leiden','sampleid')
     >>> fig = bc.pl.flex_dotplot(df,'CONDITION','leiden','Avg','Fct','study_title')
 
     .. plot::
-
         >>> # import libraries and dataset
         >>> import besca as bc
-        >>> adata = bc.datasets.Kotliarov2020_processed()
+        >>> adata = bc.datasets.simulated_Kotliarov2020_processed()
         >>> # define genes
-        >>> gene = 'CD3D'
+        >>> gene = 'Gene_3'
         >>> df=bc.get_singlegenedf(gene, adata, 'CONDITION','leiden','sampleid')
         >>> fig = bc.pl.flex_dotplot(df,'CONDITION','leiden','Avg','Fct','study_title')
 

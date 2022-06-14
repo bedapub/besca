@@ -2,7 +2,6 @@ import numpy as np
 from scipy.sparse.csr import csr_matrix
 from anndata._core.views import SparseCSRView
 
-
 def closure(mat):
     """
     Performs closure to ensure that all elements add up to 1.

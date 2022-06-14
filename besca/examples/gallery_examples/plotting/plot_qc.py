@@ -9,7 +9,8 @@ This example shows you the inbuilt quality control plots from besca.
 # import libraries
 import besca as bc
 import matplotlib.pyplot as plt
-
+import pytest
+pytest.skip('Test is only for here as example and should not be executed')
 ###############################################################################
 #
 # Before beginning any analysis it is useful to take a detailled look at your dataset
