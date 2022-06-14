@@ -8,6 +8,8 @@ from plotly.offline import plot as plotly_plot
 # other besca functions
 from besca._helper import get_raw, subset_adata
 
+import pytest
+
 
 def extract_info_rank_genes_groups(adata):
     """This function extracts information from adata.uns[rank_gene_groups] to pandas.DataFrames

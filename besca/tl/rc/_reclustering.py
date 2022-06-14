@@ -8,7 +8,6 @@ from besca._helper import subset_adata as _subset_adata
 import sys
 import logging
 
-
 def recluster(
     adata,
     celltype,
@@ -78,9 +77,9 @@ def recluster(
 
     >>> import besca as bc
     >>> import scanpy as sc
-    >>> adata = bc.datasets.pbmc3k_processed()
+    >>> adata = bc.datasets.simulated_pbmc3k_processed()
     >>> adata_subset = bc.tl.rc.recluster(adata, celltype=('0', '1', '3', '6'), resolution = 1.3)
-    >>> sc.pl.umap(adata_subset, color = ['leiden', 'CD3G', 'CD8A', 'CD4', 'IL7R', 'NKG7', 'GNLY'])
+    >>> sc.pl.umap(adata_subset, color = ['leiden', 'Gene_4', 'Gene_5', 'Gene_6', 'Gene_10', 'Gene_12', 'Gene_20'])
 
     """
     if not method in ["leiden", "louvain"]:

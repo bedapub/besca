@@ -11,7 +11,6 @@ from collections import namedtuple
 import re
 from besca._version import get_versions
 
-
 def subset_adata(adata, filter_criteria, raw=True, axis=0):
     """Subset AnnData object into new object
 
@@ -37,9 +36,8 @@ def subset_adata(adata, filter_criteria, raw=True, axis=0):
 
     Examples
     --------
-
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc3k_processed()
+    >>> adata = bc.datasets.simulated_pbmc3k_processed()
     >>> adata_BCELL =  bc.subset_adata( adata, filter_criteria= adata.obs.get('dblabel') == 'naive B cell')
 
     """
@@ -156,9 +154,8 @@ def get_raw(adata):
 
     Examples
     --------
-
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc3k_processed()
+    >>> adata = bc.datasets.simulated_pbmc3k_processed()
     >>> adata_raw = bc.get_raw(adata)
 
     """
@@ -333,20 +330,18 @@ def get_singlegenedf(myg, adata, cond1, cond2, cond3):
 
     Examples
     --------
-
     >>> # import libraries and dataset
     >>> import besca as bc
-    >>> adata = bc.datasets.Kotliarov2020_processed()
-    >>> gene = 'CD3D'
+    >>> adata = bc.datasets.simulated_Kotliarov2020_processed()
+    >>> gene = 'Gene_3'
     >>> df = bc.get_singlegenedf(gene, adata, 'CONDITION','celltype0','sampleid')
 
     .. plot::
-
         >>> # import libraries and dataset
         >>> import besca as bc
-        >>> adata = bc.datasets.Kotliarov2020_processed()
+        >>> adata = bc.datasets.simulated_Kotliarov2020_processed()
         >>> # define genes
-        >>> genes = 'CD3D'
+        >>> gene = 'Gene_3'
         >>> df = bc.get_singlegenedf(gene, adata, 'CONDITION','celltype0','sampleid')
 
     """
@@ -510,3 +505,4 @@ def print_software_versions():
     Versions = namedtuple('Versions', ['scanpy', 'besca'])
     res = Versions(scanpy=scv, besca=bcver)
     return res
+

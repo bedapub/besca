@@ -8,6 +8,8 @@ can be used to visually represent the number of cells that belong to a certain s
 """
 
 import besca as bc
+import pytest
+pytest.skip('Test is only for here as example and should not be executed')
 
 # import dataset to workwith
 adata = bc.datasets.Peng2019_processed()

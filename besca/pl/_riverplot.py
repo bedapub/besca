@@ -4,7 +4,6 @@ import pandas as pd
 import plotly.graph_objects as go
 import seaborn as sns
 
-
 def riverplot_2categories(
     adata: anndata.AnnData,
     categories: list,
@@ -32,17 +31,16 @@ def riverplot_2categories(
     --------
     >>> # import libraries and dataset
     >>> import besca as bc
-    >>> adata = bc.datasets.Baron2016_processed()
+    >>> adata = bc.datasets.simulated_Baron2016_processed()
     >>> fig = bc.pl.riverplot_2categories(adata,  [ 'assigned_cluster', 'celltype2'])
 
     .. plot::
-
         >>> # import libraries and dataset
         >>> import besca as bc
-        >>> adata = bc.datasets.Baron2016_processed()
+        >>> adata = bc.datasets.simulated_Baron2016_processed()
         >>> # define genes
-        >>> genes = bc.pl.riverplot_2categories(adata,  [ 'assigned_cluster', 'celltype2'])
-        >>> genes = bc.pl.riverplot_2categories(adata,  [ 'assigned_cluster', 'celltype2'], threshold = 15)
+        >>> figure = bc.pl.riverplot_2categories(adata,  [ 'assigned_cluster', 'celltype2'])
+        >>> figure = bc.pl.riverplot_2categories(adata,  [ 'assigned_cluster', 'celltype2'], threshold = 15)
     """
     df = adata.obs.copy()
     labels = [x for x in set(df[categories].values.flatten())]
