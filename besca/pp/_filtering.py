@@ -166,7 +166,7 @@ def filter(
         ngenes_final = adata.shape[1]
 
         logging.info(
-            "finished with %d total cells and total genes",
+            "finished with %d total cells and total %d genes",
             ncells_final,
             ngenes_final
         )
