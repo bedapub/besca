@@ -31,4 +31,4 @@ dependencies:
  - pip
  - pip:
    - scikit_learn>=1.0.0
-   - git+https://github.com/Accio/besca.git@scanpy1.8.2
+   - git+https://github.com/bedapub/besca.git
