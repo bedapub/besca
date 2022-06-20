@@ -8,16 +8,22 @@ if __name__ == '__main__':
     reqs = open('requirements.txt', encoding='utf-8').readlines()
     requires = [req.strip() for req in reqs]
 
+    with open("README.md", "r") as fh:
+    long_description = fh.read()
+
     setup(name='besca',
           version=versioneer.get_version(),
           cmdclass=versioneer.get_cmdclass(),
-          description='collection of BEDA internal python functions for'
-                      'analysing single cell RNAseq data',
-          long_description='View https://pages.github.com/bedapub/besca/',
+          description='Collection of BEDA internal python functions for analysing single cell RNAseq data.',
+          long_description=long_description,
+          long_description_content_type="text/markdown",
           classifiers=[
-              'Development Status :: Release 2.5 (Scanpy 1.8)',
-              'Programming Language :: Python :: 3.7.1',
-              'License :: GPLv3'],
+            'Development Status :: 5 - Production/Stable',
+            'Intended Audience :: Developers',
+            'Topic :: Software Development :: Build Tools',
+            'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+            'Programming Language :: Python :: 3',
+            'Programming Language :: Python :: 3.7'],
           url='https://github.com/bedapub/besca',
           license='GPLv3',
           author='BEDA community',

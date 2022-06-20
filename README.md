@@ -21,7 +21,13 @@ If you are interested in contributing you can check the repository wiki for help
 
 From version 2.2.5+, Besca requires Python 3.8.
 
-If you are familiar with python packages simply install them using pip:  
+If you are familiar with python packages simply install them using pip: 
+
+```
+pip install besca
+```
+
+or
 
 ```
 pip install git+https://github.com/bedapub/besca.git
