@@ -96,7 +96,7 @@ networkx==2.7
 notebook==6.4.12
 numba==0.55.1
 numexpr==2.8.1
-numpy==1.21.5
+numpy==1.22.0
 numpy-groupies==0.9.14
 numpyro==0.9.1
 oauthlib==3.2.0
