@@ -28,6 +28,7 @@ dependencies:
  - pydot>=1.4.2
  - scvi-tools>=0.14.3
  - ipython>=7.30.1
+ - git>=2.34.1
  - pytest>=7.1.2
  - pip
  - pip:
