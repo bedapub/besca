@@ -28,6 +28,7 @@ dependencies:
  - pydot>=1.4.2
  - scvi-tools>=0.14.3
  - ipython>=7.30.1
+ - pytest
  - pip
  - pip:
    - scikit_learn>=1.0.0
