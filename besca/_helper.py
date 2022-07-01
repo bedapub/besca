@@ -65,6 +65,10 @@ def subset_adata(adata, filter_criteria, raw=True, axis=0):
         subset.obs_names = subset_full.obs_names
         subset.obs = subset_full.obs
         subset.var = subset_full.raw.var
+        subset.obsm = subset_full.obsm
+        subset.varm = subset_full.raw.varm
+        subset.obsp = subset_full.obsp
+        subset.uns = subset_full.uns
 
         return subset
 
