@@ -9,7 +9,7 @@ if __name__ == '__main__':
     requires = [req.strip() for req in reqs]
 
     with open("README.md", "r") as fh:
-    long_description = fh.read()
+      long_description = fh.read()
 
     setup(name='besca',
           version=versioneer.get_version(),
