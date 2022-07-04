@@ -8,12 +8,11 @@ def nomenclature_network(
     config_file: str,
     selected_roots=[],
     root_term="None",
-    mywidth=7,
-    myheight=7,
     font_size=7,
     node_size=200,
     node_color="tan",
     alpha=0.8,
+    figsize=(7,7)
 ):
     """Plot a nomenclature network based on annotation config file.
 
@@ -29,6 +28,8 @@ def nomenclature_network(
         if list contained terms, will only display the hierarchy starting from those terms.
     root_term : `str`
         the string indicating in the config file that a term does not have a parent term.
+    figsize: (width, height) or None | default = (7,7)
+        optional parameter to define the figure size of the plot that is to be generated
 
     Returns
     -------
@@ -76,7 +77,8 @@ def nomenclature_network(
 
         G = G.subgraph(list(selected_nodes) + selected_roots)
 
-    plt.figure(3, figsize=(mywidth, myheight))
+    if figsize is not None:
+        plt.figure(3, figsize=(figsize[0], figsize[1]))
     nx.draw_networkx(
         G,
         nx.nx_pydot.pydot_layout(G),
