@@ -6,7 +6,7 @@ import sys
 import anndata
 from besca.datasets._mito import get_mito_genes
 
-def kp_genes(adata, threshold=0, min_genes=100, ax=None):
+def kp_genes(adata, threshold=0, min_genes=100, ax=None, figsize=None):
     """visualize the minimum gene per cell threshold.
 
     Generates a "knee-plot" to visualize the chosen threshold for the minimum number of genes that a cell expresses to validate if this is a good threshold.
@@ -21,6 +21,8 @@ def kp_genes(adata, threshold=0, min_genes=100, ax=None):
         visualize the chosen minimum gene threshold (default is set to 100)
     ax: `axes` | default = None
         pass the axes class to which your figure should be added
+    figsize: (width, height) or None | default = None
+        optional parameter to define the figure size of the plot that is to be generated
 
     Returns
     -------
@@ -56,12 +58,14 @@ def kp_genes(adata, threshold=0, min_genes=100, ax=None):
     ax.set_ylabel("Number of expressed genes")
     ax.set_xlabel("Cells")
     ax.set_title("Expressed genes [count > " + str(threshold) + "]")
+    if figsize is not None:
+        plt.figure(figsize=figsize)
     ax.hlines(min_genes, xmin=0, xmax=nbr_cells * 1.3, color="red", linestyles="dotted")
 
     return None
 
 
-def kp_counts(adata, min_counts=200, ax=None):
+def kp_counts(adata, min_counts=200, ax=None, figsize=None):
     """visualize the minimum UMI counts per cell threshold.
 
     this function generates a knee-plot visualizing a given min_counts cutoff when given an adata object
@@ -74,6 +78,9 @@ def kp_counts(adata, min_counts=200, ax=None):
         visualize the chosen minimum UMI counts threshold
     ax: `axes` | default = None
         pass the axes class to which your figure should be added
+    figsize: (width, height) or None | default = None
+        optional parameter to define the figure size of the plot that is to be generated
+
 
     Returns
     -------
@@ -110,6 +117,8 @@ def kp_counts(adata, min_counts=200, ax=None):
     ax.set_ylabel("Number of UMI counts")
     ax.set_xlabel("Cells")
     ax.set_title("Counts per cell")
+    if figsize is not None:
+        plt.figure(figsize=figsize)
     ax.hlines(
         min_counts, xmin=0, xmax=nbr_cells * 1.3, color="red", linestyles="dotted"
     )
@@ -117,7 +126,7 @@ def kp_counts(adata, min_counts=200, ax=None):
     return None
 
 
-def kp_cells(adata, threshold=0, min_cells=2, ax=None):
+def kp_cells(adata, threshold=0, min_cells=2, ax=None, figsize=None):
 
     """visualize the minimum number of cells expressing a gene threshold.
 
@@ -136,6 +145,8 @@ def kp_cells(adata, threshold=0, min_cells=2, ax=None):
         visualize the chosen minimum number of cells that need to express a gene threshold
     ax: `axes` | default = None
         pass the axes class to which your figure should be added
+    figsize: (width, height) or None | default = None
+        optional parameter to define the figure size of the plot that is to be generated
 
     Returns
     -------
@@ -177,12 +188,14 @@ def kp_cells(adata, threshold=0, min_cells=2, ax=None):
     cutoff = np.sum(
         -np.sort(-np.array(np.sum(adata.X > threshold, axis=0))) > min_cells
     )
+    if figsize is not None:
+        plt.figure(figsize=figsize)
     ax.vlines(cutoff, 0, nbr_cells * 1.05, color="red", linestyle="dotted")
 
     return None
 
 
-def max_counts(adata, max_counts=10000, ax=None):
+def max_counts(adata, max_counts=10000, ax=None, figsize=None):
     """visualize maximum UMI counts per cell threshold.
 
     this function generates a knee-plot visualizing a given min_cells cutoff when given an adata object
@@ -195,6 +208,8 @@ def max_counts(adata, max_counts=10000, ax=None):
         visualize the chosen maximum UMI counts cutoff
     ax: `axes` | default = None
         pass the axes class to which your figure should be added
+    figsize: (width, height) or None | default = None
+        optional parameter to define the figure size of the plot that is to be generated
 
     Returns
     -------
@@ -237,6 +252,8 @@ def max_counts(adata, max_counts=10000, ax=None):
     ax.scatter(
         data=data_plot, x="n_counts", y="n_genes", alpha=0.4, s=0.5, rasterized=True
     )
+    if figsize is not None:
+        plt.figure(figsize=figsize)
     ax.vlines(max_counts, min_genes, max(y), color="red", linestyle="dotted")
     ax.set_xlabel("n_counts")
     ax.set_ylabel("n_genes")
@@ -245,7 +262,7 @@ def max_counts(adata, max_counts=10000, ax=None):
     return None
 
 
-def max_genes(adata, max_genes=5000, ax=None):
+def max_genes(adata, max_genes=5000, ax=None, figsize=None):
     """visualize maximum number of genes per cell threshold.
 
     this function generates a knee-plot visualizing a given min_cells cutoff when given an adata object
@@ -258,6 +275,8 @@ def max_genes(adata, max_genes=5000, ax=None):
         visualize the chosen maximum gene number cutoff
     ax: `axes` | default = None
         pass the axes class to which your figure should be added
+    figsize: (width, height) or None | default = None
+        optional parameter to define the figure size of the plot that is to be generated
 
     Returns
     -------
@@ -282,6 +301,8 @@ def max_genes(adata, max_genes=5000, ax=None):
     ax.scatter(
         data=data_plot, x="n_counts", y="n_genes", alpha=0.4, s=0.5, rasterized=True
     )
+    if figsize is not None:
+        plt.figure(figsize=figsize)
     ax.hlines(max_genes, min_UMI, max(x), color="red", linestyle="dotted")
     ax.set_xlabel("n_counts")
     ax.set_ylabel("n_genes")
@@ -291,7 +312,7 @@ def max_genes(adata, max_genes=5000, ax=None):
 
 
 def max_mito(
-    adata, max_mito=0.05, annotation_type="SYMBOL", species="human", copy=False, ax=None
+    adata, max_mito=0.05, annotation_type="SYMBOL", species="human", copy=False, ax=None, figsize=None
 ):
     """visualize maximum mitochondrial gene percentage threshold.
 
@@ -307,6 +328,8 @@ def max_mito(
         visualize the chosen minimum number of cells that need to express a gene threshold
     ax: `axes` | default = None
         pass the axes class to which your figure should be added
+    figsize: (width, height) or None | default = None
+        optional parameter to define the figure size of the plot that is to be generated
 
     Returns
     -------
@@ -339,6 +362,8 @@ def max_mito(
         ax.set_xlabel("n_counts")
         ax.set_ylabel("percent_mito")
         ax.set_title("Mitochondrial gene content")
+        if figsize is not None:
+            plt.figure(figsize=figsize)
         ax.hlines(max_mito, 0, max(x), color="red", linestyle="dotted")
 
         return None
@@ -375,6 +400,8 @@ def max_mito(
             ax.set_xlabel("n_counts")
             ax.set_ylabel("percent_mito")
             ax.set_title("mitochondrial gene content in dataset before filtering")
+            if figsize is not None:
+                plt.figure(figsize=figsize)
             ax.hlines(max_mito, 0, max(x), color="red", linestyle="dotted")
 
             if copy == True:
@@ -412,6 +439,8 @@ def max_mito(
             ax.set_xlabel("n_counts")
             ax.set_ylabel("percent_mito")
             ax.set_title("mitochondrial gene content in dataset before filtering")
+            if figsize is not None:
+                plt.figure(figsize=figsize)
             ax.hlines(max_mito, 0, max(x), color="red", linestyle="dotted")
 
             if copy == True:
@@ -456,6 +485,8 @@ def max_mito(
         ax.set_xlabel("n_counts")
         ax.set_ylabel("percent_mito")
         ax.set_title("mitochondrial gene content in dataset before filtering")
+        if figsize is not None:
+            plt.figure(figsize=figsize)
         ax.hlines(max_mito, 0, max(x), color="red", linestyle="dotted")
 
         if copy == True:

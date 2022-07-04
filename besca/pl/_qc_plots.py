@@ -7,7 +7,7 @@ import scipy
 from sklearn import linear_model
 from numpy import ndarray
 
-def transcript_capture_efficiency(adata, ax=None):
+def transcript_capture_efficiency(adata, ax=None, figsize=None):
     """Plot total gene counts vs detection probability.
 
     Visualize the transcript capture efficiency curve
@@ -20,6 +20,8 @@ def transcript_capture_efficiency(adata, ax=None):
         AnnData object containing data that is to be visualized. Genes need to be in coloumns and cells in rows
     ax: `axes` | default = None
         pass the axes class to which your figure should be added
+    figsize: (width, height) or None | default = None
+        optional parameter to define the figure size of the plot that is to be generated
 
     returns
     -------
@@ -74,9 +76,11 @@ def transcript_capture_efficiency(adata, ax=None):
     ax.set_title("transcript capture efficiency")
     ax.set_xlabel("log2(total gene counts)")
     ax.set_ylabel("detection probability")
+    if figsize is not None:
+        plt.figure(figsize=figsize)
 
 
-def library_size(adata, ax=None, bins=100):
+def library_size(adata, ax=None, bins=100, figsize=None):
     """Plot library size.
 
     Generates a histogram of the library size per cell.
@@ -89,6 +93,8 @@ def library_size(adata, ax=None, bins=100):
         pass the axes class to which your figure should be added
     bins: `int` | default = 100
         the number of bins that should be shown on the histrogram
+    figsize: (width, height) or None | default = None
+        optional parameter to define the figure size of the plot that is to be generated
 
     returns
     -------
@@ -125,9 +131,11 @@ def library_size(adata, ax=None, bins=100):
     ax.set_title("library size distribution")
     ax.set_ylabel("number of cells")
     ax.set_xlabel("library size (millions)")
+    if figsize is not None:
+        plt.figure(figsize=figsize)
 
 
-def detected_genes(adata, ax=None, bins=100):
+def detected_genes(adata, ax=None, bins=100, figsize=None):
     """Plot number of detected genes.
 
     Generates a histogram of the number of detected genes per cell.
@@ -140,6 +148,8 @@ def detected_genes(adata, ax=None, bins=100):
         pass the axes class to which your figure should be added
     bins: `int` | default = 100
         the number of bins that should be shown on the histrogram
+    figsize: (width, height) or None | default = None
+        optional parameter to define the figure size of the plot that is to be generated
 
     returns
     -------
@@ -174,9 +184,11 @@ def detected_genes(adata, ax=None, bins=100):
     ax.set_title("NODG")
     ax.set_ylabel("number of cells")
     ax.set_xlabel("number of detected genes")
+    if figsize is not None:
+        plt.figure(figsize=figsize)
 
 
-def dropouts(adata, ax=None, bins=100):
+def dropouts(adata, ax=None, bins=100, figsize=None):
     """Plot number of dropouts.
 
     Generates a histrogram showing the number of dropouts per cell.
@@ -189,6 +201,8 @@ def dropouts(adata, ax=None, bins=100):
         pass the axes class to which your figure should be added
     bins: `int` | default = 100
         the number of bins that should be shown on the histrogram
+    figsize: (width, height) or None | default = None
+        optional parameter to define the figure size of the plot that is to be generated
 
     returns
     -------
@@ -223,9 +237,11 @@ def dropouts(adata, ax=None, bins=100):
     ax.set_title("dropouts")
     ax.set_xlabel("number of dropouts")
     ax.set_ylabel("number of cells")
+    if figsize is not None:
+        plt.figure(figsize=figsize)
 
 
-def librarysize_overview(adata, bins=100):
+def librarysize_overview(adata, bins=100, figsize=None):
     """Generates overview figure of libarysize, dropouts and detected genes.
 
     Generates one overview figure showing histograms of the librarysize, number of
@@ -238,6 +254,8 @@ def librarysize_overview(adata, bins=100):
         AnnData object containing data that is to be visualized. Genes need to be in coloumns and cells in rows
     bins: `int` | default = 100
         the number of bins that should be shown on the histrogram
+    figsize: (width, height) or None | default = None
+        optional parameter to define the figure size of the plot that is to be generated
 
     returns
     -------
@@ -298,10 +316,13 @@ def librarysize_overview(adata, bins=100):
     ax3.set_xlabel("number of dropouts", labelpad=16)
 
     sns.despine(offset=10, trim=True, ax=ax3)
+    if figsize is not None:
+        fig.set_figheight(height[1])
+        fig.set_figwidth(width[0])
     return fig
 
 
-def top_genes_counts(adata, top_n=25, ax=None):
+def top_genes_counts(adata, top_n=25, ax=None, figsize=None):
     """plot top n genes that contribute to fraction of counts per cell
 
     Generate box and whisker plot of the fraction of counts in a cell per gene
@@ -316,6 +337,8 @@ def top_genes_counts(adata, top_n=25, ax=None):
         number of genes that should be visualized in the plot
     ax: `axes` | default = None
         the axes instance to which your plot should be added
+    figsize: (width, height) or None | default = None
+        optional parameter to define the figure size of the plot that is to be generated
 
     returns
     -------
@@ -386,6 +409,8 @@ def top_genes_counts(adata, top_n=25, ax=None):
             + str(round(cum_sum * 100, 2))
             + "% of all UMI counts"
         )
+        if figsize is not None:
+            plt.figure(figsize=figsize)
         return None
     else:
         # generate new figure instance that is returned
@@ -402,4 +427,7 @@ def top_genes_counts(adata, top_n=25, ax=None):
             + str(round(cum_sum * 100, 2))
             + "% of all UMI counts"
         )
+        if figsize is not None:
+            fig.set_figheight(height[1])
+            fig.set_figwidth(width[0])
         return fig
