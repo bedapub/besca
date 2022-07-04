@@ -82,8 +82,8 @@ def celllabel_quant_boxplot(
     fig, (ax1) = subplots(1)
     fig.tight_layout()
     if figsize is not None:
-        fig.set_figheight(height[1])
-        fig.set_figwidth(width[0])
+        fig.set_figheight(figsize[1])
+        fig.set_figwidth(figsize[0])
 
     # format the plot
     sns.set_style("white")
