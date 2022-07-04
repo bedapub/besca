@@ -11,7 +11,7 @@ from matplotlib.pyplot import (
 import sys
 
 def split_violin(
-    tidy_data, x_axis, y_axis, split_variable, order=None, ax=None, inner="box"
+    tidy_data, x_axis, y_axis, split_variable, order=None, ax=None, inner="box", figsize=(8,4)
 ):
     """plot ssplit violin plots.
 
@@ -33,10 +33,8 @@ def split_violin(
         should be used to make datasubsets for each plot of the stacked violin plot
     subset_variabels: `list`
         list identifying the subsets that should be generated
-    fig_width: `int` | default = 8
-        int value defining figure width
-    fig_height: `int` | default = 4
-        int value defining figure height of one figure
+    figsize: (width, height) or None | default = (8,4)
+        optional parameter to define the figure size of the plot that is to be generated
     ax: `axes` | default = None
         pass the axes class to which your figure should be added, if none is supplied a new figure is generated
 
@@ -70,11 +68,14 @@ def split_violin(
 
     # make labels 90 degrees so they are readible
     ax.tick_params(labelrotation=90, length=6, width=2)
+    
+    if figsize is not None:
+        plt.figure(figsize=figsize)
 
     return None
 
 
-def box_per_ind(plotdata, y_axis, x_axis, order=None, fig_width=4, fig_height=3.5):
+def box_per_ind(plotdata, y_axis, x_axis, order=None, figsize=(4,3.5)):
     """plot boxplot with values per individual.
 
     General plotting function to produce one or multiple boxplots for
@@ -90,10 +91,8 @@ def box_per_ind(plotdata, y_axis, x_axis, order=None, fig_width=4, fig_height=3.
         string identifying which column of the DataFrame is to be plotted on the y-axis (genes)
     order: `list`
         list identifying the order for the categories on the x_axis
-    fig_width: `int` | default = 4
-        int value defining figure width
-    fig_height: `int` | default = 3.5
-        int value defining figure height of one figure
+    figsize: (width, height) or None | default = (4,3.5)
+        optional parameter to define the figure size of the plot that is to be generated
 
     returns
     -------
@@ -131,11 +130,10 @@ def box_per_ind(plotdata, y_axis, x_axis, order=None, fig_width=4, fig_height=3.
     fig = figure()
 
     # adjust size of figure if desired
-    if fig_width is not None:
-        fig.set_figwidth(fig_width)
-    if fig_height is not None:
-        fig.set_figheight(fig_height * number_of_subplots)
-
+    if figsize is not None:
+        fig.set_figwidth(figsize[0])
+        fig.set_figheight(figsize[1] * number_of_subplots)
+        
     # adjust amount of space between subplots
     subplots_adjust(hspace=0.000)
 
@@ -208,8 +206,7 @@ def stacked_split_violin(
     split_variable,
     subset_variable_label,
     subset_variables,
-    fig_width=8,
-    fig_height=4,
+    figsize=(8,4),
     order=None,
     inner="box",
 ):
@@ -233,10 +230,8 @@ def stacked_split_violin(
         should be used to make datasubsets for each plot of the stacked violin plot
     subset_variabels: `list`
         list identifying the subsets that should be generated
-    fig_width: `int` | default = 8
-        int value defining figure width
-    fig_height: `int` | default = 4
-        int value defining figure height of one figure
+    figsize: (width, height) or None | default = (8,4)
+        optional parameter to define the figure size of the plot that is to be generated
     order:
     inner: 'box' or 'quartile' or 'point' or 'stick'
         define how the datapoints should be displayed in the violin interior, see seaborns documentation for more details
@@ -254,10 +249,9 @@ def stacked_split_violin(
     fig = figure()
 
     # adjust size of figure if desired
-    if fig_width is not None:
-        fig.set_figwidth(fig_width)
-    if fig_height is not None:
-        fig.set_figheight(fig_height * number_of_subplots)
+    if figsize is not None:
+        fig.set_figwidth(figsize[0])
+        fig.set_figheight(figsize[1] * number_of_subplots)
 
     # adjust amount of space between subplots
     subplots_adjust(hspace=0.000)
@@ -337,7 +331,7 @@ def stacked_split_violin(
     subplots_adjust(hspace=0.000)
     return fig
 
-def flex_dotplot(df,X,Y,HUE,SIZE,title, mycolors='Reds', myfontsize=15,  xfactor=0.7,yfactor=0.6):
+def flex_dotplot(df,X,Y,HUE,SIZE,title, mycolors='Reds', myfontsize=15,  xfactor=0.7,yfactor=0.6, figsize=None):
     """Generate a dot plot showing average expression and fraction positive cells
 
     This function generates a plot where X and Y axes are flexible.
@@ -369,6 +363,8 @@ def flex_dotplot(df,X,Y,HUE,SIZE,title, mycolors='Reds', myfontsize=15,  xfactor
         distance coef for xaxis defaults to 0.7 
     yfactor: `int`
         distance coef for yaxis defaults to 0.6 
+    figsize: (width, height) or None | default = None
+        optional parameter to define the figure size of the plot that is to be generated
         
     returns
     -------
@@ -424,7 +420,8 @@ def flex_dotplot(df,X,Y,HUE,SIZE,title, mycolors='Reds', myfontsize=15,  xfactor
     setp(myplot.get_yticklabels(),fontsize=myfontsize)
     setp(ax.get_legend().get_title(), fontsize=myfontsize)  # for legend title
     setp(ax.get_legend().get_texts(), fontsize=myfontsize - 2)  # for legend text
-
+    if figsize is not None:
+        plt.figure(figsize=figsize)
     ax.legend(framealpha=0.4, bbox_to_anchor=(1.01, 1), borderaxespad=0.5)
     mm = my = 0.2
     if df[X].nunique() >= 10:
