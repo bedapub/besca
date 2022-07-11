@@ -1,8 +1,8 @@
 name: Publish Besca to PyPI and TestPyPI
 
-on: push
-  # release:
-  #   types: [created]
+on:
+  release:
+    types: [created]
 
 jobs:
   build-n-publish:
