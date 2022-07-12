@@ -615,7 +615,7 @@ def additional_labeling(
         expert=False,
         reference=True,
         method=labeling_author,
-        annotated_version_of=" -",
+        annotated_version_of="-",
     )
 
     start2 = time()

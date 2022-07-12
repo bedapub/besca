@@ -358,11 +358,12 @@ dependencies:
   - zlib=1.2.11=h36c2ea0_1013
   - zstd=1.5.2=ha95c52a_0
   - pip:
-    - besca==2.2.5+13.g585c2c6
+    - git+https://github.com/bedapub/besca.git
     - cython==0.29.28
     - pydeprecate==0.3.1
     - python-igraph==0.9.9
     - pytorch-lightning==1.5.10
     - torch==1.10.2
     - xlrd==1.2.0
+    - scikit-bio==0.5.7
 prefix: /mnt/projects/miniconda3/envs/besca_dev

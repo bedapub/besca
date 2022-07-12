@@ -4,12 +4,12 @@ import pandas as pd
 import plotly.graph_objects as go
 import seaborn as sns
 
-
 def riverplot_2categories(
     adata: anndata.AnnData,
     categories: list,
     palette: dict = None,
     threshold: int = None,
+    figsize=None
 ) -> go:
     """Generate a riverplot/sanker diagram between two categories.
     parameters
@@ -22,6 +22,8 @@ def riverplot_2categories(
         optional, dict where keys should be keys of the adata.obs[[categories]] and values colors of the node
     threshold: `int`
         optional, threshold value, links below threshold will not be display
+    figsize: (width, height) or None | default = None
+        optional parameter to define the figure size of the plot that is to be generated
     returns
     -------
     Figure
@@ -30,20 +32,18 @@ def riverplot_2categories(
 
     Examples
     --------
-
     >>> # import libraries and dataset
     >>> import besca as bc
-    >>> adata = bc.datasets.Baron2016_processed()
+    >>> adata = bc.datasets.simulated_Baron2016_processed()
     >>> fig = bc.pl.riverplot_2categories(adata,  [ 'assigned_cluster', 'celltype2'])
 
     .. plot::
-
         >>> # import libraries and dataset
         >>> import besca as bc
-        >>> adata = bc.datasets.Baron2016_processed()
+        >>> adata = bc.datasets.simulated_Baron2016_processed()
         >>> # define genes
-        >>> bc.pl.riverplot_2categories(adata,  [ 'assigned_cluster', 'celltype2'])
-        >>> bc.pl.riverplot_2categories(adata,  [ 'assigned_cluster', 'celltype2'], threshold = 15)
+        >>> figure = bc.pl.riverplot_2categories(adata,  [ 'assigned_cluster', 'celltype2'])
+        >>> figure = bc.pl.riverplot_2categories(adata,  [ 'assigned_cluster', 'celltype2'], threshold = 15)
     """
     df = adata.obs.copy()
     labels = [x for x in set(df[categories].values.flatten())]
@@ -99,4 +99,7 @@ def riverplot_2categories(
 
     # creating figure
     fig = go.Figure(dict(data=[data]))
+    if figsize is not None:
+        fig.set_figheight(height[1])
+        fig.set_figwidth(width[0])
     return fig

@@ -1,3 +1,4 @@
+import logging
 import sys
 from dataclasses import dataclass
 
@@ -6,7 +7,6 @@ import matplotlib
 import pandas as pd
 import seaborn as sns
 import sklearn
-
 
 @dataclass
 class silhouette_in:
@@ -41,10 +41,9 @@ def silhouette_computation(
      Example
     -------
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc3k_processed()
+    >>> adata = bc.datasets.simulated_pbmc3k_processed()
     >>> sils = bc.tl.sig.silhouette_computation (adata)
-    >>> print( sils.averaged)
-    >>> sils.show_samples.get_figure()
+    >>> figure = sils.show_samples.get_figure()
 
     """
     if cluster not in adata.obs.keys():
@@ -59,7 +58,7 @@ def silhouette_computation(
         adata.obsm[emb], adata.obs.get(cluster)
     )
     if verbose:
-        print("The average silhouette_score is :", silhouette_avg)
+        logging.info("The average silhouette_score is :", silhouette_avg)
     cluster_labels = adata.obs.get(cluster).unique()
     n_clusters = len(cluster_labels)
     ith_value = {}

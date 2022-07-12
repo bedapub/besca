@@ -1,10 +1,8 @@
 # this module contains functions for cell type annotation based on signatures in python using scanpy
-
 import numpy as np
 import pandas as pd
 from scanpy import AnnData
 from scipy.stats import mannwhitneyu
-
 
 def getset(df: pd.DataFrame, signame_complete: str, threshold) -> set:
     """Handles missing signatures aux function for make_anno
@@ -346,7 +344,7 @@ def obtain_new_label(
     -------
     >>> import besca as bc
     >>> import pkg_resources
-    >>> adata = bc.datasets.pbmc3k_processed()
+    >>> adata = bc.datasets.simulated_pbmc3k_processed()
     >>> new_cnames = bc.tl.sig.obtain_new_label(
     ...     nomenclature_file=pkg_resources.resource_filename('besca', 'datasets/nomenclature/CellTypes_v1.tsv'),
     ...     cnames=list(adata.obs['dblabel'].cat.categories),
@@ -480,15 +478,15 @@ def match_label(
 
       Example
       -------
-
       >>> import besca as bc
       >>> import scanpy as sc
-      >>>    import pkg_resources
-      >>> adata = bc.datasets.pbmc3k_processed()
+      >>> import pkg_resources
+      >>> adata = bc.datasets.simulated_pbmc3k_processed()
       >>> nomenclature_file=pkg_resources.resource_filename('besca', 'datasets/nomenclature/CellTypes_v1.tsv'),
-      >>> matching_v = bc.tl.sig.match_label(adata.obs.get( "celltype3"),  nomenclature_file)
+      >>> nomenclature_file=''.join(nomenclature_file)
+      >>> matching_v = bc.tl.sig.match_label(adata.obs.get( ["celltype3"]),  nomenclature_file)
       >>> adata.obs['shortlabel'] = adata.obs.get( "celltype3").map( dict(matching_v.values))
-      >>> sc.pl.umap(adata, color = 'short')
+      >>> sc.pl.umap(adata, color=['shortlabel'])
 
     """
     nomenclature = read_nomenclature(nomenclature_file)

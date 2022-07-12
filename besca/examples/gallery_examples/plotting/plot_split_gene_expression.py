@@ -1,4 +1,5 @@
 """
+# TODO
 plotting gene expression
 ========================
 
@@ -6,7 +7,8 @@ This example shows you some of the different plots you can use to plot gene expr
 
 """
 import besca as bc
-
+import pytest
+pytest.skip('Test is only for here as example and should not be executed')
 # import data
 adata = bc.datasets.Haber2017_processed()
 
@@ -26,5 +28,5 @@ bc.pl.gene_expr_split_stacked(
     adata=adata,
     genes=["Defa24", "Gm15284"],
     split_variable="donor",
-    subset_variable="region",
+    subset_variable="region_x",
 )

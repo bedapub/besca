@@ -1,7 +1,7 @@
+import logging
 import sys
 import anndata
 from numpy import ndarray, mean
-
 
 def frac_reads(adata):
     """Cacluate the fraction of reads being attributed to a specific gene.
@@ -23,9 +23,8 @@ def frac_reads(adata):
 
     Example
     -------
-
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc3k_raw()
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> bc.pp.frac_reads(adata)
     """
 
@@ -69,9 +68,8 @@ def frac_pos(adata, threshold=0):
 
     Example
     -------
-
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc3k_raw()
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> bc.pp.frac_pos(adata)
 
     """
@@ -111,9 +109,8 @@ def mean_expr(adata):
 
     Example
     -------
-
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc3k_raw()
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> bc.pp.mean_expr(adata)
 
     """
@@ -157,8 +154,8 @@ def top_counts_genes(adata, top_n=10):
     Example
     -------
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc3k_raw()
-    >>> bc.pp.top_counts_genes(adata)
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
+    >>> genes = bc.pp.top_counts_genes(adata)
 
     """
     if isinstance(adata, anndata.AnnData):
@@ -172,7 +169,7 @@ def top_counts_genes(adata, top_n=10):
             else:
                 return sorted.head(top_n)
         else:
-            print("calculating frac_reads")
+            logging.info("calculating frac_reads")
 
             # calculate fraciton positive for a gene
             bdata = adata.copy()
@@ -210,8 +207,8 @@ def top_expressed_genes(adata, top_n=10):
     Example
     -------
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc3k_raw()
-    >>> bc.pp.top_expressed_genes(adata)
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
+    >>> genes = bc.pp.top_expressed_genes(adata)
 
     """
     if isinstance(adata, anndata.AnnData):
@@ -225,7 +222,7 @@ def top_expressed_genes(adata, top_n=10):
             else:
                 return sorted.head(top_n)
         else:
-            print("calculating frac_pos")
+            logging.info("calculating frac_pos")
 
             # calculate fraciton positive for a gene
             bdata = adata.copy()

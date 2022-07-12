@@ -1,10 +1,10 @@
 # this file contains the functions to read / import signatures
 # for signature score computations
 import sys
+import logging
 from re import compile, match
 
 from requests import post
-
 
 def convert_to_directed(signature_dict, direction="UP"):
     """ Convert a simple dictionary into one with direction compatible with combined_signature_score
@@ -30,6 +30,7 @@ def convert_to_directed(signature_dict, direction="UP"):
     >>> gmt_file= bescapath + '/besca/datasets/genesets/Immune.gmt'
     >>> mymarkers = bc.tl.sig.read_GMT_sign(gmt_file,directed=False)
     >>> bc.tl.sig.convert_to_directed( mymarkers, 'UP')
+    {'lymphocyte': {'UP': ['PTPRC']}, 'myeloid': {'UP': ['S100A8', 'S100A9', 'CST3']}, 'Bcell': {'UP': ['CD19', 'CD79A', 'MS4A1']}, 'Tcells': {'UP': ['CD3E', 'CD3G', 'CD3D']}, 'CD4': {'UP': ['CD4']}, 'CD8': {'UP': ['CD8A', 'CD8B']}, 'NKcell': {'UP': ['NKG7', 'GNLY', 'NCAM1']}, 'monocyte': {'UP': ['CST3', 'CSF1R', 'ITGAM', 'CD14', 'FCGR3A', 'FCGR3B']}, 'macrophage': {'UP': ['CD14', 'IL1B', 'LYZ', 'CD163', 'ITGAX', 'CD68', 'CSF1R', 'FCGR3A']}}
     """
     if (direction != "UP") and (direction != "DN"):
         sys.exit("expecting direction UP or DN for directed signature dictionnary.")
@@ -66,10 +67,12 @@ def read_GMT_sign(
     Values are then the gene names.
     Example
     -------
-
-    >>> #insert example code here
-    >>> gmt_file= datasets/genesets/Immune.txt' # provided in besca
-    >>> signature_dict = bc.tl.sig.read_GMT_sign(gmt_file)
+    >>> import besca as bc
+    >>> import pkg_resources
+    >>> gmt_file='datasets/genesets/Immune.gmt' # provided in besca
+    >>> gmt_file_abs_path=pkg_resources.resource_filename('besca', gmt_file)
+    >>> bc.tl.sig.read_GMT_sign(gmt_file_abs_path)
+    {'lymphocyte': {'UP': ['PTPRC']}, 'myeloid': {'UP': ['S100A8', 'S100A9', 'CST3']}, 'Bcell': {'UP': ['CD19', 'CD79A', 'MS4A1']}, 'Tcells': {'UP': ['CD3E', 'CD3G', 'CD3D']}, 'CD4': {'UP': ['CD4']}, 'CD8': {'UP': ['CD8A', 'CD8B']}, 'NKcell': {'UP': ['NKG7', 'GNLY', 'NCAM1']}, 'monocyte': {'UP': ['CST3', 'CSF1R', 'ITGAM', 'CD14', 'FCGR3A', 'FCGR3B']}, 'macrophage': {'UP': ['CD14', 'IL1B', 'LYZ', 'CD163', 'ITGAX', 'CD68', 'CSF1R', 'FCGR3A']}}
 
     """
     signFile = open(GMT_file, "r")
@@ -140,31 +143,14 @@ def write_gmtx_forgems(signature_dict, GMT_file):
 
     Example
     -------
-
-    >>> signature_dict = {'setName': 'Th17Tcell_mc38_user',
-                             'desc': 'T-helper 17 cell markers; coefs are log2FC',
-                             'User': 'user',
-                             'Source': 'internal scseq',
-                             'Subtype': 'onc',
-                             'geneset': 'Pembro_MC38-tumor_dblabel',
-                             'domain': 'cell marker',
-                             'studyID': 'Pembro_MC38-tumor',
-                             'analysisID': 'sw_besca24',
-                             'genes|score': 'Cd163l1 | 10.67\tGm9961 | 10.49\tCdh10}
+    >>> signature_dict = {'setName': 'Th17Tcell_mc38_user', 'desc': 'T-helper 17 cell markers; coefs are log2FC', 'User': 'user', 'Source': 'internal scseq', 'Subtype': 'onc', 'geneset': 'Pembro_MC38-tumor_dblabel', 'domain': 'cell marker', 'studyID': 'Pembro_MC38-tumor', 'analysisID': 'sw_besca24', 'genes|score': 'Cd163l1 | 10.67\tGm9961 | 10.49\tCdh10'}
     >>> outgmtfile='Celltypemarkers.gmtx'
-    >>> write_gmtx_forgems(signature_dict, GMT_file)
+    >>> write_gmtx_forgems(signature_dict, outgmtfile)
 
     """
 
     with open(GMT_file, "w") as f:
-        f.writelines(
-            "\t".join(
-                list(signature_dict[next(iter(signature_dict))].keys())[
-                    0 : len(list(signature_dict[next(iter(signature_dict))].keys()))
-                ]
-            )
-            + "\n"
-        )
-        for key, value in signature_dict.items():
-            f.writelines("\t".join(list(value.values())) + "\n")
-    print("Successfully written all signatures to " + GMT_file)
+        f.writelines('\t'.join(list(signature_dict.keys()))+'\n')
+        f.writelines('\t'.join(list(signature_dict.values()))+'\n')
+
+    logging.info("Successfully written all signatures to " + GMT_file)
