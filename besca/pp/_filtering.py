@@ -1,3 +1,4 @@
+import logging
 import sys
 import anndata
 from pandas import read_csv
@@ -6,7 +7,6 @@ from besca.datasets._mito import get_mito_genes
 
 # import helper functions from besca
 from besca._helper import get_raw
-
 
 def filter(
     adata,
@@ -59,13 +59,9 @@ def filter(
 
     Example
     -------
-
     >>> import besca as bc
-    >>> adata = bc.datasets.pbmc3k_raw()
-    >>> adata.size
-    >>> adata = bc.pp.filter(adata, max_counts=6500, max_genes=1900, max_mito=0.05, min_genes=600, min_counts=600, min_cells=2)
-    >>> adata.size
-
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
+    >>> adata = bc.pp.filter(adata, max_counts=6500, max_genes=1900, max_mito=0.05, min_genes=600, min_counts=600, min_cells=2, annotation_type='SYMBOL')
 
     """
     if isinstance(adata, anndata.AnnData):
@@ -73,12 +69,10 @@ def filter(
         # get original number of cells
         ncells = adata.shape[0]
         ngenes = adata.shape[1]
-        print(
-            "started with ",
-            str(ncells),
-            " total cells and ",
-            str(ngenes),
-            " total genes",
+
+        logging.info(
+            "started with %d total cells and %d total genes",
+            ncells, ngenes
         )
 
         # calculate values if necessary
@@ -110,86 +104,77 @@ def filter(
             curr_cells = adata.shape[0]
             adata = adata[adata.obs.get("n_genes") <= max_genes, :].copy()
             new_cells = adata.shape[0]
-            print(
-                "removed",
-                str(curr_cells - new_cells),
-                "cells that expressed more than",
-                str(max_genes),
-                "genes",
+            logging.info(
+                "removed %d cells that expressed more than %d genes",
+                curr_cells - new_cells,
+                max_genes
             )
+
         if min_genes is not None:
             curr_cells = adata.shape[0]
             adata = adata[adata.obs.get("n_genes") >= min_genes, :].copy()
             new_cells = adata.shape[0]
-            print(
-                "removed",
-                str(curr_cells - new_cells),
-                "cells that did not express at least",
-                str(min_genes),
-                " genes",
+            logging.info(
+                "removed %d cells that did not express at least %d genes",
+                curr_cells - new_cells,
+                min_genes
             )
+
         if max_counts is not None:
             curr_cells = adata.shape[0]
             adata = adata[adata.obs.get("n_counts") <= max_counts, :].copy()
             new_cells = adata.shape[0]
-            print(
-                "removed",
-                str(curr_cells - new_cells),
-                "cells that had more than",
-                str(max_counts),
-                " counts",
+            logging.info(
+                "removed %d cells that had more than %d counts",
+                curr_cells - new_cells,
+                max_counts
             )
 
         if min_counts is not None:
             curr_cells = adata.shape[0]
             adata = adata[adata.obs.get("n_counts") >= min_counts, :].copy()
             new_cells = adata.shape[0]
-            print(
-                "removed",
-                str(curr_cells - new_cells),
-                "cells that did not have at least",
-                str(min_counts),
-                "counts",
+            logging.info(
+                "removed %d cells that did not have at least %d counts",
+                curr_cells - new_cells,
+                min_counts
             )
 
         if min_cells is not None:
             curr_genes = adata.shape[1]
             adata = adata[:, adata.var.get("n_cells") >= min_cells].copy()
             new_genes = adata.shape[1]
-            print(
-                "removed",
-                str(curr_genes - new_genes),
-                "genes that were not expressed in at least",
-                str(min_cells),
-                "cells",
+            logging.info(
+                "removed %d genes that were not expressed"
+                "in at least %d cells",
+                curr_genes - new_genes,
+                min_cells,
             )
 
         if max_mito is not None:
             curr_cells = adata.shape[0]
             adata = adata[adata.obs.get("percent_mito") < max_mito, :].copy()
             new_cells = adata.shape[0]
-            print(
-                "removed ",
-                str(curr_cells - new_cells),
-                " cells that expressed ",
-                str(max_mito * 100),
-                "percent mitochondrial genes or more",
+            logging.info(
+                "removed %d cells that expressed"
+                "%d%% mitochondrial genes or more",
+                curr_cells - new_cells,
+                max_mito * 100
             )
 
         ncells_final = adata.shape[0]
         ngenes_final = adata.shape[1]
-        print(
-            "finished with",
-            str(ncells_final),
-            " total cells and",
-            str(ngenes_final),
-            "total genes",
+
+        logging.info(
+            "finished with %d total cells and total %d genes",
+            ncells_final,
+            ngenes_final
         )
 
         return adata
 
     else:
-        print("please pass an AnnData object as data")
+        logging.error("please pass an AnnData object as data")
         sys.exit(1)
 
 
@@ -219,8 +204,7 @@ def filter_gene_list(adata, filepath, use_raw=True, use_genes="SYMBOL"):
     -------
     >>> import besca as bc
     >>> import os
-    >>> adata = bc.datasets.pbmc_raw()
-    >>> adata.n_vars
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> # TO COMPLETE reference_mito_file = 'path2file.tsv'
     >>> # adata = bc.pp.filter_gene_list(adata, file_path=reference_mito_file, use_genes='SYMBOL')
     >>> # adata.n_vars
@@ -229,8 +213,8 @@ def filter_gene_list(adata, filepath, use_raw=True, use_genes="SYMBOL"):
     # generate copy of adata object
     if use_raw:
         if adata.raw is None:
-            print(
-                "WARNING: adata does not contain .raw filtering on regular adata object"
+            logging.warning(
+                "adata does not contain .raw filtering on regular adata object"
             )
             adata = adata.copy()
         else:
@@ -254,7 +238,7 @@ def filter_gene_list(adata, filepath, use_raw=True, use_genes="SYMBOL"):
         gene_indexes = [adata.var_names.tolist().index(x) for x in genes]
         adata = adata[:, gene_indexes]
     else:
-        print(
+        logging.warning(
             "None of the genes from input list found in data set. Please ensure you have correctly specified use_genes to match the type of genes saved in adata.var_names."
         )
     return adata

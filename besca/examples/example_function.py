@@ -26,7 +26,9 @@ def function_name(
 
     >>> #insert example code here
     >>> 1 + 1
-    >>> # this code is only displayed not executed
+    2
+    
+    # this code is only displayed not executed
 
     """
 

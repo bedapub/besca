@@ -1,5 +1,6 @@
 import os
 import sys
+import pytest
 
 import seaborn as sns
 from matplotlib.pyplot import subplots, tight_layout
@@ -19,8 +20,7 @@ def celllabel_quant_boxplot(
     condition_identifier,
     plot_percentage=True,
     condition_order=None,
-    height=4,
-    width=8,
+    figsize=(8,4),
     mypal="Paired",
 ):
     """generate a box and whisker plot with overlayed swarm plot of celltype abundances
@@ -42,10 +42,8 @@ def celllabel_quant_boxplot(
         boolian indicating if the percentages or the total counts should be plotted
     condition_order: `list` | default = None
         list with the order in which the conditions should be plotted, for consistency
-    height: `integer` | default = 4
-        height of the figure
-    width: `integer` | default = 8
-        width of the figure
+    figsize: (width, height) or None | default = (8,4)
+        optional parameter to define the figure size of the plot that is to be generated
     mypal: `string` | default = "Paired"
         color palette for boxplots e.g. Paired, Blues_d
 
@@ -83,8 +81,9 @@ def celllabel_quant_boxplot(
     # create a new instance of a figure
     fig, (ax1) = subplots(1)
     fig.tight_layout()
-    fig.set_figheight(height)
-    fig.set_figwidth(width)
+    if figsize is not None:
+        fig.set_figheight(figsize[1])
+        fig.set_figwidth(figsize[0])
 
     # format the plot
     sns.set_style("white")
@@ -126,8 +125,8 @@ def celllabel_quant_boxplot(
     return fig
 
 
-def celllabel_quant_stackedbar(adata, subset_variable, count_variable="celltype", plot_percentages=True, height=4, width=8):
-    """Generate a stacked bar plot of the percentage or absolute of labelcounts within each AnnData subset
+def celllabel_quant_stackedbar(adata, subset_variable, count_variable="celltype", plot_percentages=True, figsize=(8,4)):
+    """Generate a stacked bar plot of the percentage of labelcounts within each AnnData subset
 
     parameters
     ----------
@@ -139,27 +138,23 @@ def celllabel_quant_stackedbar(adata, subset_variable, count_variable="celltype"
         string identiyfing the column of adata.obs containing the labels to be counted
     plot_percentages: `bool` | default = True
         boolian indicating if the percentages or the total counts should be plotted
-    height: `integer` | default = 4
-        height of the figure
-    width: `integer` | default = 8
-        width of the figure
-            
+    figsize: (width, height) or None | default = (8,4)
+        optional parameter to define the figure size of the plot that is to be generated
+
     returns
     -------
     Figure
 
     Example
     -------
-
     >>> import besca as bc
-    >>> adata = bc.datasets.Kotliarov2020_processed()
+    >>> adata = bc.datasets.simulated_Kotliarov2020_processed()
     >>> adata.obs   = adata.obs.astype( {'batch' :  'category'})
     >>> fig = bc.pl.celllabel_quant_stackedbar(adata, count_variable = 'leiden', subset_variable = 'donor')
 
     .. plot::
-
         >>> import besca as bc
-        >>> adata = bc.datasets.Kotliarov2020_processed()
+        >>> adata = bc.datasets.simulated_Kotliarov2020_processed()
         >>> adata.obs   = adata.obs.astype( {'batch' :  'category'})
         >>> fig = bc.pl.celllabel_quant_stackedbar(adata, count_variable = 'leiden', subset_variable = 'batch')
     """
@@ -177,7 +172,12 @@ def celllabel_quant_stackedbar(adata, subset_variable, count_variable="celltype"
             data = [x / sum(data) for x in data]
         values.loc[cell] = data
 
-    fig = values.plot(kind="bar", stacked=True, figsize=(width, height))
+    fig = None
+    if figsize is not None:
+        fig = values.plot(kind="bar", stacked=True, figsize=(figsize[0], figsize[1]))
+    else:
+        fig = values.plot(kind="bar", stacked=True, figsize=(8, 4))
+        
     if plot_percentages:
         fig.set_ylabel("percentage")
     else:

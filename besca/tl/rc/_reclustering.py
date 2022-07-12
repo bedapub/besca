@@ -6,7 +6,7 @@ from scanpy.tools import pca as sc_pca
 from scanpy.plotting import filter_genes_dispersion as plot_filter
 from besca._helper import subset_adata as _subset_adata
 import sys
-
+import logging
 
 def recluster(
     adata,
@@ -77,9 +77,9 @@ def recluster(
 
     >>> import besca as bc
     >>> import scanpy as sc
-    >>> adata = bc.datasets.pbmc3k_processed()
+    >>> adata = bc.datasets.simulated_pbmc3k_processed()
     >>> adata_subset = bc.tl.rc.recluster(adata, celltype=('0', '1', '3', '6'), resolution = 1.3)
-    >>> sc.pl.umap(adata_subset, color = ['leiden', 'CD3G', 'CD8A', 'CD4', 'IL7R', 'NKG7', 'GNLY'])
+    >>> sc.pl.umap(adata_subset, color = ['leiden', 'Gene_4', 'Gene_5', 'Gene_6', 'Gene_10', 'Gene_12', 'Gene_20'])
 
     """
     if not method in ["leiden", "louvain"]:
@@ -116,7 +116,7 @@ def recluster(
 
     if show_plot_filter:
         pl_highly_variable_genes(cluster_subset, show=True)
-    print(
+    logging.info(
         "In total",
         str(sum(cluster_subset.var.highly_variable)),
         "highly variable genes selected within cluster",
@@ -193,16 +193,22 @@ def annotate_new_cellnames(
     clusters.sort()
     clusters = [str(x) for x in clusters]
     if len(clusters) != len(names):
-        print("need to supply as many cluster names as there are clusters")
-        print("these are the clusters that need to be annotated:")
-        print(str(clusters))
-        sys.exit("incorrect number of cluster names supplied")
+        logging.info("need to supply as many cluster names as there are clusters")
+        logging.info("these are the clusters that need to be annotated:")
+        logging.info(str(clusters))
+        sys.exit(
+            "Specified "
+            + str(len(names))
+            + " new labels for a total of "
+            + str(len(clusters))
+            + " clusters. Numbers should match! No changes were made.\n"
+        )
     else:
         if adata.obs.get(new_label) is None:
             # if the column 'new_label' did not previously exist then create it
             adata.obs[new_label] = "not_labeled"
         else:
-            print(
+            logging.info(
                 "NOTE: overwriting labels for the selected cells saved in adata.obs."
                 + new_label
                 + " with the new labels"

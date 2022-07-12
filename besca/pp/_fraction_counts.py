@@ -4,7 +4,6 @@ from numpy import sum, any
 import warnings
 from besca.datasets._mito import get_mito_genes
 
-
 def fraction_counts(
     adata, species="human", name="percent_mito", use_genes="SYMBOL", specific_file=None
 ):
@@ -37,13 +36,11 @@ def fraction_counts(
 
     Example
     -------
-
     >>> import besca as bc
     >>> import os
-    >>> adata = bc.datasets.pbmc_raw()
-    >>> adata.obs.head(5)
-    >>> bc.pp.fraction_counts(adata,  'human', use_genes='SYMBOL')
-    >>> adata.obs.head(5)
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
+    >>> bc.pp.fraction_counts(adata,  'human', use_genes='SYMBOL', specific_file=f"{os.path.dirname(__file__)[:-3]}/datasets/mito_files/test.mito.tsv")
+    >>> counts = adata.obs.head(5)
     """
     if specific_file is None:
         gene_list = get_mito_genes(species, use_genes)

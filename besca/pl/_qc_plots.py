@@ -1,5 +1,4 @@
 # Quality control plots
-
 from pandas import DataFrame
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -8,8 +7,7 @@ import scipy
 from sklearn import linear_model
 from numpy import ndarray
 
-
-def transcript_capture_efficiency(adata, ax=None):
+def transcript_capture_efficiency(adata, ax=None, figsize=None):
     """Plot total gene counts vs detection probability.
 
     Visualize the transcript capture efficiency curve
@@ -22,6 +20,8 @@ def transcript_capture_efficiency(adata, ax=None):
         AnnData object containing data that is to be visualized. Genes need to be in coloumns and cells in rows
     ax: `axes` | default = None
         pass the axes class to which your figure should be added
+    figsize: (width, height) or None | default = None
+        optional parameter to define the figure size of the plot that is to be generated
 
     returns
     -------
@@ -31,18 +31,16 @@ def transcript_capture_efficiency(adata, ax=None):
     Example
     -------
     Display transcript capture efficiency plot.
-
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
-    >>> adata = bc.datasets.pbmc3k_raw()
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> fig, ax = plt.subplots(1)
     >>> bc.pl.transcript_capture_efficiency(adata,ax=ax)
 
     .. plot::
-
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
-        >>> adata = bc.datasets.pbmc3k_raw()
+        >>> adata = bc.datasets.simulated_pbmc3k_raw()
         >>> fig, ax = plt.subplots(1)
         >>> bc.pl.transcript_capture_efficiency(adata,ax=ax)
 
@@ -78,9 +76,11 @@ def transcript_capture_efficiency(adata, ax=None):
     ax.set_title("transcript capture efficiency")
     ax.set_xlabel("log2(total gene counts)")
     ax.set_ylabel("detection probability")
+    if figsize is not None:
+        plt.figure(figsize=figsize)
 
 
-def library_size(adata, ax=None, bins=100):
+def library_size(adata, ax=None, bins=100, figsize=None):
     """Plot library size.
 
     Generates a histogram of the library size per cell.
@@ -93,6 +93,8 @@ def library_size(adata, ax=None, bins=100):
         pass the axes class to which your figure should be added
     bins: `int` | default = 100
         the number of bins that should be shown on the histrogram
+    figsize: (width, height) or None | default = None
+        optional parameter to define the figure size of the plot that is to be generated
 
     returns
     -------
@@ -102,18 +104,16 @@ def library_size(adata, ax=None, bins=100):
     Example
     -------
     Plot distribution of librarysize from an example dataset.
-
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
-    >>> adata = bc.datasets.pbmc3k_raw()
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> fig, ax = plt.subplots(1)
     >>> bc.pl.library_size(adata,ax=ax)
 
     .. plot::
-
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
-        >>> adata = bc.datasets.pbmc3k_raw()
+        >>> adata = bc.datasets.simulated_pbmc3k_raw()
         >>> fig, ax = plt.subplots(1)
         >>> bc.pl.library_size(adata,ax=ax)
 
@@ -131,9 +131,11 @@ def library_size(adata, ax=None, bins=100):
     ax.set_title("library size distribution")
     ax.set_ylabel("number of cells")
     ax.set_xlabel("library size (millions)")
+    if figsize is not None:
+        plt.figure(figsize=figsize)
 
 
-def detected_genes(adata, ax=None, bins=100):
+def detected_genes(adata, ax=None, bins=100, figsize=None):
     """Plot number of detected genes.
 
     Generates a histogram of the number of detected genes per cell.
@@ -146,6 +148,8 @@ def detected_genes(adata, ax=None, bins=100):
         pass the axes class to which your figure should be added
     bins: `int` | default = 100
         the number of bins that should be shown on the histrogram
+    figsize: (width, height) or None | default = None
+        optional parameter to define the figure size of the plot that is to be generated
 
     returns
     -------
@@ -155,18 +159,16 @@ def detected_genes(adata, ax=None, bins=100):
     Example
     -------
     Plot number of detected genes from an example dataset.
-
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
-    >>> adata = bc.datasets.pbmc3k_raw()
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> fig, ax = plt.subplots(1)
     >>> bc.pl.detected_genes(adata,ax=ax)
 
     .. plot::
-
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
-        >>> adata = bc.datasets.pbmc3k_raw()
+        >>> adata = bc.datasets.simulated_pbmc3k_raw()
         >>> fig, ax = plt.subplots(1)
         >>> bc.pl.detected_genes(adata,ax=ax)
 
@@ -182,9 +184,11 @@ def detected_genes(adata, ax=None, bins=100):
     ax.set_title("NODG")
     ax.set_ylabel("number of cells")
     ax.set_xlabel("number of detected genes")
+    if figsize is not None:
+        plt.figure(figsize=figsize)
 
 
-def dropouts(adata, ax=None, bins=100):
+def dropouts(adata, ax=None, bins=100, figsize=None):
     """Plot number of dropouts.
 
     Generates a histrogram showing the number of dropouts per cell.
@@ -197,6 +201,8 @@ def dropouts(adata, ax=None, bins=100):
         pass the axes class to which your figure should be added
     bins: `int` | default = 100
         the number of bins that should be shown on the histrogram
+    figsize: (width, height) or None | default = None
+        optional parameter to define the figure size of the plot that is to be generated
 
     returns
     -------
@@ -206,18 +212,16 @@ def dropouts(adata, ax=None, bins=100):
     Example
     -------
     Plot number of dropout genes from an example dataset.
-
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
-    >>> adata = bc.datasets.pbmc3k_raw()
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
     >>> fig, ax = plt.subplots(1)
     >>> bc.pl.dropouts(adata,ax=ax)
 
     .. plot::
-
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
-        >>> adata = bc.datasets.pbmc3k_raw()
+        >>> adata = bc.datasets.simulated_pbmc3k_raw()
         >>> fig, ax = plt.subplots(1)
         >>> bc.pl.dropouts(adata,ax=ax)
 
@@ -233,9 +237,11 @@ def dropouts(adata, ax=None, bins=100):
     ax.set_title("dropouts")
     ax.set_xlabel("number of dropouts")
     ax.set_ylabel("number of cells")
+    if figsize is not None:
+        plt.figure(figsize=figsize)
 
 
-def librarysize_overview(adata, bins=100):
+def librarysize_overview(adata, bins=100, figsize=None):
     """Generates overview figure of libarysize, dropouts and detected genes.
 
     Generates one overview figure showing histograms of the librarysize, number of
@@ -248,6 +254,8 @@ def librarysize_overview(adata, bins=100):
         AnnData object containing data that is to be visualized. Genes need to be in coloumns and cells in rows
     bins: `int` | default = 100
         the number of bins that should be shown on the histrogram
+    figsize: (width, height) or None | default = None
+        optional parameter to define the figure size of the plot that is to be generated
 
     returns
     -------
@@ -258,18 +266,16 @@ def librarysize_overview(adata, bins=100):
     -------
 
     Generate overview of the characterisitcs of an example dataset.
-
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
-    >>> adata = bc.datasets.pbmc3k_raw()
-    >>> bc.pl.librarysize_overview(adata)
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
+    >>> overview = bc.pl.librarysize_overview(adata)
 
     .. plot::
-
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
-        >>> adata = bc.datasets.pbmc3k_raw()
-        >>> bc.pl.librarysize_overview(adata)
+        >>> adata = bc.datasets.simulated_pbmc3k_raw()
+        >>> overview = bc.pl.librarysize_overview(adata)
 
     """
     if type(adata.X) == np.ndarray:
@@ -310,10 +316,13 @@ def librarysize_overview(adata, bins=100):
     ax3.set_xlabel("number of dropouts", labelpad=16)
 
     sns.despine(offset=10, trim=True, ax=ax3)
+    if figsize is not None:
+        fig.set_figheight(height[1])
+        fig.set_figwidth(width[0])
     return fig
 
 
-def top_genes_counts(adata, top_n=25, ax=None):
+def top_genes_counts(adata, top_n=25, ax=None, figsize=None):
     """plot top n genes that contribute to fraction of counts per cell
 
     Generate box and whisker plot of the fraction of counts in a cell per gene
@@ -328,6 +337,8 @@ def top_genes_counts(adata, top_n=25, ax=None):
         number of genes that should be visualized in the plot
     ax: `axes` | default = None
         the axes instance to which your plot should be added
+    figsize: (width, height) or None | default = None
+        optional parameter to define the figure size of the plot that is to be generated
 
     returns
     -------
@@ -338,18 +349,16 @@ def top_genes_counts(adata, top_n=25, ax=None):
 
     Example
     -------
-
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
-    >>> adata = bc.datasets.pbmc3k_raw()
-    >>> bc.pl.top_genes_counts(adata)
+    >>> adata = bc.datasets.simulated_pbmc3k_raw()
+    >>> genes = bc.pl.top_genes_counts(adata)
 
     .. plot::
-
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
-        >>> adata = bc.datasets.pbmc3k_raw()
-        >>> bc.pl.top_genes_counts(adata)
+        >>> adata = bc.datasets.simulated_pbmc3k_raw()
+        >>> genes = bc.pl.top_genes_counts(adata)
 
     """
     # calculate total counts and frac_reads
@@ -400,6 +409,8 @@ def top_genes_counts(adata, top_n=25, ax=None):
             + str(round(cum_sum * 100, 2))
             + "% of all UMI counts"
         )
+        if figsize is not None:
+            plt.figure(figsize=figsize)
         return None
     else:
         # generate new figure instance that is returned
@@ -416,4 +427,7 @@ def top_genes_counts(adata, top_n=25, ax=None):
             + str(round(cum_sum * 100, 2))
             + "% of all UMI counts"
         )
+        if figsize is not None:
+            fig.set_figheight(height[1])
+            fig.set_figwidth(width[0])
         return fig

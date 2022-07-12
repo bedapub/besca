@@ -147,7 +147,7 @@ def _make_tidy(adata, genes, split_variable, label_split_variable=None, use_raw=
 
 
 def gene_expr_split(
-    adata, genes, split_variable=None, label_split_variable=None, use_raw=True, ax=None
+    adata, genes, split_variable=None, label_split_variable=None, use_raw=True, ax=None, figsize=(15,8)
 ):
     """visualize gene expression of two groups as a split violin plot
 
@@ -181,10 +181,8 @@ def gene_expr_split(
         boolian indicator if one individual plot should be generated per gene or if all the genes should be on the same plot
     outdir: `str`
         filepath indicating where the generated figures should be saved
-    fig_width: `int` | default = 15
-        width of the generated figure
-    fig_height: `int` | default = 8
-        height of the generated figure
+    figsize: (width, height) or None | default = (15,8)
+        optional parameter to define the figure size of the plot that is to be generated
     dpi: `int`
         dpi resolution of figures that are saved to file
     name: `str` (default = 'compare_gene_expression')
@@ -210,7 +208,7 @@ def gene_expr_split(
 
     ax = ax or gca()
 
-    split_violin(
+    fig = split_violin(
         tidy_data=data_merged,
         x_axis="gene",
         y_axis="expression",
@@ -218,6 +216,10 @@ def gene_expr_split(
         order=None,
         ax=ax,
     )
+    
+    if figsize is not None:
+        fig.set_figheight(height[1])
+        fig.set_figwidth(width[0])
     return None
 
 
@@ -233,6 +235,7 @@ def gene_expr_split_stacked(
     fig_height=None,
     order=None,
     inner="stick",
+    figsize=(15,8)
 ):
 
     """
@@ -252,10 +255,9 @@ def gene_expr_split_stacked(
         parameters
     use_raw: `bool` (default = True)
         boolian indicator if adata.raw data should be used as input for gene expression levels
-    fig_width: `int` | default = 15
-        width of the generated figure
-    fig_height: `int` | default = 8
-        height of the generated figure
+    figsize: (width, height) or None | default = (15,8)
+        optional parameter to define the figure size of the plot that is to be generated
+
     order: lists of strings
         Order to plot the categorical levels in
     inner: `str` (default = 'stick')
@@ -317,4 +319,7 @@ def gene_expr_split_stacked(
         order=order,
         inner=inner,
     )
+    if figsize is not None:
+        fig.set_figheight(height[1])
+        fig.set_figwidth(width[0])
     return fig
