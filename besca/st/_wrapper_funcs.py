@@ -11,6 +11,8 @@ from time import time
 
 import bbknn
 import scipy
+import deprecation
+import versioneer
 from matplotlib.pyplot import subplots
 from numpy import cumsum
 from pandas import DataFrame
@@ -28,10 +30,11 @@ from scanpy.tools import louvain as sc_louvain
 from scanpy.tools import pca as sc_pca
 from scanpy.tools import rank_genes_groups
 from scanpy.tools import umap as sc_umap
+from scanpy import AnnData
 
 # import other besca functions
 from besca import _logging as logs
-from besca.export._export import labeling, labeling_info
+from besca.export._export import write_labeling_to_files, labeling_info
 from besca.Import._read import read_mtx
 from besca.pp._filtering import filter
 from besca.pp._normalization import normalize_geometric
@@ -605,7 +608,7 @@ def additional_labeling(
     outpath_ = os.path.join(results_folder, "labelings", labeling_name)
     # export labeling
     start1 = time()
-    labeling(adata, column=labeling_to_use, outpath=outpath_)
+    write_labeling_to_files(adata, column=labeling_to_use, outpath=outpath_)
     # generate labelinfo.tsv file
     labeling_info(
         outpath=outpath_,
@@ -651,6 +654,137 @@ def additional_labeling(
     return adata
 
 
+def additional_labeling_refactored(
+    adata: AnnData,
+    labeling_to_use: str,
+    labeling_name: str,
+    labeling_description: str,
+    labeling_author: str = "",
+    results_folder: str = "./",
+    cluster_method: str = "louvain",
+    is_celltype_labeling: bool = False,
+):
+    """Standard Workflow function to export an additional labeling besides louvain to FAIR format.
+
+    This function calculated marker genes per label (using rank_genes_groups and the method 'wilcoxon'), exports the labeling,
+    generates a labeling_info file, and exports the rank file.
+
+    parameters
+    ----------
+    adata: `AnnData`
+      AnnData object from which the labeling is to be exported
+    labeling_to_use: `str`
+      string identifying the column in adata.obs containing the labeling that is to be exported (also used
+      to calculate the ranked_genes)
+    labeling_name: `str`
+      string identifiying under which name the labeling should be exported
+    labeling_description: `str`
+      string defining the description which should be saved in the labeling_info file for the exported labeling
+    labeling_author: `str`
+      string defining the author of the labeling which should be saved in the labeling_info file for the exported labeling
+    results_folder: `str`
+      string indicating the basepath to the results folder which is automatically generated when using the standard workflow (pass results_folder)
+    // TODO: Add docu strings
+    returns
+    -------
+    None
+      writes out several files to folder results_folder/labelings/<labeling_name>
+    """
+
+    start1 = time()
+
+    init_adata: AnnData = adata.copy()
+    print("AnnData same?")
+    print(init_adata.__dict__ == adata.__dict__)
+
+    if len(set(adata.obs.get(labeling_to_use))) != 1:
+        rank_genes_groups(
+            adata,
+            labeling_to_use,
+            method="wilcoxon",
+            use_raw=True,
+            n_genes=adata.raw.X.shape[1],
+        )
+        print("After rank_genes_groups")
+        print(init_adata.__dict__ == adata.__dict__)
+        print("rank genes per label calculated using method wilcoxon.")
+        logging.info(
+            "Marker gene detection performed on a per-label basis using the method wilcoxon."
+            + "\n\tTime for marker gene detection: "
+            + str(round(time() - start1, 3))
+            + "s"
+        )
+    else:
+        print(labeling_to_use + " only contains one group; Ranks were not exported")
+
+    outpath = os.path.join(results_folder, "labelings", labeling_name)
+    # export labeling
+    write_labeling_to_files(adata, column=labeling_to_use, outpath=outpath)
+    # # generate labelinfo.tsv file
+
+    # if is_celltype_labeling:
+    #     labeling_info(
+    #         outpath=outpath,
+    #         description=labeling_description,
+    #         public=False,
+    #         default=False,
+    #         expert=True,
+    #         reference=False,
+    #         method=labeling_author,
+    #         annotated_version_of=cluster_method,
+    #     )
+    # else:
+    #     labeling_info(
+    #         outpath=outpath,
+    #         description=labeling_description,
+    #         public=True,
+    #         default=False,
+    #         expert=False,
+    #         reference=True,
+    #         method=labeling_author,
+    #         annotated_version_of="-",
+    #     )
+
+    # start2 = time()
+    # If labeling is only one value, we do not export rank
+    # if len(set(adata.obs.get(labeling_to_use))) != 1:
+    #     pass
+    # calculate marker genes for labeling
+    # rank_genes_groups(
+    #     adata,
+    #     labeling_to_use,
+    #     method="wilcoxon",
+    #     use_raw=True,
+    #     n_genes=adata.raw.X.shape[1],
+    # )
+    # print("rank genes per label calculated using method wilcoxon.")
+
+    # logging.info(
+    #     "Marker gene detection performed on a per-label basis using the method wilcoxon."
+    # )
+    # logging.info(
+    #     "\tTime for marker gene detection: " + str(round(time() - start2, 3)) + "s"
+    # )
+
+    # export_rank(
+    #     adata, basepath=results_folder, type="wilcox", labeling_name=labeling_name
+    # )
+
+    logging.info("Label level analysis and marker genes exported to file.")
+    logging.info(
+        "\tTime for export of cluster level analysis: "
+        + str(round(time() - start1, 3))
+        + "s"
+    )
+    return adata
+
+
+@deprecation.deprecated(
+    deprecated_in="2.5",
+    removed_in="3.0",
+    current_version=versioneer.get_version(),
+    details="Use the additional_labeling_function instead",
+)
 def celltype_labeling(
     adata,
     labeling_author,
@@ -705,7 +839,7 @@ def celltype_labeling(
     # export labeling
     outpath = os.path.join(results_folder, "labelings", labeling_name)
     start = time()
-    labeling(adata, column=labeling_to_use, outpath=outpath)
+    write_labeling_to_files(adata, column=labeling_to_use, outpath=outpath)
     # generate labelinfo.tsv file
     labeling_info(
         outpath=outpath,
