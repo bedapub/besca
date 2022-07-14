@@ -5,7 +5,7 @@ from besca.export._export import (
     X_to_mtx,
     raw_to_mtx,
     clustering,
-    labeling,
+    write_labeling_to_files,
     analysis_metadata,
     ranked_genes,
     labeling_info,
@@ -213,7 +213,7 @@ def export_celltype(adata, basepath):
     """
 
     # export celltypes
-    labeling(
+    write_labeling_to_files(
         adata=adata, outpath=join(basepath, "labelings", "dblabel"), column="dblabel"
     )
 

@@ -21,6 +21,7 @@ from besca.st._wrapper_funcs import (
     pca_neighbors_umap,
     clustering,
     additional_labeling,
+    additional_labeling_refactored,
     celltype_labeling,
 )
 from besca.st._wrapper_Rfuncs import dsb_normalize, deviance, maxLikGlobalDimEst
@@ -39,4 +40,5 @@ __all__ = [
     "export_celltype",
     "additional_labeling",
     "celltype_labeling",
+    "additional_labeling_refactored"
 ]
