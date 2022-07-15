@@ -1,2 +1,2 @@
 description	isPublic	isDefault	isExpert	isReference	method	annotated_version_of
-ctl_new	TRUE	FALSE	FALSE	TRUE	MK	-
+manual celltype annotation	FALSE	FALSE	TRUE	FALSE	MK	louvain

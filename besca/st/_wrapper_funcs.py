@@ -663,6 +663,7 @@ def additional_labeling_refactored(
     results_folder: str = "./",
     cluster_method: str = "louvain",
     is_celltype_labeling: bool = False,
+    filename: str = "labelinfo.tsv",
 ):
     """Standard Workflow function to export an additional labeling besides louvain to FAIR format.
 
@@ -722,28 +723,30 @@ def additional_labeling_refactored(
     write_labeling_to_files(adata, column=labeling_to_use, outpath=outpath)
     # # generate labelinfo.tsv file
 
-    # if is_celltype_labeling:
-    #     labeling_info(
-    #         outpath=outpath,
-    #         description=labeling_description,
-    #         public=False,
-    #         default=False,
-    #         expert=True,
-    #         reference=False,
-    #         method=labeling_author,
-    #         annotated_version_of=cluster_method,
-    #     )
-    # else:
-    #     labeling_info(
-    #         outpath=outpath,
-    #         description=labeling_description,
-    #         public=True,
-    #         default=False,
-    #         expert=False,
-    #         reference=True,
-    #         method=labeling_author,
-    #         annotated_version_of="-",
-    #     )
+    if is_celltype_labeling:
+        labeling_info(
+            outpath=outpath,
+            description=labeling_description,
+            public=False,
+            default=False,
+            expert=True,
+            reference=False,
+            method=labeling_author,
+            annotated_version_of=cluster_method,
+            filename=filename,
+        )
+    else:
+        labeling_info(
+            outpath=outpath,
+            description=labeling_description,
+            public=True,
+            default=False,
+            expert=False,
+            reference=True,
+            method=labeling_author,
+            annotated_version_of="-",
+            filename=filename,
+        )
 
     # start2 = time()
     # If labeling is only one value, we do not export rank
@@ -783,7 +786,7 @@ def additional_labeling_refactored(
     deprecated_in="2.5",
     removed_in="3.0",
     current_version=versioneer.get_version(),
-    details="Use the additional_labeling_function instead",
+    details="Use the additional_labeling function instead",
 )
 def celltype_labeling(
     adata,

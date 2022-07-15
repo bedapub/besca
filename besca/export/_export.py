@@ -350,7 +350,7 @@ def labeling_info(
             + "\n"
         )
     fp.close()
-    print("labelinfo.tsv successfully written out")
+    print(f"{filename} successfully written out")
 
     return None
     sys.exit(0)

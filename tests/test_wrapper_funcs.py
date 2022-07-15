@@ -1,8 +1,7 @@
 import pathlib
 import pytest
 from typing import List
-from os import listdir
-from os.path import isfile, join
+from os.path import join
 import filecmp
 
 from scvelo import AnnData
@@ -26,7 +25,8 @@ def reference_files() -> List[str]:
         "average.gct",
         "cell2labels.tsv",
         "fract_pos.gct",
-        # "labelinfo.tsv",
+        "labelinfo.tsv",
+        "celltype_labelinfo.tsv",
     ]
     return file_list
 
@@ -57,7 +57,18 @@ def test_additional_labeling_refactored(
         labeling_to_use="celltype1",
         labeling_name="celltype",
         labeling_description="ctl_new",
+        is_celltype_labeling=False,
+    )
+
+    additional_labeling_refactored(
+        adata=load_kotliarov2020_processed_data,
+        labeling_author="MK",
+        results_folder=join(tmp_path),
+        labeling_to_use="celltype1",
+        labeling_name="celltype",
+        labeling_description="manual celltype annotation",
         is_celltype_labeling=True,
+        filename="celltype_labelinfo.tsv",
     )
 
     path_to_output_files = join(tmp_path, "labelings", "celltype")
@@ -66,8 +77,7 @@ def test_additional_labeling_refactored(
         reference_file: str = join(reference_folder, file)
         output_file: str = join(path_to_output_files, file)
 
-        print(f"Comparing {reference_file} and {output_file})")
+        # print(f"Comparing {reference_file} and {output_file})")
         identical: bool = filecmp.cmp(reference_file, output_file)
 
-        # TODO: Print more info on failure
-        assert identical is True
+        assert identical is True, f"File {file} is not as expected!"
