@@ -56,7 +56,7 @@ dependencies:
   - debugpy=1.5.1=py39he80948d_0
   - decorator=5.1.1=pyhd8ed1ab_0
   - defusedxml=0.7.1=pyhd8ed1ab_0
-  - deprecated=1.2.13=pyh6c4a22f_0
+  - deprecation=2.1.0=pyh9f0ad1d_0
   - dm-tree=0.1.6=py39hde0f152_1
   - docrep=0.3.2=pyh44b312d_0
   - docutils=0.17.1=py39hf3d152e_1
