@@ -12,7 +12,6 @@ from time import time
 import bbknn
 import scipy
 import deprecation
-import versioneer
 from matplotlib.pyplot import subplots
 from numpy import cumsum
 from pandas import DataFrame
@@ -573,7 +572,6 @@ def clustering(adata, results_folder, myres=1, method="leiden"):
 @deprecation.deprecated(
     deprecated_in="2.5",
     removed_in="3.0",
-    current_version=versioneer.get_version(),
     details="Use the additional_labeling function instead",
 )
 def additional_labeling_old(
@@ -772,7 +770,6 @@ def additional_labeling(
 @deprecation.deprecated(
     deprecated_in="2.5",
     removed_in="3.0",
-    current_version=versioneer.get_version(),
     details="Use the additional_labeling function instead",
 )
 def celltype_labeling(
