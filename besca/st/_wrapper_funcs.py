@@ -691,7 +691,15 @@ def additional_labeling(
       string defining the author of the labeling which should be saved in the labeling_info file for the exported labeling
     results_folder: `str`
       string indicating the basepath to the results folder which is automatically generated when using the standard workflow (pass results_folder)
-    // TODO: Add docu strings
+    cluster_method: `str`
+    string identifying of what othe labeling/dataset this is an annotated version of (so for
+      example if the labeling is celltype annotation of a leiden clustering then this would
+      reference the leiden clsutering that was used to obtain the clusters that were then
+      labeled here)
+    is_celltype_labeling: `bool`
+      Set to tru if you want to use the former celltype based labeling
+    filename: `str`
+        name of the labeling info file
     returns
     -------
     None
