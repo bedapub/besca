@@ -19,9 +19,9 @@ def load_kotliarov2020_processed_data() -> AnnData:
 def reference_files() -> List[str]:
 
     file_list: List[str] = [
-        # "WilxRank.gct",
-        # "WilxRank.logFC.gct",
-        # "WilxRank.pvalues.gct",
+        "WilxRank.gct",
+        "WilxRank.logFC.gct",
+        "WilxRank.pvalues.gct",
         "average.gct",
         "cell2labels.tsv",
         "fract_pos.gct",
