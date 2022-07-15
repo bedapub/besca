@@ -22,3 +22,21 @@ README.private.md
 besca_test
 *.gmtx
 dist
+
+.DS_Store
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+junit.xml
+nosetests.xml
+coverage.xml
+*,cover
+
+# Sphinx documentation
+docs/_build/
+
+.vscode
