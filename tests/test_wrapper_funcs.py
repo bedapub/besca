@@ -7,7 +7,7 @@ import filecmp
 from scvelo import AnnData
 
 import besca as bc
-from besca.st._wrapper_funcs import additional_labeling_refactored
+from besca.st._wrapper_funcs import additional_labeling
 
 
 @pytest.fixture(scope="session")
@@ -41,7 +41,7 @@ def reference_folder() -> str:
     return root_path
 
 
-def test_additional_labeling_refactored(
+def test_additional_labeling(
     load_kotliarov2020_processed_data: AnnData,
     reference_files: List[str],
     reference_folder: str,
@@ -50,7 +50,7 @@ def test_additional_labeling_refactored(
 
     tmp_path = tmp_path_factory.mktemp("additional_labeling")
 
-    additional_labeling_refactored(
+    additional_labeling(
         adata=load_kotliarov2020_processed_data,
         labeling_author="MK",
         results_folder=join(tmp_path),
@@ -60,7 +60,7 @@ def test_additional_labeling_refactored(
         is_celltype_labeling=False,
     )
 
-    additional_labeling_refactored(
+    additional_labeling(
         adata=load_kotliarov2020_processed_data,
         labeling_author="MK",
         results_folder=join(tmp_path),
