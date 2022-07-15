@@ -570,7 +570,13 @@ def clustering(adata, results_folder, myres=1, method="leiden"):
     return adata
 
 
-def additional_labeling(
+@deprecation.deprecated(
+    deprecated_in="2.5",
+    removed_in="3.0",
+    current_version=versioneer.get_version(),
+    details="Use the additional_labeling function instead",
+)
+def additional_labeling_old(
     adata,
     labeling_to_use,
     labeling_name,
@@ -654,7 +660,7 @@ def additional_labeling(
     return adata
 
 
-def additional_labeling_refactored(
+def additional_labeling(
     adata: AnnData,
     labeling_to_use: str,
     labeling_name: str,
@@ -692,13 +698,9 @@ def additional_labeling_refactored(
       writes out several files to folder results_folder/labelings/<labeling_name>
     """
 
-    start1 = time()
-
-    init_adata: AnnData = adata.copy()
-    print("AnnData same?")
-    print(init_adata.__dict__ == adata.__dict__)
-
     if len(set(adata.obs.get(labeling_to_use))) != 1:
+        start1 = time()
+
         rank_genes_groups(
             adata,
             labeling_to_use,
@@ -706,8 +708,6 @@ def additional_labeling_refactored(
             use_raw=True,
             n_genes=adata.raw.X.shape[1],
         )
-        print("After rank_genes_groups")
-        print(init_adata.__dict__ == adata.__dict__)
         print("rank genes per label calculated using method wilcoxon.")
         logging.info(
             "Marker gene detection performed on a per-label basis using the method wilcoxon."
@@ -715,14 +715,18 @@ def additional_labeling_refactored(
             + str(round(time() - start1, 3))
             + "s"
         )
+        export_rank(
+            adata, basepath=results_folder, type="wilcox", labeling_name=labeling_name
+        )
     else:
         print(labeling_to_use + " only contains one group; Ranks were not exported")
 
     outpath = os.path.join(results_folder, "labelings", labeling_name)
+
     # export labeling
     write_labeling_to_files(adata, column=labeling_to_use, outpath=outpath)
-    # # generate labelinfo.tsv file
 
+    # generate labelinfo.tsv file
     if is_celltype_labeling:
         labeling_info(
             outpath=outpath,
@@ -747,31 +751,6 @@ def additional_labeling_refactored(
             annotated_version_of="-",
             filename=filename,
         )
-
-    # start2 = time()
-    # If labeling is only one value, we do not export rank
-    # if len(set(adata.obs.get(labeling_to_use))) != 1:
-    #     pass
-    # calculate marker genes for labeling
-    # rank_genes_groups(
-    #     adata,
-    #     labeling_to_use,
-    #     method="wilcoxon",
-    #     use_raw=True,
-    #     n_genes=adata.raw.X.shape[1],
-    # )
-    # print("rank genes per label calculated using method wilcoxon.")
-
-    # logging.info(
-    #     "Marker gene detection performed on a per-label basis using the method wilcoxon."
-    # )
-    # logging.info(
-    #     "\tTime for marker gene detection: " + str(round(time() - start2, 3)) + "s"
-    # )
-
-    # export_rank(
-    #     adata, basepath=results_folder, type="wilcox", labeling_name=labeling_name
-    # )
 
     logging.info("Label level analysis and marker genes exported to file.")
     logging.info(
