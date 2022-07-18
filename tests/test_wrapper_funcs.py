@@ -78,6 +78,6 @@ def test_additional_labeling(
         output_file: str = join(path_to_output_files, file)
 
         # print(f"Comparing {reference_file} and {output_file})")
-        identical: bool = filecmp.cmp(reference_file, output_file)
+        identical: bool = filecmp.cmp(reference_file, output_file, shallow=False)
 
         assert identical is True, f"File {file} is not as expected!"
