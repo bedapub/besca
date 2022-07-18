@@ -24,4 +24,5 @@ jobs:
           cd besca
           export PYTHONDONTWRITEBYTECODE=1
           pytest --doctest-modules -W ignore::PendingDeprecationWarning --durations=0
+          cd ..
           pytest
