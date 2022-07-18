@@ -24,11 +24,4 @@ jobs:
           cd besca
           export PYTHONDONTWRITEBYTECODE=1
           pytest --doctest-modules -W ignore::PendingDeprecationWarning --durations=0
-      - name: Run general pytest
-        shell: bash -l {0}
-        run: |
-          mamba activate besca_dev
-          pip install pytest
-          cd besca
-          export PYTHONDONTWRITEBYTECODE=1
           pytest
