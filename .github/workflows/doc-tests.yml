@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - uses: conda-incubator/setup-miniconda@v2
         with:
           miniconda-version: "latest"
@@ -25,3 +25,5 @@ jobs:
           cd besca
           export PYTHONDONTWRITEBYTECODE=1
           pytest --doctest-modules -W ignore::PendingDeprecationWarning --durations=0
+    - name: Run general pytest
+      run: pytest
