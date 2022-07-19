@@ -243,7 +243,7 @@ def clustering(
     if cluster_data is None:
         sys.exit("need to perform " + method + " clustering before exporting")
     # perform export calling the general export function
-    labeling(
+    write_labeling_to_files(
         adata,
         outpath=outpath,
         column=method,
@@ -350,13 +350,13 @@ def labeling_info(
             + "\n"
         )
     fp.close()
-    print("labelinfo.tsv successfully written out")
+    print(f"{filename} successfully written out")
 
     return None
     sys.exit(0)
 
 
-def labeling(
+def write_labeling_to_files(
     adata: AnnData,
     outpath: str = None,
     column: str = "leiden",
