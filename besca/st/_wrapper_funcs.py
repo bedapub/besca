@@ -10,11 +10,9 @@ from os.path import join
 from time import time
 
 import bbknn
-import scipy
 import deprecation
 from matplotlib.pyplot import subplots
 from numpy import cumsum
-from pandas import DataFrame
 
 # import scanpy functions
 from scanpy.plotting import highly_variable_genes as pl_highly_variable_genes
@@ -44,7 +42,6 @@ from besca.st._FAIR_export import (
     export_cp10k,
     export_metadata,
     export_rank,
-    export_regressedOut,
 )
 
 
@@ -343,7 +340,7 @@ def highly_variable_genes(adata, batch_key=None, n_shared=2):
         inplace=True,
         batch_key=batch_key,
     )
-    if batch_key != None:
+    if batch_key is not None:
         hvglist = adata.var["highly_variable"].copy()
         hvglist.loc[
             adata.var["highly_variable_nbatches"]
@@ -353,7 +350,7 @@ def highly_variable_genes(adata, batch_key=None, n_shared=2):
 
     pl_highly_variable_genes(adata, save=".hvg.png", show=True)
 
-    adata = adata[:, adata.var.highly_variable == True]
+    adata = adata[:, adata.var.highly_variable is True]
 
     # logging
     logging.info(
@@ -446,7 +443,6 @@ def pca_neighbors_umap(
 
     cumulative_variance = cumsum(adata.uns["pca"]["variance_ratio"])
     x = list(range(nrpcs))
-    data = DataFrame({"x": x, "y": cumulative_variance})
 
     ax1.scatter(x=x, y=cumulative_variance)
     ax1.set_ylabel("cumulative explained variance")
@@ -523,7 +519,7 @@ def clustering(adata, results_folder, myres=1, method="leiden"):
         writes to file
 
     """
-    if not method in ["leiden", "louvain"]:
+    if method not in ["leiden", "louvain"]:
         raise ValueError("method argument should be leiden or louvain")
     random_state = 0
     start = time()
