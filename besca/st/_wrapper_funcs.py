@@ -10,10 +10,9 @@ from os.path import join
 from time import time
 
 import bbknn
-import scipy
+import deprecation
 from matplotlib.pyplot import subplots
 from numpy import cumsum
-from pandas import DataFrame
 
 # import scanpy functions
 from scanpy.plotting import highly_variable_genes as pl_highly_variable_genes
@@ -28,10 +27,11 @@ from scanpy.tools import louvain as sc_louvain
 from scanpy.tools import pca as sc_pca
 from scanpy.tools import rank_genes_groups
 from scanpy.tools import umap as sc_umap
+from scanpy import AnnData
 
 # import other besca functions
 from besca import _logging as logs
-from besca.export._export import labeling, labeling_info
+from besca.export._export import write_labeling_to_files, labeling_info
 from besca.Import._read import read_mtx
 from besca.pp._filtering import filter
 from besca.pp._normalization import normalize_geometric
@@ -42,7 +42,6 @@ from besca.st._FAIR_export import (
     export_cp10k,
     export_metadata,
     export_rank,
-    export_regressedOut,
 )
 
 
@@ -341,7 +340,7 @@ def highly_variable_genes(adata, batch_key=None, n_shared=2):
         inplace=True,
         batch_key=batch_key,
     )
-    if batch_key != None:
+    if batch_key is not None:
         hvglist = adata.var["highly_variable"].copy()
         hvglist.loc[
             adata.var["highly_variable_nbatches"]
@@ -351,7 +350,7 @@ def highly_variable_genes(adata, batch_key=None, n_shared=2):
 
     pl_highly_variable_genes(adata, save=".hvg.png", show=True)
 
-    adata = adata[:, adata.var.highly_variable == True]
+    adata = adata[:, adata.var.highly_variable is True]
 
     # logging
     logging.info(
@@ -444,7 +443,6 @@ def pca_neighbors_umap(
 
     cumulative_variance = cumsum(adata.uns["pca"]["variance_ratio"])
     x = list(range(nrpcs))
-    data = DataFrame({"x": x, "y": cumulative_variance})
 
     ax1.scatter(x=x, y=cumulative_variance)
     ax1.set_ylabel("cumulative explained variance")
@@ -521,7 +519,7 @@ def clustering(adata, results_folder, myres=1, method="leiden"):
         writes to file
 
     """
-    if not method in ["leiden", "louvain"]:
+    if method not in ["leiden", "louvain"]:
         raise ValueError("method argument should be leiden or louvain")
     random_state = 0
     start = time()
@@ -567,7 +565,12 @@ def clustering(adata, results_folder, myres=1, method="leiden"):
     return adata
 
 
-def additional_labeling(
+@deprecation.deprecated(
+    deprecated_in="2.5",
+    removed_in="3.0",
+    details="Use the additional_labeling function instead",
+)
+def additional_labeling_old(
     adata,
     labeling_to_use,
     labeling_name,
@@ -605,7 +608,7 @@ def additional_labeling(
     outpath_ = os.path.join(results_folder, "labelings", labeling_name)
     # export labeling
     start1 = time()
-    labeling(adata, column=labeling_to_use, outpath=outpath_)
+    write_labeling_to_files(adata, column=labeling_to_use, outpath=outpath_)
     # generate labelinfo.tsv file
     labeling_info(
         outpath=outpath_,
@@ -651,6 +654,120 @@ def additional_labeling(
     return adata
 
 
+def additional_labeling(
+    adata: AnnData,
+    labeling_to_use: str,
+    labeling_name: str,
+    labeling_description: str,
+    labeling_author: str = "",
+    results_folder: str = "./",
+    cluster_method: str = "louvain",
+    is_celltype_labeling: bool = False,
+    filename: str = "labelinfo.tsv",
+):
+    """Standard Workflow function to export an additional labeling besides louvain to FAIR format.
+
+    This function calculated marker genes per label (using rank_genes_groups and the method 'wilcoxon'), exports the labeling,
+    generates a labeling_info file, and exports the rank file.
+
+    parameters
+    ----------
+    adata: `AnnData`
+      AnnData object from which the labeling is to be exported
+    labeling_to_use: `str`
+      string identifying the column in adata.obs containing the labeling that is to be exported (also used
+      to calculate the ranked_genes)
+    labeling_name: `str`
+      string identifiying under which name the labeling should be exported
+    labeling_description: `str`
+      string defining the description which should be saved in the labeling_info file for the exported labeling
+    labeling_author: `str`
+      string defining the author of the labeling which should be saved in the labeling_info file for the exported labeling
+    results_folder: `str`
+      string indicating the basepath to the results folder which is automatically generated when using the standard workflow (pass results_folder)
+    cluster_method: `str`
+    string identifying of what othe labeling/dataset this is an annotated version of (so for
+      example if the labeling is celltype annotation of a leiden clustering then this would
+      reference the leiden clsutering that was used to obtain the clusters that were then
+      labeled here)
+    is_celltype_labeling: `bool`
+      Set to true if you want to use the former celltype based labeling
+    filename: `str`
+        name of the labeling info file
+    returns
+    -------
+    None
+      writes out several files to folder results_folder/labelings/<labeling_name>
+    """
+
+    if len(set(adata.obs.get(labeling_to_use))) != 1:
+        start1 = time()
+
+        rank_genes_groups(
+            adata,
+            labeling_to_use,
+            method="wilcoxon",
+            use_raw=True,
+            n_genes=adata.raw.X.shape[1],
+        )
+        print("rank genes per label calculated using method wilcoxon.")
+        logging.info(
+            "Marker gene detection performed on a per-label basis using the method wilcoxon."
+            + "\n\tTime for marker gene detection: "
+            + str(round(time() - start1, 3))
+            + "s"
+        )
+        export_rank(
+            adata, basepath=results_folder, type="wilcox", labeling_name=labeling_name
+        )
+    else:
+        print(labeling_to_use + " only contains one group; Ranks were not exported")
+
+    outpath = os.path.join(results_folder, "labelings", labeling_name)
+
+    # export labeling
+    write_labeling_to_files(adata, column=labeling_to_use, outpath=outpath)
+
+    # generate labelinfo.tsv file
+    if is_celltype_labeling:
+        labeling_info(
+            outpath=outpath,
+            description=labeling_description,
+            public=False,
+            default=False,
+            expert=True,
+            reference=False,
+            method=labeling_author,
+            annotated_version_of=cluster_method,
+            filename=filename,
+        )
+    else:
+        labeling_info(
+            outpath=outpath,
+            description=labeling_description,
+            public=True,
+            default=False,
+            expert=False,
+            reference=True,
+            method=labeling_author,
+            annotated_version_of="-",
+            filename=filename,
+        )
+
+    logging.info("Label level analysis and marker genes exported to file.")
+    logging.info(
+        "\tTime for export of cluster level analysis: "
+        + str(round(time() - start1, 3))
+        + "s"
+    )
+    return adata
+
+
+@deprecation.deprecated(
+    deprecated_in="2.5",
+    removed_in="3.0",
+    details="Use the additional_labeling function instead",
+)
 def celltype_labeling(
     adata,
     labeling_author,
@@ -705,7 +822,7 @@ def celltype_labeling(
     # export labeling
     outpath = os.path.join(results_folder, "labelings", labeling_name)
     start = time()
-    labeling(adata, column=labeling_to_use, outpath=outpath)
+    write_labeling_to_files(adata, column=labeling_to_use, outpath=outpath)
     # generate labelinfo.tsv file
     labeling_info(
         outpath=outpath,
