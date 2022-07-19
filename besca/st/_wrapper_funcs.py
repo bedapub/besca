@@ -695,7 +695,7 @@ def additional_labeling(
       reference the leiden clsutering that was used to obtain the clusters that were then
       labeled here)
     is_celltype_labeling: `bool`
-      Set to tru if you want to use the former celltype based labeling
+      Set to true if you want to use the former celltype based labeling
     filename: `str`
         name of the labeling info file
     returns
