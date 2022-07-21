@@ -1,7 +1,7 @@
 import sys
 import re
 import pandas as pd
-from scvelo import AnnData
+from anndata import AnnData
 
 
 def check_colors(aColor):
