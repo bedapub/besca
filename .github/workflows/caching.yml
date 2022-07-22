@@ -1,0 +1,27 @@
+name: Try workflow caching
+
+on:
+  push:
+    branches:
+      - workflow_experiments
+
+jobs:
+  cached-job:
+    name: Cached
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniconda-version: "latest"
+      - name: Bash
+        shell: bash -l {0}
+        run: |
+          conda install -c conda-forge mamba
+          mamba init
+          source ~/.bashrc
+          mamba env create -f environment.lock.yml
+          mamba activate besca_dev
+          pip install pytest
+          pytest
