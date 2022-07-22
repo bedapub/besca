@@ -19,9 +19,10 @@ jobs:
         uses: actions/checkout@v3
       - uses: conda-incubator/setup-miniconda@v2
         with:
-          miniconda-version: "latest"
-          auto-update-conda: true
-          python-version: ${{ matrix.python-version }}
+            miniforge-variant: Mambaforge
+            miniforge-version: latest
+            activate-environment: besca_dev
+            use-mamba: true
       - name: Cache conda packages
         id: cache-conda
         uses: actions/cache@v3
@@ -33,21 +34,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/environment.lock.yml') }}
 
-      - name: Setup mamba
-        shell: bash -l {0}
-        run: |
-          conda install -c conda-forge mamba
-          mamba init
+      # - name: Setup mamba
+      #   shell: bash -l {0}
+      #   run: |
+      #     conda install -c conda-forge mamba
+      #     mamba init
           
       - name: Install Dependencies from environment.lock.yml
         run: |
-          source ~/.bashrc
-          mamba env create -f environment.lock.yml
+          mamba env update -n besca_dev -f environment.lock.yml
         if: steps.cache-conda.outputs.cache-hit != 'true'
 
       - name: Install pytest
         run: |
-          source ~/.bashrc
           mamba activate besca_dev
           pip install pytest
           pytest
