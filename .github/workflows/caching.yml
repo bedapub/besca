@@ -12,8 +12,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest", "macos-latest"]
-        python-version: ["3.8", "3.9"]
+        os: ["ubuntu-latest"]
+        python-version: ["3.8", "3.9", "3.10"]
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -22,13 +22,32 @@ jobs:
           miniconda-version: "latest"
           auto-update-conda: true
           python-version: ${{ matrix.python-version }}
-      - name: Bash
+      - name: Cache conda packages
+        id: cache-conda
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-conda-packages
+        with:
+          path: ~/
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/environment.lock.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Setup mamba
         shell: bash -l {0}
         run: |
           conda install -c conda-forge mamba
           mamba init
           source ~/.bashrc
-          mamba env create -f environment.lock.yml
+
+      - name: Install Dependencies
+        run: mamba env create -f environment.lock.yml
+        if: steps.cache-conda.outputs.cache-hit != 'true'
+
+      - name: Install pytest
+        run: |
           mamba activate besca_dev
           pip install pytest
           pytest
