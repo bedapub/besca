@@ -1,5 +1,3 @@
-import os
-from scanpy import read_csv as sc_read_csv
 import importlib
 import scanpy as sc
 
@@ -50,7 +48,15 @@ def valOutlier(adata, nmads=3, rlib_loc=""):
     ro.globalenv["sym"] = adata.var["SYMBOL"]
     ro.r('seurat_obj = as.Seurat(dat, counts="X", data = NULL)')
     ro.r(
-        "dat =  SingleCellExperiment(assays = list(counts=seurat_obj@assays$RNA@counts) )"
+        """"
+            if (packageVersion("Seurat") >= "4.0" ) {
+            print("Detected Seurat Version >= 4")
+            dat =  SingleCellExperiment(assays = list(counts=seurat_obj@assays$originalexp@counts))
+            } else {
+            print("Detected Seurat Version < 4")
+            dat =  SingleCellExperiment(assays = list(counts=seurat_obj@assays$RNA@counts))
+            }
+            """
     )
     ro.r("rownames(dat) <- sym")
     ro.r(
@@ -104,12 +110,12 @@ def valOutlier(adata, nmads=3, rlib_loc=""):
           max_mito <- 1
       }
       message('standard_max_counts: ', round(higher_sum, 2), ', removing ', rm_high_sum, ' cells')
-      
-      return(c(round(lower_detected,2), 
-            round(lower_expressed, 2), 
-            round(lower_sum,2), 
-            round(higher_detected, 2), 
-            round(max_mito, 2), 
+
+      return(c(round(lower_detected,2),
+            round(lower_expressed, 2),
+            round(lower_sum,2),
+            round(higher_detected, 2),
+            round(max_mito, 2),
             round(higher_sum, 2)))
     }
 
