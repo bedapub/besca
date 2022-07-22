@@ -118,7 +118,6 @@ def valOutlier(adata, nmads=3, rlib_loc=""):
             round(max_mito, 2),
             round(higher_sum, 2)))
     }
-
      """
     )
     ro.globalenv["nmads"] = nmads
