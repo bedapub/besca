@@ -31,9 +31,7 @@ jobs:
           path: ~/
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/environment.lock.yml') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/environment.lock.yml') }}
 
       - name: Setup mamba
         shell: bash -l {0}
