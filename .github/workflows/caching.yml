@@ -47,6 +47,5 @@ jobs:
 
       - name: Install pytest
         run: |
-          mamba activate besca_dev
           pip install pytest
           pytest
