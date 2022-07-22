@@ -40,10 +40,11 @@ jobs:
         run: |
           conda install -c conda-forge mamba
           mamba init
+          
+      - name: Install Dependencies from environment.lock.yml
+        run: |
           source ~/.bashrc
-
-      - name: Install Dependencies
-        run: mamba env create -f environment.lock.yml
+          mamba env create -f environment.lock.yml
         if: steps.cache-conda.outputs.cache-hit != 'true'
 
       - name: Install pytest
