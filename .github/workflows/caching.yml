@@ -39,6 +39,9 @@ jobs:
           mamba env update -n besca_dev -f environment.lock.yml
         if: steps.cache-conda.outputs.cache-hit != 'true'
 
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+
       - name: Install pytest
         run: |
           mamba init
