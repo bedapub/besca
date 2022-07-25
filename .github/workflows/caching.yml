@@ -44,5 +44,6 @@ jobs:
           mamba init
           source ~/.bashrc
           mamba activate besca_dev
+          mamba list
           pip install pytest
           pytest
