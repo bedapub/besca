@@ -29,20 +29,31 @@ jobs:
         env:
           cache-name: cache-conda-packages
         with:
-          path: ~/
+          path: ~/work/besca/besca/
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/environment.lock.yml') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/environment.lock.yml') }}
          
-      - name: Install Dependencies from environment.lock.yml
-        run: |
-          mamba env update -n besca_dev -f environment.lock.yml
-        if: steps.cache-conda.outputs.cache-hit != 'true'
+      - name: Get Date
+        id: get-date
+        run: echo "::set-output name=today::$(/bin/date -u '+%Y%m%d')"
+        shell: bash
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+      - name: Cache conda env
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.CONDA }}/envs
+          key: conda-${{ runner.os }}--${{ runner.arch }}--${{ steps.get-date.outputs.today }}-${{ hashFiles('etc/environment-caching.yml') }}-${{ env.CACHE_NUMBER }}
+        env:
+          # Increase this value to reset cache if etc/example-environment.yml has not changed
+          CACHE_NUMBER: 0
+        id: cache
 
-      - name: Install pytest
+      - name: Update environment
+        run: mamba env update -n besca_dev -f etc/environment-caching.yml
+        if: steps.cache.outputs.cache-hit != 'true'
+
+      - name: Install and run pytest
         run: |
           mamba init
           source ~/.bashrc
