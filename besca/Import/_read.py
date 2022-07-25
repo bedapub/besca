@@ -46,7 +46,7 @@ def assert_filepath(filepath):
 
 
 def add_var_column(adata, colname="SYMBOL", attempFix=True):
-    if not colname in adata.var.columns:
+    if colname not in adata.var.columns:
         if attempFix:
             print(
                 f"Creating empty {colname} column;  please check if {colname} is not in the index of adata.var"
@@ -71,7 +71,7 @@ def assert_adata(adata: AnnData, attempFix=True):
     -------
     returns an AnnData object
     """
-    if not "CELL" in adata.obs.columns:
+    if "CELL" not in adata.obs.columns:
         if attempFix:
             adata.obs["CELL"] = adata.obs.index
             print("Creating columns CELL in adata.obs using adata.obs.index.")
@@ -84,8 +84,9 @@ def assert_adata(adata: AnnData, attempFix=True):
         if attempFix:
             print("Required count matrix to be sparse, X transformed to sparse")
             try:
-                adata.X = sparse.csr_matrix(adata.X.copy())
-            except:
+                adata.X = csr_matrix(adata.X.copy())
+            except ValueError as ve:
+                print(ve)
                 raise Exception("X transformation to sparse failed.")
         else:
             raise Exception("adata.X needs to be sparse.")
@@ -197,12 +198,16 @@ def read_mtx(
         if citeseq == "citeseq_only":
             adata = adata[:, adata.var.feature_type == "Antibody Capture"].copy()
 
-    if annotation == True:
+    if annotation:
         print("adding annotation")
         adata.obs = pd.read_csv(
             os.path.join(filepath, "metadata.tsv"), sep="\\t", engine="python"
         )
         if adata.obs.get("CELL") is not None:
+            # remove all spaces which are in the CELL column
+            adata.obs[["CELL"]] = adata.obs.get("CELL").apply(
+                lambda x: x.replace(" ", "_")
+            )
             adata.obs.index = adata.obs.get("CELL").tolist()
 
     return adata
