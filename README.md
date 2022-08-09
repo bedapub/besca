@@ -19,7 +19,7 @@ If you are interested in contributing you can check the repository wiki for help
 
 ## Installation
 
-From version 2.2.5+, Besca requires Python 3.9.
+From version 2.2.5+, Besca requires Python 3.8.
 
 If you are familiar with python packages simply install them using pip: 
 
