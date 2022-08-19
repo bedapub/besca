@@ -23,5 +23,3 @@ sinfo
 pydot
 scvi-tools
 ipython
-
-pytest
