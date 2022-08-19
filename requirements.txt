@@ -23,3 +23,5 @@ sinfo
 pydot
 scvi-tools
 ipython
+pytest
+deprecation
