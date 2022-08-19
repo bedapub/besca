@@ -47,7 +47,7 @@ def _get_expression_table(adata, gene, color_map, max_expression):
         if type(adata.X) == ndarray:
             pass
         else:
-            adata.X = adata.X.toarray()
+            adata.X = adata.X.copy().toarray()
 
         if adata.n_obs > 1:
 
@@ -77,7 +77,7 @@ def _get_expression_table(adata, gene, color_map, max_expression):
     elif adata.n_obs == 1 and adata.n_vars > 1:
 
         iLoc = adata.var_names.tolist().index(gene)
-        expression_values = Series(adata.X[iLoc].flatten()).value_counts().to_frame()
+        expression_values = Series(adata.X.copy().toarray().flatten()[iLoc]).value_counts().to_frame()
         #expression_values= Series()
         expression_values.columns = ["counts"]
         expression_values["value"] = expression_values.index.tolist()
