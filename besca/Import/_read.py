@@ -3,6 +3,7 @@ import sys
 import re
 import warnings
 warnings.simplefilter("default")
+from typing import List
 
 import pandas as pd
 from anndata import AnnData
@@ -163,12 +164,8 @@ def read_mtx(
     symbols = var_anno[1]
     ensembl_id = var_anno[0].tolist()
 
-    # TODO: Implement checks
-    # I would suggest just a quick test:
-    # For symbols: These should be mixtures of letters and numbers. They should not be empty, not NA, and not pure nunbers.
-    # For ensembl IDs: They should start with "ENS" and end with numbers.
-    # A warning if this is not the case should be sufficient for the moment
     all_ensembl_codes_ok(ensembl_id_list=ensembl_id)
+    all_symbols_ok(symbols_list=symbols.tolist())
 
     adata.var["ENSEMBL"] = ensembl_id
     adata.var.index.names = ["index"]
@@ -219,7 +216,7 @@ def read_mtx(
     return adata
 
 
-def all_ensembl_codes_ok(ensembl_id_list: list[str]) -> bool:
+def all_ensembl_codes_ok(ensembl_id_list: List[str]) -> bool:
     """Checks if all elements of a given list are matching the ENSEMBL gene naming regex
 
     Args:
@@ -229,8 +226,6 @@ def all_ensembl_codes_ok(ensembl_id_list: list[str]) -> bool:
         bool: True if all elements match the regex
 
     Examples:
-        Examples should be written in doctest format, and should illustrate how
-        to use the function.
 
         >>> ensembl_id_list = ['ENSMUSG00000051951', 'ENSMUSG0000005195A', 'ENSMUSG00000051922']
         >>> all_ok = all_ensembl_codes_ok(ensembl_id_list=ensembl_id_list)
@@ -244,11 +239,35 @@ def all_ensembl_codes_ok(ensembl_id_list: list[str]) -> bool:
 
     """
 
-    ensembl_regexp = re.compile('ENS[A-Z]+[0-9]{11}')
+    ensembl_regexp = re.compile(r"ENS[A-Z]+[0-9]{11}")
     faulty_ensembl_genes = [gene for gene in ensembl_id_list if not ensembl_regexp.fullmatch(gene)]
 
     if (faulty_ensembl_genes):
         warnings.warn(f"Detected faulty ENSEMBL gene names: {faulty_ensembl_genes}")
+        return False
+
+    return True
+
+
+def all_symbols_ok(symbols_list: List[str]) -> bool:
+    """
+      Examples:
+
+        >>> symbols_list = ['AC004.2', 'AC43.3', 'A1', 'AC004.2', 'ACDF3', 'A..4A', 'YYYY', '782387324A', 'Nature', 'GoodgenedNA', 'NAGene', 'abcNAcde','nature']
+        >>> symbols_all_ok = all_symbols_ok(symbols_list=symbols_list)
+        >>> print(symbols_all_ok)
+        True
+        >>> symbols_list = ['434443', 'NA', '.', '...', '.1', '.NA', '', 'na', 'Na', 'nA nAture', 'N/A', 'CORRECTGeneName']
+        >>> symbols_all_ok = all_symbols_ok(symbols_list=symbols_list)
+        >>> print(symbols_all_ok)
+        False
+    """
+
+    symbol_regexp = re.compile(r"(?!\.)(?!NA$|na$|Na$|nA$)(?=.*[a-zA-Z].*)([a-zA-Z0-9\.]+)")
+    faulty_symbol_genes = [gene for gene in symbols_list if not symbol_regexp.fullmatch(gene)]
+
+    if (faulty_symbol_genes):
+        warnings.warn(f"Detected faulty symbol gene names: {faulty_symbol_genes}")
         return False
 
     return True
