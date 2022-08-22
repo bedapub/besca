@@ -252,14 +252,23 @@ def all_ensembl_codes_ok(ensembl_id_list: List[str]) -> bool:
 
 
 def all_symbols_ok(symbols_list: List[str]) -> bool:
-    """
+    """Checks if all elements of a given list are matching the defined regex which should be basically
+       a mixtures of letters and numbers.
+       They should not be empty, not NA, and not numbers only.
+
+    Args:
+        symbols_list list[str]: list of SYMBOL gene names
+
+    Returns:
+        bool: True if all elements match the regex
+
       Examples:
 
         >>> symbols_list = ['AC004.2', 'AC43.3', 'A1', 'AC004.2', 'ACDF3', 'A..4A', 'YYYY', '782387324A', 'Nature', 'GoodgenedNA', 'NAGene', 'abcNAcde','nature']
         >>> symbols_all_ok = all_symbols_ok(symbols_list=symbols_list)
         >>> print(symbols_all_ok)
         True
-        >>> symbols_list = ['434443', 'NA', '.', '...', '.1', '.NA', '', 'na', 'Na', 'nA nAture', 'N/A', 'CORRECTGeneName']
+        >>> symbols_list = ['434443', 'NA', '.', '...', '.1', '.NA', '', 'na', 'Na', 'N/A', 'CORRECTGeneName']
         >>> symbols_all_ok = all_symbols_ok(symbols_list=symbols_list)
         >>> print(symbols_all_ok)
         False
