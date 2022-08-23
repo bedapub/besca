@@ -67,7 +67,7 @@ If you don't have a conda python installation download and install [miniconda](h
 As a next step, we create a separate environment for besca which is also called besca.  
 
 ```
-conda create --name besca
+conda create --name besca python=3.8
 ```  
 
 We can activate this environment.  
