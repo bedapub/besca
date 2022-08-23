@@ -1,4 +1,5 @@
 import os
+import pytest
 from pandas import read_csv
 
 
@@ -16,6 +17,7 @@ def get_mito_genes(species: str = "human", annotation_type: str = "ENSEMBL"):
 
     Example
     -------
+    >>> pytest.skip('Test will be skipped, because slow downloading of file in the github action job can occur a timeout')
     >>> import besca as bc
     >>> mito_genes = bc.datasets.get_mito_genes('human')
     >>> mito_genes
