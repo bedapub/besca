@@ -2,6 +2,7 @@ import sys
 import re
 import pandas as pd
 from anndata import AnnData
+from typing import Dict
 
 
 def check_colors(aColor):
@@ -36,7 +37,7 @@ def check_colors(aColor):
 
 def update_qualitative_palette(
     adata: AnnData,
-    palette: dict[str, str],
+    palette: Dict[str, str],
     group: str = "leiden",
     checkColors: bool = True,
 ) -> None:
