@@ -213,6 +213,10 @@ def read_mtx(
             os.path.join(filepath, "metadata.tsv"), sep="\\t", engine="python"
         )
         if adata.obs.get("CELL") is not None:
+            # remove all spaces which are in the CELL column
+            adata.obs[["CELL"]] = adata.obs.get("CELL").apply(
+                lambda x: x.replace(" ", "_")
+            )
             adata.obs.index = adata.obs.get("CELL").tolist()
 
     return adata

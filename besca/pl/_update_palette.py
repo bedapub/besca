@@ -1,5 +1,7 @@
 import sys
 import re
+import pandas as pd
+from anndata import AnnData
 
 
 def check_colors(aColor):
@@ -32,36 +34,45 @@ def check_colors(aColor):
             sys.exit("Color " + str(aColor) + "could not be converted")
 
 
-def update_qualitative_palette(adata, palette, group="leiden", checkColors=True):
+def update_qualitative_palette(
+    adata: AnnData,
+    palette: dict[str, str],
+    group: str = "leiden",
+    checkColors: bool = True,
+) -> None:
     """Update adata object such that the umap will adhere to the palette provided.
-    
 
     parameters
     ----------
     adata: `AnnData`
-      the AnnData object 
+      the AnnData object
     palette: `dict`
         dict with keys as the values of the group observation. To avoid warning from matlib it is advised to have \
             hex color values
     group: `str`
         string identifying the column name of adata.obs where colors will be set.
+        Used internally like this: `pd.Categorical(adata.obs[<group>]).categories.tolist()`
     checkColors: `boolean`
-        check the colors inputed to transform them if needed into a hex values. tupple of RBG of 0-1 values cna be converted. 
+        check the colors inputed to transform them if needed into a hex values. tupple of RBG of 0-1 values cna be converted.
      returns
     -------
-    None; update the adata object.
+    None; update the AnnData object, that the color order matches the order of the AnnData object categories
     """
-    cell_pop = set(adata.obs.get(group))
+
+    # get the groups/categories in the same way as scanpy does it in scanpy/plotting/_tools/scatterplots.py: _get_palette
+    category_list = pd.Categorical(adata.obs[group]).categories.tolist()
+
     # Checking Validity
-    if not all(elem in palette.keys() for elem in cell_pop):
+    if not all(elem in palette.keys() for elem in category_list):
         sys.exit(
             "Please provide a palette dict containing all element of the group " + group
         )
     if checkColors:
         palette = {k: check_colors(color) for k, color in palette.items()}
-    sortedKey = sorted(k for k in palette.keys() if k in cell_pop)
-    sortedKey.reverse()
-    newColors = [palette[i] for i in sortedKey]
-    newColors.reverse()
-    adata.uns[group + "_colors"] = newColors.copy()
+
+    newColorList = []
+    for category_name in category_list:
+        newColorList.append(palette[category_name])
+
+    adata.uns[group + "_colors"] = newColorList.copy()
     return None
