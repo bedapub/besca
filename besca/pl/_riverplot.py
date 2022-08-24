@@ -100,6 +100,6 @@ def riverplot_2categories(
     # creating figure
     fig = go.Figure(dict(data=[data]))
     if figsize is not None:
-        fig.set_figheight(height[1])
-        fig.set_figwidth(width[0])
+        fig.set_figheight(figsize[1])
+        fig.set_figwidth(figsize[0])
     return fig
