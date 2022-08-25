@@ -23,7 +23,7 @@ if __name__ == '__main__':
             'Topic :: Software Development :: Build Tools',
             'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
             'Programming Language :: Python :: 3',
-            'Programming Language :: Python :: 3.7'],
+            'Programming Language :: Python :: 3.8'],
           url='https://github.com/bedapub/besca',
           license='GPLv3',
           author='BEDA community',
