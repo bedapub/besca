@@ -350,7 +350,7 @@ def highly_variable_genes(adata, batch_key=None, n_shared=2):
 
     pl_highly_variable_genes(adata, save=".hvg.png", show=True)
 
-    adata = adata[:, adata.var.highly_variable is True]
+    adata = adata[:, adata.var.highly_variable == True]
 
     # logging
     logging.info(
