@@ -170,7 +170,7 @@ def read_matrix(
     species: `str` | default = 'human'
         string specifying the species, only needs to be used when no Gene Symbols
         are supplied and you only have the ENSEMBLE gene ids to perform a lookup.
-    citeseq: 'gex_only' or 'citeseq_only' or None | default = None
+    citeseq: 'gex_only' or 'citeseq_only' or False or None | default = None
         string indicating if only gene expression values (gex_only) or only protein
         expression values ('citeseq_only') or everything is read if None is specified
     Returns
