@@ -416,7 +416,7 @@ def fit(adata_train, method, celltype, njobs=10, celltype_variable='dblabel', n_
     celltype_variables = adata_train.obs[celltype_variable].value_counts()
     celltype_variables = celltype_variables[celltype_variables >= n_cells]
     list_celltype_variables = celltype_variables.index.tolist()
-    adata_train = adata_train[(adata_train.obs.dblabel.isin(list_celltype_variables)), :]
+    adata_train = adata_train[(adata_train.obs[celltype_variable].isin(list_celltype_variables)), :]
     
     if scipy.sparse.issparse(adata_train.X) == True:
         train = adata_train.X.todense()
