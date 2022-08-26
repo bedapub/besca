@@ -363,4 +363,4 @@ dependencies:
     - sqlalchemy==1.4.40
     - terminado==0.15.0
     - webencodings==0.5.1
-prefix: /home/geserp/scratch/conda/envs/besca_dev_x
+prefix: /mnt/projects/miniconda3/envs/besca_dev
