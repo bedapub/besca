@@ -4,6 +4,9 @@ from typing import List
 from os.path import join
 import filecmp
 from random import sample
+import anndata
+import numpy as np
+from scipy.sparse import csr_matrix
 
 from scvelo import AnnData
 
@@ -32,6 +35,13 @@ def subset_kotliarov2020_raw_data(load_kotliarov2020_raw_data: AnnData) -> AnnDa
         pytest.raw_data_subset_size,
     )
     return load_kotliarov2020_raw_data[subset, :]
+
+
+@pytest.fixture(scope="session")
+def create_random_anndata_object() -> AnnData:
+
+    counts = csr_matrix(np.random.poisson(1, size=(1000, 2000)))
+    return anndata.AnnData(counts)
 
 
 @pytest.fixture
@@ -102,11 +112,11 @@ def test_additional_labeling(
         assert identical is True, f"File {file} is not as expected!"
 
 
-def test_highly_variable_genes(subset_kotliarov2020_raw_data: AnnData):
+def test_highly_variable_genes(create_random_anndata_object: AnnData):
 
     adata = highly_variable_genes(
-        adata=subset_kotliarov2020_raw_data, batch_key=None, n_shared=2
+        adata=create_random_anndata_object, batch_key=None, n_shared=2
     )
     # ensure that we get all hvgs and not just one
     assert adata.shape[0] == pytest.raw_data_subset_size
-    assert adata.shape[1] == 1478
+    assert adata.shape[1] == 608
