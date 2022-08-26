@@ -345,10 +345,10 @@ dependencies:
   - zlib=1.2.12=h166bdaf_2
   - zstd=1.5.2=h6239696_4
   - pip:
+    - git+https://github.com/bedapub/besca.git
     - argon2-cffi==21.3.0
     - argon2-cffi-bindings==21.2.0
     - beautifulsoup4==4.11.1
-    - besca==2.4.6+84.g6b7c0e5
     - bleach==5.0.1
     - cython==0.29.32
     - defusedxml==0.7.1
