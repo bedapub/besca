@@ -27,7 +27,7 @@ if __name__ == '__main__':
           url='https://github.com/bedapub/besca',
           license='GPLv3',
           author='BEDA community',
-          author_email='alice.julien-laferriere@roche.com',
+          author_email='manuel.kohler@roche.com',
           packages=find_packages(exclude=["devtools", "tests"]),
           zip_safe=False,
           package_data={'besca.datasets.data': ['*.h5ad'],
