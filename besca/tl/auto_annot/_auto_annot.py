@@ -383,7 +383,7 @@ def remove_nonshared(adata_train, adata_pred, celltype="dblabel"):
     return adata_train_shared, adata_pred_shared
 
 
-def fit(adata_train, method, celltype, njobs=10):
+def fit(adata_train, method, celltype, njobs=10, celltype_variable='dblabel', n_cells=5):
     """fits classifier on training dataset
 
     uses specified celltype column as label
@@ -399,6 +399,10 @@ def fit(adata_train, method, celltype, njobs=10):
         column name of column to be used for classification
     njobs: int
         number of cores to use, only applies to regression or random forest classifiers
+    celltype_variable: `string` | default: `dblabel`
+        anndata object obs column header, which includes the celltypes 
+    n_cells: int | default: 5
+        minimum count of each celltype entries, to be used for fit() function
 
 
     returns
@@ -408,7 +412,12 @@ def fit(adata_train, method, celltype, njobs=10):
     sklearn.preprocessing.StandardScaler
         a scaler fitted on the training set to be used on testing set
     """
-
+    
+    celltype_variables = adata_train.obs[celltype_variable].value_counts()
+    celltype_variables = celltype_variables[celltype_variables >= n_cells]
+    list_celltype_variables = celltype_variables.index.tolist()
+    adata_train = adata_train[(adata_train.obs[celltype_variable].isin(list_celltype_variables)), :]
+    
     if scipy.sparse.issparse(adata_train.X) == True:
         train = adata_train.X.todense()
 
@@ -443,6 +452,10 @@ def fit(adata_train, method, celltype, njobs=10):
         classifier = logistic_regression_elastic(train, y_train, njobs)
 
     return classifier, scaler
+
+def check(value):
+    print(value)
+    return True
 
 
 def linear_svm(train, y_train):
