@@ -103,7 +103,7 @@ jupyter notebook
 to start a Jupyter Notebook in your browser. See [documentation](https://jupyter.readthedocs.io/en/latest/running.html#running) for further details. 
 
 
-### R dependencies for additional methods
+### R dependencies for additional methods [R-based functions are deprecated]
 
 Although the standard workflow can be run without any R dependencies, BESCA can run a selection of performant methods developed in R. These additional methods are :
 
