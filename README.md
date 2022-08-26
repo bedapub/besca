@@ -19,7 +19,7 @@ If you are interested in contributing you can check the repository wiki for help
 
 ## Installation
 
-From version 2.2.5+, Besca requires Python 3.8.
+From version 2.2.5+, Besca requires Python 3.8 or above.
 
 If you are familiar with python packages simply install them using pip: 
 
@@ -67,7 +67,7 @@ If you don't have a conda python installation download and install [miniconda](h
 As a next step, we create a separate environment for besca which is also called besca.  
 
 ```
-conda create --name besca python=3.7.1
+conda create --name besca
 ```  
 
 We can activate this environment.  
