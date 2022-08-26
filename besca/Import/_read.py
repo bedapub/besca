@@ -8,6 +8,8 @@ from scipy.sparse import csr_matrix, issparse
 
 from besca._helper import convert_ensembl_to_symbol
 
+import warnings
+
 
 def assert_filepath(filepath):
     """Asserts that the filepath contains the files required by read_mtx.
@@ -117,7 +119,7 @@ def read_mtx(
     species: `str` | default = 'human'
         string specifying the species, only needs to be used when no Gene Symbols
         are supplied and you only have the ENSEMBLE gene ids to perform a lookup.
-    citeseq: 'gex_only' or 'citeseq_only' or None | default = None
+    citeseq: 'gex_only' or 'citeseq_only' or False or None | default = None
         string indicating if only gene expression values (gex_only) or only protein
         expression values ('citeseq_only') or everything is read if None is specified
 
@@ -187,7 +189,11 @@ def read_mtx(
     else:
         sys.exit("supplied unknown use_genes parameter")
 
-    if citeseq is not None:
+    check_response = check_data_for_citeseq(var_anno=var_anno)
+
+    if citeseq == 'gex_only' or citeseq == 'citeseq_only':
+        if check_response is False:
+            raise ValueError("'genes.tsv' does not include citeseq data or 'genes.tsv' has invalid citeseq values.")
         features = var_anno[2]
         adata.var["feature_type"] = features.tolist()
 
@@ -196,7 +202,15 @@ def read_mtx(
             adata = adata[:, adata.var.feature_type == "Gene Expression"].copy()
         if citeseq == "citeseq_only":
             adata = adata[:, adata.var.feature_type == "Antibody Capture"].copy()
-
+    elif citeseq is None:
+        if check_response is True:
+            warnings.warn("Citeseq data has been detected!, if you want to use it, please change citeseq parameter. Besca will continue without using the citeseq data")
+    elif type(citeseq) == type(True) and citeseq is False:
+            if check_response is False:
+                warnings.warn("Citeseq data does not exists or is invalid!, change citeseq parameter to 'None' if there is no citeseq data existing!")
+    else:
+        raise ValueError("citeseq parameters has invalid value. Possible values: 'gex_only', 'citeseq_only', False or None.")
+    
     if annotation == True:
         print("adding annotation")
         adata.obs = pd.read_csv(
@@ -206,3 +220,25 @@ def read_mtx(
             adata.obs.index = adata.obs.get("CELL").tolist()
 
     return adata
+
+
+def check_data_for_citeseq(var_anno):
+    """Read variable annotations and check if valid citeseq data is inlcluded
+    ----------
+    var_anno: `Pandas.Dataframe`
+        A pandas dataframe, which includes the variable annotations.
+
+    Returns
+    -------
+    returns a boolean if citeseq data is existing
+    """
+    if (len(var_anno.columns)) >= 3:
+        values = var_anno.iloc[:, 2].unique()
+        if set(values) == set(['Gene Expression']) or \
+            set(values) == set(['Antibody Capture']) or \
+            set(values) == set(['Antibody Capture', 'Gene Expression']):
+            return True
+        else:
+            return False
+    else:
+        return False
