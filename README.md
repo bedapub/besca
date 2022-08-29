@@ -1,5 +1,7 @@
 # BESCA (BEyond Single Cell Analysis)
 
+[![Run doctests](https://github.com/bedapub/besca/actions/workflows/doc-tests.yml/badge.svg)](https://github.com/bedapub/besca/actions/workflows/doc-tests.yml)
+
 The BESCA (BEyond Single Cell Analysis) package contains many useful python functions to use for your single-cell analysis.
 
 The package has been grouped into 3 categories:  
