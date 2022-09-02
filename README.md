@@ -20,6 +20,11 @@ Please consider citing our publication if you use Besca for your research:
 
 If you are interested in contributing you can check the repository wiki for helpful information on contributing: https://github.com/bedapub/besca/wiki
 
+For faster/smaller download, in case of slow internet connection or low storage capacity, please use following command to clone this repository:
+```
+git clone --filter=blob:none git@github.com:bedapub/besca.git
+```
+
 ## Installation
 
 From version 2.2.5+, Besca requires Python 3.8 or above.
