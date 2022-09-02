@@ -147,7 +147,13 @@ def _make_tidy(adata, genes, split_variable, label_split_variable=None, use_raw=
 
 
 def gene_expr_split(
-    adata, genes, split_variable=None, label_split_variable=None, use_raw=True, ax=None, figsize=(15,8)
+    adata,
+    genes,
+    split_variable=None,
+    label_split_variable=None,
+    use_raw=True,
+    ax=None,
+    figsize=(15, 8),
 ):
     """visualize gene expression of two groups as a split violin plot
 
@@ -216,10 +222,10 @@ def gene_expr_split(
         order=None,
         ax=ax,
     )
-    
-    if figsize is not None:
-        fig.set_figheight(height[1])
-        fig.set_figwidth(width[0])
+
+    if figsize is not None and fig is not None:
+        fig.set_figheight(15)
+        fig.set_figwidth(8)
     return None
 
 
@@ -231,11 +237,11 @@ def gene_expr_split_stacked(
     subset_variable="celltype",
     label_subset_variable=None,
     use_raw=True,
-    fig_width=None,
-    fig_height=None,
+    fig_width=8,
+    fig_height=4,
     order=None,
     inner="stick",
-    figsize=(15,8)
+    figsize=(15, 8),
 ):
 
     """
@@ -319,7 +325,7 @@ def gene_expr_split_stacked(
         order=order,
         inner=inner,
     )
-    if figsize is not None:
-        fig.set_figheight(height[1])
-        fig.set_figwidth(width[0])
+    if figsize is not None and fig is not None:
+        fig.set_figheight(15)
+        fig.set_figwidth(8)
     return fig

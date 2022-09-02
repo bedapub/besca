@@ -2,16 +2,24 @@ import seaborn as sns
 from matplotlib.pyplot import (
     figure,
     subplots_adjust,
-    tight_layout,
     subplots,
     setp,
     gca,
     tight_layout,
 )
+import matplotlib.pyplot as plt
 import sys
 
+
 def split_violin(
-    tidy_data, x_axis, y_axis, split_variable, order=None, ax=None, inner="box", figsize=(8,4)
+    tidy_data,
+    x_axis,
+    y_axis,
+    split_variable,
+    order=None,
+    ax=None,
+    inner="box",
+    figsize=(8, 4),
 ):
     """plot ssplit violin plots.
 
@@ -68,14 +76,14 @@ def split_violin(
 
     # make labels 90 degrees so they are readible
     ax.tick_params(labelrotation=90, length=6, width=2)
-    
+
     if figsize is not None:
         plt.figure(figsize=figsize)
 
     return None
 
 
-def box_per_ind(plotdata, y_axis, x_axis, order=None, figsize=(4,3.5)):
+def box_per_ind(plotdata, y_axis, x_axis, order=None, figsize=(4, 3.5)):
     """plot boxplot with values per individual.
 
     General plotting function to produce one or multiple boxplots for
@@ -133,7 +141,7 @@ def box_per_ind(plotdata, y_axis, x_axis, order=None, figsize=(4,3.5)):
     if figsize is not None:
         fig.set_figwidth(figsize[0])
         fig.set_figheight(figsize[1] * number_of_subplots)
-        
+
     # adjust amount of space between subplots
     subplots_adjust(hspace=0.000)
 
@@ -206,7 +214,8 @@ def stacked_split_violin(
     split_variable,
     subset_variable_label,
     subset_variables,
-    figsize=(8,4),
+    fig_width=8,
+    fig_height=4,
     order=None,
     inner="box",
 ):
@@ -230,8 +239,10 @@ def stacked_split_violin(
         should be used to make datasubsets for each plot of the stacked violin plot
     subset_variabels: `list`
         list identifying the subsets that should be generated
-    figsize: (width, height) or None | default = (8,4)
-        optional parameter to define the figure size of the plot that is to be generated
+    fig_width: width or None | default = 8
+        optional parameter to define figure width of the plot that is to be generated
+    fig_height: height or None | default = 4
+        optional parameter to define figure height of the plot that is to be generated
     order:
     inner: 'box' or 'quartile' or 'point' or 'stick'
         define how the datapoints should be displayed in the violin interior, see seaborns documentation for more details
@@ -248,10 +259,8 @@ def stacked_split_violin(
     # initiate figure
     fig = figure()
 
-    # adjust size of figure if desired
-    if figsize is not None:
-        fig.set_figwidth(figsize[0])
-        fig.set_figheight(figsize[1] * number_of_subplots)
+    fig.set_figwidth(fig_width)
+    fig.set_figheight(fig_height * number_of_subplots)
 
     # adjust amount of space between subplots
     subplots_adjust(hspace=0.000)
@@ -331,7 +340,20 @@ def stacked_split_violin(
     subplots_adjust(hspace=0.000)
     return fig
 
-def flex_dotplot(df,X,Y,HUE,SIZE,title, mycolors='Reds', myfontsize=15,  xfactor=0.7,yfactor=0.6, figsize=None):
+
+def flex_dotplot(
+    df,
+    X,
+    Y,
+    HUE,
+    SIZE,
+    title,
+    mycolors="Reds",
+    myfontsize=15,
+    xfactor=0.7,
+    yfactor=0.6,
+    figsize=None,
+):
     """Generate a dot plot showing average expression and fraction positive cells
 
     This function generates a plot where X and Y axes are flexible.
@@ -360,12 +382,12 @@ def flex_dotplot(df,X,Y,HUE,SIZE,title, mycolors='Reds', myfontsize=15,  xfactor
     myfontsize: `int`
         fontsize for the legend defaults to 15
     xfactor: `int`
-        distance coef for xaxis defaults to 0.7 
+        distance coef for xaxis defaults to 0.7
     yfactor: `int`
-        distance coef for yaxis defaults to 0.6 
+        distance coef for yaxis defaults to 0.6
     figsize: (width, height) or None | default = None
         optional parameter to define the figure size of the plot that is to be generated
-        
+
     returns
     -------
     Figure
@@ -404,8 +426,10 @@ def flex_dotplot(df,X,Y,HUE,SIZE,title, mycolors='Reds', myfontsize=15,  xfactor
         sys.exit("Please select a valid condition name - HUE")
     if (SIZE in df.columns) == False:
         sys.exit("Please select a valid condition name - SIZE")
-    
-    xlen = 1 + int(df[X].nunique() * xfactor)  # to "provide" margin space for the labels
+
+    xlen = 1 + int(
+        df[X].nunique() * xfactor
+    )  # to "provide" margin space for the labels
     ylen = 1 + int(df[Y].nunique() * xfactor)
     fig, ax = subplots(figsize=(xlen, ylen))
     #  myplot=sns.scatterplot(data=df,x=X,y=Y,hue=HUE,size=SIZE,sizes=(20,400),palette="viridis",legend="auto")
@@ -417,7 +441,7 @@ def flex_dotplot(df,X,Y,HUE,SIZE,title, mycolors='Reds', myfontsize=15,  xfactor
     ax.set_ylabel(Y, color="grey", fontsize=myfontsize)
     ax.set_xlabel(X, color="grey", fontsize=myfontsize)
     setp(myplot.get_xticklabels(), rotation=90, fontsize=myfontsize)
-    setp(myplot.get_yticklabels(),fontsize=myfontsize)
+    setp(myplot.get_yticklabels(), fontsize=myfontsize)
     setp(ax.get_legend().get_title(), fontsize=myfontsize)  # for legend title
     setp(ax.get_legend().get_texts(), fontsize=myfontsize - 2)  # for legend text
     if figsize is not None:

@@ -1,5 +1,4 @@
 """
-# TODO
 Annotate celltypes
 ==================
 
@@ -20,7 +19,8 @@ import random
 import besca as bc
 import scanpy as sc
 import pytest
-pytest.skip('Test is only for here as example and should not be executed')
+
+# pytest.skip('Test is only for here as example and should not be executed')
 random.seed(1)
 # load preprocessed dataset (included in BESCA for demonstration purposes)
 adata = bc.datasets.pbmc3k_filtered()
@@ -84,7 +84,7 @@ new_labels = [
     "pDC",  # 6
 ]  # 7
 
-bc.tl.annotate_cells_clustering(adata, new_labels) # ISSUE is in this method
+bc.tl.annotate_cells_clustering(adata, new_labels)  # ISSUE is in this method
 
 # visualize annotation
 sc.pl.umap(adata, color=["celltype"])
@@ -136,7 +136,10 @@ labels = [
     "NK cell",  # 20
 ]
 
-new_labels = [labels[i] for i in range(len(adata_subset.obs.get("leiden").value_counts().index.tolist()))]
+new_labels = [
+    labels[i]
+    for i in range(len(adata_subset.obs.get("leiden").value_counts().index.tolist()))
+]
 
 # merge new celllabels back into the original adata object containing all cells
 # Note: this will overwrite the labels contained in adata.obs.celltype! If you w

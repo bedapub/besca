@@ -157,6 +157,8 @@ def read_matrix(
     root_path, citeseq=None, annotation=True, use_genes="SYMBOL", species="human"
 ):
     """Read matrix file as expected for the standard workflow.
+
+    Parameters
     ----------
     root_path: `str`
        root path of the analysis. Expected in this folder a raw folder containing

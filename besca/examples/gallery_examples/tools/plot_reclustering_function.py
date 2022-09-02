@@ -12,7 +12,8 @@ all clusters and mixed cell populations still exist.
 import besca as bc
 import scanpy as sc
 import pytest
-pytest.skip('Test is only for here as example and should not be executed')
+
+# pytest.skip('Test is only for here as example and should not be executed')
 # load and preprocess data (here we will start from a preprocessed dataset)
 adata = bc.datasets.pbmc3k_processed()
 
@@ -55,7 +56,10 @@ labels = [
     "CD4 T-cell",  # 19
 ]  # 10
 
-new_labels = [labels[i] for i in range(len(adata_subset.obs.get("leiden").value_counts().index.tolist()))]
+new_labels = [
+    labels[i]
+    for i in range(len(adata_subset.obs.get("leiden").value_counts().index.tolist()))
+]
 
 
 # merge the labels back into the original adata object
@@ -64,4 +68,3 @@ new_labels = [labels[i] for i in range(len(adata_subset.obs.get("leiden").value_
 bc.tl.rc.annotate_new_cellnames(
     adata, adata_subset, names=new_labels, new_label="celltype"
 )
-
