@@ -18,7 +18,7 @@ jobs:
         with:
             miniforge-variant: Mambaforge
             miniforge-version: latest
-            activate-environment: besca_documentation
+            activate-environment: besca_create_docu
             use-mamba: true
       - name: Cache conda packages
         id: cache-conda
@@ -47,13 +47,13 @@ jobs:
         id: cache
 
       - name: Update environment
-        run: mamba env update -n besca_documentation -f docs/environment.lock.yml
+        run: mamba env update -n besca_create_docu -f docs/environment.lock.yml
         if: steps.cache.outputs.cache-hit != 'true'
 
       - name: Run Sphinx
         run: |
           mamba init
           source ~/.bashrc
-          mamba activate besca_documentation
+          mamba activate besca_create_docu
           cd docs
           make html
