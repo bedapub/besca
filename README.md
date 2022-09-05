@@ -1,5 +1,8 @@
 # BESCA (BEyond Single Cell Analysis)
 
+[![Run doctests](https://github.com/bedapub/besca/actions/workflows/doc-tests.yml/badge.svg)](https://github.com/bedapub/besca/actions/workflows/doc-tests.yml)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 The BESCA (BEyond Single Cell Analysis) package contains many useful python functions to use for your single-cell analysis.
 
 The package has been grouped into 3 categories:  
@@ -16,6 +19,11 @@ Please consider citing our publication if you use Besca for your research:
 
 
 If you are interested in contributing you can check the repository wiki for helpful information on contributing: https://github.com/bedapub/besca/wiki
+
+For faster/smaller download, in case of slow internet connection or low storage capacity, please use following command to clone this repository:
+```
+git clone --filter=blob:none git@github.com:bedapub/besca.git
+```
 
 ## Installation
 
@@ -67,7 +75,7 @@ If you don't have a conda python installation download and install [miniconda](h
 As a next step, we create a separate environment for besca which is also called besca.  
 
 ```
-conda create --name besca
+conda create --name besca python=3.8
 ```  
 
 We can activate this environment.  
@@ -103,7 +111,7 @@ jupyter notebook
 to start a Jupyter Notebook in your browser. See [documentation](https://jupyter.readthedocs.io/en/latest/running.html#running) for further details. 
 
 
-### R dependencies for additional methods
+### R dependencies for additional methods [R-based functions are deprecated]
 
 Although the standard workflow can be run without any R dependencies, BESCA can run a selection of performant methods developed in R. These additional methods are :
 

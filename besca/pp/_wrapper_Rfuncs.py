@@ -1,7 +1,13 @@
 import importlib
 import scanpy as sc
+import deprecation
 
 
+@deprecation.deprecated(
+    deprecated_in="2.5",
+    removed_in="3.0",
+    details="This R-based function is marked deprecated and will be removed in future versions of besca!",
+)
 def valOutlier(adata, nmads=3, rlib_loc=""):
     """
     Estimates and returns the thresholds to use for gene/cell filtering based on outliers calculated from the deviation to the median QCs. Wrapper function based on 'isOutlier' function of the 'scater' R package.
@@ -124,6 +130,11 @@ def valOutlier(adata, nmads=3, rlib_loc=""):
     return ro.r("valOutlier(dat, nmads = nmads)")
 
 
+@deprecation.deprecated(
+    deprecated_in="2.5",
+    removed_in="3.0",
+    details="This R-based function is marked deprecated and will be removed in future versions of besca!",
+)
 def scTransform(adata, hvg=False, n_genes=4000, rlib_loc=""):
     """
     Function to call scTransform normalization or HVG selection from Python. Modified from https://github.com/normjam/benchmark/blob/master/normbench/methods/ad2seurat.py.

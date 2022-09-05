@@ -3,16 +3,45 @@ import pytest
 from typing import List
 from os.path import join
 import filecmp
+from random import sample
+import anndata
+import numpy as np
+from scipy.sparse import csr_matrix
 
 from scvelo import AnnData
 
 import besca as bc
-from besca.st._wrapper_funcs import additional_labeling
+import scanpy as sc
+from besca.st._wrapper_funcs import additional_labeling, highly_variable_genes
+
+
+pytest.raw_data_subset_size = 1000
 
 
 @pytest.fixture(scope="session")
 def load_kotliarov2020_processed_data() -> AnnData:
     return bc.datasets.Kotliarov2020_processed()
+
+
+@pytest.fixture(scope="session")
+def load_kotliarov2020_raw_data() -> AnnData:
+    return bc.datasets.Kotliarov2020_raw()
+
+
+@pytest.fixture(scope="session")
+def subset_kotliarov2020_raw_data(load_kotliarov2020_raw_data: AnnData) -> AnnData:
+    subset = sample(
+        [i for i in range(load_kotliarov2020_raw_data.shape[0])],
+        pytest.raw_data_subset_size,
+    )
+    return load_kotliarov2020_raw_data[subset, :]
+
+
+@pytest.fixture(scope="session")
+def create_random_anndata_object() -> AnnData:
+
+    counts = csr_matrix(np.random.poisson(1, size=(1000, 2000)))
+    return anndata.AnnData(counts)
 
 
 @pytest.fixture
@@ -81,3 +110,13 @@ def test_additional_labeling(
         identical: bool = filecmp.cmp(reference_file, output_file, shallow=False)
 
         assert identical is True, f"File {file} is not as expected!"
+
+
+def test_highly_variable_genes(create_random_anndata_object: AnnData):
+
+    adata = highly_variable_genes(
+        adata=create_random_anndata_object, batch_key=None, n_shared=2
+    )
+    # ensure that we get all hvgs and not just one
+    assert adata.shape[0] == pytest.raw_data_subset_size
+    assert adata.shape[1] == 608
