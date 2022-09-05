@@ -12,14 +12,17 @@ jobs:
         os: ["ubuntu-latest"]
         python-version: ["3.8"]
     steps:
-      - name: Check out the repo and use mamba
-        uses: actions/checkout@v3
-      - uses: conda-incubator/setup-miniconda@v2.1.1
+      - name: setup-conda
+        uses: s-weigand/setup-conda@v1.1.1
         with:
-            miniforge-variant: Mambaforge
-            miniforge-version: latest
-            activate-environment: besca_create_docu
-            use-mamba: true
+          # Whether to activate the conda base env (Default: 'true')
+          activate-conda: true # optional, default is true
+          # If conda should be updated before running other commands (Default: 'false')
+          update-conda: false # optional, default is false
+          # Python version which should be installed with conda (default: 'Default')
+          python-version: 3.8 # optional, default is default
+          # Additional channels like 'conda-forge' which can be used to install packages
+          conda-channels: conda-forge, bioconda, pytorch
       - name: Cache conda packages
         id: cache-conda
         uses: actions/cache@v3.0.8
@@ -48,13 +51,13 @@ jobs:
 
       - name: Update environment
         run: |
-          mamba env update -n besca_create_docu -f docs/environment.lock.yml
+          conda env update -n besca_create_docu -f docs/environment.lock.yml
         if: steps.cache.outputs.cache-hit != 'true'
 
       - name: Run Sphinx
         run: |
-          mamba init
+          conda init
           source ~/.bashrc
-          mamba activate besca_create_docu
+          conda activate besca_create_docu
           cd docs
           make html
