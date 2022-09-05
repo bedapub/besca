@@ -48,7 +48,10 @@ jobs:
 
       - name: Update environment
         run: |
-          head docs/environment.lock.yml
+          pwd
+          ls
+          cd docs
+          head environment.lock.yml
           mamba env update -n besca_create_docu -f docs/environment.lock.yml
         if: steps.cache.outputs.cache-hit != 'true'
 
