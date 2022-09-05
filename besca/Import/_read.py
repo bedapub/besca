@@ -1,5 +1,9 @@
 import os
 import sys
+import re
+import warnings
+warnings.simplefilter("default")
+from typing import List
 
 import pandas as pd
 from anndata import AnnData
@@ -48,7 +52,7 @@ def assert_filepath(filepath):
 
 
 def add_var_column(adata, colname="SYMBOL", attempFix=True):
-    if not colname in adata.var.columns:
+    if colname not in adata.var.columns:
         if attempFix:
             print(
                 f"Creating empty {colname} column;  please check if {colname} is not in the index of adata.var"
@@ -73,7 +77,7 @@ def assert_adata(adata: AnnData, attempFix=True):
     -------
     returns an AnnData object
     """
-    if not "CELL" in adata.obs.columns:
+    if "CELL" not in adata.obs.columns:
         if attempFix:
             adata.obs["CELL"] = adata.obs.index
             print("Creating columns CELL in adata.obs using adata.obs.index.")
@@ -86,9 +90,11 @@ def assert_adata(adata: AnnData, attempFix=True):
         if attempFix:
             print("Required count matrix to be sparse, X transformed to sparse")
             try:
-                adata.X = sparse.csr_matrix(adata.X.copy())
-            except:
-                raise Exception("X transformation to sparse failed.")
+                adata.X = csr_matrix(adata.X.copy())
+            except IndexError as ie:
+                raise Exception(f"X transformation to sparse failed: {ie}")
+            except ValueError as ve:
+                raise Exception(f"X transformation to sparse failed {ve}")
         else:
             raise Exception("adata.X needs to be sparse.")
     # checking adata.var concordance
@@ -160,8 +166,12 @@ def read_mtx(
         )
 
     symbols = var_anno[1]
-    ensembl_id = var_anno[0]
-    adata.var["ENSEMBL"] = ensembl_id.tolist()
+    ensembl_id = var_anno[0].tolist()
+
+    all_ensembl_codes_ok(ensembl_id_list=ensembl_id)
+    all_symbols_ok(symbols_list=symbols.tolist())
+
+    adata.var["ENSEMBL"] = ensembl_id
     adata.var.index.names = ["index"]
 
     if use_genes == "SYMBOL":
@@ -171,7 +181,7 @@ def read_mtx(
         print("making var_names unique")
         adata.var_names_make_unique()
 
-        if symbols.tolist() != ensembl_id.tolist():
+        if symbols.tolist() != ensembl_id:
             print("adding ENSEMBL gene ids to adata.var")
             adata.var["SYMBOL"] = symbols.tolist()
     elif use_genes == "ENSEMBL":
@@ -184,10 +194,10 @@ def read_mtx(
         else:
             # lookup the corresponding Symbols
             adata.var["SYMBOL"] = convert_ensembl_to_symbol(
-                ensembl_id.tolist(), species=species
+                ensembl_id, species=species
             )
     else:
-        sys.exit("supplied unknown use_genes parameter")
+        sys.exit("Supplied unknown 'use_genes' parameter")
 
     check_response = check_data_for_citeseq(var_anno=var_anno)
 
@@ -211,15 +221,85 @@ def read_mtx(
     else:
         raise ValueError("citeseq parameters has invalid value. Possible values: 'gex_only', 'citeseq_only', False or None.")
     
-    if annotation == True:
+    if annotation:
         print("adding annotation")
         adata.obs = pd.read_csv(
             os.path.join(filepath, "metadata.tsv"), sep="\\t", engine="python"
         )
         if adata.obs.get("CELL") is not None:
+            # remove all spaces which are in the CELL column
+            adata.obs[["CELL"]] = adata.obs.get("CELL").apply(
+                lambda x: x.replace(" ", "_")
+            )
             adata.obs.index = adata.obs.get("CELL").tolist()
 
     return adata
+
+
+def all_ensembl_codes_ok(ensembl_id_list: List[str]) -> bool:
+    """Checks if all elements of a given list are matching the ENSEMBL gene naming regex
+
+    Args:
+        ensembl_id_list list[str]: list of ENSEMBL gene names
+
+    Returns:
+        bool: True if all elements match the regex
+
+    Examples:
+
+        >>> ensembl_id_list = ['ENSMUSG00000051951', 'ENSMUSG0000005195A', 'ENSMUSG00000051922']
+        >>> all_ok = all_ensembl_codes_ok(ensembl_id_list=ensembl_id_list)
+        >>> print(all_ok)
+        False
+
+        >>> ensembl_id_list = ['ENSMUSG00000051951', 'ENSMUSG00000051922']
+        >>> all_ok = all_ensembl_codes_ok(ensembl_id_list=ensembl_id_list)
+        >>> print(all_ok)
+        True
+
+    """
+
+    ensembl_regexp = re.compile(r"ENS[A-Z]+[0-9]{11}")
+    faulty_ensembl_genes = [gene for gene in ensembl_id_list if not ensembl_regexp.fullmatch(gene)]
+
+    if (faulty_ensembl_genes):
+        warnings.warn(f"Detected faulty ENSEMBL gene names: {faulty_ensembl_genes}")
+        return False
+
+    return True
+
+
+def all_symbols_ok(symbols_list: List[str]) -> bool:
+    """Checks if all elements of a given list are matching the defined regex which should be basically
+       a mixtures of letters and numbers.
+       They should not be empty, not NA, and not numbers only.
+
+    Args:
+        symbols_list list[str]: list of SYMBOL gene names
+
+    Returns:
+        bool: True if all elements match the regex
+
+      Examples:
+
+        >>> symbols_list = ['AC004.2', 'AC43.3', 'A1', 'AC004.2', 'ACDF3', 'A..4A', 'YYYY', '782387324A', 'Nature', 'GoodgenedNA', 'NAGene', 'abcNAcde','nature']
+        >>> symbols_all_ok = all_symbols_ok(symbols_list=symbols_list)
+        >>> print(symbols_all_ok)
+        True
+        >>> symbols_list = ['434443', 'NA', '.', '...', '.1', '.NA', '', 'na', 'Na', 'N/A', 'CORRECTGeneName']
+        >>> symbols_all_ok = all_symbols_ok(symbols_list=symbols_list)
+        >>> print(symbols_all_ok)
+        False
+    """
+
+    symbol_regexp = re.compile(r"(?!\.)(?!NA$|na$|Na$|nA$)(?=.*[a-zA-Z].*)([a-zA-Z0-9\.]+)")
+    faulty_symbol_genes = [gene for gene in symbols_list if not symbol_regexp.fullmatch(gene)]
+
+    if (faulty_symbol_genes):
+        warnings.warn(f"Detected faulty symbol gene names: {faulty_symbol_genes}")
+        return False
+
+    return True
 
 
 def check_data_for_citeseq(var_anno):
@@ -242,3 +322,4 @@ def check_data_for_citeseq(var_anno):
             return False
     else:
         return False
+
