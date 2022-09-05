@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Check out the repo and use mamba
         uses: actions/checkout@v3
-      - uses: conda-incubator/setup-miniconda@v2
+      - uses: conda-incubator/setup-miniconda@v2.1.1
         with:
             miniforge-variant: Mambaforge
             miniforge-version: latest
@@ -22,7 +22,7 @@ jobs:
             use-mamba: true
       - name: Cache conda packages
         id: cache-conda
-        uses: actions/cache@v3
+        uses: actions/cache@v3.0.8
         env:
           cache-name: cache-conda-packages
         with:
@@ -37,7 +37,7 @@ jobs:
         shell: bash
 
       - name: Cache conda env
-        uses: actions/cache@v3
+        uses: actions/cache@v3.0.8
         with:
           path: ${{ env.CONDA }}/envs
           key: conda-${{ runner.os }}--${{ runner.arch }}--${{ steps.get-date.outputs.today }}-${{ hashFiles('**/docs/environment.lock.yml') }}-${{ env.CACHE_NUMBER }}
