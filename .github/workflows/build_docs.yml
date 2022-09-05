@@ -47,7 +47,9 @@ jobs:
         id: cache
 
       - name: Update environment
-        run: mamba env update -n besca_create_docu -f docs/environment.lock.yml
+        run: |
+          head docs/environment.lock.yml
+          mamba env update -n besca_create_docu -f docs/environment.lock.yml
         if: steps.cache.outputs.cache-hit != 'true'
 
       - name: Run Sphinx
