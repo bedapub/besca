@@ -7,6 +7,13 @@ import sys
 from datetime import datetime
 import besca
 
+# plotly  plots in sphinx gallery
+# https://sphinx-gallery.github.io/dev/auto_examples/plot_9_plotly.html
+import plotly.io as pio
+
+pio.renderers.default = "sphinx_gallery"
+
+
 sys.path.insert(0, os.path.abspath("../.."))
 
 # -- Project information -----------------------------------------------------

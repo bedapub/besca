@@ -29,7 +29,7 @@ adata = bc.datasets.pbmc3k_filtered()
 adata.obs.drop(columns=["leiden"], inplace=True)
 
 sc.tl.leiden(adata)
-# visualize the louvain clusters
+# visualize the leiden clusters
 sc.pl.umap(adata, color=["leiden"])
 
 ##############################################################################
@@ -62,9 +62,9 @@ sc.pl.umap(adata, color=["FCER1A", "CD14", "FCGR3A"])
 # ---------------------------------
 #
 # Depending on how fine-grained your clustering is you will often come into the
-# the situation that a louvain cluster contains several cell-populations that
+# the situation that a leiden cluster contains several cell-populations that
 # are clearly segregated based on the marker gene expression. If this happens you
-# can try and adjust the louvain resolution parameter to make the clustering more
+# can try and adjust the leiden resolution parameter to make the clustering more
 # fine-grained, but this will not always be successfull. Especially in cases where
 # your sample contains vastly different celltypes (e.g. an Immuncell dataset
 # containing B-cells and T-cells) it will be difficult to resolve T-cell subsets

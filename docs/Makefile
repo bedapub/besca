@@ -19,6 +19,10 @@ help:
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
+# hack to get the riverplot working. The CDN needs to be at the top of the html file
+# Note: only works with GNU sed, not the OS X / macOS / FreeBSD sed!
+	sed -i '30i <script src="https://cdn.plot.ly/plotly-2.14.0.min.js"></script>' ../../besca-docs/html/auto_examples/plotting/plot_riverplot.html
+
 latexpdf:
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(PDFBUILDDIR)/latex
 	#                                          ^^^

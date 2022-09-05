@@ -27,7 +27,7 @@ This tutorial will give you a general introduction into single-cell sequencing a
 
 **Part 3**: :doc:`batch correction <tutorials/notebook3_batch_correction>`
 
-After looking at the introductory tutorial you can download the hands-on tutorial yourself from `here <github.com/bedapub/besca/blob/master/docs/source/tutorials/scRNAseq_tutorial.ipynb>`_  (please save the link as a :code:`.ipynb` file) and compare with the results published :doc:`here <tutorials/scRNAseq_tutorial>`.
+After looking at the introductory tutorial you can download the hands-on tutorial yourself from `scRNAseq_tutorial.ipynb <github.com/bedapub/besca/blob/master/docs/source/tutorials/scRNAseq_tutorial.ipynb>`_  (please save the link as a :code:`.ipynb` file) and compare with the results published :doc:`here <tutorials/scRNAseq_tutorial>`.
 
 
 single cell auto_annot tutorial for cell type annotation
@@ -35,8 +35,7 @@ single cell auto_annot tutorial for cell type annotation
 
 We also provide a tutorial for the auto_annot package, which allows to automatically annotate cell types using supervised machine learning, 
 you can download it from `here <http://github.com/bedapub/besca/blob/master/docs/source/tutorials/auto_annot_tutorial.ipynb>`_  
-(please save the link as a :code:`.ipynb` file) and compare with the results published
- :doc:`here <tutorials/auto_annot_tutorial>`.
+(please save the link as a :code:`.ipynb` file) and compare with the results published :doc:`<tutorials/auto_annot_tutorial>`.
 
 
 Bescape: cell deconvolution tutorial

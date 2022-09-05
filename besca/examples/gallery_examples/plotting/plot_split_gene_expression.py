@@ -29,4 +29,5 @@ bc.pl.gene_expr_split_stacked(
     genes=["Defa24", "Gm15284"],
     split_variable="donor",
     subset_variable="region_x",
+    inner=None,
 )

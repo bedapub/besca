@@ -1,9 +1,9 @@
 """
-reclustering on specific louvain clusters
+reclustering on specific leiden clusters
 =========================================
 
 This example demonstrates who to perform a reclustering on a selected subset of
-louvain clusters. You will want to do this for example during the process of celltype
+leiden clusters. You will want to do this for example during the process of celltype
 annotation, when the  clusters do not have a sufficient resolution to seperate
 all clusters and mixed cell populations still exist.
 
