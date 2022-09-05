@@ -1,5 +1,4 @@
 import pathlib
-from urllib.error import URLError
 import pytest
 from typing import List
 from os.path import join
@@ -8,7 +7,6 @@ from random import sample
 import anndata
 import numpy as np
 from scipy.sparse import csr_matrix
-import pkg_resources
 
 from scvelo import AnnData
 
@@ -28,17 +26,6 @@ def load_kotliarov2020_processed_data() -> AnnData:
 @pytest.fixture(scope="session")
 def load_kotliarov2020_raw_data() -> AnnData:
     return bc.datasets.Kotliarov2020_raw()
-
-
-@pytest.fixture(scope="session")
-def load_pbmc68k_reduced() -> AnnData:
-
-    filename = pkg_resources.resource_filename(
-        "besca", "datasets/data/baron_processed.h5ad"
-    )
-
-    adata = sc.read(filename=filename, cache=True)
-    return adata
 
 
 @pytest.fixture(scope="session")
@@ -84,7 +71,7 @@ def reference_folder() -> str:
 
 
 def test_additional_labeling(
-    load_pbmc68k_reduced: AnnData,
+    load_kotliarov2020_processed_data: AnnData,
     reference_files: List[str],
     reference_folder: str,
     tmp_path_factory: pathlib.Path,
@@ -93,7 +80,7 @@ def test_additional_labeling(
     tmp_path = tmp_path_factory.mktemp("additional_labeling")
 
     additional_labeling(
-        adata=load_pbmc68k_reduced,
+        adata=load_kotliarov2020_processed_data,
         labeling_author="MK",
         results_folder=join(tmp_path),
         labeling_to_use="celltype1",
@@ -103,7 +90,7 @@ def test_additional_labeling(
     )
 
     additional_labeling(
-        adata=load_pbmc68k_reduced,
+        adata=load_kotliarov2020_processed_data,
         labeling_author="MK",
         results_folder=join(tmp_path),
         labeling_to_use="celltype1",
