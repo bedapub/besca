@@ -4,8 +4,14 @@ import importlib
 from besca.st._FAIR_export import export_norm_citeseq
 import logging
 from scanpy.tools import pca as sc_pca
+import deprecation
 
 
+@deprecation.deprecated(
+    deprecated_in="2.5",
+    removed_in="3.0",
+    details="This R-based function is marked deprecated and will be removed in future versions of besca!",
+)
 def maxLikGlobalDimEst(adata, k=20, nrpcs=50, rlib_loc=""):
     """
     Estimates the intrinsic dimensionality of the data, based on the 'maxLikGlobalDimEst' function of the 'intrinsicDimension' R package.
@@ -55,6 +61,11 @@ def maxLikGlobalDimEst(adata, k=20, nrpcs=50, rlib_loc=""):
     return int(n_dimest[0])
 
 
+@deprecation.deprecated(
+    deprecated_in="2.5",
+    removed_in="3.0",
+    details="This R-based function is marked deprecated and will be removed in future versions of besca!",
+)
 def deviance(adata, n_genes=4000, rlib_loc=""):
     """
     Wrapper of the 'deviance' method of highly-variable gene selection, included in the 'scry' R package.
@@ -110,6 +121,11 @@ def deviance(adata, n_genes=4000, rlib_loc=""):
     return adata
 
 
+@deprecation.deprecated(
+    deprecated_in="2.5",
+    removed_in="3.0",
+    details="This R-based function is marked deprecated and will be removed in future versions of besca!",
+)
 def dsb_normalize(
     adata_prot,
     raw_path,
@@ -121,7 +137,13 @@ def dsb_normalize(
     numi_max=3.5,
 ):
     """
-    Perform DSB normalization. If isotypes are present among the proteins, please make sure that the relevant protein have 'isotype' in their names (gene symbols). The function also generate a QC plot when negative cells are imputed from UMI threshold. Please have a look at it and eventually adapt the numi_min and numi_max. It is highly advised to use this function if HTOs/ isotypes are available as they lead to higher-confidence negative droplets. The function is a wrapper adapter from https://github.com/niaid/dsb. Please visit their page for more information on the algorithm.
+    Perform DSB normalization. If isotypes are present among the proteins, please make sure that
+    the relevant protein have 'isotype' in their names (gene symbols). The function also generate
+    a QC plot when negative cells are imputed from UMI threshold. Please have a look at it and
+    eventually adapt the numi_min and numi_max. It is highly advised to use this function if
+    HTOs/ isotypes are available as they lead to higher-confidence negative droplets. The function
+    is a wrapper adapter from https://github.com/niaid/dsb. Please visit their page for more
+    information on the algorithm.
 
     Parameters
     ----------
