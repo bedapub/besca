@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v3
         
       - name: setup pandoc, needed for nbsphinx
-        uses: docker://pandoc/latex:2.9
+        uses: docker://pandoc/core:2.9
         
       - uses: actions/setup-python@v1
         with:
@@ -61,9 +61,11 @@ jobs:
       #     conda env update -n besca_create_docu -f docs/environments_no_builds.lock.yml
       #   if: steps.cache.outputs.cache-hit != 'true'
 
+      - name: Poetry install
+        run: poetry install
+
       - name: Run Sphinx
         run: |
-          poetry install
           poetry shell
           cd docs
           make html
