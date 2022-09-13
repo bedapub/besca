@@ -22,52 +22,42 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v3
         
-      - name: setup-conda
-        uses: s-weigand/setup-conda@v1.1.1
+      - name: Setup poetry
+        uses: actions/setup-python@v1
         with:
-          # Whether to activate the conda base env (Default: 'true')
-          activate-conda: true # optional, default is true
-          # If conda should be updated before running other commands (Default: 'false')
-          update-conda: false # optional, default is false
-          # Python version which should be installed with conda (default: 'Default')
-          python-version: 3.8 # optional, default is default
-          # Additional channels like 'conda-forge' which can be used to install packages
-          conda-channels: conda-forge, bioconda, pytorch
-      - name: Cache conda packages
-        id: cache-conda
-        uses: actions/cache@v3.0.8
-        env:
-          cache-name: cache-conda-packages
+          python-version: 3.8
+      - uses: Gr1N/setup-poetry@v7
+      - uses: actions/cache@v2
         with:
-          path: ~/
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/docs/environment.lock.yml') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/docs/environment.lock.yml') }}
-         
-      - name: Get Date
-        id: get-date
-        run: echo "::set-output name=today::$(/bin/date -u '+%Y%m%d')"
-        shell: bash
+          path: ~/.cache/pypoetry/virtualenvs
+          key: ${{ runner.os }}-poetry-${{ hashFiles('poetry.lock') }}
+      - run: poetry --version
 
-      - name: Cache conda env
-        uses: actions/cache@v3.0.8
-        with:
-          path: ${{ env.CONDA }}/envs
-          key: conda-${{ runner.os }}--${{ runner.arch }}--${{ steps.get-date.outputs.today }}-${{ hashFiles('**/docs/environment.lock.yml') }}-${{ env.CACHE_NUMBER }}
-        env:
-          # Increase this value to reset cache if etc/example-environment.yml has not changed
-          CACHE_NUMBER: 0
-        id: cache
+         
+      # - name: Get Date
+      #   id: get-date
+      #   run: echo "::set-output name=today::$(/bin/date -u '+%Y%m%d')"
+      #   shell: bash
+
+      # - name: Cache conda env
+      #   uses: actions/cache@v3.0.8
+      #   with:
+      #     path: ${{ env.CONDA }}/envs
+      #     key: conda-${{ runner.os }}--${{ runner.arch }}--${{ steps.get-date.outputs.today }}-${{ hashFiles('**/docs/environments_no_builds.lock.yml') }}-${{ env.CACHE_NUMBER }}
+      #   env:
+      #     # Increase this value to reset cache if etc/example-environment.yml has not changed
+      #     CACHE_NUMBER: 0
+      #   id: cache
 
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
 
-      - name: Update environment
-        run: |
-          conda env update -n besca_create_docu -f docs/environments_no_builds.lock.yml
-        if: steps.cache.outputs.cache-hit != 'true'
+      # - name: Update environment
+      #   run: |
+      #     conda env update -n besca_create_docu -f docs/environments_no_builds.lock.yml
+      #   if: steps.cache.outputs.cache-hit != 'true'
 
       - name: Run Sphinx
         run: |
