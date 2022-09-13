@@ -62,8 +62,10 @@ jobs:
       - name: Poetry install
         run: poetry install
 
-      - name: Run Sphinx
+      - name: setup pandoc, needed for nbsphinx
         uses: docker://pandoc/core:2.9
+
+      - name: Run Sphinx
         run: |
           poetry shell
           cd docs
