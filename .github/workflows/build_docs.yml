@@ -21,10 +21,7 @@ jobs:
     
       - name: Check out the repo
         uses: actions/checkout@v3
-        
-      - name: setup pandoc, needed for nbsphinx
-        uses: docker://pandoc/core:2.9
-        
+               
       - uses: actions/setup-python@v1
         with:
           python-version: 3.8
@@ -54,6 +51,7 @@ jobs:
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
+        uses: docker://pandoc/core:2.9
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
 
       # - name: Update environment
@@ -65,6 +63,7 @@ jobs:
         run: poetry install
 
       - name: Run Sphinx
+        uses: docker://pandoc/core:2.9
         run: |
           poetry shell
           cd docs
