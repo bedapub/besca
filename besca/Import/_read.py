@@ -228,7 +228,7 @@ def read_mtx(
         )
         if adata.obs.get("CELL") is not None:
             # remove all spaces which are in the CELL column
-            adata.obs[["CELL"]] = adata.obs.get("CELL").apply(
+            adata.obs["CELL"] = adata.obs.get("CELL").apply(
                 lambda x: x.replace(" ", "_")
             )
             adata.obs.index = adata.obs.get("CELL").tolist()
@@ -303,7 +303,7 @@ def all_symbols_ok(symbols_list: List[str]) -> bool:
 
 
 def check_data_for_citeseq(var_anno):
-    """Read variable annotations and check if valid citeseq data is inlcluded
+    """Read variable annotations and check if valid citeseq data is included
     ----------
     var_anno: `Pandas.Dataframe`
         A pandas dataframe, which includes the variable annotations.
