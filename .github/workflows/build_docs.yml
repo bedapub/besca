@@ -22,8 +22,10 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v3
         
-      - name: Setup poetry
-        uses: actions/setup-python@v1
+      - name: setup pandoc, needed for nbsphinx
+        uses: docker://pandoc/latex:2.9
+        
+      - uses: actions/setup-python@v1
         with:
           python-version: 3.8
       - uses: Gr1N/setup-poetry@v7
@@ -61,8 +63,7 @@ jobs:
 
       - name: Run Sphinx
         run: |
-          conda init
-          source ~/.bashrc
-          conda activate besca_create_docu
+          poetry install
+          poetry shell
           cd docs
           make html
