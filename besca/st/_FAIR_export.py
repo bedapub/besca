@@ -27,7 +27,7 @@ def export_cp10k(adata, basepath):
 
     parameters
     ----------
-    adata: `ÀnnData`
+    adata: `AnnData`
         AnnData object that is to be exported
     basepath: `str`
         root path to the Analysis folder (i.e. ../analyzed/<ANALYSIS_NAME>)
@@ -85,7 +85,7 @@ def export_regressedOut(adata, basepath):
 
     parameters
     ----------
-    adata: `ÀnnData`
+    adata: `AnnData`
         AnnData object that is to be exported
     basepath: `str`
         root path to the Analysis folder (i.e. ../analyzed/<ANALYSIS_NAME>)
@@ -113,7 +113,7 @@ def export_clustering(adata, basepath, method):
 
     parameters
     ----------
-    adata: `ÀnnData`
+    adata: `AnnData`
         AnnData object that is to be exported
     basepath: `str`
         root path to the Analysis folder (i.e. ../analyzed/<ANALYSIS_NAME>)
@@ -142,7 +142,7 @@ def export_metadata(adata, basepath, n_pcs=3, umap=True, tsne=False):
 
     parameters
     ----------
-    adata: `ÀnnData`
+    adata: `AnnData`
         AnnData object that is to be exported
     basepath: `str`
         root path to the Analysis folder (i.e. ../analyzed/<ANALYSIS_NAME>)
@@ -171,7 +171,7 @@ def export_rank(adata, basepath, type="wilcox", labeling_name="louvain"):
 
     parameters
     ----------
-    adata: `ÀnnData`
+    adata: `AnnData`
         AnnData object that is to be exported
     basepath: `str`
         root path to the Analysis folder (i.e. ../analyzed/<ANALYSIS_NAME>)
@@ -200,7 +200,7 @@ def export_celltype(adata, basepath):
 
     parameters
     ----------
-    adata: `ÀnnData`
+    adata: `AnnData`
         AnnData object that is to be exported
     basepath: `str`
         root path to the Analysis folder (i.e. ../analyzed/<ANALYSIS_NAME>)
