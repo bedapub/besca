@@ -2,7 +2,9 @@ name: Publish Besca to PyPI # and Test PyPI
 
 on:
   release:
-    types: [created]
+    types: [created, published]
+    # Added 'published' because when you draft a release und publish, it never reaches the 'created' type
+    # https://stackoverflow.com/questions/59319281/github-action-different-between-release-created-and-published
 
 jobs:
   build-n-publish:
