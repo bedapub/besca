@@ -5,6 +5,8 @@ on:
     types: [created, published]
     # Added 'published' because when you draft a release und publish, it never reaches the 'created' type
     # https://stackoverflow.com/questions/59319281/github-action-different-between-release-created-and-published
+  
+  workflow_dispatch:
 
 jobs:
   build-n-publish:
