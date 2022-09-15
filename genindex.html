@@ -7,18 +7,22 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Index &mdash; BESCA 2.4 documentation</title>
+  <title>Index &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +39,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -68,7 +76,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -93,7 +101,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="besca.html">besca</a></li>
 <li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">code examples</a></li>
@@ -188,15 +196,16 @@
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
+ | <a href="#W"><strong>W</strong></a>
  | <a href="#X"><strong>X</strong></a>
  
 </div>
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="auto_annot/besca.tl.auto_annot.adata_pred_prob.html#besca.tl.auto_annot.adata_pred_prob">adata_pred_prob() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.adata_pred_prob.html#besca.tl.auto_annot.adata_pred_prob">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.adata_pred_prob.html#besca.tl.auto_annot.adata_pred_prob">adata_pred_prob() (in module besca.tl.auto_annot)</a>
 </li>
-      <li><a href="auto_annot/besca.tl.auto_annot.adata_predict.html#besca.tl.auto_annot.adata_predict">adata_predict() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.adata_predict.html#besca.tl.auto_annot.adata_predict">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.adata_predict.html#besca.tl.auto_annot.adata_predict">adata_predict() (in module besca.tl.auto_annot)</a>
 </li>
       <li><a href="sig/besca.tl.sig.add_anno.html#besca.tl.sig.add_anno">add_anno() (in module besca.tl.sig)</a>
 </li>
@@ -314,11 +323,13 @@
 </li>
       <li><a href="sig/besca.tl.sig.compute_signed_score.html#besca.tl.sig.compute_signed_score">compute_signed_score() (in module besca.tl.sig)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="helper_functions/besca.concate_adata.html#besca.concate_adata">concate_adata() (in module besca)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="helper_functions/besca.convert_ensembl_to_symbol.html#besca.convert_ensembl_to_symbol">convert_ensembl_to_symbol() (in module besca)</a>
+</li>
+      <li><a href="sig/besca.tl.sig.convert_siggenes.html#besca.tl.sig.convert_siggenes">convert_siggenes() (in module besca.tl.sig)</a>
 </li>
       <li><a href="helper_functions/besca.convert_symbol_to_ensembl.html#besca.convert_symbol_to_ensembl">convert_symbol_to_ensembl() (in module besca)</a>
 </li>
@@ -378,6 +389,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="besca/besca.pp.filter.html#besca.pp.filter">filter() (in module besca.pp)</a>, <a href="preprocessing/besca.pp.filter.html#besca.pp.filter">[1]</a>
 </li>
+      <li><a href="sig/besca.tl.sig.filter_by_set.html#besca.tl.sig.filter_by_set">filter_by_set() (in module besca.tl.sig)</a>
+</li>
       <li><a href="besca/besca.pp.filter_gene_list.html#besca.pp.filter_gene_list">filter_gene_list() (in module besca.pp)</a>, <a href="preprocessing/besca.pp.filter_gene_list.html#besca.pp.filter_gene_list">[1]</a>
 </li>
       <li><a href="sig/besca.tl.sig.filter_siggenes.html#besca.tl.sig.filter_siggenes">filter_siggenes() (in module besca.tl.sig)</a>
@@ -388,7 +401,9 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="auto_annot/besca.tl.auto_annot.fit.html#besca.tl.auto_annot.fit">fit() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.fit.html#besca.tl.auto_annot.fit">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.fit.html#besca.tl.auto_annot.fit">fit() (in module besca.tl.auto_annot)</a>
+</li>
+      <li><a href="besca/besca.pl.flex_dotplot.html#besca.pl.flex_dotplot">flex_dotplot() (in module besca.pl)</a>, <a href="plotting/besca.pl.flex_dotplot.html#besca.pl.flex_dotplot">[1]</a>
 </li>
       <li><a href="besca/besca.pp.frac_pos.html#besca.pp.frac_pos">frac_pos() (in module besca.pp)</a>, <a href="preprocessing/besca.pp.frac_pos.html#besca.pp.frac_pos">[1]</a>
 </li>
@@ -436,7 +451,7 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="auto_annot/besca.tl.auto_annot.intersect_genes.html#besca.tl.auto_annot.intersect_genes">intersect_genes() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.intersect_genes.html#besca.tl.auto_annot.intersect_genes">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.intersect_genes.html#besca.tl.auto_annot.intersect_genes">intersect_genes() (in module besca.tl.auto_annot)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -458,8 +473,6 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="besca/besca.export.labeling.html#besca.export.labeling">labeling() (in module besca.export)</a>, <a href="export/besca.export.labeling.html#besca.export.labeling">[1]</a>
-</li>
       <li><a href="besca/besca.export.labeling_info.html#besca.export.labeling_info">labeling_info() (in module besca.export)</a>, <a href="export/besca.export.labeling_info.html#besca.export.labeling_info">[1]</a>
 </li>
       <li><a href="besca/besca.pl.library_size.html#besca.pl.library_size">library_size() (in module besca.pl)</a>, <a href="plotting/besca.pl.library_size.html#besca.pl.library_size">[1]</a>
@@ -468,13 +481,13 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="auto_annot/besca.tl.auto_annot.linear_svm.html#besca.tl.auto_annot.linear_svm">linear_svm() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.linear_svm.html#besca.tl.auto_annot.linear_svm">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.linear_svm.html#besca.tl.auto_annot.linear_svm">linear_svm() (in module besca.tl.auto_annot)</a>
 </li>
-      <li><a href="auto_annot/besca.tl.auto_annot.logistic_regression.html#besca.tl.auto_annot.logistic_regression">logistic_regression() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.logistic_regression.html#besca.tl.auto_annot.logistic_regression">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.logistic_regression.html#besca.tl.auto_annot.logistic_regression">logistic_regression() (in module besca.tl.auto_annot)</a>
 </li>
-      <li><a href="auto_annot/besca.tl.auto_annot.logistic_regression_elastic.html#besca.tl.auto_annot.logistic_regression_elastic">logistic_regression_elastic() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.logistic_regression_elastic.html#besca.tl.auto_annot.logistic_regression_elastic">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.logistic_regression_elastic.html#besca.tl.auto_annot.logistic_regression_elastic">logistic_regression_elastic() (in module besca.tl.auto_annot)</a>
 </li>
-      <li><a href="auto_annot/besca.tl.auto_annot.logistic_regression_ovr.html#besca.tl.auto_annot.logistic_regression_ovr">logistic_regression_ovr() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.logistic_regression_ovr.html#besca.tl.auto_annot.logistic_regression_ovr">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.logistic_regression_ovr.html#besca.tl.auto_annot.logistic_regression_ovr">logistic_regression_ovr() (in module besca.tl.auto_annot)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -484,7 +497,11 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="sig/besca.tl.sig.make_anno.html#besca.tl.sig.make_anno">make_anno() (in module besca.tl.sig)</a>
 </li>
+      <li><a href="sig/besca.tl.sig.make_gmtx.html#besca.tl.sig.make_gmtx">make_gmtx() (in module besca.tl.sig)</a>
+</li>
       <li><a href="sig/besca.tl.sig.match_cluster.html#besca.tl.sig.match_cluster">match_cluster() (in module besca.tl.sig)</a>
+</li>
+      <li><a href="sig/besca.tl.sig.match_label.html#besca.tl.sig.match_label">match_label() (in module besca.tl.sig)</a>
 </li>
       <li><a href="besca/besca.pl.max_counts.html#besca.pl.max_counts">max_counts() (in module besca.pl)</a>, <a href="plotting/besca.pl.max_counts.html#besca.pl.max_counts">[1]</a>
 </li>
@@ -494,7 +511,7 @@
 </li>
       <li><a href="besca/besca.pp.mean_expr.html#besca.pp.mean_expr">mean_expr() (in module besca.pp)</a>, <a href="preprocessing/besca.pp.mean_expr.html#besca.pp.mean_expr">[1]</a>
 </li>
-      <li><a href="auto_annot/besca.tl.auto_annot.merge_data.html#besca.tl.auto_annot.merge_data">merge_data() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.merge_data.html#besca.tl.auto_annot.merge_data">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.merge_data.html#besca.tl.auto_annot.merge_data">merge_data() (in module besca.tl.auto_annot)</a>
 </li>
       <li>
     module
@@ -527,7 +544,7 @@
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="auto_annot/besca.tl.auto_annot.naive_merge.html#besca.tl.auto_annot.naive_merge">naive_merge() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.naive_merge.html#besca.tl.auto_annot.naive_merge">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.naive_merge.html#besca.tl.auto_annot.naive_merge">naive_merge() (in module besca.tl.auto_annot)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -542,6 +559,10 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="sig/besca.tl.sig.obtain_dblabel.html#besca.tl.sig.obtain_dblabel">obtain_dblabel() (in module besca.tl.sig)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="sig/besca.tl.sig.obtain_new_label.html#besca.tl.sig.obtain_new_label">obtain_new_label() (in module besca.tl.sig)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -559,9 +580,9 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="bcor/besca.tl.bcor.postprocess_mnnpy.html#besca.tl.bcor.postprocess_mnnpy">postprocess_mnnpy() (in module besca.tl.bcor)</a>, <a href="besca/besca.tl.bcor.postprocess_mnnpy.html#besca.tl.bcor.postprocess_mnnpy">[1]</a>
 </li>
-      <li><a href="auto_annot/besca.tl.auto_annot.predict.html#besca.tl.auto_annot.predict">predict() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.predict.html#besca.tl.auto_annot.predict">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.predict.html#besca.tl.auto_annot.predict">predict() (in module besca.tl.auto_annot)</a>
 </li>
-      <li><a href="auto_annot/besca.tl.auto_annot.predict_proba.html#besca.tl.auto_annot.predict_proba">predict_proba() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.predict_proba.html#besca.tl.auto_annot.predict_proba">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.predict_proba.html#besca.tl.auto_annot.predict_proba">predict_proba() (in module besca.tl.auto_annot)</a>
 </li>
       <li><a href="besca/besca.export.pseudobulk.html#besca.export.pseudobulk">pseudobulk() (in module besca.export)</a>, <a href="export/besca.export.pseudobulk.html#besca.export.pseudobulk">[1]</a>
 </li>
@@ -571,19 +592,19 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="auto_annot/besca.tl.auto_annot.random_forest.html#besca.tl.auto_annot.random_forest">random_forest() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.random_forest.html#besca.tl.auto_annot.random_forest">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.random_forest.html#besca.tl.auto_annot.random_forest">random_forest() (in module besca.tl.auto_annot)</a>
 </li>
       <li><a href="besca/besca.export.ranked_genes.html#besca.export.ranked_genes">ranked_genes() (in module besca.export)</a>, <a href="export/besca.export.ranked_genes.html#besca.export.ranked_genes">[1]</a>
 </li>
       <li><a href="besca/besca.export.raw_to_mtx.html#besca.export.raw_to_mtx">raw_to_mtx() (in module besca.export)</a>, <a href="export/besca.export.raw_to_mtx.html#besca.export.raw_to_mtx">[1]</a>
 </li>
-      <li><a href="auto_annot/besca.tl.auto_annot.rbf_svm.html#besca.tl.auto_annot.rbf_svm">rbf_svm() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.rbf_svm.html#besca.tl.auto_annot.rbf_svm">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.rbf_svm.html#besca.tl.auto_annot.rbf_svm">rbf_svm() (in module besca.tl.auto_annot)</a>
 </li>
-      <li><a href="auto_annot/besca.tl.auto_annot.read_adata.html#besca.tl.auto_annot.read_adata">read_adata() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.read_adata.html#besca.tl.auto_annot.read_adata">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.read_adata.html#besca.tl.auto_annot.read_adata">read_adata() (in module besca.tl.auto_annot)</a>
 </li>
       <li><a href="sig/besca.tl.sig.read_annotconfig.html#besca.tl.sig.read_annotconfig">read_annotconfig() (in module besca.tl.sig)</a>
 </li>
-      <li><a href="auto_annot/besca.tl.auto_annot.read_data.html#besca.tl.auto_annot.read_data">read_data() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.read_data.html#besca.tl.auto_annot.read_data">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.read_data.html#besca.tl.auto_annot.read_data">read_data() (in module besca.tl.auto_annot)</a>
 </li>
       <li><a href="sig/besca.tl.sig.read_GMT_sign.html#besca.tl.sig.read_GMT_sign">read_GMT_sign() (in module besca.tl.sig)</a>
 </li>
@@ -593,18 +614,18 @@
 </li>
       <li><a href="besca/besca.Import.read_mtx.html#besca.Import.read_mtx">read_mtx() (in module besca.Import)</a>, <a href="import/besca.Import.read_mtx.html#besca.Import.read_mtx">[1]</a>
 </li>
-      <li><a href="auto_annot/besca.tl.auto_annot.read_raw.html#besca.tl.auto_annot.read_raw">read_raw() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.read_raw.html#besca.tl.auto_annot.read_raw">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.read_raw.html#besca.tl.auto_annot.read_raw">read_raw() (in module besca.tl.auto_annot)</a>
 </li>
       <li><a href="besca/besca.tl.rc.recluster.html#besca.tl.rc.recluster">recluster() (in module besca.tl.rc)</a>, <a href="reclustering/besca.tl.rc.recluster.html#besca.tl.rc.recluster">[1]</a>
 </li>
-      <li><a href="auto_annot/besca.tl.auto_annot.remove_genes.html#besca.tl.auto_annot.remove_genes">remove_genes() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.remove_genes.html#besca.tl.auto_annot.remove_genes">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.remove_genes.html#besca.tl.auto_annot.remove_genes">remove_genes() (in module besca.tl.auto_annot)</a>
 </li>
-      <li><a href="auto_annot/besca.tl.auto_annot.remove_nonshared.html#besca.tl.auto_annot.remove_nonshared">remove_nonshared() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.remove_nonshared.html#besca.tl.auto_annot.remove_nonshared">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.remove_nonshared.html#besca.tl.auto_annot.remove_nonshared">remove_nonshared() (in module besca.tl.auto_annot)</a>
 </li>
       <li><a href="besca/besca.tl.report.html#besca.tl.report">report() (in module besca.tl)</a>, <a href="tools/besca.tl.report.html#besca.tl.report">[1]</a>
 
       <ul>
-        <li><a href="auto_annot/besca.tl.auto_annot.report.html#besca.tl.auto_annot.report">(in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.report.html#besca.tl.auto_annot.report">[1]</a>
+        <li><a href="auto_annot/besca.tl.auto_annot.report.html#besca.tl.auto_annot.report">(in module besca.tl.auto_annot)</a>
 </li>
       </ul></li>
       <li><a href="besca/besca.pl.riverplot_2categories.html#besca.pl.riverplot_2categories">riverplot_2categories() (in module besca.pl)</a>, <a href="plotting/besca.pl.riverplot_2categories.html#besca.pl.riverplot_2categories">[1]</a>
@@ -615,7 +636,9 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="auto_annot/besca.tl.auto_annot.scanorama_merge.html#besca.tl.auto_annot.scanorama_merge">scanorama_merge() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.scanorama_merge.html#besca.tl.auto_annot.scanorama_merge">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.scanorama_merge.html#besca.tl.auto_annot.scanorama_merge">scanorama_merge() (in module besca.tl.auto_annot)</a>
+</li>
+      <li><a href="auto_annot/besca.tl.auto_annot.scanvi_predict.html#besca.tl.auto_annot.scanvi_predict">scanvi_predict() (in module besca.tl.auto_annot)</a>
 </li>
       <li><a href="sig/besca.tl.sig.score_mw.html#besca.tl.sig.score_mw">score_mw() (in module besca.tl.sig)</a>
 </li>
@@ -623,7 +646,11 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="auto_annot/besca.tl.auto_annot.sgd_svm.html#besca.tl.auto_annot.sgd_svm">sgd_svm() (in module besca.tl.auto_annot)</a>, <a href="reclustering/besca.tl.auto_annot.sgd_svm.html#besca.tl.auto_annot.sgd_svm">[1]</a>
+      <li><a href="auto_annot/besca.tl.auto_annot.scvi_merge.html#besca.tl.auto_annot.scvi_merge">scvi_merge() (in module besca.tl.auto_annot)</a>
+</li>
+      <li><a href="auto_annot/besca.tl.auto_annot.sgd_svm.html#besca.tl.auto_annot.sgd_svm">sgd_svm() (in module besca.tl.auto_annot)</a>
+</li>
+      <li><a href="sig/besca.tl.sig.silhouette_computation.html#besca.tl.sig.silhouette_computation">silhouette_computation() (in module besca.tl.sig)</a>
 </li>
       <li><a href="besca/besca.pl.stacked_split_violin.html#besca.pl.stacked_split_violin">stacked_split_violin() (in module besca.pl)</a>, <a href="plotting/besca.pl.stacked_split_violin.html#besca.pl.stacked_split_violin">[1]</a>
 </li>
@@ -662,6 +689,22 @@
       <li><a href="besca/besca.pp.valOutlier.html#besca.pp.valOutlier">valOutlier() (in module besca.pp)</a>, <a href="preprocessing/besca.pp.valOutlier.html#besca.pp.valOutlier">[1]</a>
 </li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="auto_annot/besca.tl.auto_annot.visualise_scvi_merge.html#besca.tl.auto_annot.visualise_scvi_merge">visualise_scvi_merge() (in module besca.tl.auto_annot)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="sig/besca.tl.sig.write_gmtx_forgems.html#besca.tl.sig.write_gmtx_forgems">write_gmtx_forgems() (in module besca.tl.sig)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="besca/besca.export.write_labeling_to_files.html#besca.export.write_labeling_to_files">write_labeling_to_files() (in module besca.export)</a>, <a href="export/besca.export.write_labeling_to_files.html#besca.export.write_labeling_to_files">[1]</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="X">X</h2>
@@ -683,7 +726,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

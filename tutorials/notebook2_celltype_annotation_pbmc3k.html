@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>notebook 2 - celltype annotation and beyond &mdash; BESCA 2.4 documentation</title>
+  <title>notebook 2 - celltype annotation and beyond &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,10 +40,16 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -70,7 +81,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -95,7 +106,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../besca.html">besca</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">code examples</a></li>
@@ -402,11 +413,12 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt a.copybtn {
+.prompt .copybtn {
     display: none;
 }
 
 /* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
 div.rendered_html table {
   border: none;
   border-collapse: collapse;
@@ -415,10 +427,14 @@ div.rendered_html table {
   font-size: 12px;
   table-layout: fixed;
 }
+.jp-RenderedHTMLCommon thead,
 div.rendered_html thead {
   border-bottom: 1px solid black;
   vertical-align: bottom;
 }
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
 div.rendered_html tr,
 div.rendered_html th,
 div.rendered_html td {
@@ -430,12 +446,15 @@ div.rendered_html td {
   max-width: none;
   border: none;
 }
+.jp-RenderedHTMLCommon th,
 div.rendered_html th {
   font-weight: bold;
 }
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
 div.rendered_html tbody tr:nth-child(odd) {
   background: #f5f5f5;
 }
+.jp-RenderedHTMLCommon tbody tr:hover,
 div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
@@ -462,27 +481,25 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="notebook-2---celltype-annotation-and-beyond">
-<h1>notebook 2 - celltype annotation and beyond<a class="headerlink" href="#notebook-2---celltype-annotation-and-beyond" title="Permalink to this headline">¶</a></h1>
+<section id="notebook-2---celltype-annotation-and-beyond">
+<h1>notebook 2 - celltype annotation and beyond<a class="headerlink" href="#notebook-2---celltype-annotation-and-beyond" title="Permalink to this heading">¶</a></h1>
 <p>This notebook will introduce you to the process of celltype annotation and give you a brief outlook of some of the analysis you can do with single-cell data in scanpy &amp; besca.</p>
 <p>Initial visualization and hand annotation is performed here to show the possible hand-annotation and how Besca is now proposing an automated annotation process, including for mix-cluster. This procedure is done in a more straighforward manner on the same dataset in the notebook available there:</p>
 <p><a class="reference external" href="https://github.com/bedapub/besca_publication_results/blob/master/hematopoietic/pbmc3k/celltype_annotation_besca_Rc.ipynb">https://github.com/bedapub/besca_publication_results/blob/master/hematopoietic/pbmc3k/celltype_annotation_besca_Rc.ipynb</a></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#import necessary python packages</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#import necessary python packages</span>
 <span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span> <span class="c1">#software suite of tools for single-cell analysis in python</span>
 <span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span> <span class="c1">#internal BEDA package for single cell analysis</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -500,98 +517,90 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-scanpy==1.6.0 anndata==0.7.4 umap==0.4.6 numpy==1.19.2 scipy==1.5.2 pandas==1.1.3 scikit-learn==0.23.2 statsmodels==0.12.0 python-igraph==0.8.2 leidenalg==0.8.2
+scanpy==1.9.1 anndata==0.8.0 umap==0.5.3 numpy==1.20.0 scipy==1.9.0 pandas==1.4.3 scikit-learn==1.1.1 statsmodels==0.13.2 python-igraph==0.9.11 pynndescent==0.5.4
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># Will only print error.</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Will only print error.</span>
 <span class="c1"># Warning (eg genes not found) are ignored.</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">verbosity</span><span class="o">=</span><span class="mi">0</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
 <span class="n">task</span> <span class="o">=</span> <span class="s2">&quot;&lt;style&gt;div.task { background-color: #ffc299; border-color: #ff944d; border-left: 7px solid #ff944d; padding: 1em;} &lt;/style&gt;&quot;</span>
 <span class="n">HTML</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style>div.task { background-color: #ffc299; border-color: #ff944d; border-left: 7px solid #ff944d; padding: 1em;} </style></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tag</span> <span class="o">=</span> <span class="s2">&quot;&lt;style&gt;div.tag { background-color: #99ccff; border-color: #1a8cff; border-left: 7px solid #1a8cff; padding: 1em;} &lt;/style&gt;&quot;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tag</span> <span class="o">=</span> <span class="s2">&quot;&lt;style&gt;div.tag { background-color: #99ccff; border-color: #1a8cff; border-left: 7px solid #1a8cff; padding: 1em;} &lt;/style&gt;&quot;</span>
 <span class="n">HTML</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style>div.tag { background-color: #99ccff; border-color: #1a8cff; border-left: 7px solid #1a8cff; padding: 1em;} </style></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">FAIR</span> <span class="o">=</span> <span class="s2">&quot;&lt;style&gt;div.fair { background-color: #d2f7ec; border-color: #d2f7ec; border-left: 7px solid #2fbc94; padding: 1em;} &lt;/style&gt;&quot;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">FAIR</span> <span class="o">=</span> <span class="s2">&quot;&lt;style&gt;div.fair { background-color: #d2f7ec; border-color: #d2f7ec; border-left: 7px solid #2fbc94; padding: 1em;} &lt;/style&gt;&quot;</span>
 <span class="n">HTML</span><span class="p">(</span><span class="n">FAIR</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style>div.fair { background-color: #d2f7ec; border-color: #d2f7ec; border-left: 7px solid #2fbc94; padding: 1em;} </style></div>
 </div>
-<div class="section" id="Dataset">
-<h2>Dataset<a class="headerlink" href="#Dataset" title="Permalink to this headline">¶</a></h2>
+<section id="Dataset">
+<h2>Dataset<a class="headerlink" href="#Dataset" title="Permalink to this heading">¶</a></h2>
 <p>Here we will reload our previously completely processed dataset.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#adata = sc.read(&#39;/tmp/adata_pbmc_FRESH_processed.h5ad&#39;)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#adata = sc.read(&#39;/tmp/adata_pbmc_FRESH_processed.h5ad&#39;)</span>
 <span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc3k_filtered</span><span class="p">()</span>
-
-
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">adata</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -605,17 +614,16 @@ AnnData object with n_obs × n_vars = 2504 × 1719
     obsp: &#39;distances&#39;, &#39;connectivities&#39;
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="Celltype-annotation">
-<h2>Celltype annotation<a class="headerlink" href="#Celltype-annotation" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="Manual-cell-annotation-based-on-the-expression-of-known-marker-genes">
-<h3>Manual cell annotation based on the expression of known marker genes<a class="headerlink" href="#Manual-cell-annotation-based-on-the-expression-of-known-marker-genes" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="Celltype-annotation">
+<h2>Celltype annotation<a class="headerlink" href="#Celltype-annotation" title="Permalink to this heading">¶</a></h2>
+<section id="Manual-cell-annotation-based-on-the-expression-of-known-marker-genes">
+<h3>Manual cell annotation based on the expression of known marker genes<a class="headerlink" href="#Manual-cell-annotation-based-on-the-expression-of-known-marker-genes" title="Permalink to this heading">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#define genes (in future you will be able to access genesets from a central database GEMS)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#define genes (in future you will be able to access genesets from a central database GEMS)</span>
 <span class="n">b_cells</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CD19&#39;</span><span class="p">,</span> <span class="s1">&#39;CD79A&#39;</span><span class="p">,</span> <span class="s1">&#39;MS4A1&#39;</span><span class="p">]</span>
 <span class="n">t_cells</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CD3E&#39;</span><span class="p">,</span> <span class="s1">&#39;CD3G&#39;</span><span class="p">,</span> <span class="s1">&#39;CD3D&#39;</span><span class="p">]</span>
 <span class="n">t_cell_subsets</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CD4&#39;</span><span class="p">,</span> <span class="s1">&#39;CD8A&#39;</span><span class="p">,</span> <span class="s1">&#39;CD8B&#39;</span><span class="p">]</span>
@@ -630,11 +638,10 @@ AnnData object with n_obs × n_vars = 2504 × 1719
 <div class="tag"><p>We always use the HGNC symbols of genes as the main annotation type in the AnnData object since they are the most practical to work with. In addition, the ensemble IDs of all genes is saved in adata.var according to our FAIR standard and always written out since Ensembl IDs stay very robust over time.</p>
 <p>Based on the dataset the marker genes that are expressed may vary strongly.</p>
 </div><div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
 <span class="c1">#visualize the gene expression as an overlay of the umap</span>
 <span class="c1">#(this way you can visually identify the clusters with a high expression))</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">b_cells</span><span class="p">,</span> <span class="n">color_map</span> <span class="o">=</span> <span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">ncols</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
@@ -652,65 +659,64 @@ AnnData object with n_obs × n_vars = 2504 × 1719
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_0.png" style="width: 1083px; height: 338px;" />
+<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_0.png" style="width: 1086px; height: 341px;" />
 </div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_1.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_1.png" style="width: 1083px; height: 338px;" />
+<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_1.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_1.png" style="width: 1086px; height: 341px;" />
 </div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_2.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_2.png" style="width: 1083px; height: 338px;" />
+<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_2.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_2.png" style="width: 1086px; height: 341px;" />
 </div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_3.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_3.png" style="width: 1083px; height: 338px;" />
+<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_3.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_3.png" style="width: 1086px; height: 341px;" />
 </div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_4.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_4.png" style="width: 1083px; height: 338px;" />
+<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_4.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_4.png" style="width: 1086px; height: 341px;" />
 </div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_5.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_5.png" style="width: 1083px; height: 338px;" />
+<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_5.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_5.png" style="width: 1086px; height: 341px;" />
 </div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_6.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_6.png" style="width: 1083px; height: 338px;" />
+<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_6.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_6.png" style="width: 1086px; height: 341px;" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_7.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_7.png" style="width: 1100px; height: 338px;" />
+<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_7.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_14_7.png" style="width: 1100px; height: 341px;" />
 </div>
 </div>
 <div class="tag"><p>Per default scanpy plots the gene expression values saved in adata.raw (this means log1p(cp10k)). This is the reason that we can visualize all of these genes even if they are not contained in the highly variable genes.</p>
 </div><div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">palette</span> <span class="o">=</span> <span class="s1">&#39;tab20&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">palette</span> <span class="o">=</span> <span class="s1">&#39;tab20&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -718,15 +724,14 @@ AnnData object with n_obs × n_vars = 2504 × 1719
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_16_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_16_0.png" style="width: 376px; height: 334px;" />
+<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_16_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_16_0.png" style="width: 377px; height: 337px;" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">violin</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span> <span class="n">t_cell_subsets</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="s1">&#39;count&#39;</span> <span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">violin</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span> <span class="n">t_cell_subsets</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="s1">&#39;count&#39;</span> <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -734,15 +739,14 @@ AnnData object with n_obs × n_vars = 2504 × 1719
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_17_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_17_0.png" style="width: 971px; height: 340px;" />
+<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_17_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_17_0.png" style="width: 968px; height: 339px;" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#write down new cluster names (important order needs to be equivalent to above)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#write down new cluster names (important order needs to be equivalent to above)</span>
 <span class="c1">#will label the cell types:</span>
 
 <span class="n">new_cluster_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CD14+ monocyte&#39;</span><span class="p">,</span> <span class="c1">#0</span>
@@ -764,11 +768,10 @@ AnnData object with n_obs × n_vars = 2504 × 1719
 </div>
 <div class="tag"><p>There are also more advanced methods of cell annotation where mixed clusters (i.e. clusters that contain more than one celltype) can be reclustered seperately and then annoated. Please refer to besca’s documentation for more information.</p>
 </div><div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="s1">&#39;manual_annotation&#39;</span><span class="p">],</span> <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="s1">&#39;manual_annotation&#39;</span><span class="p">],</span> <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -776,24 +779,28 @@ AnnData object with n_obs × n_vars = 2504 × 1719
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_20_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_20_0.png" style="width: 898px; height: 338px;" />
+<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_20_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_20_0.png" style="width: 887px; height: 341px;" />
 </div>
 </div>
 <div class="tag"><p>Several clusters have been combined into one celltype. Here only a very rudimentary celltype annotation was performed. Depending on the dataset and the type of analysis this can become far more complex and detailled.</p>
 <p>We propose to use a an automated annotation methods to decipher the cluster in an <strong>un-bias</strong> way</p>
-<p>This steps requires to expore initial labelling. This steps within besca will export:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+</span> <span class="n">frac_pos</span><span class="p">,</span> <span class="n">computing</span> <span class="k">for</span> <span class="n">each</span> <span class="n">gene</span> <span class="ow">and</span> <span class="n">cluster</span> <span class="n">the</span> <span class="n">fraction</span> <span class="n">of</span> <span class="n">cells</span> <span class="n">that</span> <span class="n">show</span> <span class="n">a</span> <span class="n">gene</span> <span class="n">expression</span><span class="o">.</span>
-<span class="o">+</span> <span class="n">average</span><span class="o">.</span><span class="n">gct</span><span class="p">,</span> <span class="n">computing</span> <span class="k">for</span> <span class="n">each</span> <span class="n">gene</span> <span class="n">the</span> <span class="n">average</span> <span class="n">expression</span> <span class="n">per</span> <span class="n">cluster</span>
+<ul><li><p>Coffee</p>
+</li><li><p>Tea</p>
+</li><li><p>Milk</p>
+</li></ul><p>This steps requires to expore initial labelling. This steps within besca will export:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>+ frac_pos, computing for each gene and cluster the fraction of cells that show a gene expression.
++ average.gct, computing for each gene the average expression per cluster
 </pre></div>
 </div>
-</div><div class="fair"><p>write out required annotation
-<code class="docutils literal notranslate"><span class="pre">bc.export.labeling(adata=adata,</span> <span class="pre">outpath=FILEPATH_TO_FOLDER,</span> <span class="pre">column</span>&#160; <span class="pre">=</span> <span class="pre">'leiden')</span></code></p>
+</div><div class="fair"><p>write out required annotation</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>bc.export.labeling(adata=adata, outpath=FILEPATH_TO_FOLDER, column  = &#39;leiden&#39;)
+</pre></div>
+</div>
 </div><div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">bc</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">labeling</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span> <span class="n">outpath</span><span class="o">=</span><span class="s1">&#39;dataset_export/&#39;</span><span class="p">,</span> <span class="n">column</span>  <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">write_labeling_to_files</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span> <span class="n">outpath</span><span class="o">=</span><span class="s1">&#39;dataset_export/&#39;</span><span class="p">,</span> <span class="n">column</span>  <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -807,16 +814,15 @@ average.gct exported successfully to file
 fract_pos.gct exported successfully to file
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="Hierarchical-signature-enrichment-based-approach-for-cell-type-annotation-for-Hematopoeitic-cells">
-<h3>Hierarchical signature-enrichment based approach for cell type annotation for Hematopoeitic cells<a class="headerlink" href="#Hierarchical-signature-enrichment-based-approach-for-cell-type-annotation-for-Hematopoeitic-cells" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="Hierarchical-signature-enrichment-based-approach-for-cell-type-annotation-for-Hematopoeitic-cells">
+<h3>Hierarchical signature-enrichment based approach for cell type annotation for Hematopoeitic cells<a class="headerlink" href="#Hierarchical-signature-enrichment-based-approach-for-cell-type-annotation-for-Hematopoeitic-cells" title="Permalink to this heading">¶</a></h3>
 <p>Besca offers a hierarchical signature-enrichment based approach for cell type annotation. The initial hierarchy can be visualized below</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pkg_resources</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pkg_resources</span>
 
 <span class="n">config_file</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;besca&#39;</span><span class="p">,</span> <span class="s1">&#39;datasets/genesets/CellNames_scseqCMs6_config.tsv&#39;</span><span class="p">)</span>
 <span class="n">plt</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">nomenclature_network</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
@@ -831,35 +837,24 @@ fract_pos.gct exported successfully to file
 <img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_25_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_25_0.png" style="width: 610px; height: 610px;" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="Signature-loading-and-scoring">
-<h2>Signature loading and scoring<a class="headerlink" href="#Signature-loading-and-scoring" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="Signature-loading-and-scoring">
+<h2>Signature loading and scoring<a class="headerlink" href="#Signature-loading-and-scoring" title="Permalink to this heading">¶</a></h2>
 <p>We load signature directly importing a gmt file. In case of connection to a GemS database, it is possible to use the GeMs signature loader.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sigconfig</span><span class="p">,</span><span class="n">levsk</span><span class="o">=</span><span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">read_annotconfig</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigconfig</span><span class="p">,</span><span class="n">levsk</span><span class="o">=</span><span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">read_annotconfig</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">gmt_file_anno</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;besca&#39;</span><span class="p">,</span> <span class="s1">&#39;datasets/genesets/CellNames_scseqCMs6_sigs.gmt&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gmt_file_anno</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;besca&#39;</span><span class="p">,</span> <span class="s1">&#39;datasets/genesets/CellNames_scseqCMs6_sigs.gmt&#39;</span><span class="p">)</span>
 
 
 <span class="n">mymarkers</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">read_GMT_sign</span><span class="p">(</span><span class="n">gmt_file_anno</span><span class="p">,</span><span class="n">directed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -872,11 +867,10 @@ fract_pos.gct exported successfully to file
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 <span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s1">&#39;scanpy&#39;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span> <span class="n">scores</span><span class="p">,</span> <span class="n">color_map</span> <span class="o">=</span> <span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
 </pre></div>
@@ -886,18 +880,16 @@ fract_pos.gct exported successfully to file
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_30_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_30_0.png" style="width: 819px; height: 5059px;" />
+<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_29_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_29_0.png" style="width: 815px; height: 5409px;" />
 </div>
 </div>
 <div class="tag"><p>Signature can be observed in detailled to assess manually the cell types to which assign the different clusters. However Besca offers to use a signature-based hierarchical annotation to build on know relations (see network above). This annotation is based on the mann whitney scoring of the positive fraction of cell and signatures provided. Additionally, this signature-based annotation procedures will then use a consistent labelling of the dataset and cell-types, facilitating cross-study
 comparisons in the futur.</p>
 </div><div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-
-<span></span><span class="n">mymarkers</span><span class="p">[</span><span class="s1">&#39;Ubi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B2M&#39;</span><span class="p">,</span><span class="s1">&#39;ACTB&#39;</span><span class="p">,</span> <span class="s1">&#39;GAPDH&#39;</span><span class="p">]</span> <span class="c1">### used for cutoff adjustment to individual dataset, can be modified</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="n">mymarkers</span><span class="p">[</span><span class="s1">&#39;Ubi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B2M&#39;</span><span class="p">,</span><span class="s1">&#39;ACTB&#39;</span><span class="p">,</span> <span class="s1">&#39;GAPDH&#39;</span><span class="p">]</span> <span class="c1">### used for cutoff adjustment to individual dataset, can be modified</span>
 
 <span class="n">f</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;dataset_export/fract_pos.gct&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">skiprows</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">df</span><span class="o">=</span><span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">score_mw</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">mymarkers</span><span class="p">)</span>
@@ -908,17 +900,15 @@ comparisons in the futur.</p>
 </div>
 <p>One can observe the resulting log10(pvalues) obtained</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span>
-
-</pre></div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span>
+<br/></pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -940,56 +930,55 @@ comparisons in the futur.</p>
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>6</th>
-      <th>0</th>
-      <th>7</th>
-      <th>9</th>
-      <th>8</th>
+      <th>2</th>
       <th>11</th>
-      <th>1</th>
+      <th>10</th>
+      <th>5</th>
+      <th>3</th>
+      <th>7</th>
+      <th>6</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>Bcell</th>
-      <td>10.5977</td>
-      <td>4.33419</td>
-      <td>7.80649</td>
-      <td>1.49797</td>
-      <td>2.68703</td>
-      <td>7.80042</td>
-      <td>69.0433</td>
+      <td>0.648278</td>
+      <td>2.492097</td>
+      <td>0.34176</td>
+      <td>2.251536</td>
+      <td>1.089847</td>
+      <td>0.893858</td>
+      <td>3.92304</td>
     </tr>
     <tr>
       <th>Fibroblast</th>
-      <td>0.789622</td>
-      <td>0.239568</td>
-      <td>1.19473</td>
-      <td>0.942461</td>
-      <td>0.285982</td>
-      <td>0.290622</td>
-      <td>0.155626</td>
+      <td>1.192303</td>
+      <td>2.057905</td>
+      <td>0.205498</td>
+      <td>2.632188</td>
+      <td>1.419356</td>
+      <td>1.432105</td>
+      <td>1.132777</td>
     </tr>
     <tr>
       <th>Endothelial</th>
-      <td>1.71538</td>
-      <td>0.904445</td>
-      <td>9.77757</td>
-      <td>0.814998</td>
-      <td>0.461955</td>
-      <td>6.4328</td>
-      <td>0.116507</td>
+      <td>0.920688</td>
+      <td>1.62331</td>
+      <td>1.262809</td>
+      <td>1.029862</td>
+      <td>0.966018</td>
+      <td>2.927318</td>
+      <td>2.748618</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#Cluster attribution based on cutoff</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Cluster attribution based on cutoff</span>
 <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Ubi&#39;</span><span class="p">)</span>
 <span class="n">sigscores</span><span class="o">=</span><span class="p">{}</span>
 <span class="k">for</span> <span class="n">mysig</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">):</span>
@@ -998,11 +987,10 @@ comparisons in the futur.</p>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sigconfig</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;CD8Tcell&quot;</span><span class="p">,</span><span class="s2">&quot;Cutoff&quot;</span><span class="p">]</span><span class="o">=</span><span class="mf">1.2</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigconfig</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;CD8Tcell&quot;</span><span class="p">,</span><span class="s2">&quot;Cutoff&quot;</span><span class="p">]</span><span class="o">=</span><span class="mf">1.2</span>
 <span class="c1"># RECOMPUTING SIG SCORE WITH NEW CUTOFF</span>
 <span class="n">sigscores</span><span class="o">=</span><span class="p">{}</span>
 <span class="k">for</span> <span class="n">mysig</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">):</span>
@@ -1015,7 +1003,7 @@ comparisons in the futur.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1045,53 +1033,32 @@ comparisons in the futur.</p>
   </thead>
   <tbody>
     <tr>
-      <th>6</th>
+      <th>2</th>
       <td>Hematopoietic</td>
       <td>Tcell</td>
-      <td>CD8Tcell</td>
-      <td>NaiCD8Tcell</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>Hematopoietic</td>
-      <td>Myeloid</td>
-      <td>ClassMonocyte</td>
-      <td>ClassMonocyte</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>Hematopoietic</td>
-      <td>Myeloid</td>
-      <td>NClassMonocyte</td>
-      <td>NClassMonocyte</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>Hematopoietic</td>
-      <td>NKcell</td>
-      <td>CD56dimNK</td>
-      <td>CD56dimNK</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>Hematopoietic</td>
-      <td>Tcell</td>
-      <td>CD8Tcell</td>
-      <td>NaiCD8Tcell</td>
+      <td>CD4Tcell</td>
+      <td>NaiCD4Tcell</td>
     </tr>
     <tr>
       <th>11</th>
       <td>Hematopoietic</td>
-      <td>Myeloid</td>
-      <td>cDC</td>
-      <td>cDC2</td>
+      <td>pDC</td>
+      <td>pDC</td>
+      <td>pDC</td>
     </tr>
     <tr>
-      <th>1</th>
+      <th>10</th>
       <td>Hematopoietic</td>
-      <td>Blymphocyte</td>
-      <td>Bcell</td>
-      <td>NaiBcell</td>
+      <td>Tcell</td>
+      <td>CD4Tcell</td>
+      <td>NaiCD4Tcell</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Hematopoietic</td>
+      <td>Tcell</td>
+      <td>CD4Tcell</td>
+      <td>NaiCD4Tcell</td>
     </tr>
     <tr>
       <th>3</th>
@@ -1101,18 +1068,25 @@ comparisons in the futur.</p>
       <td>CytotoxCD8Tcell</td>
     </tr>
     <tr>
-      <th>10</th>
+      <th>7</th>
       <td>Hematopoietic</td>
-      <td>Tcell</td>
-      <td>CD4Tcell</td>
-      <td>NaiCD4Tcell</td>
+      <td>Myeloid</td>
+      <td>Monocyte</td>
+      <td>NClassMonocyte</td>
     </tr>
     <tr>
-      <th>2</th>
+      <th>6</th>
       <td>Hematopoietic</td>
       <td>Tcell</td>
-      <td>CD4Tcell</td>
-      <td>EMCD4Tcell</td>
+      <td>CD8Tcell</td>
+      <td>NaiCD8Tcell</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Hematopoietic</td>
+      <td>Tcell</td>
+      <td>CD8Tcell</td>
+      <td>NaiCD8Tcell</td>
     </tr>
     <tr>
       <th>4</th>
@@ -1122,22 +1096,35 @@ comparisons in the futur.</p>
       <td>NaiCD4Tcell</td>
     </tr>
     <tr>
-      <th>5</th>
+      <th>9</th>
       <td>Hematopoietic</td>
-      <td>Tcell</td>
-      <td>CD4Tcell</td>
-      <td>NaiCD4Tcell</td>
+      <td>NKcell</td>
+      <td>CD56dimNK</td>
+      <td>CD56dimNK</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Hematopoietic</td>
+      <td>Blymphocyte</td>
+      <td>Bcell</td>
+      <td>NaiBcell</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>Hematopoietic</td>
+      <td>Myeloid</td>
+      <td>Monocyte</td>
+      <td>ClassMonocyte</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">label_files</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;besca&#39;</span><span class="p">,</span> <span class="s1">&#39;/datasets/nomenclature/CellTypes_v1.tsv&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">label_files</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;besca&#39;</span><span class="p">,</span> <span class="s1">&#39;/datasets/nomenclature/CellTypes_v1.tsv&#39;</span><span class="p">)</span>
 
 <span class="n">cnamesDBlabel</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">obtain_dblabel</span><span class="p">(</span> <span class="n">label_files</span><span class="p">,</span> <span class="n">cnames</span> <span class="p">)</span>
 <span class="n">cnamesDBlabel</span>
@@ -1145,7 +1132,7 @@ comparisons in the futur.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1175,77 +1162,21 @@ comparisons in the futur.</p>
   </thead>
   <tbody>
     <tr>
-      <th>6</th>
-      <td>hematopoietic cell</td>
-      <td>T cell</td>
-      <td>CD8-positive, alpha-beta T cell</td>
-      <td>naive thymus-derived CD8-positive, alpha-beta ...</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>hematopoietic cell</td>
-      <td>myeloid leukocyte</td>
-      <td>classical monocyte</td>
-      <td>classical monocyte</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>hematopoietic cell</td>
-      <td>myeloid leukocyte</td>
-      <td>non-classical monocyte</td>
-      <td>non-classical monocyte</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>hematopoietic cell</td>
-      <td>natural killer cell</td>
-      <td>cytotoxic CD56-dim natural killer cell</td>
-      <td>cytotoxic CD56-dim natural killer cell</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>hematopoietic cell</td>
-      <td>T cell</td>
-      <td>CD8-positive, alpha-beta T cell</td>
-      <td>naive thymus-derived CD8-positive, alpha-beta ...</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>hematopoietic cell</td>
-      <td>myeloid leukocyte</td>
-      <td>myeloid dendritic cell</td>
-      <td>CD1c-positive myeloid dendritic cell</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>hematopoietic cell</td>
-      <td>lymphocyte of B lineage</td>
-      <td>B cell</td>
-      <td>naive B cell</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>hematopoietic cell</td>
-      <td>T cell</td>
-      <td>CD8-positive, alpha-beta T cell</td>
-      <td>CD8-positive, alpha-beta cytotoxic T cell</td>
-    </tr>
-    <tr>
-      <th>10</th>
+      <th>2</th>
       <td>hematopoietic cell</td>
       <td>T cell</td>
       <td>CD4-positive, alpha-beta T cell</td>
       <td>naive thymus-derived CD4-positive, alpha-beta ...</td>
     </tr>
     <tr>
-      <th>2</th>
+      <th>11</th>
       <td>hematopoietic cell</td>
-      <td>T cell</td>
-      <td>CD4-positive, alpha-beta T cell</td>
-      <td>effector memory CD4-positive, alpha-beta T cell</td>
+      <td>plasmacytoid dendritic cell</td>
+      <td>plasmacytoid dendritic cell</td>
+      <td>plasmacytoid dendritic cell</td>
     </tr>
     <tr>
-      <th>4</th>
+      <th>10</th>
       <td>hematopoietic cell</td>
       <td>T cell</td>
       <td>CD4-positive, alpha-beta T cell</td>
@@ -1258,16 +1189,71 @@ comparisons in the futur.</p>
       <td>CD4-positive, alpha-beta T cell</td>
       <td>naive thymus-derived CD4-positive, alpha-beta ...</td>
     </tr>
+    <tr>
+      <th>3</th>
+      <td>hematopoietic cell</td>
+      <td>T cell</td>
+      <td>CD8-positive, alpha-beta T cell</td>
+      <td>CD8-positive, alpha-beta cytotoxic T cell</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>hematopoietic cell</td>
+      <td>myeloid leukocyte</td>
+      <td>monocyte</td>
+      <td>non-classical monocyte</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>hematopoietic cell</td>
+      <td>T cell</td>
+      <td>CD8-positive, alpha-beta T cell</td>
+      <td>naive thymus-derived CD8-positive, alpha-beta ...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>hematopoietic cell</td>
+      <td>T cell</td>
+      <td>CD8-positive, alpha-beta T cell</td>
+      <td>naive thymus-derived CD8-positive, alpha-beta ...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>hematopoietic cell</td>
+      <td>T cell</td>
+      <td>CD4-positive, alpha-beta T cell</td>
+      <td>naive thymus-derived CD4-positive, alpha-beta ...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>hematopoietic cell</td>
+      <td>natural killer cell</td>
+      <td>cytotoxic CD56-dim natural killer cell</td>
+      <td>cytotoxic CD56-dim natural killer cell</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>hematopoietic cell</td>
+      <td>lymphocyte of B lineage</td>
+      <td>B cell</td>
+      <td>naive B cell</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>hematopoietic cell</td>
+      <td>myeloid leukocyte</td>
+      <td>monocyte</td>
+      <td>classical monocyte</td>
+    </tr>
   </tbody>
 </table>
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;celltype0&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">add_anno</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">cnamesDBlabel</span><span class="p">,</span><span class="s1">&#39;celltype0&#39;</span><span class="p">,</span><span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;celltype0&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">add_anno</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">cnamesDBlabel</span><span class="p">,</span><span class="s1">&#39;celltype0&#39;</span><span class="p">,</span><span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;celltype1&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">add_anno</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">cnamesDBlabel</span><span class="p">,</span><span class="s1">&#39;celltype1&#39;</span><span class="p">,</span><span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;celltype2&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">add_anno</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">cnamesDBlabel</span><span class="p">,</span><span class="s1">&#39;celltype2&#39;</span><span class="p">,</span><span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;celltype3&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">add_anno</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">cnamesDBlabel</span><span class="p">,</span><span class="s1">&#39;celltype3&#39;</span><span class="p">,</span><span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
@@ -1275,11 +1261,10 @@ comparisons in the futur.</p>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span><span class="s1">&#39;celltype2&#39;</span><span class="p">,</span> <span class="s1">&#39;celltype1&#39;</span><span class="p">,</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span><span class="s1">&#39;celltype2&#39;</span><span class="p">,</span> <span class="s1">&#39;celltype1&#39;</span><span class="p">,</span>
                         <span class="s1">&#39;CD8A&#39;</span><span class="p">,</span> <span class="s1">&#39;CD8B&#39;</span><span class="p">,</span> <span class="c1"># CD8 T cell markers</span>
                         <span class="s1">&#39;CD4&#39;</span> <span class="p">,</span>    <span class="s1">&#39;GPR183&#39;</span><span class="p">,</span> <span class="s1">&#39;CMTM8&#39;</span> <span class="c1"># CD4 t cell markers</span>
                        <span class="p">],</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1">#,&#39;celltype3&#39;</span>
@@ -1290,47 +1275,35 @@ comparisons in the futur.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_39_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_39_0.png" style="width: 575px; height: 709px;" />
+<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_38_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_38_0.png" style="width: 556px; height: 711px;" />
 </div>
 </div>
 <div class="tag"><p>Here we believe some clusters of T cells are still mixed and that a more refined annotation can be done if recluster the lymphocytes. This procedure is applied below</p>
-</div></div>
-<div class="section" id="Reclustering-Lymphocytes">
-<h2>Reclustering Lymphocytes<a class="headerlink" href="#Reclustering-Lymphocytes" title="Permalink to this headline">¶</a></h2>
+</div></section>
+<section id="Reclustering-Lymphocytes">
+<h2>Reclustering Lymphocytes<a class="headerlink" href="#Reclustering-Lymphocytes" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;leiden_original&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;leiden&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;leiden_original&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;leiden&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">adata_rc</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rc</span><span class="o">.</span><span class="n">recluster</span> <span class="p">(</span> <span class="n">adata</span><span class="p">,</span> <span class="n">celltype_label</span> <span class="o">=</span> <span class="s1">&#39;celltype1&#39;</span><span class="p">,</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata_rc</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rc</span><span class="o">.</span><span class="n">recluster</span> <span class="p">(</span> <span class="n">adata</span><span class="p">,</span> <span class="n">celltype_label</span> <span class="o">=</span> <span class="s1">&#39;celltype1&#39;</span><span class="p">,</span>
                                <span class="n">celltype</span><span class="o">=</span> <span class="p">(</span><span class="s1">&#39;T cell&#39;</span><span class="p">,</span>  <span class="s1">&#39;natural killer cell&#39;</span><span class="p">),</span> <span class="n">resolution</span><span class="o">=</span><span class="mf">1.3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-In total 1409 highly variable genes selected within cluster
-</pre></div></div>
-</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span> <span class="n">adata_rc</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;celltype2&#39;</span><span class="p">,</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span> <span class="n">adata_rc</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;celltype2&#39;</span><span class="p">,</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span>
                               <span class="c1"># Some markers</span>
                               <span class="s1">&#39;CD3G&#39;</span><span class="p">,</span> <span class="s1">&#39;CD8A&#39;</span><span class="p">,</span> <span class="s1">&#39;CD4&#39;</span><span class="p">,</span> <span class="s1">&#39;IL7R&#39;</span><span class="p">,</span> <span class="s1">&#39;NKG7&#39;</span><span class="p">,</span> <span class="s1">&#39;GNLY&#39;</span><span class="p">])</span>
 </pre></div>
@@ -1340,16 +1313,15 @@ In total 1409 highly variable genes selected within cluster
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_44_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_44_0.png" style="width: 804px; height: 361px;" />
+<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_43_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_43_0.png" style="width: 804px; height: 363px;" />
 </div>
 </div>
 <div class="tag"><p>Exporting the additional labelling allows to regenerate frac_pos required file for the annotation function.</p>
 </div><div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">adata_rc</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">additional_labeling</span><span class="p">(</span><span class="n">adata_rc</span><span class="p">,</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="s1">&#39;Leiden_Reclustering&#39;</span><span class="p">,</span> <span class="s1">&#39;Leiden Reclustering on Lymphocytes&#39;</span><span class="p">,</span> <span class="s1">&#39;BescaTutorial&#39;</span><span class="p">,</span> <span class="s1">&#39;dataset_export&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata_rc</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">additional_labeling</span><span class="p">(</span><span class="n">adata_rc</span><span class="p">,</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="s1">&#39;Leiden_Reclustering&#39;</span><span class="p">,</span> <span class="s1">&#39;Leiden Reclustering on Lymphocytes&#39;</span><span class="p">,</span> <span class="s1">&#39;BescaTutorial&#39;</span><span class="p">,</span> <span class="s1">&#39;dataset_export&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1359,21 +1331,20 @@ In total 1409 highly variable genes selected within cluster
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 rank genes per label calculated using method wilcoxon.
+dataset_export/labelings/Leiden_Reclustering/WilxRank.gct written out
+dataset_export/labelings/Leiden_Reclustering/WilxRank.pvalues.gct written out
+dataset_export/labelings/Leiden_Reclustering/WilxRank.logFC.gct written out
 mapping of cells to  leiden exported successfully to cell2labels.tsv
 average.gct exported successfully to file
 fract_pos.gct exported successfully to file
 labelinfo.tsv successfully written out
-dataset_export/labelings/Leiden_Reclustering/WilxRank.gct written out
-dataset_export/labelings/Leiden_Reclustering/WilxRank.pvalues.gct written out
-dataset_export/labelings/Leiden_Reclustering/WilxRank.logFC.gct written out
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">mymarkers</span><span class="p">[</span><span class="s1">&#39;Ubi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B2M&#39;</span><span class="p">,</span><span class="s1">&#39;ACTB&#39;</span><span class="p">,</span> <span class="s1">&#39;GAPDH&#39;</span><span class="p">]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mymarkers</span><span class="p">[</span><span class="s1">&#39;Ubi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B2M&#39;</span><span class="p">,</span><span class="s1">&#39;ACTB&#39;</span><span class="p">,</span> <span class="s1">&#39;GAPDH&#39;</span><span class="p">]</span>
 <span class="n">clusters</span> <span class="o">=</span> <span class="s1">&#39;Leiden_Reclustering&#39;</span>
 <span class="n">f</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;dataset_export&#39;</span> <span class="o">+</span> <span class="s2">&quot;/labelings/&quot;</span><span class="o">+</span><span class="n">clusters</span><span class="o">+</span><span class="s2">&quot;/fract_pos.gct&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">skiprows</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">df</span><span class="o">=</span><span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">score_mw</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">mymarkers</span><span class="p">)</span>
@@ -1382,11 +1353,10 @@ dataset_export/labelings/Leiden_Reclustering/WilxRank.logFC.gct written out
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># RECOMPUTING SIG SCORE WITH NEW CUTOFF</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># RECOMPUTING SIG SCORE WITH NEW CUTOFF</span>
 <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Ubi&#39;</span><span class="p">)</span>
 <span class="n">sigscores</span><span class="o">=</span><span class="p">{}</span>
 <span class="k">for</span> <span class="n">mysig</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">):</span>
@@ -1396,11 +1366,10 @@ dataset_export/labelings/Leiden_Reclustering/WilxRank.logFC.gct written out
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">toExclude</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span>  <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">levsk</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;Tcell&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;NKcell&#39;</span><span class="p">]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">toExclude</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span>  <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">levsk</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;Tcell&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;NKcell&#39;</span><span class="p">]</span>
 
 <span class="n">cnames</span><span class="o">=</span><span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">make_anno</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">sigscores</span><span class="p">,</span><span class="n">sigconfig</span><span class="p">,</span><span class="n">levsk</span><span class="p">,</span>  <span class="n">toexclude</span><span class="o">=</span> <span class="n">toExclude</span><span class="p">)</span>
 
@@ -1414,11 +1383,10 @@ dataset_export/labelings/Leiden_Reclustering/WilxRank.logFC.gct written out
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata_rc</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;celltype3&#39;</span><span class="p">,</span> <span class="s1">&#39;celltype2&#39;</span><span class="p">,</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata_rc</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;celltype3&#39;</span><span class="p">,</span> <span class="s1">&#39;celltype2&#39;</span><span class="p">,</span>
                            <span class="s1">&#39;CD3G&#39;</span><span class="p">,</span> <span class="s1">&#39;CD8A&#39;</span><span class="p">,</span> <span class="s1">&#39;CD4&#39;</span><span class="p">,</span> <span class="s1">&#39;IL7R&#39;</span><span class="p">,</span> <span class="s1">&#39;NKG7&#39;</span><span class="p">,</span> <span class="s1">&#39;GNLY&#39;</span><span class="p">,</span> <span class="c1">#, &#39;S100A&#39;</span>
                            <span class="s1">&#39;IL7R&#39;</span><span class="p">,</span> <span class="s1">&#39;SELL&#39;</span>
                           <span class="p">],</span>
@@ -1430,15 +1398,14 @@ dataset_export/labelings/Leiden_Reclustering/WilxRank.logFC.gct written out
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_50_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_50_0.png" style="width: 454px; height: 1753px;" />
+<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_49_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_49_0.png" style="width: 427px; height: 1755px;" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">names_2</span> <span class="o">=</span> <span class="p">[]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">names_2</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">names_3</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span> <span class="n">cnames</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">:</span>
     <span class="c1"># Orderigng lexo. order</span>
@@ -1447,32 +1414,21 @@ dataset_export/labelings/Leiden_Reclustering/WilxRank.logFC.gct written out
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rc</span><span class="o">.</span><span class="n">annotate_new_cellnames</span><span class="p">(</span> <span class="n">adata</span><span class="p">,</span> <span class="n">adata_rc</span><span class="p">,</span> <span class="n">names</span> <span class="o">=</span> <span class="n">names_2</span><span class="p">,</span> <span class="n">new_label</span><span class="o">=</span><span class="s1">&#39;celltype2&#39;</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rc</span><span class="o">.</span><span class="n">annotate_new_cellnames</span><span class="p">(</span> <span class="n">adata</span><span class="p">,</span> <span class="n">adata_rc</span><span class="p">,</span> <span class="n">names</span> <span class="o">=</span> <span class="n">names_2</span><span class="p">,</span> <span class="n">new_label</span><span class="o">=</span><span class="s1">&#39;celltype2&#39;</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
 
 <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rc</span><span class="o">.</span><span class="n">annotate_new_cellnames</span><span class="p">(</span> <span class="n">adata</span><span class="p">,</span> <span class="n">adata_rc</span><span class="p">,</span> <span class="n">names</span> <span class="o">=</span> <span class="n">names_3</span><span class="p">,</span> <span class="n">new_label</span><span class="o">=</span><span class="s1">&#39;celltype3&#39;</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-NOTE: overwriting labels for the selected cells saved in adata.obs.celltype2 with the new labels
-NOTE: overwriting labels for the selected cells saved in adata.obs.celltype3 with the new labels
-</pre></div></div>
-</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;celltype2&#39;</span><span class="p">,</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;celltype2&#39;</span><span class="p">,</span>
                        <span class="s1">&#39;celltype3&#39;</span><span class="p">],</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span> <span class="mi">30</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1481,39 +1437,36 @@ NOTE: overwriting labels for the selected cells saved in adata.obs.celltype3 wit
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_53_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_53_0.png" style="width: 454px; height: 361px;" />
+<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_52_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_52_0.png" style="width: 427px; height: 363px;" />
 </div>
 </div>
 <div class="tag"><p>Here we write out the celltype annotation so that we can use reload it in later analysis steps. There is a corresponding besca function for reloading the annotation.</p>
 </div><div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#save AnnData Object for comparision purposes</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#save AnnData Object for comparision purposes</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;dataset_export/data_pbmc_processed_annotated.h5ad&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="unbiased-marker-genes-for-each-cluster">
-<h2>unbiased marker genes for each cluster<a class="headerlink" href="#unbiased-marker-genes-for-each-cluster" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="unbiased-marker-genes-for-each-cluster">
+<h2>unbiased marker genes for each cluster<a class="headerlink" href="#unbiased-marker-genes-for-each-cluster" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#perform differential gene expression between each cluster and all other cells using scanpy</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#perform differential gene expression between each cluster and all other cells using scanpy</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;celltype3&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#visualize the top 3 marker genes as a dot plot</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#visualize the top 3 marker genes as a dot plot</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups_dotplot</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">groupby</span> <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1522,15 +1475,14 @@ NOTE: overwriting labels for the selected cells saved in adata.obs.celltype3 wit
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_58_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_58_0.png" style="width: 555px; height: 481px;" />
+<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_57_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_57_0.png" style="width: 550px; height: 448px;" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups_matrixplot</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">use_raw</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">groupby</span> <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups_matrixplot</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">use_raw</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">groupby</span> <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1538,15 +1490,14 @@ NOTE: overwriting labels for the selected cells saved in adata.obs.celltype3 wit
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_59_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_59_0.png" style="width: 555px; height: 481px;" />
+<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_58_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_58_0.png" style="width: 550px; height: 448px;" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups_stacked_violin</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups_stacked_violin</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1554,18 +1505,17 @@ NOTE: overwriting labels for the selected cells saved in adata.obs.celltype3 wit
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_60_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_60_0.png" style="width: 558px; height: 481px;" />
+<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_59_0.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_59_0.png" style="width: 553px; height: 448px;" />
 </div>
 </div>
-</div>
-<div class="section" id="Celltype-Quantification">
-<h2>Celltype Quantification<a class="headerlink" href="#Celltype-Quantification" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Celltype-Quantification">
+<h2>Celltype Quantification<a class="headerlink" href="#Celltype-Quantification" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#counts per celltype</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#counts per celltype</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">count_occurrence</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">add_percentage</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">count_variable</span><span class="o">=</span><span class="s1">&#39;celltype3&#39;</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
@@ -1599,19 +1549,19 @@ NOTE: overwriting labels for the selected cells saved in adata.obs.celltype3 wit
   </thead>
   <tbody>
     <tr>
+      <th>naive thymus-derived CD4-positive, alpha-beta T cell</th>
+      <td>624</td>
+      <td>24.92</td>
+    </tr>
+    <tr>
       <th>classical monocyte</th>
       <td>438</td>
       <td>17.49</td>
     </tr>
     <tr>
-      <th>naive thymus-derived CD4-positive, alpha-beta T cell</th>
-      <td>414</td>
-      <td>16.53</td>
-    </tr>
-    <tr>
       <th>naive thymus-derived CD8-positive, alpha-beta T cell</th>
-      <td>391</td>
-      <td>15.62</td>
+      <td>372</td>
+      <td>14.86</td>
     </tr>
     <tr>
       <th>naive B cell</th>
@@ -1620,11 +1570,6 @@ NOTE: overwriting labels for the selected cells saved in adata.obs.celltype3 wit
     </tr>
     <tr>
       <th>CD8-positive, alpha-beta cytotoxic T cell</th>
-      <td>271</td>
-      <td>10.82</td>
-    </tr>
-    <tr>
-      <th>central memory CD4-positive, alpha-beta T cell</th>
       <td>267</td>
       <td>10.66</td>
     </tr>
@@ -1634,17 +1579,22 @@ NOTE: overwriting labels for the selected cells saved in adata.obs.celltype3 wit
       <td>6.35</td>
     </tr>
     <tr>
-      <th>IL7R-max CD8-positive, alpha-beta cytotoxic T cell</th>
-      <td>118</td>
-      <td>4.71</td>
+      <th>central memory CD4-positive, alpha-beta T cell</th>
+      <td>138</td>
+      <td>5.51</td>
     </tr>
     <tr>
-      <th>CD8-positive, alpha-beta T cell</th>
-      <td>100</td>
-      <td>3.99</td>
+      <th>effector memory CD8-positive, alpha-beta T cell</th>
+      <td>122</td>
+      <td>4.87</td>
     </tr>
     <tr>
-      <th>CD1c-positive myeloid dendritic cell</th>
+      <th>CD4-positive, alpha-beta T cell</th>
+      <td>38</td>
+      <td>1.52</td>
+    </tr>
+    <tr>
+      <th>plasmacytoid dendritic cell</th>
       <td>29</td>
       <td>1.16</td>
     </tr>
@@ -1653,11 +1603,10 @@ NOTE: overwriting labels for the selected cells saved in adata.obs.celltype3 wit
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#generate a basic bar plot of the table above</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#generate a basic bar plot of the table above</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 
 <span class="c1">#visualize distribution before logarithmization</span>
@@ -1673,33 +1622,33 @@ NOTE: overwriting labels for the selected cells saved in adata.obs.celltype3 wit
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 (array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]),
- [Text(0, 0, &#39;classical monocyte&#39;),
-  Text(1, 0, &#39;naive thymus-derived CD4-positive, alpha-beta T cell&#39;),
+ [Text(0, 0, &#39;naive thymus-derived CD4-positive, alpha-beta T cell&#39;),
+  Text(1, 0, &#39;classical monocyte&#39;),
   Text(2, 0, &#39;naive thymus-derived CD8-positive, alpha-beta T cell&#39;),
   Text(3, 0, &#39;naive B cell&#39;),
   Text(4, 0, &#39;CD8-positive, alpha-beta cytotoxic T cell&#39;),
-  Text(5, 0, &#39;central memory CD4-positive, alpha-beta T cell&#39;),
-  Text(6, 0, &#39;non-classical monocyte&#39;),
-  Text(7, 0, &#39;IL7R-max CD8-positive, alpha-beta cytotoxic T cell&#39;),
-  Text(8, 0, &#39;CD8-positive, alpha-beta T cell&#39;),
-  Text(9, 0, &#39;CD1c-positive myeloid dendritic cell&#39;)])
+  Text(5, 0, &#39;non-classical monocyte&#39;),
+  Text(6, 0, &#39;central memory CD4-positive, alpha-beta T cell&#39;),
+  Text(7, 0, &#39;effector memory CD8-positive, alpha-beta T cell&#39;),
+  Text(8, 0, &#39;CD4-positive, alpha-beta T cell&#39;),
+  Text(9, 0, &#39;plasmacytoid dendritic cell&#39;)])
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_63_1.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_63_1.png" style="width: 630px; height: 502px;" />
+<img alt="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_62_1.png" class="no-scaled-link" src="../_images/tutorials_notebook2_celltype_annotation_pbmc3k_62_1.png" style="width: 627px; height: 471px;" />
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -1715,7 +1664,7 @@ NOTE: overwriting labels for the selected cells saved in adata.obs.celltype3 wit
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

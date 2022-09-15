@@ -7,18 +7,22 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>besca.pp._wrapper_Rfuncs &mdash; BESCA 2.3 documentation</title>
+  <title>besca.pp._wrapper_Rfuncs &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +39,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
@@ -68,7 +76,7 @@
             
             
               <div class="version">
-                2.3
+                2.5
               </div>
             
           
@@ -93,7 +101,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../besca.html">besca</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">code examples</a></li>
@@ -166,16 +174,21 @@
            <div itemprop="articleBody">
             
   <h1>Source code for besca.pp._wrapper_Rfuncs</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">scanpy</span> <span class="kn">import</span> <span class="n">read_csv</span> <span class="k">as</span> <span class="n">sc_read_csv</span>
+<span></span><span class="kn">from</span> <span class="nn">scanpy</span> <span class="kn">import</span> <span class="n">read_csv</span> <span class="k">as</span> <span class="n">sc_read_csv</span>
 <span class="kn">import</span> <span class="nn">importlib</span>
 <span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
+<span class="kn">import</span> <span class="nn">deprecation</span>
 
 
-<div class="viewcode-block" id="valOutlier"><a class="viewcode-back" href="../../../preprocessing/besca.pp.valOutlier.html#besca.pp.valOutlier">[docs]</a><span class="k">def</span> <span class="nf">valOutlier</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">nmads</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">rlib_loc</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="valOutlier"><a class="viewcode-back" href="../../../besca/besca.pp.valOutlier.html#besca.pp.valOutlier">[docs]</a><span class="nd">@deprecation</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span>
+    <span class="n">deprecated_in</span><span class="o">=</span><span class="s2">&quot;2.5&quot;</span><span class="p">,</span>
+    <span class="n">removed_in</span><span class="o">=</span><span class="s2">&quot;3.0&quot;</span><span class="p">,</span>
+    <span class="n">details</span><span class="o">=</span><span class="s2">&quot;This R-based function is marked deprecated and will be removed in future versions of besca!&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">valOutlier</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">nmads</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">rlib_loc</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Estimates and returns the thresholds to use for gene/cell filtering based on outliers calculated from the deviation to the median QCs. Wrapper function based on &#39;isOutlier&#39; function of the &#39;scater&#39; R package. </span>
-<span class="sd">    </span>
+<span class="sd">    Estimates and returns the thresholds to use for gene/cell filtering based on outliers calculated from the deviation to the median QCs. Wrapper function based on &#39;isOutlier&#39; function of the &#39;scater&#39; R package.</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    adata: `AnnData`</span>
@@ -183,28 +196,27 @@
 <span class="sd">    nmads: `int`</span>
 <span class="sd">        Number of median absolute deviation to use as threshold for outlier detection. Lenient NMADS (3 to 5) generally yield the best results.</span>
 <span class="sd">    rlib_loc: `str`</span>
-<span class="sd">        R library location that will be added to the default .libPaths() to locate the required packages. </span>
-<span class="sd">  </span>
+<span class="sd">        R library location that will be added to the default .libPaths() to locate the required packages.</span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    The estimated parameters to set in the besca workflow considering the QC distribution. </span>
+<span class="sd">    The estimated parameters to set in the besca workflow considering the QC distribution.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="n">rpy2_import</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="s1">&#39;rpy2&#39;</span><span class="p">)</span>
+
+    <span class="n">rpy2_import</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="s2">&quot;rpy2&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">rpy2_import</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-            <span class="s2">&quot;deviance requires rpy2. Install with pip install rpy2&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;deviance requires rpy2. Install with pip install rpy2&quot;</span><span class="p">)</span>
     <span class="kn">import</span> <span class="nn">rpy2.robjects</span> <span class="k">as</span> <span class="nn">ro</span>
     <span class="kn">import</span> <span class="nn">anndata2ri</span>
     <span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">issparse</span>
 
     <span class="n">anndata2ri</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
 
-    <span class="n">ro</span><span class="o">.</span><span class="n">globalenv</span><span class="p">[</span><span class="s1">&#39;rlib_loc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rlib_loc</span>
-    <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;.libPaths(c(rlib_loc, .libPaths()))&#39;</span><span class="p">)</span>
-    <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;suppressPackageStartupMessages(library(scater))&#39;</span><span class="p">)</span>
-    <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;suppressPackageStartupMessages(library(Matrix))&#39;</span><span class="p">)</span>
-    <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;suppressPackageStartupMessages(library(Seurat))&#39;</span><span class="p">)</span>
+    <span class="n">ro</span><span class="o">.</span><span class="n">globalenv</span><span class="p">[</span><span class="s2">&quot;rlib_loc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rlib_loc</span>
+    <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;.libPaths(c(rlib_loc, .libPaths()))&quot;</span><span class="p">)</span>
+    <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;suppressPackageStartupMessages(library(scater))&quot;</span><span class="p">)</span>
+    <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;suppressPackageStartupMessages(library(Matrix))&quot;</span><span class="p">)</span>
+    <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;suppressPackageStartupMessages(library(Seurat))&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">issparse</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">has_sorted_indices</span><span class="p">:</span>
@@ -215,112 +227,120 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">has_sorted_indices</span><span class="p">:</span>
                 <span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">sort_indices</span><span class="p">()</span>
 
-    <span class="n">ro</span><span class="o">.</span><span class="n">globalenv</span><span class="p">[</span><span class="s1">&#39;dat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span>
-    <span class="n">ro</span><span class="o">.</span><span class="n">globalenv</span><span class="p">[</span><span class="s1">&#39;sym&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;SYMBOL&#39;</span><span class="p">]</span>
+    <span class="n">ro</span><span class="o">.</span><span class="n">globalenv</span><span class="p">[</span><span class="s2">&quot;dat&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span>
+    <span class="n">ro</span><span class="o">.</span><span class="n">globalenv</span><span class="p">[</span><span class="s2">&quot;sym&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;SYMBOL&quot;</span><span class="p">]</span>
     <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;seurat_obj = as.Seurat(dat, counts=&quot;X&quot;, data = NULL)&#39;</span><span class="p">)</span>
-    <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;dat =  SingleCellExperiment(assays = list(counts=seurat_obj@assays$RNA@counts) )&#39;</span><span class="p">)</span>
-    <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;rownames(dat) &lt;- sym&#39;</span><span class="p">)</span>
-    <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
-<span class="s1">    valOutlier &lt;- function(dat, nmads = 3){</span>
+    <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span>
+        <span class="s2">&quot;dat =  SingleCellExperiment(assays = list(counts=seurat_obj@assays$RNA@counts) )&quot;</span>
+    <span class="p">)</span>
+    <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;rownames(dat) &lt;- sym&quot;</span><span class="p">)</span>
+    <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    valOutlier &lt;- function(dat, nmads = 3){</span>
 
-<span class="s1">      mito &lt;- grep(&#39;MT-&#39;, rownames(dat))</span>
-<span class="s1">      if (length(mito) == 0){</span>
-<span class="s1">        mito &lt;- NULL</span>
-<span class="s1">      } else {</span>
-<span class="s1">        mito &lt;- list(Mito = mito)</span>
-<span class="s1">      }</span>
+<span class="sd">      mito &lt;- grep(&#39;MT-&#39;, rownames(dat))</span>
+<span class="sd">      if (length(mito) == 0){</span>
+<span class="sd">        mito &lt;- NULL</span>
+<span class="sd">      } else {</span>
+<span class="sd">        mito &lt;- list(Mito = mito)</span>
+<span class="sd">      }</span>
 
-<span class="s1">      stats_cells &lt;- perCellQCMetrics(dat, subsets = mito )</span>
-<span class="s1">      stats_genes &lt;- perCellQCMetrics(t(counts(dat)))</span>
+<span class="sd">      stats_cells &lt;- perCellQCMetrics(dat, subsets = mito )</span>
+<span class="sd">      stats_genes &lt;- perCellQCMetrics(t(counts(dat)))</span>
 
-<span class="s1">      lower_detected &lt;- as.numeric(attr(isOutlier(stats_cells$detected, nmads = nmads, type = &#39;lower&#39;), &#39;thresholds&#39;)[&#39;lower&#39;])</span>
-<span class="s1">      if(lower_detected &lt; 0) lower_detected &lt;- 0</span>
-<span class="s1">      rm_detected &lt;- sum(isOutlier(stats_cells$detected, nmads = nmads, type = &#39;lower&#39;))</span>
+<span class="sd">      lower_detected &lt;- as.numeric(attr(isOutlier(stats_cells$detected, nmads = nmads, type = &#39;lower&#39;), &#39;thresholds&#39;)[&#39;lower&#39;])</span>
+<span class="sd">      if(lower_detected &lt; 0) lower_detected &lt;- 0</span>
+<span class="sd">      rm_detected &lt;- sum(isOutlier(stats_cells$detected, nmads = nmads, type = &#39;lower&#39;))</span>
 
-<span class="s1">      lower_expressed &lt;- as.numeric(attr(isOutlier(stats_genes$detected, nmads = nmads, type = &#39;lower&#39;), &#39;thresholds&#39;)[&#39;lower&#39;])</span>
-<span class="s1">      if(lower_expressed &lt; 0) lower_expressed &lt;- 0</span>
-<span class="s1">      rm_expressed &lt;- sum(isOutlier(stats_genes$detected, nmads = nmads, type = &#39;lower&#39;))</span>
+<span class="sd">      lower_expressed &lt;- as.numeric(attr(isOutlier(stats_genes$detected, nmads = nmads, type = &#39;lower&#39;), &#39;thresholds&#39;)[&#39;lower&#39;])</span>
+<span class="sd">      if(lower_expressed &lt; 0) lower_expressed &lt;- 0</span>
+<span class="sd">      rm_expressed &lt;- sum(isOutlier(stats_genes$detected, nmads = nmads, type = &#39;lower&#39;))</span>
 
-<span class="s1">      lower_sum &lt;- as.numeric(attr(isOutlier(stats_cells$sum, nmads = nmads, type = &#39;lower&#39;), &#39;thresholds&#39;)[&#39;lower&#39;])</span>
-<span class="s1">      if(lower_sum &lt; 0) lower_sum &lt;- 0</span>
-<span class="s1">      rm_sum &lt;- sum(isOutlier(stats_cells$sum, nmads = nmads, type = &#39;lower&#39;))</span>
+<span class="sd">      lower_sum &lt;- as.numeric(attr(isOutlier(stats_cells$sum, nmads = nmads, type = &#39;lower&#39;), &#39;thresholds&#39;)[&#39;lower&#39;])</span>
+<span class="sd">      if(lower_sum &lt; 0) lower_sum &lt;- 0</span>
+<span class="sd">      rm_sum &lt;- sum(isOutlier(stats_cells$sum, nmads = nmads, type = &#39;lower&#39;))</span>
 
-<span class="s1">      higher_detected &lt;- as.numeric(attr(isOutlier(stats_cells$detected, nmads = nmads, type = &#39;higher&#39;), &#39;thresholds&#39;)[&#39;higher&#39;])</span>
-<span class="s1">      rm_high_detected &lt;- sum(isOutlier(stats_cells$detected, nmads = nmads, type = &#39;higher&#39;))</span>
+<span class="sd">      higher_detected &lt;- as.numeric(attr(isOutlier(stats_cells$detected, nmads = nmads, type = &#39;higher&#39;), &#39;thresholds&#39;)[&#39;higher&#39;])</span>
+<span class="sd">      rm_high_detected &lt;- sum(isOutlier(stats_cells$detected, nmads = nmads, type = &#39;higher&#39;))</span>
 
-<span class="s1">      if(!length(mito) == 0){</span>
-<span class="s1">        max_mito &lt;- as.numeric(attr(isOutlier(stats_cells$subsets_Mito_percent , nmads = nmads, type = &#39;higher&#39;), &#39;thresholds&#39;)[&#39;higher&#39;])/100</span>
-<span class="s1">        if(max_mito&gt;1) max_mito &lt;- 1</span>
-<span class="s1">        rm_mito &lt;- sum(isOutlier(stats_cells$subsets_Mito_percent, nmads = nmads, type = &#39;higher&#39;))</span>
-<span class="s1">      }</span>
+<span class="sd">      if(!length(mito) == 0){</span>
+<span class="sd">        max_mito &lt;- as.numeric(attr(isOutlier(stats_cells$subsets_Mito_percent , nmads = nmads, type = &#39;higher&#39;), &#39;thresholds&#39;)[&#39;higher&#39;])/100</span>
+<span class="sd">        if(max_mito&gt;1) max_mito &lt;- 1</span>
+<span class="sd">        rm_mito &lt;- sum(isOutlier(stats_cells$subsets_Mito_percent, nmads = nmads, type = &#39;higher&#39;))</span>
+<span class="sd">      }</span>
 
-<span class="s1">      higher_sum &lt;- as.numeric(attr(isOutlier(stats_cells$sum, nmads = nmads, type = &#39;higher&#39;), &#39;thresholds&#39;)[&#39;higher&#39;])</span>
-<span class="s1">      if(is.na(higher_sum)) higher_sum &lt;- as.numeric(attr(isOutlier(stats_cells$sum, nmads = nmads, type = &#39;higher&#39;), &#39;thresholds&#39;)[&#39;higher&#39;, 1])</span>
-<span class="s1">      rm_high_sum &lt;- sum(isOutlier(stats_cells$sum, nmads = nmads, type = &#39;higher&#39;))</span>
+<span class="sd">      higher_sum &lt;- as.numeric(attr(isOutlier(stats_cells$sum, nmads = nmads, type = &#39;higher&#39;), &#39;thresholds&#39;)[&#39;higher&#39;])</span>
+<span class="sd">      if(is.na(higher_sum)) higher_sum &lt;- as.numeric(attr(isOutlier(stats_cells$sum, nmads = nmads, type = &#39;higher&#39;), &#39;thresholds&#39;)[&#39;higher&#39;, 1])</span>
+<span class="sd">      rm_high_sum &lt;- sum(isOutlier(stats_cells$sum, nmads = nmads, type = &#39;higher&#39;))</span>
 
-<span class="s1">      message(&#39;Advised parameters based on outliers with &#39;,nmads, &#39; NMADS:&#39;)</span>
-<span class="s1">      message(&#39;standard_min_genes: &#39;, round(lower_detected,2), &#39;, removing &#39;, rm_detected, &#39; cells&#39;)</span>
-<span class="s1">      message(&#39;standard_min_cells: &#39;, round(lower_expressed, 2), &#39;, removing &#39;, rm_expressed, &#39; genes&#39;)</span>
-<span class="s1">      message(&#39;standard_min_counts: &#39;, round(lower_sum,2), &#39;, removing &#39;, rm_sum, &#39; cells&#39;)</span>
-<span class="s1">      message(&#39;standard_n_genes: &#39;, round(higher_detected, 2), &#39;, removing &#39;, rm_high_detected, &#39; cells&#39;)</span>
-<span class="s1">      if(!length(mito) == 0) {</span>
-<span class="s1">          message(&#39;standard_percent_mito: &#39;, round(max_mito, 2), &#39;, removing &#39;, rm_mito, &#39; cells&#39;)</span>
-<span class="s1">      } else {</span>
-<span class="s1">          message(&#39;No mitochondrial gene detected.&#39;)</span>
-<span class="s1">          max_mito &lt;- 1</span>
-<span class="s1">      }</span>
-<span class="s1">      message(&#39;standard_max_counts: &#39;, round(higher_sum, 2), &#39;, removing &#39;, rm_high_sum, &#39; cells&#39;)</span>
-<span class="s1">      </span>
-<span class="s1">      return(c(round(lower_detected,2), </span>
-<span class="s1">            round(lower_expressed, 2), </span>
-<span class="s1">            round(lower_sum,2), </span>
-<span class="s1">            round(higher_detected, 2), </span>
-<span class="s1">            round(max_mito, 2), </span>
-<span class="s1">            round(higher_sum, 2)))</span>
-<span class="s1">    }</span>
+<span class="sd">      message(&#39;Advised parameters based on outliers with &#39;,nmads, &#39; NMADS:&#39;)</span>
+<span class="sd">      message(&#39;standard_min_genes: &#39;, round(lower_detected,2), &#39;, removing &#39;, rm_detected, &#39; cells&#39;)</span>
+<span class="sd">      message(&#39;standard_min_cells: &#39;, round(lower_expressed, 2), &#39;, removing &#39;, rm_expressed, &#39; genes&#39;)</span>
+<span class="sd">      message(&#39;standard_min_counts: &#39;, round(lower_sum,2), &#39;, removing &#39;, rm_sum, &#39; cells&#39;)</span>
+<span class="sd">      message(&#39;standard_n_genes: &#39;, round(higher_detected, 2), &#39;, removing &#39;, rm_high_detected, &#39; cells&#39;)</span>
+<span class="sd">      if(!length(mito) == 0) {</span>
+<span class="sd">          message(&#39;standard_percent_mito: &#39;, round(max_mito, 2), &#39;, removing &#39;, rm_mito, &#39; cells&#39;)</span>
+<span class="sd">      } else {</span>
+<span class="sd">          message(&#39;No mitochondrial gene detected.&#39;)</span>
+<span class="sd">          max_mito &lt;- 1</span>
+<span class="sd">      }</span>
+<span class="sd">      message(&#39;standard_max_counts: &#39;, round(higher_sum, 2), &#39;, removing &#39;, rm_high_sum, &#39; cells&#39;)</span>
+<span class="sd">      </span>
+<span class="sd">      return(c(round(lower_detected,2), </span>
+<span class="sd">            round(lower_expressed, 2), </span>
+<span class="sd">            round(lower_sum,2), </span>
+<span class="sd">            round(higher_detected, 2), </span>
+<span class="sd">            round(max_mito, 2), </span>
+<span class="sd">            round(higher_sum, 2)))</span>
+<span class="sd">    }</span>
 
-<span class="s1">     &#39;&#39;&#39;</span><span class="p">)</span>
-    <span class="n">ro</span><span class="o">.</span><span class="n">globalenv</span><span class="p">[</span><span class="s1">&#39;nmads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nmads</span>
-    <span class="k">return</span> <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;valOutlier(dat, nmads = nmads)&#39;</span><span class="p">)</span></div>
-    
+<span class="sd">     &quot;&quot;&quot;</span>
+    <span class="p">)</span>
+    <span class="n">ro</span><span class="o">.</span><span class="n">globalenv</span><span class="p">[</span><span class="s2">&quot;nmads&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nmads</span>
+    <span class="k">return</span> <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;valOutlier(dat, nmads = nmads)&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="scTransform"><a class="viewcode-back" href="../../../preprocessing/besca.pp.scTransform.html#besca.pp.scTransform">[docs]</a><span class="k">def</span> <span class="nf">scTransform</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">hvg</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">n_genes</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span> <span class="n">rlib_loc</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="scTransform"><a class="viewcode-back" href="../../../besca/besca.pp.scTransform.html#besca.pp.scTransform">[docs]</a><span class="nd">@deprecation</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span>
+    <span class="n">deprecated_in</span><span class="o">=</span><span class="s2">&quot;2.5&quot;</span><span class="p">,</span>
+    <span class="n">removed_in</span><span class="o">=</span><span class="s2">&quot;3.0&quot;</span><span class="p">,</span>
+    <span class="n">details</span><span class="o">=</span><span class="s2">&quot;This R-based function is marked deprecated and will be removed in future versions of besca!&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">scTransform</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">hvg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">rlib_loc</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function to call scTransform normalization or HVG selection from Python. Modified from https://github.com/normjam/benchmark/blob/master/normbench/methods/ad2seurat.py. </span>
-<span class="sd">    </span>
+<span class="sd">    Function to call scTransform normalization or HVG selection from Python. Modified from https://github.com/normjam/benchmark/blob/master/normbench/methods/ad2seurat.py.</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    adata: `AnnData`</span>
 <span class="sd">        AnnData object of RNA counts.</span>
 <span class="sd">    hvg: `boolean`</span>
-<span class="sd">        Should the hvg method be used (returning a reduced adata object) or the normalization method (returning a normalized adata). </span>
+<span class="sd">        Should the hvg method be used (returning a reduced adata object) or the normalization method (returning a normalized adata).</span>
 <span class="sd">    n_genes: `int`</span>
-<span class="sd">        Number of hvgs to return if the hvg method is selected. A selection of 4000-5000 generally yields the best results. </span>
+<span class="sd">        Number of hvgs to return if the hvg method is selected. A selection of 4000-5000 generally yields the best results.</span>
 <span class="sd">    rlib_loc: `str`</span>
-<span class="sd">        R library location that will be added to the default .libPaths() to locate the required packages. </span>
-<span class="sd">  </span>
+<span class="sd">        R library location that will be added to the default .libPaths() to locate the required packages.</span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    returns an AnnData object reduced to the highly-variable genes. </span>
+<span class="sd">    returns an AnnData object reduced to the highly-variable genes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="n">rpy2_import</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="s1">&#39;rpy2&#39;</span><span class="p">)</span>
+
+    <span class="n">rpy2_import</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="s2">&quot;rpy2&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">rpy2_import</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-            <span class="s2">&quot;deviance requires rpy2. Install with pip install rpy2&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;deviance requires rpy2. Install with pip install rpy2&quot;</span><span class="p">)</span>
     <span class="kn">import</span> <span class="nn">rpy2.robjects</span> <span class="k">as</span> <span class="nn">ro</span>
     <span class="kn">from</span> <span class="nn">rpy2.robjects</span> <span class="kn">import</span> <span class="n">numpy2ri</span>
     <span class="kn">import</span> <span class="nn">anndata2ri</span>
     <span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">issparse</span>
-    
-    <span class="n">ro</span><span class="o">.</span><span class="n">globalenv</span><span class="p">[</span><span class="s1">&#39;rlib_loc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rlib_loc</span>
-    <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;.libPaths(c(rlib_loc, .libPaths()))&#39;</span><span class="p">)</span>
-    <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;suppressPackageStartupMessages(library(Seurat))&#39;</span><span class="p">)</span>
-    <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;suppressPackageStartupMessages(library(scater))&#39;</span><span class="p">)</span>
+
+    <span class="n">ro</span><span class="o">.</span><span class="n">globalenv</span><span class="p">[</span><span class="s2">&quot;rlib_loc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rlib_loc</span>
+    <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;.libPaths(c(rlib_loc, .libPaths()))&quot;</span><span class="p">)</span>
+    <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;suppressPackageStartupMessages(library(Seurat))&quot;</span><span class="p">)</span>
+    <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;suppressPackageStartupMessages(library(scater))&quot;</span><span class="p">)</span>
     <span class="n">anndata2ri</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
 
     <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">filter_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_cells</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-    
+
     <span class="k">if</span> <span class="n">issparse</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">has_sorted_indices</span><span class="p">:</span>
             <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">sort_indices</span><span class="p">()</span>
@@ -330,27 +350,30 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">has_sorted_indices</span><span class="p">:</span>
                 <span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">sort_indices</span><span class="p">()</span>
 
-    <span class="n">ro</span><span class="o">.</span><span class="n">globalenv</span><span class="p">[</span><span class="s1">&#39;adata&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span>
+    <span class="n">ro</span><span class="o">.</span><span class="n">globalenv</span><span class="p">[</span><span class="s2">&quot;adata&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span>
 
     <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;seurat_obj = as.Seurat(adata, counts=&quot;X&quot;, data = NULL)&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">hvg</span><span class="p">:</span>
         <span class="n">numpy2ri</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
-        <span class="n">ro</span><span class="o">.</span><span class="n">globalenv</span><span class="p">[</span><span class="s1">&#39;n_genes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">n_genes</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reducing the data to&#39;</span><span class="p">,</span> <span class="n">n_genes</span><span class="p">,</span> <span class="s1">&#39;variable genes.&#39;</span><span class="p">)</span>
-        <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;res &lt;- SCTransform(object=seurat_obj, return.only.var.genes = TRUE, do.correct.umi = FALSE, variable.features.n = n_genes)&#39;</span><span class="p">)</span>
-        <span class="n">hvgs_r</span> <span class="o">=</span>  <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;res@assays$SCT@var.features&#39;</span><span class="p">)</span>
-        <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span><span class="nb">list</span><span class="p">(</span><span class="n">hvgs_r</span><span class="p">)]</span>
-        <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;highly_variable&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">ro</span><span class="o">.</span><span class="n">globalenv</span><span class="p">[</span><span class="s2">&quot;n_genes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">n_genes</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reducing the data to&quot;</span><span class="p">,</span> <span class="n">n_genes</span><span class="p">,</span> <span class="s2">&quot;variable genes.&quot;</span><span class="p">)</span>
+        <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span>
+            <span class="s2">&quot;res &lt;- SCTransform(object=seurat_obj, return.only.var.genes = TRUE, do.correct.umi = FALSE, variable.features.n = n_genes)&quot;</span>
+        <span class="p">)</span>
+        <span class="n">hvgs_r</span> <span class="o">=</span> <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;res@assays$SCT@var.features&quot;</span><span class="p">)</span>
+        <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="nb">list</span><span class="p">(</span><span class="n">hvgs_r</span><span class="p">)]</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;highly_variable&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="n">adata</span>
-    <span class="k">else</span><span class="p">:</span> 
-        <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;res &lt;- SCTransform(object=seurat_obj, return.only.var.genes = FALSE, do.correct.umi = FALSE)&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span>
+            <span class="s2">&quot;res &lt;- SCTransform(object=seurat_obj, return.only.var.genes = FALSE, do.correct.umi = FALSE)&quot;</span>
+        <span class="p">)</span>
 
-        <span class="n">norm_x</span> <span class="o">=</span> <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;res@assays$SCT@scale.data&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">norm_x</span> <span class="o">=</span> <span class="n">ro</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;res@assays$SCT@scale.data&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 
-        <span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;counts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">norm_x</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;counts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">norm_x</span>
         <span class="n">adata</span><span class="o">.</span><span class="n">raw</span> <span class="o">=</span> <span class="n">adata</span>
         <span class="k">return</span> <span class="n">adata</span></div>
-    
 </pre></div>
 
            </div>
@@ -362,7 +385,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2020, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

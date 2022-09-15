@@ -1,44 +1,56 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>besca.examples.example_function &mdash; BESCA 2.3 documentation</title>
+  <title>besca.examples.example_function &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/plot_directive.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+
+  
   
 
   
   
-  
+
   
 
   
-  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
@@ -64,7 +76,7 @@
             
             
               <div class="version">
-                2.3
+                2.5
               </div>
             
           
@@ -81,6 +93,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -88,7 +101,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../besca.html">besca</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">code examples</a></li>
@@ -100,6 +113,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -134,11 +148,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
@@ -158,13 +174,13 @@
            <div itemprop="articleBody">
             
   <h1>Source code for besca.examples.example_function</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="function_name"><a class="viewcode-back" href="../../../adding_new_functions.html#besca.examples.example_function.function_name">[docs]</a><span></span><span class="k">def</span> <span class="nf">function_name</span><span class="p">(</span><span class="n">param1</span> <span class="o">=</span> <span class="s1">&#39;default_value1&#39;</span><span class="p">,</span>
-                  <span class="n">param2</span> <span class="o">=</span> <span class="s1">&#39;default_value2&#39;</span><span class="p">,</span>
-                  <span class="n">param3</span> <span class="o">=</span> <span class="s1">&#39;default_value3&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="function_name"><a class="viewcode-back" href="../../../adding_new_functions.html#besca.examples.example_function.function_name">[docs]</a><span></span><span class="k">def</span> <span class="nf">function_name</span><span class="p">(</span>
+    <span class="n">param1</span><span class="o">=</span><span class="s2">&quot;default_value1&quot;</span><span class="p">,</span> <span class="n">param2</span><span class="o">=</span><span class="s2">&quot;default_value2&quot;</span><span class="p">,</span> <span class="n">param3</span><span class="o">=</span><span class="s2">&quot;default_value3&quot;</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;one-line function description that shows up in summaries.</span>
 
-<span class="sd">    more extensive multi line function description explaining exactly what the function </span>
-<span class="sd">    does and is intended for examples for code execution of the function can also be </span>
+<span class="sd">    more extensive multi line function description explaining exactly what the function</span>
+<span class="sd">    does and is intended for examples for code execution of the function can also be</span>
 <span class="sd">    provided here</span>
 
 <span class="sd">    Parameters</span>
@@ -179,39 +195,46 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    Type</span>
-<span class="sd">        Information on what the function returns </span>
+<span class="sd">        Information on what the function returns</span>
 
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
 
 <span class="sd">    &gt;&gt;&gt; #insert example code here</span>
 <span class="sd">    &gt;&gt;&gt; 1 + 1</span>
-<span class="sd">    &gt;&gt;&gt; # this code is only displayed not executed</span>
+<span class="sd">    2</span>
 <span class="sd">    </span>
+<span class="sd">    # this code is only displayed not executed</span>
+
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
-    <span class="c1">#function body</span>
-    <span class="c1">#do something here</span>
+    <span class="c1"># function body</span>
+    <span class="c1"># do something here</span>
 </pre></div>
 
            </div>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, BEDA
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -219,7 +242,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

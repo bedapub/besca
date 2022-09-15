@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>get_de &mdash; BESCA 2.4 documentation</title>
+  <title>get_de &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +40,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -70,7 +79,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -95,7 +104,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../besca.html">besca</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#helper-functions">helper functions</a></li>
@@ -225,11 +234,11 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="get-de">
-<h1>get_de<a class="headerlink" href="#get-de" title="Permalink to this headline">¶</a></h1>
+<section id="get-de">
+<h1>get_de<a class="headerlink" href="#get-de" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
-<dt id="besca.tl.dge.get_de">
-<code class="sig-prename descclassname"><span class="pre">besca.tl.dge.</span></code><code class="sig-name descname"><span class="pre">get_de</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mygroup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demethod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'wilcoxon'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topnr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logfc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/dge/_dge.html#get_de"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.tl.dge.get_de" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="besca.tl.dge.get_de">
+<span class="sig-prename descclassname"><span class="pre">besca.tl.dge.</span></span><span class="sig-name descname"><span class="pre">get_de</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mygroup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demethod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'wilcoxon'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topnr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logfc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/dge/_dge.html#get_de"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.tl.dge.get_de" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a table of significant DE genes at certain cutoffs
 Based on an AnnData object and an annotation category (e.g. louvain) runs
 scanpy’s rank_genes_groups using a specified method with specified cutoffs
@@ -247,16 +256,16 @@ scanpy’s rank_genes_groups using a specified method with specified cutoffs
 :param logfc: adjusted p-value cutoff
 :type logfc: <cite>float</cite></p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a list of panda DataFrames of differentially expressed genes</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>delist</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
@@ -272,7 +281,7 @@ scanpy’s rank_genes_groups using a specified method with specified cutoffs
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

@@ -1,44 +1,56 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>besca.Import._read &mdash; BESCA 2.3 documentation</title>
+  <title>besca.Import._read &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/plot_directive.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+
+  
   
 
   
   
-  
+
   
 
   
-  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
@@ -64,7 +76,7 @@
             
             
               <div class="version">
-                2.3
+                2.5
               </div>
             
           
@@ -81,6 +93,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -88,7 +101,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../besca.html">besca</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">code examples</a></li>
@@ -100,6 +113,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -134,11 +148,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
@@ -158,14 +174,18 @@
            <div itemprop="articleBody">
             
   <h1>Source code for besca.Import._read</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">scanpy</span> <span class="kn">import</span> <span class="n">read</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">anndata</span> <span class="kn">import</span> <span class="n">AnnData</span>
-<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">issparse</span><span class="p">,</span> <span class="n">csr_matrix</span>
-<span class="kn">from</span> <span class="nn">.._helper</span> <span class="kn">import</span> <span class="n">convert_ensembl_to_symbol</span>
-
+<span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">anndata</span> <span class="kn">import</span> <span class="n">AnnData</span>
+<span class="kn">from</span> <span class="nn">scanpy</span> <span class="kn">import</span> <span class="n">read</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">csr_matrix</span><span class="p">,</span> <span class="n">issparse</span>
+
+<span class="kn">from</span> <span class="nn">besca._helper</span> <span class="kn">import</span> <span class="n">convert_ensembl_to_symbol</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+
 
 <span class="k">def</span> <span class="nf">assert_filepath</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Asserts that the filepath contains the files required by read_mtx.</span>
@@ -174,36 +194,48 @@
 <span class="sd">    ----------</span>
 <span class="sd">    filepath: `str`</span>
 <span class="sd">        filepath as string to the directory that is expected to contain at least</span>
-<span class="sd">        following files: `matrix.mtx`, `genes.tsv`, and `barcodes.tsv`.</span>
+<span class="sd">        following files: `matrix.mtx`, `genes.tsv`, and `barcodes.tsv` OR compressed</span>
+<span class="sd">        versions of those files, i.e. `matrix.mtx.gz`, `genes.tsv.gz`, and `barcodes.tsv.gz`</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    None if the filepath is valid. If not, an Exception will be raised</span>
+<span class="sd">    None if the filepath is valid, returns &#39;gz&#39; if valid and compressed files,</span>
+<span class="sd">    otherwise an Exception will be raised</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">req_files</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;matrix.mtx&#39;</span><span class="p">,</span> <span class="s1">&#39;genes.tsv&#39;</span><span class="p">,</span> <span class="s1">&#39;barcodes.tsv&#39;</span><span class="p">]</span>
-    <span class="n">req_files_exist</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span>
-            <span class="n">req_files</span><span class="p">]</span>
+    <span class="n">req_files</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;matrix.mtx&quot;</span><span class="p">,</span> <span class="s2">&quot;genes.tsv&quot;</span><span class="p">,</span> <span class="s2">&quot;barcodes.tsv&quot;</span><span class="p">]</span>
+    <span class="n">req_files_exist</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">req_files</span><span class="p">]</span>
     <span class="n">valid</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">req_files_exist</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">valid</span><span class="p">:</span>
-        <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1"># Check whether gzipped versions exist:</span>
+    <span class="n">req_files</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;matrix.mtx.gz&quot;</span><span class="p">,</span> <span class="s2">&quot;genes.tsv.gz&quot;</span><span class="p">,</span> <span class="s2">&quot;barcodes.tsv.gz&quot;</span><span class="p">]</span>
+    <span class="n">req_files_exist</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">req_files</span><span class="p">]</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">req_files_exist</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">valid</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;gz&quot;</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">exist</span>  <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">req_files_exist</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">exist</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">req_files_exist</span><span class="p">):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">exist</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> is not found in &#39;</span>
-                        <span class="s1">&#39;the given path `</span><span class="si">{}</span><span class="s1">`&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">req_files</span><span class="p">[</span><span class="n">ind</span><span class="p">],</span> <span class="n">filepath</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+                    <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is not found in &quot;</span>
+                    <span class="s2">&quot;the given path `</span><span class="si">{}</span><span class="s2">`&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">req_files</span><span class="p">[</span><span class="n">ind</span><span class="p">],</span> <span class="n">filepath</span><span class="p">)</span>
+                <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">add_var_column</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">colname</span> <span class="o">=</span> <span class="s1">&#39;SYMBOL&#39;</span><span class="p">,</span> <span class="n">attempFix</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
-    <span class="k">if</span><span class="p">(</span> <span class="ow">not</span> <span class="n">colname</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="p">:</span>
+<span class="k">def</span> <span class="nf">add_var_column</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">colname</span><span class="o">=</span><span class="s2">&quot;SYMBOL&quot;</span><span class="p">,</span> <span class="n">attempFix</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">colname</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">attempFix</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Creating empty </span><span class="si">{</span><span class="n">colname</span><span class="si">}</span><span class="s1"> column;  please check if </span><span class="si">{</span><span class="n">colname</span><span class="si">}</span><span class="s1"> is not in the index of adata.var&#39;</span><span class="p">)</span>
-            <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="n">colname</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;N.A.&#39;</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Creating empty </span><span class="si">{</span><span class="n">colname</span><span class="si">}</span><span class="s2"> column;  please check if </span><span class="si">{</span><span class="n">colname</span><span class="si">}</span><span class="s2"> is not in the index of adata.var&quot;</span>
+            <span class="p">)</span>
+            <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="n">colname</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;N.A.&quot;</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;adata.var needs column named </span><span class="si">{colname}</span><span class="s1">&#39;</span> <span class="p">)</span>
-    <span class="k">return</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;adata.var needs column named </span><span class="si">{colname}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">adata</span>
 
 
-<div class="viewcode-block" id="assert_adata"><a class="viewcode-back" href="../../../import/besca.Import.assert_adata.html#besca.Import.assert_adata">[docs]</a><span class="k">def</span> <span class="nf">assert_adata</span><span class="p">(</span><span class="n">adata</span><span class="p">:</span> <span class="n">AnnData</span><span class="p">,</span> <span class="n">attempFix</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="assert_adata"><a class="viewcode-back" href="../../../import/besca.Import.assert_adata.html#besca.Import.assert_adata">[docs]</a><span class="k">def</span> <span class="nf">assert_adata</span><span class="p">(</span><span class="n">adata</span><span class="p">:</span> <span class="n">AnnData</span><span class="p">,</span> <span class="n">attempFix</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Asserts that an adata object is containing information needed for the besca pipeline to run and export information.</span>
 <span class="sd">    This is particularly usefull when loading public data</span>
 <span class="sd">    The parameter attempFix will try to fix the issue by itself.</span>
@@ -217,39 +249,35 @@
 <span class="sd">    -------</span>
 <span class="sd">    returns an AnnData object</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;CELL&#39;</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;CELL&quot;</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">attempFix</span><span class="p">:</span>
-            <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;CELL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">index</span>
-            <span class="nb">print</span><span class="p">(</span> <span class="s1">&#39;Creating columns CELL in adata.obs using adata.obs.index.&#39;</span><span class="p">)</span>
+            <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;CELL&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">index</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Creating columns CELL in adata.obs using adata.obs.index.&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Required CELL columns in observations&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Required CELL columns in observations&quot;</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs_names</span> <span class="o">==</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;CELL&#39;</span><span class="p">]):</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Required indexing of adata.obs by CELL column&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs_names</span> <span class="o">==</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;CELL&quot;</span><span class="p">]):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Required indexing of adata.obs by CELL column&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">issparse</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">attempFix</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Required count matrix to be sparse, X transformed to sparse&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Required count matrix to be sparse, X transformed to sparse&quot;</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">adata</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">(</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+                <span class="n">adata</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;X transformation to sparse failed.&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;X transformation to sparse failed.&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;adata.X needs to be sparse.&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;adata.X needs to be sparse.&quot;</span><span class="p">)</span>
     <span class="c1"># checking adata.var concordance</span>
-    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;SYMBOL&#39;</span><span class="p">,</span> <span class="s1">&#39;ENSEMBL&#39;</span><span class="p">]:</span>
-        <span class="n">adata</span> <span class="o">=</span> <span class="n">add_var_column</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">attempFix</span> <span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;In </span><span class="si">{x}</span><span class="s1"> non string values will create an issue for export&#39;</span><span class="p">)</span>
-    <span class="k">return</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span></div>
-
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;SYMBOL&quot;</span><span class="p">,</span> <span class="s2">&quot;ENSEMBL&quot;</span><span class="p">]:</span>
+        <span class="n">adata</span> <span class="o">=</span> <span class="n">add_var_column</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">attempFix</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;In </span><span class="si">{x}</span><span class="s2"> non string values will create an issue for export&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">adata</span></div>
 
 
 <div class="viewcode-block" id="read_mtx"><a class="viewcode-back" href="../../../import/besca.Import.read_mtx.html#besca.Import.read_mtx">[docs]</a><span class="k">def</span> <span class="nf">read_mtx</span><span class="p">(</span>
-        <span class="n">filepath</span><span class="p">,</span>
-        <span class="n">annotation</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">use_genes</span> <span class="o">=</span> <span class="s1">&#39;SYMBOL&#39;</span><span class="p">,</span>
-        <span class="n">species</span> <span class="o">=</span> <span class="s1">&#39;human&#39;</span><span class="p">,</span>
-        <span class="n">citeseq</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="n">filepath</span><span class="p">,</span> <span class="n">annotation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_genes</span><span class="o">=</span><span class="s2">&quot;SYMBOL&quot;</span><span class="p">,</span> <span class="n">species</span><span class="o">=</span><span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="n">citeseq</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Read matrix.mtx, genes.tsv, barcodes.tsv to AnnData object.</span>
 <span class="sd">    By specifiying an input folder this function reads the contained matrix.mtx,</span>
 <span class="sd">    genes.tsv and barcodes.tsv files to an AnnData object. In case annotation = True</span>
@@ -267,7 +295,7 @@
 <span class="sd">    species: `str` | default = &#39;human&#39;</span>
 <span class="sd">        string specifying the species, only needs to be used when no Gene Symbols</span>
 <span class="sd">        are supplied and you only have the ENSEMBLE gene ids to perform a lookup.</span>
-<span class="sd">    citeseq: &#39;gex_only&#39; or &#39;citeseq_only&#39; or None | default = None</span>
+<span class="sd">    citeseq: &#39;gex_only&#39; or &#39;citeseq_only&#39; or False or None | default = None</span>
 <span class="sd">        string indicating if only gene expression values (gex_only) or only protein</span>
 <span class="sd">        expression values (&#39;citeseq_only&#39;) or everything is read if None is specified</span>
 
@@ -275,83 +303,146 @@
 <span class="sd">    -------</span>
 <span class="sd">    returns an AnnData object</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gzfiles</span> <span class="o">=</span> <span class="n">assert_filepath</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">gzfiles</span> <span class="o">==</span> <span class="s2">&quot;gz&quot;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;reading matrix.mtx.gz&quot;</span><span class="p">)</span>
+        <span class="n">adata</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;matrix.mtx.gz&quot;</span><span class="p">),</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">T</span>  <span class="c1"># transpose the data</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;adding cell barcodes&quot;</span><span class="p">)</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">obs_names</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;barcodes.tsv.gz&quot;</span><span class="p">),</span> <span class="n">compression</span><span class="o">=</span><span class="s2">&quot;gzip&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span>
+        <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;adding genes&quot;</span><span class="p">)</span>
+        <span class="n">var_anno</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;genes.tsv.gz&quot;</span><span class="p">),</span>
+            <span class="n">compression</span><span class="o">=</span><span class="s2">&quot;gzip&quot;</span><span class="p">,</span>
+            <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">t&quot;</span><span class="p">,</span>
+            <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;reading matrix.mtx&quot;</span><span class="p">)</span>
+        <span class="n">adata</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;matrix.mtx&quot;</span><span class="p">),</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">T</span>  <span class="c1"># transpose the data</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;adding cell barcodes&quot;</span><span class="p">)</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">obs_names</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;barcodes.tsv&quot;</span><span class="p">),</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span>
+        <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;adding genes&quot;</span><span class="p">)</span>
+        <span class="n">var_anno</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;genes.tsv&quot;</span><span class="p">),</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">t&quot;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;python&quot;</span>
+        <span class="p">)</span>
 
-    <span class="n">assert_filepath</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;reading matrix.mtx&#39;</span><span class="p">)</span>
-    <span class="n">adata</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;matrix.mtx&#39;</span><span class="p">),</span> <span class="n">cache</span><span class="o">=</span> <span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>  <span class="c1">#transpose the data</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;adding cell barcodes&#39;</span><span class="p">)</span>
-    <span class="n">adata</span><span class="o">.</span><span class="n">obs_names</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;barcodes.tsv&#39;</span><span class="p">),</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;adding genes&#39;</span><span class="p">)</span>
-    <span class="n">var_anno</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;genes.tsv&#39;</span><span class="p">),</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">t&#39;</span><span class="p">,</span><span class="n">engine</span><span class="o">=</span><span class="s1">&#39;python&#39;</span><span class="p">)</span>
     <span class="n">symbols</span> <span class="o">=</span> <span class="n">var_anno</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">ensembl_id</span> <span class="o">=</span> <span class="n">var_anno</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;ENSEMBL&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ensembl_id</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span>
 
-    <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;ENSEMBL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ensembl_id</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-    <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span>
-
-    <span class="k">if</span> <span class="n">use_genes</span> <span class="o">==</span> <span class="s1">&#39;SYMBOL&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">use_genes</span> <span class="o">==</span> <span class="s2">&quot;SYMBOL&quot;</span><span class="p">:</span>
         <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span> <span class="o">=</span> <span class="n">symbols</span>
 
-        <span class="c1">#make unique</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;making var_names unique&#39;</span><span class="p">)</span>
+        <span class="c1"># make unique</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;making var_names unique&quot;</span><span class="p">)</span>
         <span class="n">adata</span><span class="o">.</span><span class="n">var_names_make_unique</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">symbols</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">!=</span> <span class="n">ensembl_id</span><span class="o">.</span><span class="n">tolist</span><span class="p">():</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;adding ENSEMBL gene ids to adata.var&#39;</span><span class="p">)</span>
-            <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;SYMBOL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">symbols</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="n">use_genes</span> <span class="o">==</span> <span class="s1">&#39;ENSEMBL&#39;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;adding ENSEMBL gene ids to adata.var&quot;</span><span class="p">)</span>
+            <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;SYMBOL&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">symbols</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">use_genes</span> <span class="o">==</span> <span class="s2">&quot;ENSEMBL&quot;</span><span class="p">:</span>
         <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span> <span class="o">=</span> <span class="n">ensembl_id</span>
 
         <span class="k">if</span> <span class="n">symbols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">ensembl_id</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-            <span class="c1">#add symbols to object</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;adding symbols to adata.var&#39;</span><span class="p">)</span>
-            <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;SYMBOL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">symbols</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="c1"># add symbols to object</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;adding symbols to adata.var&quot;</span><span class="p">)</span>
+            <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;SYMBOL&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">symbols</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1">#lookup the corresponding Symbols</span>
-            <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;SYMBOL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">convert_ensembl_to_symbol</span><span class="p">(</span><span class="n">ensembl_id</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">species</span> <span class="o">=</span> <span class="n">species</span><span class="p">)</span>
+            <span class="c1"># lookup the corresponding Symbols</span>
+            <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;SYMBOL&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">convert_ensembl_to_symbol</span><span class="p">(</span>
+                <span class="n">ensembl_id</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">species</span><span class="o">=</span><span class="n">species</span>
+            <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;supplied unknown use_genes parameter&#39;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;supplied unknown use_genes parameter&quot;</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">citeseq</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">check_response</span> <span class="o">=</span> <span class="n">check_data_for_citeseq</span><span class="p">(</span><span class="n">var_anno</span><span class="o">=</span><span class="n">var_anno</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">citeseq</span> <span class="o">==</span> <span class="s1">&#39;gex_only&#39;</span> <span class="ow">or</span> <span class="n">citeseq</span> <span class="o">==</span> <span class="s1">&#39;citeseq_only&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">check_response</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;genes.tsv&#39; does not include citeseq data or &#39;genes.tsv&#39; has invalid citeseq values.&quot;</span><span class="p">)</span>
         <span class="n">features</span> <span class="o">=</span> <span class="n">var_anno</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-        <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;feature_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;feature_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
-        <span class="c1">#only extract the information we want</span>
-        <span class="k">if</span> <span class="n">citeseq</span> <span class="o">==</span> <span class="s1">&#39;gex_only&#39;</span><span class="p">:</span>
-                <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">feature_type</span> <span class="o">==</span> <span class="s1">&#39;Gene Expression&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">citeseq</span> <span class="o">==</span> <span class="s1">&#39;citeseq_only&#39;</span><span class="p">:</span>
-            <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">feature_type</span> <span class="o">==</span> <span class="s1">&#39;Antibody Capture&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
+        <span class="c1"># only extract the information we want</span>
+        <span class="k">if</span> <span class="n">citeseq</span> <span class="o">==</span> <span class="s2">&quot;gex_only&quot;</span><span class="p">:</span>
+            <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;Gene Expression&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">citeseq</span> <span class="o">==</span> <span class="s2">&quot;citeseq_only&quot;</span><span class="p">:</span>
+            <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">feature_type</span> <span class="o">==</span> <span class="s2">&quot;Antibody Capture&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">citeseq</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">check_response</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Citeseq data has been detected!, if you want to use it, please change citeseq parameter. Besca will continue without using the citeseq data&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">citeseq</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> <span class="ow">and</span> <span class="n">citeseq</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">check_response</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Citeseq data does not exists or is invalid!, change citeseq parameter to &#39;None&#39; if there is no citeseq data existing!&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;citeseq parameters has invalid value. Possible values: &#39;gex_only&#39;, &#39;citeseq_only&#39;, False or None.&quot;</span><span class="p">)</span>
+    
     <span class="k">if</span> <span class="n">annotation</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;adding annotation&#39;</span><span class="p">)</span>
-        <span class="n">adata</span><span class="o">.</span><span class="n">obs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;metadata.tsv&#39;</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">t&#39;</span><span class="p">,</span><span class="n">engine</span><span class="o">=</span><span class="s1">&#39;python&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CELL&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CELL&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;adding annotation&quot;</span><span class="p">)</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">obs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;metadata.tsv&quot;</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">t&quot;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;python&quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CELL&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CELL&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
-    <span class="k">return</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">adata</span></div>
+
+
+<span class="k">def</span> <span class="nf">check_data_for_citeseq</span><span class="p">(</span><span class="n">var_anno</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Read variable annotations and check if valid citeseq data is inlcluded</span>
+<span class="sd">    ----------</span>
+<span class="sd">    var_anno: `Pandas.Dataframe`</span>
+<span class="sd">        A pandas dataframe, which includes the variable annotations.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    returns a boolean if citeseq data is existing</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">var_anno</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">var_anno</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">==</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;Gene Expression&#39;</span><span class="p">])</span> <span class="ow">or</span> \
+            <span class="nb">set</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">==</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;Antibody Capture&#39;</span><span class="p">])</span> <span class="ow">or</span> \
+            <span class="nb">set</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">==</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;Antibody Capture&#39;</span><span class="p">,</span> <span class="s1">&#39;Gene Expression&#39;</span><span class="p">]):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
 </pre></div>
 
            </div>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, BEDA
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -359,7 +450,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

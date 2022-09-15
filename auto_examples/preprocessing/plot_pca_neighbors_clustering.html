@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>cluster generation &mdash; BESCA 2.4 documentation</title>
+  <title>cluster generation &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +40,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
@@ -45,7 +54,7 @@
     
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="reclustering on specific louvain clusters" href="../tools/plot_reclustering_function.html" />
+    <link rel="next" title="Tools" href="../tools/index.html" />
     <link rel="prev" title="performing filtering using besca" href="plot_example_filtering.html" /> 
 </head>
 
@@ -70,7 +79,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -95,27 +104,33 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../besca.html">besca</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">code examples</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../index.html#plotting-examples">Plotting examples</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html#preprocessing">Preprocessing</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="plot_example_filtering.html">performing filtering using besca</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">cluster generation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#highly-variable-gene-selection">highly variable gene selection</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#set-random-seed">set random seed</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pca">PCA</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#nearest-neighbors">nearest neighbors</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#louvain-clustering">louvain clustering</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#umap-and-t-sne-generation">UMAP and t-SNE generation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#visualize-the-results">visualize the results</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#preprocessing">Preprocessing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#tools">Tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#workflows">Workflows</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#workflows">Workflows</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../plotting/index.html">Plotting examples</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Preprocessing</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="plot_example_filtering.html">performing filtering using besca</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">cluster generation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#highly-variable-gene-selection">highly variable gene selection</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#set-random-seed">set random seed</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pca">PCA</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#nearest-neighbors">nearest neighbors</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#leiden-clustering">leiden clustering</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#umap-and-t-sne-generation">UMAP and t-SNE generation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#visualize-the-results">visualize the results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../workflows/index.html">Workflows</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">tutorials</a></li>
@@ -171,6 +186,8 @@
         
           <li><a href="../index.html">Code Examples</a> &raquo;</li>
         
+          <li><a href="index.html">Preprocessing</a> &raquo;</li>
+        
       <li>cluster generation</li>
     
     
@@ -216,143 +233,116 @@
 </style>
 <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-preprocessing-plot-pca-neighbors-clustering-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-preprocessing-plot-pca-neighbors-clustering-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="cluster-generation">
-<span id="sphx-glr-auto-examples-preprocessing-plot-pca-neighbors-clustering-py"></span><h1>cluster generation<a class="headerlink" href="#cluster-generation" title="Permalink to this headline">¶</a></h1>
+<section class="sphx-glr-example-title" id="cluster-generation">
+<span id="sphx-glr-auto-examples-preprocessing-plot-pca-neighbors-clustering-py"></span><h1>cluster generation<a class="headerlink" href="#cluster-generation" title="Permalink to this heading">¶</a></h1>
 <p>This example demonstrates how to perform highly variable gene selection, PCA, nearest neighbor calculation, and clustering.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
 <span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
 
-<span class="c1">#import example dataset that has previously been filtered</span>
+<span class="c1"># pytest.skip(&#39;Test is only for here as example and should not be executed&#39;)</span>
+<span class="c1"># import example dataset that has previously been filtered</span>
 <span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc3k_filtered</span><span class="p">()</span>
 <span class="c1">## We get the raw matrix containing all the initial genes, keeping the filtering on the cells</span>
 <span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">get_raw</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/.local/lib/python3.7/site-packages/anndata/compat/__init__.py:161: FutureWarning:
-
-Moving element from .uns[&#39;neighbors&#39;][&#39;distances&#39;] to .obsp[&#39;distances&#39;].
-
-This is where adjacency matrices should go now.
-
-/.local/lib/python3.7/site-packages/anndata/compat/__init__.py:161: FutureWarning:
-
-Moving element from .uns[&#39;neighbors&#39;][&#39;connectivities&#39;] to .obsp[&#39;connectivities&#39;].
-
-This is where adjacency matrices should go now.
-</pre></div>
-</div>
-<div class="section" id="highly-variable-gene-selection">
-<h2>highly variable gene selection<a class="headerlink" href="#highly-variable-gene-selection" title="Permalink to this headline">¶</a></h2>
+<section id="highly-variable-gene-selection">
+<h2>highly variable gene selection<a class="headerlink" href="#highly-variable-gene-selection" title="Permalink to this heading">¶</a></h2>
 <p>select highly variable genes (considers correction for gene expression level)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#define thresholds for highly variable genes</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># define thresholds for highly variable genes</span>
 <span class="n">variable_genes_min_mean</span> <span class="o">=</span> <span class="mf">0.01</span>
 <span class="n">variable_genes_max_mean</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">variable_genes_min_disp</span> <span class="o">=</span> <span class="mf">0.4</span>
 
-<span class="c1">#identify genes with variable expression</span>
-<span class="n">filter_result</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">filter_genes_dispersion</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">min_mean</span><span class="o">=</span><span class="n">variable_genes_min_mean</span><span class="p">,</span> <span class="n">max_mean</span><span class="o">=</span><span class="n">variable_genes_max_mean</span><span class="p">,</span> <span class="n">min_disp</span><span class="o">=</span><span class="n">variable_genes_min_disp</span><span class="p">)</span>
+<span class="c1"># identify genes with variable expression</span>
+<span class="n">filter_result</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">filter_genes_dispersion</span><span class="p">(</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">,</span>
+    <span class="n">min_mean</span><span class="o">=</span><span class="n">variable_genes_min_mean</span><span class="p">,</span>
+    <span class="n">max_mean</span><span class="o">=</span><span class="n">variable_genes_max_mean</span><span class="p">,</span>
+    <span class="n">min_disp</span><span class="o">=</span><span class="n">variable_genes_min_disp</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">filter_genes_dispersion</span><span class="p">(</span><span class="n">filter_result</span><span class="p">)</span>
 <span class="n">nbr_variable_genes</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">filter_result</span><span class="o">.</span><span class="n">gene_subset</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;number of variable genes selected &#39;</span><span class="p">,</span> <span class="n">nbr_variable_genes</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;number of variable genes selected &quot;</span><span class="p">,</span> <span class="n">nbr_variable_genes</span><span class="p">)</span>
 
-<span class="c1">#perform the actual filtering</span>
+<span class="c1"># perform the actual filtering</span>
 <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="n">filter_result</span><span class="o">.</span><span class="n">gene_subset</span><span class="p">]</span>
 </pre></div>
 </div>
-<img alt="plot pca neighbors clustering" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_pca_neighbors_clustering_001.png" />
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>number of variable genes selected  1897
-/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
-
-is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+<img src="../../_images/sphx_glr_plot_pca_neighbors_clustering_001.png" srcset="../../_images/sphx_glr_plot_pca_neighbors_clustering_001.png" alt="plot pca neighbors clustering" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>number of variable genes selected  1897
 </pre></div>
 </div>
-</div>
-<div class="section" id="set-random-seed">
-<h2>set random seed<a class="headerlink" href="#set-random-seed" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="set-random-seed">
+<h2>set random seed<a class="headerlink" href="#set-random-seed" title="Permalink to this heading">¶</a></h2>
 <p>To get reproducible results you need to define a random seed for all of the stochastic
 processes, such as e.g. PCA, neighbors, etc.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#set random seed</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># set random seed</span>
 <span class="n">random_seed</span> <span class="o">=</span> <span class="mi">0</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="pca">
-<h2>PCA<a class="headerlink" href="#pca" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#log transform our data (is easier to work with numbers like this)</span>
+</section>
+<section id="pca">
+<h2>PCA<a class="headerlink" href="#pca" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># log transform our data (is easier to work with numbers like this)</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
 
 <span class="c1"># Scale data to unit variance and zero mean, and cut-off at max value 10</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
-<span class="c1">#calculate 50 principle components of the dataset</span>
-<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_seed</span><span class="p">,</span> <span class="n">svd_solver</span><span class="o">=</span><span class="s1">&#39;arpack&#39;</span><span class="p">)</span>
+<span class="c1"># calculate 50 principle components of the dataset</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_seed</span><span class="p">,</span> <span class="n">svd_solver</span><span class="o">=</span><span class="s2">&quot;arpack&quot;</span><span class="p">)</span>
 
-<span class="c1">#visualize the amount of variance explained by each PC</span>
+<span class="c1"># visualize the amount of variance explained by each PC</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">pca_variance_ratio</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
 
-<span class="c1">#visualize the loadings onto the first 3 PCs</span>
+<span class="c1"># visualize the loadings onto the first 3 PCs</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">pca_loadings</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="sphx-glr-horizontal">
-<li><img alt="variance ratio" class="sphx-glr-multi-img" src="../../_images/sphx_glr_plot_pca_neighbors_clustering_002.png" />
-</li>
-<li><img alt="PC1, PC2, PC3" class="sphx-glr-multi-img" src="../../_images/sphx_glr_plot_pca_neighbors_clustering_003.png" />
-</li>
+<li><img src="../../_images/sphx_glr_plot_pca_neighbors_clustering_002.png" srcset="../../_images/sphx_glr_plot_pca_neighbors_clustering_002.png" alt="variance ratio" class = "sphx-glr-multi-img"/></li>
+<li><img src="../../_images/sphx_glr_plot_pca_neighbors_clustering_003.png" srcset="../../_images/sphx_glr_plot_pca_neighbors_clustering_003.png" alt="PC1, PC2, PC3" class = "sphx-glr-multi-img"/></li>
 </ul>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/.conda/envs/besca_docs/lib/python3.7/site-packages/scanpy/preprocessing/_simple.py:339: UserWarning:
-
-Revieved a view of an AnnData. Making a copy.
+</section>
+<section id="nearest-neighbors">
+<h2>nearest neighbors<a class="headerlink" href="#nearest-neighbors" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_seed</span><span class="p">,</span> <span class="n">n_pcs</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="nearest-neighbors">
-<h2>nearest neighbors<a class="headerlink" href="#nearest-neighbors" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="n">random_seed</span><span class="p">,</span> <span class="n">n_pcs</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="louvain-clustering">
-<h2>louvain clustering<a class="headerlink" href="#louvain-clustering" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="leiden-clustering">
+<h2>leiden clustering<a class="headerlink" href="#leiden-clustering" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">leiden</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_seed</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="umap-and-t-sne-generation">
-<h2>UMAP and t-SNE generation<a class="headerlink" href="#umap-and-t-sne-generation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#calculate UMAP</span>
-<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="n">random_seed</span><span class="p">)</span>
+</section>
+<section id="umap-and-t-sne-generation">
+<h2>UMAP and t-SNE generation<a class="headerlink" href="#umap-and-t-sne-generation" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate UMAP</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_seed</span><span class="p">)</span>
 
-<span class="c1">#calculate t-SNE</span>
-<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">tsne</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="n">random_seed</span><span class="p">)</span>
+<span class="c1"># calculate t-SNE</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">tsne</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_seed</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="visualize-the-results">
-<h2>visualize the results<a class="headerlink" href="#visualize-the-results" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;leiden&#39;</span><span class="p">])</span>
-<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">tsne</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;leiden&#39;</span><span class="p">])</span>
+</section>
+<section id="visualize-the-results">
+<h2>visualize the results<a class="headerlink" href="#visualize-the-results" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;leiden&quot;</span><span class="p">])</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">tsne</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;leiden&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 <ul class="sphx-glr-horizontal">
-<li><img alt="leiden" class="sphx-glr-multi-img" src="../../_images/sphx_glr_plot_pca_neighbors_clustering_004.png" />
-</li>
-<li><img alt="leiden" class="sphx-glr-multi-img" src="../../_images/sphx_glr_plot_pca_neighbors_clustering_005.png" />
-</li>
+<li><img src="../../_images/sphx_glr_plot_pca_neighbors_clustering_004.png" srcset="../../_images/sphx_glr_plot_pca_neighbors_clustering_004.png" alt="leiden" class = "sphx-glr-multi-img"/></li>
+<li><img src="../../_images/sphx_glr_plot_pca_neighbors_clustering_005.png" srcset="../../_images/sphx_glr_plot_pca_neighbors_clustering_005.png" alt="leiden" class = "sphx-glr-multi-img"/></li>
 </ul>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1192: FutureWarning:
-
-is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
-</pre></div>
-</div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 41 minutes  7.887 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-preprocessing-plot-pca-neighbors-clustering-py">
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  11.037 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-preprocessing-plot-pca-neighbors-clustering-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/7f64c9d2bba320824c4ffe0e4c6d7b59/plot_pca_neighbors_clustering.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_pca_neighbors_clustering.py</span></code></a></p>
 </div>
@@ -361,8 +351,8 @@ is_categorical is deprecated and will be removed in a future version.  Use is_ca
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -370,7 +360,7 @@ is_categorical is deprecated and will be removed in a future version.  Use is_ca
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../tools/plot_reclustering_function.html" class="btn btn-neutral float-right" title="reclustering on specific louvain clusters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../tools/index.html" class="btn btn-neutral float-right" title="Tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="plot_example_filtering.html" class="btn btn-neutral float-left" title="performing filtering using besca" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
@@ -378,7 +368,7 @@ is_categorical is deprecated and will be removed in a future version.  Use is_ca
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

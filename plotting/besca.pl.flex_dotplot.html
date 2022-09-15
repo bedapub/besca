@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>flex_dotplot &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="count_occurrence" href="../tools/besca.tl.count_occurrence.html" />
+    <link rel="prev" title="riverplot_2categories" href="besca.pl.riverplot_2categories.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> BESCA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../besca.html">besca</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../besca.html#helper-functions">helper functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../besca.html#preprocessing">preprocessing</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../besca.html#plotting">plotting</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.kp_genes.html">kp_genes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.kp_counts.html">kp_counts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.kp_cells.html">kp_cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.max_counts.html">max_counts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.max_genes.html">max_genes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.max_mito.html">max_mito</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.dropouts.html">dropouts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.detected_genes.html">detected_genes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.library_size.html">library_size</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.librarysize_overview.html">librarysize_overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.transcript_capture_efficiency.html">transcript_capture_efficiency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.top_genes_counts.html">top_genes_counts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.gene_expr_split.html">gene_expr_split</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.gene_expr_split_stacked.html">gene_expr_split_stacked</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.box_per_ind.html">box_per_ind</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.stacked_split_violin.html">stacked_split_violin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.celllabel_quant_boxplot.html">celllabel_quant_boxplot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.celllabel_quant_stackedbar.html">celllabel_quant_stackedbar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.dot_heatmap.html">dot_heatmap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.dot_heatmap_split.html">dot_heatmap_split</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.dot_heatmap_split_greyscale.html">dot_heatmap_split_greyscale</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.update_qualitative_palette.html">update_qualitative_palette</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.nomenclature_network.html">nomenclature_network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.riverplot_2categories.html">riverplot_2categories</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">flex_dotplot</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../besca.html#tools">tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../besca.html#import">Import</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../besca.html#export">export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../besca.html#standardworkflow">standardworkflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">code examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../besca_standard_pipeline.html">standard pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adding_new_functions.html">adding new functions to besca</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">BESCA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../besca.html">besca</a> &raquo;</li>
+        
+      <li>flex_dotplot</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/plotting/besca.pl.flex_dotplot.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="flex-dotplot">
+<h1>flex_dotplot<a class="headerlink" href="#flex-dotplot" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="besca.pl.flex_dotplot">
+<span class="sig-prename descclassname"><span class="pre">besca.pl.</span></span><span class="sig-name descname"><span class="pre">flex_dotplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HUE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SIZE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mycolors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Reds'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">myfontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xfactor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yfactor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pl/_general.html#flex_dotplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.pl.flex_dotplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a dot plot showing average expression and fraction positive cells</p>
+<p>This function generates a plot where X and Y axes are flexible.
+For each coordinate a circle plot is generated where the size of the circle
+represents is specifed by SIZE (typically fraction_pos) and the color of the circle is
+specified by HUE (typically average expression). X and Y axis for stratification is also specified,
+typically X would be genes and Y cell types. In case of a single gene, Y could be treatments/patients etc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<cite>pandas.DataFrame</cite>) – a dataframe containing the data to be plotted</p></li>
+<li><p><strong>X</strong> (<cite>str</cite>) – df column to be plotted on X axis</p></li>
+<li><p><strong>Y</strong> (<cite>str</cite>) – df column to be plotted on Y axis</p></li>
+<li><p><strong>HUE</strong> (<cite>str</cite>) – df column corresponding to dot color (e.g. average expression)</p></li>
+<li><p><strong>SIZE</strong> (<cite>str</cite>) – df column corresponding to dot size (e.g. fraction positive)</p></li>
+<li><p><strong>title</strong> (<cite>str</cite>) – plot title</p></li>
+<li><p><strong>mycolors</strong> (<cite>str</cite>) – color palette e.g. Reds or viridis</p></li>
+<li><p><strong>myfontsize</strong> (<cite>int</cite>) – fontsize for the legend defaults to 15</p></li>
+<li><p><strong>xfactor</strong> (<cite>int</cite>) – distance coef for xaxis defaults to 0.7</p></li>
+<li><p><strong>yfactor</strong> (<cite>int</cite>) – distance coef for yaxis defaults to 0.6</p></li>
+<li><p><strong>figsize</strong> (<em>(</em><em>width</em><em>, </em><em>height</em><em>) or </em><em>None</em><em> | </em><em>default = None</em>) – optional parameter to define the figure size of the plot that is to be generated</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A matplotlib figure element containing the generated plot. To save the figure this plot will need
+to be passed to a parameter and saved in a second step through the fig.savefig() function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Figure</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># import libraries and dataset</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">simulated_Kotliarov2020_processed</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gene</span> <span class="o">=</span> <span class="s1">&#39;Gene_3&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">=</span><span class="n">bc</span><span class="o">.</span><span class="n">get_singlegenedf</span><span class="p">(</span><span class="n">gene</span><span class="p">,</span> <span class="n">adata</span><span class="p">,</span> <span class="s1">&#39;CONDITION&#39;</span><span class="p">,</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span><span class="s1">&#39;sampleid&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">flex_dotplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="s1">&#39;CONDITION&#39;</span><span class="p">,</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span><span class="s1">&#39;Avg&#39;</span><span class="p">,</span><span class="s1">&#39;Fct&#39;</span><span class="p">,</span><span class="s1">&#39;study_title&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../tools/besca.tl.count_occurrence.html" class="btn btn-neutral float-right" title="count_occurrence" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="besca.pl.riverplot_2categories.html" class="btn btn-neutral float-left" title="riverplot_2categories" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

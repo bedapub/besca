@@ -1,44 +1,56 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>besca.Import._labelings &mdash; BESCA 2.3 documentation</title>
+  <title>besca.Import._labelings &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/plot_directive.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+
+  
   
 
   
   
-  
+
   
 
   
-  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
@@ -64,7 +76,7 @@
             
             
               <div class="version">
-                2.3
+                2.5
               </div>
             
           
@@ -81,6 +93,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -88,7 +101,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../besca.html">besca</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">code examples</a></li>
@@ -100,6 +113,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -134,11 +148,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
@@ -161,25 +177,24 @@
 <span></span><span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">read_csv</span>
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">pathjoin</span>
 
-<div class="viewcode-block" id="add_cell_labeling"><a class="viewcode-back" href="../../../import/besca.Import.add_cell_labeling.html#besca.Import.add_cell_labeling">[docs]</a><span class="k">def</span> <span class="nf">add_cell_labeling</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
-                      <span class="n">filepath</span><span class="p">,</span>
-                      <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;celltype&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; add a labeling written out in the FAIR formating to adata.obs</span>
+
+<div class="viewcode-block" id="add_cell_labeling"><a class="viewcode-back" href="../../../import/besca.Import.add_cell_labeling.html#besca.Import.add_cell_labeling">[docs]</a><span class="k">def</span> <span class="nf">add_cell_labeling</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;celltype&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;add a labeling written out in the FAIR formating to adata.obs</span>
 
 <span class="sd">    A laveling contained in the FAIR compliant cell2labels.tsv is added to adata.obs. The string supplied</span>
 <span class="sd">    in the parameter label is used to name the column in adata.obs that contains the imported labeling.</span>
 
 <span class="sd">    All cells that are not labeled in the cell2labels.tsv will be annotated with &#39;not labeled&#39;.</span>
-<span class="sd">    </span>
+
 <span class="sd">    parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    adata: `AnnData`</span>
 <span class="sd">        the AnnData object whose obs should be updated</span>
-<span class="sd">    filepath: `str` </span>
+<span class="sd">    filepath: `str`</span>
 <span class="sd">        filepath to the cell2labels.tsv that is to be appended to adata.obs</span>
 <span class="sd">    label: `str` | default = &#39;celltype&#39;</span>
 <span class="sd">        string indicating the label that is to be added to the annotation that is being imported</span>
-<span class="sd">    </span>
+
 <span class="sd">    returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    None</span>
@@ -187,33 +202,38 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">labeling</span> <span class="o">=</span> <span class="n">read_csv</span><span class="p">(</span><span class="n">pathjoin</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;cell2labels.tsv&#39;</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">labeling</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;LABEL&#39;</span><span class="p">:</span><span class="n">label</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">labeling</span> <span class="o">=</span> <span class="n">read_csv</span><span class="p">(</span><span class="n">pathjoin</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;cell2labels.tsv&quot;</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">labeling</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;LABEL&quot;</span><span class="p">:</span> <span class="n">label</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;not labeled&#39;</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;not labeled&quot;</span>
     <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">labeling</span><span class="p">)</span>
 
-    <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="kc">None</span></div>
 </pre></div>
 
            </div>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, BEDA
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -221,7 +241,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

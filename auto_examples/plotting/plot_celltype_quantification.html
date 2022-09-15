@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Visualize cell fractions &mdash; BESCA 2.4 documentation</title>
+  <title>Visualize cell fractions &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +40,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
@@ -45,7 +54,7 @@
     
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Filtering functions" href="plot_filtering.html" />
+    <link rel="next" title="filtering functions" href="plot_filtering.html" />
     <link rel="prev" title="quality control plots" href="plot_qc.html" /> 
 </head>
 
@@ -70,7 +79,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -95,21 +104,27 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../besca.html">besca</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">code examples</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html#plotting-examples">Plotting examples</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="plot_riverplot.html">Comparing categorical variable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plot_split_gene_expression.html">plotting gene expression</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plot_qc.html">quality control plots</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Visualize cell fractions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plot_filtering.html">Filtering functions</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#plotting-examples">Plotting examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#preprocessing">Preprocessing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#tools">Tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#workflows">Workflows</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#workflows">Workflows</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Plotting examples</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="plot_riverplot.html">Comparing categorical variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plot_split_gene_expression.html">plotting gene expression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plot_qc.html">quality control plots</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Visualize cell fractions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plot_filtering.html">filtering functions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../preprocessing/index.html">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../workflows/index.html">Workflows</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">tutorials</a></li>
@@ -165,6 +180,8 @@
         
           <li><a href="../index.html">Code Examples</a> &raquo;</li>
         
+          <li><a href="index.html">Plotting examples</a> &raquo;</li>
+        
       <li>Visualize cell fractions</li>
     
     
@@ -210,151 +227,60 @@
 </style>
 <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plotting-plot-celltype-quantification-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plotting-plot-celltype-quantification-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="visualize-cell-fractions">
-<span id="sphx-glr-auto-examples-plotting-plot-celltype-quantification-py"></span><h1>Visualize cell fractions<a class="headerlink" href="#visualize-cell-fractions" title="Permalink to this headline">¶</a></h1>
+<section class="sphx-glr-example-title" id="visualize-cell-fractions">
+<span id="sphx-glr-auto-examples-plotting-plot-celltype-quantification-py"></span><h1>Visualize cell fractions<a class="headerlink" href="#visualize-cell-fractions" title="Permalink to this heading">¶</a></h1>
 <p>This example demonstrates how to generate celltype quantification plots. These types of plots
 can be used to visually represent the number of cells that belong to a certain subset or condition.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
 
-<span class="c1">#import dataset to workwith</span>
+<span class="c1"># pytest.skip(&#39;Test is only for here as example and should not be executed&#39;)</span>
+
+<span class="c1"># import dataset to workwith</span>
 <span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">Peng2019_processed</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>quantify specific celllabels as a stacked barplot</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">celllabel_quant_stackedbar</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">count_variable</span> <span class="o">=</span> <span class="s1">&#39;Cell_type&#39;</span><span class="p">,</span> <span class="n">subset_variable</span> <span class="o">=</span> <span class="s1">&#39;Patient&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">celllabel_quant_stackedbar</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span> <span class="n">count_variable</span><span class="o">=</span><span class="s2">&quot;Cell_type&quot;</span><span class="p">,</span> <span class="n">subset_variable</span><span class="o">=</span><span class="s2">&quot;Patient&quot;</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-<img alt="plot celltype quantification" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_celltype_quantification_001.png" />
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/pstore/home/julienla/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
-
-is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
-
-/pstore/home/julienla/Code/Besca/besca/besca/pl/_celltype_quantification.py:143: UserWarning:
-
-Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
-
-
-&lt;AxesSubplot:ylabel=&#39;percentage&#39;&gt;
+<img src="../../_images/sphx_glr_plot_celltype_quantification_001.png" srcset="../../_images/sphx_glr_plot_celltype_quantification_001.png" alt="plot celltype quantification" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:ylabel=&#39;percentage&#39;&gt;
 </pre></div>
 </div>
 <p>quantify number of cells belong to each condition in a specific subset</p>
 <p>here each dot represents one Patient, the boxplots are grouped according to tissue type (Normal or Tumoral)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">celllabel_quant_boxplot</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">count_variable</span> <span class="o">=</span> <span class="s1">&#39;Cell_type&#39;</span><span class="p">,</span> <span class="n">subset_variable</span> <span class="o">=</span> <span class="s1">&#39;Patient&#39;</span><span class="p">,</span> <span class="n">condition_identifier</span> <span class="o">=</span> <span class="s1">&#39;Type&#39;</span><span class="p">,</span>  <span class="n">plot_percentage</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">celllabel_quant_boxplot</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span>
+    <span class="n">count_variable</span><span class="o">=</span><span class="s2">&quot;Cell_type&quot;</span><span class="p">,</span>
+    <span class="n">subset_variable</span><span class="o">=</span><span class="s2">&quot;Patient&quot;</span><span class="p">,</span>
+    <span class="n">condition_identifier</span><span class="o">=</span><span class="s2">&quot;Type&quot;</span><span class="p">,</span>
+    <span class="n">plot_percentage</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-<img alt="plot celltype quantification" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_celltype_quantification_002.png" />
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/pstore/home/julienla/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
-
-is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-9.1% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-70.8% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-63.6% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-50.0% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-29.2% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-72.7% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-36.4% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-66.7% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-16.7% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-18.2% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-8.3% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-
-&lt;Figure size 800x400 with 1 Axes&gt;
+<img src="../../_images/sphx_glr_plot_celltype_quantification_002.png" srcset="../../_images/sphx_glr_plot_celltype_quantification_002.png" alt="plot celltype quantification" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 800x400 with 1 Axes&gt;
 </pre></div>
 </div>
 <p>here you can also choose to plot total counts instead of percentages</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">celllabel_quant_boxplot</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">count_variable</span> <span class="o">=</span> <span class="s1">&#39;Cell_type&#39;</span><span class="p">,</span> <span class="n">subset_variable</span> <span class="o">=</span> <span class="s1">&#39;Patient&#39;</span><span class="p">,</span> <span class="n">condition_identifier</span> <span class="o">=</span> <span class="s1">&#39;Type&#39;</span><span class="p">,</span>  <span class="n">plot_percentage</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">celllabel_quant_boxplot</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span>
+    <span class="n">count_variable</span><span class="o">=</span><span class="s2">&quot;Cell_type&quot;</span><span class="p">,</span>
+    <span class="n">subset_variable</span><span class="o">=</span><span class="s2">&quot;Patient&quot;</span><span class="p">,</span>
+    <span class="n">condition_identifier</span><span class="o">=</span><span class="s2">&quot;Type&quot;</span><span class="p">,</span>
+    <span class="n">plot_percentage</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-<img alt="plot celltype quantification" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_celltype_quantification_003.png" />
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/pstore/home/julienla/.local/lib/python3.7/site-packages/anndata/_core/anndata.py:1094: FutureWarning:
-
-is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-9.1% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-70.8% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-72.7% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-58.3% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-29.2% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-45.5% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-18.2% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-16.7% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-27.3% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-/pstore/home/julienla/.conda/envs/besca_docs/lib/python3.7/site-packages/seaborn/categorical.py:1296: UserWarning:
-
-25.0% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-
-
-&lt;Figure size 800x400 with 1 Axes&gt;
+<img src="../../_images/sphx_glr_plot_celltype_quantification_003.png" srcset="../../_images/sphx_glr_plot_celltype_quantification_003.png" alt="plot celltype quantification" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 800x400 with 1 Axes&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  14.820 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plotting-plot-celltype-quantification-py">
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  59.225 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plotting-plot-celltype-quantification-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/02db271b6e9c17bb26803a824dcccff1/plot_celltype_quantification.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_celltype_quantification.py</span></code></a></p>
 </div>
@@ -363,7 +289,7 @@ is_categorical is deprecated and will be removed in a future version.  Use is_ca
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
+</section>
 
 
            </div>
@@ -371,7 +297,7 @@ is_categorical is deprecated and will be removed in a future version.  Use is_ca
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="plot_filtering.html" class="btn btn-neutral float-right" title="Filtering functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="plot_filtering.html" class="btn btn-neutral float-right" title="filtering functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="plot_qc.html" class="btn btn-neutral float-left" title="quality control plots" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
@@ -379,7 +305,7 @@ is_categorical is deprecated and will be removed in a future version.  Use is_ca
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

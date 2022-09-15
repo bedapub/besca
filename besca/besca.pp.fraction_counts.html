@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fraction_counts &mdash; BESCA 2.4 documentation</title>
+  <title>fraction_counts &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +40,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -68,7 +77,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -93,7 +102,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../besca.html">besca</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">code examples</a></li>
@@ -191,11 +200,11 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="fraction-counts">
-<h1>fraction_counts<a class="headerlink" href="#fraction-counts" title="Permalink to this headline">¶</a></h1>
+<section id="fraction-counts">
+<h1>fraction_counts<a class="headerlink" href="#fraction-counts" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
-<dt id="besca.pp.fraction_counts">
-<code class="sig-prename descclassname"><span class="pre">besca.pp.</span></code><code class="sig-name descname"><span class="pre">fraction_counts</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">species</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'human'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'percent_mito'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_genes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'SYMBOL'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specific_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pp/_fraction_counts.html#fraction_counts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.pp.fraction_counts" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="besca.pp.fraction_counts">
+<span class="sig-prename descclassname"><span class="pre">besca.pp.</span></span><span class="sig-name descname"><span class="pre">fraction_counts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">species</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'human'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'percent_mito'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_genes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'SYMBOL'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specific_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pp/_fraction_counts.html#fraction_counts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.pp.fraction_counts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to calculate fraction of counts per cell from a gene list.
 This function calculates the fraction of counts per cell for
 a list of genes (for example mito genes) if no specific file is given.
@@ -203,7 +212,7 @@ Note that the input file consists of two columns
 (ENSEMBL gene id and gene symbol) tab
 separated</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>adata</strong> (<cite>AnnData</cite>) – AnnData object</p></li>
 <li><p><strong>species</strong> (<cite>str</cite> | default = human) – species for mitochondrial content evaluation</p></li>
@@ -214,26 +223,25 @@ adata.var_names (defines which column of input gene list is read)</p></li>
 <li><p><strong>specific_file</strong> (<cite>str</cite> | default None.) – if indicated, the file will be used to extract the gene list</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Returns None but updates adata with new column named ‘name’
 containing calculated fraction of counts.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc_raw</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">fraction_counts</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>  <span class="s1">&#39;human&#39;</span><span class="p">,</span> <span class="n">use_genes</span><span class="o">=</span><span class="s1">&#39;SYMBOL&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">simulated_pbmc3k_raw</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">fraction_counts</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>  <span class="s1">&#39;human&#39;</span><span class="p">,</span> <span class="n">use_genes</span><span class="o">=</span><span class="s1">&#39;SYMBOL&#39;</span><span class="p">,</span> <span class="n">specific_file</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s2">/datasets/mito_files/test.mito.tsv&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">counts</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
@@ -245,7 +253,7 @@ containing calculated fraction of counts.</p>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

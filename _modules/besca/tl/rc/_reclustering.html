@@ -1,44 +1,56 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>besca.tl.rc._reclustering &mdash; BESCA 2.3 documentation</title>
+  <title>besca.tl.rc._reclustering &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/plot_directive.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+
+  
   
 
   
   
-  
+
   
 
   
-  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
         <script src="../../../../_static/jquery.js"></script>
         <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../../_static/doctools.js"></script>
-        <script src="../../../../_static/language_data.js"></script>
+        <script src="../../../../_static/clipboard.min.js"></script>
+        <script src="../../../../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
 </head>
@@ -64,7 +76,7 @@
             
             
               <div class="version">
-                2.3
+                2.5
               </div>
             
           
@@ -81,6 +93,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -88,7 +101,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../besca.html">besca</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../auto_examples/index.html">code examples</a></li>
@@ -100,6 +113,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -134,11 +148,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
         
@@ -159,28 +175,31 @@
             
   <h1>Source code for besca.tl.rc._reclustering</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">scanpy.preprocessing</span> <span class="kn">import</span> <span class="n">filter_genes_dispersion</span><span class="p">,</span> <span class="n">log1p</span><span class="p">,</span> <span class="n">regress_out</span><span class="p">,</span> <span class="n">neighbors</span>
-<span class="kn">from</span> <span class="nn">scanpy.preprocessing</span>  <span class="kn">import</span> <span class="n">highly_variable_genes</span> <span class="k">as</span> <span class="n">sc_highly_variable_genes</span>
-<span class="kn">from</span> <span class="nn">scanpy.preprocessing</span>  <span class="kn">import</span> <span class="n">scale</span> <span class="k">as</span> <span class="n">sc_scale</span>
+<span class="kn">from</span> <span class="nn">scanpy.preprocessing</span> <span class="kn">import</span> <span class="n">highly_variable_genes</span> <span class="k">as</span> <span class="n">sc_highly_variable_genes</span>
+<span class="kn">from</span> <span class="nn">scanpy.preprocessing</span> <span class="kn">import</span> <span class="n">scale</span> <span class="k">as</span> <span class="n">sc_scale</span>
 <span class="kn">from</span> <span class="nn">scanpy.tools</span> <span class="kn">import</span> <span class="n">umap</span><span class="p">,</span> <span class="n">louvain</span><span class="p">,</span> <span class="n">leiden</span>
 <span class="kn">from</span> <span class="nn">scanpy.tools</span> <span class="kn">import</span> <span class="n">pca</span> <span class="k">as</span> <span class="n">sc_pca</span>
 <span class="kn">from</span> <span class="nn">scanpy.plotting</span> <span class="kn">import</span> <span class="n">filter_genes_dispersion</span> <span class="k">as</span> <span class="n">plot_filter</span>
-<span class="kn">from</span> <span class="nn">..._helper</span> <span class="kn">import</span> <span class="n">subset_adata</span> <span class="k">as</span> <span class="n">_subset_adata</span>
+<span class="kn">from</span> <span class="nn">besca._helper</span> <span class="kn">import</span> <span class="n">subset_adata</span> <span class="k">as</span> <span class="n">_subset_adata</span>
 <span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 
-<div class="viewcode-block" id="recluster"><a class="viewcode-back" href="../../../../reclustering/besca.tl.rc.recluster.html#besca.tl.rc.recluster">[docs]</a><span class="k">def</span> <span class="nf">recluster</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
-              <span class="n">celltype</span><span class="p">,</span>
-              <span class="n">celltype_label</span> <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span>
-              <span class="n">min_mean</span> <span class="o">=</span> <span class="mf">0.0125</span><span class="p">,</span>
-              <span class="n">max_mean</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
-              <span class="n">min_disp</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
-              <span class="n">resolution</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
-              <span class="n">regress_out_key</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-              <span class="n">random_seed</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-              <span class="n">show_plot_filter</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-              <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span>
-              <span class="n">batch_key</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
-              <span class="n">n_shared</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Perform subclustering on specific celltype to identify subclusters.</span>
+<div class="viewcode-block" id="recluster"><a class="viewcode-back" href="../../../../besca/besca.tl.rc.recluster.html#besca.tl.rc.recluster">[docs]</a><span class="k">def</span> <span class="nf">recluster</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span>
+    <span class="n">celltype</span><span class="p">,</span>
+    <span class="n">celltype_label</span><span class="o">=</span><span class="s2">&quot;leiden&quot;</span><span class="p">,</span>
+    <span class="n">min_mean</span><span class="o">=</span><span class="mf">0.0125</span><span class="p">,</span>
+    <span class="n">max_mean</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">min_disp</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">regress_out_key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">random_seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">show_plot_filter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">method</span><span class="o">=</span><span class="s2">&quot;leiden&quot;</span><span class="p">,</span>
+    <span class="n">batch_key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">n_shared</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Perform subclustering on specific celltype to identify subclusters.</span>
 
 <span class="sd">    Extract all cells that belong to the pre-labeled celltype into a new</span>
 <span class="sd">    data subset. This datasubset is initialized with the raw data contained in adata.raw. New highly</span>
@@ -220,7 +239,7 @@
 <span class="sd">        Specify a batch key if the HVG calculation should be done per batch</span>
 <span class="sd">    n_share: `int` | default = 3</span>
 <span class="sd">        Divide the nr. of batched by this nr. to get the shared HVGs considered (e.g. &gt;=1/3 of samples)</span>
-<span class="sd">        </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 
@@ -234,61 +253,77 @@
 
 <span class="sd">    &gt;&gt;&gt; import besca as bc</span>
 <span class="sd">    &gt;&gt;&gt; import scanpy as sc</span>
-<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.pbmc3k_processed()</span>
+<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.simulated_pbmc3k_processed()</span>
 <span class="sd">    &gt;&gt;&gt; adata_subset = bc.tl.rc.recluster(adata, celltype=(&#39;0&#39;, &#39;1&#39;, &#39;3&#39;, &#39;6&#39;), resolution = 1.3)</span>
-<span class="sd">    &gt;&gt;&gt; sc.pl.umap(adata_subset, color = [&#39;leiden&#39;, &#39;CD3G&#39;, &#39;CD8A&#39;, &#39;CD4&#39;, &#39;IL7R&#39;, &#39;NKG7&#39;, &#39;GNLY&#39;])</span>
+<span class="sd">    &gt;&gt;&gt; sc.pl.umap(adata_subset, color = [&#39;leiden&#39;, &#39;Gene_4&#39;, &#39;Gene_5&#39;, &#39;Gene_6&#39;, &#39;Gene_10&#39;, &#39;Gene_12&#39;, &#39;Gene_20&#39;])</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span><span class="p">(</span> <span class="ow">not</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="s1">&#39;louvain&#39;</span><span class="p">]):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;leiden&quot;</span><span class="p">,</span> <span class="s2">&quot;louvain&quot;</span><span class="p">]:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;method argument should be leiden or louvain&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">celltype</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">cluster_subset</span> <span class="o">=</span> <span class="n">_subset_adata</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">celltype_label</span><span class="p">)</span> <span class="o">==</span> <span class="n">celltype</span><span class="p">)</span>
     <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">celltype</span><span class="p">)</span> <span class="o">==</span> <span class="nb">tuple</span><span class="p">:</span>
-        <span class="nb">filter</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">celltype_label</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;NONE&#39;</span>
+        <span class="nb">filter</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">celltype_label</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;NONE&quot;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">celltype</span><span class="p">)):</span>
             <span class="nb">filter</span> <span class="o">=</span> <span class="nb">filter</span> <span class="o">|</span> <span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">celltype_label</span><span class="p">)</span> <span class="o">==</span> <span class="n">celltype</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
         <span class="n">cluster_subset</span> <span class="o">=</span> <span class="n">_subset_adata</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="nb">filter</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;specify cluster input as a string or tuple&#39;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;specify cluster input as a string or tuple&quot;</span><span class="p">)</span>
 
     <span class="n">cluster_subset</span><span class="o">.</span><span class="n">raw</span> <span class="o">=</span> <span class="n">cluster_subset</span>
 
-    <span class="c1">#identify highly variable genes    </span>
-    <span class="n">sc_highly_variable_genes</span><span class="p">(</span><span class="n">cluster_subset</span><span class="p">,</span> <span class="n">min_mean</span><span class="o">=</span><span class="n">min_mean</span><span class="p">,</span> <span class="n">max_mean</span><span class="o">=</span><span class="n">max_mean</span><span class="p">,</span> <span class="n">min_disp</span><span class="o">=</span><span class="n">min_disp</span><span class="p">,</span> 
-                                             <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">batch_key</span><span class="o">=</span><span class="n">batch_key</span><span class="p">)</span>
-    
-    <span class="k">if</span> <span class="p">(</span><span class="n">batch_key</span><span class="o">!=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="n">hvglist</span><span class="o">=</span><span class="n">cluster_subset</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;highly_variable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="n">hvglist</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cluster_subset</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;highly_variable_nbatches&#39;</span><span class="p">]</span><span class="o">&gt;=</span><span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">cluster_subset</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">batch_key</span><span class="p">]))</span><span class="o">/</span><span class="n">n_shared</span><span class="p">,]</span><span class="o">=</span><span class="kc">True</span>
-        <span class="n">cluster_subset</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;highly_variable&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">hvglist</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        
+    <span class="c1"># identify highly variable genes</span>
+    <span class="n">sc_highly_variable_genes</span><span class="p">(</span>
+        <span class="n">cluster_subset</span><span class="p">,</span>
+        <span class="n">min_mean</span><span class="o">=</span><span class="n">min_mean</span><span class="p">,</span>
+        <span class="n">max_mean</span><span class="o">=</span><span class="n">max_mean</span><span class="p">,</span>
+        <span class="n">min_disp</span><span class="o">=</span><span class="n">min_disp</span><span class="p">,</span>
+        <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">batch_key</span><span class="o">=</span><span class="n">batch_key</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">batch_key</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">hvglist</span> <span class="o">=</span> <span class="n">cluster_subset</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;highly_variable&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">hvglist</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+            <span class="n">cluster_subset</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;highly_variable_nbatches&quot;</span><span class="p">]</span>
+            <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">cluster_subset</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">batch_key</span><span class="p">]))</span> <span class="o">/</span> <span class="n">n_shared</span><span class="p">,</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">cluster_subset</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;highly_variable&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hvglist</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
     <span class="k">if</span> <span class="n">show_plot_filter</span><span class="p">:</span>
         <span class="n">pl_highly_variable_genes</span><span class="p">(</span><span class="n">cluster_subset</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;In total&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">cluster_subset</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">highly_variable</span><span class="p">)),</span> <span class="s1">&#39;highly variable genes selected within cluster&#39;</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="s2">&quot;In total&quot;</span><span class="p">,</span>
+        <span class="nb">str</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">cluster_subset</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">highly_variable</span><span class="p">)),</span>
+        <span class="s2">&quot;highly variable genes selected within cluster&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
 
-    <span class="c1">#apply filter</span>
-    <span class="n">cluster_subset</span> <span class="o">=</span> <span class="n">_subset_adata</span><span class="p">(</span><span class="n">cluster_subset</span><span class="p">,</span> <span class="n">cluster_subset</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">highly_variable</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">raw</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="c1"># apply filter</span>
+    <span class="n">cluster_subset</span> <span class="o">=</span> <span class="n">_subset_adata</span><span class="p">(</span>
+        <span class="n">cluster_subset</span><span class="p">,</span> <span class="n">cluster_subset</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">highly_variable</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
 
-    <span class="c1">#perform further processing</span>
-    <span class="c1"># log1p(cluster_subset) # data already logged </span>
+    <span class="c1"># perform further processing</span>
+    <span class="c1"># log1p(cluster_subset) # data already logged</span>
     <span class="k">if</span> <span class="n">regress_out_key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">regress_out</span><span class="p">(</span><span class="n">cluster_subset</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="n">regress_out_key</span><span class="p">)</span>
+        <span class="n">regress_out</span><span class="p">(</span><span class="n">cluster_subset</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="n">regress_out_key</span><span class="p">)</span>
     <span class="n">sc_scale</span><span class="p">(</span><span class="n">cluster_subset</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-    <span class="n">sc_pca</span><span class="p">(</span><span class="n">cluster_subset</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="n">random_seed</span><span class="p">,</span> <span class="n">svd_solver</span><span class="o">=</span><span class="s1">&#39;arpack&#39;</span><span class="p">)</span> <span class="c1">#using `svd_solver=&#39;arpack&#39; ensures that the PCA leads to reproducible results</span>
-    <span class="n">neighbors</span><span class="p">(</span><span class="n">cluster_subset</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="n">random_seed</span><span class="p">)</span>
-    <span class="n">umap</span><span class="p">(</span><span class="n">cluster_subset</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="n">random_seed</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;louvain&#39;</span><span class="p">:</span>
-        <span class="n">louvain</span><span class="p">(</span><span class="n">cluster_subset</span><span class="p">,</span> <span class="n">resolution</span> <span class="o">=</span> <span class="n">resolution</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_seed</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;leiden&#39;</span><span class="p">:</span>
+    <span class="n">sc_pca</span><span class="p">(</span>
+        <span class="n">cluster_subset</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_seed</span><span class="p">,</span> <span class="n">svd_solver</span><span class="o">=</span><span class="s2">&quot;arpack&quot;</span>
+    <span class="p">)</span>  <span class="c1"># using `svd_solver=&#39;arpack&#39; ensures that the PCA leads to reproducible results</span>
+    <span class="n">neighbors</span><span class="p">(</span><span class="n">cluster_subset</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_seed</span><span class="p">)</span>
+    <span class="n">umap</span><span class="p">(</span><span class="n">cluster_subset</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_seed</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;louvain&quot;</span><span class="p">:</span>
+        <span class="n">louvain</span><span class="p">(</span><span class="n">cluster_subset</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_seed</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;leiden&quot;</span><span class="p">:</span>
         <span class="n">leiden</span><span class="p">(</span><span class="n">cluster_subset</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_seed</span><span class="p">)</span>
 
-    <span class="k">return</span><span class="p">(</span><span class="n">cluster_subset</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">cluster_subset</span></div>
 
-<div class="viewcode-block" id="annotate_new_cellnames"><a class="viewcode-back" href="../../../../reclustering/besca.tl.rc.annotate_new_cellnames.html#besca.tl.rc.annotate_new_cellnames">[docs]</a><span class="k">def</span> <span class="nf">annotate_new_cellnames</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
-                           <span class="n">cluster_subset</span><span class="p">,</span>
-                           <span class="n">names</span><span class="p">,</span>
-                           <span class="n">new_label</span> <span class="o">=</span> <span class="s1">&#39;celltype&#39;</span><span class="p">,</span>
-                           <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;leiden&#39;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="annotate_new_cellnames"><a class="viewcode-back" href="../../../../besca/besca.tl.rc.annotate_new_cellnames.html#besca.tl.rc.annotate_new_cellnames">[docs]</a><span class="k">def</span> <span class="nf">annotate_new_cellnames</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span> <span class="n">cluster_subset</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">new_label</span><span class="o">=</span><span class="s2">&quot;celltype&quot;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;leiden&quot;</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;annotate new cellnames to each of the subclusters identified by running recluster.</span>
 
 <span class="sd">    Give each subcluster a new celltype identifier. Can only be run on an AnnData subset that has already been</span>
@@ -328,49 +363,66 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">clusters</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">cluster_subset</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">method</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="p">]</span>
+    <span class="n">clusters</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">cluster_subset</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">method</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="p">]</span>
     <span class="n">clusters</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
     <span class="n">clusters</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">]</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">clusters</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;need to supply as many cluster names as there are clusters&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;these are the clusters that need to be annotated:&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">clusters</span><span class="p">))</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;incorrect number of cluster names supplied&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;need to supply as many cluster names as there are clusters&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;these are the clusters that need to be annotated:&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">clusters</span><span class="p">))</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span>
+            <span class="s2">&quot;Specified &quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">))</span>
+            <span class="o">+</span> <span class="s2">&quot; new labels for a total of &quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clusters</span><span class="p">))</span>
+            <span class="o">+</span> <span class="s2">&quot; clusters. Numbers should match! No changes were made.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">new_label</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="c1">#if the column &#39;new_label&#39; did not previously exist then create it</span>
-           <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">new_label</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;not_labeled&#39;</span>
+            <span class="c1"># if the column &#39;new_label&#39; did not previously exist then create it</span>
+            <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">new_label</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;not_labeled&quot;</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;NOTE: overwriting labels for the selected cells saved in adata.obs.&#39;</span> <span class="o">+</span> <span class="n">new_label</span> <span class="o">+</span> <span class="s1">&#39; with the new labels&#39;</span><span class="p">)</span>
-        <span class="n">new_annotation</span> <span class="o">=</span> <span class="n">cluster_subset</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">method</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span> <span class="n">new_label</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;NOTE: overwriting labels for the selected cells saved in adata.obs.&quot;</span>
+                <span class="o">+</span> <span class="n">new_label</span>
+                <span class="o">+</span> <span class="s2">&quot; with the new labels&quot;</span>
+            <span class="p">)</span>
+        <span class="n">new_annotation</span> <span class="o">=</span> <span class="n">cluster_subset</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">method</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">new_label</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">clusters</span><span class="p">)):</span>
-            <span class="n">new_annotation</span><span class="p">[</span><span class="n">new_label</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">clusters</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="n">new_annotation</span><span class="p">[</span><span class="n">new_label</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">clusters</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="c1">#update anndata object with the new annotation</span>
+        <span class="c1"># update anndata object with the new annotation</span>
         <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">new_annotation</span><span class="p">)</span>
 
-        <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="kc">None</span></div>
 </pre></div>
 
            </div>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, BEDA
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -378,7 +430,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

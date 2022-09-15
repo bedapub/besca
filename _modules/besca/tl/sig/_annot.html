@@ -1,44 +1,56 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>besca.tl.sig._annot &mdash; BESCA 2.3 documentation</title>
+  <title>besca.tl.sig._annot &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/plot_directive.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+
+  
   
 
   
   
-  
+
   
 
   
-  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
         <script src="../../../../_static/jquery.js"></script>
         <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../../_static/doctools.js"></script>
-        <script src="../../../../_static/language_data.js"></script>
+        <script src="../../../../_static/clipboard.min.js"></script>
+        <script src="../../../../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
 </head>
@@ -64,7 +76,7 @@
             
             
               <div class="version">
-                2.3
+                2.5
               </div>
             
           
@@ -81,6 +93,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -88,7 +101,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../besca.html">besca</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../auto_examples/index.html">code examples</a></li>
@@ -100,6 +113,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -134,11 +148,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
         
@@ -159,16 +175,13 @@
             
   <h1>Source code for besca.tl.sig._annot</h1><div class="highlight"><pre>
 <span></span><span class="c1"># this module contains functions for cell type annotation based on signatures in python using scanpy</span>
-<span class="c1"># import using the python version 1.3.2 at least is a prerequisit! needs to be checked in all functions</span>
-
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">where</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">read_csv</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">scanpy</span> <span class="kn">import</span> <span class="n">AnnData</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">mannwhitneyu</span>
 
-
-<div class="viewcode-block" id="getset"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.getset.html#besca.tl.sig.getset">[docs]</a><span class="k">def</span> <span class="nf">getset</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">signame_complete</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Handles missing signatures aux function for make_anno</span>
+<div class="viewcode-block" id="getset"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.getset.html#besca.tl.sig.getset">[docs]</a><span class="k">def</span> <span class="nf">getset</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">signame_complete</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Handles missing signatures aux function for make_anno</span>
 <span class="sd">    Based on a dataframe of p-values, a signature name and a cutoff check if sign is present</span>
 <span class="sd">    parameters</span>
 <span class="sd">    ----------</span>
@@ -184,21 +197,21 @@
 <span class="sd">        Set of clusters passing the threshold value</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="n">signame_complete</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">())):</span>
-        <span class="k">return</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">signame_complete</span><span class="p">,</span> <span class="p">:]</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">]))</span>
+    <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="n">signame_complete</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()):</span>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">signame_complete</span><span class="p">,</span> <span class="p">:]</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">])</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span><span class="p">(</span><span class="nb">set</span><span class="p">())</span></div>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">()</span></div>
 
 
-<span class="k">def</span> <span class="nf">gene_fr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">Tcells</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Returns the fraction of cells expressing a gene in distinct clusters</span>
+<span class="k">def</span> <span class="nf">gene_fr</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">gene_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the fraction of cells expressing a gene in distinct clusters</span>
 <span class="sd">    Takes as an input a dataframe with fractions per clusters and a gene name</span>
 <span class="sd">    Returns the fraction genes per cluster</span>
 <span class="sd">    parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    f: panda.DataFrame</span>
 <span class="sd">      a dataframe of fraction genes per cell as outputted by besca</span>
-<span class="sd">    Tcells: &#39;str&#39;</span>
+<span class="sd">    gene_name: &#39;str&#39;</span>
 <span class="sd">      gene name</span>
 
 <span class="sd">    returns</span>
@@ -206,13 +219,15 @@
 <span class="sd">    panda.Series</span>
 <span class="sd">        a Series of fractions per cluster and gene</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">k</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">Tcells</span><span class="p">),</span> <span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">k</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">columns</span><span class="p">)]</span>
-    <span class="k">return</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+        <span class="n">f</span><span class="p">[</span><span class="s2">&quot;Description&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">gene_name</span><span class="p">),</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">columns</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">k</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="score_mw"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.score_mw.html#besca.tl.sig.score_mw">[docs]</a><span class="k">def</span> <span class="nf">score_mw</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">mymarkers</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Score Clusters based on a set of immune signatures to generate a df of pvals</span>
+<div class="viewcode-block" id="score_mw"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.score_mw.html#besca.tl.sig.score_mw">[docs]</a><span class="k">def</span> <span class="nf">score_mw</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">mymarkers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Score Clusters based on a set of immune signatures to generate a df of pvals</span>
 <span class="sd">    Takes as an input a dataframe with fractions per clusters and a dictionary of signatures</span>
 <span class="sd">    Performs a Mann-Whitney test per each column and Signature, returns -10logpValues</span>
 
@@ -228,19 +243,22 @@
 <span class="sd">    panda.DataFrame</span>
 <span class="sd">        a dataframe of -10logpValues per cluster and signature</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">columns</span><span class="p">)])</span>
-    <span class="n">mypFrame</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">mymarkers</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">columns</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">ids</span><span class="p">))</span>
+    <span class="n">ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">columns</span><span class="p">)])</span>
+    <span class="n">mypFrame</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">mymarkers</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">columns</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">ids</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">mymarkers</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span>
-            <span class="n">mypFrame</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">key</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="o">*</span><span class="n">log</span><span class="p">(</span>
-                <span class="n">mannwhitneyu</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="p">:][</span><span class="n">i</span><span class="p">],</span>
-                             <span class="n">y</span><span class="o">=</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;greater&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pvalue</span>
+            <span class="n">mypFrame</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">key</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span>
+                <span class="n">mannwhitneyu</span><span class="p">(</span>
+                    <span class="n">x</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">f</span><span class="p">[</span><span class="s2">&quot;Description&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="p">:][</span><span class="n">i</span><span class="p">],</span>
+                    <span class="n">y</span><span class="o">=</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                    <span class="n">alternative</span><span class="o">=</span><span class="s2">&quot;greater&quot;</span><span class="p">,</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">pvalue</span>
             <span class="p">)</span>
-    <span class="k">return</span><span class="p">(</span><span class="n">mypFrame</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">mypFrame</span></div>
 
 
-<div class="viewcode-block" id="add_anno"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.add_anno.html#besca.tl.sig.add_anno">[docs]</a><span class="k">def</span> <span class="nf">add_anno</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">cnames</span><span class="p">,</span> <span class="n">mycol</span><span class="p">,</span> <span class="n">clusters</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Adds annotation generated with make_anno to a AnnData object</span>
+<div class="viewcode-block" id="add_anno"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.add_anno.html#besca.tl.sig.add_anno">[docs]</a><span class="k">def</span> <span class="nf">add_anno</span><span class="p">(</span><span class="n">adata</span><span class="p">:</span> <span class="n">AnnData</span><span class="p">,</span> <span class="n">cnames</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">mycol</span><span class="p">,</span> <span class="n">clusters</span><span class="o">=</span><span class="s2">&quot;leiden&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Adds annotation generated with make_anno to a AnnData object</span>
 <span class="sd">    Takes as input the AnnData object to which annotation will be appended and the annotation pd</span>
 <span class="sd">    Generates a pd.Series that can be added as a adata.obs column with annotation at a level</span>
 
@@ -264,19 +282,23 @@
     <span class="n">newlab</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">clusters</span><span class="p">]</span>
     <span class="c1"># mycol=&#39;celltype0&#39;</span>
 
-    <span class="n">notmatched</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">cnames</span><span class="o">.</span><span class="n">index</span><span class="p">))</span><span class="o">-</span><span class="nb">set</span><span class="p">(</span><span class="n">newlab</span><span class="p">))</span>
+    <span class="n">notmatched</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">cnames</span><span class="o">.</span><span class="n">index</span><span class="p">))</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">newlab</span><span class="p">))</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">notmatched</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">errm</span> <span class="o">=</span> <span class="s1">&#39;Please check that you have indexed the correct clustering. &#39;</span> <span class="o">+</span> \
-            <span class="nb">len</span><span class="p">(</span><span class="n">notmatched</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;clusterIDs not found in &#39;</span> <span class="o">+</span> <span class="n">clusters</span>
-        <span class="k">return</span><span class="p">(</span><span class="n">errm</span><span class="p">)</span>
+        <span class="n">errm</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;Please check that you have indexed the correct clustering. &quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">notmatched</span><span class="p">))</span>
+            <span class="o">+</span> <span class="s2">&quot;clusterIDs not found in &quot;</span>
+            <span class="o">+</span> <span class="n">clusters</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">errm</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">newlab</span><span class="p">)):</span>
             <span class="n">newlab</span> <span class="o">=</span> <span class="n">newlab</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">cnames</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">mycol</span><span class="p">])</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="k">return</span><span class="p">(</span><span class="n">newlab</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">newlab</span></div>
 
 
-<div class="viewcode-block" id="read_annotconfig"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.read_annotconfig.html#besca.tl.sig.read_annotconfig">[docs]</a><span class="k">def</span> <span class="nf">read_annotconfig</span><span class="p">(</span><span class="n">configfile</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Reads the configuration file for signature-based hierarhical annotation.</span>
+<div class="viewcode-block" id="read_annotconfig"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.read_annotconfig.html#besca.tl.sig.read_annotconfig">[docs]</a><span class="k">def</span> <span class="nf">read_annotconfig</span><span class="p">(</span><span class="n">configfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Reads the configuration file for signature-based hierarhical annotation.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -291,28 +313,38 @@
 <span class="sd">        String of distinct levels based on configuration file</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># read the config file</span>
-    <span class="n">sigconfig</span> <span class="o">=</span> <span class="n">read_csv</span><span class="p">(</span><span class="n">configfile</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">sigconfig</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">configfile</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="c1"># Reorder with the specified order. Place better signatures first, only first match will be kept</span>
-    <span class="n">sigconfig</span> <span class="o">=</span> <span class="n">sigconfig</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Order&#39;</span><span class="p">)</span>
+    <span class="n">sigconfig</span> <span class="o">=</span> <span class="n">sigconfig</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;Order&quot;</span><span class="p">)</span>
     <span class="c1"># Consider up to 7 levels</span>
-    <span class="n">nochild</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">sigconfig</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">-</span><span class="nb">set</span><span class="p">(</span><span class="n">sigconfig</span><span class="p">[</span><span class="s1">&#39;Parent&#39;</span><span class="p">]))</span>
+    <span class="n">nochild</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">sigconfig</span><span class="o">.</span><span class="n">index</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">sigconfig</span><span class="p">[</span><span class="s2">&quot;Parent&quot;</span><span class="p">]))</span>
     <span class="n">levs</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">levs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">sigconfig</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sigconfig</span><span class="p">[</span><span class="s1">&#39;Parent&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
+    <span class="n">levs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="nb">list</span><span class="p">(</span>
+            <span class="n">sigconfig</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+                <span class="n">sigconfig</span><span class="p">[</span><span class="s2">&quot;Parent&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+            <span class="p">]</span><span class="o">.</span><span class="n">index</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">):</span>
         <span class="n">levs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="nb">list</span><span class="p">(</span><span class="n">sigconfig</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sigconfig</span><span class="p">[</span><span class="s1">&#39;Parent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">levs</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
+            <span class="nb">list</span><span class="p">(</span>
+                <span class="n">sigconfig</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+                    <span class="n">sigconfig</span><span class="p">[</span><span class="s2">&quot;Parent&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">levs</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span>
+                <span class="p">]</span><span class="o">.</span><span class="n">index</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
 
     <span class="n">levsk</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">lev</span> <span class="ow">in</span> <span class="n">levs</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lev</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">levsk</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lev</span><span class="p">)</span>
 
-    <span class="k">return</span><span class="p">(</span><span class="n">sigconfig</span><span class="p">,</span> <span class="n">levsk</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="p">(</span><span class="n">sigconfig</span><span class="p">,</span> <span class="n">levsk</span><span class="p">)</span></div>
 
 
-
-<div class="viewcode-block" id="export_annotconfig"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.export_annotconfig.html#besca.tl.sig.export_annotconfig">[docs]</a><span class="k">def</span> <span class="nf">export_annotconfig</span><span class="p">(</span><span class="n">sigconfig</span><span class="p">,</span> <span class="n">levsk</span><span class="p">,</span> <span class="n">resultsFolder</span><span class="p">,</span> <span class="n">analysisName</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Export the configuration defined in sigconfig and levsk</span>
+<div class="viewcode-block" id="export_annotconfig"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.export_annotconfig.html#besca.tl.sig.export_annotconfig">[docs]</a><span class="k">def</span> <span class="nf">export_annotconfig</span><span class="p">(</span><span class="n">sigconfig</span><span class="p">,</span> <span class="n">levsk</span><span class="p">,</span> <span class="n">resultsFolder</span><span class="p">,</span> <span class="n">analysisName</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Export the configuration defined in sigconfig and levsk</span>
 <span class="sd">    Order might changed compared to the original sig. config file.</span>
 <span class="sd">    But numerical order within a same category (same parents) should be respected.</span>
 
@@ -327,23 +359,26 @@
 <span class="sd">    analysisName: &#39;str&#39;</span>
 <span class="sd">        will prefix the saved config file</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">it_order</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Iterative order.</span>
+    <span class="n">it_order</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Iterative order.</span>
     <span class="n">config_t</span> <span class="o">=</span> <span class="n">sigconfig</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">get_order</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">levsk</span> <span class="p">:</span>
-      <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">child</span> <span class="p">:</span>
-              <span class="n">get_order</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">it_order</span>
-              <span class="n">it_order</span> <span class="o">+=</span><span class="mi">1</span>
-    <span class="n">config_t</span><span class="p">[</span><span class="s1">&#39;Order&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config_t</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">get_order</span><span class="p">)</span>
-    <span class="n">config_t</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span> <span class="n">resultsFolder</span> <span class="o">+</span> <span class="n">analysisName</span> <span class="o">+</span> <span class="s1">&#39;_config.tsv&#39;</span> <span class="p">,</span>  <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="p">)</span></div>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">levsk</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">child</span><span class="p">:</span>
+            <span class="n">get_order</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">it_order</span>
+            <span class="n">it_order</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">config_t</span><span class="p">[</span><span class="s2">&quot;Order&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config_t</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">get_order</span><span class="p">)</span>
+    <span class="n">config_t</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">resultsFolder</span> <span class="o">+</span> <span class="n">analysisName</span> <span class="o">+</span> <span class="s2">&quot;_config.tsv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
-
-
-
-
-<div class="viewcode-block" id="make_anno"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.make_anno.html#besca.tl.sig.make_anno">[docs]</a><span class="k">def</span> <span class="nf">make_anno</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">sigscores</span><span class="p">,</span> <span class="n">sigconfig</span><span class="p">,</span> <span class="n">levsk</span><span class="p">,</span> <span class="n">lab</span><span class="o">=</span><span class="s1">&#39;celltype&#39;</span><span class="p">,</span> <span class="n">toexclude</span><span class="o">=</span><span class="p">[]):</span>
-    <span class="sd">&quot;&quot;&quot; Annotate cell types</span>
+<div class="viewcode-block" id="make_anno"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.make_anno.html#besca.tl.sig.make_anno">[docs]</a><span class="k">def</span> <span class="nf">make_anno</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">sigscores</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">sigconfig</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">levsk</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+    <span class="n">lab</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;celltype&quot;</span><span class="p">,</span>
+    <span class="n">toexclude</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Annotate cell types</span>
 <span class="sd">    Based on a dataframe of -log10pvals, a cutoff and a signature set generate cell annotation</span>
 <span class="sd">    Hierarchical model of Immune cell annotation.</span>
 <span class="sd">    It expects a specific set of signatures with a common prefix (signame) and specified suffixes indicating</span>
@@ -356,7 +391,7 @@
 <span class="sd">    sigscores: dict</span>
 <span class="sd">      a dictionary with cluster attribution per signature</span>
 <span class="sd">    sigconfig: panda.DataFrame</span>
-<span class="sd">      a dataframe with the configurati  on information</span>
+<span class="sd">      a dataframe with the configuration information</span>
 <span class="sd">    levsk: list of str</span>
 <span class="sd">      String of distinct levels based on configuration file</span>
 <span class="sd">    lab: &#39;str&#39;</span>
@@ -372,68 +407,56 @@
 
     <span class="c1"># make sure that all levels are present in df, remove toexclude</span>
     <span class="n">levskk</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Iterating throuhg the levels and removing excluded ones</span>
+    <span class="n">toinc</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">sigscores</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">toexclude</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">levsk</span><span class="p">:</span>
-        <span class="n">tmp</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
-            <span class="n">toinc</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">sigscores</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">-</span><span class="nb">set</span><span class="p">(</span><span class="n">toexclude</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">toinc</span><span class="p">):</span>
-                <span class="n">tmp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">if</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">toinc</span><span class="p">]</span>
         <span class="n">levskk</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
-    <span class="n">levsk</span> <span class="o">=</span> <span class="n">levskk</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-    <span class="n">sigscoresk</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sigscores</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">toexclude</span><span class="p">:</span>
-            <span class="n">sigscoresk</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">sigscores</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
-    <span class="n">sigscores</span> <span class="o">=</span> <span class="n">sigscoresk</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="c1"># levskk is the updated level list</span>
+    <span class="n">sigscoresk</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">sigscores</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sigscores</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">toexclude</span><span class="p">}</span>
 
     <span class="c1"># First part, get cluster identities</span>
     <span class="n">myclust</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-    <span class="n">annol</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">myclust</span><span class="p">:</span>
-        <span class="n">annol</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">lev</span> <span class="ow">in</span> <span class="n">levsk</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">sigscores</span><span class="p">[</span><span class="n">lev</span><span class="p">]:</span>
-                <span class="n">annol</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">lev</span>
-                <span class="k">break</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">levsk</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">levsk</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-                <span class="c1"># jj=j+1</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">annol</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="k">break</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">annol</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span> <span class="s2">&quot;.&quot;</span><span class="p">))</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-                    <span class="k">break</span>
-                <span class="n">sublev</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
-                    <span class="n">sigconfig</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sigconfig</span><span class="p">[</span><span class="s2">&quot;Parent&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="nb">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">annol</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span> <span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="n">j</span><span class="p">],</span> <span class="p">:]</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-                <span class="n">sublevk</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sublev</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">sigscores</span><span class="o">.</span><span class="n">keys</span><span class="p">())):</span>
-                        <span class="n">sublevk</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-                <span class="n">sublev</span> <span class="o">=</span> <span class="n">sublevk</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-                <span class="k">for</span> <span class="n">lev</span> <span class="ow">in</span> <span class="n">sublev</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">sigscores</span><span class="p">[</span><span class="n">lev</span><span class="p">]:</span>
-                        <span class="n">annol</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">annol</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;.&#39;</span><span class="o">+</span><span class="n">lev</span>
-                        <span class="k">break</span>
-
-    <span class="c1"># Second part, transform to pandas</span>
-    <span class="n">cnames</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">annol</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">tmp</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Cell&#39;</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">tmp</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">levsk</span><span class="p">)</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">)):</span>
-            <span class="n">tmp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-        <span class="n">cnames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
-    <span class="n">cnames</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">cnames</span><span class="p">)</span>
-    <span class="n">cnames</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">annol</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-    <span class="n">cnames</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">lab</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">cnames</span><span class="o">.</span><span class="n">columns</span><span class="p">)]</span>
-
-    <span class="k">return</span><span class="p">(</span><span class="n">cnames</span><span class="p">)</span></div>
+    <span class="n">cnames</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">myclust</span><span class="p">)</span>
+    <span class="c1"># DATA INITIALISATION; first level</span>
+    <span class="n">colname</span> <span class="o">=</span> <span class="n">lab</span> <span class="o">+</span> <span class="s2">&quot;0&quot;</span>
+    <span class="n">cnames</span><span class="p">[</span><span class="n">colname</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">celltype</span> <span class="ow">in</span> <span class="n">levskk</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">myclust</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">sigscoresk</span><span class="p">[</span><span class="n">celltype</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">cnames</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="n">colname</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">cnames</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="n">colname</span><span class="p">]</span> <span class="o">=</span> <span class="n">celltype</span>
+    <span class="c1"># ASSIGNED ALL FIRST LEVEL</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">levskk</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">levskk</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">parent_col</span> <span class="o">=</span> <span class="n">lab</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+            <span class="n">colname</span> <span class="o">=</span> <span class="n">lab</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">cnames</span><span class="p">[</span><span class="n">colname</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">myclust</span><span class="p">:</span>
+                <span class="c1"># Find child level and removing excluding term</span>
+                <span class="n">sublev</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span>
+                    <span class="n">sigconfig</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+                        <span class="n">sigconfig</span><span class="p">[</span><span class="s2">&quot;Parent&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">cnames</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="n">parent_col</span><span class="p">],</span> <span class="p">:</span>
+                    <span class="p">]</span><span class="o">.</span><span class="n">index</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">toinc</span><span class="p">)</span>
+                <span class="c1"># getting the right order using levskk</span>
+                <span class="n">sublevk</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">levskk</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sublev</span><span class="p">]</span>
+                <span class="n">assigned_type</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">for</span> <span class="n">lev</span> <span class="ow">in</span> <span class="n">sublevk</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">sigscoresk</span><span class="p">[</span><span class="n">lev</span><span class="p">]:</span>
+                        <span class="k">if</span> <span class="n">cnames</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="n">colname</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="n">cnames</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="n">colname</span><span class="p">]</span> <span class="o">=</span> <span class="n">lev</span>
+                            <span class="n">assigned_type</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="c1"># If no value, put parent value</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">assigned_type</span><span class="p">:</span>
+                    <span class="n">cnames</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="n">colname</span><span class="p">]</span> <span class="o">=</span> <span class="n">cnames</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="n">parent_col</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">cnames</span></div>
 
 
-<div class="viewcode-block" id="match_cluster"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.match_cluster.html#besca.tl.sig.match_cluster">[docs]</a><span class="k">def</span> <span class="nf">match_cluster</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">obsquery</span><span class="p">,</span> <span class="n">obsqueryval</span><span class="p">,</span> <span class="n">obsref</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Matches categories from adata.obs to each other. For a query category specified in obsquery</span>
+<div class="viewcode-block" id="match_cluster"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.match_cluster.html#besca.tl.sig.match_cluster">[docs]</a><span class="k">def</span> <span class="nf">match_cluster</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">:</span> <span class="n">AnnData</span><span class="p">,</span> <span class="n">obsquery</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">obsqueryval</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">obsref</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;leiden&quot;</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mf">0.5</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Matches categories from adata.obs to each other. For a query category specified in obsquery</span>
 <span class="sd">    and a value specified in obsqueryval, checks which clusters (or other adata.obs categories, obsref)</span>
 <span class="sd">    contain &gt;50% (or distinct cutoff, cutoff) of cells of the specified kind.</span>
 
@@ -456,16 +479,122 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">myc</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">myleiden</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
-        <span class="nb">set</span><span class="p">(</span><span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">obsquery</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="n">obsqueryval</span><span class="p">])]</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">obsref</span><span class="p">]))</span>
+    <span class="n">myleiden</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">obsquery</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="n">obsqueryval</span><span class="p">])]</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">obsref</span><span class="p">]))</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">myleiden</span><span class="p">:</span>
         <span class="n">mysub</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">obsref</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="n">i</span><span class="p">])]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="n">myc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mysub</span><span class="p">[</span><span class="n">mysub</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">obsquery</span><span class="p">]</span> <span class="o">==</span> <span class="n">obsqueryval</span><span class="p">])</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">mysub</span><span class="p">))</span>
-    <span class="k">return</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">array</span><span class="p">(</span><span class="n">myleiden</span><span class="p">)[</span><span class="n">array</span><span class="p">(</span><span class="n">myc</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">cutoff</span><span class="p">]))</span></div>
+        <span class="n">myc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mysub</span><span class="p">[</span><span class="n">mysub</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">obsquery</span><span class="p">]</span> <span class="o">==</span> <span class="n">obsqueryval</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">mysub</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">myleiden</span><span class="p">)[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">myc</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">cutoff</span><span class="p">])</span></div>
 
 
-<div class="viewcode-block" id="obtain_dblabel"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.obtain_dblabel.html#besca.tl.sig.obtain_dblabel">[docs]</a><span class="k">def</span> <span class="nf">obtain_dblabel</span><span class="p">(</span><span class="n">nomenclature_file</span><span class="p">,</span> <span class="n">cnames</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Matches the cnames obtained by the make_annot function</span>
+<div class="viewcode-block" id="obtain_new_label"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.obtain_new_label.html#besca.tl.sig.obtain_new_label">[docs]</a><span class="k">def</span> <span class="nf">obtain_new_label</span><span class="p">(</span>
+    <span class="n">nomenclature_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">cnames</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">reference_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;short_dblabel&quot;</span><span class="p">,</span>
+    <span class="n">new_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;dblabel&quot;</span><span class="p">,</span>
+    <span class="n">new_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;Matches the cnames obtained by the make_annot function or a list of label names</span>
+<span class="sd">    to the db label (standardized label from a nomenclature file).</span>
+
+<span class="sd">    parameters</span>
+<span class="sd">    ---------</span>
+<span class="sd">    nomenclature_file: &#39;str&#39;</span>
+<span class="sd">      path to the nomenclature file (one available in besca/datasets)</span>
+<span class="sd">    cnames: panda.DataFrame or list</span>
+<span class="sd">        a dataframe with cluster to cell type attribution per distinct levels or a list of names</span>
+<span class="sd">    reference_label: &#39;str&#39;</span>
+<span class="sd">        column in nomenclature file that corresponds to the names in cnames (short_dblabel if from make_annot function)</span>
+<span class="sd">    new_label: &#39;str&#39;</span>
+<span class="sd">        column in nomenclature file that is used for the translation (e.g. &#39;dblabel&#39; or &#39;EFO&#39;)</span>
+<span class="sd">    new_level: int</span>
+<span class="sd">        Keep the level if None or translate to a lower level e.g. 0, 1, 2, 3, 4</span>
+
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    panda.DataFrame containing the different levels of the nomenclature  indexed by cluster</span>
+<span class="sd">    (based on cnames index)</span>
+
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; import besca as bc</span>
+<span class="sd">    &gt;&gt;&gt; import pkg_resources</span>
+<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.simulated_pbmc3k_processed()</span>
+<span class="sd">    &gt;&gt;&gt; new_cnames = bc.tl.sig.obtain_new_label(</span>
+<span class="sd">    ...     nomenclature_file=pkg_resources.resource_filename(&#39;besca&#39;, &#39;datasets/nomenclature/CellTypes_v1.tsv&#39;),</span>
+<span class="sd">    ...     cnames=list(adata.obs[&#39;dblabel&#39;].cat.categories),</span>
+<span class="sd">    ...     reference_label=&#39;dblabel&#39;,</span>
+<span class="sd">    ...     new_label = &#39;dblabel&#39;,</span>
+<span class="sd">    ...     new_level = 2)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">cnames</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="n">cnames</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;new_label&quot;</span><span class="p">:</span> <span class="n">cnames</span><span class="p">})</span>
+        <span class="n">cnames</span> <span class="o">=</span> <span class="n">cnames</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">cnames</span><span class="p">[</span><span class="s2">&quot;new_label&quot;</span><span class="p">])</span>
+        <span class="n">cnames</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">nomenclature</span> <span class="o">=</span> <span class="n">read_nomenclature</span><span class="p">(</span><span class="n">nomenclature_file</span><span class="p">)</span>
+
+    <span class="n">dblabel_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">cat_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">mycol</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">cnames</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+        <span class="n">currentTerm</span> <span class="o">=</span> <span class="n">cnames</span><span class="p">[</span><span class="n">mycol</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">currentTerm</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">cat_nomenclature</span> <span class="o">=</span> <span class="n">nomenclature</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+                    <span class="n">nomenclature</span><span class="p">[</span><span class="n">reference_label</span><span class="p">]</span> <span class="o">==</span> <span class="n">cat</span><span class="p">,</span> <span class="p">:</span>
+                <span class="p">]</span>
+                <span class="c1"># Initialize with dblabel, which is kept if is_level==new_level and if no better term can be found</span>
+                <span class="n">dblabel_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">]</span> <span class="o">=</span> <span class="n">cat_nomenclature</span><span class="p">[</span><span class="s2">&quot;dblabel&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Error trying to reach </span><span class="si">{</span><span class="n">cat</span><span class="si">}</span><span class="s2"> in nomenclature. Please check if term exist&quot;</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">new_level</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">is_level</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cat_nomenclature</span><span class="p">[</span><span class="s2">&quot;is_level&quot;</span><span class="p">])</span>
+                <span class="c1"># If is_level is greater than the new_level, try to find a better one between 0 and new_level, otherwise keep initial dblabel</span>
+                <span class="k">if</span> <span class="n">is_level</span> <span class="o">&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">new_level</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">new_level</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">cat_nomenclature</span><span class="p">[</span><span class="s2">&quot;l&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="p">)]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+                            <span class="n">dblabel_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">]</span> <span class="o">=</span> <span class="n">cat_nomenclature</span><span class="p">[</span><span class="s2">&quot;l&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="p">)]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="c1"># If is_level is smaller than the new_level, try to find a better one between is_level and new_level, otherwise keep initial dblabel</span>
+                <span class="k">elif</span> <span class="n">is_level</span> <span class="o">&lt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">new_level</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">is_level</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">new_level</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">cat_nomenclature</span><span class="p">[</span><span class="s2">&quot;l&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="p">)]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+                            <span class="n">dblabel_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">]</span> <span class="o">=</span> <span class="n">cat_nomenclature</span><span class="p">[</span><span class="s2">&quot;l&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="p">)]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="c1"># We retrieved the dblabel for each category. Let&#39;s translate to the new_label if needed:</span>
+            <span class="k">if</span> <span class="n">new_label</span> <span class="o">!=</span> <span class="s2">&quot;dblabel&quot;</span><span class="p">:</span>
+                <span class="n">cat_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">]</span> <span class="o">=</span> <span class="n">nomenclature</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+                    <span class="n">nomenclature</span><span class="p">[</span><span class="s2">&quot;dblabel&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">dblabel_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">],</span> <span class="n">new_label</span>
+                <span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cat_dict</span> <span class="o">=</span> <span class="n">dblabel_dict</span>
+
+    <span class="n">new_cnames</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">mycol</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">cnames</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+        <span class="n">currentTerm</span> <span class="o">=</span> <span class="n">cnames</span><span class="p">[</span><span class="n">mycol</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">new_cnames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cat_dict</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">currentTerm</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Error trying to reach </span><span class="si">{</span><span class="n">currentTerm</span><span class="si">}</span><span class="s2"> in nomenclature. Please check if term exist&quot;</span>
+            <span class="p">)</span>
+
+    <span class="n">new_cnames</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">new_cnames</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+    <span class="n">new_cnames</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">cnames</span><span class="o">.</span><span class="n">columns</span>
+    <span class="n">new_cnames</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">cnames</span><span class="o">.</span><span class="n">index</span>
+
+    <span class="k">return</span> <span class="n">new_cnames</span></div>
+
+
+<div class="viewcode-block" id="obtain_dblabel"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.obtain_dblabel.html#besca.tl.sig.obtain_dblabel">[docs]</a><span class="k">def</span> <span class="nf">obtain_dblabel</span><span class="p">(</span><span class="n">nomenclature_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cnames</span><span class="p">,</span> <span class="n">reference_label</span><span class="o">=</span><span class="s2">&quot;short_dblabel&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Matches the cnames obtained by the make_annot function</span>
 <span class="sd">    to the db label (standardized label).</span>
 
 <span class="sd">    parameters</span>
@@ -474,47 +603,115 @@
 <span class="sd">      path to the nomenclature file (one available in besca/datasets)</span>
 <span class="sd">    cnames: panda.DataFrame</span>
 <span class="sd">        a dataframe with cluster to cell type attribution per distinct levels</span>
+<span class="sd">    reference_label: &#39;str&#39;</span>
+<span class="sd">        column in nomenclature file that corresponds to the names in cnames (dblabel_short if from make_annot function)</span>
 
 <span class="sd">    returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    panda.DataFrame containing the different levels of the nomenclature  indexed by cluster</span>
 <span class="sd">    (based on cnames index)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">nomenclature</span> <span class="o">=</span> <span class="n">read_csv</span><span class="p">(</span><span class="n">nomenclature_file</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span>
-                            <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-    <span class="n">cnamesDBlabel</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">mycol</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">cnames</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
-        <span class="n">currentTerm</span> <span class="o">=</span> <span class="n">cnames</span><span class="p">[</span><span class="n">mycol</span><span class="p">]</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">cnamesDBlabel</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="nb">list</span><span class="p">(</span><span class="n">nomenclature</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">nomenclature</span><span class="p">[</span><span class="s1">&#39;short_dblabel&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;dblabel&#39;</span><span class="p">])[</span>
-                                 <span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">currentTerm</span><span class="p">)])</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;Error trying to reach </span><span class="si">{</span><span class="n">currentTerm</span><span class="si">}</span><span class="s1"> in nomenclature. Please check if term exist&#39;</span><span class="p">)</span>
-    <span class="n">cnamesDBlabel</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">cnamesDBlabel</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
-    <span class="n">cnamesDBlabel</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">cnames</span><span class="o">.</span><span class="n">columns</span>
-    <span class="n">cnamesDBlabel</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">cnames</span><span class="o">.</span><span class="n">index</span>
-    <span class="k">return</span><span class="p">(</span><span class="n">cnamesDBlabel</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">obtain_new_label</span><span class="p">(</span>
+        <span class="n">nomenclature_file</span><span class="p">,</span>
+        <span class="n">cnames</span><span class="p">,</span>
+        <span class="n">reference_label</span><span class="o">=</span><span class="n">reference_label</span><span class="p">,</span>
+        <span class="n">new_label</span><span class="o">=</span><span class="s2">&quot;dblabel&quot;</span><span class="p">,</span>
+        <span class="n">new_level</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">read_nomenclature</span><span class="p">(</span><span class="n">nomenclature_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="n">nomenclature</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="n">nomenclature_file</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">nomenclature</span>
+
+
+<div class="viewcode-block" id="match_label"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.match_label.html#besca.tl.sig.match_label">[docs]</a><span class="k">def</span> <span class="nf">match_label</span><span class="p">(</span>
+    <span class="n">vector_label</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+    <span class="n">nomenclature_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">start_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;dblabel&quot;</span><span class="p">,</span>
+    <span class="n">match_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;short_dblabel&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Return a table matching values in vector label.</span>
+<span class="sd">    It is mean to translate labels , for example for plotting</span>
+
+<span class="sd">      Parameters</span>
+<span class="sd">      ----------</span>
+<span class="sd">      vector_label: `list`</span>
+<span class="sd">          initial list of values to match</span>
+<span class="sd">      nomenclature_file: `str`</span>
+<span class="sd">          location of the nomenclature_file</span>
+<span class="sd">      start_column: `str` | default = dblabel</span>
+<span class="sd">          column to start within the nomenclature</span>
+<span class="sd">      match_column: `str` | default = short_dblabel</span>
+<span class="sd">          column to match within the nomenclature</span>
+
+<span class="sd">      Returns</span>
+<span class="sd">      -------</span>
+<span class="sd">      pd.DataFrame</span>
+<span class="sd">          Pandas dataframe containing the matching labels. If matchings labels are not found, the value is kept as is.</span>
+
+<span class="sd">      Example</span>
+<span class="sd">      -------</span>
+<span class="sd">      &gt;&gt;&gt; import besca as bc</span>
+<span class="sd">      &gt;&gt;&gt; import scanpy as sc</span>
+<span class="sd">      &gt;&gt;&gt; import pkg_resources</span>
+<span class="sd">      &gt;&gt;&gt; adata = bc.datasets.simulated_pbmc3k_processed()</span>
+<span class="sd">      &gt;&gt;&gt; nomenclature_file=pkg_resources.resource_filename(&#39;besca&#39;, &#39;datasets/nomenclature/CellTypes_v1.tsv&#39;),</span>
+<span class="sd">      &gt;&gt;&gt; nomenclature_file=&#39;&#39;.join(nomenclature_file)</span>
+<span class="sd">      &gt;&gt;&gt; matching_v = bc.tl.sig.match_label(adata.obs.get( [&quot;celltype3&quot;]),  nomenclature_file)</span>
+<span class="sd">      &gt;&gt;&gt; adata.obs[&#39;shortlabel&#39;] = adata.obs.get( &quot;celltype3&quot;).map( dict(matching_v.values))</span>
+<span class="sd">      &gt;&gt;&gt; sc.pl.umap(adata, color=[&#39;shortlabel&#39;])</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nomenclature</span> <span class="o">=</span> <span class="n">read_nomenclature</span><span class="p">(</span><span class="n">nomenclature_file</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">start_column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nomenclature</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">start_column</span><span class="si">}</span><span class="s2"> not found as one of the nomenclature file columns&quot;</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">match_column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nomenclature</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">match_column</span><span class="si">}</span><span class="s2"> not found as one of the nomenclature file columns&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">matching_df</span> <span class="o">=</span> <span class="n">nomenclature</span><span class="p">[</span><span class="n">nomenclature</span><span class="p">[</span><span class="n">start_column</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">vector_label</span><span class="p">)][</span>
+        <span class="p">[</span><span class="n">start_column</span><span class="p">,</span> <span class="n">match_column</span><span class="p">]</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># check if values not in</span>
+    <span class="n">missed_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">vector_label</span><span class="p">,</span> <span class="n">nomenclature</span><span class="p">[</span><span class="n">start_column</span><span class="p">])</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="o">~</span><span class="n">missed_values</span><span class="p">):</span>
+        <span class="n">missed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">vector_label</span><span class="p">)[</span><span class="o">~</span><span class="n">missed_values</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Non found values in nomenclature files&quot;</span><span class="p">,</span> <span class="nb">set</span><span class="p">(</span><span class="n">missed</span><span class="p">))</span>
+        <span class="n">matching_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">matching_df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="n">start_column</span><span class="p">:</span> <span class="n">missed</span><span class="p">,</span> <span class="n">match_column</span><span class="p">:</span> <span class="n">missed</span><span class="p">})]</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">matching_df</span></div>
 </pre></div>
 
            </div>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, BEDA
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -522,7 +719,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

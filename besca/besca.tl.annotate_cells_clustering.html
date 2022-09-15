@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>annotate_cells_clustering &mdash; BESCA 2.4 documentation</title>
+  <title>annotate_cells_clustering &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +40,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -68,7 +77,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -93,7 +102,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../besca.html">besca</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">code examples</a></li>
@@ -191,11 +200,11 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="annotate-cells-clustering">
-<h1>annotate_cells_clustering<a class="headerlink" href="#annotate-cells-clustering" title="Permalink to this headline">¶</a></h1>
+<section id="annotate-cells-clustering">
+<h1>annotate_cells_clustering<a class="headerlink" href="#annotate-cells-clustering" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
-<dt id="besca.tl.annotate_cells_clustering">
-<code class="sig-prename descclassname"><span class="pre">besca.tl.</span></code><code class="sig-name descname"><span class="pre">annotate_cells_clustering</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_cluster_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_annotation_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'celltype'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustering_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'leiden'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/_annotate_cellnames.html#annotate_cells_clustering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.tl.annotate_cells_clustering" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="besca.tl.annotate_cells_clustering">
+<span class="sig-prename descclassname"><span class="pre">besca.tl.</span></span><span class="sig-name descname"><span class="pre">annotate_cells_clustering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_cluster_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_annotation_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'celltype'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustering_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'leiden'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/_annotate_cellnames.html#annotate_cells_clustering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.tl.annotate_cells_clustering" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to add annotation to adata.obs based on clustering
 This function replaces the original cluster labels located in the column clustering_label with
 the new values specified in the list new_cluster_lables. The values in this list need to be in the
@@ -204,7 +213,7 @@ The order of this can be checked by running
 ` sorted(adata.obs.get(clustering_label).unique(), key=int)` or
 ` sorted(adata.obs.get(clustering_label).unique(), key=str)`</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>adata</strong> (<em>AnnData</em>) – the AnnData object that is supposed to recieve a new annotation</p></li>
 <li><p><strong>new_cluster_labels</strong> (<cite>list</cite>) – a list in correct lexicographic order of the new cluster labels</p></li>
@@ -212,16 +221,16 @@ The order of this can be checked by running
 <li><p><strong>clustering_label</strong> (<cite>str</cite> | default = ‘louvain’) – string identifying the name underwhich the old cluster labels can be found in adata.obs</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The adata.obs has been updated with a new column containing the new annotation</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>AnnData</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
@@ -233,7 +242,7 @@ The order of this can be checked by running
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

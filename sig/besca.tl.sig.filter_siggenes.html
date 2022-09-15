@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>filter_siggenes &mdash; BESCA 2.4 documentation</title>
+  <title>filter_siggenes &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +40,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -45,8 +54,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="read_GMT_sign" href="besca.tl.sig.read_GMT_sign.html" />
-    <link rel="prev" title="compute_signed_score" href="besca.tl.sig.compute_signed_score.html" /> 
+    <link rel="next" title="convert_siggenes" href="besca.tl.sig.convert_siggenes.html" />
+    <link rel="prev" title="filter_by_set" href="besca.tl.sig.filter_by_set.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -70,7 +79,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -95,7 +104,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../besca.html">besca</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#helper-functions">helper functions</a></li>
@@ -114,7 +123,9 @@
 <li class="toctree-l4 current"><a class="reference internal" href="../besca.html#signature-scoring">signature scoring</a><ul class="current">
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.combined_signature_score.html">combined_signature_score</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.compute_signed_score.html">compute_signed_score</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.filter_by_set.html">filter_by_set</a></li>
 <li class="toctree-l5 current"><a class="current reference internal" href="#">filter_siggenes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.convert_siggenes.html">convert_siggenes</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.read_GMT_sign.html">read_GMT_sign</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.getset.html">getset</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.score_mw.html">score_mw</a></li>
@@ -122,12 +133,17 @@
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.make_anno.html">make_anno</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.read_annotconfig.html">read_annotconfig</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.match_cluster.html">match_cluster</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.obtain_new_label.html">obtain_new_label</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.obtain_dblabel.html">obtain_dblabel</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.get_gems.html">get_gems</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.insert_gems.html">insert_gems</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.get_similar_geneset.html">get_similar_geneset</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.export_annotconfig.html">export_annotconfig</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.convert_to_directed.html">convert_to_directed</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.make_gmtx.html">make_gmtx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.write_gmtx_forgems.html">write_gmtx_forgems</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.silhouette_computation.html">silhouette_computation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.match_label.html">match_label</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#reclustering">reclustering</a></li>
@@ -238,31 +254,57 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="filter-siggenes">
-<h1>filter_siggenes<a class="headerlink" href="#filter-siggenes" title="Permalink to this headline">¶</a></h1>
+<section id="filter-siggenes">
+<h1>filter_siggenes<a class="headerlink" href="#filter-siggenes" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
-<dt id="besca.tl.sig.filter_siggenes">
-<code class="sig-prename descclassname"><span class="pre">besca.tl.sig.</span></code><code class="sig-name descname"><span class="pre">filter_siggenes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_sig.html#filter_siggenes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.tl.sig.filter_siggenes" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="besca.tl.sig.filter_siggenes">
+<span class="sig-prename descclassname"><span class="pre">besca.tl.sig.</span></span><span class="sig-name descname"><span class="pre">filter_siggenes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_sig.html#filter_siggenes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.tl.sig.filter_siggenes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filter all signatures in signature_dict to remove genes not present in adata</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>adata</strong> (class:<cite>~anndata.AnnData</cite>) – An AnnData object (from scanpy). Following besca convention, var names (gene) are HGNC symbol and should match the signatures values.</p></li>
-<li><p><strong>signature_dict</strong> (<cite>dict</cite>) – a dictionary of signatures. Nested dictionnaries, key: signature names
-Values are a dict  with keys as the directions (UP/DN) and genes names in values.</p></li>
+<li><p><strong>adata</strong> (class:<cite>~anndata.AnnData</cite>) – An AnnData object (from scanpy). Following besca convention, var names
+(genes) are HGNC symbol and should match the signatures values.</p></li>
+<li><p><strong>signature_dict</strong> (<cite>dict</cite>) – a dictionary of signatures. Keys signature names, and values can come
+in two variants:
+* Variant 1: values are a list of gene names as strings. An example:
+<cite>{‘gs1’: [‘A’, ‘B’], ‘gs2’:[‘B’, ‘C’]}</cite>;
+* Variant 2: Values are a dict with keys, for instance directions
+(UP/DN), and genes names in values. An example: <cite>{‘gs1’: {‘UP’: ‘A’,
+‘DN’: ‘B’}, ‘gs2’: {‘UP’: [‘C’, ‘D’], ‘DN’: [‘E’, ‘A’]}}</cite>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>signature_dict_filtered</strong> – a dictionary of signatures. Nested dictionnaries, key: signature names
-Values are a dict  with keys as the directions (UP/DN) and genes names in values.</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>signature_dict_filtered</strong> – a dictionary of signatures in the same format as the input.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><cite>dict</cite></p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">simulated_pbmc3k_processed</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sigs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;GeneSet1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Gene_0&#39;</span><span class="p">,</span> <span class="s1">&#39;Gene_2&#39;</span><span class="p">,</span> <span class="s1">&#39;Gene_3&#39;</span><span class="p">,</span> <span class="s1">&#39;NoSuchAGene&#39;</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s1">&#39;GeneSet2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Gene_5&#39;</span><span class="p">,</span> <span class="s1">&#39;Gene_6&#39;</span><span class="p">,</span> <span class="s1">&#39;Gene_8&#39;</span><span class="p">,</span> <span class="s1">&#39;UnknownGene&#39;</span><span class="p">]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filtered_sigs</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">filter_siggenes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">sigs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filtered_sigs</span>
+<span class="go">{&#39;GeneSet1&#39;: [&#39;Gene_0&#39;, &#39;Gene_2&#39;, &#39;Gene_3&#39;], &#39;GeneSet2&#39;: [&#39;Gene_5&#39;, &#39;Gene_6&#39;, &#39;Gene_8&#39;]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signed_sigs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;GeneSet1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;UP&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Gene_0&#39;</span><span class="p">,</span> <span class="s1">&#39;Gene_2&#39;</span><span class="p">,</span> <span class="s1">&#39;Gene_3&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                                             <span class="s1">&#39;NoSuchAGene&#39;</span><span class="p">],</span>
+<span class="gp">... </span>                              <span class="s1">&#39;DN&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Gene_5&#39;</span><span class="p">,</span> <span class="s1">&#39;Gene_6&#39;</span><span class="p">,</span> <span class="s1">&#39;Gene_8&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                                             <span class="s1">&#39;UnknownGene&#39;</span><span class="p">]},</span>
+<span class="gp">... </span>                 <span class="s1">&#39;GeneSet2&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;UP&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Gene_10&#39;</span><span class="p">,</span> <span class="s1">&#39;Gene_11&#39;</span><span class="p">,</span> <span class="s1">&#39;Gene_13&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                                              <span class="s1">&#39;NoSuchAGene2&#39;</span><span class="p">],</span>
+<span class="gp">... </span>                              <span class="s1">&#39;DN&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Gene_14&#39;</span><span class="p">,</span> <span class="s1">&#39;Gene_16&#39;</span><span class="p">,</span> <span class="s1">&#39;Gene_18&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                                              <span class="s1">&#39;UnknownGene2&#39;</span><span class="p">]}}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filtered_signed_sigs</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">filter_siggenes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">signed_sigs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filtered_signed_sigs</span>
+<span class="go">{&#39;GeneSet1&#39;: {&#39;UP&#39;: [&#39;Gene_0&#39;, &#39;Gene_2&#39;, &#39;Gene_3&#39;], &#39;DN&#39;: [&#39;Gene_5&#39;, &#39;Gene_6&#39;, &#39;Gene_8&#39;]}, &#39;GeneSet2&#39;: {&#39;UP&#39;: [&#39;Gene_10&#39;, &#39;Gene_11&#39;, &#39;Gene_13&#39;], &#39;DN&#39;: [&#39;Gene_14&#39;, &#39;Gene_16&#39;, &#39;Gene_18&#39;]}}</span>
+</pre></div>
+</div>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
@@ -270,15 +312,15 @@ Values are a dict  with keys as the directions (UP/DN) and genes names in values
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="besca.tl.sig.read_GMT_sign.html" class="btn btn-neutral float-right" title="read_GMT_sign" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="besca.tl.sig.compute_signed_score.html" class="btn btn-neutral float-left" title="compute_signed_score" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="besca.tl.sig.convert_siggenes.html" class="btn btn-neutral float-right" title="convert_siggenes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="besca.tl.sig.filter_by_set.html" class="btn btn-neutral float-left" title="filter_by_set" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

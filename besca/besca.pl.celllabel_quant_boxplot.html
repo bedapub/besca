@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>celllabel_quant_boxplot &mdash; BESCA 2.4 documentation</title>
+  <title>celllabel_quant_boxplot &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +40,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -68,7 +77,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -93,7 +102,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../besca.html">besca</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">code examples</a></li>
@@ -191,16 +200,16 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="celllabel-quant-boxplot">
-<h1>celllabel_quant_boxplot<a class="headerlink" href="#celllabel-quant-boxplot" title="Permalink to this headline">¶</a></h1>
+<section id="celllabel-quant-boxplot">
+<h1>celllabel_quant_boxplot<a class="headerlink" href="#celllabel-quant-boxplot" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
-<dt id="besca.pl.celllabel_quant_boxplot">
-<code class="sig-prename descclassname"><span class="pre">besca.pl.</span></code><code class="sig-name descname"><span class="pre">celllabel_quant_boxplot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count_variable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subset_variable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition_identifier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_percentage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">myh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">myw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mypal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Paired'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pl/_celltype_quantification.html#celllabel_quant_boxplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.pl.celllabel_quant_boxplot" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="besca.pl.celllabel_quant_boxplot">
+<span class="sig-prename descclassname"><span class="pre">besca.pl.</span></span><span class="sig-name descname"><span class="pre">celllabel_quant_boxplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count_variable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subset_variable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition_identifier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_percentage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(8,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mypal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Paired'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pl/_celltype_quantification.html#celllabel_quant_boxplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.pl.celllabel_quant_boxplot" title="Permalink to this definition">¶</a></dt>
 <dd><p>generate a box and whisker plot with overlayed swarm plot of celltype abundances</p>
 <p>This function takes a condition identifier to generate plots in which you can
 compare the celltype abundances between different conditions.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>'DataFrame'</em>) – tidy dataframe that is outputed by the function besca.tl.count_occurrence_subset_conditions(…, make_tidy = True)</p></li>
 <li><p><strong>count_variable</strong> (<cite>str</cite>) – obs on which to count - e.g. clusters or cell types</p></li>
@@ -208,21 +217,17 @@ compare the celltype abundances between different conditions.</p>
 <li><p><strong>condition_identifier</strong> (<cite>str</cite>) – same condition_identifier used to generate data, used as hue - e.g. disease, storage, treatment</p></li>
 <li><p><strong>plot_percentages</strong> (<cite>bool</cite> | default = True) – boolian indicating if the percentages or the total counts should be plotted</p></li>
 <li><p><strong>condition_order</strong> (<cite>list</cite> | default = None) – list with the order in which the conditions should be plotted, for consistency</p></li>
-<li><p><strong>myh</strong> (<cite>integer</cite> | default = 4) – height of the figure</p></li>
-<li><p><strong>myw</strong> (<cite>integer</cite> | default = 8) – width of the figure</p></li>
+<li><p><strong>figsize</strong> (<em>(</em><em>width</em><em>, </em><em>height</em><em>) or </em><em>None</em><em> | </em><em>default =</em><em> (</em><em>8</em><em>,</em><em>4</em><em>)</em>) – optional parameter to define the figure size of the plot that is to be generated</p></li>
 <li><p><strong>mypal</strong> (<cite>string</cite> | default = “Paired”) – color palette for boxplots e.g. Paired, Blues_d</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Figure</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Figure</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
@@ -234,7 +239,7 @@ compare the celltype abundances between different conditions.</p>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

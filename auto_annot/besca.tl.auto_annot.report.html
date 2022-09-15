@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>report &mdash; BESCA 2.4 documentation</title>
+  <title>report &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +40,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -45,7 +54,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="read_mtx" href="../import/besca.Import.read_mtx.html" />
+    <link rel="next" title="scanvi_predict" href="besca.tl.auto_annot.scanvi_predict.html" />
     <link rel="prev" title="predict_proba" href="besca.tl.auto_annot.predict_proba.html" /> 
 </head>
 
@@ -70,7 +79,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -95,7 +104,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../besca.html">besca</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#helper-functions">helper functions</a></li>
@@ -136,6 +145,9 @@
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.adata_pred_prob.html">adata_pred_prob</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.predict_proba.html">predict_proba</a></li>
 <li class="toctree-l5 current"><a class="current reference internal" href="#">report</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.scanvi_predict.html">scanvi_predict</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.scvi_merge.html">scvi_merge</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.auto_annot.visualise_scvi_merge.html">visualise_scvi_merge</a></li>
 </ul>
 </li>
 </ul>
@@ -244,16 +256,16 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="report">
-<h1>report<a class="headerlink" href="#report" title="Permalink to this headline">¶</a></h1>
+<section id="report">
+<h1>report<a class="headerlink" href="#report" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
-<dt id="besca.tl.auto_annot.report">
-<code class="sig-prename descclassname"><span class="pre">besca.tl.auto_annot.</span></code><code class="sig-name descname"><span class="pre">report</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata_pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">celltype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_datasets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">genes_to_use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_nonshared</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'leiden'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asymmetric_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/auto_annot/_auto_annot.html#report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.tl.auto_annot.report" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="besca.tl.auto_annot.report">
+<span class="sig-prename descclassname"><span class="pre">besca.tl.auto_annot.</span></span><span class="sig-name descname"><span class="pre">report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata_pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">celltype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_datasets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">genes_to_use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_nonshared</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'leiden'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asymmetric_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/auto_annot/_auto_annot.html#report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.tl.auto_annot.report" title="Permalink to this definition">¶</a></dt>
 <dd><p>reports basic metrics, produces confusion matrices and plots umap of prediction
 Writes out a csv file containing all accuracy and f1 scores.
 Writes normalized and absolute confusion matrices, as well as umap prediction comparisons to ./figures.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>adata_pred</strong> (<em>AnnData</em>) – original adata object with ‘auto_annot’ column</p></li>
 <li><p><strong>celltype</strong> (<cite>str</cite>) – celltype column on which the prediction was performed</p></li>
@@ -269,16 +281,13 @@ Writes normalized and absolute confusion matrices, as well as umap prediction co
 <li><p><strong>asymmetric_matrix</strong> (<cite>bool</cite> | default = True) – if False returns square confusion matrix, if True it only shows possible combinations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>0</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>0</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
@@ -286,7 +295,7 @@ Writes normalized and absolute confusion matrices, as well as umap prediction co
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../import/besca.Import.read_mtx.html" class="btn btn-neutral float-right" title="read_mtx" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="besca.tl.auto_annot.scanvi_predict.html" class="btn btn-neutral float-right" title="scanvi_predict" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="besca.tl.auto_annot.predict_proba.html" class="btn btn-neutral float-left" title="predict_proba" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
@@ -294,7 +303,7 @@ Writes normalized and absolute confusion matrices, as well as umap prediction co
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

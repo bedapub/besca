@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>notebook 1 - introduction and data processing &mdash; BESCA 2.4 documentation</title>
+  <title>notebook 1 - introduction and data processing &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,10 +40,16 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -70,7 +81,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -95,15 +106,18 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../besca.html">besca</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">code examples</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">tutorials</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">notebook 1 - introduction and data processing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Dataset">Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Dataset">Dataset</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Description-of-the-used-data-set">Description of the used data set</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#Important-quantitative-traits-of-the-dataset">Important quantitative traits of the dataset</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#sparseness-of-data">sparseness of data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Sparseness-of-data">Sparseness of data</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#Filtering-(Quality-Control)">Filtering (Quality Control)</a></li>
@@ -412,11 +426,12 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt a.copybtn {
+.prompt .copybtn {
     display: none;
 }
 
 /* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
 div.rendered_html table {
   border: none;
   border-collapse: collapse;
@@ -425,10 +440,14 @@ div.rendered_html table {
   font-size: 12px;
   table-layout: fixed;
 }
+.jp-RenderedHTMLCommon thead,
 div.rendered_html thead {
   border-bottom: 1px solid black;
   vertical-align: bottom;
 }
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
 div.rendered_html tr,
 div.rendered_html th,
 div.rendered_html td {
@@ -440,12 +459,15 @@ div.rendered_html td {
   max-width: none;
   border: none;
 }
+.jp-RenderedHTMLCommon th,
 div.rendered_html th {
   font-weight: bold;
 }
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
 div.rendered_html tbody tr:nth-child(odd) {
   background: #f5f5f5;
 }
+.jp-RenderedHTMLCommon tbody tr:hover,
 div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
@@ -472,29 +494,27 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="notebook-1---introduction-and-data-processing">
-<h1>notebook 1 - introduction and data processing<a class="headerlink" href="#notebook-1---introduction-and-data-processing" title="Permalink to this headline">¶</a></h1>
+<section id="notebook-1---introduction-and-data-processing">
+<h1>notebook 1 - introduction and data processing<a class="headerlink" href="#notebook-1---introduction-and-data-processing" title="Permalink to this heading">¶</a></h1>
 <p>This notebook will introduce you to single cell RNA-seq analysis using scanpy. It will walk you through the main steps of an analysis pipeline, taking time to look at the important characteristics of the dataset a long the way. It goes through the individual steps in a more detailed manner than the standard analysis pipeline to teach the core concepts that need to be watched out for when performing single cell analysis.</p>
 <p>This is meant a simple tutorial and going more into depths of the single cell concepts. The run of the standard workflow for the same dataset can be found at:</p>
-<p><a class="reference external" href="https://github.com/bedapub/besca_publication_results/blob/master/hematopoietic/pbmc3k/standard_workflow_besca2-Raw.ipynb">https://github.com/bedapub/besca_publication_results/blob/master/hematopoietic/pbmc3k/standard_workflow_besca2-Raw.ipynb</a></p>
+<p><a class="reference external" href="https://github.com/bedapub/besca_publication_results/blob/master/hematopoietic/pbmc3k/standard_workflow_besca2-Raw.ipynb">standard_workflow_besca2-Raw.ipynb</a></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[541]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[542]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#import necessary python packages</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#import necessary python packages</span>
 <span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span> <span class="c1">#software suite of tools for single-cell analysis in python</span>
-<span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span> <span class="n">s</span>
+<span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -511,70 +531,46 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-scanpy==1.6.0 anndata==0.7.4 umap==0.4.6 numpy==1.19.2 scipy==1.5.2 pandas==1.1.3 scikit-learn==0.23.2 statsmodels==0.12.0 python-igraph==0.8.3 leidenalg==0.8.2
+scanpy==1.9.1 anndata==0.8.0 umap==0.5.3 numpy==1.21.5 scipy==1.9.0 pandas==1.4.3 scikit-learn==1.1.1 statsmodels==0.13.2 python-igraph==0.9.11 pynndescent==0.5.4
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[543]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
-<span class="n">task</span> <span class="o">=</span> <span class="s2">&quot;&lt;style&gt;div.task { background-color: #ffc299; border-color: #ff944d; border-left: 7px solid #ff944d; padding: 0.5em;} &lt;/style&gt;&quot;</span>
-<span class="n">HTML</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<style>div.task { background-color: #ffc299; border-color: #ff944d; border-left: 7px solid #ff944d; padding: 0.5em;} </style></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tag</span> <span class="o">=</span> <span class="s2">&quot;&lt;style&gt;div.tag { background-color: #99ccff; border-color: #1a8cff; border-left: 7px solid #1a8cff; padding: 0.5em;} &lt;/style&gt;&quot;</span>
-<span class="n">HTML</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<style>div.tag { background-color: #99ccff; border-color: #1a8cff; border-left: 7px solid #1a8cff; padding: 0.5em;} </style></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">FAIR</span> <span class="o">=</span> <span class="s2">&quot;&lt;style&gt;div.fair { background-color: #d2f7ec; border-color: #d2f7ec; border-left: 7px solid #2fbc94; padding: 0.5em;} &lt;/style&gt;&quot;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+<span class="n">FAIR</span> <span class="o">=</span> <span class="s2">&quot;&lt;style&gt;div.fair { background-color: #d2f7ec; </span><span class="se">\</span>
+<span class="s2">border-color: #d2f7ec; border-left: 7px solid #2fbc94; padding: 0.5em;} &lt;/style&gt;&quot;</span>
 <span class="n">HTML</span><span class="p">(</span><span class="n">FAIR</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[543]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style>div.fair { background-color: #d2f7ec; border-color: #d2f7ec; border-left: 7px solid #2fbc94; padding: 0.5em;} </style></div>
 </div>
-<div class="section" id="Dataset">
-<h2>Dataset<a class="headerlink" href="#Dataset" title="Permalink to this headline">¶</a></h2>
-<p>The example dataset we will be analyzing today consists of PBMCs. The reads have already been demultiplexed to generate a set of FASTQs per donor (cellranger mkfastq function) and count matrice are generated (cellranger count function).</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<section id="Dataset">
+<h2>Dataset<a class="headerlink" href="#Dataset" title="Permalink to this heading">¶</a></h2>
+<p>The example dataset we will be analyzing today consists of Peripheral blood mononuclear cells (PBMCs). The reads have already been demultiplexed to generate a set of FASTQs per donor (cellranger mkfastq function) and count matrice are generated (cellranger count function).</p>
+<section id="Description-of-the-used-data-set">
+<h3>Description of the used data set<a class="headerlink" href="#Description-of-the-used-data-set" title="Permalink to this heading">¶</a></h3>
+<p>The original data set provided by 10x is available <a class="reference external" href="http://cf.10xgenomics.com/samples/cell-exp/1.1.0/pbmc3k/">here</a></p>
+<p>Here is a short description provided by 10x:</p>
+<p>PBMCs are primary cells with relatively small amounts of RNA (~1pg RNA/cell).</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- 2,700 cells detected
+- Sequenced on Illumina NextSeq 500 with ~69,000 reads per cell
+- 98bp read1 (transcript), 8bp I5 sample barcode, 14bp I7 GemCode barcode and 10bp read2 (UMI)
+- Analysis run with --cells=3000
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#import example dataset</span>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[544]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#import example dataset</span>
 <span class="c1">#filepath = &#39;/path/to/dataset/raw&#39;</span>
 <span class="c1">#adata = bc.Import.read_mtx(filepath=filepath, species=&#39;human&#39;)</span>
 <span class="c1"># OR</span>
@@ -586,7 +582,7 @@ scanpy==1.6.0 anndata==0.7.4 umap==0.4.6 numpy==1.19.2 scipy==1.5.2 pandas==1.1.
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[544]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -601,17 +597,15 @@ AnnData object with n_obs × n_vars = 2700 × 32738
 <p>This dataset contains <strong>2700 cells</strong> (n_obs) and <strong>32738 genes</strong> (n_vars) whose labels are stored in adata.obs_names and adata.var_names respectively. In addition the dataset can be annotated into adata.obs. In this dataset, there are no specific metadata associated to each cell.</p>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[545]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-
-</pre></div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<br/></pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[545]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -667,23 +661,23 @@ AnnData object with n_obs × n_vars = 2700 × 32738
 </div>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle"><strong>Note</strong></p>
-<p>Its important to check how many cells you get from each Condition/Donor because this is not necessarily always equal.</p>
+<p>Its important to check how many cells you get from each condition/donor because this is not necessarily always equal.</p>
 </div>
-</div>
-<div class="section" id="Important-quantitative-traits-of-the-dataset">
-<h2>Important quantitative traits of the dataset<a class="headerlink" href="#Important-quantitative-traits-of-the-dataset" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="Important-quantitative-traits-of-the-dataset">
+<h2>Important quantitative traits of the dataset<a class="headerlink" href="#Important-quantitative-traits-of-the-dataset" title="Permalink to this heading">¶</a></h2>
 <p>First we can take a look at the relationship between total UMI counts associated with a gene and the detection probability in a cell. To do this we will plot the percentage of cells that express a gene (i.e. the cell has at least 1 UMI count for that gene) against the total number of UMI counts that we observe for a gene which we plot on the x-axis.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[546]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
-<span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">transcript_capture_efficiency</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">transcript_capture_efficiency</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -691,7 +685,7 @@ AnnData object with n_obs × n_vars = 2700 × 32738
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_14_0.png" src="../_images/tutorials_notebook1_data_processing_pbmc3k_14_0.png" />
+<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_14_0.png" class="no-scaled-link" src="../_images/tutorials_notebook1_data_processing_pbmc3k_14_0.png" style="width: 889px; height: 647px;" />
 </div>
 </div>
 <div class="admonition note">
@@ -699,11 +693,10 @@ AnnData object with n_obs × n_vars = 2700 × 32738
 <p>As the number of transcripts belonging to a gene increases we can see that most of the cells start expressing this gene. We will look at the genes into more detail later. Also, the number of genes that are abundantly expressed in most cells is low in comparison to those genes that are only expressed in a small subset of cells.</p>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[547]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">librarysize_overview</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">librarysize_overview</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -711,7 +704,7 @@ AnnData object with n_obs × n_vars = 2700 × 32738
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_16_0.png" src="../_images/tutorials_notebook1_data_processing_pbmc3k_16_0.png" />
+<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_16_0.png" class="no-scaled-link" src="../_images/tutorials_notebook1_data_processing_pbmc3k_16_0.png" style="width: 998px; height: 765px;" />
 </div>
 </div>
 <div class="admonition note">
@@ -719,17 +712,17 @@ AnnData object with n_obs × n_vars = 2700 × 32738
 <p><strong>Library size</strong> refers to the number of unique transcript molecules that are detected in a cell (i.e. the sum of all UMI counts). It is an important value for characterizing the sequencing depth of an experiment.</p>
 <p>Library size is closely related to two other indices: the <strong>number of detected genes (NODG)</strong> and the number of <strong>dropouts</strong>(undetected genes). Characteristic for single-cell data is the high frequency of dropouts.</p>
 </div>
-<div class="section" id="sparseness-of-data">
-<h3>sparseness of data<a class="headerlink" href="#sparseness-of-data" title="Permalink to this headline">¶</a></h3>
+<section id="Sparseness-of-data">
+<h3>Sparseness of data<a class="headerlink" href="#Sparseness-of-data" title="Permalink to this heading">¶</a></h3>
 <p>Most of the entries in the UMI count matrix consist of 0’s!</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[548]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">count_non_zero</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">todense</span><span class="p">())</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">count_non_zero</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">todense</span><span class="p">())</span>
 <span class="n">count_all_values</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span><span class="o">.</span><span class="n">size</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Only&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">count_non_zero</span> <span class="o">/</span> <span class="n">count_all_values</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">3</span> <span class="p">))</span><span class="o">+</span> <span class="s1">&#39;</span><span class="si">% o</span><span class="s1">f all matrix entries are non-zero values!&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Only&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">count_non_zero</span> <span class="o">/</span> <span class="n">count_all_values</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">3</span> <span class="p">))</span> <span class="o">+</span>
+      <span class="s1">&#39;</span><span class="si">% o</span><span class="s1">f all matrix entries are non-zero values!&#39;</span><span class="p">)</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">todense</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -743,7 +736,7 @@ Only 2.587% of all matrix entries are non-zero values!
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[548]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -760,20 +753,19 @@ matrix([[0., 0., 0., 0.],
         [0., 0., 0., 0.]], dtype=float32)
 </pre></div></div>
 </div>
-</div>
-</div>
-<div class="section" id="Filtering-(Quality-Control)">
-<h2>Filtering (Quality Control)<a class="headerlink" href="#Filtering-(Quality-Control)" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="Filtering-(Quality-Control)">
+<h2>Filtering (Quality Control)<a class="headerlink" href="#Filtering-(Quality-Control)" title="Permalink to this heading">¶</a></h2>
 <p>During the quality control we wish to perform a cleanup of the dataset in two dimensions: first to <strong>remove all low quality cells</strong> that might otherwise distort our analysis and second to <strong>remove uninformative genes</strong> (i.e. genes that are not expressed). In general, the quality control is performed in a conservative manner to remove clear outlier cells and not expressed genes but trying to keep as much information as possible.</p>
 <p>There are a number of criteria that can indicate a damaged cell: 1. a low overall gene/RNA content 2. a high fraction of mitochondrial genes</p>
 <p>In addition we also want to <strong>remove any potential cell doublets</strong>. In general cell doublet identification in scRNAseq data is extremely difficult, which is why we follow a conservative approach of removing any cells with an extremely high read count since this might indicate the presence of two cells in a droplet.</p>
 <p>The preliminary removal of uninformative genes is also extremely conservative with us only removing genes that are not expressed in a minimum number of cells.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[549]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">min_genes</span> <span class="o">=</span> <span class="mi">200</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">min_genes</span> <span class="o">=</span> <span class="mi">200</span>
 <span class="n">min_counts</span><span class="o">=</span> <span class="mi">1000</span>
 <span class="n">min_cells</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">max_genes</span> <span class="o">=</span> <span class="mi">2000</span>
@@ -791,7 +783,11 @@ matrix([[0., 0., 0., 0.],
 
 <span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">max_counts</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">max_counts</span><span class="o">=</span><span class="n">max_counts</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax4</span><span class="p">)</span>
 <span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">max_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">max_genes</span> <span class="o">=</span> <span class="n">max_genes</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax5</span><span class="p">)</span>
-<span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">max_mito</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">max_mito</span><span class="o">=</span><span class="n">max_mito</span><span class="p">,</span> <span class="n">annotation_type</span><span class="o">=</span><span class="s1">&#39;SYMBOL&#39;</span><span class="p">,</span> <span class="n">species</span><span class="o">=</span><span class="s1">&#39;human&#39;</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax6</span><span class="p">)</span>
+<span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">max_mito</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
+               <span class="n">max_mito</span><span class="o">=</span><span class="n">max_mito</span><span class="p">,</span>
+               <span class="n">annotation_type</span><span class="o">=</span><span class="s1">&#39;SYMBOL&#39;</span><span class="p">,</span>
+               <span class="n">species</span><span class="o">=</span><span class="s1">&#39;human&#39;</span><span class="p">,</span>
+               <span class="n">ax</span> <span class="o">=</span> <span class="n">ax6</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -807,7 +803,7 @@ adding percent mitochondrial genes to dataframe for species human
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_21_1.png" src="../_images/tutorials_notebook1_data_processing_pbmc3k_21_1.png" />
+<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_21_1.png" class="no-scaled-link" src="../_images/tutorials_notebook1_data_processing_pbmc3k_21_1.png" style="width: 1362px; height: 624px;" />
 </div>
 </div>
 <div class="admonition note">
@@ -816,46 +812,36 @@ adding percent mitochondrial genes to dataframe for species human
 significant impact on the analysis results, it is extremely important to document the used filtering criteria.</p>
 <p>In the standard Besca workflow, we propose some thresholds that could be an initial fit for most experiment. However this specific dataset (pbm3k) requires us to lower such thresholds here, to the values defined above.</p>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[550]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">max_counts</span><span class="o">=</span><span class="n">max_counts</span><span class="p">,</span> <span class="n">max_genes</span> <span class="o">=</span> <span class="n">max_genes</span><span class="p">,</span> <span class="n">max_mito</span> <span class="o">=</span> <span class="n">max_mito</span><span class="p">,</span> <span class="n">min_genes</span> <span class="o">=</span> <span class="n">min_genes</span><span class="p">,</span> <span class="n">min_cells</span> <span class="o">=</span> <span class="n">min_cells</span><span class="p">,</span> <span class="n">min_counts</span> <span class="o">=</span> <span class="n">min_counts</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>
+                     <span class="n">max_counts</span><span class="o">=</span><span class="n">max_counts</span><span class="p">,</span>
+                     <span class="n">max_genes</span> <span class="o">=</span> <span class="n">max_genes</span><span class="p">,</span>
+                     <span class="n">max_mito</span> <span class="o">=</span> <span class="n">max_mito</span><span class="p">,</span>
+                     <span class="n">min_genes</span> <span class="o">=</span> <span class="n">min_genes</span><span class="p">,</span>
+                     <span class="n">min_cells</span> <span class="o">=</span> <span class="n">min_cells</span><span class="p">,</span>
+                     <span class="n">min_counts</span> <span class="o">=</span> <span class="n">min_counts</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-started with  2700  total cells and  32738  total genes
-removed 8 cells that expressed more than 2000 genes
-removed 0 cells that did not express at least 200  genes
-removed 5 cells that had more than 7000  counts
-removed 153 cells that did not have at least 1000 counts
-removed 21599 genes that were not expressed in at least 10 cells
-removed  30  cells that expressed  5.0 percent mitochondrial genes or more
-finished with 2504  total cells and 11139 total genes
-</pre></div></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle"><strong>Note</strong></p>
-<p>After filtering it is usually a good idea to take another look at the distribution of cells within your dataset since it can occur that one Donor/Condition contained far more low quality cells than the others when you have different donors/batches/ etc.</p>
+<p>After filtering it is usually a good idea to take another look at the distribution of cells within your dataset since it can occur that one donor/condition contained far more low quality cells than the others when you have different donors/batches/ etc.</p>
 </div>
-</div>
-<div class="section" id="Characteristics-of-our-cleaned-up-dataset">
-<h2>Characteristics of our cleaned up dataset<a class="headerlink" href="#Characteristics-of-our-cleaned-up-dataset" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Characteristics-of-our-cleaned-up-dataset">
+<h2>Characteristics of our cleaned up dataset<a class="headerlink" href="#Characteristics-of-our-cleaned-up-dataset" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[551]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#does filtering change anything about the sparseness of our dataset?</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#does filtering change anything about the sparseness of our dataset?</span>
 <span class="n">count_non_zero</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">todense</span><span class="p">())</span>
 <span class="n">count_all_values</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span><span class="o">.</span><span class="n">size</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Only&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">count_non_zero</span> <span class="o">/</span> <span class="n">count_all_values</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">3</span> <span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">% o</span><span class="s1">f all matrix entries are non-zero values!&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Only&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">count_non_zero</span> <span class="o">/</span> <span class="n">count_all_values</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">3</span> <span class="p">))</span> <span class="o">+</span>
+      <span class="s1">&#39;</span><span class="si">% o</span><span class="s1">f all matrix entries are non-zero values!&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -872,11 +858,10 @@ Only 7.749% of all matrix entries are non-zero values!
 <p>Even after filtering our matrix to only include viable cells and to eliminate not expressed genes our dataset is still extremley sparse. This is common for single-cell datasets and one of the computational challenges we face in single-cell analysis.</p>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[552]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">librarysize_overview</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">librarysize_overview</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -884,7 +869,7 @@ Only 7.749% of all matrix entries are non-zero values!
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_28_0.png" src="../_images/tutorials_notebook1_data_processing_pbmc3k_28_0.png" />
+<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_28_0.png" class="no-scaled-link" src="../_images/tutorials_notebook1_data_processing_pbmc3k_28_0.png" style="width: 996px; height: 765px;" />
 </div>
 </div>
 <div class="admonition note">
@@ -892,16 +877,15 @@ Only 7.749% of all matrix entries are non-zero values!
 <p>After filtering our librarysize distribution now follows more of a normal distribution. This indicates that we chose good filtering parameters to eliminate the cells that were already dead or empty beads.</p>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[553]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">top_genes_counts</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">top_genes_counts</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[553]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -913,7 +897,7 @@ Only 7.749% of all matrix entries are non-zero values!
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_30_1.png" src="../_images/tutorials_notebook1_data_processing_pbmc3k_30_1.png" />
+<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_30_1.png" class="no-scaled-link" src="../_images/tutorials_notebook1_data_processing_pbmc3k_30_1.png" style="width: 960px; height: 495px;" />
 </div>
 </div>
 <div class="admonition note">
@@ -921,11 +905,11 @@ Only 7.749% of all matrix entries are non-zero values!
 <p>The most strongly and commonly expressed genes are ribosomal and mitochondrial.</p>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[554]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#Thought experiment: what happens if we remove all of the mitochondrial and ribosomal proteins from the dataset?</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Thought experiment: what happens if we remove all of the mitochondrial</span>
+<span class="c1"># and ribosomal proteins from the dataset?</span>
 <span class="n">bdata</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">bdata</span> <span class="o">=</span> <span class="n">bdata</span><span class="p">[:,[</span><span class="ow">not</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;MT-&#39;</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">bdata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]]</span>
 <span class="n">bdata</span> <span class="o">=</span> <span class="n">bdata</span><span class="p">[:,[</span><span class="ow">not</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;RP&#39;</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">bdata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]]</span>
@@ -935,7 +919,7 @@ Only 7.749% of all matrix entries are non-zero values!
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[554]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -947,29 +931,28 @@ Only 7.749% of all matrix entries are non-zero values!
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_32_1.png" src="../_images/tutorials_notebook1_data_processing_pbmc3k_32_1.png" />
+<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_32_1.png" class="no-scaled-link" src="../_images/tutorials_notebook1_data_processing_pbmc3k_32_1.png" style="width: 967px; height: 495px;" />
 </div>
 </div>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle"><strong>Note</strong></p>
 <p>Now we see a high number of marker genes for Immunecells. Also the variance in expression of these genes is significantly higher (indication for differential expression).</p>
 </div>
-</div>
-<div class="section" id="Normalization">
-<h2>Normalization<a class="headerlink" href="#Normalization" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Normalization">
+<h2>Normalization<a class="headerlink" href="#Normalization" title="Permalink to this heading">¶</a></h2>
 <p>Since each cell has a different library size it is common to normalize the UMI counts to each cells library size. In addition we save an additional copy of our dataset at its current status (we refer to this as <strong>cp10k</strong> values) for visualizing gene expression or doing differential gene expression later on.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[555]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#before normalization we have discrete counts</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># before normalization we have discrete counts</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">todense</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[555]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -987,32 +970,35 @@ matrix([[0., 0., 0., 0.],
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[556]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#normalize per cell</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># normalize per cell</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">normalize_per_cell</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">counts_per_cell_after</span><span class="o">=</span><span class="mf">1e4</span><span class="p">)</span>
 
-<span class="c1">#save a copy (logarithmized for better understanding of values) to adata.raw</span>
+<span class="c1"># save a copy (logarithmized for better understanding of values) to adata.raw</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">raw</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="fair"><p><p>write out cp10k values for loading into database</p>
-</p><p><p><code class="docutils literal notranslate"><span class="pre">bc.st.export_cp10k(adata=adata,</span> <span class="pre">basepath='FILEPATH_TO_FOLDER_CONTAINING_RAW_SUBFOLDER')</span></code></p>
-</p></div><div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="fair"><p>write out cp10k values for loading into database</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>bc.st.export_cp10k(adata=adata,
+                   basepath=&lt;FILEPATH_TO_FOLDER_CONTAINING_RAW_SUBFOLDER&gt;)
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#after normalization we have continous values which represent the fraction of reads coming from each gene in a cell per 10000 reads</span>
+</div><div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[557]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#after normalization we have continous values which</span>
+<span class="c1"># represent the fraction of reads coming from each</span>
+<span class="c1"># gene in a cell per 10000 reads</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">todense</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[557]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1030,11 +1016,10 @@ matrix([[ 0.       ,  0.       ,  0.       ,  0.       ],
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[558]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">n_top</span> <span class="o">=</span> <span class="mi">25</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_top</span> <span class="o">=</span> <span class="mi">25</span>
 
 <span class="c1">#calculate total counts and frac_reads</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;total_counts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
@@ -1075,7 +1060,7 @@ matrix([[ 0.       ,  0.       ,  0.       ,  0.       ],
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[558]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1087,88 +1072,89 @@ Text(0.5, 1.0, &#39;Top 25 genes account for 25.56% of all counts&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_39_1.png" src="../_images/tutorials_notebook1_data_processing_pbmc3k_39_1.png" />
+<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_39_1.png" class="no-scaled-link" src="../_images/tutorials_notebook1_data_processing_pbmc3k_39_1.png" style="width: 960px; height: 495px;" />
 </div>
 </div>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle"><strong>What does cp10k mean?</strong></p>
 <p>cp10k of 100 means that 100 out of a total of 10000 UMI counts belong to that cell. That is equivalent to a fraction of 0.01 (1%)!</p>
 </div>
-</div>
-<div class="section" id="variance-in-single-cell-datasets">
-<h2>variance in single cell datasets<a class="headerlink" href="#variance-in-single-cell-datasets" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="variance-in-single-cell-datasets">
+<h2>variance in single cell datasets<a class="headerlink" href="#variance-in-single-cell-datasets" title="Permalink to this heading">¶</a></h2>
 <p>The characteristic that most strongly sets apart a single-cell RNAseq assay from bulk RNAseq is that measurments are subject to multiple, potent and often confounded sources of variance. Sources of variance can roughly be grouped into <strong>biologial sources of variance</strong> (e.g. cell cycle, cell type heterogeneity, transcriptional bursts, etc.) and <strong>technical sources of variance</strong> (e.g. capture efficiency, PCR amplification bias, contamination, cell damage, etc.).</p>
-<div class="section" id="highly-variable-genes">
-<h3>highly variable genes<a class="headerlink" href="#highly-variable-genes" title="Permalink to this headline">¶</a></h3>
+<section id="highly-variable-genes">
+<h3>highly variable genes<a class="headerlink" href="#highly-variable-genes" title="Permalink to this heading">¶</a></h3>
 <p>Variation in gene abundance estimates between different cells can be thought of as the <strong>combination between technical (mainly due to sampling) and biological sources of variance</strong>. Generally one wants to focus on the biological variance and try and eliminate the experimental noise as much as possible.</p>
 <p>The technical noise due to sampling is dependent on the expression level of the gene. Genes that are lowly expressed are much more strongly effected by sampling noise since the foldchanges resulting simply from a random sampling can be quite large. This simple intuition is easily visible if you plot the relationship between a gene’s dispersion (here the coefficient of variation) and the mean gene expression.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[559]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># calculate mean and coefficient of variation for each gene and add to adata.var</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate mean and coefficient of variation for each gene and add to adata.var</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;mean_log10&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">)</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;coeffvar&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">variation</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">todense</span><span class="p">(),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">))</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;coeffvar_log10&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;coeffvar&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="c1">#generate a plot of our data to visualize</span>
+<span class="c1"># generate a plot of our data to visualize</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">mean_log10</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">coeffvar_log10</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
 
-<span class="c1">#calculate linear fit between mean and cv</span>
+<span class="c1"># calculate linear fit between mean and cv</span>
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
 
-<span class="c1">#generate linear model</span>
-<span class="c1">#lm = linear_model.LinearRegression()</span>
-<span class="c1">#model = lm.fit(x,y)</span>
+<span class="c1"># generate linear model</span>
+<span class="c1"># lm = linear_model.LinearRegression()</span>
+<span class="c1"># model = lm.fit(x,y)</span>
 
-<span class="c1">#make predictions</span>
+<span class="c1"># make predictions</span>
 <span class="n">X</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;mean_log10&#39;</span><span class="p">])),</span> <span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;mean_log10&#39;</span><span class="p">])))</span>
-<span class="c1">#predictions = lm.predict(pd.DataFrame(data = list(X)))</span>
+<span class="c1"># predictions = lm.predict(pd.DataFrame(data = list(X)))</span>
 
-<span class="c1">#generate plot</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="c1"># generate plot</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;log10(mean gene expression)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;log10(coefficient of variation)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;mean variance trend&#39;</span><span class="p">)</span>
-<span class="c1">#ax.plot(X, predictions, color = &#39;red&#39;, linestyle = &#39;dashed&#39;, label=&quot;linear regression&quot;)</span>
+<span class="c1"># ax.plot(X, predictions, color = &#39;red&#39;, linestyle = &#39;dashed&#39;, label=&quot;linear regression&quot;)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[559]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x2aab0234dd90&gt;
+&lt;matplotlib.legend.Legend at 0x33fe68220&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_42_1.png" src="../_images/tutorials_notebook1_data_processing_pbmc3k_42_1.png" />
+<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_42_1.png" class="no-scaled-link" src="../_images/tutorials_notebook1_data_processing_pbmc3k_42_1.png" style="width: 914px; height: 632px;" />
 </div>
 </div>
 <p>For this datasets, we can see that some of the genes are <strong>overdispersed</strong>. Those points should be enriched for genes whose fluctuations represent biological variation. These are the genes we are especially interested in in our analysis which we call <strong>highly variable genes</strong>.</p>
 <p>Scanpy also comes with a function to filter highly variable genes according to the above outlined criteria which we will use for filtering.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[560]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">variable_genes_min_mean</span> <span class="o">=</span> <span class="mf">0.01</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">variable_genes_min_mean</span> <span class="o">=</span> <span class="mf">0.01</span>
 <span class="n">variable_genes_max_mean</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">variable_genes_min_disp</span> <span class="o">=</span> <span class="mf">0.4</span>
 
-<span class="c1">#identify genes with variable expression</span>
-<span class="n">filter_result</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">filter_genes_dispersion</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">min_mean</span><span class="o">=</span><span class="n">variable_genes_min_mean</span><span class="p">,</span> <span class="n">max_mean</span><span class="o">=</span><span class="n">variable_genes_max_mean</span><span class="p">,</span> <span class="n">min_disp</span><span class="o">=</span><span class="n">variable_genes_min_disp</span><span class="p">)</span>
+<span class="c1"># identify genes with variable expression</span>
+<span class="n">filter_result</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">filter_genes_dispersion</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">,</span>
+                                              <span class="n">min_mean</span><span class="o">=</span><span class="n">variable_genes_min_mean</span><span class="p">,</span>
+                                              <span class="n">max_mean</span><span class="o">=</span><span class="n">variable_genes_max_mean</span><span class="p">,</span>
+                                              <span class="n">min_disp</span><span class="o">=</span><span class="n">variable_genes_min_disp</span><span class="p">)</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">filter_genes_dispersion</span><span class="p">(</span><span class="n">filter_result</span><span class="p">)</span>
 <span class="n">nbr_variable_genes</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">filter_result</span><span class="o">.</span><span class="n">gene_subset</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;number of variable genes selected &#39;</span><span class="p">,</span> <span class="n">nbr_variable_genes</span> <span class="p">)</span>
@@ -1179,7 +1165,7 @@ Text(0.5, 1.0, &#39;Top 25 genes account for 25.56% of all counts&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_44_0.png" src="../_images/tutorials_notebook1_data_processing_pbmc3k_44_0.png" />
+<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_44_0.png" class="no-scaled-link" src="../_images/tutorials_notebook1_data_processing_pbmc3k_44_0.png" style="width: 629px; height: 347px;" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1195,11 +1181,10 @@ number of variable genes selected  1705
 <p>the parameters we use for selecting highly variable genes stay constant for most of our analysis! This is not dataset dependent.</p>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[561]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#count mitochondrial and ribosomal genes in dataset before highly variable gene selection</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># count mitochondrial and ribosomal genes in dataset before highly variable gene selection</span>
 <span class="n">genes</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 <span class="n">mito_genes</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">genes</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;MT-&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">genes</span><span class="p">])</span> <span class="k">if</span> <span class="n">v</span><span class="p">]</span>
 <span class="n">ribosomal_genes</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">genes</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;RP&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">genes</span><span class="p">])</span> <span class="k">if</span> <span class="n">v</span><span class="p">]</span>
@@ -1207,11 +1192,10 @@ number of variable genes selected  1705
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[562]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#perform the actual filtering</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># perform the actual filtering</span>
 <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="n">filter_result</span><span class="o">.</span><span class="n">gene_subset</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -1221,11 +1205,10 @@ number of variable genes selected  1705
 <p>our adata object now <strong>only</strong> contains the highly variable genes, but we still have access to all genes through the adata.raw object we saved earlier specifically for this purpose.</p>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[563]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#count mitochondrial and ribosomal genes in dataset after highly variable gene selection</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># count mitochondrial and ribosomal genes in dataset after highly variable gene selection</span>
 <span class="n">highly_var_genes</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 <span class="n">high_var_mito_genes</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">highly_var_genes</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;MT-&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">highly_var_genes</span><span class="p">])</span> <span class="k">if</span> <span class="n">v</span><span class="p">]</span>
 <span class="n">high_var_ribosomal_genes</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">highly_var_genes</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;RP&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">highly_var_genes</span><span class="p">])</span> <span class="k">if</span> <span class="n">v</span><span class="p">]</span>
@@ -1258,40 +1241,37 @@ After selection of highly variable genes:
 <p>By reducing the genes to the highly variable genes we have significantly reduced the number of mitochondrial and ribosomal genes in our dataset. Depending on the analysis it might make sense though to completely remove the mitochondrial and ribosomal genes before hand. In our standard analysis pipeline we leave them in since removing them does entail removing additional information.</p>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[564]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">hist1_dat</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hist1_dat</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[565]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#log transform our data (is easier to work with numbers like this)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># log transform our data (is easier to work with numbers like this)</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[566]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">## To do: Currently not working:</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># To do: Currently not working:</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="c1">#</span>
-<span class="c1">##visualize distribution before logarithmization</span>
+
+<span class="c1"># visualize distribution before logarithmization</span>
 <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">ax1</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">hist1_dat</span><span class="o">.</span><span class="n">flatten</span><span class="p">());</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Distribution of values before logarithmization&#39;</span><span class="p">);</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;frequency&#39;</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;cp10k&#39;</span><span class="p">)</span>
-<span class="c1">#</span>
-<span class="c1">##visualize distribution after logarithmization</span>
+
+<span class="c1">#visualize distribution after logarithmization</span>
 <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="n">ax2</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">());</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Distribution of values after logarithmization&#39;</span><span class="p">);</span>
@@ -1304,7 +1284,7 @@ After selection of highly variable genes:
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_53_0.png" src="../_images/tutorials_notebook1_data_processing_pbmc3k_53_0.png" />
+<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_53_0.png" class="no-scaled-link" src="../_images/tutorials_notebook1_data_processing_pbmc3k_53_0.png" style="width: 1145px; height: 495px;" />
 </div>
 </div>
 <div class="admonition note">
@@ -1314,61 +1294,62 @@ log1p(x)   = \ln{(x+1)}
 <p>The +1 is necessary to ensure that if there are counts of 0 we do not get an NA (logarithm of 0 is undefined)</p>
 <p>remember that a logarithmic scale is not linear! A log1p(cp10k) value of 5 represents roughly 150 UMI counts and one of 8 already almost 3000!</p>
 </div>
-</div>
-<div class="section" id="unwanted-sources-of-variance">
-<h3>unwanted sources of variance<a class="headerlink" href="#unwanted-sources-of-variance" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="unwanted-sources-of-variance">
+<h3>unwanted sources of variance<a class="headerlink" href="#unwanted-sources-of-variance" title="Permalink to this heading">¶</a></h3>
 <p>As we have already seen part of the observed variation in the dataset is coming from sources that are not biological (e.g technical batch, library size) but there are also sources of variance that are biological in nature but trivial and unrelated to the question we want to address (e.g. cells in different cell cycle stages or apoptotic vs healthy cells).</p>
 <p>One approach to overcoming these issues is to explicitly correct for this unwanted source of variation (e.g. using regress out). This can only be applied though if the source of variance is known and can be identified. Such approaches also run the risk of overcorrecting the data which is why they should be used sparingly.</p>
 <p>In our analysis pipeline we correct for two basic sources of additional variance whose effect we have already calculated above: the number of counts per cell and the mitochondrial gene content per cell.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[567]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#define several input factors</span>
-<span class="n">random_seed</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#define a random seed so that for stochastic processes you get reproducible results</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define several input factors</span>
+<span class="c1"># define a random seed so that for stochastic</span>
+<span class="c1"># processes you get reproducible results</span>
+<span class="n">random_seed</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">max_value</span> <span class="o">=</span> <span class="mi">10</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[568]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#remove variance due to difference in counts and percent mitochondrial gene content</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># remove variance due to difference in counts and percent mitochondrial gene content</span>
 <span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">regress_out</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;n_counts&#39;</span><span class="p">,</span> <span class="s1">&#39;percent_mito&#39;</span><span class="p">],</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[569]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># Scale data to unit variance and zero mean, and cut-off at max value 10</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Scale data to unit variance and zero mean, and cut-off at max value 10</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="fair"><p><p>write out regressedOut values for loading into database</p>
-</p><p><p><code class="docutils literal notranslate"><span class="pre">bc.st.export_regressedOut(adata</span> <span class="pre">=</span> <span class="pre">adata,</span> <span class="pre">basepath='FILEPATH_TO_FOLDER_CONTAINING_RAW_SUBFOLDER')</span></code></p>
-</p></div><div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="fair"><p>write out regressedOut values for loading into database</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>bc.st.export_regressedOut(adata = adata,
+                          basepath=&lt;FILEPATH_TO_FOLDER_CONTAINING_RAW_SUBFOLDER&gt;)
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">## batch correction would occur here if performed</span>
-<span class="c1">## will write out AnnData object to demonstrate batch correction later</span>
-
+</div><div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[570]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># batch correction would occur here if performed</span>
+<span class="c1"># will write out AnnData object to demonstrate batch correction later</span>
 
 <span class="n">adata</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;/tmp/adata_pbmc_FRESH_regressedOut.h5ad&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="dimension-reduction">
-<h2>dimension reduction<a class="headerlink" href="#dimension-reduction" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="dimension-reduction">
+<h2>dimension reduction<a class="headerlink" href="#dimension-reduction" title="Permalink to this heading">¶</a></h2>
 <p>One of the distinguishing characteristics of single-cell RNAseq data is the high dimensionality of the dataset. For each individual cell we have the entire transcriptome (albeit in a sparse format). One of the key steps in single-cell analysis is to apply methods to reduce the number of dimensions we look when we e.g. want to identify cell groupings that encompass biological subtypes.</p>
 <div class="line-block">
 <div class="line"><strong>Overview</strong></div>
@@ -1377,16 +1358,15 @@ log1p(x)   = \ln{(x+1)}
 <div class="line"><strong>step 3</strong>: clustering to identify cell groupings (i.e. clusters)</div>
 <div class="line"><strong>step 4</strong>: visualization of high dimensional data on two dimensions (tSNE and UMAP)</div>
 </div>
-<div class="section" id="Principle-component-analysis">
-<h3>Principle component analysis<a class="headerlink" href="#Principle-component-analysis" title="Permalink to this headline">¶</a></h3>
+<section id="Principle-component-analysis">
+<h3>Principle component analysis<a class="headerlink" href="#Principle-component-analysis" title="Permalink to this heading">¶</a></h3>
 <p>A principal component analysis is an approach that seeks to identify summary features (called components) that are linear combinations of different variables in the dataset. Each principle component is orthogonal to all other components and tries to capture the maximum dispersion not yet explained by previous components. Therefore, each added component will account for progressively lower fractions of the overall dataset features. As a result you can use a PCA to describe a dataset using a much
 lower number of features (here principle components) thus reducing the dimensionality of the dataset.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[571]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
 
 <span class="c1">#calculate 50 principle components of the dataset</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_seed</span><span class="p">,</span> <span class="n">svd_solver</span><span class="o">=</span><span class="s1">&#39;arpack&#39;</span><span class="p">)</span>
@@ -1403,54 +1383,51 @@ lower number of features (here principle components) thus reducing the dimension
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_63_0.png" class="no-scaled-link" src="../_images/tutorials_notebook1_data_processing_pbmc3k_63_0.png" style="width: 364px; height: 363px;" />
+<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_63_0.png" class="no-scaled-link" src="../_images/tutorials_notebook1_data_processing_pbmc3k_63_0.png" style="width: 356px; height: 362px;" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_63_1.png" class="no-scaled-link" src="../_images/tutorials_notebook1_data_processing_pbmc3k_63_1.png" style="width: 940px; height: 354px;" />
+<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_63_1.png" class="no-scaled-link" src="../_images/tutorials_notebook1_data_processing_pbmc3k_63_1.png" style="width: 931px; height: 356px;" />
 </div>
 </div>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle"><strong>Note</strong></p>
 <p>compared to bulk RNAseq datasets the fraction of variance explained by each principle component is much lower in single-cell datasets due to the extremely high dimensionality of the dataset. This is why other dimensionality reduction techniques are used.</p>
 </div>
-</div>
-<div class="section" id="nearest-neighbor-calculation">
-<h3>nearest neighbor calculation<a class="headerlink" href="#nearest-neighbor-calculation" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="nearest-neighbor-calculation">
+<h3>nearest neighbor calculation<a class="headerlink" href="#nearest-neighbor-calculation" title="Permalink to this heading">¶</a></h3>
 <p>Computes a neighborhood graph of the cells based on the first 50 principle components.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[572]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="n">random_seed</span><span class="p">,</span> <span class="n">n_pcs</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="n">random_seed</span><span class="p">,</span> <span class="n">n_pcs</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="Leiden-clustering">
-<h3>Leiden clustering<a class="headerlink" href="#Leiden-clustering" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="Leiden-clustering">
+<h3>Leiden clustering<a class="headerlink" href="#Leiden-clustering" title="Permalink to this heading">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[573]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">leiden</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_seed</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">leiden</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_seed</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="UMAP-&amp;-t-SNE">
-<h3>UMAP &amp; t-SNE<a class="headerlink" href="#UMAP-&-t-SNE" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="UMAP-&amp;-t-SNE">
+<h3>UMAP &amp; t-SNE<a class="headerlink" href="#UMAP-&-t-SNE" title="Permalink to this heading">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[574]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">%%time</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="n">random_seed</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1460,39 +1437,52 @@ lower number of features (here principle components) thus reducing the dimension
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-CPU times: user 6.88 s, sys: 154 ms, total: 7.03 s
-Wall time: 6.94 s
+CPU times: user 3.29 s, sys: 620 ms, total: 3.91 s
+Wall time: 2.72 s
 </pre></div></div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[575]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># %%time</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># %%time</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">tsne</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="n">random_seed</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-WARNING: Consider installing the package MulticoreTSNE (https://github.com/DmitryUlyanov/Multicore-TSNE). Even for n_jobs=1 this speeds up the computation considerably and might yield better converged results.
-</pre></div></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle"><strong>Note</strong></p>
 <p>For larger datasets the tSNE calculation can run significantly longer than the umap calculation. Here we have speed up the process through use of an additional python package which allows tSNE to run on multiple cores in parallel.</p>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[576]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#sc.pl.umap(adata, color = [&#39;sample_type&#39;, &#39;donor&#39;, &#39;batch&#39;], wspace = 0.4)</span>
-<span class="c1">#sc.pl.tsne(adata, color = [&#39;sample_type&#39;, &#39;donor&#39;, &#39;batch&#39;], wspace = 0.4)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[576]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+AnnData object with n_obs × n_vars = 2504 × 1705
+    obs: &#39;CELL&#39;, &#39;n_counts&#39;, &#39;n_genes&#39;, &#39;percent_mito&#39;, &#39;leiden&#39;
+    var: &#39;ENSEMBL&#39;, &#39;SYMBOL&#39;, &#39;n_cells&#39;, &#39;total_counts&#39;, &#39;frac_reads&#39;, &#39;mean&#39;, &#39;mean_log10&#39;, &#39;coeffvar&#39;, &#39;coeffvar_log10&#39;, &#39;std&#39;
+    uns: &#39;log1p&#39;, &#39;pca&#39;, &#39;neighbors&#39;, &#39;leiden&#39;, &#39;umap&#39;, &#39;tsne&#39;
+    obsm: &#39;X_pca&#39;, &#39;X_umap&#39;, &#39;X_tsne&#39;
+    varm: &#39;PCs&#39;
+    obsp: &#39;distances&#39;, &#39;connectivities&#39;
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[577]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># sc.pl.umap(adata, color = [&#39;sample_type&#39;, &#39;donor&#39;, &#39;batch&#39;], wspace = 0.4)</span>
+<span class="c1"># sc.pl.tsne(adata, color = [&#39;sample_type&#39;, &#39;donor&#39;, &#39;batch&#39;], wspace = 0.4)</span>
 </pre></div>
 </div>
 </div>
@@ -1501,11 +1491,10 @@ WARNING: Consider installing the package MulticoreTSNE (https://github.com/Dmitr
 <p>UMAP performs better at preserving aspects of <strong>global structure</strong> of the data than tSNE, where as t-SNE only conserves <strong>local structure</strong>. This is extremely important to keep in mind when interpreting the data. As a note both UMAP and t-SNE do not represent clustering methods!</p>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[578]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;leiden&#39;</span><span class="p">],</span> <span class="n">palette</span> <span class="o">=</span> <span class="s1">&#39;tab20&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;leiden&#39;</span><span class="p">],</span> <span class="n">palette</span> <span class="o">=</span> <span class="s1">&#39;tab20&#39;</span><span class="p">)</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">tsne</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;leiden&#39;</span><span class="p">],</span> <span class="n">palette</span> <span class="o">=</span> <span class="s1">&#39;tab20&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1514,33 +1503,41 @@ WARNING: Consider installing the package MulticoreTSNE (https://github.com/Dmitr
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_75_0.png" class="no-scaled-link" src="../_images/tutorials_notebook1_data_processing_pbmc3k_75_0.png" style="width: 366px; height: 334px;" />
+<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_76_0.png" class="no-scaled-link" src="../_images/tutorials_notebook1_data_processing_pbmc3k_76_0.png" style="width: 369px; height: 337px;" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_75_1.png" class="no-scaled-link" src="../_images/tutorials_notebook1_data_processing_pbmc3k_75_1.png" style="width: 366px; height: 334px;" />
+<img alt="../_images/tutorials_notebook1_data_processing_pbmc3k_76_1.png" class="no-scaled-link" src="../_images/tutorials_notebook1_data_processing_pbmc3k_76_1.png" style="width: 369px; height: 337px;" />
 </div>
 </div>
 <div class="fair"><p><strong>Standard Pipeline Export:</strong></p>
 <p>write out clusters and generated metadata values (i.e. PCA, UMAP and tSNE coordinates) for loading into database</p>
-<p><code class="docutils literal notranslate"><span class="pre">bc.st.export_clustering(adata</span> <span class="pre">=</span> <span class="pre">adata,</span> <span class="pre">basepath='FILEPATH_TO_FOLDER_CONTAINING_RAW_SUBFOLDER',</span> <span class="pre">method</span> <span class="pre">=</span> <span class="pre">'leiden')</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">bc.st.export_metadata(adata=adata,</span> <span class="pre">basepath='FILEPATH_TO_FOLDER_CONTAINING_RAW_SUBFOLDER',</span> <span class="pre">n_pcs=3,</span> <span class="pre">tsne=True,</span> <span class="pre">umap=True)</span></code></p>
-</div><div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>bc.st.export_clustering(adata = adata,
+                        basepath=&lt;FILEPATH_TO_FOLDER_CONTAINING_RAW_SUBFOLDER&gt;,
+                        method = leiden&#39;)
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#write out our AnnData Object to reload this analysis point</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>bc.st.export_metadata(adata=adata,
+                      basepath=&lt;FILEPATH_TO_FOLDER_CONTAINING_RAW_SUBFOLDER&gt;,
+                      n_pcs=3, tsne=True,
+                      umap=True)
+</pre></div>
+</div>
+</div><div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[579]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#write out our AnnData Object to reload this analysis point</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;/tmp/adata_pbmc_processed.h5ad&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
@@ -1556,7 +1553,7 @@ WARNING: Consider installing the package MulticoreTSNE (https://github.com/Dmitr
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

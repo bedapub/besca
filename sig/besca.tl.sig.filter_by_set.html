@@ -1,0 +1,345 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>filter_by_set &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="filter_siggenes" href="besca.tl.sig.filter_siggenes.html" />
+    <link rel="prev" title="compute_signed_score" href="besca.tl.sig.compute_signed_score.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> BESCA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../besca.html">besca</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../besca.html#helper-functions">helper functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../besca.html#preprocessing">preprocessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../besca.html#plotting">plotting</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../besca.html#tools">tools</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurrence.html">count_occurrence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurrence_subset.html">count_occurrence_subset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.count_occurrence_subset_conditions.html">count_occurrence_subset_conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.annotate_cells_clustering.html">annotate_cells_clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.report.html">report</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/besca.tl.plot_confusion_matrix.html">plot_confusion_matrix</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../besca.html#toolkits">toolkits</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../besca.html#batch-correction">batch correction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../besca.html#differential-gene-expression">differential gene expression</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../besca.html#signature-scoring">signature scoring</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.combined_signature_score.html">combined_signature_score</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.compute_signed_score.html">compute_signed_score</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">filter_by_set</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.filter_siggenes.html">filter_siggenes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.convert_siggenes.html">convert_siggenes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.read_GMT_sign.html">read_GMT_sign</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.getset.html">getset</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.score_mw.html">score_mw</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.add_anno.html">add_anno</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.make_anno.html">make_anno</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.read_annotconfig.html">read_annotconfig</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.match_cluster.html">match_cluster</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.obtain_new_label.html">obtain_new_label</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.obtain_dblabel.html">obtain_dblabel</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.get_gems.html">get_gems</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.insert_gems.html">insert_gems</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.get_similar_geneset.html">get_similar_geneset</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.export_annotconfig.html">export_annotconfig</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.convert_to_directed.html">convert_to_directed</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.make_gmtx.html">make_gmtx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.write_gmtx_forgems.html">write_gmtx_forgems</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.silhouette_computation.html">silhouette_computation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.match_label.html">match_label</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../besca.html#reclustering">reclustering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../besca.html#auto-annot">auto-annot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../besca.html#import">Import</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../besca.html#export">export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../besca.html#standardworkflow">standardworkflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">code examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../besca_standard_pipeline.html">standard pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adding_new_functions.html">adding new functions to besca</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">BESCA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../besca.html">besca</a> &raquo;</li>
+        
+      <li>filter_by_set</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/sig/besca.tl.sig.filter_by_set.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="filter-by-set">
+<h1>filter_by_set<a class="headerlink" href="#filter-by-set" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="besca.tl.sig.filter_by_set">
+<span class="sig-prename descclassname"><span class="pre">besca.tl.sig.</span></span><span class="sig-name descname"><span class="pre">filter_by_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">universe_set</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_sig.html#filter_by_set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.tl.sig.filter_by_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove strings from the list that are not in the universe set</p>
+<dl>
+<dt>Parameters</dt><dd><dl class="simple">
+<dt>strs: a <cite>list</cite> or <cite>tuple</cite> or <cite>set</cite> of <cite>str</cite></dt><dd><p>A sequence (ordered list) or unordered set of strings, which often
+are HGNC symbol and should match the signatures values. Empty
+characters around characters are ignored.</p>
+</dd>
+<dt>universe_set: a <cite>set</cite> of strings</dt><dd><p>a set of strings. The strings in <cite>strs</cite> that are not in this set
+are filtered.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>filter_by_set: <cite>list</cite> of <cite>str</cite></dt><dd><p>A list of gene names that are detected, in the same order as the input
+except for those that are filtered. In case the input is None or an
+empty list, an empty list is returned.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">detected</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="s1">&#39;ABCDE&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">filter_by_set</span><span class="p">([</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span> <span class="n">detected</span><span class="p">)</span>
+<span class="go">[&#39;D&#39;, &#39;E&#39;, &#39;A&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">filter_by_set</span><span class="p">([</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">],</span> <span class="n">detected</span><span class="p">)</span>
+<span class="go">[&#39;D&#39;, &#39;E&#39;, &#39;A&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">filter_by_set</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">detected</span><span class="p">)</span>
+<span class="go">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">filter_by_set</span><span class="p">([],</span> <span class="n">detected</span><span class="p">)</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="besca.tl.sig.filter_siggenes.html" class="btn btn-neutral float-right" title="filter_siggenes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="besca.tl.sig.compute_signed_score.html" class="btn btn-neutral float-left" title="compute_signed_score" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

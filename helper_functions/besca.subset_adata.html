@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>besca.subset_adata &mdash; BESCA 2.4 documentation</title>
+  <title>besca.subset_adata &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +40,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -70,7 +79,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -95,7 +104,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../besca.html">besca</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../besca.html#helper-functions">helper functions</a><ul class="current">
@@ -214,14 +223,14 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="besca-subset-adata">
-<h1>besca.subset_adata<a class="headerlink" href="#besca-subset-adata" title="Permalink to this headline">¶</a></h1>
+<section id="besca-subset-adata">
+<h1>besca.subset_adata<a class="headerlink" href="#besca-subset-adata" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
-<dt id="besca.subset_adata">
-<code class="sig-prename descclassname"><span class="pre">besca.</span></code><code class="sig-name descname"><span class="pre">subset_adata</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_criteria</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/_helper.html#subset_adata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.subset_adata" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="besca.subset_adata">
+<span class="sig-prename descclassname"><span class="pre">besca.</span></span><span class="sig-name descname"><span class="pre">subset_adata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_criteria</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/_helper.html#subset_adata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.subset_adata" title="Permalink to this definition">¶</a></dt>
 <dd><p>Subset AnnData object into new object</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>adata</strong> (<cite>AnnData</cite>) – complete AnnData object</p></li>
 <li><p><strong>filter_criteria</strong> (<em>bool serie</em>) – filtering requirement along the axis chosen.</p></li>
@@ -229,22 +238,22 @@
 <li><p><strong>axis</strong> (<cite>0</cite> or <cite>1</cite> | default = 0) – if 0 then then the filter criteria is applied as a selector for rows, if 1 then the filter criteria is applied as a selector for columns</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>if raw = True the AnnData subset initialized with the adata.raw otherwise the AnnData subset initialized with adata</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>AnnData</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc3k_processed</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">simulated_pbmc3k_processed</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">adata_BCELL</span> <span class="o">=</span>  <span class="n">bc</span><span class="o">.</span><span class="n">subset_adata</span><span class="p">(</span> <span class="n">adata</span><span class="p">,</span> <span class="n">filter_criteria</span><span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dblabel&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;naive B cell&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
@@ -260,7 +269,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

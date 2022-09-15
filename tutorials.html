@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>tutorials &mdash; BESCA 2.4 documentation</title>
+  <title>tutorials &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +40,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -70,7 +79,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -95,7 +104,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="besca.html">besca</a></li>
 <li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">code examples</a></li>
@@ -202,36 +211,33 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="tutorials">
-<span id="id1"></span><h1>tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline">¶</a></h1>
+<section id="tutorials">
+<span id="id1"></span><h1>tutorials<a class="headerlink" href="#tutorials" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<div class="section" id="single-cell-sequencing-general-tutorials">
-<h2>single cell sequencing general tutorials<a class="headerlink" href="#single-cell-sequencing-general-tutorials" title="Permalink to this headline">¶</a></h2>
+<section id="single-cell-sequencing-general-tutorials">
+<h2>single cell sequencing general tutorials<a class="headerlink" href="#single-cell-sequencing-general-tutorials" title="Permalink to this heading">¶</a></h2>
 <p>This tutorial will give you a general introduction into single-cell sequencing analysis using scanpy and besca. It is divided into three seperate notebooks that should be looked at in consecutive order (they build up on results from the previous notebooks).</p>
 <p><strong>Part 1</strong>: <a class="reference internal" href="tutorials/notebook1_data_processing_pbmc3k.html"><span class="doc">data processing</span></a></p>
 <p><strong>Part 2</strong>: <a class="reference internal" href="tutorials/notebook2_celltype_annotation_pbmc3k.html"><span class="doc">celltype annotation</span></a></p>
 <p><strong>Part 3</strong>: <a class="reference internal" href="tutorials/notebook3_batch_correction.html"><span class="doc">batch correction</span></a></p>
-<p>After looking at the introductory tutorial you can download the hands-on tutorial yourself from <a class="reference external" href="http://github.com/bedapub/besca/blob/master/docs/source/tutorials/scRNAseq_tutorial.ipynb">here</a>  (please save the link as a <code class="code docutils literal notranslate"><span class="pre">.ipynb</span></code> file) and compare with the results published <a class="reference internal" href="tutorials/scRNAseq_tutorial.html"><span class="doc">here</span></a>.</p>
-</div>
-<div class="section" id="single-cell-auto-annot-tutorial-for-cell-type-annotation">
-<h2>single cell auto_annot tutorial for cell type annotation<a class="headerlink" href="#single-cell-auto-annot-tutorial-for-cell-type-annotation" title="Permalink to this headline">¶</a></h2>
+<p>After looking at the introductory tutorial you can download the hands-on tutorial yourself from <a class="reference external" href="github.com/bedapub/besca/blob/master/docs/source/tutorials/scRNAseq_tutorial.ipynb">scRNAseq_tutorial.ipynb</a>  (please save the link as a <code class="code docutils literal notranslate"><span class="pre">.ipynb</span></code> file) and compare with the results published <a class="reference internal" href="tutorials/scRNAseq_tutorial.html"><span class="doc">here</span></a>.</p>
+</section>
+<section id="single-cell-auto-annot-tutorial-for-cell-type-annotation">
+<h2>single cell auto_annot tutorial for cell type annotation<a class="headerlink" href="#single-cell-auto-annot-tutorial-for-cell-type-annotation" title="Permalink to this heading">¶</a></h2>
 <p>We also provide a tutorial for the auto_annot package, which allows to automatically annotate cell types using supervised machine learning,
 you can download it from <a class="reference external" href="http://github.com/bedapub/besca/blob/master/docs/source/tutorials/auto_annot_tutorial.ipynb">here</a>
-(please save the link as a <code class="code docutils literal notranslate"><span class="pre">.ipynb</span></code> file) and compare with the results published</p>
-<blockquote>
-<div><p><a class="reference internal" href="tutorials/auto_annot_tutorial.html"><span class="doc">here</span></a>.</p>
-</div></blockquote>
-</div>
-<div class="section" id="bescape-cell-deconvolution-tutorial">
-<h2>Bescape: cell deconvolution tutorial<a class="headerlink" href="#bescape-cell-deconvolution-tutorial" title="Permalink to this headline">¶</a></h2>
+(please save the link as a <code class="code docutils literal notranslate"><span class="pre">.ipynb</span></code> file) and compare with the results published <span class="xref std std-doc">&lt;tutorials/auto_annot_tutorial&gt;</span>.</p>
+</section>
+<section id="bescape-cell-deconvolution-tutorial">
+<h2>Bescape: cell deconvolution tutorial<a class="headerlink" href="#bescape-cell-deconvolution-tutorial" title="Permalink to this heading">¶</a></h2>
 <p>Bescape (BESCA proportion estimator) is a deconvolution module. It utilises single-cell annotations coming from the BESCA workflow to build a Gene Expression Profile (GEP). This GEP is used as a basis vector to deconvolute bulk RNA samples i.e. predict cell type proportions within a sample.</p>
 <p><strong>Deconvolution tutorial</strong>:   <a class="reference download internal" download="" href="_downloads/7bb51be8d3526a522d025f9499f1be49/bescape_tutorial.html"><code class="xref download docutils literal notranslate"><span class="pre">Bescape</span></code></a></p>
 <p>Some deconvolution methods provided by Bescape are written in R.
 Thus, we need to convert the AnnData objects to R ExpressionSet objects. This has been semi-automated :</p>
 <p><strong>adata_to_eset tutorial:</strong>   <a class="reference download internal" download="" href="_downloads/d1124a1e5fcaf82c548e7a4eda8bd157/adata_to_eset.html"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a></p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -247,7 +253,7 @@ Thus, we need to convert the AnnData objects to R ExpressionSet objects. This ha
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

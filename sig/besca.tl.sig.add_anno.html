@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>add_anno &mdash; BESCA 2.4 documentation</title>
+  <title>add_anno &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +40,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -70,7 +79,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -95,7 +104,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../besca.html">besca</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#helper-functions">helper functions</a></li>
@@ -114,7 +123,9 @@
 <li class="toctree-l4 current"><a class="reference internal" href="../besca.html#signature-scoring">signature scoring</a><ul class="current">
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.combined_signature_score.html">combined_signature_score</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.compute_signed_score.html">compute_signed_score</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.filter_by_set.html">filter_by_set</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.filter_siggenes.html">filter_siggenes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.convert_siggenes.html">convert_siggenes</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.read_GMT_sign.html">read_GMT_sign</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.getset.html">getset</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.score_mw.html">score_mw</a></li>
@@ -122,12 +133,17 @@
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.make_anno.html">make_anno</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.read_annotconfig.html">read_annotconfig</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.match_cluster.html">match_cluster</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.obtain_new_label.html">obtain_new_label</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.obtain_dblabel.html">obtain_dblabel</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.get_gems.html">get_gems</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.insert_gems.html">insert_gems</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.get_similar_geneset.html">get_similar_geneset</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.export_annotconfig.html">export_annotconfig</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.convert_to_directed.html">convert_to_directed</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.make_gmtx.html">make_gmtx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.write_gmtx_forgems.html">write_gmtx_forgems</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.silhouette_computation.html">silhouette_computation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.match_label.html">match_label</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#reclustering">reclustering</a></li>
@@ -238,16 +254,16 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="add-anno">
-<h1>add_anno<a class="headerlink" href="#add-anno" title="Permalink to this headline">¶</a></h1>
+<section id="add-anno">
+<h1>add_anno<a class="headerlink" href="#add-anno" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
-<dt id="besca.tl.sig.add_anno">
-<code class="sig-prename descclassname"><span class="pre">besca.tl.sig.</span></code><code class="sig-name descname"><span class="pre">add_anno</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnames</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mycol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clusters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'leiden'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_annot.html#add_anno"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.tl.sig.add_anno" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="besca.tl.sig.add_anno">
+<span class="sig-prename descclassname"><span class="pre">besca.tl.sig.</span></span><span class="sig-name descname"><span class="pre">add_anno</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AnnData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnames</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mycol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clusters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'leiden'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_annot.html#add_anno"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.tl.sig.add_anno" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds annotation generated with make_anno to a AnnData object
 Takes as input the AnnData object to which annotation will be appended and the annotation pd
 Generates a pd.Series that can be added as a adata.obs column with annotation at a level</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>adata</strong> (<em>AnnData</em>) – AnnData object that is to be annotated</p></li>
 <li><p><strong>cnames</strong> (<em>panda.DataFrame</em>) – a list of cluster names generated with make_anno</p></li>
@@ -255,16 +271,16 @@ Generates a pd.Series that can be added as a adata.obs column with annotation at
 <li><p><strong>clusters</strong> (<em>string</em>) – initial cluster used for annotation (column in adata.obs)</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the annotated cells</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pd.Series</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
@@ -280,7 +296,7 @@ Generates a pd.Series that can be added as a adata.obs column with annotation at
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

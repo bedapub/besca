@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>additional_labeling &mdash; BESCA 2.4 documentation</title>
+  <title>additional_labeling &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +40,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -68,7 +77,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -93,7 +102,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../besca.html">besca</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">code examples</a></li>
@@ -191,16 +200,16 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="additional-labeling">
-<h1>additional_labeling<a class="headerlink" href="#additional-labeling" title="Permalink to this headline">¶</a></h1>
+<section id="additional-labeling">
+<h1>additional_labeling<a class="headerlink" href="#additional-labeling" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
-<dt id="besca.st.additional_labeling">
-<code class="sig-prename descclassname"><span class="pre">besca.st.</span></code><code class="sig-name descname"><span class="pre">additional_labeling</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labeling_to_use</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labeling_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labeling_description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labeling_author</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results_folder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/st/_wrapper_funcs.html#additional_labeling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.st.additional_labeling" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="besca.st.additional_labeling">
+<span class="sig-prename descclassname"><span class="pre">besca.st.</span></span><span class="sig-name descname"><span class="pre">additional_labeling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AnnData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labeling_to_use</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">labeling_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">labeling_description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">labeling_author</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cluster_method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'louvain'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_celltype_labeling</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'labelinfo.tsv'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/st/_wrapper_funcs.html#additional_labeling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.st.additional_labeling" title="Permalink to this definition">¶</a></dt>
 <dd><p>Standard Workflow function to export an additional labeling besides louvain to FAIR format.</p>
 <p>This function calculated marker genes per label (using rank_genes_groups and the method ‘wilcoxon’), exports the labeling,
 generates a labeling_info file, and exports the rank file.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>adata</strong> (<cite>AnnData</cite>) – AnnData object from which the labeling is to be exported</p></li>
 <li><p><strong>labeling_to_use</strong> (<cite>str</cite>) – string identifying the column in adata.obs containing the labeling that is to be exported (also used
@@ -209,18 +218,24 @@ to calculate the ranked_genes)</p></li>
 <li><p><strong>labeling_description</strong> (<cite>str</cite>) – string defining the description which should be saved in the labeling_info file for the exported labeling</p></li>
 <li><p><strong>labeling_author</strong> (<cite>str</cite>) – string defining the author of the labeling which should be saved in the labeling_info file for the exported labeling</p></li>
 <li><p><strong>results_folder</strong> (<cite>str</cite>) – string indicating the basepath to the results folder which is automatically generated when using the standard workflow (pass results_folder)</p></li>
+<li><p><strong>cluster_method</strong> (<cite>str</cite>) – </p></li>
+<li><p><strong>for</strong> (<em>string identifying of what othe labeling/dataset this is an annotated version of</em><em> (</em><em>so</em>) – example if the labeling is celltype annotation of a leiden clustering then this would
+reference the leiden clsutering that was used to obtain the clusters that were then
+labeled here)</p></li>
+<li><p><strong>is_celltype_labeling</strong> (<cite>bool</cite>) – Set to true if you want to use the former celltype based labeling</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>) – name of the labeling info file</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>writes out several files to folder results_folder/labelings/&lt;labeling_name&gt;</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
@@ -232,7 +247,7 @@ to calculate the ranked_genes)</p></li>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>librarysize_overview &mdash; BESCA 2.4 documentation</title>
+  <title>librarysize_overview &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +40,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -70,7 +79,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -95,7 +104,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../besca.html">besca</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#helper-functions">helper functions</a></li>
@@ -125,6 +134,7 @@
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.update_qualitative_palette.html">update_qualitative_palette</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.nomenclature_network.html">nomenclature_network</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.riverplot_2categories.html">riverplot_2categories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.flex_dotplot.html">flex_dotplot</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#tools">tools</a></li>
@@ -230,44 +240,39 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="librarysize-overview">
-<h1>librarysize_overview<a class="headerlink" href="#librarysize-overview" title="Permalink to this headline">¶</a></h1>
+<section id="librarysize-overview">
+<h1>librarysize_overview<a class="headerlink" href="#librarysize-overview" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
-<dt id="besca.pl.librarysize_overview">
-<code class="sig-prename descclassname"><span class="pre">besca.pl.</span></code><code class="sig-name descname"><span class="pre">librarysize_overview</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pl/_qc_plots.html#librarysize_overview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.pl.librarysize_overview" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="besca.pl.librarysize_overview">
+<span class="sig-prename descclassname"><span class="pre">besca.pl.</span></span><span class="sig-name descname"><span class="pre">librarysize_overview</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pl/_qc_plots.html#librarysize_overview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.pl.librarysize_overview" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates overview figure of libarysize, dropouts and detected genes.</p>
 <p>Generates one overview figure showing histograms of the librarysize, number of
 detected genes and number of dropouts per cell. Can be used instead of plotting
 librarysize(), dropouts() abd detected_genes() seperately.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>adata</strong> (<cite>AnnData</cite>) – AnnData object containing data that is to be visualized. Genes need to be in coloumns and cells in rows</p></li>
 <li><p><strong>bins</strong> (<cite>int</cite> | default = 100) – the number of bins that should be shown on the histrogram</p></li>
+<li><p><strong>figsize</strong> (<em>(</em><em>width</em><em>, </em><em>height</em><em>) or </em><em>None</em><em> | </em><em>default = None</em>) – optional parameter to define the figure size of the plot that is to be generated</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>returns a figure (is also displayed)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Figure</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<p>Generate overview of the characterisitcs of an example dataset.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc3k_raw</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">librarysize_overview</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>(<a class="reference external" href="../plotting/besca-pl-librarysize_overview-1.py">Source code</a>, <a class="reference external" href="../plotting/besca-pl-librarysize_overview-1.png">png</a>, <a class="reference external" href="../plotting/besca-pl-librarysize_overview-1.hires.png">hires.png</a>, <a class="reference external" href="../plotting/besca-pl-librarysize_overview-1.pdf">pdf</a>)</p>
-<div class="figure align-default">
-<img alt="../_images/besca-pl-librarysize_overview-11.png" src="../_images/besca-pl-librarysize_overview-11.png" />
-</div>
+<p>Generate overview of the characterisitcs of an example dataset.
+&gt;&gt;&gt; import besca as bc
+&gt;&gt;&gt; import matplotlib.pyplot as plt
+&gt;&gt;&gt; adata = bc.datasets.simulated_pbmc3k_raw()
+&gt;&gt;&gt; overview = bc.pl.librarysize_overview(adata)</p>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
@@ -283,7 +288,7 @@ librarysize(), dropouts() abd detected_genes() seperately.</p>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>notebook 3 - batch correction &mdash; BESCA 2.4 documentation</title>
+  <title>notebook 3 - batch correction &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,10 +40,16 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -70,7 +81,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -95,7 +106,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../besca.html">besca</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">code examples</a></li>
@@ -403,11 +414,12 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt a.copybtn {
+.prompt .copybtn {
     display: none;
 }
 
 /* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
 div.rendered_html table {
   border: none;
   border-collapse: collapse;
@@ -416,10 +428,14 @@ div.rendered_html table {
   font-size: 12px;
   table-layout: fixed;
 }
+.jp-RenderedHTMLCommon thead,
 div.rendered_html thead {
   border-bottom: 1px solid black;
   vertical-align: bottom;
 }
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
 div.rendered_html tr,
 div.rendered_html th,
 div.rendered_html td {
@@ -431,12 +447,15 @@ div.rendered_html td {
   max-width: none;
   border: none;
 }
+.jp-RenderedHTMLCommon th,
 div.rendered_html th {
   font-weight: bold;
 }
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
 div.rendered_html tbody tr:nth-child(odd) {
   background: #f5f5f5;
 }
+.jp-RenderedHTMLCommon tbody tr:hover,
 div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
@@ -463,16 +482,15 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="notebook-3---batch-correction">
-<h1>notebook 3 - batch correction<a class="headerlink" href="#notebook-3---batch-correction" title="Permalink to this headline">¶</a></h1>
+<section id="notebook-3---batch-correction">
+<h1>notebook 3 - batch correction<a class="headerlink" href="#notebook-3---batch-correction" title="Permalink to this heading">¶</a></h1>
 <p>This notebook will introduce you very briefly to the process of batch correction using another dataset extracted from Kotliarov et al. 2020 Nature Medicine:</p>
 <p>Broad immune activation underlies shared set point signatures for vaccine responsiveness in healthy individuals and disease activity in patients with lupus (<a class="reference external" href="https://www.nature.com/articles/s41591-020-0769-8">https://www.nature.com/articles/s41591-020-0769-8</a>)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#import necessary python packages</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#import necessary python packages</span>
 <span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span> <span class="c1">#software suite of tools for single-cell analysis in python</span>
 <span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span> <span class="c1">#internal BEDA package for single cell analysis</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -490,98 +508,79 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-scanpy==1.6.0 anndata==0.7.4 umap==0.4.6 numpy==1.19.2 scipy==1.5.2 pandas==1.1.3 scikit-learn==0.23.2 statsmodels==0.12.0 python-igraph==0.8.3 leidenalg==0.8.2
+scanpy==1.9.1 anndata==0.8.0 umap==0.5.3 numpy==1.21.5 scipy==1.9.0 pandas==1.4.3 scikit-learn==1.1.1 statsmodels==0.13.2 python-igraph==0.9.11 pynndescent==0.5.4
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
 <span class="n">task</span> <span class="o">=</span> <span class="s2">&quot;&lt;style&gt;div.task { background-color: #ffc299; border-color: #ff944d; border-left: 7px solid #ff944d; padding: 1em;} &lt;/style&gt;&quot;</span>
 <span class="n">HTML</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style>div.task { background-color: #ffc299; border-color: #ff944d; border-left: 7px solid #ff944d; padding: 1em;} </style></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tag</span> <span class="o">=</span> <span class="s2">&quot;&lt;style&gt;div.tag { background-color: #99ccff; border-color: #1a8cff; border-left: 7px solid #1a8cff; padding: 1em;} &lt;/style&gt;&quot;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tag</span> <span class="o">=</span> <span class="s2">&quot;&lt;style&gt;div.tag { background-color: #99ccff; border-color: #1a8cff; border-left: 7px solid #1a8cff; padding: 1em;} &lt;/style&gt;&quot;</span>
 <span class="n">HTML</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style>div.tag { background-color: #99ccff; border-color: #1a8cff; border-left: 7px solid #1a8cff; padding: 1em;} </style></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">FAIR</span> <span class="o">=</span> <span class="s2">&quot;&lt;style&gt;div.fair { background-color: #d2f7ec; border-color: #d2f7ec; border-left: 7px solid #2fbc94; padding: 1em;} &lt;/style&gt;&quot;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">FAIR</span> <span class="o">=</span> <span class="s2">&quot;&lt;style&gt;div.fair { background-color: #d2f7ec; border-color: #d2f7ec; border-left: 7px solid #2fbc94; padding: 1em;} &lt;/style&gt;&quot;</span>
 <span class="n">HTML</span><span class="p">(</span><span class="n">FAIR</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style>div.fair { background-color: #d2f7ec; border-color: #d2f7ec; border-left: 7px solid #2fbc94; padding: 1em;} </style></div>
 </div>
-<div class="section" id="Dataset">
-<h2>Dataset<a class="headerlink" href="#Dataset" title="Permalink to this headline">¶</a></h2>
+<section id="Dataset">
+<h2>Dataset<a class="headerlink" href="#Dataset" title="Permalink to this heading">¶</a></h2>
 <p>Here we will reload the dataset we wrote out after performing the regressout to perform a batch correction on Donor.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">Kotliarov2020_processed</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">Kotliarov2020_processed</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "afda93aed1a141e5870fb7e708e81090", "version_major": 2, "version_minor": 0}</script></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">adata</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -594,23 +593,22 @@ AnnData object with n_obs × n_vars = 47511 × 1271
     obsp: &#39;connectivities&#39;, &#39;distances&#39;
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="Batch-correction">
-<h2>Batch correction<a class="headerlink" href="#Batch-correction" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Batch-correction">
+<h2>Batch correction<a class="headerlink" href="#Batch-correction" title="Permalink to this heading">¶</a></h2>
 <p>After normalization, there could still be confounders in the data. Technical confounders (batch effects) can arise from difference in reagents, isolation methods, the lab/experimenter who performed the experiment, even which day/time the experiment was performed. Further factors like cell size, cell cycle phase , etc. can introduce unwanted variance in your data that may not be of biological interest. Various approaches exist that can account for and, ideally, remove technical confounders, this
 is called a <strong>batch correction</strong>. In general technical confounders can only be removed if the <strong>batch effect is orthogonal to the biological differences in each batch</strong>! In cases were this is not the case applying a batch correction does not make sense since you will never be able to differentiate if the result of significant differences are due to the batch or true biological differences.</p>
 <p>Here we will discuss a batch correction based on the <strong>Batch balanced KNN</strong> (in python bbknn) since this is the one we most commonly use, but there are many other approaches as well.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">batch</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">batch</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -621,26 +619,24 @@ Name: batch, dtype: int64
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#rename the Donors</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#rename the Donors</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">batch</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">batch</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="mi">1</span><span class="p">:</span><span class="s1">&#39;batch_1&#39;</span> <span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="s1">&#39;batch_2&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">batch</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="perform-the-dataprocessing-pipeline">
-<h2>perform the dataprocessing pipeline<a class="headerlink" href="#perform-the-dataprocessing-pipeline" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="principle-component-analysis">
-<h3>principle component analysis<a class="headerlink" href="#principle-component-analysis" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="perform-the-dataprocessing-pipeline">
+<h2>perform the dataprocessing pipeline<a class="headerlink" href="#perform-the-dataprocessing-pipeline" title="Permalink to this heading">¶</a></h2>
+<section id="principle-component-analysis">
+<h3>principle component analysis<a class="headerlink" href="#principle-component-analysis" title="Permalink to this heading">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#define random seed</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#define random seed</span>
 <span class="n">random_seed</span> <span class="o">=</span> <span class="mi">0</span>
 
 <span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
@@ -660,49 +656,46 @@ Name: batch, dtype: int64
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook3_batch_correction_12_0.png" class="no-scaled-link" src="../_images/tutorials_notebook3_batch_correction_12_0.png" style="width: 353px; height: 363px;" />
+<img alt="../_images/tutorials_notebook3_batch_correction_12_0.png" class="no-scaled-link" src="../_images/tutorials_notebook3_batch_correction_12_0.png" style="width: 346px; height: 362px;" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook3_batch_correction_12_1.png" class="no-scaled-link" src="../_images/tutorials_notebook3_batch_correction_12_1.png" style="width: 940px; height: 371px;" />
+<img alt="../_images/tutorials_notebook3_batch_correction_12_1.png" class="no-scaled-link" src="../_images/tutorials_notebook3_batch_correction_12_1.png" style="width: 931px; height: 374px;" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">adata_uncorrected</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata_uncorrected</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="kn">import</span> <span class="nn">bbknn</span>
 <span class="n">bbknn</span><span class="o">.</span><span class="n">bbknn</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">batch_key</span><span class="o">=</span><span class="s1">&#39;batch&#39;</span><span class="p">)</span> <span class="c1">#perform alternative batch correction method</span>
 <span class="c1">#sc.pp.neighbors(adata, n_neighbors=15, random_state = random_seed, n_pcs=50, )</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="Leiden-clustering">
-<h4>Leiden clustering<a class="headerlink" href="#Leiden-clustering" title="Permalink to this headline">¶</a></h4>
+<section id="Leiden-clustering">
+<h4>Leiden clustering<a class="headerlink" href="#Leiden-clustering" title="Permalink to this heading">¶</a></h4>
 <div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">leiden</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_seed</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="UMAP-&amp;-t-SNE">
+<h3>UMAP &amp; t-SNE<a class="headerlink" href="#UMAP-&-t-SNE" title="Permalink to this heading">¶</a></h3>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">leiden</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_seed</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="UMAP-&amp;-t-SNE">
-<h3>UMAP &amp; t-SNE<a class="headerlink" href="#UMAP-&-t-SNE" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">%%time</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="n">random_seed</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -712,16 +705,15 @@ Name: batch, dtype: int64
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-CPU times: user 40.2 s, sys: 1.01 s, total: 41.2 s
-Wall time: 37.8 s
+CPU times: user 24.6 s, sys: 2.69 s, total: 27.3 s
+Wall time: 14.5 s
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">%%time</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">tsne</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="n">random_seed</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -731,17 +723,15 @@ Wall time: 37.8 s
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-WARNING: Consider installing the package MulticoreTSNE (https://github.com/DmitryUlyanov/Multicore-TSNE). Even for n_jobs=1 this speeds up the computation considerably and might yield better converged results.
-CPU times: user 13min 13s, sys: 12 s, total: 13min 25s
-Wall time: 7min 35s
+CPU times: user 14min 15s, sys: 3min 3s, total: 17min 19s
+Wall time: 2min 47s
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;batch&#39;</span><span class="p">,</span> <span class="s1">&#39;donor&#39;</span><span class="p">,</span> <span class="s1">&#39;leiden&#39;</span><span class="p">],</span> <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;batch&#39;</span><span class="p">,</span> <span class="s1">&#39;donor&#39;</span><span class="p">,</span> <span class="s1">&#39;leiden&#39;</span><span class="p">],</span> <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">tsne</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;batch&#39;</span><span class="p">,</span> <span class="s1">&#39;donor&#39;</span><span class="p">,</span> <span class="s1">&#39;leiden&#39;</span><span class="p">],</span> <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -750,37 +740,35 @@ Wall time: 7min 35s
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook3_batch_correction_19_0.png" class="no-scaled-link" src="../_images/tutorials_notebook3_batch_correction_19_0.png" style="width: 1329px; height: 338px;" />
+<img alt="../_images/tutorials_notebook3_batch_correction_19_0.png" class="no-scaled-link" src="../_images/tutorials_notebook3_batch_correction_19_0.png" style="width: 1337px; height: 341px;" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook3_batch_correction_19_1.png" class="no-scaled-link" src="../_images/tutorials_notebook3_batch_correction_19_1.png" style="width: 1329px; height: 338px;" />
+<img alt="../_images/tutorials_notebook3_batch_correction_19_1.png" class="no-scaled-link" src="../_images/tutorials_notebook3_batch_correction_19_1.png" style="width: 1337px; height: 341px;" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="Comparision-with-uncorrected-dataset">
-<h2>Comparision with uncorrected dataset<a class="headerlink" href="#Comparision-with-uncorrected-dataset" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="Comparision-with-uncorrected-dataset">
+<h2>Comparision with uncorrected dataset<a class="headerlink" href="#Comparision-with-uncorrected-dataset" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#read in uncorrected dataset</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#read in uncorrected dataset</span>
 
 <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">adata_uncorrected</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="n">random_seed</span><span class="p">,</span> <span class="n">n_pcs</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">##comparision of louvain clustering with unbatchcorrected dataset</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">##comparision of louvain clustering with unbatchcorrected dataset</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;uncorrected&#39;</span><span class="p">)</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata_uncorrected</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;batch&#39;</span> <span class="p">,</span> <span class="s1">&#39;donor&#39;</span><span class="p">,</span> <span class="s1">&#39;leiden&#39;</span><span class="p">],</span> <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;corrected&#39;</span><span class="p">)</span>
@@ -800,7 +788,7 @@ uncorrected
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook3_batch_correction_22_1.png" class="no-scaled-link" src="../_images/tutorials_notebook3_batch_correction_22_1.png" style="width: 1339px; height: 338px;" />
+<img alt="../_images/tutorials_notebook3_batch_correction_22_1.png" class="no-scaled-link" src="../_images/tutorials_notebook3_batch_correction_22_1.png" style="width: 1337px; height: 341px;" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -815,15 +803,14 @@ corrected
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook3_batch_correction_22_3.png" class="no-scaled-link" src="../_images/tutorials_notebook3_batch_correction_22_3.png" style="width: 1329px; height: 338px;" />
+<img alt="../_images/tutorials_notebook3_batch_correction_22_3.png" class="no-scaled-link" src="../_images/tutorials_notebook3_batch_correction_22_3.png" style="width: 1337px; height: 341px;" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;uncorrected&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;uncorrected&#39;</span><span class="p">)</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata_uncorrected</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="s1">&#39;celltype3&#39;</span><span class="p">],</span> <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;corrected&#39;</span><span class="p">)</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="s1">&#39;celltype3&#39;</span><span class="p">],</span> <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
@@ -842,7 +829,7 @@ uncorrected
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook3_batch_correction_23_1.png" class="no-scaled-link" src="../_images/tutorials_notebook3_batch_correction_23_1.png" style="width: 1275px; height: 352px;" />
+<img alt="../_images/tutorials_notebook3_batch_correction_23_1.png" class="no-scaled-link" src="../_images/tutorials_notebook3_batch_correction_23_1.png" style="width: 1227px; height: 342px;" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -857,11 +844,19 @@ corrected
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_notebook3_batch_correction_23_3.png" class="no-scaled-link" src="../_images/tutorials_notebook3_batch_correction_23_3.png" style="width: 1275px; height: 352px;" />
+<img alt="../_images/tutorials_notebook3_batch_correction_23_3.png" class="no-scaled-link" src="../_images/tutorials_notebook3_batch_correction_23_3.png" style="width: 1227px; height: 342px;" />
 </div>
 </div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
 </div>
 </div>
+</section>
+</section>
 
 
            </div>
@@ -877,7 +872,7 @@ corrected
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

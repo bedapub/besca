@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>gene_expr_split &mdash; BESCA 2.4 documentation</title>
+  <title>gene_expr_split &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +40,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -70,7 +79,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -95,7 +104,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../besca.html">besca</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#helper-functions">helper functions</a></li>
@@ -125,6 +134,7 @@
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.update_qualitative_palette.html">update_qualitative_palette</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.nomenclature_network.html">nomenclature_network</a></li>
 <li class="toctree-l3"><a class="reference internal" href="besca.pl.riverplot_2categories.html">riverplot_2categories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="besca.pl.flex_dotplot.html">flex_dotplot</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#tools">tools</a></li>
@@ -230,11 +240,11 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="gene-expr-split">
-<h1>gene_expr_split<a class="headerlink" href="#gene-expr-split" title="Permalink to this headline">¶</a></h1>
+<section id="gene-expr-split">
+<h1>gene_expr_split<a class="headerlink" href="#gene-expr-split" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
-<dt id="besca.pl.gene_expr_split">
-<code class="sig-prename descclassname"><span class="pre">besca.pl.</span></code><code class="sig-name descname"><span class="pre">gene_expr_split</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">genes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_variable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_split_variable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pl/_split_gene_expression.html#gene_expr_split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.pl.gene_expr_split" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="besca.pl.gene_expr_split">
+<span class="sig-prename descclassname"><span class="pre">besca.pl.</span></span><span class="sig-name descname"><span class="pre">gene_expr_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">genes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_variable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_split_variable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(15,</span> <span class="pre">8)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pl/_split_gene_expression.html#gene_expr_split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.pl.gene_expr_split" title="Permalink to this definition">¶</a></dt>
 <dd><p>visualize gene expression of two groups as a split violin plot</p>
 <p>This function generates split violin plots to compare the gene expression levels of
 a subset of genes between two groups.</p>
@@ -248,7 +258,7 @@ x-axis then contains all the different datasubsets.</p>
 output directory. The same applies for generating one plot per gene.</p>
 <p>If only looking at one data subset, the figure can also be returned as an object if outdir = None.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>adata</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">AnnData</span></code>) – The annotated data matrix used as input</p></li>
 <li><p><strong>genes</strong> (<cite>list</cite>) – List of gene ids for which the gene expression levels should be compared</p></li>
@@ -257,22 +267,21 @@ contain 2 different groups!!) If you have more than 2 groups you will need to lo
 <li><p><strong>use_raw</strong> (<cite>bool</cite> (default = True)) – boolian indicator if adata.raw data should be used as input for gene expression levels</p></li>
 <li><p><strong>plot_genes</strong> (<cite>bool</cite> | default = False) – boolian indicator if one individual plot should be generated per gene or if all the genes should be on the same plot</p></li>
 <li><p><strong>outdir</strong> (<cite>str</cite>) – filepath indicating where the generated figures should be saved</p></li>
-<li><p><strong>fig_width</strong> (<cite>int</cite> | default = 15) – width of the generated figure</p></li>
-<li><p><strong>fig_height</strong> (<cite>int</cite> | default = 8) – height of the generated figure</p></li>
+<li><p><strong>figsize</strong> (<em>(</em><em>width</em><em>, </em><em>height</em><em>) or </em><em>None</em><em> | </em><em>default =</em><em> (</em><em>15</em><em>,</em><em>8</em><em>)</em>) – optional parameter to define the figure size of the plot that is to be generated</p></li>
 <li><p><strong>dpi</strong> (<cite>int</cite>) – dpi resolution of figures that are saved to file</p></li>
 <li><p><strong>name</strong> (<cite>str</cite> (default = ‘compare_gene_expression’)) – name of generated plots and prefix to exported files</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>writes figures to file specified in outdir.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
@@ -288,7 +297,7 @@ contain 2 different groups!!) If you have more than 2 groups you will need to lo
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>read_matrix &mdash; BESCA 2.4 documentation</title>
+  <title>read_matrix &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +40,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -70,7 +79,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -95,7 +104,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../besca.html">besca</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#helper-functions">helper functions</a></li>
@@ -217,41 +226,37 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="read-matrix">
-<h1>read_matrix<a class="headerlink" href="#read-matrix" title="Permalink to this headline">¶</a></h1>
+<section id="read-matrix">
+<h1>read_matrix<a class="headerlink" href="#read-matrix" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
-<dt id="besca.st.read_matrix">
-<code class="sig-prename descclassname"><span class="pre">besca.st.</span></code><code class="sig-name descname"><span class="pre">read_matrix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">citeseq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_genes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'SYMBOL'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">species</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'human'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/st/_wrapper_funcs.html#read_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.st.read_matrix" title="Permalink to this definition">¶</a></dt>
-<dd><dl>
-<dt>root_path: <cite>str</cite></dt><dd><p>root path of the analysis. Expected in this folder a raw folder containing
+<dt class="sig sig-object py" id="besca.st.read_matrix">
+<span class="sig-prename descclassname"><span class="pre">besca.st.</span></span><span class="sig-name descname"><span class="pre">read_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">citeseq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_genes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'SYMBOL'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">species</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'human'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/st/_wrapper_funcs.html#read_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.st.read_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read matrix file as expected for the standard workflow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_path</strong> (<cite>str</cite>) – <p>root path of the analysis. Expected in this folder a raw folder containing
 containg the matrix.mtx, genes.tsv,</p>
 <blockquote>
 <div><p>barcodes.tsv and if applicable metadata.tsv</p>
 </div></blockquote>
+</p></li>
+<li><p><strong>annotation</strong> (<cite>bool</cite> (default = True)) – boolian identifier if an annotation file is also located in the folder
+and should be added to the AnnData object</p></li>
+<li><p><strong>use_genes</strong> (<cite>str</cite>) – either SYMBOL or ENSEMBL. Other genenames are not yet supported.</p></li>
+<li><p><strong>species</strong> (<cite>str</cite> | default = ‘human’) – string specifying the species, only needs to be used when no Gene Symbols
+are supplied and you only have the ENSEMBLE gene ids to perform a lookup.</p></li>
+<li><p><strong>citeseq</strong> (<em>'gex_only'</em><em> or </em><em>'citeseq_only'</em><em> or </em><em>False</em><em> or </em><em>None</em><em> | </em><em>default = None</em>) – string indicating if only gene expression values (gex_only) or only protein
+expression values (‘citeseq_only’) or everything is read if None is specified</p></li>
+</ul>
 </dd>
-<dt>annotation: <cite>bool</cite> (default = True)</dt><dd><p>boolian identifier if an annotation file is also located in the folder
-and should be added to the AnnData object</p>
-</dd>
-<dt>use_genes: <cite>str</cite></dt><dd><p>either SYMBOL or ENSEMBL. Other genenames are not yet supported.</p>
-</dd>
-<dt>species: <cite>str</cite> | default = ‘human’</dt><dd><p>string specifying the species, only needs to be used when no Gene Symbols
-are supplied and you only have the ENSEMBLE gene ids to perform a lookup.</p>
-</dd>
-<dt>citeseq: ‘gex_only’ or ‘citeseq_only’ or None | default = None</dt><dd><p>string indicating if only gene expression values (gex_only) or only protein
-expression values (‘citeseq_only’) or everything is read if None is specified</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
-</dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>returns an AnnData object</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
@@ -267,7 +272,7 @@ expression values (‘citeseq_only’) or everything is read if None is specifie
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

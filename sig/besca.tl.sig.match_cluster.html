@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>match_cluster &mdash; BESCA 2.4 documentation</title>
+  <title>match_cluster &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +40,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -45,7 +54,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="obtain_dblabel" href="besca.tl.sig.obtain_dblabel.html" />
+    <link rel="next" title="obtain_new_label" href="besca.tl.sig.obtain_new_label.html" />
     <link rel="prev" title="read_annotconfig" href="besca.tl.sig.read_annotconfig.html" /> 
 </head>
 
@@ -70,7 +79,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -95,7 +104,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../besca.html">besca</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#helper-functions">helper functions</a></li>
@@ -114,7 +123,9 @@
 <li class="toctree-l4 current"><a class="reference internal" href="../besca.html#signature-scoring">signature scoring</a><ul class="current">
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.combined_signature_score.html">combined_signature_score</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.compute_signed_score.html">compute_signed_score</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.filter_by_set.html">filter_by_set</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.filter_siggenes.html">filter_siggenes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.convert_siggenes.html">convert_siggenes</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.read_GMT_sign.html">read_GMT_sign</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.getset.html">getset</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.score_mw.html">score_mw</a></li>
@@ -122,12 +133,17 @@
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.make_anno.html">make_anno</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.read_annotconfig.html">read_annotconfig</a></li>
 <li class="toctree-l5 current"><a class="current reference internal" href="#">match_cluster</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.obtain_new_label.html">obtain_new_label</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.obtain_dblabel.html">obtain_dblabel</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.get_gems.html">get_gems</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.insert_gems.html">insert_gems</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.get_similar_geneset.html">get_similar_geneset</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.export_annotconfig.html">export_annotconfig</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.convert_to_directed.html">convert_to_directed</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.make_gmtx.html">make_gmtx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.write_gmtx_forgems.html">write_gmtx_forgems</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.silhouette_computation.html">silhouette_computation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.match_label.html">match_label</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#reclustering">reclustering</a></li>
@@ -238,16 +254,16 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="match-cluster">
-<h1>match_cluster<a class="headerlink" href="#match-cluster" title="Permalink to this headline">¶</a></h1>
+<section id="match-cluster">
+<h1>match_cluster<a class="headerlink" href="#match-cluster" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
-<dt id="besca.tl.sig.match_cluster">
-<code class="sig-prename descclassname"><span class="pre">besca.tl.sig.</span></code><code class="sig-name descname"><span class="pre">match_cluster</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obsquery</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obsqueryval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obsref</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'leiden'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_annot.html#match_cluster"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.tl.sig.match_cluster" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="besca.tl.sig.match_cluster">
+<span class="sig-prename descclassname"><span class="pre">besca.tl.sig.</span></span><span class="sig-name descname"><span class="pre">match_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AnnData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obsquery</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">obsqueryval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">obsref</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'leiden'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><span class="pre">list</span></a></span></span><a class="reference internal" href="../_modules/besca/tl/sig/_annot.html#match_cluster"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.tl.sig.match_cluster" title="Permalink to this definition">¶</a></dt>
 <dd><p>Matches categories from adata.obs to each other. For a query category specified in obsquery
 and a value specified in obsqueryval, checks which clusters (or other adata.obs categories, obsref)
 contain &gt;50% (or distinct cutoff, cutoff) of cells of the specified kind.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>adata</strong> (<em>AnnData</em>) – AnnData object</p></li>
 <li><p><strong>obsquery</strong> (<em>'str'</em>) – adata.obs category name used for querying</p></li>
@@ -256,16 +272,16 @@ contain &gt;50% (or distinct cutoff, cutoff) of cells of the specified kind.</p>
 <li><p><strong>cutoff</strong> (<em>'numpy.float64'</em>) – fraction of positive cells returned</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>a list of the cluster IDs that match the query label</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a></p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
@@ -273,7 +289,7 @@ contain &gt;50% (or distinct cutoff, cutoff) of cells of the specified kind.</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="besca.tl.sig.obtain_dblabel.html" class="btn btn-neutral float-right" title="obtain_dblabel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="besca.tl.sig.obtain_new_label.html" class="btn btn-neutral float-right" title="obtain_new_label" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="besca.tl.sig.read_annotconfig.html" class="btn btn-neutral float-left" title="read_annotconfig" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
@@ -281,7 +297,7 @@ contain &gt;50% (or distinct cutoff, cutoff) of cells of the specified kind.</p>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>stacked_split_violin &mdash; BESCA 2.4 documentation</title>
+  <title>stacked_split_violin &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +40,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -68,7 +77,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -93,7 +102,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../besca.html">besca</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">code examples</a></li>
@@ -191,15 +200,15 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="stacked-split-violin">
-<h1>stacked_split_violin<a class="headerlink" href="#stacked-split-violin" title="Permalink to this headline">¶</a></h1>
+<section id="stacked-split-violin">
+<h1>stacked_split_violin<a class="headerlink" href="#stacked-split-violin" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
-<dt id="besca.pl.stacked_split_violin">
-<code class="sig-prename descclassname"><span class="pre">besca.pl.</span></code><code class="sig-name descname"><span class="pre">stacked_split_violin</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tidy_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_variable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subset_variable_label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subset_variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inner</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'box'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pl/_general.html#stacked_split_violin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.pl.stacked_split_violin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="besca.pl.stacked_split_violin">
+<span class="sig-prename descclassname"><span class="pre">besca.pl.</span></span><span class="sig-name descname"><span class="pre">stacked_split_violin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tidy_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_variable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subset_variable_label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subset_variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inner</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'box'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/pl/_general.html#stacked_split_violin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.pl.stacked_split_violin" title="Permalink to this definition">¶</a></dt>
 <dd><p>plot stacked split violin plots.</p>
 <p>General plotting function to produce stacked split violin plots.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tidy_data</strong> (<em>DataFrame</em>) – pandas DataFrame containing the complete data that is to be plotted in a tidy format.</p></li>
 <li><p><strong>x_axis</strong> (<cite>str</cite>) – string identifying which column of the DataFrame is to be plotted on the x-axis</p></li>
@@ -209,22 +218,19 @@ split violin plot (can only contain two categories of data!)</p></li>
 <li><p><strong>subset_variable_label</strong> (<cite>str</cite>) – string identifiyng which column of the DataFrame contains the variables that
 should be used to make datasubsets for each plot of the stacked violin plot</p></li>
 <li><p><strong>subset_variabels</strong> (<cite>list</cite>) – list identifying the subsets that should be generated</p></li>
-<li><p><strong>fig_width</strong> (<cite>int</cite> | default = 8) – int value defining figure width</p></li>
-<li><p><strong>fig_height</strong> (<cite>int</cite> | default = 4) – int value defining figure height of one figure</p></li>
+<li><p><strong>fig_width</strong> (<em>width</em><em> or </em><em>None</em><em> | </em><em>default = 8</em>) – optional parameter to define figure width of the plot that is to be generated</p></li>
+<li><p><strong>fig_height</strong> (<em>height</em><em> or </em><em>None</em><em> | </em><em>default = 4</em>) – optional parameter to define figure height of the plot that is to be generated</p></li>
 <li><p><strong>order</strong> – </p></li>
 <li><p><strong>inner</strong> (<em>'box'</em><em> or </em><em>'quartile'</em><em> or </em><em>'point'</em><em> or </em><em>'stick'</em>) – define how the datapoints should be displayed in the violin interior, see seaborns documentation for more details</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Figure</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Figure</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
@@ -236,7 +242,7 @@ should be used to make datasubsets for each plot of the stacked violin plot</p><
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

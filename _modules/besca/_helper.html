@@ -1,44 +1,56 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>besca._helper &mdash; BESCA 2.3 documentation</title>
+  <title>besca._helper &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+
+  
   
 
   
   
-  
+
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
@@ -64,7 +76,7 @@
             
             
               <div class="version">
-                2.3
+                2.5
               </div>
             
           
@@ -81,6 +93,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -88,7 +101,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../besca.html">besca</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">code examples</a></li>
@@ -100,6 +113,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -134,11 +148,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
@@ -161,10 +177,15 @@
 <span></span><span class="kn">from</span> <span class="nn">anndata</span> <span class="kn">import</span> <span class="n">AnnData</span>
 <span class="kn">import</span> <span class="nn">mygene</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">concat</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">sparse</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">concat</span>
-
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">expm1</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">sort</span>
+<span class="kn">from</span> <span class="nn">distutils.version</span> <span class="kn">import</span> <span class="n">StrictVersion</span>
+<span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">besca._version</span> <span class="kn">import</span> <span class="n">get_versions</span>
 
 <div class="viewcode-block" id="subset_adata"><a class="viewcode-back" href="../../helper_functions/besca.subset_adata.html#besca.subset_adata">[docs]</a><span class="k">def</span> <span class="nf">subset_adata</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">filter_criteria</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Subset AnnData object into new object</span>
@@ -191,9 +212,8 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-
 <span class="sd">    &gt;&gt;&gt; import besca as bc</span>
-<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.pbmc3k_processed()</span>
+<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.simulated_pbmc3k_processed()</span>
 <span class="sd">    &gt;&gt;&gt; adata_BCELL =  bc.subset_adata( adata, filter_criteria= adata.obs.get(&#39;dblabel&#39;) == &#39;naive B cell&#39;)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -221,6 +241,10 @@
         <span class="n">subset</span><span class="o">.</span><span class="n">obs_names</span> <span class="o">=</span> <span class="n">subset_full</span><span class="o">.</span><span class="n">obs_names</span>
         <span class="n">subset</span><span class="o">.</span><span class="n">obs</span> <span class="o">=</span> <span class="n">subset_full</span><span class="o">.</span><span class="n">obs</span>
         <span class="n">subset</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">subset_full</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">var</span>
+        <span class="n">subset</span><span class="o">.</span><span class="n">obsm</span> <span class="o">=</span> <span class="n">subset_full</span><span class="o">.</span><span class="n">obsm</span>
+        <span class="n">subset</span><span class="o">.</span><span class="n">varm</span> <span class="o">=</span> <span class="n">subset_full</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">varm</span>
+        <span class="n">subset</span><span class="o">.</span><span class="n">obsp</span> <span class="o">=</span> <span class="n">subset_full</span><span class="o">.</span><span class="n">obsp</span>
+        <span class="n">subset</span><span class="o">.</span><span class="n">uns</span> <span class="o">=</span> <span class="n">subset_full</span><span class="o">.</span><span class="n">uns</span>
 
         <span class="k">return</span> <span class="n">subset</span>
 
@@ -310,12 +334,9 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-
 <span class="sd">    &gt;&gt;&gt; import besca as bc</span>
-<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.pbmc3k_processed()</span>
-<span class="sd">    &gt;&gt;&gt; print(adata)</span>
+<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.simulated_pbmc3k_processed()</span>
 <span class="sd">    &gt;&gt;&gt; adata_raw = bc.get_raw(adata)</span>
-<span class="sd">    &gt;&gt;&gt; print(adata_raw)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -337,11 +358,11 @@
     <span class="k">return</span> <span class="n">adata_raw</span></div>
 
 
-<div class="viewcode-block" id="get_ameans"><a class="viewcode-back" href="../../helper_functions/besca.get_ameans.html#besca.get_ameans">[docs]</a><span class="k">def</span> <span class="nf">get_ameans</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">mycat</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="get_ameans"><a class="viewcode-back" href="../../helper_functions/besca.get_ameans.html#besca.get_ameans">[docs]</a><span class="k">def</span> <span class="nf">get_ameans</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">mycat</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Calculates average and fraction expression per category in adata.obs</span>
 <span class="sd">    Based artihmetic mean expression and fraction cells expressing gene per category</span>
-<span class="sd">    (works on linear scale). Assumes that values in .raw are log: will exponentiate, </span>
-<span class="sd">    calculate mean and log back. </span>
+<span class="sd">    (works on linear scale). Assumes that values in .raw are log: will exponentiate,</span>
+<span class="sd">    calculate mean and log back.</span>
 
 <span class="sd">    parameters</span>
 <span class="sd">    ----------</span>
@@ -367,57 +388,64 @@
         <span class="n">obs</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">gene_ids</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">mycat</span><span class="p">])</span>
         <span class="n">average_obs</span> <span class="o">=</span> <span class="n">log1p</span><span class="p">(</span><span class="n">obs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
         <span class="n">obs_bool</span> <span class="o">=</span> <span class="n">obs</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
-        <span class="n">fraction_obs</span> <span class="o">=</span> <span class="n">obs_bool</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">obs_bool</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-        
-        <span class="k">if</span> <span class="n">condition</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span>
+        <span class="n">fraction_obs</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">obs_bool</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">obs_bool</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">condition</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">meta</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="n">mycat</span><span class="p">,</span><span class="n">condition</span><span class="p">]]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
-                <span class="n">meta</span><span class="o">.</span><span class="n">index</span><span class="o">=</span><span class="n">meta</span><span class="p">[</span><span class="n">mycat</span><span class="p">]</span>
-                <span class="n">average_obs</span><span class="p">[</span><span class="n">condition</span><span class="p">]</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="n">condition</span><span class="p">][</span><span class="n">average_obs</span><span class="o">.</span><span class="n">index</span><span class="p">])</span>
-                <span class="n">average_obs</span><span class="p">[</span><span class="s1">&#39;Ind&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">average_obs</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-                <span class="n">fraction_obs</span><span class="p">[</span><span class="n">condition</span><span class="p">]</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="n">condition</span><span class="p">][</span><span class="n">fraction_obs</span><span class="o">.</span><span class="n">index</span><span class="p">])</span>
-                <span class="n">fraction_obs</span><span class="p">[</span><span class="s1">&#39;Ind&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">fraction_obs</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+                <span class="n">meta</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="n">mycat</span><span class="p">,</span> <span class="n">condition</span><span class="p">]]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+                <span class="n">meta</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="n">mycat</span><span class="p">]</span>
+                <span class="n">average_obs</span><span class="p">[</span><span class="n">condition</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="n">condition</span><span class="p">][</span><span class="n">average_obs</span><span class="o">.</span><span class="n">index</span><span class="p">])</span>
+                <span class="n">average_obs</span><span class="p">[</span><span class="s2">&quot;Ind&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">average_obs</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+                <span class="n">fraction_obs</span><span class="p">[</span><span class="n">condition</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="n">condition</span><span class="p">][</span><span class="n">fraction_obs</span><span class="o">.</span><span class="n">index</span><span class="p">])</span>
+                <span class="n">fraction_obs</span><span class="p">[</span><span class="s2">&quot;Ind&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">fraction_obs</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Oops!  The adata object does not have the specified column. Options are: &quot;</span><span class="p">)</span>
-                <span class="nb">print</span> <span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
-        
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;Oops!  The adata object does not have the specified column. Options are: &quot;</span>
+                <span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+
     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Oops!  The adata object does not have the specified column. Options are: &quot;</span><span class="p">)</span>
-        <span class="nb">print</span> <span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
-        <span class="n">average_obs</span><span class="o">=</span><span class="kc">None</span>
-        <span class="n">fraction_obs</span><span class="o">=</span><span class="kc">None</span>
-    <span class="k">return</span><span class="p">(</span><span class="n">average_obs</span><span class="p">,</span> <span class="n">fraction_obs</span><span class="p">)</span></div>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;Oops!  The adata object does not have the specified column. Options are: &quot;</span>
+        <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+        <span class="n">average_obs</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">fraction_obs</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">average_obs</span><span class="p">,</span> <span class="n">fraction_obs</span><span class="p">)</span></div>
 
 
 <span class="k">def</span> <span class="nf">formatmean</span><span class="p">(</span><span class="n">average_obs</span><span class="p">,</span> <span class="n">fraction_obs</span><span class="p">,</span> <span class="n">what</span><span class="p">,</span> <span class="n">mycond</span><span class="p">,</span> <span class="n">myg</span><span class="p">):</span>
     <span class="c1">### Transforms average and fraction expression to pd for plotting</span>
-    <span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="nb">list</span><span class="p">(</span><span class="n">average_obs</span><span class="p">[</span><span class="n">myg</span><span class="p">]),</span><span class="nb">list</span><span class="p">(</span><span class="n">fraction_obs</span><span class="p">[</span><span class="n">myg</span><span class="p">]),</span><span class="n">mycond</span><span class="p">])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">=</span><span class="n">average_obs</span><span class="o">.</span><span class="n">index</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">myg</span><span class="o">+</span><span class="s1">&#39;Avg&#39;</span><span class="p">,</span><span class="n">myg</span><span class="o">+</span><span class="s1">&#39;Fract&#39;</span><span class="p">,</span><span class="n">what</span><span class="p">]</span>
-    <span class="k">return</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-
+    <span class="n">df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">average_obs</span><span class="p">[</span><span class="n">myg</span><span class="p">]),</span> <span class="nb">list</span><span class="p">(</span><span class="n">fraction_obs</span><span class="p">[</span><span class="n">myg</span><span class="p">]),</span> <span class="n">mycond</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">average_obs</span><span class="o">.</span><span class="n">index</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">myg</span> <span class="o">+</span> <span class="s2">&quot;Avg&quot;</span><span class="p">,</span> <span class="n">myg</span> <span class="o">+</span> <span class="s2">&quot;Fract&quot;</span><span class="p">,</span> <span class="n">what</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">df</span>
 
 
 <div class="viewcode-block" id="get_means"><a class="viewcode-back" href="../../helper_functions/besca.get_means.html#besca.get_means">[docs]</a><span class="k">def</span> <span class="nf">get_means</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">mycat</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Calculates average and fraction expression per category in adata.obs</span>
-<span class="sd">    Based on an AnnData object and an annotation category (e.g. louvain) returns </span>
-<span class="sd">    geometric mean expression if .raw values are log as it simply calculates mean</span>
-<span class="sd">    of whatever values are stored in .raw. Also returns fraction cells expressing gene per category. </span>
-<span class="sd">    </span>
-<span class="sd">u    parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    adata: AnnData</span>
-<span class="sd">      an AnnData object</span>
-<span class="sd">    mycat: str</span>
-<span class="sd">      the category for stratification (e.g. donor, experiment)</span>
-<span class="sd">    condition: str</span>
-<span class="sd">      the category to be later compared (e.g. treatment, timepoint)</span>
-<span class="sd">    returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    average_obs</span>
-<span class="sd">        average gene expression per category</span>
-<span class="sd">    fraction_obs</span>
-<span class="sd">        fraction cells expressing a gene per category</span>
+<span class="sd">        Based on an AnnData object and an annotation category (e.g. louvain) returns</span>
+<span class="sd">        geometric mean expression if .raw values are log as it simply calculates mean</span>
+<span class="sd">        of whatever values are stored in .raw. Also returns fraction cells expressing gene per category.</span>
+
+<span class="sd">    u    parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        adata: AnnData</span>
+<span class="sd">          an AnnData object</span>
+<span class="sd">        mycat: str</span>
+<span class="sd">          the category for stratification (e.g. donor, experiment)</span>
+<span class="sd">        condition: str</span>
+<span class="sd">          the category to be later compared (e.g. treatment, timepoint)</span>
+<span class="sd">        returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        average_obs</span>
+<span class="sd">            average gene expression per category</span>
+<span class="sd">        fraction_obs</span>
+<span class="sd">            fraction cells expressing a gene per category</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">gene_ids</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
     <span class="k">try</span><span class="p">:</span>
@@ -428,20 +456,24 @@
         <span class="n">obs</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">gene_ids</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">mycat</span><span class="p">])</span>
         <span class="n">average_obs</span> <span class="o">=</span> <span class="n">obs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
         <span class="n">obs_bool</span> <span class="o">=</span> <span class="n">obs</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
-        <span class="n">fraction_obs</span> <span class="o">=</span> <span class="n">obs_bool</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">obs_bool</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-        
-        <span class="k">if</span> <span class="n">condition</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span>
+        <span class="n">fraction_obs</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">obs_bool</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">obs_bool</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">condition</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">meta</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="n">mycat</span><span class="p">,</span><span class="n">condition</span><span class="p">]]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
-                <span class="n">meta</span><span class="o">.</span><span class="n">index</span><span class="o">=</span><span class="n">meta</span><span class="p">[</span><span class="n">mycat</span><span class="p">]</span>
-                <span class="n">average_obs</span><span class="p">[</span><span class="n">condition</span><span class="p">]</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="n">condition</span><span class="p">][</span><span class="n">average_obs</span><span class="o">.</span><span class="n">index</span><span class="p">])</span>
-                <span class="n">average_obs</span><span class="p">[</span><span class="s1">&#39;Ind&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">average_obs</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-                <span class="n">fraction_obs</span><span class="p">[</span><span class="n">condition</span><span class="p">]</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="n">condition</span><span class="p">][</span><span class="n">fraction_obs</span><span class="o">.</span><span class="n">index</span><span class="p">])</span>
-                <span class="n">fraction_obs</span><span class="p">[</span><span class="s1">&#39;Ind&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">fraction_obs</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+                <span class="n">meta</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="n">mycat</span><span class="p">,</span> <span class="n">condition</span><span class="p">]]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+                <span class="n">meta</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="n">mycat</span><span class="p">]</span>
+                <span class="n">average_obs</span><span class="p">[</span><span class="n">condition</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="n">condition</span><span class="p">][</span><span class="n">average_obs</span><span class="o">.</span><span class="n">index</span><span class="p">])</span>
+                <span class="n">average_obs</span><span class="p">[</span><span class="s2">&quot;Ind&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">average_obs</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+                <span class="n">fraction_obs</span><span class="p">[</span><span class="n">condition</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="n">condition</span><span class="p">][</span><span class="n">fraction_obs</span><span class="o">.</span><span class="n">index</span><span class="p">])</span>
+                <span class="n">fraction_obs</span><span class="p">[</span><span class="s2">&quot;Ind&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">fraction_obs</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Oops!  The adata object does not have the specified column. Options are: &quot;</span><span class="p">)</span>
-                <span class="nb">print</span> <span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
-        
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;Oops!  The adata object does not have the specified column. Options are: &quot;</span>
+                <span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+
     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span>
             <span class="s2">&quot;Oops!  The adata object does not have the specified column. Options are: &quot;</span>
@@ -450,6 +482,81 @@
         <span class="n">average_obs</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">fraction_obs</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">average_obs</span><span class="p">,</span> <span class="n">fraction_obs</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">get_singlegenedf</span><span class="p">(</span><span class="n">myg</span><span class="p">,</span> <span class="n">adata</span><span class="p">,</span> <span class="n">cond1</span><span class="p">,</span> <span class="n">cond2</span><span class="p">,</span> <span class="n">cond3</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;helper function that for a single genes and adata object returns</span>
+<span class="sd">    a pandas.DataFrame with fraction_pos, average expression stratified</span>
+<span class="sd">    on the three conditiins specified</span>
+
+
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    myg: `str`</span>
+<span class="sd">        df column to be plotted on X axis</span>
+<span class="sd">    adata: `AnnData`</span>
+<span class="sd">        anndata object containing data that is to be visualized</span>
+<span class="sd">    cond1: `str`</span>
+<span class="sd">        first condition to be considered, e.g. healthy/disease</span>
+<span class="sd">    cond2: `str`</span>
+<span class="sd">        second condition to be considered, e.g. cell_type or leiden</span>
+<span class="sd">    cond3: `str`</span>
+<span class="sd">        third condition to be considered, e.g. readout_id or individual_id</span>
+
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pandas.DataFrame</span>
+<span class="sd">        A pandas.DataFrame that can be saved or used for plotting</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; # import libraries and dataset</span>
+<span class="sd">    &gt;&gt;&gt; import besca as bc</span>
+<span class="sd">    &gt;&gt;&gt; adata = bc.datasets.simulated_Kotliarov2020_processed()</span>
+<span class="sd">    &gt;&gt;&gt; gene = &#39;Gene_3&#39;</span>
+<span class="sd">    &gt;&gt;&gt; df = bc.get_singlegenedf(gene, adata, &#39;CONDITION&#39;,&#39;celltype0&#39;,&#39;sampleid&#39;)</span>
+
+<span class="sd">    .. plot::</span>
+<span class="sd">        &gt;&gt;&gt; # import libraries and dataset</span>
+<span class="sd">        &gt;&gt;&gt; import besca as bc</span>
+<span class="sd">        &gt;&gt;&gt; adata = bc.datasets.simulated_Kotliarov2020_processed()</span>
+<span class="sd">        &gt;&gt;&gt; # define genes</span>
+<span class="sd">        &gt;&gt;&gt; gene = &#39;Gene_3&#39;</span>
+<span class="sd">        &gt;&gt;&gt; df = bc.get_singlegenedf(gene, adata, &#39;CONDITION&#39;,&#39;celltype0&#39;,&#39;sampleid&#39;)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># check that we have the conditions</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">cond1</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Please select a valid condition name - cond1&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">cond2</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Please select a valid condition name - cond2&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">cond3</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Please select a valid condition name - cond3&quot;</span><span class="p">)</span>
+
+    <span class="n">myit1</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">cond1</span><span class="p">])))</span>  <span class="c1">### iterate over elements of condition 1</span>
+    <span class="n">myit2</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">cond2</span><span class="p">])))</span>  <span class="c1">### iterate over elements of condition 2</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">myit1</span><span class="p">:</span>
+        <span class="n">cdata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">cond1</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">myit3</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span>
+            <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">cdata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">cond3</span><span class="p">]))</span>
+        <span class="p">)</span>  <span class="c1">### iterate over elements of condition 3</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">myit3</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">cdata</span><span class="p">[</span><span class="n">cdata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">cond3</span><span class="p">]</span> <span class="o">==</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">average_obs</span><span class="p">,</span> <span class="n">fraction_obs</span> <span class="o">=</span> <span class="n">get_means</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cond2</span><span class="p">)</span>
+            <span class="n">mylen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fraction_obs</span><span class="p">[</span><span class="n">myg</span><span class="p">])</span>
+            <span class="n">df1</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">&quot;Avg&quot;</span><span class="p">:</span> <span class="n">average_obs</span><span class="p">[</span><span class="n">myg</span><span class="p">],</span>
+                    <span class="s2">&quot;Fct&quot;</span><span class="p">:</span> <span class="n">fraction_obs</span><span class="p">[</span><span class="n">myg</span><span class="p">],</span>
+                    <span class="n">cond1</span><span class="p">:</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">mylen</span><span class="p">,</span>
+                    <span class="n">cond3</span><span class="p">:</span> <span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">mylen</span><span class="p">,</span>
+                    <span class="n">cond2</span><span class="p">:</span> <span class="n">fraction_obs</span><span class="p">[</span><span class="n">myg</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">df1</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
 
 
 <div class="viewcode-block" id="concate_adata"><a class="viewcode-back" href="../../helper_functions/besca.concate_adata.html#besca.concate_adata">[docs]</a><span class="k">def</span> <span class="nf">concate_adata</span><span class="p">(</span><span class="n">adata1</span><span class="p">,</span> <span class="n">adata2</span><span class="p">):</span>
@@ -551,26 +658,59 @@
         <span class="n">adata_combined</span><span class="o">.</span><span class="n">raw</span> <span class="o">=</span> <span class="n">adata_combined_raw</span>
 
     <span class="k">return</span> <span class="n">adata_combined</span></div>
+
+
+<span class="k">def</span> <span class="nf">print_software_versions</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Print scanpy and besca software versions</span>
+
+<span class="sd">    The function prints scanpy and besca software versions and return them</span>
+<span class="sd">    as a named tuple.</span>
+
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    namedtuple</span>
+<span class="sd">        A named tuple containing the versions of scanpy and besca. While</span>
+<span class="sd">        only the strict versions are printed, the full version strings are</span>
+<span class="sd">        returned.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">scv</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">__version__</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">StrictVersion</span><span class="p">(</span><span class="n">scv</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="s2">&quot;1.6&quot;</span><span class="p">):</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">print_header</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">print_versions</span><span class="p">()</span>
+    <span class="n">bcver</span> <span class="o">=</span> <span class="n">get_versions</span><span class="p">()[</span><span class="s2">&quot;version&quot;</span><span class="p">]</span>
+    <span class="n">bcstr</span> <span class="o">=</span> <span class="n">StrictVersion</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">+.*$&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">bcver</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;besca==</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bcstr</span><span class="p">))</span>
+    <span class="n">Versions</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Versions&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;scanpy&#39;</span><span class="p">,</span> <span class="s1">&#39;besca&#39;</span><span class="p">])</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">Versions</span><span class="p">(</span><span class="n">scanpy</span><span class="o">=</span><span class="n">scv</span><span class="p">,</span> <span class="n">besca</span><span class="o">=</span><span class="n">bcver</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
+
 </pre></div>
 
            </div>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, BEDA
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -578,7 +718,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>get_gems &mdash; BESCA 2.4 documentation</title>
+  <title>get_gems &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +40,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -70,7 +79,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -95,7 +104,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../besca.html">besca</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#helper-functions">helper functions</a></li>
@@ -114,7 +123,9 @@
 <li class="toctree-l4 current"><a class="reference internal" href="../besca.html#signature-scoring">signature scoring</a><ul class="current">
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.combined_signature_score.html">combined_signature_score</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.compute_signed_score.html">compute_signed_score</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.filter_by_set.html">filter_by_set</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.filter_siggenes.html">filter_siggenes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.convert_siggenes.html">convert_siggenes</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.read_GMT_sign.html">read_GMT_sign</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.getset.html">getset</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.score_mw.html">score_mw</a></li>
@@ -122,12 +133,17 @@
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.make_anno.html">make_anno</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.read_annotconfig.html">read_annotconfig</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.match_cluster.html">match_cluster</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.obtain_new_label.html">obtain_new_label</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.obtain_dblabel.html">obtain_dblabel</a></li>
 <li class="toctree-l5 current"><a class="current reference internal" href="#">get_gems</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.insert_gems.html">insert_gems</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.get_similar_geneset.html">get_similar_geneset</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.export_annotconfig.html">export_annotconfig</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.convert_to_directed.html">convert_to_directed</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.make_gmtx.html">make_gmtx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.write_gmtx_forgems.html">write_gmtx_forgems</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.silhouette_computation.html">silhouette_computation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.match_label.html">match_label</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#reclustering">reclustering</a></li>
@@ -238,11 +254,11 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="get-gems">
-<h1>get_gems<a class="headerlink" href="#get-gems" title="Permalink to this headline">¶</a></h1>
+<section id="get-gems">
+<h1>get_gems<a class="headerlink" href="#get-gems" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
-<dt id="besca.tl.sig.get_gems">
-<code class="sig-prename descclassname"><span class="pre">besca.tl.sig.</span></code><code class="sig-name descname"><span class="pre">get_gems</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">setName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BASE_URL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UP_suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_UP'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DN_suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_DN'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_gems_link.html#get_gems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.tl.sig.get_gems" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="besca.tl.sig.get_gems">
+<span class="sig-prename descclassname"><span class="pre">besca.tl.sig.</span></span><span class="sig-name descname"><span class="pre">get_gems</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">setName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BASE_URL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UP_suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_UP'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DN_suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_DN'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_gems_link.html#get_gems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.tl.sig.get_gems" title="Permalink to this definition">¶</a></dt>
 <dd><p>Connect to GEMS, dowload related geneset (specified by setName, can be a prefix/suffix)
 and return them
 This function combines genesets (signatures) scores (UP and DN) genes.
@@ -256,11 +272,11 @@ Non directionaly geneset are by default considered as UP.
 <div><p>This should be the end of the signatures names ($)</p>
 </div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>DN_suffix</strong> (<cite>str</cite> | default = “_DN”) – str suffix indicating that the suffix indicating the signature is in DN direction.
 This should be the end of the signatures names ($)</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><em>a dictionnary containing the signature names as key, and subdictionnary as direction</em></p></li>
 <li><p><strong>(Key could then be</strong> (<em>UP or DN). values are then the gene names.</em>)</p></li>
@@ -269,16 +285,16 @@ This should be the end of the signatures names ($)</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">yaml</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pytest</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="s1">&#39;Test is only for here as example and should not be executed&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">yaml</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;mongocredentials/credential.yml&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<span class="go">        cred = yaml.safe_load(f)</span>
+<span class="gp">... </span>    <span class="n">cred</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">get_GEMS_sign</span><span class="p">(</span><span class="s1">&#39;Tcell&#39;</span><span class="p">,</span> <span class="n">BASE_URL</span> <span class="o">=</span>  <span class="s1">&#39;http://&#39;</span> <span class="o">+</span> <span class="n">cred</span><span class="p">[</span><span class="s1">&#39;hostname&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span>  <span class="n">cred</span><span class="p">[</span><span class="s1">&#39;localport&#39;</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># this code is only displayed not executed</span>
 </pre></div>
 </div>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
@@ -294,7 +310,7 @@ This should be the end of the signatures names ($)</p>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>

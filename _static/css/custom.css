@@ -1,4 +1,9 @@
 .rst-content img {
     max-width: 100%;
-    zoom: 50%;
+    zoom: 60%;
+}
+
+/* Controls the width of the html pages */
+.wy-nav-content {
+    max-width: 80% !important;
 }

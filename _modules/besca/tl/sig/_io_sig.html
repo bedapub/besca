@@ -1,44 +1,56 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>besca.tl.sig._io_sig &mdash; BESCA 2.3 documentation</title>
+  <title>besca.tl.sig._io_sig &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/plot_directive.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+
+  
   
 
   
   
-  
+
   
 
   
-  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
         <script src="../../../../_static/jquery.js"></script>
         <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../../_static/doctools.js"></script>
-        <script src="../../../../_static/language_data.js"></script>
+        <script src="../../../../_static/clipboard.min.js"></script>
+        <script src="../../../../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
 </head>
@@ -64,7 +76,7 @@
             
             
               <div class="version">
-                2.3
+                2.5
               </div>
             
           
@@ -81,6 +93,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -88,7 +101,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../besca.html">besca</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../auto_examples/index.html">code examples</a></li>
@@ -100,6 +113,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -134,11 +148,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
         
@@ -160,11 +176,49 @@
   <h1>Source code for besca.tl.sig._io_sig</h1><div class="highlight"><pre>
 <span></span><span class="c1"># this file contains the functions to read / import signatures</span>
 <span class="c1"># for signature score computations</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">re</span> <span class="kn">import</span> <span class="nb">compile</span><span class="p">,</span> <span class="n">match</span>
+
 <span class="kn">from</span> <span class="nn">requests</span> <span class="kn">import</span> <span class="n">post</span>
 
+<div class="viewcode-block" id="convert_to_directed"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.convert_to_directed.html#besca.tl.sig.convert_to_directed">[docs]</a><span class="k">def</span> <span class="nf">convert_to_directed</span><span class="p">(</span><span class="n">signature_dict</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;UP&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Convert a simple dictionary into one with direction compatible with combined_signature_score</span>
 
-<div class="viewcode-block" id="read_GMT_sign"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.read_GMT_sign.html#besca.tl.sig.read_GMT_sign">[docs]</a><span class="k">def</span> <span class="nf">read_GMT_sign</span><span class="p">(</span><span class="n">GMT_file</span><span class="p">,</span> <span class="n">UP_suffix</span><span class="o">=</span><span class="s1">&#39;_UP&#39;</span><span class="p">,</span> <span class="n">DN_suffix</span><span class="o">=</span><span class="s1">&#39;_DN&#39;</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    signature_dict: `str` | default = None</span>
+<span class="sd">        gmt file location containing the geneset</span>
+<span class="sd">    direction : `str` | default = &quot;UP&quot;</span>
+<span class="sd">        str suffix indicating that the suffix indicating the signature direction. </span>
+<span class="sd">        Expected UP or DN</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    a dictionnary containing the signature names as key. \</span>
+<span class="sd">    Value are a subdictionnary where key are direction(UP or DN).\</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; import os</span>
+<span class="sd">    &gt;&gt;&gt; import besca as bc</span>
+<span class="sd">    &gt;&gt;&gt; bescapath = os.path.split(os.path.dirname(bc.__file__))[0]</span>
+<span class="sd">    &gt;&gt;&gt; gmt_file= bescapath + &#39;/besca/datasets/genesets/Immune.gmt&#39;</span>
+<span class="sd">    &gt;&gt;&gt; mymarkers = bc.tl.sig.read_GMT_sign(gmt_file,directed=False)</span>
+<span class="sd">    &gt;&gt;&gt; bc.tl.sig.convert_to_directed( mymarkers, &#39;UP&#39;)</span>
+<span class="sd">    {&#39;lymphocyte&#39;: {&#39;UP&#39;: [&#39;PTPRC&#39;]}, &#39;myeloid&#39;: {&#39;UP&#39;: [&#39;S100A8&#39;, &#39;S100A9&#39;, &#39;CST3&#39;]}, &#39;Bcell&#39;: {&#39;UP&#39;: [&#39;CD19&#39;, &#39;CD79A&#39;, &#39;MS4A1&#39;]}, &#39;Tcells&#39;: {&#39;UP&#39;: [&#39;CD3E&#39;, &#39;CD3G&#39;, &#39;CD3D&#39;]}, &#39;CD4&#39;: {&#39;UP&#39;: [&#39;CD4&#39;]}, &#39;CD8&#39;: {&#39;UP&#39;: [&#39;CD8A&#39;, &#39;CD8B&#39;]}, &#39;NKcell&#39;: {&#39;UP&#39;: [&#39;NKG7&#39;, &#39;GNLY&#39;, &#39;NCAM1&#39;]}, &#39;monocyte&#39;: {&#39;UP&#39;: [&#39;CST3&#39;, &#39;CSF1R&#39;, &#39;ITGAM&#39;, &#39;CD14&#39;, &#39;FCGR3A&#39;, &#39;FCGR3B&#39;]}, &#39;macrophage&#39;: {&#39;UP&#39;: [&#39;CD14&#39;, &#39;IL1B&#39;, &#39;LYZ&#39;, &#39;CD163&#39;, &#39;ITGAX&#39;, &#39;CD68&#39;, &#39;CSF1R&#39;, &#39;FCGR3A&#39;]}}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">direction</span> <span class="o">!=</span> <span class="s2">&quot;UP&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">direction</span> <span class="o">!=</span> <span class="s2">&quot;DN&quot;</span><span class="p">):</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;expecting direction UP or DN for directed signature dictionnary.&quot;</span><span class="p">)</span>
+    <span class="n">signed_sign</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">signature</span><span class="p">,</span> <span class="n">genes</span> <span class="ow">in</span> <span class="n">signature_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">signed_sign</span><span class="p">[</span><span class="n">signature</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">direction</span><span class="p">:</span> <span class="n">genes</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">signed_sign</span></div>
+
+
+<div class="viewcode-block" id="read_GMT_sign"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.read_GMT_sign.html#besca.tl.sig.read_GMT_sign">[docs]</a><span class="k">def</span> <span class="nf">read_GMT_sign</span><span class="p">(</span>
+    <span class="n">GMT_file</span><span class="p">,</span> <span class="n">UP_suffix</span><span class="o">=</span><span class="s2">&quot;_UP&quot;</span><span class="p">,</span> <span class="n">DN_suffix</span><span class="o">=</span><span class="s2">&quot;_DN&quot;</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Read gmt file to extract signed genesets.</span>
 <span class="sd">    This function combines genesets scores composed of</span>
 <span class="sd">    UP and DN regulated genes.</span>
@@ -189,14 +243,16 @@
 <span class="sd">    Values are then the gene names.</span>
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
-
-<span class="sd">    &gt;&gt;&gt; #insert example code here</span>
-<span class="sd">    &gt;&gt;&gt; gmt_file= datasets/genesets/Immune.txt&#39; # provided in besca</span>
-<span class="sd">    &gt;&gt;&gt; signature_dict = bc.tl.sig.read_GMT_sign(gmt_file)</span>
+<span class="sd">    &gt;&gt;&gt; import besca as bc</span>
+<span class="sd">    &gt;&gt;&gt; import pkg_resources</span>
+<span class="sd">    &gt;&gt;&gt; gmt_file=&#39;datasets/genesets/Immune.gmt&#39; # provided in besca</span>
+<span class="sd">    &gt;&gt;&gt; gmt_file_abs_path=pkg_resources.resource_filename(&#39;besca&#39;, gmt_file)</span>
+<span class="sd">    &gt;&gt;&gt; bc.tl.sig.read_GMT_sign(gmt_file_abs_path)</span>
+<span class="sd">    {&#39;lymphocyte&#39;: {&#39;UP&#39;: [&#39;PTPRC&#39;]}, &#39;myeloid&#39;: {&#39;UP&#39;: [&#39;S100A8&#39;, &#39;S100A9&#39;, &#39;CST3&#39;]}, &#39;Bcell&#39;: {&#39;UP&#39;: [&#39;CD19&#39;, &#39;CD79A&#39;, &#39;MS4A1&#39;]}, &#39;Tcells&#39;: {&#39;UP&#39;: [&#39;CD3E&#39;, &#39;CD3G&#39;, &#39;CD3D&#39;]}, &#39;CD4&#39;: {&#39;UP&#39;: [&#39;CD4&#39;]}, &#39;CD8&#39;: {&#39;UP&#39;: [&#39;CD8A&#39;, &#39;CD8B&#39;]}, &#39;NKcell&#39;: {&#39;UP&#39;: [&#39;NKG7&#39;, &#39;GNLY&#39;, &#39;NCAM1&#39;]}, &#39;monocyte&#39;: {&#39;UP&#39;: [&#39;CST3&#39;, &#39;CSF1R&#39;, &#39;ITGAM&#39;, &#39;CD14&#39;, &#39;FCGR3A&#39;, &#39;FCGR3B&#39;]}, &#39;macrophage&#39;: {&#39;UP&#39;: [&#39;CD14&#39;, &#39;IL1B&#39;, &#39;LYZ&#39;, &#39;CD163&#39;, &#39;ITGAX&#39;, &#39;CD68&#39;, &#39;CSF1R&#39;, &#39;FCGR3A&#39;]}}</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">signFile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">GMT_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
-    <span class="n">text_gmt</span> <span class="o">=</span> <span class="n">signFile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">text_gmt</span> <span class="o">=</span> <span class="n">signFile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">signFile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="n">signed_sign</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="c1"># Here \S is used as signature might have &#39;-&#39; in their name</span>
@@ -205,64 +261,100 @@
     <span class="n">pattern_UP</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="s2">&quot;(\S+)&quot;</span> <span class="o">+</span> <span class="n">UP_suffix</span> <span class="o">+</span> <span class="s2">&quot;$&quot;</span><span class="p">)</span>
     <span class="c1"># TODO: remove this for loop.</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">text_gmt</span><span class="p">)):</span>
-        <span class="n">temp_split</span> <span class="o">=</span> <span class="n">text_gmt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">temp_split</span> <span class="o">=</span> <span class="n">text_gmt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">signature_full_name</span> <span class="o">=</span> <span class="n">temp_split</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">temp_split</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">verbose</span><span class="p">):</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Skipping empty entry&quot;</span> <span class="o">+</span> <span class="n">signature_full_name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;Skipping empty entry; less than 3 fields for &quot;</span>
+                    <span class="o">+</span> <span class="n">signature_full_name</span>
+                <span class="p">)</span>
             <span class="k">continue</span>
         <span class="c1"># Skipping empty lines in gmt files</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">signature_full_name</span><span class="p">):</span>
             <span class="n">z</span> <span class="o">=</span> <span class="n">match</span><span class="p">(</span><span class="n">pattern_DN</span><span class="p">,</span> <span class="n">signature_full_name</span><span class="p">)</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">z</span><span class="p">:</span>
                 <span class="n">signatureName</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="n">direction</span> <span class="o">=</span> <span class="s2">&quot;DN&quot;</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">z</span> <span class="o">=</span> <span class="n">match</span><span class="p">(</span><span class="n">pattern_UP</span><span class="p">,</span> <span class="n">signature_full_name</span><span class="p">)</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">z</span><span class="p">:</span>
                     <span class="n">signatureName</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
                     <span class="n">direction</span> <span class="o">=</span> <span class="s2">&quot;UP&quot;</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">signatureName</span> <span class="o">=</span> <span class="n">signature_full_name</span>
                     <span class="n">direction</span> <span class="o">=</span> <span class="s2">&quot;UP&quot;</span>
             <span class="c1"># Get the gene names removing empty entry</span>
-            <span class="n">initialValue</span> <span class="o">=</span> <span class="n">temp_split</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">temp_split</span><span class="p">)]</span>
+            <span class="n">initialValue</span> <span class="o">=</span> <span class="n">temp_split</span><span class="p">[</span><span class="mi">2</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">temp_split</span><span class="p">)]</span>
             <span class="n">geneArray</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">initialValue</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">signatureName</span> <span class="ow">in</span> <span class="n">signed_sign</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="n">signatureName</span> <span class="ow">in</span> <span class="n">signed_sign</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="n">signed_sign</span><span class="p">[</span><span class="n">signatureName</span><span class="p">][</span><span class="n">direction</span><span class="p">]</span> <span class="o">=</span> <span class="n">geneArray</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">signed_sign</span><span class="p">[</span><span class="n">signatureName</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">direction</span><span class="p">:</span> <span class="n">geneArray</span><span class="p">}</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">verbose</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="s2">&quot;: &quot;</span><span class="p">,</span> <span class="n">signature_full_name</span><span class="p">)</span>
-                
-    <span class="c1">### remove UP in case one just wants the signature as a dictionary</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">directed</span><span class="o">==</span><span class="kc">False</span><span class="p">):</span>
-        <span class="n">mymarkersk</span><span class="o">=</span><span class="p">{}</span>
-        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">signed_sign</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">mymarkersk</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">=</span><span class="n">value</span><span class="p">[</span><span class="s1">&#39;UP&#39;</span><span class="p">]</span>
-        <span class="n">signed_sign</span><span class="o">=</span><span class="n">mymarkersk</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>        
-    <span class="k">return</span><span class="p">(</span><span class="n">signed_sign</span><span class="p">)</span></div>
 
+    <span class="c1">### remove UP in case one just wants the signature as a dictionary</span>
+    <span class="k">if</span> <span class="n">directed</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">mymarkersk</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">signed_sign</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">mymarkersk</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="s2">&quot;UP&quot;</span><span class="p">]</span>
+        <span class="n">signed_sign</span> <span class="o">=</span> <span class="n">mymarkersk</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">signed_sign</span></div>
+
+
+<div class="viewcode-block" id="write_gmtx_forgems"><a class="viewcode-back" href="../../../../sig/besca.tl.sig.write_gmtx_forgems.html#besca.tl.sig.write_gmtx_forgems">[docs]</a><span class="k">def</span> <span class="nf">write_gmtx_forgems</span><span class="p">(</span><span class="n">signature_dict</span><span class="p">,</span> <span class="n">GMT_file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Writes a gmtx file that can later be uploaded to GeMS.</span>
+<span class="sd">    The input should be standardised, as facilitated by bc.tl.sig.make_gmtx.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    signature_dict : `dictionary`</span>
+<span class="sd">        the dictionary containing the signatures to be outputed to a gmtx file</span>
+<span class="sd">        prepared with bc.tl.sig.make_gmtx, each signature is itself a dictionary</span>
+
+<span class="sd">    GMT_file: `str`</span>
+<span class="sd">        gmt file location containing the geneset</span>
+
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; signature_dict = {&#39;setName&#39;: &#39;Th17Tcell_mc38_user&#39;, &#39;desc&#39;: &#39;T-helper 17 cell markers; coefs are log2FC&#39;, &#39;User&#39;: &#39;user&#39;, &#39;Source&#39;: &#39;internal scseq&#39;, &#39;Subtype&#39;: &#39;onc&#39;, &#39;geneset&#39;: &#39;Pembro_MC38-tumor_dblabel&#39;, &#39;domain&#39;: &#39;cell marker&#39;, &#39;studyID&#39;: &#39;Pembro_MC38-tumor&#39;, &#39;analysisID&#39;: &#39;sw_besca24&#39;, &#39;genes|score&#39;: &#39;Cd163l1 | 10.67\tGm9961 | 10.49\tCdh10&#39;}</span>
+<span class="sd">    &gt;&gt;&gt; outgmtfile=&#39;Celltypemarkers.gmtx&#39;</span>
+<span class="sd">    &gt;&gt;&gt; write_gmtx_forgems(signature_dict, outgmtfile)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">GMT_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">signature_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">signature_dict</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Successfully written all signatures to &quot;</span> <span class="o">+</span> <span class="n">GMT_file</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, BEDA
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -270,7 +362,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

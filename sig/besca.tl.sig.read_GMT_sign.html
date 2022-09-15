@@ -4,21 +4,26 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>read_GMT_sign &mdash; BESCA 2.4 documentation</title>
+  <title>read_GMT_sign &mdash; BESCA 2.4.6+115.gb14a31c documentation</title>
   
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -35,9 +40,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -46,7 +55,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="getset" href="besca.tl.sig.getset.html" />
-    <link rel="prev" title="filter_siggenes" href="besca.tl.sig.filter_siggenes.html" /> 
+    <link rel="prev" title="convert_siggenes" href="besca.tl.sig.convert_siggenes.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -70,7 +79,7 @@
             
             
               <div class="version">
-                2.4
+                2.5
               </div>
             
           
@@ -95,7 +104,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../besca.html">besca</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../besca.html#helper-functions">helper functions</a></li>
@@ -114,7 +123,9 @@
 <li class="toctree-l4 current"><a class="reference internal" href="../besca.html#signature-scoring">signature scoring</a><ul class="current">
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.combined_signature_score.html">combined_signature_score</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.compute_signed_score.html">compute_signed_score</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.filter_by_set.html">filter_by_set</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.filter_siggenes.html">filter_siggenes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.convert_siggenes.html">convert_siggenes</a></li>
 <li class="toctree-l5 current"><a class="current reference internal" href="#">read_GMT_sign</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.getset.html">getset</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.score_mw.html">score_mw</a></li>
@@ -122,12 +133,17 @@
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.make_anno.html">make_anno</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.read_annotconfig.html">read_annotconfig</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.match_cluster.html">match_cluster</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.obtain_new_label.html">obtain_new_label</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.obtain_dblabel.html">obtain_dblabel</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.get_gems.html">get_gems</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.insert_gems.html">insert_gems</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.get_similar_geneset.html">get_similar_geneset</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.export_annotconfig.html">export_annotconfig</a></li>
 <li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.convert_to_directed.html">convert_to_directed</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.make_gmtx.html">make_gmtx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.write_gmtx_forgems.html">write_gmtx_forgems</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.silhouette_computation.html">silhouette_computation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="besca.tl.sig.match_label.html">match_label</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../besca.html#reclustering">reclustering</a></li>
@@ -238,17 +254,17 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="read-gmt-sign">
-<h1>read_GMT_sign<a class="headerlink" href="#read-gmt-sign" title="Permalink to this headline">¶</a></h1>
+<section id="read-gmt-sign">
+<h1>read_GMT_sign<a class="headerlink" href="#read-gmt-sign" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
-<dt id="besca.tl.sig.read_GMT_sign">
-<code class="sig-prename descclassname"><span class="pre">besca.tl.sig.</span></code><code class="sig-name descname"><span class="pre">read_GMT_sign</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GMT_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UP_suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_UP'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DN_suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_DN'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_io_sig.html#read_GMT_sign"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.tl.sig.read_GMT_sign" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="besca.tl.sig.read_GMT_sign">
+<span class="sig-prename descclassname"><span class="pre">besca.tl.sig.</span></span><span class="sig-name descname"><span class="pre">read_GMT_sign</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GMT_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UP_suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_UP'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DN_suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_DN'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/besca/tl/sig/_io_sig.html#read_GMT_sign"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#besca.tl.sig.read_GMT_sign" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read gmt file to extract signed genesets.
 This function combines genesets scores composed of
 UP and DN regulated genes.
 Non directional geneset are by default considered as UP.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>GMT_file</strong> (<cite>str</cite> | default = None) – gmt file location containing the geneset</p></li>
 <li><p><strong>UP_suffix</strong> (<cite>str</cite> | default = “_UP”) – str suffix indicating that the suffix indicating the signature is UP.
@@ -259,22 +275,22 @@ This should be the end of the signatures names ($).
 Indicate a dummy string to avoid combination.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>a dictionnary containing the signature names as key.     Value are a subdictionnary where key are direction(UP or DN)    Values are then the gene names.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>a dictionnary containing the signature names as key.     Value are a subdictionnary where key are direction(UP or DN).    Values are then the gene names.</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#insert example code here</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">gmt_file</span><span class="o">=</span> <span class="n">datasets</span><span class="o">/</span><span class="n">genesets</span><span class="o">/</span><span class="n">Immune</span><span class="o">.</span><span class="n">txt</span><span class="s1">&#39; # provided in besca</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">signature_dict</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">read_GMT_sign</span><span class="p">(</span><span class="n">gmt_file</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">besca</span> <span class="k">as</span> <span class="nn">bc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pkg_resources</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gmt_file</span><span class="o">=</span><span class="s1">&#39;datasets/genesets/Immune.gmt&#39;</span> <span class="c1"># provided in besca</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gmt_file_abs_path</span><span class="o">=</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;besca&#39;</span><span class="p">,</span> <span class="n">gmt_file</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">sig</span><span class="o">.</span><span class="n">read_GMT_sign</span><span class="p">(</span><span class="n">gmt_file_abs_path</span><span class="p">)</span>
+<span class="go">{&#39;lymphocyte&#39;: {&#39;UP&#39;: [&#39;PTPRC&#39;]}, &#39;myeloid&#39;: {&#39;UP&#39;: [&#39;S100A8&#39;, &#39;S100A9&#39;, &#39;CST3&#39;]}, &#39;Bcell&#39;: {&#39;UP&#39;: [&#39;CD19&#39;, &#39;CD79A&#39;, &#39;MS4A1&#39;]}, &#39;Tcells&#39;: {&#39;UP&#39;: [&#39;CD3E&#39;, &#39;CD3G&#39;, &#39;CD3D&#39;]}, &#39;CD4&#39;: {&#39;UP&#39;: [&#39;CD4&#39;]}, &#39;CD8&#39;: {&#39;UP&#39;: [&#39;CD8A&#39;, &#39;CD8B&#39;]}, &#39;NKcell&#39;: {&#39;UP&#39;: [&#39;NKG7&#39;, &#39;GNLY&#39;, &#39;NCAM1&#39;]}, &#39;monocyte&#39;: {&#39;UP&#39;: [&#39;CST3&#39;, &#39;CSF1R&#39;, &#39;ITGAM&#39;, &#39;CD14&#39;, &#39;FCGR3A&#39;, &#39;FCGR3B&#39;]}, &#39;macrophage&#39;: {&#39;UP&#39;: [&#39;CD14&#39;, &#39;IL1B&#39;, &#39;LYZ&#39;, &#39;CD163&#39;, &#39;ITGAX&#39;, &#39;CD68&#39;, &#39;CSF1R&#39;, &#39;FCGR3A&#39;]}}</span>
 </pre></div>
 </div>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
@@ -283,14 +299,14 @@ Indicate a dummy string to avoid combination.</p></li>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="besca.tl.sig.getset.html" class="btn btn-neutral float-right" title="getset" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="besca.tl.sig.filter_siggenes.html" class="btn btn-neutral float-left" title="filter_siggenes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="besca.tl.sig.convert_siggenes.html" class="btn btn-neutral float-left" title="convert_siggenes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, BEDA.
+        &#169; Copyright 2022, Roche Pharma Research and Early Development,     Pharmaceutical Sciences, Roche Innovation Center Basel, Basel, Switzerland.
 
     </p>
   </div>
