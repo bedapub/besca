@@ -410,7 +410,7 @@ def pca_neighbors_umap(
     """
     parameters
     ----------
-    adata: `ÀnnData`
+    adata: `AnnData`
         AnnData object that is to be exported
     results_folder: `str`
         path to the results folder
@@ -504,7 +504,7 @@ def clustering(adata, results_folder, myres=1, method="leiden"):
 
     parameters
     ----------
-    adata: `ÀnnData`
+    adata: `AnnData`
         AnnData object that is to be exported
     results_folder: `str`
         path to the results folder
