@@ -10,6 +10,8 @@ import scanpy as sc
 from collections import namedtuple
 import re
 from besca._version import get_versions
+import matplotlib
+
 
 def subset_adata(adata, filter_criteria, raw=True, axis=0):
     """Subset AnnData object into new object
@@ -484,7 +486,7 @@ def concate_adata(adata1, adata2):
     return adata_combined
 
 
-def print_software_versions():
+def print_software_versions() -> namedtuple:
     """Print scanpy and besca software versions
 
     The function prints scanpy and besca software versions and return them
@@ -499,14 +501,12 @@ def print_software_versions():
     """
 
     scv = sc.__version__
-    if(StrictVersion(scv) >= "1.6"):
+    if StrictVersion(scv) >= "1.6":
         sc.logging.print_header()
     else:
         sc.logging.print_versions()
     bcver = get_versions()["version"]
     bcstr = StrictVersion(re.sub("\\+.*$", "", bcver))
-    print("besca=={}".format(bcstr))
-    Versions = namedtuple('Versions', ['scanpy', 'besca'])
-    res = Versions(scanpy=scv, besca=bcver)
-    return res
-
+    print(f"besca=={bcstr}\nmatplotlib=={matplotlib.__version__}")
+    Versions = namedtuple("Versions", ["scanpy", "besca"])
+    return Versions(scanpy=scv, besca=bcver)
