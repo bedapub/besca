@@ -99,7 +99,7 @@ numexpr==2.8.1
 numpy==1.22.0
 numpy-groupies==0.9.14
 numpyro==0.9.1
-oauthlib==3.2.0
+oauthlib==3.2.1
 openpyxl==3.0.9
 opt-einsum==3.3.0
 optax==0.1.1
