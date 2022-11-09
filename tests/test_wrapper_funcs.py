@@ -13,7 +13,7 @@ from scvelo import AnnData
 import besca as bc
 import scanpy as sc
 from besca.st._wrapper_funcs import additional_labeling, highly_variable_genes
-
+from besca.Import._read import all_symbols_ok
 
 pytest.raw_data_subset_size = 1000
 
@@ -120,3 +120,43 @@ def test_highly_variable_genes(create_random_anndata_object: AnnData):
     # ensure that we get all hvgs and not just one
     assert adata.shape[0] == pytest.raw_data_subset_size
     assert adata.shape[1] == 608
+
+
+def test_all_symbols_ok():
+
+    good_symbols_list: List[str] = [
+        "AC004.2",
+        "AC43.3",
+        "A1",
+        "AC004.2",
+        "ACDF3",
+        "A..4A",
+        "YYYY",
+        "782387324A",
+        "Nature",
+        "GoodgenedNA",
+        "NAGene",
+        "abcNAcde",
+        "nature",
+        "HLA-DOB",
+        "Mafa-DQA",
+        "-ABC",
+    ]
+    good: bool = all_symbols_ok(symbols_list=good_symbols_list)
+    assert good == True
+
+    bad_symbols_list: List[str] = [
+        "434443",
+        "NA",
+        ".",
+        "...",
+        ".1",
+        ".NA",
+        "",
+        "na",
+        "Na",
+        "N/A",
+        "CORRECTGeneName",
+    ]
+    bad: bool = all_symbols_ok(symbols_list=bad_symbols_list)
+    assert bad == False
