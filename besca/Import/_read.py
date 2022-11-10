@@ -327,11 +327,8 @@ def check_data_for_citeseq(var_anno):
     """
     if (len(var_anno.columns)) >= 3:
         values = var_anno.iloc[:, 2].unique()
-        if (
-            set(values) == set(["Gene Expression"])
-            or set(values) == set(["Antibody Capture"])
-            or set(values) == set(["Antibody Capture", "Gene Expression"])
-        ):
+        if set(values) == set(['Antibody Capture']) or \
+            set(values) == set(['Antibody Capture', 'Gene Expression']):
             return True
         else:
             return False
