@@ -2,6 +2,7 @@ import os
 import sys
 import re
 import warnings
+
 warnings.simplefilter("default")
 from typing import List
 
@@ -193,17 +194,17 @@ def read_mtx(
             adata.var["SYMBOL"] = symbols.tolist()
         else:
             # lookup the corresponding Symbols
-            adata.var["SYMBOL"] = convert_ensembl_to_symbol(
-                ensembl_id, species=species
-            )
+            adata.var["SYMBOL"] = convert_ensembl_to_symbol(ensembl_id, species=species)
     else:
         sys.exit("Supplied unknown 'use_genes' parameter")
 
     check_response = check_data_for_citeseq(var_anno=var_anno)
 
-    if citeseq == 'gex_only' or citeseq == 'citeseq_only':
+    if citeseq == "gex_only" or citeseq == "citeseq_only":
         if check_response is False:
-            raise ValueError("'genes.tsv' does not include citeseq data or 'genes.tsv' has invalid citeseq values.")
+            raise ValueError(
+                "'genes.tsv' does not include citeseq data or 'genes.tsv' has invalid citeseq values."
+            )
         features = var_anno[2]
         adata.var["feature_type"] = features.tolist()
 
@@ -214,13 +215,19 @@ def read_mtx(
             adata = adata[:, adata.var.feature_type == "Antibody Capture"].copy()
     elif citeseq is None:
         if check_response is True:
-            warnings.warn("Citeseq data has been detected!, if you want to use it, please change citeseq parameter. Besca will continue without using the citeseq data")
+            warnings.warn(
+                "Citeseq data has been detected!, if you want to use it, please change citeseq parameter. Besca will continue without using the citeseq data"
+            )
     elif type(citeseq) == type(True) and citeseq is False:
-            if check_response is False:
-                warnings.warn("Citeseq data does not exists or is invalid!, change citeseq parameter to 'None' if there is no citeseq data existing!")
+        if check_response is False:
+            warnings.warn(
+                "Citeseq data does not exists or is invalid!, change citeseq parameter to 'None' if there is no citeseq data existing!"
+            )
     else:
-        raise ValueError("citeseq parameters has invalid value. Possible values: 'gex_only', 'citeseq_only', False or None.")
-    
+        raise ValueError(
+            "citeseq parameters has invalid value. Possible values: 'gex_only', 'citeseq_only', False or None."
+        )
+
     if annotation:
         print("adding annotation")
         adata.obs = pd.read_csv(
@@ -260,9 +267,11 @@ def all_ensembl_codes_ok(ensembl_id_list: List[str]) -> bool:
     """
 
     ensembl_regexp = re.compile(r"ENS[A-Z]+[0-9]{11}")
-    faulty_ensembl_genes = [gene for gene in ensembl_id_list if not ensembl_regexp.fullmatch(gene)]
+    faulty_ensembl_genes = [
+        gene for gene in ensembl_id_list if not ensembl_regexp.fullmatch(gene)
+    ]
 
-    if (faulty_ensembl_genes):
+    if faulty_ensembl_genes:
         warnings.warn(f"Detected faulty ENSEMBL gene names: {faulty_ensembl_genes}")
         return False
 
@@ -292,10 +301,14 @@ def all_symbols_ok(symbols_list: List[str]) -> bool:
         False
     """
 
-    symbol_regexp = re.compile(r"(?!\.)(?!NA$|na$|Na$|nA$)(?=.*[a-zA-Z].*)([a-zA-Z0-9\.]+)")
-    faulty_symbol_genes = [gene for gene in symbols_list if not symbol_regexp.fullmatch(gene)]
+    symbol_regexp = re.compile(
+        r"(?!\.)(?!NA$|na$|Na$|nA$)(?=.*[a-zA-Z].*)([a-zA-Z0-9\.\-]+)"
+    )
+    faulty_symbol_genes = [
+        gene for gene in symbols_list if not symbol_regexp.fullmatch(gene)
+    ]
 
-    if (faulty_symbol_genes):
+    if faulty_symbol_genes:
         warnings.warn(f"Detected faulty symbol gene names: {faulty_symbol_genes}")
         return False
 
@@ -321,4 +334,3 @@ def check_data_for_citeseq(var_anno):
             return False
     else:
         return False
-
