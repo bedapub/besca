@@ -57,7 +57,7 @@ contractile cell	contractile cell	CL:0000183	Contractile	1									animal cell	C
 myofibroblast cell	myofibroblast cell	CL:0000186	Myofibroblast	2							contractile cell	CL:0000183	animal cell	CL:0000548
 muscle cell	muscle cell	CL:0000187	MuscleCell	2							contractile cell	CL:0000183	animal cell	CL:0000548
 smooth muscle cell	smooth muscle cell	CL:0000192	SmoothMuscle	3					muscle cell	CL:0000187	contractile cell	CL:0000183	animal cell	CL:0000548
-photoreceptor cell 	photoreceptor cell 	CL:0000210	Photoreceptor	4			sensory neuron	CL:0000128	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+photoreceptor cell	photoreceptor cell 	CL:0000210	Photoreceptor	4			sensory neuron	CL:0000128	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
 Sertoli cell	Sertoli cell	CL:0000216	Sertoli	2							epithelial cell	CL:0000066	animal cell	CL:0000548
 myelinating Schwann cell	myelinating Schwann cell	CL:0000218	MyelinSchwann	4			Schwann cell	CL:0002573	glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
 erythrocyte	erythrocyte	CL:0000232	Erythrocyte	3					erythroid lineage cell	CL:0000764	hematopoietic cell	CL:0000988	animal cell	CL:0000548
