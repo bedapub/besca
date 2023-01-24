@@ -225,7 +225,7 @@ dependencies:
   - pip=22.2.2=pyhd8ed1ab_0
   - pixman=0.40.0=h36c2ea0_0
   - pkgutil-resolve-name=1.3.10=pyhd8ed1ab_0
-  - plotly=5.10.0=pyhd8ed1ab_0
+  - plotly=5.11.0=pyhd8ed1ab_0
   - pluggy=1.0.0=py38h578d9bd_3
   - prompt-toolkit=3.0.30=pyha770c72_0
   - protobuf=3.20.1=py38hfa26641_0
