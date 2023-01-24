@@ -42,7 +42,7 @@ dependencies:
   - cached_property=1.5.2=pyha770c72_1
   - cachetools=5.0.0=pyhd8ed1ab_0
   - cairo=1.16.0=ha00ac49_1009
-  - certifi=2022.6.15=py38h578d9bd_0
+  - certifi=2021.10.8=py39hf3d152e_1
   - cffi=1.15.0=py39h4bc2ebd_0
   - charset-normalizer=2.0.12=pyhd8ed1ab_0
   - chex=0.1.0=pyhd8ed1ab_0
