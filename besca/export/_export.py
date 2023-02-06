@@ -894,6 +894,7 @@ def pseudobulk(
         "dblabel",
     ],
     main_condition: str = "CONDITION",
+    raw_counts_dir = None,
 ):
     """export pseudobulk profiles of cells to .gct files
 
@@ -919,6 +920,9 @@ def pseudobulk(
         Several column headers to be excluded from metadata
     main_condition: `str` | default = 'CONDITION'
         main condition to be outputed in the metadata file
+    raw_counts_dir: `str` | default = None
+        Function exports sums of cp10k values (expm1 on adata.raw) be default. Instead one can provide 
+        a mtx dir with the raw counts that are then exported, e.g. `os.path.join(root_path, 'raw')`.
     returns
     -------
     dfmerge: `pd.DataFrame`
@@ -967,6 +971,72 @@ def pseudobulk(
             mysums[:, i] = expm1(
                 auxdata[auxdata.obs[split_condition] == myexp[i]].raw.X
             ).sum(axis=0)
+        mysums = DataFrame(mysums)
+        mysums.index = adata.raw.var.index
+        mysums.columns = [x + "." + y for y in myexp]
+        dfbulks[x] = mysums
+
+        mydat = auxdata.raw.var.loc[:, ["SYMBOL", "ENSEMBL"]]
+        mydat.rename(columns={"SYMBOL": "Description"}, inplace=True)
+        gct = mydat.merge(dfbulks[x], how="right", left_index=True, right_index=True)
+        gct.set_index("ENSEMBL", inplace=True)
+        gct.index.names = ["NAME"]
+        gct.columns = ["Description"] + myexp
+    if outpath is None:
+        outpath = os.getcwd()
+
+    data = adata.obs.get(column)
+    if data is None:
+        sys.exit("please specify a column name that is present in adata.obs")
+
+    data = adata.obs.get(column).to_frame(name=label)
+
+    data = adata.obs.get(main_condition)
+    if data is None:
+        sys.exit("please specify a condition name that is present in adata.obs")
+    
+    ### check if the outdir exists if not create
+    if not os.path.exists(outpath):
+        os.makedirs(outpath)
+
+    ### create adata subsets for each column value
+    adata.obs[split_condition] = adata.obs[split_condition].astype("str")
+    adata.obs[split_condition] = adata.obs[split_condition].astype("category")
+    adata.obs[column] = adata.obs[column].astype("category")
+
+    bulks = {}
+    myset = list(set(adata.obs[column]))
+    for i in myset:
+        ii = i.replace(" ", "_")  ## to avoid spaces in cell names
+        bulks[ii] = adata[adata.obs[column].isin([i])].copy()
+    bulks["all"] = adata.copy()
+
+    # Replace log(cp10k+1) counts from adata.raw by raw counts if count dir is given
+    if raw_counts_dir is not None:
+        adata_unfiltered_raw_counts = bc.Import.read_mtx(raw_counts_dir)
+        for i in myset:
+            ii = i.replace(" ", "_")  ## to avoid spaces in cell names
+            bulks[ii].raw = adata_unfiltered_raw_counts[bulks[ii].raw.obs_names,bulks[ii].raw.var_names]
+        bulks["all"].raw = adata_unfiltered_raw_counts[bulks["all"].raw.obs_names,bulks["all"].raw.var_names]
+
+
+    ### go through each adata subset and export pseudobulk
+    dfbulks = {}
+    for x in bulks.keys():
+        # sum expression
+        auxdata = bulks[x].copy()
+        myexp = list(
+            auxdata.obs[split_condition].cat.categories
+        )  ### these are all different levels for experiments
+        mysums = zeros((len(auxdata.raw.var.index), len(myexp)))
+        if raw_counts_dir is not None:
+            for i in range(len(myexp)):
+                mysums[:, i] = (auxdata[auxdata.obs[split_condition] == myexp[i]].raw.X).sum(axis=0)       
+        else:
+            for i in range(len(myexp)):
+                mysums[:, i] = expm1(
+                    auxdata[auxdata.obs[split_condition] == myexp[i]].raw.X
+                ).sum(axis=0)
         mysums = DataFrame(mysums)
         mysums.index = adata.raw.var.index
         mysums.columns = [x + "." + y for y in myexp]
