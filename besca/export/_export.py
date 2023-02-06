@@ -978,12 +978,14 @@ def pseudobulk(
         if raw_counts_dir is not None:
             for i in range(len(myexp)):
                 mysums[:, i] = (auxdata[auxdata.obs[split_condition] == myexp[i]].raw.X).sum(axis=0)       
+            assert(all(all(float(y).is_integer() for y in x) for x in mysums)) # Check if all values are integers
+            mysums = DataFrame(mysums.astype(int))
         else:
             for i in range(len(myexp)):
                 mysums[:, i] = expm1(
                     auxdata[auxdata.obs[split_condition] == myexp[i]].raw.X
                 ).sum(axis=0)
-        mysums = DataFrame(mysums)
+            mysums = DataFrame(mysums)
         mysums.index = adata.raw.var.index
         mysums.columns = [x + "." + y for y in myexp]
         dfbulks[x] = mysums
@@ -1004,15 +1006,25 @@ def pseudobulk(
             )  # "description" already merged in as a column
         fp.close()
         # ...and then the matrix
-        gct.to_csv(
-            gctFile_pseudo,
-            sep="\t",
-            index=True,
-            index_label="NAME",
-            header=True,
-            mode="a",
-            float_format="%.3f",
-        )
+        if raw_counts_dir: # Export as integers
+            gct.to_csv(
+                gctFile_pseudo,
+                sep="\t",
+                index=True,
+                index_label="NAME",
+                header=True,
+                mode="a",
+            )            
+        else: # Export as floats
+            gct.to_csv(
+                gctFile_pseudo,
+                sep="\t",
+                index=True,
+                index_label="NAME",
+                header=True,
+                mode="a",
+                float_format="%.3f",
+            )
         print("Pseudobulk-" + label + "-" + x + ".gct exported successfully to file")
 
     #### Output into single .tsv file
