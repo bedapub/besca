@@ -4,12 +4,13 @@ import pandas as pd
 import plotly.graph_objects as go
 import seaborn as sns
 
+
 def riverplot_2categories(
     adata: anndata.AnnData,
     categories: list,
     palette: dict = None,
     threshold: int = None,
-    figsize=None
+    figsize=None,
 ) -> go:
     """Generate a riverplot/sanker diagram between two categories.
     parameters
@@ -100,6 +101,5 @@ def riverplot_2categories(
     # creating figure
     fig = go.Figure(dict(data=[data]))
     if figsize is not None:
-        fig.set_figheight(figsize[1])
-        fig.set_figwidth(figsize[0])
+        fig.update_layout(autosize=False, width=figsize[0], height=figsize[1])
     return fig
