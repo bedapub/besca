@@ -700,9 +700,9 @@ def additional_labeling(
       writes out several files to folder results_folder/labelings/<labeling_name>
     """
 
-    if len(set(adata.obs.get(labeling_to_use))) != 1:
-        start1 = time()
+    start1 = time()        
 
+    if len(set(adata.obs.get(labeling_to_use))) != 1:
         rank_genes_groups(
             adata,
             labeling_to_use,
