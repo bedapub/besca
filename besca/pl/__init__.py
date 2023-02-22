@@ -19,6 +19,18 @@ from besca.pl._qc_plots import (
     transcript_capture_efficiency,
     top_genes_counts,
 )
+
+from besca.pl._crispr_plots import (
+    infection_count,
+    cell_per_KO,
+    infection_level,
+    plot_expression_by_sample,
+    avg_KO_persample,
+    KO_dotplot,
+    compute_plot_de_crispr,
+    enrichement_per_cluster,
+    plot_comparison_of_cells
+)
 from besca.pl._general import stacked_split_violin, box_per_ind, flex_dotplot
 from besca.pl._dot_heatmap import dot_heatmap, dot_heatmap_split, dot_heatmap_split_greyscale
 from besca.pl._update_palette import update_qualitative_palette
@@ -38,6 +50,15 @@ __all__ = [
     "librarysize_overview",
     "transcript_capture_efficiency",
     "top_genes_counts",
+    "infection_count",
+    "cell_per_KO",
+    "infection_level",
+    "plot_expression_by_sample",
+    "avg_KO_persample",
+    "KO_dotplot",
+    "compute_plot_de_crispr",
+    "enrichement_per_cluster",
+    "plot_comparison_of_cells",
     "gene_expr_split",
     "gene_expr_split_stacked",
     "box_per_ind",
