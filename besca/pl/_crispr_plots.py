@@ -401,7 +401,7 @@ def plot_comparison_of_cells(adata, root_path, method="Same", experiment = "CROP
             
             genes=pd.unique(df['sgRNAs'])
             dist_sgRNA=pd.DataFrame(columns=['sgRNAs','Gene','Mean_EucDist'])
-            Euc_dist = bc.tl.crispr.find_distances(adata)
+            Euc_dist = bc.tl.crispr.find_distances(adata, experiment)
             if todo == "Same":
                 for g in genes:
                     # Which rows(cells) are from the same gene 
