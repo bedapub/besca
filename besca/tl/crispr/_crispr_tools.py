@@ -25,6 +25,15 @@ def execute_de_sgRNA(adata, mypairs, column_focus, myfc, mypval):
     -------
     
     DGEX as many times as the pairs
+
+    Examples
+    --------
+
+    >>> import besca as bc
+    >>> import math
+    >>> import pandas as pd
+    >>> adata = bc.datasets.crispr_10x_filtered()
+    >>> dgex = bc.tl.crispr.execute_de_sgRNA(adata, [('RAB1A','Control')], 'Target', 0, 1)
     """
     #DGEX for each of the pairs of values
     DElist={}
@@ -71,6 +80,16 @@ def find_distances(adata, experiment = "CROPseq"):
     returns
     -------
     The Distance Matrix using Euclidean  metric
+
+    Examples
+    --------
+
+    >>> import besca as bc
+    >>> import math
+    >>> import pandas as pd
+    >>> from scipy.spatial import distance
+    >>> adata = bc.datasets.crispr_10x_filtered()
+    >>> adata_subset = bc.tl.crispr.find_distances(adata, experiment = '10xChromium')
     """
     
     # Data containing the identifiers
