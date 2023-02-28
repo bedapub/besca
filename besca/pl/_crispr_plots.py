@@ -24,6 +24,24 @@ def infection_count(adata, col = "n_sgRNAs", experiment="CROPseq"):
     -------
     None 
         the figure is displayed
+
+    Example
+    -------
+
+    Plots the number of cells against the number of perturbations per cell.
+    >>> import besca as bc
+    >>> import matplotlib.pyplot as plt
+    >>> import seaborn as sns
+    >>> adata = bc.crispr_10x_unfiltered()
+    >>> bc.pl.infection_count(adata, col = "n_sgRNAs", experiment = "10X")
+
+    .. plot::
+        >>> import besca as bc
+        >>> import matplotlib.pyplot as plt
+        >>> import seaborn as sns
+        >>> adata = bc.crispr_10x_unfiltered()
+        >>> bc.pl.infection_count(adata, col = "n_sgRNAs", experiment = "10X")
+
     """
     #Get number of cells with all possible sgRNA perturbation counts
     ocur=bc.tl.count_occurrence(adata,col)
@@ -43,7 +61,7 @@ def infection_count(adata, col = "n_sgRNAs", experiment="CROPseq"):
 
 def cell_per_KO(adata, col_target = "Target"):
     """
-    Filters cells based on number of perturbations. If graphs appear to overlap, run again for a better visualization
+    Cells per specific KO. If graphs appear to overlap, run again for a better visualization
     
     parameters
     
@@ -57,6 +75,23 @@ def cell_per_KO(adata, col_target = "Target"):
     -------
     None 
         the figure is displayed
+
+    Example
+    -------
+
+    Plots Cells per specific KO
+    >>> import besca as bc
+    >>> import matplotlib.pyplot as plt
+    >>> import seaborn as sns
+    >>> adata = bc.crispr_10x_filtered()
+    >>> bc.pl.cell_per_KO(adata, col_target = "Target")
+
+    .. plot::
+        >>> import besca as bc
+        >>> import matplotlib.pyplot as plt
+        >>> import seaborn as sns
+        >>> adata = bc.crispr_10x_filtered()
+        >>> bc.pl.cell_per_KO(adata, col_target = "Target")
     """
     # With Control
     with_control=bc.tl.count_occurrence(adata,col_target)
@@ -75,7 +110,7 @@ def cell_per_KO(adata, col_target = "Target"):
 
 def infection_level(adata, col_target = "Target"):
     """
-    Filters cells based on number of perturbations.
+    Density plot showing infection level of KOs.
     
     parameters
     
@@ -89,6 +124,24 @@ def infection_level(adata, col_target = "Target"):
     -------
     None 
         the figure is displayed
+    
+    Example
+    -------
+
+    Density plot showing infection level of KOs
+    >>> import besca as bc
+    >>> import matplotlib.pyplot as plt
+    >>> import seaborn as sns
+    >>> adata = bc.crispr_10x_filtered()
+    >>> bc.pl.infection_level(adata)
+
+    .. plot::
+        >>> import besca as bc
+        >>> import matplotlib.pyplot as plt
+        >>> import seaborn as sns
+        >>> adata = bc.crispr_10x_filtered()
+        >>> bc.pl.infection_level(adata)
+
     """
     
     occur=bc.tl.count_occurrence(adata,col_target)
@@ -131,6 +184,24 @@ def plot_expression_by_sample(adata, gene, col_target ="Target", col_id = "sampl
     -------
     None 
         the figure is displayed
+
+    Example
+    -------
+
+    Barplot for mean expression of a gene per sample in a KO
+    >>> import besca as bc
+    >>> import matplotlib.pyplot as plt
+    >>> import seaborn as sns
+    >>> adata = bc.crispr_10x_filtered()
+    >>> bc.pl.plot_expression_by_sample(adata, "RAB1A", raw = False)
+
+    .. plot::
+        >>> import besca as bc
+        >>> import matplotlib.pyplot as plt
+        >>> import seaborn as sns
+        >>> adata = bc.crispr_10x_filtered()
+        >>> bc.pl.plot_expression_by_sample(adata, "RAB1A", raw = False)
+    
     """
     samples = list(adata.obs[col_id].value_counts().index)
     targets = list(adata.obs[col_target].value_counts().index)
@@ -183,6 +254,25 @@ def avg_KO_persample(adata, col_target = "Target", col_id = "samples__sample_id"
     -------
     None 
         the figure is displayed
+    
+    Example
+    -------
+    Dotplot for mean cell count infection of a KO per sample
+
+    >>> import besca as bc
+    >>> import matplotlib.pyplot as plt
+    >>> import seaborn as sns
+    >>> import numpy as np
+    >>> adata = bc.crispr_10x_filtered()
+    >>> bc.pl.avg_KO_persample(adata)
+
+    .. plot::
+        >>> import besca as bc
+        >>> import matplotlib.pyplot as plt
+        >>> import seaborn as sns
+        >>> import numpy as np
+        >>> adata = bc.crispr_10x_filtered()
+        >>> bc.pl.avg_KO_persample(adata)
     """
     
     counts = pd.DataFrame()
@@ -225,6 +315,26 @@ def KO_dotplot(adata, col_target= "Target", title = "Standardized [0,1] expressi
     -------
     None 
         the figure is displayed
+
+    Example
+    -------
+    Dotplot with expression of each perturbed gene in each perturbation.
+
+    >>> import besca as bc
+    >>> import matplotlib.pyplot as plt
+    >>> import seaborn as sns
+    >>> import scanpy as sc
+    >>> adata = bc.crispr_10x_filtered()
+    >>> bc.pl.KO_dotplot(adata)
+    
+
+    .. plot::
+        >>> import besca as bc
+        >>> import matplotlib.pyplot as plt
+        >>> import seaborn as sns
+        >>> import scanpy as sc
+        >>> adata = bc.crispr_10x_filtered()
+        >>> bc.pl.KO_dotplot(adata)
     """
     
     genes=list(adata.obs[col_target][adata.obs[col_target].str.find("Control")==-1].unique())
@@ -260,6 +370,24 @@ def compute_plot_de_crispr(adata, col_target = "Target", by = None, filter_cells
     -------
     None 
         the figure is displayed
+
+    Example
+    -------
+    Scatterplot of the log-fold change of KOs compared to the Control for the QC of Crispr-Cas9 experiments
+
+    >>> import besca as bc
+    >>> import matplotlib.pyplot as plt
+    >>> import seaborn as sns
+    >>> adata = bc.crispr_10x_filtered()
+    >>> bc.pl.compute_plot_de_crispr(adata)
+    
+
+    .. plot::
+        >>> import besca as bc
+        >>> import matplotlib.pyplot as plt
+        >>> import seaborn as sns
+        >>> adata = bc.crispr_10x_filtered()
+        >>> bc.pl.compute_plot_de_crispr(adata)
     """
     # No threshold, so that we don't miss the target genes
     mypval=1
@@ -323,6 +451,24 @@ def enrichement_per_cluster(enrich_data, col_target = "Target", usr_title = 'KO 
     -------
     None 
         the figure is displayed
+
+    Example
+    -------
+    Heatmap and a batplot of the perturbations counts per cluster after Leiden
+
+    >>> import besca as bc
+    >>> import matplotlib.pyplot as plt
+    >>> import seaborn as sns
+    >>> adata = bc.crispr_10x_filtered()
+    >>> bc.pl.enrichement_per_cluster(adata, keep_control=True)
+    
+
+    .. plot::
+        >>> import besca as bc
+        >>> import matplotlib.pyplot as plt
+        >>> import seaborn as sns
+        >>> adata = bc.crispr_10x_filtered()
+        >>> bc.pl.enrichement_per_cluster(adata, keep_control=True)
     """
     counts_celltype = bc.tl.count_occurrence_subset(enrich_data, subset_variable = col_target, count_variable='leiden', return_percentage = False)
     if not keep_control:
@@ -368,6 +514,28 @@ def plot_comparison_of_cells(adata, root_path, method="Same", experiment = "CROP
     -------
     A figure is displayed and returns
     the distances of cells based on the method.
+
+    Example
+    -------
+    Plots the differences between cells of the same or different KO based on the given method
+
+    >>> import besca as bc
+    >>> import matplotlib.pyplot as plt
+    >>> import seaborn as sns
+    >>> import os
+    >>> import numpy as np
+    >>> adata = bc.crispr_10x_filtered()
+    >>> bc.pl.plot_comparison_of_cells(adata, "./", method="Both", experiment = "10xChromium")
+    
+
+    .. plot::
+         >>> import besca as bc
+        >>> import matplotlib.pyplot as plt
+        >>> import seaborn as sns
+        >>> import os
+        >>> import numpy as np
+        >>> adata = bc.crispr_10x_filtered()
+        >>> bc.pl.plot_comparison_of_cells(adata, "./", method="Both", experiment = "10xChromium")
     """
 
     #Sanity checks

@@ -17,8 +17,16 @@ def filter_perturb(adata, col = "n_sgRNAs"):
     -------
     
     adata: Filtered adata, with cells having only 1 perturbation
+
+    Examples
+    --------
+
+    >>> import besca as bc
+    >>> adata = bc.datasets.crispr_10x_unfiltered()
+    >>> adata = bc.pp.filter_perturb(adata, col = "n_sgRNAs")
     """
     
+
     filters = adata.obs[col] > 1
     
     #Make sure cells have perturbations of more than 1
@@ -54,6 +62,15 @@ def extract_target(adata, col = "sgRNAs", col_target = "Target", col_id = "sampl
     -------
     
     adata: Annotated data with an extra variable in obs
+
+    Examples
+    --------
+
+    >>> import besca as bc  
+    >>> import pandas as pd
+    >>> import re
+    >>> adata = bc.datasets.crispr_10x_filtered()
+    >>> adata = bc.pp.extract_target(adata)
     """
     adata.obs[col_target] = "Target"
     def set_target(row):
