@@ -12,6 +12,7 @@ __all__ = [
     "dge",
     "bcor",
     "sig",
+    "crispr",
     "count_occurrence",
     "count_occurrence_subset",
     "count_occurrence_subset_conditions",

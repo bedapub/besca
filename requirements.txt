@@ -25,3 +25,4 @@ scvi-tools
 ipython
 pytest
 deprecation
+gseapy

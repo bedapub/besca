@@ -658,6 +658,62 @@ def Smillie2019_processed():
     )
     return adata
 
+def crispr_10x_filtered():
+    """Processed and filtered data 10X Chromium CRISPR-Cas9 data.
+
+   Contains annotated data with only one KO on the Rab1a gene and a control KO. The annotated data were passed through the Crispr QC workflow.
+
+
+
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+
+    Example
+    -------
+    >>> pytest.skip('Test will be skipped, because slow downloading of file in the github action job can occur a timeout')
+    >>> import besca as bc
+    >>> adata = bc.datasets.crispr_10x_filtered()
+
+    """
+    filename = pkg_resources.resource_filename(
+        "besca", "datasets/data/CRISPR_10xChromium_human.h5ad"
+    )
+    adata = check_dl(
+        filename,
+        url="https://zenodo.org/record/7683985/files/CRISPR_10xChromium_human.h5ad?download=1",
+    )
+    return adata
+
+def crispr_10x_unfiltered():
+    """Processed data 10X Chromium CRISPR-Cas9 data.
+
+   Contains annotated data with only one KO on the Rab1a gene and a control KO.
+
+
+
+    Returns
+    -------
+    adata : :class:`~anndata.AnnData`
+        Annotated data matrix.
+
+    Example
+    -------
+    >>> pytest.skip('Test will be skipped, because slow downloading of file in the github action job can occur a timeout')
+    >>> import besca as bc
+    >>> adata = bc.datasets.crispr_10x_unfiltered()
+
+    """
+    filename = pkg_resources.resource_filename(
+        "besca", "datasets/data/CRISPR_10xChromium_human_unfiltered.h5ad"
+    )
+    adata = check_dl(
+        filename,
+        url="https://zenodo.org/record/7683985/files/CRISPR_10xChromium_human_unfiltered.h5ad?download=1",
+    )
+    return adata
+
 
 def load_immune_signatures(refined=True):
     """This function load immune signatures provided
