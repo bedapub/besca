@@ -18,7 +18,7 @@ jobs:
           conda install -c conda-forge mamba
           mamba init
           source ~/.bashrc
-          mamba env create -f environment.lock.yml
+          mamba env create -f environment.yml
           mamba activate besca_dev
           pip install pytest
           cd besca
