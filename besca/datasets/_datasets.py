@@ -678,11 +678,11 @@ def crispr_10x_filtered():
 
     """
     filename = pkg_resources.resource_filename(
-        "besca", "datasets/data/CRISPR_10xChromium_human.h5ad"
+        "besca", "datasets/data/CRISPR_Besca_10k_Illumina_example_processed.h5ad"
     )
     adata = check_dl(
         filename,
-        url="https://zenodo.org/record/7683985/files/CRISPR_10xChromium_human.h5ad?download=1",
+        url="https://zenodo.org/record/7691328/files/CRISPR_Besca_10k_Illumina_example_processed.h5ad?download=1",
     )
     return adata
 
@@ -706,11 +706,11 @@ def crispr_10x_unfiltered():
 
     """
     filename = pkg_resources.resource_filename(
-        "besca", "datasets/data/CRISPR_10xChromium_human_unfiltered.h5ad"
+        "besca", "datasets/data/CRISPR_10x_Illumina_resources_unfiltered.h5ad"
     )
     adata = check_dl(
         filename,
-        url="https://zenodo.org/record/7683985/files/CRISPR_10xChromium_human_unfiltered.h5ad?download=1",
+        url="https://zenodo.org/record/7691328/files/CRISPR_10x_Illumina_resources_unfiltered.h5ad?download=1",
     )
     return adata
 
