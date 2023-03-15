@@ -70,7 +70,7 @@ def split_violin(
     ax.tick_params(labelrotation=90, length=6, width=2)
     
     if figsize is not None:
-        plt.figure(figsize=figsize)
+        figure(figsize=figsize)
 
     return None
 
@@ -421,7 +421,7 @@ def flex_dotplot(df,X,Y,HUE,SIZE,title, mycolors='Reds', myfontsize=15,  xfactor
     setp(ax.get_legend().get_title(), fontsize=myfontsize)  # for legend title
     setp(ax.get_legend().get_texts(), fontsize=myfontsize - 2)  # for legend text
     if figsize is not None:
-        plt.figure(figsize=figsize)
+        figure(figsize=figsize)
     ax.legend(framealpha=0.4, bbox_to_anchor=(1.01, 1), borderaxespad=0.5)
     mm = my = 0.2
     if df[X].nunique() >= 10:

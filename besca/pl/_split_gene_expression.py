@@ -213,13 +213,14 @@ def gene_expr_split(
         x_axis="gene",
         y_axis="expression",
         split_variable=label_split_variable,
+        figsize=figsize,
         order=None,
         ax=ax,
     )
     
-    if figsize is not None:
-        fig.set_figheight(height[1])
-        fig.set_figwidth(width[0])
+    #if figsize is not None:
+    #    fig.set_figheight(figsize[1])
+    #    fig.set_figwidth(figsize[0])
     return None
 
 
@@ -231,11 +232,10 @@ def gene_expr_split_stacked(
     subset_variable="celltype",
     label_subset_variable=None,
     use_raw=True,
-    fig_width=None,
-    fig_height=None,
+     figsize=(15,8),
     order=None,
     inner="stick",
-    figsize=(15,8)
+
 ):
 
     """
@@ -314,12 +314,11 @@ def gene_expr_split_stacked(
         split_variable=label_split_variable,
         subset_variable_label="gene",
         subset_variables=genes,
-        fig_width=fig_width,
-        fig_height=fig_height,
+        figsize=figsize,
         order=order,
         inner=inner,
     )
-    if figsize is not None:
-        fig.set_figheight(height[1])
-        fig.set_figwidth(width[0])
+    #if figsize is not None:
+    #    fig.set_figheight(height[1])
+    #    fig.set_figwidth(width[0])
     return fig
