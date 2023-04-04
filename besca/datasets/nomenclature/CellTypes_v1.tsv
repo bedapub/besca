@@ -35,7 +35,7 @@ basket cell	basket cell	CL:0000118	Basket	4			central nervous system neuron	CL:2
 granule cell	granule cell	CL:0000120	Granule	4			central nervous system neuron	CL:2000029	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
 Purkinje cell	Purkinje cell	CL:0000121	Purkinje	4			central nervous system neuron	CL:2000029	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
 glial cell	glial cell	CL:0000125	Glial	2							neural cell	CL:0002319	animal cell	CL:0000548
-macrogial cell	macrogial cell	CL:0000126	Macroglial	3					glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
+macroglial cell	macroglial cell	CL:0000126	Macroglial	3					glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
 astrocyte	astrocyte	CL:0000127	Astrocyte	4			macrogial cell	CL:0000126	glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
 oligodendrocyte	oligodendrocyte	CL:0000128	Oligodendrocyte	4			macrogial cell	CL:0000126	glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
 microglial cell	microglial cell	CL:0000129	Microglial	5	central nervous system macrophage	CL:0000878	macrophage	CL:0000235	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	animal cell	CL:0000548
