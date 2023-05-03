@@ -1,14 +1,14 @@
 Bcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Cd19	Ms4a1	Tnfrsf13c	Vpreb3	Pax5	Cr2													
 Fibroblast	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Mfap4	Col6a1	Col1a1	Cygb	Dcn	Pdgfrb	Col3a1	Bgn	Acta2	Nefl									
 Endothelial	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Tie1	Cyrr1	Mmrn2	Sox18	Gpr182	Sox17	Myct1	Cldn5	Gpihbp1	Arhgef15									
-Epithelial	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Sftpd	Pigr	Scgb3a1	Hmgcs2	Lgals4	Epcam	Cldn7	Smim22	Mal2										
+Epithelial	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Sftpd	Pigr	Scgb3a1	Hmgcs2	Lgals4	Epcam	Cldn7	Smim22	Mal2	Serpinb5									
 Granulocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Mpo	Ctsg	Mmp9	Clc	Hdc														
 MelMelanoma	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Gm21983	Tyr	Slc45a2	Cdh19	Pmel	Slc24a5	Gjb1	Plp1	Capn3	Erbb3	Gpm6b	S100b	Pax3	S100a1	Mlana				
 MemBcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Tnfrsf13b	Aim2	Igha	Ighg1	Ighg2a	Ighg2b	Ighg2c												
 Myeloid	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Clec4a3	Clec4a1	Fcgr1	Lst1	Fcgr2b	Ms4a6d	Cfp	Clec5a	Mcemp1	Cpa3	Clec4e	C5ar1	Chil3	Flt3	Batf3				
 NKcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Ncr1	Klri2	Klrb1a	Klra9															
 NaiBcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Ighm	Cd72	Tcl1	Fcer2a	Btla	Fcrl1													
-Neutrophil	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Elane	Mpo	Prtn3	Ctsg	Ly6g	Mmp9  Cxcr2													
+Neutrophil	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Elane	Mpo	Prtn3	Ctsg	Ly6g	Mmp9	Cxcr2													
 Plasma	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Fcrl5	Iglc1	Iglc3	Iglc4	Iglc2	Cd79a													
 CD4Tcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Cd4	Trat1	Cd40lg	Tnfrsf4															
 CD8Tcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Cd8a	Cd8b1																	
@@ -122,3 +122,5 @@ Eosinophil	"Genes derived from human homology and literature. To be further test
 ResourceCD8Tcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Tcf7	Pdcd1	Cd8b1	S1pr5	S1pr1	Ly6c2	Cxcr3	Slamf6	Ccr2	Itgb7	Il7r								
 Microglia	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Gpr84	Mertk	Gpr34	Trem2															
 MAIT	Genes derived from literature and DGE analysis of MAIT cells in WB_Glofit study annotated with reference atlas. Derived by LAS Oct21. Needs more testing in mouse datasets 	Cd8a	Klrb1	Cxcr6	Ccr6	Slc4a10	Ltk													
+Keratinocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (Mar23) derived by PCS in human, needs testing in mouse datasets 	Lgals7	Dsc3	Dsg1a	Ly6d	Fam83b	Serpinb5								
+Melanocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (Mar23) derived by PCS in human, needs testing in mouse datasets 	Mlana	Dct	Tyrp1	Pmel	Cdk2	Gpr143	Trpm1	Tyr								
