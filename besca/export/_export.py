@@ -10,7 +10,7 @@ from scipy import io, sparse
 from scipy.io.mmio import MMFile
 
 from besca._helper import get_raw
-
+from besca.Import import read_mtx
 
 ## overwriding _field_template to avoid scientific notations
 class MMFileFixedFormat(MMFile):
@@ -960,7 +960,7 @@ def pseudobulk(
     
     # Replace log(cp10k+1) counts from adata.raw by raw counts if count dir is given
     if raw_counts_dir is not None:
-        adata_unfiltered_raw_counts = bc.Import.read_mtx(raw_counts_dir)
+        adata_unfiltered_raw_counts = read_mtx(raw_counts_dir)
         for i in myset:
             ii = i.replace(" ", "_")  ## to avoid spaces in cell names
             bulks[ii].raw = adata_unfiltered_raw_counts[bulks[ii].raw.obs_names,bulks[ii].raw.var_names]
