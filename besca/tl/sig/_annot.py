@@ -137,11 +137,10 @@ def read_annotconfig(configfile: str):
         String of distinct levels based on configuration file
     """
     # read the config file
-    sigconfig = pd.read_csv(configfile, sep="\t", index_col=0)
+    sigconfig = pd.read_csv(configfile, sep="\t", index_col=0, na_filter=False)
     # Reorder with the specified order. Place better signatures first, only first match will be kept
     sigconfig = sigconfig.sort_values("Order")
     # Consider up to 7 levels
-    nochild = list(set(sigconfig.index) - set(sigconfig["Parent"]))
     levs = []
     levs.append(
         list(
