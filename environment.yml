@@ -9,7 +9,7 @@ dependencies:
   - flask-restful
   - dominate
   - requests
-  - numpy
+  - numpy<1.25
   - scanpy
   - plotly
   - anndata
