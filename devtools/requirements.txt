@@ -34,7 +34,7 @@ entrypoints==0.4
 et-xmlfile==1.1.0
 executing==0.8.3
 fbpca==1.0
-Flask==2.0.3
+Flask==2.3.2
 Flask-RESTful==0.3.9
 flatbuffers==2.0
 flax==0.4.0
