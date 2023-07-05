@@ -5,13 +5,14 @@ import pandas as pd
 import numpy as np
 import os
 import scanpy as sc
+import pytest
 
 def infection_count(adata, col = "n_sgRNAs", experiment="CROPseq"):
     """
     Plots the number of cells against the number of perturbations per cell
-    
+
     parameters
-    
+
     ----------
     adata: `AnnData`
         AnnData object containing data that is to be visualized. Genes need to be in coloumns and cells in rows. Crispr perturbations per cell need to be enumerated.
@@ -22,13 +23,14 @@ def infection_count(adata, col = "n_sgRNAs", experiment="CROPseq"):
 
     returns
     -------
-    None 
+    None
         the figure is displayed
 
     Example
     -------
 
     Plots the number of cells against the number of perturbations per cell.
+    >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
     >>> import seaborn as sns
@@ -36,6 +38,7 @@ def infection_count(adata, col = "n_sgRNAs", experiment="CROPseq"):
     >>> bc.pl.infection_count(adata, col = "n_sgRNAs", experiment = "10X")
 
     .. plot::
+        >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
         >>> import seaborn as sns
@@ -45,41 +48,42 @@ def infection_count(adata, col = "n_sgRNAs", experiment="CROPseq"):
     """
     #Get number of cells with all possible sgRNA perturbation counts
     ocur=bc.tl.count_occurrence(adata,col)
-    
+
     #Setup the plot size
     sns.set(font_scale=1.5)
     sns.set(rc={'figure.figsize':(8,5)})
-    
+
     #Barplot with the cell counts on top
     a=sns.barplot(x=ocur.index,y=ocur.Counts/ocur.sum().values,orient='v')
     a.set(xlabel="N. assignments per cell",ylabel="Percentage of total cell count")
     a.set_title(experiment+'\n multiplexity of infection')
     for _,i in ocur.iterrows():
         a.text(i.name, i.Counts/ocur.sum().values, i.Counts, color='black', ha="center")
-    
+
     return
 
 def cell_per_KO(adata, col_target = "Target"):
     """
     Cells per specific KO. If graphs appear to overlap, run again for a better visualization
-    
+
     parameters
-    
+
     ----------
     adata: `AnnData`
         AnnData object containing data that is to be visualized.
     col_target: `str`
         The adata.obs collumn that contains the gene KO per cell
-        
+
     returns
     -------
-    None 
+    None
         the figure is displayed
 
     Example
     -------
 
     Plots Cells per specific KO
+    >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
     >>> import seaborn as sns
@@ -87,6 +91,7 @@ def cell_per_KO(adata, col_target = "Target"):
     >>> bc.pl.cell_per_KO(adata, col_target = "Target")
 
     .. plot::
+        >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
         >>> import seaborn as sns
@@ -105,30 +110,31 @@ def cell_per_KO(adata, col_target = "Target"):
     sns.barplot(y=without_control.index,x=without_control.Counts,palette='Blues_d',orient='h', ax=ax[1]).set_title('Number of cells per gene KO (controls excluded)')
     fig.show()
     plt.subplot_tool()
-    
+
     return
 
 def infection_level(adata, col_target = "Target"):
     """
     Density plot showing infection level of KOs.
-    
+
     parameters
-    
+
     ----------
     adata: `AnnData`
         AnnData object containing data that is to be visualized.
     col_target: `str`
         The adata.obs collumn that contains the gene KO per cell
-        
+
     returns
     -------
-    None 
+    None
         the figure is displayed
-    
+
     Example
     -------
 
     Density plot showing infection level of KOs
+    >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
     >>> import seaborn as sns
@@ -136,6 +142,7 @@ def infection_level(adata, col_target = "Target"):
     >>> bc.pl.infection_level(adata)
 
     .. plot::
+        >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
         >>> import seaborn as sns
@@ -143,11 +150,11 @@ def infection_level(adata, col_target = "Target"):
         >>> bc.pl.infection_level(adata)
 
     """
-    
+
     occur=bc.tl.count_occurrence(adata,col_target)
     a = sns.displot(data=occur, kde = True, log_scale = True, height=5, aspect=1.5) # make log_scale=True if differences in counts are large
     a.set(xlabel="log(Cell_counts)",ylabel="Gene Target Counts", title='Density cells, mean='+str(occur.mean(axis=0).Counts ))
-    
+
     return None
 
 def _mean_raw(adata):
@@ -165,9 +172,9 @@ def _mean_raw(adata):
 def plot_expression_by_sample(adata, gene, col_target ="Target", col_id = "samples__sample_id", raw = True):
     """
     Show mean expression of a gene per sample in a KO
-    
+
     parameters
-    
+
     ----------
     adata: `AnnData`
         AnnData object containing data that is to be visualized.
@@ -175,20 +182,21 @@ def plot_expression_by_sample(adata, gene, col_target ="Target", col_id = "sampl
         The adata.obs collumn that contains the gene KO per cell
     col_id : `str`
         Collumn that contains the sample ids.
-    gene: `str` 
+    gene: `str`
         Gene's expression to be ploted
     raw: `bool`
         If the adata we want to use are raw or not
-        
+
     returns
     -------
-    None 
+    None
         the figure is displayed
 
     Example
     -------
 
     Barplot for mean expression of a gene per sample in a KO
+    >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
     >>> import seaborn as sns
@@ -196,31 +204,32 @@ def plot_expression_by_sample(adata, gene, col_target ="Target", col_id = "sampl
     >>> bc.pl.plot_expression_by_sample(adata, "RAB1A", raw = False)
 
     .. plot::
+        >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
         >>> import seaborn as sns
         >>> adata = bc.crispr_10x_filtered()
         >>> bc.pl.plot_expression_by_sample(adata, "RAB1A", raw = False)
-    
+
     """
     samples = list(adata.obs[col_id].value_counts().index)
     targets = list(adata.obs[col_target].value_counts().index)
     targets.remove('Control')
     per_samples = pd.DataFrame(columns = [col_target, gene + " Expression","Samples"])
     for sample in samples:
-        
+
         filters = adata.obs[col_id] == sample
         temp = bc.subset_adata(adata, filter_criteria= filters, axis = 0, raw=False)
-        
+
         for target in targets:
-        
+
             filters = temp.obs[col_target] == target
             temp_gene = bc.subset_adata(temp, filter_criteria= filters, axis = 0, raw=False)
             if raw:
                     raw_temp = temp_gene.raw
             else:
                 raw_temp = temp_gene
-            
+
             # A small variation of the mean function in BESCA that can handle also adata.raw
             _mean_raw(raw_temp)
             expression = raw_temp.var[raw_temp.var.SYMBOL == gene]["mean"][gene]
@@ -239,9 +248,9 @@ def plot_expression_by_sample(adata, gene, col_target ="Target", col_id = "sampl
 def avg_KO_persample(adata, col_target = "Target", col_id = "samples__sample_id"):
     """
     Show mean cell count infection of a KO per sample
-    
+
     parameters
-    
+
     ----------
     adata: `AnnData`
         AnnData object containing data that is to be visualized.
@@ -249,16 +258,17 @@ def avg_KO_persample(adata, col_target = "Target", col_id = "samples__sample_id"
         The adata.obs collumn that contains the gene KO per cell
     col_id : `str`
         Collumn that contains the sample ids.
-        
+
     returns
     -------
-    None 
+    None
         the figure is displayed
-    
+
     Example
     -------
     Dotplot for mean cell count infection of a KO per sample
 
+    >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
     >>> import seaborn as sns
@@ -267,6 +277,7 @@ def avg_KO_persample(adata, col_target = "Target", col_id = "samples__sample_id"
     >>> bc.pl.avg_KO_persample(adata)
 
     .. plot::
+        >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
         >>> import seaborn as sns
@@ -274,9 +285,9 @@ def avg_KO_persample(adata, col_target = "Target", col_id = "samples__sample_id"
         >>> adata = bc.crispr_10x_filtered()
         >>> bc.pl.avg_KO_persample(adata)
     """
-    
+
     counts = pd.DataFrame()
-    
+
     #For each sample get the number of cells perturbed by each guide and merge the rows
     for sample in list(adata.obs[col_id].value_counts().index):
         filters = adata.obs[col_id] == sample
@@ -284,26 +295,26 @@ def avg_KO_persample(adata, col_target = "Target", col_id = "samples__sample_id"
         df = bc.tl.count_occurrence(temp_adata, col_target)
         df["sample"] = sample
         counts = counts.append(df)
-    
+
     #Plot the log cell counts
     counts.reset_index(inplace=True)
     counts = counts.rename(columns = {"index" : col_target})
     counts["Counts"] = np.log(counts["Counts"])
-    
+
     _ = plt.xticks(rotation=90)
     sns.scatterplot(data=counts,x = col_target, y = "Counts", hue = "sample")
     plt.title("Perturbations per sample", size=15)
     plt.xlabel("Count of perturbed cells")
     plt.ylabel("Perturbation")
-    
+
     return None
 
 def KO_dotplot(adata, col_target= "Target", title = "Standardized [0,1] expression of targeted genes"):
     """
     Dotplot with expression of each perturbed gene in each perturbation.
-    
+
     parameters
-    
+
     ----------
     adata: `AnnData`
         AnnData object containing data that is to be visualized.
@@ -313,22 +324,24 @@ def KO_dotplot(adata, col_target= "Target", title = "Standardized [0,1] expressi
         Prefered title for the plot
     returns
     -------
-    None 
+    None
         the figure is displayed
 
     Example
     -------
     Dotplot with expression of each perturbed gene in each perturbation.
 
+    >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
     >>> import seaborn as sns
     >>> import scanpy as sc
     >>> adata = bc.crispr_10x_filtered()
     >>> bc.pl.KO_dotplot(adata)
-    
+
 
     .. plot::
+        >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
         >>> import seaborn as sns
@@ -336,17 +349,17 @@ def KO_dotplot(adata, col_target= "Target", title = "Standardized [0,1] expressi
         >>> adata = bc.crispr_10x_filtered()
         >>> bc.pl.KO_dotplot(adata)
     """
-    
+
     genes=list(adata.obs[col_target][adata.obs[col_target].str.find("Control")==-1].unique())
     genes.sort()
-    
+
     fig_size= adata.obs[col_target].nunique()
     control_last= list(adata.obs[col_target].value_counts().index) #Put the Control catrogory at the end to keep the diagonal of target gene expression and cell with the KO
     control_last.remove('Control')
     control_last.sort()
     control_last.append('Control')
-    
-    fig = sc.pl.dotplot(adata, var_names= genes , groupby=col_target, title=title, figsize=(2+fig_size/4,1+fig_size/4), show=False, standard_scale = 'var', categories_order = control_last, cmap='viridis' ) 
+
+    fig = sc.pl.dotplot(adata, var_names= genes , groupby=col_target, title=title, figsize=(2+fig_size/4,1+fig_size/4), show=False, standard_scale = 'var', categories_order = control_last, cmap='viridis' )
     fig['mainplot_ax'].set_xlabel('Gene expression')
     fig['mainplot_ax'].set_ylabel('Perturbation identity')
 
@@ -355,9 +368,9 @@ def KO_dotplot(adata, col_target= "Target", title = "Standardized [0,1] expressi
 def compute_plot_de_crispr(adata, col_target = "Target", by = None, filter_cells = None):
     """
     Plot the log-fold change of KOs compared to the Control for the QC of Crispr-Cas9 experiments
-    
+
     parameters
-    
+
     ----------
     adata: `AnnData`
         AnnData object containing the sgRNAs per cell.
@@ -365,24 +378,26 @@ def compute_plot_de_crispr(adata, col_target = "Target", by = None, filter_cells
        The column with the KOs
     by: `str`
         Column that we want to do the dgex with. Example is the samples id columns.
-    
+
     returns
     -------
-    None 
+    None
         the figure is displayed
 
     Example
     -------
     Scatterplot of the log-fold change of KOs compared to the Control for the QC of Crispr-Cas9 experiments
 
+    >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
     >>> import seaborn as sns
     >>> adata = bc.crispr_10x_filtered()
     >>> bc.pl.compute_plot_de_crispr(adata)
-    
+
 
     .. plot::
+        >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
         >>> import seaborn as sns
@@ -416,12 +431,12 @@ def compute_plot_de_crispr(adata, col_target = "Target", by = None, filter_cells
         mypairs = [(item, 'Control') for item in conds]
         mypairs.remove(('Control', 'Control'))
         dge_data_total = bc.tl.crispr.execute_de_sgRNA(adata, mypairs, col_target, myfc, mypval)
-    
+
     cm = plt.cm.get_cmap('viridis')
-    
+
     g = plt.scatter(x=dge_data_total["Name"], y=dge_data_total["Log2FC"],c=dge_data_total["P.adj"], cmap=cm)
     plt.rcParams["figure.figsize"] = (adata.obs[col_target].nunique()/2,5)
-    
+
     plt.colorbar(g, label="-log10(pvalue)")
     _ = plt.xticks(rotation = 90) # Rotates X-Axis Ticks by 90-degrees
     plt.title("Perturbation effects", size=15)
@@ -434,9 +449,9 @@ def compute_plot_de_crispr(adata, col_target = "Target", by = None, filter_cells
 def enrichement_per_cluster(enrich_data, col_target = "Target", usr_title = 'KO on each cluster', keep_control = False):
     """
     After Leiden Clustering, plots a heatmap and a batplot of the perturbations counts per cluster
-    
+
     parameters
-    
+
     ----------
     enrich_data: `AnnData`
         AnnData object after leiden clustering.
@@ -446,24 +461,26 @@ def enrichement_per_cluster(enrich_data, col_target = "Target", usr_title = 'KO 
        Prefered title on the plot
     keep_control: `bool`
         If the control is required
-    
+
     returns
     -------
-    None 
+    None
         the figure is displayed
 
     Example
     -------
     Heatmap and a batplot of the perturbations counts per cluster after Leiden
 
+    >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
     >>> import seaborn as sns
     >>> adata = bc.crispr_10x_filtered()
     >>> bc.pl.enrichement_per_cluster(adata, keep_control=True)
-    
+
 
     .. plot::
+        >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
         >>> import besca as bc
         >>> import matplotlib.pyplot as plt
         >>> import seaborn as sns
@@ -480,26 +497,26 @@ def enrichement_per_cluster(enrich_data, col_target = "Target", usr_title = 'KO 
             data = counts_celltype.loc[cell].tolist()
             percentage = [round(x/sum(data),3) for x in data]
             percentages.loc[cell] = percentage
-    
+
     # Plot as a heatmap and barplot
     fig = percentages.plot(kind='bar', stacked=True, figsize=(10,10))
     fig.set_ylabel('percentage')
     fig.legend(bbox_to_anchor=(1, 1.04), ncol=1, title=usr_title)
-    
+
     fig, ax = plt.subplots(figsize=(11.7,8.27))         # Sample figsize in inches
     fig=sns.heatmap(percentages.astype(float), annot = False, linewidths=.5, ax=ax, cmap="PiYG")
     fig.text(0.5, 1.05,usr_title, fontsize=15,horizontalalignment='center',
      verticalalignment='center',
      transform = ax.transAxes)
-    
+
     return None
 
 def plot_comparison_of_cells(adata, root_path, method="Same", experiment = "CROPseq"):
     """
     Plots the differences between cells of the same or different KO based on the given method. Also stores the data in a file to speed-up execution
-    
+
     parameters
-    
+
     ----------
     adata: `AnnData`
         AnnData object after PCA.
@@ -509,7 +526,7 @@ def plot_comparison_of_cells(adata, root_path, method="Same", experiment = "CROP
         Comparison group. Can be "Same", "Different" or "Both"
     experiment: `str`
         Type of Crispr Experiment. Can be CROPseq or 10xChromium
-        
+
     returns
     -------
     A figure is displayed and returns
@@ -519,6 +536,7 @@ def plot_comparison_of_cells(adata, root_path, method="Same", experiment = "CROP
     -------
     Plots the differences between cells of the same or different KO based on the given method
 
+    >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
     >>> import besca as bc
     >>> import matplotlib.pyplot as plt
     >>> import seaborn as sns
@@ -526,10 +544,11 @@ def plot_comparison_of_cells(adata, root_path, method="Same", experiment = "CROP
     >>> import numpy as np
     >>> adata = bc.crispr_10x_filtered()
     >>> bc.pl.plot_comparison_of_cells(adata, "./", method="Both", experiment = "10xChromium")
-    
+
 
     .. plot::
-         >>> import besca as bc
+        >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
+        >>> import besca as bc
         >>> import matplotlib.pyplot as plt
         >>> import seaborn as sns
         >>> import os
@@ -559,28 +578,28 @@ def plot_comparison_of_cells(adata, root_path, method="Same", experiment = "CROP
         todos = [method]
     for todo in todos:
         dist_file = root_path+'sgRNA_distances_'+ todo + '.txt'
-        
+
         #Check if the file exists so that you don't have to do the same again
         if os.path.isfile(dist_file):
             print ("sgRNA distance exists... reading")
             distances.append(pd.read_csv(dist_file, index_col=0, sep="\t"))
         else:
             print("Running sgRNA distance...")
-            
+
             genes=pd.unique(df['sgRNAs'])
             dist_sgRNA=pd.DataFrame(columns=['sgRNAs','Gene','Mean_EucDist'])
             Euc_dist = bc.tl.crispr.find_distances(adata, experiment)
             if todo == "Same":
                 for g in genes:
-                    # Which rows(cells) are from the same gene 
+                    # Which rows(cells) are from the same gene
                     ind=df.index[df['sgRNAs'] == g]
                     # eucledian on pnly the same genes
-                    mean_eu=np.nanmean(Euc_dist.loc[ind,ind]) 
+                    mean_eu=np.nanmean(Euc_dist.loc[ind,ind])
                     diag_nr = len(Euc_dist.loc[ind,ind])
                     total_nr = sum(Euc_dist.loc[ind,ind].count())
                     mean_eu_new = (mean_eu * (total_nr - diag_nr) ) / total_nr
 
-                    dist_sgRNA = dist_sgRNA.append({'sgRNAs': g,'Gene': g.split('_')[0], 'Mean_EucDist': mean_eu_new}, ignore_index=True) 
+                    dist_sgRNA = dist_sgRNA.append({'sgRNAs': g,'Gene': g.split('_')[0], 'Mean_EucDist': mean_eu_new}, ignore_index=True)
                 dist_sgRNA.to_csv(dist_file, sep='\t', header=True)
                 distances.append(dist_sgRNA)
             else:
@@ -588,14 +607,14 @@ def plot_comparison_of_cells(adata, root_path, method="Same", experiment = "CROP
                     ind=df.index[df['sgRNAs'] == g]
                     ind_rev=df.index[df['sgRNAs'] != g]
                     # eucledian
-                    mean_eu=np.nanmean(Euc_dist.loc[ind,ind_rev]) 
+                    mean_eu=np.nanmean(Euc_dist.loc[ind,ind_rev])
 
-                    dist_sgRNA = dist_sgRNA.append({'gRNA': g, 'Gene': g.split('_')[0], 'Mean_EucDist': mean_eu},ignore_index=True) 
+                    dist_sgRNA = dist_sgRNA.append({'gRNA': g, 'Gene': g.split('_')[0], 'Mean_EucDist': mean_eu},ignore_index=True)
                 dist_sgRNA.to_csv(dist_file, sep='\t', header=True)
                 distances.append(dist_sgRNA)
 
     #Plot the boxplots depending on the given method
-    fig, ax = plt.subplots(figsize=(30,10)) 
+    fig, ax = plt.subplots(figsize=(30,10))
     sns.set(font_scale=1)
     #Sort the means to improve interpretavility
     gene_list = [(distances[0][distances[0]["Gene"] == g].mean(axis=0)["Mean_EucDist"],g) for g in distances[0]["Gene"].value_counts().index]
