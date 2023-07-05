@@ -31,7 +31,7 @@ dependencies:
   - gseapy
   - pip
   - pip:
-      - scikit_learn<1.0.0
-      - bbknn>=1.5.1
+      - scikit_learn>=1.0.0
+      - git+https://github.com/matchy233/bbknn.git@fix
       - nbclean>=0.3.2
       - git+https://github.com/bedapub/besca.git
