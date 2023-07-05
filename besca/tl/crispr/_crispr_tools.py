@@ -1,14 +1,15 @@
 import math
 import besca as bc
 import pandas as pd
+import pytest
 from scipy.spatial import distance
 
 def execute_de_sgRNA(adata, mypairs, column_focus, myfc, mypval):
     """
     Performs DGEX, based on pairs of values that exist in the "column_focus"
-    
+
     parameters
-    
+
     ----------
     adata: `AnnData`
         AnnData object containing the sgRNAs per cell.
@@ -20,15 +21,16 @@ def execute_de_sgRNA(adata, mypairs, column_focus, myfc, mypval):
         Fold change threshold
     mypval: `float`
         P-value threshold
-        
+
     returns
     -------
-    
+
     DGEX as many times as the pairs
 
     Examples
     --------
 
+    >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
     >>> import besca as bc
     >>> import math
     >>> import pandas as pd
@@ -40,7 +42,7 @@ def execute_de_sgRNA(adata, mypairs, column_focus, myfc, mypval):
     for i in mypairs:
         DElist[i[0]+'-'+i[1]]=bc.tl.dge.get_de(adata[adata.obs[column_focus].isin(i)],column_focus,demethod='wilcoxon',topnr=20000, logfc=myfc,padj=mypval)
     dge_data =[]
-    
+
     #Prepare to store DGEX data in dataframe
     for i in mypairs:
         dge_list_c = DElist[i[0]+'-'+i[1]][i[1]]
@@ -54,8 +56,8 @@ def execute_de_sgRNA(adata, mypairs, column_focus, myfc, mypval):
             data = [[i[0],0,0,0]]
             dge_data.append(pd.DataFrame(data, columns=['Name','Score','Log2FC','P.adj']))
     dge_data = pd.concat(dge_data).reset_index(drop=True).sort_values(by=['Log2FC'], ascending=False)
-    
-    # Turn padj to log padj and log fold change in respect to Control 
+
+    # Turn padj to log padj and log fold change in respect to Control
     dge_data = dge_data.apply(_prepare,axis=1)
     return dge_data
 
@@ -66,12 +68,12 @@ def _prepare(row):
         row['P.adj'] = -row['P.adj']
     return row
 
-def find_distances(adata, experiment = "CROPseq"): 
+def find_distances(adata, experiment = "CROPseq"):
     """
     Distance matrix between cells using the PCA results
-    
+
     parameters
-    
+
     ----------
     adata: `AnnData`
         AnnData object containing the sgRNAs per cell after conducting PCA.
@@ -84,6 +86,7 @@ def find_distances(adata, experiment = "CROPseq"):
     Examples
     --------
 
+    >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
     >>> import besca as bc
     >>> import math
     >>> import pandas as pd
@@ -91,10 +94,10 @@ def find_distances(adata, experiment = "CROPseq"):
     >>> adata = bc.datasets.crispr_10x_filtered()
     >>> adata_subset = bc.tl.crispr.find_distances(adata, experiment = '10xChromium')
     """
-    
+
     # Data containing the identifiers
     if all(x in adata.obs.columns for x in ['sgRNAs','Target','leiden']):
-        
+
         if experiment == "CROPseq":
             df=adata.obs[['group', 'sgRNAs','Target','leiden']].copy()
         else:
@@ -103,7 +106,7 @@ def find_distances(adata, experiment = "CROPseq"):
         #Compute distance matrixes and store in a dataframe
         Y = distance.cdist(adata.obsm['X_pca'][:,:2], adata.obsm['X_pca'][:,:2], 'euclidean')
         Euc_dist = pd.DataFrame(Y, columns=df.index, index=df.index)
-        
+
         return Euc_dist
     else:
         print("Necessary columns not present. Necessary columns are ['sgRNAs','Target','leiden']")
