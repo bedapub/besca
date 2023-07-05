@@ -484,8 +484,8 @@ def match_label(
       >>> adata = bc.datasets.simulated_pbmc3k_processed()
       >>> nomenclature_file=pkg_resources.resource_filename('besca', 'datasets/nomenclature/CellTypes_v1.tsv'),
       >>> nomenclature_file=''.join(nomenclature_file)
-      >>> matching_v = bc.tl.sig.match_label(adata.obs.get( ["celltype3"]),  nomenclature_file)
-      >>> adata.obs['shortlabel'] = adata.obs.get( "celltype3").map( dict(matching_v.values))
+      >>> matching_v = bc.tl.sig.match_label(adata.obs.get("celltype3"),  nomenclature_file)
+      >>> adata.obs['shortlabel'] = adata.obs.get("celltype3").map( dict(matching_v.values))
       >>> sc.pl.umap(adata, color=['shortlabel'])
 
     """
