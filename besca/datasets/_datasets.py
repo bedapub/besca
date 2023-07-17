@@ -1,12 +1,8 @@
 """Builtin Datasets.
 """
 
-import pytest
-import os
-import urllib.request
 from urllib.error import URLError
 
-import pandas
 import pkg_resources
 from scanpy import read
 
@@ -658,51 +654,49 @@ def Smillie2019_processed():
     )
     return adata
 
+
 def crispr_10x_filtered():
     """Processed and filtered data 10X Chromium CRISPR-Cas9 data.
 
-   Contains annotated data with only one KO on the Rab1a gene and a control KO. The annotated data were passed through the Crispr QC workflow.
+    Contains annotated data with only one KO on the Rab1a gene and a control KO. The annotated data were passed through the Crispr QC workflow.
 
+     Returns
+     -------
+     adata : :class:`~anndata.AnnData`
+         Annotated data matrix.
 
-
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
-
-    Example
-    -------
-    >>> pytest.skip('Test will be skipped, because slow downloading of file in the github action job can occur a timeout')
-    >>> import besca as bc
-    >>> adata = bc.datasets.crispr_10x_filtered()
+     Example
+     -------
+     >>> pytest.skip('Test will be skipped, because slow downloading of file in the github action job can occur a timeout')
+     >>> import besca as bc
+     >>> adata = bc.datasets.crispr_10x_filtered()
 
     """
     filename = pkg_resources.resource_filename(
-        "besca", "datasets/data/CRISPR_10xChromium_human.h5ad"
+        "besca", "datasets/data/10X_10xChromium_human.h5ad"
     )
     adata = check_dl(
         filename,
-        url="https://zenodo.org/record/7683985/files/CRISPR_10xChromium_human.h5ad?download=1",
+        url="https://zenodo.org/api/files/74c99165-8982-4b0d-b293-a255c1e06612/10X_10xChromium_human.h5ad?versionId=d8792818-0b67-44db-b94c-a0efd1eebdb2",
     )
     return adata
+
 
 def crispr_10x_unfiltered():
     """Processed data 10X Chromium CRISPR-Cas9 data.
 
-   Contains annotated data with only one KO on the Rab1a gene and a control KO.
+    Contains annotated data with only one KO on the Rab1a gene and a control KO.
 
+     Returns
+     -------
+     adata : :class:`~anndata.AnnData`
+         Annotated data matrix.
 
-
-    Returns
-    -------
-    adata : :class:`~anndata.AnnData`
-        Annotated data matrix.
-
-    Example
-    -------
-    >>> pytest.skip('Test will be skipped, because slow downloading of file in the github action job can occur a timeout')
-    >>> import besca as bc
-    >>> adata = bc.datasets.crispr_10x_unfiltered()
+     Example
+     -------
+     >>> pytest.skip('Test will be skipped, because slow downloading of file in the github action job can occur a timeout')
+     >>> import besca as bc
+     >>> adata = bc.datasets.crispr_10x_unfiltered()
 
     """
     filename = pkg_resources.resource_filename(
