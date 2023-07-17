@@ -1,4 +1,4 @@
-from besca.tl import auto_annot, bcor, dge, rc, sig
+from besca.tl import auto_annot, bcor, dge, rc, sig, crispr
 from besca.tl._annotate_cellnames import annotate_cells_clustering
 from besca.tl._count_occurrences import (
     count_occurrence,
@@ -11,6 +11,7 @@ __all__ = [
     "rc",
     "dge",
     "bcor",
+    "crispr",
     "sig",
     "crispr",
     "count_occurrence",
