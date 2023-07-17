@@ -24,7 +24,6 @@ def filter_perturb(adata, col="n_sgRNAs"):
     Examples
     --------
 
-    >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
     >>> import besca as bc
     >>> adata = bc.datasets.crispr_10x_unfiltered()
     >>> adata = bc.pp.filter_perturb(adata, col = "n_sgRNAs")
@@ -105,7 +104,7 @@ def extract_target(
     cells_to_kick = {}
     for samples, rows in perturbations_per_sample.iterrows():
         cells_to_kick[samples] = []
-        for name, value in rows.iteritems():
+        for name, value in rows.items():
             if value <= 5 and value > 0:
                 cells_to_kick[samples].append(name)
 
