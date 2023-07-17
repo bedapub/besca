@@ -679,7 +679,7 @@ def crispr_10x_filtered():
     )
     adata = check_dl(
         filename,
-        url="https://zenodo.org/api/files/74c99165-8982-4b0d-b293-a255c1e06612/10X_10xChromium_human.h5ad?versionId=d8792818-0b67-44db-b94c-a0efd1eebdb2",
+        url="https://zenodo.org/record/8153433/files/10X_10xChromium_human.h5ad?download=1",
     )
     return adata
 
