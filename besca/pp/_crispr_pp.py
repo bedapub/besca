@@ -23,7 +23,7 @@ def filter_perturb(adata, col="n_sgRNAs"):
 
     Examples
     --------
-
+    >>> pytest.skip('Test will be skipped, because the dataset is not available on zenodo anymore.')
     >>> import besca as bc
     >>> adata = bc.datasets.crispr_10x_unfiltered()
     >>> adata = bc.pp.filter_perturb(adata, col = "n_sgRNAs")
