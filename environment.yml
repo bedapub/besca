@@ -34,4 +34,6 @@ dependencies:
       - scikit_learn>=1.0.0
       - git+https://github.com/matchy233/bbknn.git@fix
       - nbclean>=0.3.2
+      - jax==0.4.7
+      - jaxlib==0.4.7
       - git+https://github.com/bedapub/besca.git
