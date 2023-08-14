@@ -167,7 +167,7 @@ threadpoolctl==3.1.0
 toolz==0.11.2
 torch==1.13.1
 torchmetrics==0.7.2
-tornado==6.3.2
+tornado==6.3.3
 tqdm==4.63.0
 traitlets==5.1.1
 typing_extensions==4.1.1
