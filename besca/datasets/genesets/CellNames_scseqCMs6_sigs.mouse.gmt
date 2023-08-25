@@ -71,8 +71,9 @@ Schwann	Genes used for automatic annotation of scRNA-seq derived clusters of PBM
 Glial	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Mpz	Slc18a2	Gfra3	Aldh1a3	Foxd3	Nos2	S100b	Ngfr	St6galnac2	Sema3c	Ehbp1								
 Paneth	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	AY761184	AY761184	Nod2	AY761184	Clps	Reg3a													
 InnateLymphoid	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Cd7	Il2rb	Xcl1	Igfbp7	Ncr1	Klrd1	Cmc1	Ltb	Prmt9	Aldoc	Gata3	Rora	Il1rl1	Il7r					
-HEVEndothelial	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Flt4	Lyve1	Ccl21a																
+EndothelialLymph	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Flt4	Lyve1	Ccl21a																
 VesselEndothelial	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Pecam1	Vwf	Plvap	Cdh5	Cd36	Rgcc													
+HEVEndothelial	Endothelial-specific genes curated based on literature and scRNA-seq expression; derived by Schwalie P. and Bianchi R.	Glycam1	Selp	Sele	Ackr1	Enpp6	Madcam1	Lipg	Enpp2	Cxcl1	Lifr	Serpina1b	Vwf	Syt15	Chst4	Fut7				
 Pericyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Sod3	Cspg4	Rgs5	Ndufa4l2	Cox4i2														
 Myofibroblast	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Des	Actg2	Myh11																
 InflamFibroblast	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Mmp3	Wnt2	Svep1	Srpx	Adgrd1	Serpina3n	Slit3												
