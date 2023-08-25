@@ -72,8 +72,9 @@ Schwann	None	2	85
 Glial	None	2	86
 Paneth	Epithelial	2	75
 InnateLymphoid	Hematopoietic	1	87
-HEVEndothelial	Endothelial	1	88
+EndothelialLymph	Endothelial	1	88
 VesselEndothelial	Endothelial	1	89
+HEVEndothelial	Endothelial	1	89
 Pericyte	Fibroblast	1.5	1.75
 Myofibroblast	Fibroblast	1	91
 InflamFibroblast	Fibroblast	2.5	92
