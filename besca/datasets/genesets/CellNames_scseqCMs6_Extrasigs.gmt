@@ -31,3 +31,5 @@ InflamFibroblast_scv	Additional genes (less specific) used for automatic annotat
 Macrophage_CXCL9_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	FCGR3A	SLAMF8	CALHM6	FCGR1A	LILRB1				
 Platelet_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	ITGA2B	GP1BA	CTTN	LCN2	F13A1	CLU			
 MAIT	Additional genes (less specific or lower expressed) whose expression can also be inspected. Derived by LAS 	IL7R	IL18R1	CCR5	DPP4					
+HEVEndothelial	Additional genes (less specific or lower expressed) whose expression can also be inspected; Endothelial-specific genes curated based on literature and scRNA-seq expression; derived by Schwalie P. and Bianchi R.	FUT7	RAB3C	CLEC7A	ADGR6	CDKN3	CCL23	CCL14											
+
