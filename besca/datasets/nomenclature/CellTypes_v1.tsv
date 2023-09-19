@@ -406,6 +406,6 @@ endothelial cell of artery	endothelial cell of artery	CL:1000413	EndothelialArte
 tuft cell of colon	tuft cell of colon	CL:0009041	TuftColon	5	brush cell of epithelium proper of large intestine	CL:0002203	brush cell	CL:0002204	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
 vein endothelial cell	vein endothelial cell	CL:0002543	VeinEndothelial	4			blood vessel endothelial cell	CL:0000071	endothelial cell of vascular tree	CL:0002139	endothelial cell	CL:0000115	animal cell	CL:0000548
 molecular layer interneuron		DB:0000089	MLInterneuron	5	CNS interneuron	CL:0000402	central nervous system neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
-CNS interneuron	CNS interneuron	CL:0000402	CNSInterneuron	4			central nervous system neuron	CL:0000679	neuron	CL:0000540	neural cell	neural cell	CL:0002319	animal cell	CL:0000548
-unipolar brush cell	unipolar brush cell	CL:4023161	UnipolarBrush	5	CNS interneuron	CL:0000402	central nervous system neuron	CL:0000679	neuron	CL:0000540	neural cell	neural cell	CL:0002319	animal cell	CL:0000548
-purkinje layer interneuron		DB:0000090	PLInterneuron	5	CNS interneuron	CL:0000402	central nervous system neuron	CL:0000679	neuron	CL:0000540	neural cell	neural cell	CL:0002319	animal cell	CL:0000548
+CNS interneuron	CNS interneuron	CL:0000402	CNSInterneuron	4			central nervous system neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+unipolar brush cell	unipolar brush cell	CL:4023161	UnipolarBrush	5	CNS interneuron	CL:0000402	central nervous system neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+purkinje layer interneuron		DB:0000090	PLInterneuron	5	CNS interneuron	CL:0000402	central nervous system neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
