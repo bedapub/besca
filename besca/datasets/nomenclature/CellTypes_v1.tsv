@@ -409,3 +409,29 @@ molecular layer interneuron		DB:0000089	MLInterneuron	5	CNS interneuron	CL:00004
 CNS interneuron	CNS interneuron	CL:0000402	CNSInterneuron	4			central nervous system neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
 unipolar brush cell	unipolar brush cell	CL:4023161	UnipolarBrush	5	CNS interneuron	CL:0000402	central nervous system neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
 purkinje layer interneuron		DB:0000090	PLInterneuron	5	CNS interneuron	CL:0000402	central nervous system neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+hepatic stellate cell	hepatic stellate cell	CL:0000632	HepStellate	3					fibroblast	CL:0000057	connective tissue cell	CL:0002320	animal cell	CL:0000548
+centrilobular region hepatocyte	centrilobular region hepatocyte	CL:0019029	CentrilobularHepatocyte	3					hepatocyte	CL:0000182	epithelial cell	CL:0000066	animal cell	CL:0000548
+midzonal region hepatocyte	midzonal region hepatocyte	CL:0019028	MidzonalHepatocyte	3					hepatocyte	CL:0000182	epithelial cell	CL:0000066	animal cell	CL:0000548
+periportal region hepatocyte	periportal region hepatocyte	CL:0019026	PeriportalHepatocyte	3					hepatocyte	CL:0000182	epithelial cell	CL:0000066	animal cell	CL:0000548
+enteric glial precursor cell		DB:0000091	EntericGlialPC	4			enteric glial cell	DB:0000050	glial cell	CL:0000125	neural cell	CL:0002319	animal cell	CL:0000548
+glandular cell of stomach	glandular cell of stomach	CL:0002659	GlandularStomach	3					glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+mucous cell of stomach	mucous cell of stomach	CL:0002180	MucousStomach	4			glandular cell of stomach	CL:0002659	glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+parietal cell	parietal cell	CL:0000162	ParietalCell	4			glandular cell of stomach	CL:0002659	glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+peptic cell	peptic cell	CL:0000155	PepticCell	4			glandular cell of stomach	CL:0002659	glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+stomach enteroendocrine cell	stomach enteroendocrine cell	CL:1001517	StomachEnteroendocrine	4			glandular cell of stomach	CL:0002659	glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+skeletal muscle fiber	skeletal muscle fiber	CL:0008002	SkeletalMuscle	3					muscle cell	CL:0000187	contractile cell	CL:0000183	animal cell	CL:0000548
+type I muscle cell	type I muscle cell	CL:0002211	TypeIMuscle	4			skeletal muscle fiber	CL:0008002	muscle cell	CL:0000187	contractile cell	CL:0000183	animal cell	CL:0000548
+type II muscle cell	type II muscle cell	CL:0002212	TypeIIMuscle	4			skeletal muscle fiber	CL:0008002	muscle cell	CL:0000187	contractile cell	CL:0000183	animal cell	CL:0000548
+glandular cell of esophagus	glandular cell of esophagus	CL:0002657	EsophagusGlandular	3					glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+mesothelial fibroblast of the leptomeninx	mesothelial fibroblast of the leptomeninx	CL:4023058	MesoFibroblastLeptomeninx	2							neural cell	CL:0002319	animal cell	CL:0000548
+vascular leptomeningeal cell	vascular leptomeningeal cell	CL:4023051	VascLeptomeningeal	3					mesothelial fibroblast of the leptomeninx	CL:4023058	neural cell	CL:0002319	animal cell	CL:0000548
+chromophil cell of anterior pituitary gland	chromophil cell of anterior pituitary gland	CL:0000637	ChromophilAnteriorPituitary	2							neural cell	CL:0002319	animal cell	CL:0000548
+acidophil cell of pars distalis of adenohypophysis	acidophil cell of pars distalis of adenohypophysis	CL:0000638	AcidophilParsDistalis	3					chromophil cell of anterior pituitary gland	CL:0000637	neural cell	CL:0002319	animal cell	CL:0000548
+basophil cell of pars distalis of adenohypophysis	basophil cell of pars distalis of adenohypophysis	CL:0000639	BasophilParsDistalis	3					chromophil cell of anterior pituitary gland	CL:0000637	neural cell	CL:0002319	animal cell	CL:0000548
+mammotroph	mammotroph	CL:0002311	Mammotroph	4			acidophil cell of pars distalis of adenohypophysis	CL:0000638	chromophil cell of anterior pituitary gland	CL:0000637	neural cell	CL:0002319	animal cell	CL:0000548
+somatotroph	somatotroph	CL:0002312	Somatotroph	4			acidophil cell of pars distalis of adenohypophysis	CL:0000638	chromophil cell of anterior pituitary gland	CL:0000637	neural cell	CL:0002319	animal cell	CL:0000548
+mammosomatotroph	mammosomatotroph	CL:0002310	Mammosomatotroph	4			acidophil cell of pars distalis of adenohypophysis	CL:0000638	chromophil cell of anterior pituitary gland	CL:0000637	neural cell	CL:0002319	animal cell	CL:0000548
+corticotroph	corticotroph	CL:0002309	Corticotroph	4			basophil cell of pars distalis of adenohypophysis		CL:0000639	CL:0000637	neural cell	CL:0002319	animal cell	CL:0000548
+gonadtroph	gonadtroph	CL:0000437	Gonadtroph	4			basophil cell of pars distalis of adenohypophysis		CL:0000639	CL:0000637	neural cell	CL:0002319	animal cell	CL:0000548
+thyrotroph	thyrotroph	CL:0000476	Thyrotroph	4			basophil cell of pars distalis of adenohypophysis		CL:0000639	CL:0000637	neural cell	CL:0002319	animal cell	CL:0000548
+melanotroph		DB:0000092	Melanotroph	4			basophil cell of pars distalis of adenohypophysis		CL:0000639	CL:0000637	neural cell	CL:0002319	animal cell	CL:0000548
