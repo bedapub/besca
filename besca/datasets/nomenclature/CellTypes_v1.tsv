@@ -435,3 +435,72 @@ corticotroph	corticotroph	CL:0002309	Corticotroph	4			basophil cell of pars dist
 gonadtroph	gonadtroph	CL:0000437	Gonadtroph	4			basophil cell of pars distalis of adenohypophysis		CL:0000639	CL:0000637	neural cell	CL:0002319	animal cell	CL:0000548
 thyrotroph	thyrotroph	CL:0000476	Thyrotroph	4			basophil cell of pars distalis of adenohypophysis		CL:0000639	CL:0000637	neural cell	CL:0002319	animal cell	CL:0000548
 melanotroph		DB:0000092	Melanotroph	4			basophil cell of pars distalis of adenohypophysis		CL:0000639	CL:0000637	neural cell	CL:0002319	animal cell	CL:0000548
+sst GABAergic cortical interneuron	sst GABAergic cortical interneuron	CL:4023017	GABAergicInterneuron_SST	4			interneuron	CL:0002306	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+pvalb GABAergic cortical interneuron	pvalb GABAergic cortical interneuron	CL:4023018	GABAergicInterneuron_PVALB	4			interneuron	CL:0002306	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+reelin GABAergic cortical interneuron	reelin GABAergic cortical interneuron	CL:4032001	GABAergicInterneuron_REELIN	4			interneuron	CL:0002306	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+lamp5 GABAergic cortical interneuron	lamp5 GABAergic cortical interneuron	CL:4023011	GABAergicInterneuron_LAMP5	4			interneuron	CL:0002306	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+vip GABAergic cortical interneuron	vip GABAergic cortical interneuron	CL:4023016	GABAergicInterneuron_VIP	4			interneuron	CL:0002306	neuron	CL:0000540	neural cell	CL:0002319	animal cell	CL:0000548
+GABAergic amacrine cell	GABAergic amacrine cell	CL:4030027	GABAergicAmacrine	3					amacrine cell	CL:0000561	neural cell	CL:0002319	animal cell	CL:0000548
+glycinergic amacrine cell	glycinergic amacrine cell	CL:4030028	GlycinergicAmacrine	3					amacrine cell	CL:0000561	neural cell	CL:0002319	animal cell	CL:0000548
+adipocyte progenitor cell		DB:0000093	AdipocytePC	3					fat cell	CL:0000136	connective tissue cell	CL:0002320	animal cell	CL:0000548
+type I cell of adrenal cortex	type I cell of adrenal cortex	CL:0002099	TypeICorticalAdrenal	4			cortical cell of adrenal gland	CL:0002097	glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+type II cell of adrenal cortex	type II cell of adrenal cortex	CL:0002136	TypeIICorticalAdrenal	4			cortical cell of adrenal gland	CL:0002097	glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+adrenal medulla chromaffin cell	adrenal medulla chromaffin cell	CL:0000336	AdrenalMedullaChromaffin	5	chromaffin cell	CL:0000166	neuroendocrine cell	CL:0000165	endocrine cell	CL:0000163	secretory cell	CL:0000151	animal cell	CL:0000548
+stromal cell of endometrium	stromal cell of endometrium	CL:0002255	StromalEndometrium	3					stromal cell	CL:0000499	connective tissue cell	CL:0002320	animal cell	CL:0000548
+epithelial cell of thyroid gland	epithelial cell of thyroid gland	CL:0002257	ThyroidGlandEpithelial	3					glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+thyroid follicular cell	thyroid follicular cell	CL:0002258	ThyroidFollicular	4			epithelial cell of thyroid gland	CL:0002257	glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	animal cell	CL:0000548
+meso-epithelial cell	meso-epithelial cell	CL:0002078	MesoEpithelial	2							epithelial cell	CL:0000066	animal cell	CL:0000548
+follicular cell of ovary	follicular cell of ovary	CL:0002174	OvaryFollicular	3					meso-epithelial cell	CL:0002078	epithelial cell	CL:0000066	animal cell	CL:0000548
+granulosa cell	granulosa cell	CL:0000501	Granulosa	4			follicular cell of ovary	CL:0002174	meso-epithelial cell	CL:0002078	epithelial cell	CL:0000066	animal cell	CL:0000548
+stromal cell of ovary	stromal cell of ovary	CL:0002132	StromalOvary	3					stromal cell	CL:0000499	connective tissue cell	CL:0002320	animal cell	CL:0000548
+theca cell	theca cell	CL:0000503	Theca	4			stromal cell of ovary	CL:0002132	stromal cell	CL:0000499	connective tissue cell	CL:0002320	animal cell	CL:0000548
+luteal cell	luteal cell	CL:0000175	Luteal	4			stromal cell of ovary	CL:0002132	stromal cell	CL:0000499	connective tissue cell	CL:0002320	animal cell	CL:0000548
+ovarian surface epithelial cell	ovarian surface epithelial cell	CL:2000064	OvarianSurfaceEpithelial	2							epithelial cell	CL:0000066	animal cell	CL:0000548
+peg cell	peg cell	CL:4033014	PegCell	2							epithelial cell	CL:0000066	animal cell	CL:0000548
+neurecto-epithelial cell	neurecto-epithelial cell	CL:0000710	NeurectoEpithelial	3					ecto-epithelial cell	CL:0002077	epithelial cell	CL:0000066	animal cell	CL:0000548
+type I cell of carotid body	type I cell of carotid body	CL:0002292	TypeICarotidBody	4			neurecto-epithelial cell	CL:0000710	ecto-epithelial cell	CL:0002077	epithelial cell	CL:0000066	animal cell	CL:0000548
+urothelial cell	urothelial cell	CL:0000731	Urothelial	2							epithelial cell	CL:0000066	animal cell	CL:0000548
+basal cell of urothelium	basal cell of urothelium	CL:1000486	UrothelialBasal	3					urothelial cell	CL:0000731	epithelial cell	CL:0000066	animal cell	CL:0000548
+intermediate cell of urothelium	intermediate cell of urothelium	CL:4030055	UrothelialIntermediate	3					urothelial cell	CL:0000731	epithelial cell	CL:0000066	animal cell	CL:0000548
+umbrella cell of urothelium	umbrella cell of urothelium	CL:4030056	UrothelialUmbrella	3					urothelial cell	CL:0000731	epithelial cell	CL:0000066	animal cell	CL:0000548
+oral mucosa squamous cell	oral mucosa squamous cell	CL:1001576	OralMucosaSquamous	3					squamous epithelial cell	CL:0000076	epithelial cell	CL:0000066	animal cell	CL:0000548
+keratinized cell of the oral	keratinized cell of the oral	CL:0000237	OralMucosaKeratinized	3					ecto-epithelial cell	CL:0002077	epithelial cell	CL:0000066	animal cell	CL:0000548
+serous secreting cell	serous secreting cell	CL:0000313	SerousSecreting	2							secretory cell	CL:0000151	animal cell	CL:0000548
+meningothelial cell	meningothelial cell	CL:0002379	Meningothelial	4			neurecto-epithelial cell	CL:0000710	ecto-epithelial cell	CL:0002077	epithelial cell	CL:0000066	animal cell	CL:0000548
+tendon cell	tendon cell	CL:0000388	Tendon	2							stromal cell	CL:0000499	animal cell	CL:0000548
+fibro/adipogenic progenitor cell	fibro/adipogenic progenitor cell	CL:0009099	FibroAdipogenicProgenitor	2							mesenchymal cell	CL:0008019	animal cell	CL:0000548
+epithelial cell of prostate	epithelial cell of prostate	CL:0002231	ProstateEpithelial	3					endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+luminal cell of prostate epithelium	luminal cell of prostate epithelium	CL:0002340	LuminalProstateEpithelium	4			epithelial cell of prostate	CL:0002231	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	animal cell	CL:0000548
+clear cell		DB:0000094		3					ionocyte	CL:0005006	epithelial cell	CL:0000066	animal cell	CL:0000548
+renal intercalated cell	renal intercalated cell	CL:0005010	RenalIntercalated	3					epithelial cell of nephron	CL:1000449	epithelial cell	CL:0000066	animal cell	CL:0000548
+renal alpha-intercalated cell	renal alpha-intercalated cell	CL:0005011	RenalAlphaIntercalated	4			renal intercalated cell	CL:0005011	epithelial cell of nephron	CL:1000449	epithelial cell	CL:0000066	animal cell	CL:0000548
+renal beta-intercalated cell	renal beta-intercalated cell	CL:0002201	RenalBetaIntercalated	4			renal intercalated cell	CL:0005011	epithelial cell of nephron	CL:1000449	epithelial cell	CL:0000066	animal cell	CL:0000548
+renal principal cell	renal principal cell	CL:0005009	RenalPrincipal	3					epithelial cell of nephron	CL:1000449	epithelial cell	CL:0000066	animal cell	CL:0000548
+glomerular endothelial cell	glomerular endothelial cell	CL:0002188	GlomerularEndo	2							endothelial cell	CL:0000115	animal cell	CL:0000548
+vasa recta ascending limb cell	vasa recta ascending limb cell	CL:1001131	VasaRectaAscending	4			kidney capillary endothelial cell	CL:1000892	blood vessel endothelial cell	CL:0000071	endothelial cell	CL:0000115	animal cell	CL:0000548
+vasa recta descending limb cell	vasa recta descending limb cell	CL:1001285	VasaRectaDescending	4			kidney capillary endothelial cell	CL:1000892	blood vessel endothelial cell	CL:0000071	endothelial cell	CL:0000115	animal cell	CL:0000548
+peritubular capillary endothelial cell	peritubular capillary endothelial cell	CL:1001033	PeritubularCapillaryEndo	4			kidney capillary endothelial cell	CL:1000892	blood vessel endothelial cell	CL:0000071	endothelial cell	CL:0000115	animal cell	CL:0000548
+renal filtration cell	renal filtration cell	CL:0002522	RenalFiltration	2							secretory cell	CL:0000151	animal cell	CL:0000548
+kidney interstitial myofibroblast	kidney interstitial myofibroblast	CL:1000691	KidneyInterstitialMyofibroblast	3					myofibroblast cell	CL:0000186	contractile cell	CL:0000183	animal cell	CL:0000548
+kidney pelvis urothelial cell	kidney pelvis urothelial cell	CL:1000703	KidneyPelvisUrothelial	3					kidney pelvis urothelial cell	CL:1000703	epithelial cell	CL:0000066	animal cell	CL:0000548
+kidney connecting tubule principal cell	kidney connecting tubule principal cell	CL:4030018	KidneyConnectingTubulePrincipal				renal principal cell	CL:0005009	epithelial cell of nephron	CL:1000449	epithelial cell	CL:0000066	animal cell	CL:0000548
+kidney precursor cell		DB:0000095	KidneyPrecursor	2							precursor cell	CL:0011115	animal cell	CL:0000548
+pronephric nephron cell		DB:0000096	PronephricNephron	3					kidney precursor cell	DB:0000095	precursor cell	CL:0011115	animal cell	CL:0000548
+ureteric bud cell		DB:0000097	UretericBud	3					kidney precursor cell	DB:0000095	precursor cell	CL:0011115	animal cell	CL:0000548
+ureteric bud epithelial cell		DB:0000098	UretericBudEpithelial	4			ureteric bud cell	DB:0000097	kidney precursor cell	DB:0000095	precursor cell	CL:0011115	animal cell	CL:0000548
+renal vesicle cell		DB:0000099	RenalVesicle	3					kidney precursor cell	DB:0000095	precursor cell	CL:0011115	animal cell	CL:0000548
+metanephric mesenchyme cell		DB:0000100	MetanephricMesenchyme	3					kidney precursor cell	DB:0000095	precursor cell	CL:0011115	animal cell	CL:0000548
+S shaped body cell		DB:0000101	SshapedBody	3					kidney precursor cell	DB:0000095	precursor cell	CL:0011115	animal cell	CL:0000548
+kidney collecting duct principal cell	kidney collecting duct principal cell	CL:1001431	KidneyDuctPrincipal	4			kidney collecting duct cell	CL:1001225	duct epithelial cell	CL:0000068	epithelial cell	CL:0000066	animal cell	CL:0000548
+kidney outer medulla collecting duct principal cell	kidney outer medulla collecting duct principal cell	CL:1000716	KidneyOuterMedullaDuctPrincipal	5	kidney collecting duct principal cell	CL:1001431	kidney collecting duct cell	CL:1001225	duct epithelial cell	CL:0000068	epithelial cell	CL:0000066	animal cell	CL:0000548
+kidney inner medulla collecting duct principal cell	kidney inner medulla collecting duct principal cell	CL:1000718	KidneyInnerMedullaDuctPrincipal	5	kidney collecting duct principal cell	CL:1001431	kidney collecting duct cell	CL:1001225	duct epithelial cell	CL:0000068	epithelial cell	CL:0000066	animal cell	CL:0000548
+kidney collecting duct intercalated cell	kidney collecting duct intercalated cell	CL:1001432	KidneyDuctIntercalated	4			kidney collecting duct cell	CL:1001225	duct epithelial cell	CL:0000068	epithelial cell	CL:0000066	animal cell	CL:0000548
+kidney collecting duct beta-intercalated cell	kidney collecting duct beta-intercalated cell	CL:4030005	KidneyDuctBetaIntercalated	5	kidney collecting duct intercalated cell	CL:1001432	kidney collecting duct cell	CL:1001225	duct epithelial cell	CL:0000068	epithelial cell	CL:0000066	animal cell	CL:0000548
+kidney collecting duct alpha-intercalated cell	kidney collecting duct alpha-intercalated cell	CL:4030015	KidneyDuctAlphaIntercalated	5	kidney collecting duct intercalated cell	CL:1001432	kidney collecting duct cell	CL:1001225	duct epithelial cell	CL:0000068	epithelial cell	CL:0000066	animal cell	CL:0000548
+podocyte	podocyte	CL:0000653	Podocyte	4			kidney glomerular epithelial cell	CL:1000510	epithelial cell of nephron	CL:1000449	epithelial cell	CL:0000066	animal cell	CL:0000548
+kidney proximal convoluted tubule epithelial cell	kidney proximal convoluted tubule epithelial cell	CL:1000838	ProxConvolutedTubule	4			epithelial cell of proximal tubule	CL:0002306	epithelial cell of nephron	CL:1000449	epithelial cell	CL:0000066	animal cell	CL:0000548
+kidney loop of Henle ascending limb epithelial cell	kidney loop of Henle ascending limb epithelial cell	CL:1001016	HenleAscendingTubule	4			kidney loop of Henle epithelial cell	CL:1000909	epithelial cell of nephron	CL:1000449	epithelial cell	CL:0000066	animal cell	CL:0000548
+kidney loop of Henle descending limb epithelial cell	kidney loop of Henle descending limb epithelial cell	CL:1001021	HenleDescendingTubule	4			kidney loop of Henle epithelial cell	CL:1000909	epithelial cell of nephron	CL:1000449	epithelial cell	CL:0000066	animal cell	CL:0000548
+papillary tips cell	papillary tips cell	CL:1000597	PapillaryTips	2							epithelial cell	CL:0000066	animal cell	CL:0000548
+glomerular mesangial cell	glomerular mesangial cell	CL:1000742	GlomerularMesangial	4			mesangial cell	CL:0000650	pericyte	CL:0000669	connective tissue cell	CL:0002320	animal cell	CL:0000548
+kidney glomerular epithelial cell	kidney glomerular epithelial cell	CL:1000510	GlomerularEpithelial	3					epithelial cell of nephron	CL:1000449	epithelial cell	CL:0000066	animal cell	CL:0000548
