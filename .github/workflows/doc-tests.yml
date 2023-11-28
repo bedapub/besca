@@ -1,6 +1,6 @@
 name: Run doctests
 
-on: [push, pull_request]
+on: [release]
 
 jobs:
   doc-test-job:
