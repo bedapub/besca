@@ -285,7 +285,7 @@ dependencies:
   - seaborn-base=0.11.2=pyhd8ed1ab_0
   - session-info=1.0.0=pyhd8ed1ab_0
   - setuptools=59.5.0=py38h578d9bd_0
-  - sinfo=0.3.1=py_0
+  - session-info=1.0.0=py_0
   - six=1.16.0=pyh6c4a22f_0
   - sleef=3.5.1=h9b69904_2
   - snowballstemmer=2.2.0=pyhd8ed1ab_0
