@@ -179,4 +179,4 @@ Werkzeug==3.0.1
 widgetsnbextension==3.5.2
 xlrd==1.2.0
 yarl==1.7.2
-zipp==3.7.0
+zipp==3.19.1
