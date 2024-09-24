@@ -22,7 +22,7 @@ dependencies:
   - scanorama
   - scvelo
   - umap-learn
-  - sinfo
+  - session-info
   - pydot
   - scvi-tools
   - ipython
