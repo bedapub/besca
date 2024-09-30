@@ -95,7 +95,7 @@ nest-asyncio==1.5.4
 networkx==2.7
 notebook==6.4.12
 numba==0.55.1
-numexpr==2.8.1
+numexpr==2.8.5
 numpy==1.22.0
 numpy-groupies==0.9.14
 numpyro==0.9.1
