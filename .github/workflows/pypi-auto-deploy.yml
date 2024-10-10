@@ -35,7 +35,7 @@ jobs:
     - build
     runs-on: ubuntu-latest
     environment:
-      name: pypi
+      name: publishing
       url: https://pypi.org/p/besca
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
@@ -99,7 +99,7 @@ jobs:
   #   runs-on: ubuntu-latest
 
   #   environment:
-  #     name: testpypi
+  #     name: publishing
   #     url: https://test.pypi.org/p/besca
 
   #   permissions:
