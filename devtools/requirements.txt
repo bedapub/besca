@@ -175,7 +175,7 @@ umap-learn==0.5.2
 urllib3==1.26.19
 wcwidth==0.2.5
 webencodings==0.5.1
-Werkzeug==3.0.3
+Werkzeug==3.0.6
 widgetsnbextension==3.5.2
 xlrd==1.2.0
 yarl==1.7.2
