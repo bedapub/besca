@@ -138,7 +138,7 @@ def read_mtx(
     if gzfiles == "gz":
         print("reading matrix.mtx.gz")
         adata = read(
-            os.path.join(filepath, "matrix.mtx.gz"), cache=True
+            os.path.join(filepath, "matrix.mtx.gz"), cache=False
         ).T  # transpose the data
         print("adding cell barcodes")
         adata.obs_names = pd.read_csv(
@@ -155,7 +155,7 @@ def read_mtx(
     else:
         print("reading matrix.mtx")
         adata = read(
-            os.path.join(filepath, "matrix.mtx"), cache=True
+            os.path.join(filepath, "matrix.mtx"), cache=False
         ).T  # transpose the data
         print("adding cell barcodes")
         adata.obs_names = pd.read_csv(
