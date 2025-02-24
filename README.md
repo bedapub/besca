@@ -27,7 +27,7 @@ git clone --filter=blob:none git@github.com:bedapub/besca.git
 
 ## Installation
 
-From version 2.2.5+, Besca requires Python 3.8 or above.
+From version 2.2.5+, Besca requires Python 3.9 or above.
 
 If you are familiar with python packages simply install them using pip: 
 
@@ -75,7 +75,7 @@ If you don't have a conda python installation download and install [miniconda](h
 As a next step, we create a separate environment for besca which is also called besca.  
 
 ```
-conda create --name besca python=3.8
+conda create --name besca python=3.9
 ```  
 
 We can activate this environment.  
