@@ -107,7 +107,7 @@ def assert_adata(adata: AnnData, attempFix=True):
 
 
 def read_mtx(
-    filepath, annotation=True, use_genes="SYMBOL", species="human", citeseq=None
+    filepath, annotation=True, use_genes="SYMBOL", species="human", citeseq=None, read_cache=True
 ):
     """Read matrix.mtx, genes.tsv, barcodes.tsv to AnnData object.
     By specifiying an input folder this function reads the contained matrix.mtx,
@@ -129,6 +129,9 @@ def read_mtx(
     citeseq: 'gex_only' or 'citeseq_only' or False or None | default = None
         string indicating if only gene expression values (gex_only) or only protein
         expression values ('citeseq_only') or everything is read if None is specified
+    read_cache: `bool` (default=True)
+        boolian identifier if scanpy should read the AnnData object from fast h5ad
+        cache or from source
 
     Returns
     -------
@@ -138,7 +141,7 @@ def read_mtx(
     if gzfiles == "gz":
         print("reading matrix.mtx.gz")
         adata = read(
-            os.path.join(filepath, "matrix.mtx.gz"), cache=True
+            os.path.join(filepath, "matrix.mtx.gz"), cache=read_cache
         ).T  # transpose the data
         print("adding cell barcodes")
         adata.obs_names = pd.read_csv(
@@ -155,7 +158,7 @@ def read_mtx(
     else:
         print("reading matrix.mtx")
         adata = read(
-            os.path.join(filepath, "matrix.mtx"), cache=True
+            os.path.join(filepath, "matrix.mtx"), cache=read_cache
         ).T  # transpose the data
         print("adding cell barcodes")
         adata.obs_names = pd.read_csv(
