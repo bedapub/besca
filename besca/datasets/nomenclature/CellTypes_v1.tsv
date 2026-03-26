@@ -510,3 +510,5 @@ plasmablast	plasmablast	CL:0000980	Plasmablast	3					lymphocyte of B lineage	CL:
 SLC17A7_CUX2-positive neuron		DB:0000060	Neuron_SLC17A7_CUX2	4			glutamatergic neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
 SLC17A7_THY1-positive neuron		DB:0000088	Neuron_SLC17A7_THY1	4			glutamatergic neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
 sweat secreting cell	sweat secreting cell	CL:0000318	SweatSecreting	3					glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	cell	CL:0000548
+vascular associated smooth muscle	vascular associated smooth muscle cell	CL:0000359	VSMC	4			smooth muscle cell	CL:0000192	muscle cell	CL:0000187	contractile cell	CL:0000183	cell	CL:0000548
+dendritic cell	dendritic cell	CL:0000451	DC	3					leukocyte	CL:0000738	hematopoietic cell	CL:0000988	cell	CL:0000548
