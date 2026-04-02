@@ -4,4 +4,4 @@
 *.png binary
 *.jpg binary
 *.h5ad binary
-besca/_version.py export-subst
+
