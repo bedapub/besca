@@ -1,8 +1,6 @@
 name: Build and Deploy Documentation
 
 on:
-  push:
-    branches: [besca3]
   workflow_dispatch:
 
 permissions:
