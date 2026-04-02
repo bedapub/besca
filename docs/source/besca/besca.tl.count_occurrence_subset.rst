@@ -1,5 +1,5 @@
 count_occurrence_subset
-======================
+=======================
 
 .. currentmodule:: besca.tl
 

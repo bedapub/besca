@@ -9,8 +9,7 @@ This way you can easily check (visually) if your chosen threshold is a good one.
 
 import besca as bc
 import matplotlib.pyplot as plt
-import pytest
-pytest.skip('Test is only for here as example and should not be executed', allow_module_level=True)
+
 adata = bc.datasets.pbmc3k_raw()
 
 # define thresholds

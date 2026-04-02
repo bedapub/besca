@@ -4,7 +4,7 @@
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 SOURCEDIR     = source
-BUILDDIR      =../../besca-docs
+BUILDDIR      = build
 PDFBUILDDIR = /tmp
 PDF = ../besca-manual.pdf
 
