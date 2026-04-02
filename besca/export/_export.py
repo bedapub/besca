@@ -83,8 +83,8 @@ def X_to_mtx(
     if geneannotation == "SYMBOL":
         genes_SYMBOL = adata.var_names.tolist()
         # get additional annotation saved in adata.var
-        if additional_geneannotation is not None:
-            genes_ENSEMBL = adata.var.get(additional_geneannotation)
+        if additional_geneannotation is not None and additional_geneannotation in adata.var.columns:
+            genes_ENSEMBL = adata.var[additional_geneannotation].tolist()
         else:
             print(
                 "No ENSEMBL gene ids provided, Besca will fill the respective columns in genes.tsv with NA"
@@ -94,8 +94,8 @@ def X_to_mtx(
     elif geneannotation == "ENSEMBL":
         genes_ENSEMBL = adata.var_names.tolist()
         # get additional annotation saved in adata.var
-        if additional_geneannotation is not None:
-            genes_SYMBOL = adata.var.get(additional_geneannotation)
+        if additional_geneannotation is not None and additional_geneannotation in adata.var.columns:
+            genes_SYMBOL = adata.var[additional_geneannotation].tolist()
         else:
             print(
                 "No SYMBOLS provided, Besca will fill the respective columns in genes.tsv with NA"

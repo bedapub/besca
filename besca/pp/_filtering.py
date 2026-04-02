@@ -18,6 +18,8 @@ def filter(
     max_mito=None,
     annotation_type=None,
     species="human",
+    min_protein_counts=None,
+    max_protein_counts=None,
 ):
     """Filter cell outliers based on counts, numbers of genes expressed, number of cells expressing a gene and mitochondrial gene content.
 
@@ -93,6 +95,7 @@ def filter(
                     name for name in adata.var_names if name in mito_list
                 ]  # ensembl
                 # for each cell compute fraction of counts in mito genes vs. all genes
+                # Note: despite the name, this is stored as a fraction (0-1), not percentage (0-100)
                 n_counts = sum(adata.X, axis=1).A1
                 n_counts[n_counts == 0] = float("inf")
                 adata.obs["percent_mito"] = (
@@ -160,6 +163,25 @@ def filter(
                 "%d%% mitochondrial genes or more",
                 curr_cells - new_cells,
                 max_mito * 100
+            )
+
+        # Filter by protein counts if CITE-seq data is present
+        if min_protein_counts is not None and "protein_counts" in adata.obs.columns:
+            curr_cells = adata.shape[0]
+            adata = adata[adata.obs["protein_counts"] >= min_protein_counts, :].copy()
+            logging.info(
+                "removed %d cells with fewer than %d protein counts",
+                curr_cells - adata.shape[0],
+                min_protein_counts,
+            )
+
+        if max_protein_counts is not None and "protein_counts" in adata.obs.columns:
+            curr_cells = adata.shape[0]
+            adata = adata[adata.obs["protein_counts"] <= max_protein_counts, :].copy()
+            logging.info(
+                "removed %d cells with more than %d protein counts",
+                curr_cells - adata.shape[0],
+                max_protein_counts,
             )
 
         ncells_final = adata.shape[0]

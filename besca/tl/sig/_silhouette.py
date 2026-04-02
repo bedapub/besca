@@ -76,11 +76,19 @@ def silhouette_computation(
     long_df_silhouette = pd.concat(
         pd.DataFrame({"label": k, "silhouette": v}) for k, v in ith_value.items()
     )
-    # TODO ADD PROPER TITLE/ AXIS/ MEAN OVERALL  and mean per label ?
-    ax1 = sns.violinplot(
-        y=long_df_silhouette["label"], x=long_df_silhouette["silhouette"], scale="count"
+    fig, ax1 = matplotlib.pyplot.subplots(figsize=(8, max(4, n_clusters * 0.5)))
+    sns.violinplot(
+        y=long_df_silhouette["label"],
+        x=long_df_silhouette["silhouette"],
+        density_norm="count",
+        ax=ax1,
     )
-    matplotlib.pyplot.close()  # Avoid plooting in function; bad practice
+    ax1.axvline(x=silhouette_avg, color="red", linestyle="--", label=f"Mean: {silhouette_avg:.3f}")
+    ax1.set_xlabel("Silhouette Score")
+    ax1.set_ylabel("Cluster Label")
+    ax1.set_title(f"Silhouette Analysis (avg={silhouette_avg:.3f})")
+    ax1.legend()
+    matplotlib.pyplot.close()  # Avoid plotting in function
     silhouette_results = silhouette_in(ax1, silhouette_avg)
 
     return silhouette_results

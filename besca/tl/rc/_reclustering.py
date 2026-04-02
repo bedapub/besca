@@ -94,6 +94,11 @@ def recluster(
     else:
         sys.exit("specify cluster input as a string or tuple")
 
+    # Reset to raw counts for fresh HVG selection (fixes #384)
+    if cluster_subset.raw is not None:
+        raw_subset = cluster_subset.raw.to_adata()
+        cluster_subset = raw_subset.copy()
+
     cluster_subset.raw = cluster_subset
 
     # identify highly variable genes

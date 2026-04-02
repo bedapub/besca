@@ -56,14 +56,12 @@ def annotate_cells_clustering(
             + " clusters. Numbers should match! No changes were made.\n"
         )
 
-    # replace old labels with the new labels
-    for i in range(0, len(clusters)):
-        cluster_annotation.get(new_annotation_label).replace(
-            clusters[i], new_cluster_labels[i], inplace=True
-        )
+    # build mapping from old cluster labels to new labels
+    label_map = dict(zip(clusters, new_cluster_labels))
+    cluster_annotation[new_annotation_label] = cluster_annotation[new_annotation_label].map(label_map)
 
-    # write results back into adata
-    adata.obs = adata.obs.merge(
-        cluster_annotation, how="outer", left_index=True, right_index=True
-    )
+    # write results back into adata (drop existing column if present to avoid duplicates)
+    if new_annotation_label in adata.obs.columns:
+        adata.obs = adata.obs.drop(columns=[new_annotation_label])
+    adata.obs[new_annotation_label] = cluster_annotation[new_annotation_label]
     return None

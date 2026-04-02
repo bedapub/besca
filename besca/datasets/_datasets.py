@@ -6,16 +6,27 @@ import urllib.request
 from urllib.error import URLError
 import pandas
 from importlib.resources import files as _resource_files
+from scanpy import read
+
+
+def _get_data_dir() -> str:
+    """Return the directory for storing downloaded datasets.
+
+    Uses BESCA_DATA_DIR env var if set, otherwise XDG_CACHE_HOME/besca/datasets,
+    falling back to ~/.cache/besca/datasets.
+    """
+    data_dir = os.environ.get("BESCA_DATA_DIR")
+    if data_dir is None:
+        xdg_cache = os.environ.get("XDG_CACHE_HOME", os.path.expanduser("~/.cache"))
+        data_dir = os.path.join(xdg_cache, "besca", "datasets")
+    os.makedirs(data_dir, exist_ok=True)
+    return data_dir
 
 
 def _resource_filename(package: str, resource_path: str) -> str:
-    """Drop-in replacement for _resource_filename."""
-    parts = resource_path.split("/")
-    ref = _resource_files(package)
-    for part in parts:
-        ref = ref.joinpath(part)
-    return str(ref)
-from scanpy import read
+    """Return path for a dataset file, using the cache directory."""
+    filename = os.path.basename(resource_path)
+    return os.path.join(_get_data_dir(), filename)
 
 
 def check_dl(filename, url):

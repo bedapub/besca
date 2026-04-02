@@ -138,6 +138,8 @@ def read_annotconfig(configfile: str):
     """
     # read the config file
     sigconfig = pd.read_csv(configfile, sep="\t", index_col=0, na_filter=False)
+    # Ensure Parent column values are strings (handles mixed types)
+    sigconfig["Parent"] = sigconfig["Parent"].astype(str).str.strip()
     # Reorder with the specified order. Place better signatures first, only first match will be kept
     sigconfig = sigconfig.sort_values("Order")
     # Consider up to 7 levels
