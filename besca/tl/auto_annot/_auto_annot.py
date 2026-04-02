@@ -60,7 +60,7 @@ def read_data(train_paths, train_datasets, test_path, test_dataset, use_raw=Fals
         train_paths, train_datasets, test_path, test_dataset
     )
 
-    if use_raw == True:
+    if use_raw is True:
         print("Reading files from raw")
         adata_trains, adata_pred = read_raw(
             train_paths, train_datasets, test_path, test_dataset
@@ -418,9 +418,8 @@ def fit(adata_train, method, celltype, njobs=10, celltype_variable='dblabel', n_
     list_celltype_variables = celltype_variables.index.tolist()
     adata_train = adata_train[(adata_train.obs[celltype_variable].isin(list_celltype_variables)), :]
     
-    if scipy.sparse.issparse(adata_train.X) == True:
-        train = adata_train.X.todense()
-
+    if scipy.sparse.issparse(adata_train.X):
+        train = adata_train.X.toarray()
     else:
         train = adata_train.X
 
@@ -577,7 +576,6 @@ def logistic_regression(train, y_train, njobs):
         verbose=1,
         class_weight="balanced",
         n_jobs=njobs,
-        multi_class="multinomial",
     ).fit(train, y_train)
     return clf
 
@@ -602,7 +600,6 @@ def logistic_regression_ovr(train, y_train, njobs):
         verbose=1,
         class_weight="balanced",
         n_jobs=njobs,
-        multi_class="ovr",
     ).fit(train, y_train)
 
     return clf
@@ -629,7 +626,6 @@ def logistic_regression_elastic(train, y_train, njobs):
         verbose=1,
         class_weight="balanced",
         n_jobs=njobs,
-        multi_class="multinomial",
         cv=3,
         l1_ratios=[0.15],
     ).fit(train, y_train)
@@ -689,20 +685,14 @@ def predict(classifier, scaler, adata_pred, threshold=0):
         array of most likely class label for every cell
     """
 
-    if scipy.sparse.issparse(adata_pred.X) == True:
-        test = adata_pred.X.todense()
+    if scipy.sparse.issparse(adata_pred.X):
+        test = adata_pred.X.toarray()
     else:
         test = adata_pred.X
     test = scaler.transform(test)
     results = classifier.predict(test)
 
-    if (
-        isinstance(classifier, LogisticRegressionCV) and classifier.multi_class == "ovr"
-    ) == False:
-        prob = np.max(classifier.predict_proba(test), axis=1)
-
-    else:  # in this case we are using ovr logreg
-        prob = np.max(scipy.special.expit(classifier.decision_function(test)), axis=1)
+    prob = np.max(classifier.predict_proba(test), axis=1)
 
     unlabeled = np.where(prob < threshold)
     results[unlabeled] = "unknown"
@@ -766,27 +756,16 @@ def predict_proba(classifier, scaler, adata_pred, threshold=0):
         array of all probabilities of all cell types
     """
 
-    if scipy.sparse.issparse(adata_pred.X) == True:
-        test = adata_pred.X.todense()
+    if scipy.sparse.issparse(adata_pred.X):
+        test = adata_pred.X.toarray()
     else:
         test = adata_pred.X
     test = scaler.transform(test)
 
     results = classifier.predict(test)
 
-    if (
-        isinstance(classifier, LogisticRegressionCV) and classifier.multi_class == "ovr"
-    ) == False:
-        probmax = np.max(classifier.predict_proba(test), axis=1)
-        prob = classifier.predict_proba(test)
-        # (pd.DataFrame(prob)) #test if this is needed
-
-    else:  # in this case we are using ovr logreg
-        probmax = np.max(
-            scipy.special.expit(classifier.decision_function(test)), axis=1
-        )
-        prob = scipy.special.expit(classifier.decision_function(test))
-        # (pd.DataFrame(prob))
+    prob = classifier.predict_proba(test)
+    probmax = np.max(prob, axis=1)
 
     unlabeled = np.where(probmax < threshold)
     results[unlabeled] = "unknown"
@@ -891,11 +870,11 @@ def scanvi_predict(adata_trains, adata_pred, celltype):
     adata_concat.layers["counts"] = adata_concat.raw[:, genes_used].X
 
     adata_concat.obs["scvi_training_labels"] = adata_concat.obs.batch == "0"
-    adata_concat.obs.scvi_training_labels[
-        adata_concat.obs.scvi_training_labels == True
+    adata_concat.obs.loc[
+        adata_concat.obs.scvi_training_labels == True, "scvi_training_labels"
     ] = "unlabeled"
-    adata_concat.obs.scvi_training_labels[
-        adata_concat.obs.scvi_training_labels == False
+    adata_concat.obs.loc[
+        adata_concat.obs.scvi_training_labels == False, "scvi_training_labels"
     ] = adata_concat.obs[celltype]
 
     print("setting up anndata for sciv")

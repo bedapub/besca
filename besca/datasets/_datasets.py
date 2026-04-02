@@ -24,9 +24,22 @@ def _get_data_dir() -> str:
 
 
 def _resource_filename(package: str, resource_path: str) -> str:
-    """Return path for a dataset file, using the cache directory."""
-    filename = os.path.basename(resource_path)
-    return os.path.join(_get_data_dir(), filename)
+    """Return path for a resource file.
+
+    Downloadable datasets (.h5ad) are stored in the cache directory.
+    Static resources (genesets, nomenclature, etc.) are read from the package.
+    """
+    if resource_path.endswith(".h5ad"):
+        # Downloadable datasets go to cache
+        filename = os.path.basename(resource_path)
+        return os.path.join(_get_data_dir(), filename)
+    else:
+        # Static resources are read from the installed package
+        parts = resource_path.split("/")
+        ref = _resource_files(package)
+        for part in parts:
+            ref = ref.joinpath(part)
+        return str(ref)
 
 
 def check_dl(filename, url):

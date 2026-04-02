@@ -81,8 +81,8 @@ def read_GMT_sign(
     signed_sign = {}
     # Here \S is used as signature might have '-' in their name
     #  (\w is not suficient if number in signature for EX.)
-    pattern_DN = compile("(\S+)" + DN_suffix + "$")
-    pattern_UP = compile("(\S+)" + UP_suffix + "$")
+    pattern_DN = compile(r"(\S+)" + DN_suffix + "$")
+    pattern_UP = compile(r"(\S+)" + UP_suffix + "$")
     # TODO: remove this for loop.
     for i in range(0, len(text_gmt)):
         temp_split = text_gmt[i].split("\t")
@@ -150,7 +150,18 @@ def write_gmtx_forgems(signature_dict, GMT_file):
     """
 
     with open(GMT_file, "w") as f:
-        f.writelines('\t'.join(list(signature_dict.keys()))+'\n')
-        f.writelines('\t'.join(list(signature_dict.values()))+'\n')
+        # Handle both flat dicts (single signature) and nested dicts (multiple signatures)
+        values = list(signature_dict.values())
+        if values and isinstance(values[0], dict):
+            # Multiple signatures: each value is a signature dict
+            # Write header from first signature's keys
+            first_sig = values[0]
+            f.write('\t'.join(list(first_sig.keys())) + '\n')
+            for sig in values:
+                f.write('\t'.join(str(v) for v in sig.values()) + '\n')
+        else:
+            # Single flat signature dict
+            f.write('\t'.join(list(signature_dict.keys())) + '\n')
+            f.write('\t'.join(str(v) for v in signature_dict.values()) + '\n')
 
     logging.info("Successfully written all signatures to " + GMT_file)

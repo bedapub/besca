@@ -1168,3 +1168,140 @@ def generate_gep(
 
     return None
     sys.exit(0)
+
+
+def labeling(
+    adata,
+    outpath=None,
+    column="leiden",
+    label="LABEL",
+    filename="cell2labels.tsv",
+    export_average=True,
+    export_fractpos=True,
+    use_raw=True,
+):
+    """Export mapping of cells to a specified label to .tsv file.
+
+    Writes cell-to-label mapping, average expression per label, and fraction
+    of positive cells per label to FAIR-compatible files.
+
+    Parameters
+    ----------
+    adata: AnnData
+        Annotated data matrix.
+    outpath: str | default = current working directory
+        Output directory path.
+    column: str | default = 'leiden'
+        Column in adata.obs to export.
+    label: str | default = 'LABEL'
+        Header label for the column in the output file.
+    filename: str | default = 'cell2labels.tsv'
+        Output filename for cell-to-label mapping.
+    export_average: bool | default = True
+        Whether to export average expression per label as a GCT file.
+    export_fractpos: bool | default = True
+        Whether to export fraction of positive cells per label as a GCT file.
+    use_raw: bool | default = True
+        Whether to use adata.raw for expression values.
+
+    Returns
+    -------
+    None
+        Files are written to outpath.
+    """
+    if outpath is None:
+        outpath = os.getcwd()
+
+    if column not in adata.obs.columns:
+        sys.exit(f"Column '{column}' not found in adata.obs")
+
+    # Create output directory
+    os.makedirs(outpath, exist_ok=True)
+
+    # Export cell-to-label mapping
+    data = adata.obs[column].to_frame(name=label)
+    data.to_csv(
+        os.path.join(outpath, filename), sep="\t", header=True, index_label="CELL"
+    )
+    print(f"mapping of cells to  {column} exported successfully to {filename}")
+
+    # Determine labels
+    if column in ("louvain", "leiden"):
+        try:
+            label_names = sorted(set(adata.obs[column].astype(int)))
+        except (ValueError, TypeError):
+            label_names = sorted(set(adata.obs[column]))
+    else:
+        label_names = sorted(set(adata.obs[column]))
+    label_names = [str(x) for x in label_names]
+
+    # Get expression matrix
+    if use_raw and adata.raw is not None:
+        var_names = adata.raw.var_names
+        mydat = adata.raw.var.copy()
+        X = adata.raw.X
+    else:
+        var_names = adata.var_names
+        mydat = adata.var.copy()
+        X = adata.X
+
+    if sparse.issparse(X):
+        E = X.tocsr().T
+    elif isinstance(X, ndarray):
+        E = sparse.csr_matrix(X).T
+    else:
+        E = sparse.csr_matrix(X).T
+
+    # Revert to linear scale
+    E = E.expm1()
+
+    if export_average:
+        gct = DataFrame(index=var_names, columns=label_names)
+        for i, lbl in enumerate(label_names):
+            cells = where(adata.obs[column].astype(str) == lbl)[0]
+            gct.iloc[:, i] = E[:, cells].mean(axis=1).A1 if sparse.issparse(E[:, cells]) else E[:, cells].mean(axis=1)
+
+        # Add description column if available
+        if "SYMBOL" in mydat.columns and "ENSEMBL" in mydat.columns:
+            desc = mydat[["SYMBOL", "ENSEMBL"]].copy()
+            desc.rename(columns={"SYMBOL": "Description"}, inplace=True)
+            gct = desc.merge(gct, how="right", left_index=True, right_index=True)
+            gct.set_index("ENSEMBL", inplace=True)
+            gct.index.names = ["NAME"]
+        else:
+            gct.insert(0, "Description", var_names)
+            gct.index.names = ["NAME"]
+
+        gctFile = os.path.join(outpath, "average.gct")
+        with open(gctFile, "w") as fp:
+            fp.write("#1.2\n")
+            fp.write(f"{gct.shape[0]}\t{gct.shape[1] - 1}\n")
+        gct.to_csv(gctFile, sep="\t", index=True, index_label="NAME", header=True, mode="a", float_format="%.3f")
+        print("average.gct exported successfully to file")
+
+    if export_fractpos:
+        fract = DataFrame(index=var_names, columns=label_names)
+        for i, lbl in enumerate(label_names):
+            cells = where(adata.obs[column].astype(str) == lbl)[0]
+            subset = E[:, cells]
+            if sparse.issparse(subset):
+                fract.iloc[:, i] = (subset > 0).mean(axis=1).A1
+            else:
+                fract.iloc[:, i] = (subset > 0).mean(axis=1)
+
+        if "SYMBOL" in mydat.columns and "ENSEMBL" in mydat.columns:
+            desc = mydat[["SYMBOL", "ENSEMBL"]].copy()
+            desc.rename(columns={"SYMBOL": "Description"}, inplace=True)
+            fract = desc.merge(fract, how="right", left_index=True, right_index=True)
+            fract.set_index("ENSEMBL", inplace=True)
+            fract.index.names = ["NAME"]
+        else:
+            fract.insert(0, "Description", var_names)
+            fract.index.names = ["NAME"]
+
+        gctFile = os.path.join(outpath, "fract_pos.gct")
+        with open(gctFile, "w") as fp:
+            fp.write("#1.2\n")
+            fp.write(f"{fract.shape[0]}\t{fract.shape[1] - 1}\n")
+        fract.to_csv(gctFile, sep="\t", index=True, index_label="NAME", header=True, mode="a", float_format="%.3f")
+        print("fract_pos.gct exported successfully to file")

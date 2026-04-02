@@ -45,16 +45,16 @@ def transcript_capture_efficiency(adata, ax=None, figsize=None):
         >>> bc.pl.transcript_capture_efficiency(adata,ax=ax)
 
     """
-    # get adata object
+    # get adata object — compute column sums without densifying
+    X = adata.X
 
-    if type(adata.X) == np.ndarray:
-        adata_X = adata.X
+    if scipy.sparse.issparse(X):
+        # number of cells where gene is detected (column-wise nnz)
+        fraction_pos = np.asarray((X > 0).sum(axis=0)).ravel() / adata.shape[0]
+        total_gene_counts = np.log2(np.asarray(X.sum(axis=0)).ravel() + 1)
     else:
-        adata_X = adata.X.toarray()
-
-    # extract information to be plotted
-    fraction_pos = sum(adata_X > 0) / adata.shape[0]
-    total_gene_counts = np.log2(sum(adata_X) + 1)
+        fraction_pos = np.sum(X > 0, axis=0) / adata.shape[0]
+        total_gene_counts = np.log2(np.sum(X, axis=0) + 1)
 
     # generate dataframe containing information
     data = DataFrame(
@@ -118,16 +118,15 @@ def library_size(adata, ax=None, bins=100, figsize=None):
         >>> bc.pl.library_size(adata,ax=ax)
 
     """
-    if type(adata.X) == np.ndarray:
-        adata_X = adata.X
+    X = adata.X
+    if scipy.sparse.issparse(X):
+        library_size = np.asarray(X.sum(axis=1)).ravel() / 1e6
     else:
-        adata_X = adata.X.toarray()
-
-    library_size = np.sum(adata_X, axis=1) / 1e6
+        library_size = np.sum(X, axis=1) / 1e6
 
     ax = ax or plt.gca()
 
-    sns.distplot(library_size, ax=ax, bins=bins)
+    sns.histplot(library_size, ax=ax, bins=bins, kde=True)
     ax.set_title("library size distribution")
     ax.set_ylabel("number of cells")
     ax.set_xlabel("library size (millions)")
@@ -173,14 +172,13 @@ def detected_genes(adata, ax=None, bins=100, figsize=None):
         >>> bc.pl.detected_genes(adata,ax=ax)
 
     """
-    if type(adata.X) == np.ndarray:
-        adata_X = adata.X
+    X = adata.X
+    if scipy.sparse.issparse(X):
+        NODG = np.asarray((X > 0).sum(axis=1)).ravel()
     else:
-        adata_X = adata.X.toarray()
+        NODG = np.sum(X > 0, axis=1)
 
-    NODG = np.sum(adata_X > 0, axis=1)
-
-    sns.distplot(NODG, ax=ax, kde=False, norm_hist=False, bins=bins)
+    sns.histplot(NODG, ax=ax, bins=bins)
     ax.set_title("NODG")
     ax.set_ylabel("number of cells")
     ax.set_xlabel("number of detected genes")
@@ -226,14 +224,14 @@ def dropouts(adata, ax=None, bins=100, figsize=None):
         >>> bc.pl.dropouts(adata,ax=ax)
 
     """
-    if type(adata.X) == np.ndarray:
-        adata_X = adata.X
+    X = adata.X
+    if scipy.sparse.issparse(X):
+        # dropouts = total genes - detected genes per cell
+        dropouts = adata.shape[1] - np.asarray((X > 0).sum(axis=1)).ravel()
     else:
-        adata_X = adata.X.toarray()
+        dropouts = np.sum(X == 0, axis=1)
 
-    dropouts = np.sum(adata_X == 0, axis=1)
-
-    sns.distplot(dropouts, ax=ax, kde=False, norm_hist=False, bins=bins)
+    sns.histplot(dropouts, ax=ax, bins=bins)
     ax.set_title("dropouts")
     ax.set_xlabel("number of dropouts")
     ax.set_ylabel("number of cells")
@@ -278,14 +276,15 @@ def librarysize_overview(adata, bins=100, figsize=None):
         >>> overview = bc.pl.librarysize_overview(adata)
 
     """
-    if type(adata.X) == np.ndarray:
-        adata_X = adata.X
+    X = adata.X
+    if scipy.sparse.issparse(X):
+        library_size = np.asarray(X.sum(axis=1)).ravel() / 1e6
+        NODG = np.asarray((X > 0).sum(axis=1)).ravel()
+        dropouts = adata.shape[1] - NODG
     else:
-        adata_X = adata.X.toarray()
-
-    library_size = np.sum(adata_X, axis=1) / 1e6
-    dropouts = np.sum(adata_X == 0, axis=1)
-    NODG = np.sum(adata_X > 0, axis=1)
+        library_size = np.sum(X, axis=1) / 1e6
+        NODG = np.sum(X > 0, axis=1)
+        dropouts = np.sum(X == 0, axis=1)
 
     fig = plt.figure(figsize=(11, 8))
     ax1 = plt.subplot2grid((2, 2), (0, 0), colspan=2)
@@ -296,7 +295,7 @@ def librarysize_overview(adata, bins=100, figsize=None):
     fig.subplots_adjust(wspace=0.1, hspace=0.3)
 
     # plot librarysize
-    sns.distplot(library_size, ax=ax1, bins=bins)
+    sns.histplot(library_size, ax=ax1, bins=bins, kde=True)
     ax1.set_title("library size distribution")
     ax1.set_ylabel("number of cells")
     ax1.set_xlabel("library size (millions)")
@@ -304,14 +303,14 @@ def librarysize_overview(adata, bins=100, figsize=None):
     sns.set_style("white")
     sns.set_style("ticks")
 
-    sns.distplot(NODG, ax=ax2, kde=False, norm_hist=False, bins=bins)
+    sns.histplot(NODG, ax=ax2, bins=bins)
     ax2.set_title("NODG")
     ax2.set_ylabel("number of cells")
     ax2.set_xlabel("number of detected genes", labelpad=16)
 
     sns.despine(offset=10, trim=True, ax=ax2)
 
-    sns.distplot(dropouts, ax=ax3, kde=False, norm_hist=False, bins=bins)
+    sns.histplot(dropouts, ax=ax3, bins=bins)
     ax3.set_title("dropouts")
     ax3.set_xlabel("number of dropouts", labelpad=16)
 
@@ -361,18 +360,25 @@ def top_genes_counts(adata, top_n=25, ax=None, figsize=None):
         >>> genes = bc.pl.top_genes_counts(adata)
 
     """
-    # calculate total counts and frac_reads
-    adata.var["total_counts"] = sum(adata.X.toarray())
-    adata.var["frac_reads"] = sum(adata.X.toarray()) / sum(sum(adata.X.toarray()))
-    if type(adata.X) == ndarray:
-        adata_X = adata.X
+    # calculate total counts and frac_reads using sparse-aware ops
+    X = adata.X
+    if scipy.sparse.issparse(X):
+        total_counts = np.asarray(X.sum(axis=0)).ravel()
     else:
-        adata_X = adata.X.toarray()
+        total_counts = np.sum(X, axis=0)
+    adata.var["total_counts"] = total_counts
+    adata.var["frac_reads"] = total_counts / total_counts.sum()
+
+    # per-cell fractions require dense matrix
+    if scipy.sparse.issparse(X):
+        adata_X = X.toarray()
+    else:
+        adata_X = X
 
     # calculate counts per cell
     counts_per_cell = adata_X.sum(axis=1)
 
-    # calculate fraction of counts originating from each gene  per cell
+    # calculate fraction of counts originating from each gene per cell
     fracs = adata_X / counts_per_cell[:, None]
 
     # make dataframe to sort

@@ -218,12 +218,17 @@ def annotate_new_cellnames(
                 + new_label
                 + " with the new labels"
             )
-        new_annotation = cluster_subset.obs.get(method).to_frame(name=new_label).copy()
+        new_annotation = cluster_subset.obs[method].to_frame(name=new_label).copy()
 
-        for i in range(0, len(clusters)):
-            new_annotation[new_label].replace(clusters[i], names[i], inplace=True)
+        # Build mapping and apply (avoids deprecated categorical replace)
+        label_map = dict(zip(clusters, names))
+        new_annotation[new_label] = (
+            new_annotation[new_label].astype(str).map(label_map).astype("category")
+        )
 
-        # update anndata object with the new annotation
+        # Update anndata object with the new annotation
+        adata.obs[new_label] = adata.obs[new_label].astype(str)
         adata.obs.update(new_annotation)
+        adata.obs[new_label] = adata.obs[new_label].astype("category")
 
         return None
