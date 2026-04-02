@@ -9,8 +9,29 @@ import pandas
 from scanpy import read
 
 
-def _resource_filename(package, resource):
-    return str(files(package).joinpath(resource))
+def _get_data_dir() -> str:
+    """Return the directory for storing downloaded datasets.
+
+    Uses BESCA_DATA_DIR env var if set, otherwise XDG_CACHE_HOME/besca/datasets,
+    falling back to ~/.cache/besca/datasets.
+    """
+    data_dir = os.environ.get("BESCA_DATA_DIR")
+    if data_dir is None:
+        xdg_cache = os.environ.get("XDG_CACHE_HOME", os.path.expanduser("~/.cache"))
+        data_dir = os.path.join(xdg_cache, "besca", "datasets")
+    os.makedirs(data_dir, exist_ok=True)
+    return data_dir
+
+
+def _resource_filename(package: str, resource_path: str) -> str:
+    """Return path for a resource file.
+
+    Downloadable datasets (.h5ad) are stored in the cache directory.
+    Static resources (genesets, nomenclature, etc.) are read from the package.
+    """
+    if resource_path.endswith(".h5ad"):
+        return os.path.join(_get_data_dir(), os.path.basename(resource_path))
+    return str(files(package).joinpath(resource_path))
 
 
 def check_dl(filename, url):
@@ -30,7 +51,7 @@ def check_dl(filename, url):
         adata = read(filename, backup_url=url, cache=False)
     except Exception:
         raise URLError(
-            f"\n\n\n {filename} could not be downloaded from {url}; \n Please download it manually and store it in your besca installation: besca/datasets/data/"
+            f"\n\n\n {filename} could not be downloaded from {url}; \n Please download it manually and store it as {filename} (set BESCA_DATA_DIR to use a different directory)."
         )
     return adata
 

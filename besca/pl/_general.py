@@ -1,12 +1,12 @@
 import seaborn as sns
 from matplotlib.pyplot import (
     figure,
+    gcf,
     subplots_adjust,
     tight_layout,
     subplots,
     setp,
     gca,
-    tight_layout,
 )
 import sys
 
@@ -72,7 +72,7 @@ def split_violin(
     if figsize is not None:
         figure(figsize=figsize)
 
-    return None
+    return ax
 
 
 def box_per_ind(plotdata, y_axis, x_axis, order=None, figsize=(4,3.5)):
@@ -196,7 +196,7 @@ def box_per_ind(plotdata, y_axis, x_axis, order=None, figsize=(4,3.5)):
     tight_layout()
     subplots_adjust(hspace=0.000)
 
-    return None
+    return fig
 
 
 def stacked_split_violin(
@@ -431,3 +431,4 @@ def flex_dotplot(df,X,Y,HUE,SIZE,title, mycolors='Reds', myfontsize=15,  xfactor
     gca().margins(x=mm)
     gca().margins(y=my)
     tight_layout()
+    return gcf()

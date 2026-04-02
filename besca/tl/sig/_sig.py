@@ -480,6 +480,52 @@ def make_gmtx(
     print("Metadata for signature " + setName + " successfully captured")
     return geneset
 
+def auto_cutoff(adata, signature_name, method="gmm"):
+    """Automatically determine cutoff for a signature score using Gaussian Mixture Models.
+
+    Fits a two-component GMM to the signature score distribution and returns
+    the intersection point as the cutoff. Assumes a bimodal distribution.
+
+    Parameters
+    ----------
+    adata: `AnnData`
+        AnnData object with signature scores in .obs
+    signature_name: `str`
+        Name of the signature score column in adata.obs
+    method: `str` | default = 'gmm'
+        Method for cutoff detection. Currently only 'gmm' is supported.
+
+    Returns
+    -------
+    cutoff: `float`
+        The automatically determined cutoff value
+    """
+    import numpy as np
+    from sklearn.mixture import GaussianMixture
+
+    if signature_name not in adata.obs.columns:
+        raise KeyError(f"'{signature_name}' not found in adata.obs")
+
+    scores = adata.obs[signature_name].values.reshape(-1, 1)
+    scores = scores[~np.isnan(scores.ravel())]
+    scores = scores.reshape(-1, 1)
+
+    gmm = GaussianMixture(n_components=2, random_state=0)
+    gmm.fit(scores)
+
+    means = gmm.means_.ravel()
+    stds = np.sqrt(gmm.covariances_.ravel())
+
+    # Cutoff is the midpoint weighted by standard deviations
+    if means[0] < means[1]:
+        cutoff = means[0] + stds[0] * (means[1] - means[0]) / (stds[0] + stds[1])
+    else:
+        cutoff = means[1] + stds[1] * (means[0] - means[1]) / (stds[0] + stds[1])
+
+    logging.info(f"Auto-cutoff for {signature_name}: {cutoff:.4f} (means: {sorted(means)})")
+    return float(cutoff)
+
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()

@@ -31,11 +31,18 @@ def assert_filepath(filepath):
     None if the filepath is valid, returns 'gz' if valid and compressed files,
     otherwise an Exception will be raised
     """
+    # Support both old format (genes.tsv) and new 10x format (features.tsv)
     req_files = ["matrix.mtx", "genes.tsv", "barcodes.tsv"]
     req_files_exist = [os.path.isfile(os.path.join(filepath, x)) for x in req_files]
     valid = all(req_files_exist)
     if valid:
         return None
+
+    # Check for new 10x format with features.tsv
+    req_files_new = ["matrix.mtx", "features.tsv", "barcodes.tsv"]
+    req_files_exist_new = [os.path.isfile(os.path.join(filepath, x)) for x in req_files_new]
+    if all(req_files_exist_new):
+        return "features"
 
     # Check whether gzipped versions exist:
     req_files = ["matrix.mtx.gz", "genes.tsv.gz", "barcodes.tsv.gz"]
@@ -43,13 +50,20 @@ def assert_filepath(filepath):
     valid = all(req_files_exist)
     if valid:
         return "gz"
-    else:
-        for ind, exist in enumerate(req_files_exist):
-            if not exist:
-                raise FileNotFoundError(
-                    "{} is not found in "
-                    "the given path `{}`".format(req_files[ind], filepath)
-                )
+
+    # Check for new 10x gzipped format with features.tsv.gz
+    req_files_new = ["matrix.mtx.gz", "features.tsv.gz", "barcodes.tsv.gz"]
+    req_files_exist_new = [os.path.isfile(os.path.join(filepath, x)) for x in req_files_new]
+    if all(req_files_exist_new):
+        return "gz_features"
+
+    # Report missing files
+    for ind, exist in enumerate(req_files_exist):
+        if not exist:
+            raise FileNotFoundError(
+                "{} (or features.tsv equivalent) is not found in "
+                "the given path `{}`".format(req_files[ind], filepath)
+            )
 
 
 def add_var_column(adata, colname="SYMBOL", attempFix=True):
@@ -137,8 +151,14 @@ def read_mtx(
     -------
     returns an AnnData object
     """
-    gzfiles = assert_filepath(filepath)
-    if gzfiles == "gz":
+    file_format = assert_filepath(filepath)
+
+    # Determine file names based on format
+    is_gz = file_format in ("gz", "gz_features")
+    uses_features = file_format in ("features", "gz_features")
+    gene_file = "features.tsv" if uses_features else "genes.tsv"
+
+    if is_gz:
         print("reading matrix.mtx.gz")
         adata = read(
             os.path.join(filepath, "matrix.mtx.gz"), cache=read_cache
@@ -147,9 +167,9 @@ def read_mtx(
         adata.obs_names = pd.read_csv(
             os.path.join(filepath, "barcodes.tsv.gz"), compression="gzip", header=None
         )[0]
-        print("adding genes")
+        print(f"adding genes from {gene_file}.gz")
         var_anno = pd.read_csv(
-            os.path.join(filepath, "genes.tsv.gz"),
+            os.path.join(filepath, gene_file + ".gz"),
             compression="gzip",
             header=None,
             sep="\\t",
@@ -164,9 +184,9 @@ def read_mtx(
         adata.obs_names = pd.read_csv(
             os.path.join(filepath, "barcodes.tsv"), header=None
         )[0]
-        print("adding genes")
+        print(f"adding genes from {gene_file}")
         var_anno = pd.read_csv(
-            os.path.join(filepath, "genes.tsv"), header=None, sep="\\t", engine="python"
+            os.path.join(filepath, gene_file), header=None, sep="\\t", engine="python"
         )
 
     symbols = var_anno[1]

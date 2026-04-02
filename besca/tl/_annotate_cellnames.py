@@ -65,8 +65,8 @@ def annotate_cells_clustering(
         new_labels = new_labels.astype("category")
     cluster_annotation[new_annotation_label] = new_labels
 
-    # write results back into adata
-    adata.obs = adata.obs.merge(
-        cluster_annotation, how="outer", left_index=True, right_index=True
-    )
+    # write results back into adata (drop existing column if present to avoid duplicates)
+    if new_annotation_label in adata.obs.columns:
+        adata.obs = adata.obs.drop(columns=[new_annotation_label])
+    adata.obs[new_annotation_label] = cluster_annotation[new_annotation_label]
     return None

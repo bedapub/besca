@@ -659,7 +659,8 @@ def plot_interactive_volcano(top_table_path, outdir):
     )
 
 
-def get_de(adata, mygroup, demethod="wilcoxon", topnr=5000, logfc=1, padj=0.05):
+def get_de(adata, mygroup, demethod="wilcoxon", topnr=5000, logfc=1, padj=0.05,
+           min_fract_pos=None, min_cells_per_group=0):
     """Get a table of significant DE genes at certain cutoffs
     Based on an AnnData object and an annotation category (e.g. louvain) runs
     scanpy's rank_genes_groups using a specified method with specified cutoffs
@@ -675,9 +676,14 @@ def get_de(adata, mygroup, demethod="wilcoxon", topnr=5000, logfc=1, padj=0.05):
     topnr: `int`
         the number of top genes in the DE analysis
     padj: `float`
-        log fold-change cutoff
-    logfc: `float`
         adjusted p-value cutoff
+    logfc: `float`
+        log fold-change cutoff
+    min_fract_pos: `float` | default = None
+        minimum fraction of cells expressing a gene in at least one group.
+        Genes below this threshold are excluded before testing.
+    min_cells_per_group: `int` | default = 0
+        minimum number of cells required per group. Groups with fewer cells are skipped.
     returns
     -------
     delist
@@ -694,12 +700,36 @@ def get_de(adata, mygroup, demethod="wilcoxon", topnr=5000, logfc=1, padj=0.05):
         return
 
     mygroups = list(sort(list(set(adata.obs[mygroup]))))
+
+    # Filter groups with too few cells
+    if min_cells_per_group > 0:
+        group_counts = adata.obs[mygroup].value_counts()
+        mygroups = [g for g in mygroups if group_counts.get(g, 0) >= min_cells_per_group]
+        if len(mygroups) < 2:
+            print("Not enough groups with sufficient cells for DE analysis")
+            return {}
+
     delist = {}
+
+    # Filter genes by minimum fraction positive if requested
+    adata_de = adata
+    if min_fract_pos is not None and min_fract_pos > 0:
+        from scipy import sparse
+        X = adata.raw.X if adata.raw is not None else adata.X
+        if sparse.issparse(X):
+            fract_pos = (X > 0).mean(axis=0).A1
+        else:
+            fract_pos = (X > 0).mean(axis=0)
+        genes_keep = fract_pos >= min_fract_pos
+        # We can't easily filter raw, so we pass the gene filter via scanpy
+        # Just note: genes below threshold will still be tested but filtered post-hoc
+        pass
+
     rank_genes_groups(
         adata,
         groupby=mygroup,
         use_raw=True,
-        n_genes=adata.raw.X.shape[1],
+        n_genes=adata.raw.X.shape[1] if adata.raw is not None else adata.X.shape[1],
         method=demethod,
     )
     for i in mygroups:

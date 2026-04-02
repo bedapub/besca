@@ -308,7 +308,7 @@ def clr_normalize(adata, results_folder):
     return adata
 
 
-def highly_variable_genes(adata, batch_key=None, n_shared=2, only_shared=False):
+def highly_variable_genes(adata, batch_key=None, n_shared=2, only_shared=False, flavor="seurat"):
     """Calculate highly variable genes and return filtered adata containing only the HVGs.
 
     Parameters
@@ -322,6 +322,9 @@ def highly_variable_genes(adata, batch_key=None, n_shared=2, only_shared=False):
         A higher value will result in a less stringent selection, e.g. with 2 HVGs need to be present
         in at least 50% of the samples, in addition to the default scanpy behavior.
     only_shared: `bool` | default = False
+    flavor: `str` | default = 'seurat'
+        Method for HVG selection. One of 'seurat', 'cell_ranger', 'seurat_v3', 'seurat_v3_paper'.
+        Passed directly to scanpy.pp.highly_variable_genes.
 
     Returns
     -------
@@ -340,6 +343,7 @@ def highly_variable_genes(adata, batch_key=None, n_shared=2, only_shared=False):
         min_disp=0.5,
         inplace=True,
         batch_key=batch_key,
+        flavor=flavor,
     )
     if batch_key is not None:
         hvglist = adata.var["highly_variable"].copy()

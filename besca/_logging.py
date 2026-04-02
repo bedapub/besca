@@ -7,8 +7,12 @@ def initialize_logger(log_file):
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
 
+    # Prevent duplicate handlers if called multiple times
+    if logger.handlers:
+        logger.handlers.clear()
+
     # create standard log file handler and set level to info
-    handler = logging.FileHandler(log_file, "a", encoding=None, delay="true")
+    handler = logging.FileHandler(log_file, "a", encoding=None, delay=True)
     handler.setLevel(logging.INFO)
     formatter = logging.Formatter("%(message)s")
     handler.setFormatter(formatter)
