@@ -41,3 +41,5 @@ docs/_build/
 
 .vscode.venv/
 .venv/
+figures/
+tests/output_junit.xml

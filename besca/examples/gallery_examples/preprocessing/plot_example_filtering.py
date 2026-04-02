@@ -11,7 +11,7 @@ import besca as bc
 import scanpy as sc
 import matplotlib.pyplot as plt
 import pytest
-pytest.skip('Test is only for here as example and should not be executed')
+pytest.skip('Test is only for here as example and should not be executed', allow_module_level=True)
 # load example dataset
 adata = bc.datasets.pbmc3k_raw()
 
