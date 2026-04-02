@@ -8,8 +8,7 @@ This example demonstrates how to perform highly variable gene selection, PCA, ne
 
 import besca as bc
 import scanpy as sc
-import pytest
-pytest.skip('Test is only for here as example and should not be executed', allow_module_level=True)
+
 # import example dataset that has previously been filtered
 adata = bc.datasets.pbmc3k_filtered()
 ## We get the raw matrix containing all the initial genes, keeping the filtering on the cells

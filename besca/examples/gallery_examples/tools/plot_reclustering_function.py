@@ -11,8 +11,7 @@ all clusters and mixed cell populations still exist.
 
 import besca as bc
 import scanpy as sc
-import pytest
-pytest.skip('Test is only for here as example and should not be executed', allow_module_level=True)
+
 # load and preprocess data (here we will start from a preprocessed dataset)
 adata = bc.datasets.pbmc3k_processed()
 

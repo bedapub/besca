@@ -9,24 +9,22 @@ sys.path.insert(0, os.path.abspath('../..'))
 # -- Project information -----------------------------------------------------
 
 project = 'BESCA'
-copyright = '2020, BEDA'
+copyright = '2024, BEDA'
 author = 'BEDA'
 
 # The short X.Y version
-version = '2.4'
+version = '3.0'
 # The full version, including alpha/beta/rc tags
-release = '2.4'
+release = '3.0.0'
 
 
 # -- General configuration ---------------------------------------------------
 
-#necessary minimal sphinx version
-needs_sphinx = '1.8'
+needs_sphinx = '7.0'
 
-#list of extensions
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.autosummary', 
+    'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
@@ -38,13 +36,12 @@ extensions = [
     'sphinx_automodapi.automodapi',
     'matplotlib.sphinxext.plot_directive',
     'nbsphinx',
-    'sphinx.ext.mathjax'
+    'sphinx.ext.mathjax',
 ]
 
-# Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
-#configure napoleon extension
+# Napoleon
 napoleon_google_docstring = True
 napoleon_numpy_docstring = True
 napoleon_include_init_with_doc = False
@@ -57,48 +54,45 @@ napoleon_use_ivar = False
 napoleon_use_param = True
 napoleon_use_rtype = True
 
-#autosummary configurations
+# Autosummary
 autosummary_generate = True
 autodoc_member_order = 'bysource'
 
-#configure automodapi
+# Automodapi
 automodapi_toctreedirnm = '../source/besca'
 
-#configure sphinx gallery
+# Sphinx gallery
 sphinx_gallery_conf = {
-    # path to your examples scripts
     'examples_dirs': '../../besca/examples/gallery_examples',
-    # path where to save gallery generated examples
     'gallery_dirs': 'auto_examples',
     'download_all_examples': False,
-    'thumbnail_size': (400,400)
+    'thumbnail_size': (400, 400),
 }
 
-#include todos
-todo_include_todos= True
+todo_include_todos = True
 
-# The suffix(es) of source filenames.
 source_suffix = ['.rst', '.ipynb']
-
-# The master toctree document.
 master_doc = 'index'
-
-
 language = 'en'
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '**.ipynb_checkpoints', '**bescape_tutorial.ipynb', '**adata_to_eset.ipynb']
+exclude_patterns = [
+    '_build', 'Thumbs.db', '.DS_Store',
+    '**.ipynb_checkpoints',
+    '**bescape_tutorial.ipynb',
+    '**adata_to_eset.ipynb',
+]
 
-# The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
-
 autodoc_docstring_signature = True
+autodoc_mock_imports = []
+# Don't execute doctest blocks during doc build
+doctest_test_doctest_blocks = ''
+
 
 def skip(app, what, name, obj, skip, options):
     if name == "__init__":
         return False
     return skip
 
-def setup(app):
-    app.connect("autodoc-skip-member", skip)
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -109,38 +103,44 @@ html_theme_options = {
     'display_version': True,
     'prev_next_buttons_location': 'bottom',
     'style_external_links': False,
-    # Toc options
     'collapse_navigation': True,
     'sticky_navigation': True,
     'navigation_depth': 5,
     'includehidden': True,
-    'titles_only': False
+    'titles_only': False,
 }
 
 html_context = dict(
-    display_github=False,      # Integrate GitHub
-    github_user='BEDA',       # Username
-    github_repo='besca',      # Repo name
-    github_version='master',  # Version
-    conf_py_path='/docs/',    # Path in the checkout to the docs root
+    display_github=True,
+    github_user='bedapub',
+    github_repo='besca',
+    github_version='main',
+    conf_py_path='/docs/source/',
 )
 
 html_static_path = ['_static']
-
 html_extra_path = ['tutorials_html']
 
+
 def setup(app):
+    app.connect("autodoc-skip-member", skip)
     app.add_css_file('css/custom.css')
+
 
 # -- Options for HTMLHelp output ---------------------------------------------
 
-# Output file base name for HTML help builder.
 htmlhelp_basename = 'BESCAdoc'
 
-# -- Options for intersphinx extension ---------------------------------------
+# -- Intersphinx -------------------------------------------------------------
 
-# Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'python': ('https://docs.python.org/3', None)}
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/3', None),
+    'numpy': ('https://numpy.org/doc/stable/', None),
+    'scipy': ('https://docs.scipy.org/doc/scipy/', None),
+    'pandas': ('https://pandas.pydata.org/docs/', None),
+    'scanpy': ('https://scanpy.readthedocs.io/en/stable/', None),
+    'anndata': ('https://anndata.readthedocs.io/en/stable/', None),
+}
 
 # -- Strip output ----------------------------------------------
 import nbclean, glob

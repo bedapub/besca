@@ -10,8 +10,7 @@ This way you can easily check (visually) discripancies.
 
 
 import besca as bc
-import pytest
-pytest.skip('Test is only for here as example and should not be executed', allow_module_level=True)
+
 # import data
 adata = bc.datasets.Baron2016_processed()
 

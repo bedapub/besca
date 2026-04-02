@@ -31,3 +31,31 @@ jobs:
           cd docs
           # gallery examples and tutorial notebooks need large datasets; render them without executing
           uv run make html SPHINXOPTS="-D plot_gallery=0 -D nbsphinx_execute=never"
+      - name: Store the built documentation
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: besca-docs-html
+          path: docs/build/html/
+
+  deploy-docs:
+    name: Deploy docs to gh-pages
+    # only documentation built from main is published
+    if: github.ref == 'refs/heads/main'
+    needs:
+      - build-docs
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # push to the gh-pages branch
+    steps:
+      - name: Download the built documentation
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: besca-docs-html
+          path: html/
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # v4.1.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./html
+          publish_branch: gh-pages
+          force_orphan: true
