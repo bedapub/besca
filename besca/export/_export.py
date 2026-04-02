@@ -2,12 +2,11 @@ import os
 import sys
 from io import BytesIO
 
-import pkg_resources
 from numpy import arange, expm1, ix_, ndarray, round, where, zeros
 from pandas import DataFrame, concat, read_csv
 from scanpy import AnnData
 from scipy import io, sparse
-from scipy.io.mmio import MMFile
+from scipy.io._mmio import MMFile
 
 from besca._helper import get_raw
 from besca.Import import read_mtx

@@ -5,7 +5,16 @@ import os
 import urllib.request
 from urllib.error import URLError
 import pandas
-import pkg_resources
+from importlib.resources import files as _resource_files
+
+
+def _resource_filename(package: str, resource_path: str) -> str:
+    """Drop-in replacement for _resource_filename."""
+    parts = resource_path.split("/")
+    ref = _resource_files(package)
+    for part in parts:
+        ref = ref.joinpath(part)
+    return str(ref)
 from scanpy import read
 
 
@@ -50,7 +59,7 @@ def Baron2016_raw():
 
     """
 
-    filename = pkg_resources.resource_filename("besca", "datasets/data/baron_raw.h5ad")
+    filename = _resource_filename("besca", "datasets/data/baron_raw.h5ad")
     adata = check_dl(
         filename,
         url="https://zenodo.org/record/3968315/files/baron2016_raw.h5ad?download=1",
@@ -77,7 +86,7 @@ def Baron2016_processed():
 
     """
 
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/baron_processed.h5ad"
     )
     adata = check_dl(
@@ -103,7 +112,7 @@ def Granja2019_citeSeq():
 
     """
 
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/Granja2019_adt_raw.h5ad"
     )
     adata = check_dl(
@@ -131,7 +140,7 @@ def Granja2019_raw():
 
     """
 
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/Granja2019_raw.h5ad"
     )
     adata = check_dl(
@@ -161,7 +170,7 @@ def Granja2019_processed():
 
     """
 
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/Granja2019_annotated.h5ad"
     )
     adata = check_dl(
@@ -190,7 +199,7 @@ def Haber2017_raw():
 
     """
 
-    filename = pkg_resources.resource_filename("besca", "datasets/data/haber_raw.h5ad")
+    filename = _resource_filename("besca", "datasets/data/haber_raw.h5ad")
     adata = check_dl(
         filename,
         url="https://zenodo.org/record/3935782/files/haber_raw.h5ad?download=1",
@@ -217,7 +226,7 @@ def Haber2017_processed():
 
     """
 
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/haber_processed.h5ad"
     )
     adata = check_dl(
@@ -245,7 +254,7 @@ def Kotliarov2020_citeSeq():
 
     """
 
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/kotliarov_adt_raw.h5ad"
     )
     adata = check_dl(
@@ -273,7 +282,7 @@ def Kotliarov2020_raw():
 
     """
 
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/Kotliarov2020_raw.h5ad"
     )
     adata = check_dl(
@@ -301,7 +310,7 @@ def Kotliarov2020_processed():
 
     """
 
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/Kotliarov2020_processed_citeseq_merged_annotated.h5ad"
     )
     adata = check_dl(
@@ -330,7 +339,7 @@ def Lee2020_raw():
 
     """
 
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/lee2020_raw.h5ad"
     )
     adata = check_dl(
@@ -359,7 +368,7 @@ def Lee2020_processed():
 
     """
 
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/lee2020_processed.h5ad"
     )
     adata = check_dl(
@@ -388,7 +397,7 @@ def Martin2019_raw():
 
     """
 
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/Martin2019_raw.h5ad"
     )
     adata = check_dl(
@@ -417,7 +426,7 @@ def Martin2019_processed():
 
     """
 
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/Martin2019_processed.h5ad"
     )
     adata = check_dl(
@@ -449,7 +458,7 @@ def pbmc3k_raw():
 
     """
 
-    filename = pkg_resources.resource_filename("besca", "datasets/data/pbmc3k_raw.h5ad")
+    filename = _resource_filename("besca", "datasets/data/pbmc3k_raw.h5ad")
     adata = check_dl(
         filename,
         url="https://zenodo.org/record/4441679/files/pbmc3k_raw.h5ad?download=1",
@@ -475,7 +484,7 @@ def pbmc3k_filtered():
 
     """
 
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/pbmc3k_filtered.h5ad"
     )
     adata = check_dl(
@@ -504,7 +513,7 @@ def pbmc3k_processed():
 
     """
 
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/pbmc3k_processed.h5ad"
     )
     adata = check_dl(
@@ -533,7 +542,7 @@ def Peng2019_raw():
 
     """
 
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/StdWf1_PRJCA001063_CRC_besca2.raw.h5ad"
     )
     adata = check_dl(
@@ -561,7 +570,7 @@ def Peng2019_processed():
 
     """
 
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/StdWf1_PRJCA001063_CRC_besca2.annotated.h5ad"
     )
     adata = check_dl(
@@ -589,7 +598,7 @@ def Segerstolpe2016_processed():
 
     """
 
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/Segerstolpe2016_processed.h5ad"
     )
     adata = check_dl(
@@ -617,7 +626,7 @@ def Smillie2019_raw():
 
     """
 
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/Smillie2019_raw.h5ad"
     )
     adata = check_dl(
@@ -647,7 +656,7 @@ def Smillie2019_processed():
 
     """
 
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/Smillie2019_processed.h5ad"
     )
     adata = check_dl(
@@ -674,7 +683,7 @@ def crispr_10x_filtered():
      >>> adata = bc.datasets.crispr_10x_filtered()
 
     """
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/10X_10xChromium_human.h5ad"
     )
     adata = check_dl(
@@ -701,7 +710,7 @@ def crispr_10x_unfiltered():
      >>> adata = bc.datasets.crispr_10x_unfiltered()
 
     """
-    filename = pkg_resources.resource_filename(
+    filename = _resource_filename(
         "besca", "datasets/data/CRISPR_10xChromium_human_unfiltered.h5ad"
     )
     adata = check_dl(
@@ -735,11 +744,11 @@ def load_immune_signatures(refined=True):
 
     """
     if refined:
-        filename = pkg_resources.resource_filename(
+        filename = _resource_filename(
             "besca", "datasets/genesets/HumanCD45p_scseqCMs6.gmt"
         )
     else:
-        filename = pkg_resources.resource_filename(
+        filename = _resource_filename(
             "besca", "datasets/genesets/Immune.gmt"
         )
     file = open(filename, "r")

@@ -68,9 +68,9 @@ def read_GMT_sign(
     Example
     -------
     >>> import besca as bc
-    >>> import pkg_resources
+    >>> from importlib.resources import files as _resource_files
     >>> gmt_file='datasets/genesets/Immune.gmt' # provided in besca
-    >>> gmt_file_abs_path=pkg_resources.resource_filename('besca', gmt_file)
+    >>> gmt_file_abs_path=str(_resource_files('besca').joinpath(gmt_file))
     >>> bc.tl.sig.read_GMT_sign(gmt_file_abs_path)
     {'lymphocyte': {'UP': ['PTPRC']}, 'myeloid': {'UP': ['S100A8', 'S100A9', 'CST3']}, 'Bcell': {'UP': ['CD19', 'CD79A', 'MS4A1']}, 'Tcells': {'UP': ['CD3E', 'CD3G', 'CD3D']}, 'CD4': {'UP': ['CD4']}, 'CD8': {'UP': ['CD8A', 'CD8B']}, 'NKcell': {'UP': ['NKG7', 'GNLY', 'NCAM1']}, 'monocyte': {'UP': ['CST3', 'CSF1R', 'ITGAM', 'CD14', 'FCGR3A', 'FCGR3B']}, 'macrophage': {'UP': ['CD14', 'IL1B', 'LYZ', 'CD163', 'ITGAX', 'CD68', 'CSF1R', 'FCGR3A']}}
 
