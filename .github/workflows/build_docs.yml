@@ -1,64 +1,41 @@
-name: Build Sphinx Documentation
+name: Build and Deploy Documentation
+
 on:
+  push:
+    branches: [besca3]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  cached-job:
-    name: Cached (${{ matrix.python-version }}, ${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: ["ubuntu-latest"]
-        python-version: ["3.8"]
+  build-docs:
+    name: Build Sphinx docs
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Check out the repo and use mamba
-        uses: actions/checkout@v3
-      - uses: conda-incubator/setup-miniconda@v2
-        with:
-            miniforge-variant: Mambaforge
-            miniforge-version: latest
-            activate-environment: besca_create_docu
-            use-mamba: true
-      - name: Cache conda packages
-        id: cache-conda
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-conda-packages
-        with:
-          path: ~/
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/docs/environment.lock.yml') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/docs/environment.lock.yml') }}
-         
-      - name: Get Date
-        id: get-date
-        run: echo "::set-output name=today::$(/bin/date -u '+%Y%m%d')"
-        shell: bash
+      - uses: actions/checkout@v4
 
-      - name: Cache conda env
-        uses: actions/cache@v3
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
         with:
-          path: ${{ env.CONDA }}/envs
-          key: conda-${{ runner.os }}--${{ runner.arch }}--${{ steps.get-date.outputs.today }}-${{ hashFiles('**/docs/environment.lock.yml') }}-${{ env.CACHE_NUMBER }}
-        env:
-          # Increase this value to reset cache if etc/example-environment.yml has not changed
-          CACHE_NUMBER: 0
-        id: cache
+          python-version: "3.12"
 
-      - name: Update environment
+      - name: Install dependencies
         run: |
-          pwd
-          ls
-          cd docs
-          head environment.lock.yml
-          mamba env update -n besca_create_docu -f docs/environment.lock.yml
-        if: steps.cache.outputs.cache-hit != 'true'
+          sudo apt-get update && sudo apt-get install -y pandoc
+          python -m pip install --upgrade pip
+          pip install -e ".[docs]"
 
-      - name: Run Sphinx
+      - name: Build documentation
         run: |
-          mamba init
-          source ~/.bashrc
-          mamba activate besca_create_docu
           cd docs
           make html
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/build/html
+          publish_branch: gh-pages
+          force_orphan: true

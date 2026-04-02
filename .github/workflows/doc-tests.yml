@@ -1,28 +1,41 @@
-name: Run doctests
+name: Run tests
 
-on: [release]
+on:
+  push:
+    branches: [besca3, main]
+  pull_request:
+    branches: [besca3, main]
+  release:
+    types: [published]
 
 jobs:
-  doc-test-job:
-    name: Doctests
+  test:
+    name: Tests (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12"]
+
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v3
-      - uses: conda-incubator/setup-miniconda@v2
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
         with:
-          miniconda-version: "latest"
-      - name: Bash
-        shell: bash -l {0}
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
         run: |
-          conda install -c conda-forge mamba
-          mamba init
-          source ~/.bashrc
-          mamba env create -f environment.yml
-          mamba activate besca_dev
-          pip install pytest
-          cd besca
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run unit tests
+        run: pytest tests/ -v --tb=short
+
+      - name: Run doctests
+        run: |
           export PYTHONDONTWRITEBYTECODE=1
-          pytest --doctest-modules -W ignore::PendingDeprecationWarning --durations=0
-          cd ..
-          pytest
+          pytest --doctest-modules besca/ -v --tb=short \
+            -W ignore::PendingDeprecationWarning \
+            --ignore=besca/examples \
+            --durations=0
