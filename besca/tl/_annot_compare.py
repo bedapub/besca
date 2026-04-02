@@ -224,20 +224,24 @@ def report(
         adata=adata_pred, categories=[celltype, name_prediction]
     )
     riverplot.show()
-    riverplot.write_image(
-        os.path.join(
-            results_folder,
-            "figures",
-            method
-            + "_riverplot_"
-            + analysis_name
-            + "_"
-            + celltype
-            + "_"
-            + name_prediction
-            + ".svg",
+    try:
+        riverplot.write_image(
+            os.path.join(
+                results_folder,
+                "figures",
+                method
+                + "_riverplot_"
+                + analysis_name
+                + "_"
+                + celltype
+                + "_"
+                + name_prediction
+                + ".svg",
+            )
         )
-    )
+    except (ValueError, RuntimeError):
+        # kaleido or Chrome not available for image export
+        print("Skipping riverplot SVG export (kaleido/Chrome not available)")
 
     # make conf matrices (4)
     class_names = np.unique(
