@@ -8,6 +8,7 @@ import anndata
 import numpy as np
 import pandas as pd
 from scipy.sparse import csr_matrix
+from urllib.error import URLError
 
 from scvelo import AnnData
 
@@ -49,12 +50,18 @@ def assert_gct_equal(reference_file: str, output_file: str) -> None:
 
 @pytest.fixture(scope="session")
 def load_kotliarov2020_processed_data() -> AnnData:
-    return bc.datasets.Kotliarov2020_processed()
+    try:
+        return bc.datasets.Kotliarov2020_processed()
+    except URLError:
+        pytest.skip("Could not download Kotliarov2020_processed dataset from Zenodo")
 
 
 @pytest.fixture(scope="session")
 def load_kotliarov2020_raw_data() -> AnnData:
-    return bc.datasets.Kotliarov2020_raw()
+    try:
+        return bc.datasets.Kotliarov2020_raw()
+    except URLError:
+        pytest.skip("Could not download Kotliarov2020_raw dataset from Zenodo")
 
 
 @pytest.fixture(scope="session")
