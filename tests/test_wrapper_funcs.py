@@ -7,6 +7,7 @@ from random import sample
 import anndata
 import numpy as np
 from scipy.sparse import csr_matrix
+from urllib.error import URLError
 
 from scvelo import AnnData
 
@@ -20,12 +21,18 @@ pytest.raw_data_subset_size = 1000
 
 @pytest.fixture(scope="session")
 def load_kotliarov2020_processed_data() -> AnnData:
-    return bc.datasets.Kotliarov2020_processed()
+    try:
+        return bc.datasets.Kotliarov2020_processed()
+    except (URLError, Exception):
+        pytest.skip("Could not download Kotliarov2020_processed dataset from Zenodo")
 
 
 @pytest.fixture(scope="session")
 def load_kotliarov2020_raw_data() -> AnnData:
-    return bc.datasets.Kotliarov2020_raw()
+    try:
+        return bc.datasets.Kotliarov2020_raw()
+    except (URLError, Exception):
+        pytest.skip("Could not download Kotliarov2020_raw dataset from Zenodo")
 
 
 @pytest.fixture(scope="session")
