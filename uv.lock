@@ -445,6 +445,11 @@ dependencies = [
     { name = "umap-learn" },
 ]
 
+[package.optional-dependencies]
+publication = [
+    { name = "matplotlib-venn" },
+]
+
 [package.dev-dependencies]
 dev = [
     { name = "ipykernel" },
@@ -471,6 +476,7 @@ requires-dist = [
     { name = "ipython", specifier = ">=8.18" },
     { name = "leidenalg", specifier = ">=0.10" },
     { name = "matplotlib", specifier = ">=3.9" },
+    { name = "matplotlib-venn", marker = "extra == 'publication'", specifier = ">=1.0" },
     { name = "mygene", specifier = ">=3.2.2" },
     { name = "numpy", specifier = ">=2.0" },
     { name = "packaging", specifier = ">=24.0" },
@@ -489,6 +495,7 @@ requires-dist = [
     { name = "session-info", specifier = ">=1.0.1" },
     { name = "umap-learn", specifier = ">=0.5.7" },
 ]
+provides-extras = ["publication"]
 
 [package.metadata.requires-dev]
 dev = [
@@ -2401,6 +2408,17 @@ sdist = { url = "https://files.pythonhosted.org/packages/bd/c0/9f7c9a46090390368
 wheels = [
     { url = "https://files.pythonhosted.org/packages/41/09/5b161152e2d90f7b87f781c2e1267494aef9c32498df793f73ad0a0a494a/matplotlib_inline-0.2.2-py3-none-any.whl", hash = "sha256:3c821cf1c209f59fb2d2d64abbf5b23b67bcb2210d663f9918dd851c6da1fcf6", size = 9534, upload-time = "2026-05-08T17:33:32.055Z" },
 ]
+
+[[package]]
+name = "matplotlib-venn"
+version = "1.1.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "matplotlib" },
+    { name = "numpy" },
+    { name = "scipy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/e8/f7/47bddf95492f4d1370ed7164d2b16407805e8eeb38231361de65d387a562/matplotlib-venn-1.1.2.tar.gz", hash = "sha256:6f2b07a03e9bb5a62de2f32f965216739e175176f9d654dd19e7af2c22ec36e3", size = 40821, upload-time = "2025-02-25T10:44:24.294Z" }
 
 [[package]]
 name = "mdurl"

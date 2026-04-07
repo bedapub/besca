@@ -93,6 +93,8 @@ def report(
 
     # calculate umaps for plot
     if "X_umap" not in adata_pred.obsm:
+        if "neighbors" not in adata_pred.uns:
+            sc.pp.neighbors(adata_pred)
         sc.tl.umap(adata_pred)
 
     if name_prediction not in adata_pred.obs.keys():

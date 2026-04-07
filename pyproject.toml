@@ -47,6 +47,11 @@ dependencies = [
     "umap-learn>=0.5.7",
 ]
 
+[project.optional-dependencies]
+publication = [
+    "matplotlib-venn>=1.0",
+]
+
 [project.urls]
 Homepage = "https://github.com/bedapub/besca"
 Documentation = "https://bedapub.github.io/besca/"
