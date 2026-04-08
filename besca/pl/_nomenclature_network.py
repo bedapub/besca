@@ -40,11 +40,13 @@ def nomenclature_network(
     -------
     >>> import besca as bc
     >>> from importlib.resources import files as _resource_files
+    >>> import shutil
     >>> config_file = str(_resource_files('besca').joinpath('datasets/genesets/CellNames_scseqCMs6_config.tsv'))
-    >>> plt = bc.pl.nomenclature_network(config_file)
-    >>> plt.show()
-    >>> plt = bc.pl.nomenclature_network(config_file, selected_roots = ['Epithelial', 'Tcell'])
-    >>> plt.show()
+    >>> if shutil.which('neato'):  # requires graphviz
+    ...     plt = bc.pl.nomenclature_network(config_file)
+    ...     plt.show()
+    ...     plt = bc.pl.nomenclature_network(config_file, selected_roots = ['Epithelial', 'Tcell'])
+    ...     plt.show()
 
     """
     pydot_import = importlib.util.find_spec("pydot")
