@@ -173,7 +173,7 @@ cerebellar granule cell	cerebellar granule cell	CL:0001031	CerebellarGranule	5	g
 bone cell	bone cell	CL:0001035	BoneCell	1									cell	CL:0000548
 effector CD4-positive, alpha-beta T cell	effector CD4-positive, alpha-beta T cell	CL:0001044	EffCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	cell	CL:0000548
 neoplastic cell	neoplastic cell	CL:0001063	Neoplastic	0										
-malignant cell	malignant cell	CL:0001064	Malignant	1									neoplastic cell	CL:0001063
+malignant cell	malignant cell	CL:0001064	Malignant	1									cell	CL:0000548
 innate lymphoid cell	innate lymphoid cell	CL:0001065	InnateLymphoid	3					lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	cell	CL:0000548
 pre-conventional dendritic cell	pre-conventional dendritic cell	CL:0002010	PrecDC	3					hematopoietic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	cell	CL:0000548
 Sertoli cell	Sertoli cell	CL:0000216	Sertoli	2							epithelial cell	CL:0000066	cell	CL:0000548
