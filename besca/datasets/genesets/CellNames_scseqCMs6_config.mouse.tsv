@@ -4,7 +4,7 @@ Fibroblast	None	2.75	2
 Endothelial	None	2.5	3
 Epithelial	None	2.5	4
 Granulocyte	Myeloid	0.1	21
-MelMelanoma	None	2.5	60
+Malignant	None	2.5	60
 MemBcell	Bcell	1.5	8
 Myeloid	Hematopoietic	0.5	12.5
 NKcell	Hematopoietic	1.5	10.2
@@ -99,7 +99,6 @@ ActTcell	Tcell	2	106
 NaiTcell	Tcell	1	107
 McellGut	Epithelial	2	60.9
 Mast	Myeloid	1.5	10.5
-ColorectalCancer	None	2	110
 T1Pneumocyte	Pneumocyte	2	111
 T2Pneumocyte	Pneumocyte	2	112
 Pneumocyte	Epithelial	1.5	113
@@ -122,7 +121,7 @@ cDC_CD209	cDC	1	30.5
 Th17CD4Tcell	CD4Tcell	2	20.5
 Eosinophil	Granulocyte	1	82.5
 ResourceCD8Tcell	CD8Tcell	4	120
-Microglia	Macrophage	1	121
+Microglial	Macrophage	1	121
 MAIT	Tcell	1	122
 Keratinocyte	Epithelial	2	11
 Melanocyte	None	2	71
