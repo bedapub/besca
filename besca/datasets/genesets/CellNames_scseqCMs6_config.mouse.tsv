@@ -4,7 +4,6 @@ Fibroblast	None	2.75	2
 Endothelial	None	2.5	3
 Epithelial	None	2.5	4
 Granulocyte	Myeloid	0.1	21
-Malignant	None	2.5	60
 MemBcell	Bcell	1.5	8
 Myeloid	Hematopoietic	0.5	12.5
 NKcell	Hematopoietic	1.5	10.2
