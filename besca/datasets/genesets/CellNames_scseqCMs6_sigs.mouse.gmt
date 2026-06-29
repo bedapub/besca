@@ -3,7 +3,6 @@ Fibroblast	Genes used for automatic annotation of scRNA-seq derived clusters of 
 Endothelial	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Tie1	Cyrr1	Mmrn2	Sox18	Gpr182	Sox17	Myct1	Cldn5	Gpihbp1	Arhgef15									
 Epithelial	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Sftpd	Pigr	Scgb3a1	Hmgcs2	Lgals4	Epcam	Cldn7	Smim22	Mal2	Serpinb5									
 Granulocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Mpo	Ctsg	Mmp9	Clc	Hdc														
-Malignant	Malignant cell signature (harmonized): merged from the former MelMelanoma and ColorectalCancer signatures following nomenclature harmonization (besca PRs #388/#389).	Gm21983	Tyr	Slc45a2	Cdh19	Pmel	Slc24a5	Gjb1	Plp1	Capn3	Erbb3	Gpm6b	S100b	Pax3	S100a1	Mlana	Ceacam2	Dpep1	Mal2	Reg4	Gm40318
 MemBcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Tnfrsf13b	Aim2	Igha	Ighg1	Ighg2a	Ighg2b	Ighg2c												
 Myeloid	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Clec4a3	Clec4a1	Fcgr1	Lst1	Fcgr2b	Ms4a6d	Cfp	Clec5a	Mcemp1	Cpa3	Clec4e	C5ar1	Chil3	Flt3	Batf3				
 NKcell	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Ncr1	Klri2	Klrb1a	Klra9															
