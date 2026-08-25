@@ -34,3 +34,4 @@ MAIT	Additional genes (less specific or lower expressed) whose expression can al
 HEVEndothelial	Additional genes (less specific or lower expressed) whose expression can also be inspected; Endothelial-specific genes curated based on literature and scRNA-seq expression; derived by Schwalie P. and Bianchi R.	FUT7	RAB3C	CLEC7A	ADGR6	CDKN3	CCL23	CCL14											
 MelMelanoma	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	MIA	TYR	SLC45A2	CDH19	PMEL	SLC24A5	MAGEA6	GJB1	PLP1	PRAME	CAPN3	ERBB3	GPM6B	S100B	PAX3	S100A1	MLANA	
 ColorectalCancer	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	S100P	CEACAM6	DPEP1	MAL2	REG4													
+Neuroendocrine	Genes cross-checked with Onecellatlas and schub (Aug26) derived by Schwalie P.	ASCL1	CALCA	CHGA	CHGB	GRP	UCHL1	NRXN1													
