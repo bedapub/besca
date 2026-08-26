@@ -509,3 +509,4 @@ dendritic cell	dendritic cell	CL:0000451	DC	3					leukocyte	CL:0000738	hematopoi
 basophilic erythroblast	basophilic erythroblast	CL:0000549	BasophilicErythroblast	4			erythroblast	CL:0000765	erythroid lineage cell	CL:0000764	hematopoietic cell	CL:0000988	cell	CL:0000548
 polychromatophilic erythroblast	polychromatophilic erythroblast	CL:0000550	PolychromErythroblast	4			erythroblast	CL:0000765	erythroid lineage cell	CL:0000764	hematopoietic cell	CL:0000988	cell	CL:0000548
 orthochromatic erythroblast	orthochromatic erythroblast	CL:0000552	OrthochromErythroblast	4			erythroblast	CL:0000765	erythroid lineage cell	CL:0000764	hematopoietic cell	CL:0000988	cell	CL:0000548
+T-helper 2 cell	T-helper 2 cell	CL:0000546	Th2CD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	cell	CL:0000548
