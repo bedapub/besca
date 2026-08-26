@@ -506,3 +506,4 @@ SLC17A7_THY1-positive neuron		DB:0000088	Neuron_SLC17A7_THY1	4			glutamatergic n
 sweat secreting cell	sweat secreting cell	CL:0000318	SweatSecreting	3					glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	cell	CL:0000548
 vascular associated smooth muscle	vascular associated smooth muscle cell	CL:0000359	VSMC	4			smooth muscle cell	CL:0000192	muscle cell	CL:0000187	contractile cell	CL:0000183	cell	CL:0000548
 dendritic cell	dendritic cell	CL:0000451	DC	3					leukocyte	CL:0000738	hematopoietic cell	CL:0000988	cell	CL:0000548
+T-helper 2 cell	T-helper 2 cell	CL:0000546	Th2CD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	cell	CL:0000548
