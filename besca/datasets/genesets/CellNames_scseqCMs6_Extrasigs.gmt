@@ -30,7 +30,8 @@ Fibroblast_scv	Additional genes (less specific) used for automatic annotation of
 InflamFibroblast_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	MMP2	RARRES2	NNMT	CXCL6					
 Macrophage_CXCL9_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	FCGR3A	SLAMF8	CALHM6	FCGR1A	LILRB1				
 Platelet_scv	Additional genes (less specific) used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	ITGA2B	GP1BA	CTTN	LCN2	F13A1	CLU			
-MAIT	Additional genes (less specific or lower expressed) whose expression can also be inspected. Derived by LAS 	IL7R	IL18R1	CCR5	DPP4					
-HEVEndothelial	Additional genes (less specific or lower expressed) whose expression can also be inspected; Endothelial-specific genes curated based on literature and scRNA-seq expression; derived by Schwalie P. and Bianchi R.	FUT7	RAB3C	CLEC7A	ADGR6	CDKN3	CCL23	CCL14											
-MelMelanoma	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	MIA	TYR	SLC45A2	CDH19	PMEL	SLC24A5	MAGEA6	GJB1	PLP1	PRAME	CAPN3	ERBB3	GPM6B	S100B	PAX3	S100A1	MLANA	
-ColorectalCancer	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	S100P	CEACAM6	DPEP1	MAL2	REG4													
+MAIT_scv	Additional genes (less specific or lower expressed) whose expression can also be inspected. Derived by LAS 	IL7R	IL18R1	CCR5	DPP4					
+HEVEndothelial_scv	Additional genes (less specific or lower expressed) whose expression can also be inspected; Endothelial-specific genes curated based on literature and scRNA-seq expression; derived by Schwalie P. and Bianchi R.	FUT7	RAB3C	CLEC7A	ADGR6	CDKN3	CCL23	CCL14											
+MelMelanoma_scv	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	MIA	TYR	SLC45A2	CDH19	PMEL	SLC24A5	MAGEA6	GJB1	PLP1	PRAME	CAPN3	ERBB3	GPM6B	S100B	PAX3	S100A1	MLANA	
+ColorectalCancer_scv	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v8 May20) derived by Schwalie P.	S100P	CEACAM6	DPEP1	MAL2	REG4													
+Neuroendocrine_scv	Genes cross-checked with Onecellatlas and schub (Aug26) derived by Schwalie P.	ASCL1	CALCA	CHGA	CHGB	GRP	UCHL1	NRXN1													

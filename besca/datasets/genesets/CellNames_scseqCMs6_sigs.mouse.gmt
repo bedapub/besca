@@ -103,7 +103,7 @@ Pneumocyte	Genes used for automatic annotation of scRNA-seq derived clusters of 
 Club	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Scgb1a1	Bpifb1	Tmem45a	Scgb3a2															
 CiliatedEpithelial	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Rsph1	Ccdc17	Odf3b	Odf3b	Fam183b	Foxj1	Ccdc78												
 Basal	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Krt5	Trp63																	
-Ionocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Chga	Calca	Ascl1																
+Ionocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS. Updated Aug26	Ascl3	Bsnd	Foxi1	Clcnkb	Stap1																
 ProlifMonocyte	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Mki67	Pcna	Stmn1	Hmgb2															
 ILC2	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Gata3	Rora	Il2ra	Il1rl1	Il7r	Fam102a													
 ProlifMyeloid	Genes used for automatic annotation of scRNA-seq derived clusters of PBMCs/TILs (v9 Sep21) derived by LAS and PCS	Mki67	Pcna	Stmn1	Hmgb2															
