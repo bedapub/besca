@@ -392,10 +392,10 @@ colon macrophage	colon macrophage	CL:0009038	ColonMacrophage	4			macrophage	CL:0
 endothelial cell of artery	endothelial cell of artery	CL:1000413	EndothelialArtery	4			blood vessel endothelial cell	CL:0000071	endothelial cell of vascular tree	CL:0002139	endothelial cell	CL:0000115	cell	CL:0000548
 tuft cell of colon	tuft cell of colon	CL:0009041	TuftColon	5	brush cell of epithelium proper of large intestine	CL:0002203	brush cell	CL:0002204	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	cell	CL:0000548
 vein endothelial cell	vein endothelial cell	CL:0002543	VeinEndothelial	4			blood vessel endothelial cell	CL:0000071	endothelial cell of vascular tree	CL:0002139	endothelial cell	CL:0000115	cell	CL:0000548
-molecular layer interneuron	molecular layer interneuron	DB:0000089	MLInterneuron	5	CNS interneuron	CL:0000402	central nervous system neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
-CNS interneuron	CNS interneuron	CL:0000402	CNSInterneuron	4			central nervous system neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
-unipolar brush cell	unipolar brush cell	CL:4023161	UnipolarBrush	5	CNS interneuron	CL:0000402	central nervous system neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
-purkinje layer interneuron	purkinje layer interneuron	DB:0000090	PLInterneuron	5	CNS interneuron	CL:0000402	central nervous system neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
+molecular layer interneuron	molecular layer interneuron	DB:0000089	MLInterneuron	5	CNS interneuron	CL:0000402	central nervous system neuron	CL:2000029	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
+CNS interneuron	CNS interneuron	CL:0000402	CNSInterneuron	4			central nervous system neuron	CL:2000029	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
+unipolar brush cell	unipolar brush cell	CL:4023161	UnipolarBrush	5	CNS interneuron	CL:0000402	central nervous system neuron	CL:2000029	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
+purkinje layer interneuron	purkinje layer interneuron	DB:0000090	PLInterneuron	5	CNS interneuron	CL:0000402	central nervous system neuron	CL:2000029	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
 hepatic stellate cell	hepatic stellate cell	CL:0000632	HepStellate	3					fibroblast	CL:0000057	connective tissue cell	CL:0002320	cell	CL:0000548
 centrilobular region hepatocyte	centrilobular region hepatocyte	CL:0019029	CentrilobularHepatocyte	3					hepatocyte	CL:0000182	epithelial cell	CL:0000066	cell	CL:0000548
 midzonal region hepatocyte	midzonal region hepatocyte	CL:0019028	MidzonalHepatocyte	3					hepatocyte	CL:0000182	epithelial cell	CL:0000066	cell	CL:0000548
@@ -422,11 +422,11 @@ corticotroph	corticotroph	CL:0002309	Corticotroph	4			basophil cell of pars dist
 gonadtroph	gonadtroph	CL:0000437	Gonadtroph	4			basophil cell of pars distalis of adenohypophysis	CL:0000639	chromophil cell of anterior pituitary gland	CL:0000637	neural cell	CL:0002319	cell	CL:0000548
 thyrotroph	thyrotroph	CL:0000476	Thyrotroph	4			basophil cell of pars distalis of adenohypophysis	CL:0000639	chromophil cell of anterior pituitary gland	CL:0000637	neural cell	CL:0002319	cell	CL:0000548
 melanotroph	melanotroph	DB:0000092	Melanotroph	4			basophil cell of pars distalis of adenohypophysis	CL:0000639	chromophil cell of anterior pituitary gland	CL:0000637	neural cell	CL:0002319	cell	CL:0000548
-sst GABAergic cortical interneuron	sst GABAergic cortical interneuron	CL:4023017	GABAergicInterneuron_SST	4			interneuron	CL:0002306	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
-pvalb GABAergic cortical interneuron	pvalb GABAergic cortical interneuron	CL:4023018	GABAergicInterneuron_PVALB	4			interneuron	CL:0002306	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
-reelin GABAergic cortical interneuron	reelin GABAergic cortical interneuron	CL:4032001	GABAergicInterneuron_REELIN	4			interneuron	CL:0002306	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
-lamp5 GABAergic cortical interneuron	lamp5 GABAergic cortical interneuron	CL:4023011	GABAergicInterneuron_LAMP5	4			interneuron	CL:0002306	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
-vip GABAergic cortical interneuron	vip GABAergic cortical interneuron	CL:4023016	GABAergicInterneuron_VIP	4			interneuron	CL:0002306	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
+sst GABAergic cortical interneuron	sst GABAergic cortical interneuron	CL:4023017	GABAergicInterneuron_SST	4			interneuron	CL:0000099	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
+pvalb GABAergic cortical interneuron	pvalb GABAergic cortical interneuron	CL:4023018	GABAergicInterneuron_PVALB	4			interneuron	CL:0000099	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
+reelin GABAergic cortical interneuron	reelin GABAergic cortical interneuron	CL:4032001	GABAergicInterneuron_REELIN	4			interneuron	CL:0000099	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
+lamp5 GABAergic cortical interneuron	lamp5 GABAergic cortical interneuron	CL:4023011	GABAergicInterneuron_LAMP5	4			interneuron	CL:0000099	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
+vip GABAergic cortical interneuron	vip GABAergic cortical interneuron	CL:4023016	GABAergicInterneuron_VIP	4			interneuron	CL:0000099	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
 GABAergic amacrine cell	GABAergic amacrine cell	CL:4030027	GABAergicAmacrine	3					amacrine cell	CL:0000561	neural cell	CL:0002319	cell	CL:0000548
 glycinergic amacrine cell	glycinergic amacrine cell	CL:4030028	GlycinergicAmacrine	3					amacrine cell	CL:0000561	neural cell	CL:0002319	cell	CL:0000548
 adipocyte progenitor cell		DB:0000093	AdipocytePC	3					fat cell	CL:0000136	connective tissue cell	CL:0002320	cell	CL:0000548
@@ -506,4 +506,7 @@ SLC17A7_THY1-positive neuron		DB:0000088	Neuron_SLC17A7_THY1	4			glutamatergic n
 sweat secreting cell	sweat secreting cell	CL:0000318	SweatSecreting	3					glandular epithelial cell	CL:0000150	epithelial cell	CL:0000066	cell	CL:0000548
 vascular associated smooth muscle	vascular associated smooth muscle cell	CL:0000359	VSMC	4			smooth muscle cell	CL:0000192	muscle cell	CL:0000187	contractile cell	CL:0000183	cell	CL:0000548
 dendritic cell	dendritic cell	CL:0000451	DC	3					leukocyte	CL:0000738	hematopoietic cell	CL:0000988	cell	CL:0000548
+basophilic erythroblast	basophilic erythroblast	CL:0000549	BasophilicErythroblast	4			erythroblast	CL:0000765	erythroid lineage cell	CL:0000764	hematopoietic cell	CL:0000988	cell	CL:0000548
+polychromatophilic erythroblast	polychromatophilic erythroblast	CL:0000550	PolychromErythroblast	4			erythroblast	CL:0000765	erythroid lineage cell	CL:0000764	hematopoietic cell	CL:0000988	cell	CL:0000548
+orthochromatic erythroblast	orthochromatic erythroblast	CL:0000552	OrthochromErythroblast	4			erythroblast	CL:0000765	erythroid lineage cell	CL:0000764	hematopoietic cell	CL:0000988	cell	CL:0000548
 T-helper 2 cell	T-helper 2 cell	CL:0000546	Th2CD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	cell	CL:0000548
