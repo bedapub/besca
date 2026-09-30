@@ -454,7 +454,7 @@ oral mucosa squamous cell	oral mucosa squamous cell	CL:1001576	OralMucosaSquamou
 keratinized cell of the oral mucosa	keratinized cell of the oral mucosa	CL:0000237	OralMucosaKeratinized	3					ecto-epithelial cell	CL:0002077	epithelial cell	CL:0000066	cell	CL:0000548
 sensory neuron	sensory neuron	CL:0000101	SensoryNeuron	3					neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
 meningothelial cell	meningothelial cell	CL:0002379	Meningothelial	4			neurecto-epithelial cell	CL:0000710	ecto-epithelial cell	CL:0002077	epithelial cell	CL:0000066	cell	CL:0000548
-tendon cell	tendon cell	CL:0000388	Tendon	2							stromal cell	CL:0000499	cell	CL:0000548
+tendon cell	tendon cell	CL:0000388	Tendon	3					stromal cell	CL:0000499	connective tissue cell	CL:0002320	cell	CL:0000548
 fibro/adipogenic progenitor cell	fibro/adipogenic progenitor cell	CL:0009099	FibroAdipogenicProgenitor	2							mesenchymal cell	CL:0008019	cell	CL:0000548
 epithelial cell of prostate	epithelial cell of prostate	CL:0002231	ProstateEpithelial	3					endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	cell	CL:0000548
 luminal cell of prostate epithelium	luminal cell of prostate epithelium	CL:0002340	LuminalProstateEpithelium	4			epithelial cell of prostate	CL:0002231	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	cell	CL:0000548
@@ -464,12 +464,12 @@ renal alpha-intercalated cell	renal alpha-intercalated cell	CL:0005011	RenalAlph
 renal beta-intercalated cell	renal beta-intercalated cell	CL:0002201	RenalBetaIntercalated	4			renal intercalated cell	CL:0005011	epithelial cell of nephron	CL:1000449	epithelial cell	CL:0000066	cell	CL:0000548
 renal principal cell	renal principal cell	CL:0005009	RenalPrincipal	3					epithelial cell of nephron	CL:1000449	epithelial cell	CL:0000066	cell	CL:0000548
 glomerular endothelial cell	glomerular endothelial cell	CL:0002188	GlomerularEndo	2							endothelial cell	CL:0000115	cell	CL:0000548
-vasa recta ascending limb cell	vasa recta ascending limb cell	CL:1001131	VasaRectaAscending	4			kidney capillary endothelial cell	CL:1000892	blood vessel endothelial cell	CL:0000071	endothelial cell	CL:0000115	cell	CL:0000548
-vasa recta descending limb cell	vasa recta descending limb cell	CL:1001285	VasaRectaDescending	4			kidney capillary endothelial cell	CL:1000892	blood vessel endothelial cell	CL:0000071	endothelial cell	CL:0000115	cell	CL:0000548
-peritubular capillary endothelial cell	peritubular capillary endothelial cell	CL:1001033	PeritubularCapillaryEndo	4			kidney capillary endothelial cell	CL:1000892	blood vessel endothelial cell	CL:0000071	endothelial cell	CL:0000115	cell	CL:0000548
+vasa recta ascending limb cell	vasa recta ascending limb cell	CL:1001131	VasaRectaAscending	5	kidney capillary endothelial cell	CL:1000892	blood vessel endothelial cell	CL:0000071	endothelial cell of vascular tree	CL:0002139	endothelial cell	CL:0000115	cell	CL:0000548
+vasa recta descending limb cell	vasa recta descending limb cell	CL:1001285	VasaRectaDescending	5	kidney capillary endothelial cell	CL:1000892	blood vessel endothelial cell	CL:0000071	endothelial cell of vascular tree	CL:0002139	endothelial cell	CL:0000115	cell	CL:0000548
+peritubular capillary endothelial cell	peritubular capillary endothelial cell	CL:1001033	PeritubularCapillaryEndo	5	kidney capillary endothelial cell	CL:1000892	blood vessel endothelial cell	CL:0000071	endothelial cell of vascular tree	CL:0002139	endothelial cell	CL:0000115	cell	CL:0000548
 renal filtration cell	renal filtration cell	CL:0002522	RenalFiltration	2							secretory cell	CL:0000151	cell	CL:0000548
 kidney interstitial myofibroblast	kidney interstitial myofibroblast	CL:1000691	KidneyInterstitialMyofibroblast	3					myofibroblast cell	CL:0000186	contractile cell	CL:0000183	cell	CL:0000548
-kidney pelvis urothelial cell	kidney pelvis urothelial cell	CL:1000703	KidneyPelvisUrothelial	3					kidney pelvis urothelial cell	CL:1000703	epithelial cell	CL:0000066	cell	CL:0000548
+kidney pelvis urothelial cell	kidney pelvis urothelial cell	CL:1000703	KidneyPelvisUrothelial	3					urothelial cell	CL:0000731	epithelial cell	CL:0000066	cell	CL:0000548
 kidney connecting tubule principal cell	kidney connecting tubule principal cell	CL:4030018	KidneyConnectingTubulePrincipal	4			renal principal cell	CL:0005009	epithelial cell of nephron	CL:1000449	epithelial cell	CL:0000066	cell	CL:0000548
 kidney precursor cell		DB:0000095	KidneyPrecursor	2							precursor cell	CL:0011115	cell	CL:0000548
 pronephric nephron cell		DB:0000096	PronephricNephron	3					kidney precursor cell	DB:0000095	precursor cell	CL:0011115	cell	CL:0000548
