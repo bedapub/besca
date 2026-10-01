@@ -212,8 +212,8 @@ bronchial epithelial cell	bronchial epithelial cell	CL:0002328	BronchialEpitheli
 keratinocyte stem cell	keratinocyte stem cell	CL:0002337	KeratinocyteStem	5	keratinocyte	CL:0000312	epidermal cell	CL:0000362	ecto-epithelial cell	CL:0002077	epithelial cell	CL:0000066	cell	CL:0000548
 endocardial cell	endocardial cell	CL:0002350	Endocardial	3					cardiac endothelial cell	CL:0010008	endothelial cell	CL:0000115	cell	CL:0000548
 respiratory epithelial cell	respiratory epithelial cell	CL:0002368	RespiratoryEpithelial	3					endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	cell	CL:0000548
-CD141-positive myeloid dendritic cell	CD141-positive myeloid dendritic cell	CL:0002394	cDC1	4			myeloid dendritic cell	CL:0002394	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	cell	CL:0000548
-CD1c-positive myeloid dendritic cell	CD1c-positive myeloid dendritic cell	CL:0002399	cDC2	4			myeloid dendritic cell	CL:0002394	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	cell	CL:0000548
+CD141-positive myeloid dendritic cell	CD141-positive myeloid dendritic cell	CL:0002394	cDC1	4			myeloid dendritic cell	CL:0000782	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	cell	CL:0000548
+CD1c-positive myeloid dendritic cell	CD1c-positive myeloid dendritic cell	CL:0002399	cDC2	4			myeloid dendritic cell	CL:0000782	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	cell	CL:0000548
 pancreatic stellate cell	pancreatic stellate cell	CL:0002410	PancStellate	3					fibroblast	CL:0000057	connective tissue cell	CL:0002320	cell	CL:0000548
 immature T cell	immature T cell	CL:0002420	ImmatureTcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	cell	CL:0000548
 oligodendrocyte precursor cell	oligodendrocyte precursor cell	CL:0002453	OligodendrocytePC	5	oligodendrocyte	CL:0000128	macroglial cell	CL:0000126	glial cell	CL:0000125	neural cell	CL:0002319	cell	CL:0000548
@@ -283,7 +283,7 @@ proliferating B cell		DB:0000018	ProlifBcell	4			B cell	CL:0000236	lymphocyte of
 proliferating monocyte		DB:0000020	ProlifMonocyte	4			monocyte	CL:0000576	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	cell	CL:0000548
 proliferating T cell		DB:0000021	ProlifTcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	cell	CL:0000548
 proliferating CD4-positive, alpha-beta T cell		DB:0000022	ProlifCD4Tcell	5	CD4-positive, alpha-beta T cell	CL:0000624	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	cell	CL:0000548
-proliferating transit amplifying cell		DB:0000023	ProlifTAmplifying	5	transit amplifying cell	DB:0000024	intestinal epithelial cell	CL:0002563	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	cell	CL:0000548
+proliferating transit amplifying cell		DB:0000023	ProlifTAmplifying	5	transit amplifying cell	CL:0009010	intestinal epithelial cell	CL:0002563	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	cell	CL:0000548
 transit amplifying cell		CL:0009010	TAmplifying	4			intestinal epithelial cell	CL:0002563	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	cell	CL:0000548
 SLC17A7-positive neuron		DB:0000025	Neuron_SLC17A7	4			glutamatergic neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
 SLC17A6_SLC17A8-positive neuron		DB:0000057	Neuron_SLC17A6_SLC17A8	4			glutamatergic neuron	CL:0000679	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
@@ -304,7 +304,7 @@ SATB2_EBF3_GLYT1-positive amacrine cell		DB:0000039	Amacrine_SATB2_EBF3_GLYT1	3	
 epithelial cell derived cell line	epithelial cell derived cell line	EFO:0001641	EpithelialCellLine	1									cultured cell	CL:0000010
 U-87 MG	U-87 MG	EFO:0005237	U87MG	2							epithelial cell derived cell line	EFO:0001641	cultured cell	CL:0000010
 embryonic cell	embryonic cell	CL:0002321	Embryonic	1									cell	CL:0000548
-immature conventional dendritic cell	immature conventional dendritic cell	CL:0000840	ImmaturecDC	4			myeloid dendritic cell	CL:0002394	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	cell	CL:0000548
+immature conventional dendritic cell	immature conventional dendritic cell	CL:0000840	ImmaturecDC	4			myeloid dendritic cell	CL:0000782	myeloid leukocyte	CL:0000766	hematopoietic cell	CL:0000988	cell	CL:0000548
 activated T cell		DB:0000043	ActTcell	4			T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	cell	CL:0000548
 CD8-positive, alpha-beta memory T cell	CD8-positive, alpha-beta memory T cell	CL:0000909	MemCD8Tcell	5	CD8-positive, alpha-beta T cell	CL:0000625	T cell	CL:0000084	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	cell	CL:0000548
 group 1 innate lymphoid cell	group 1 innate lymphoid cell	CL:0001067	ILC1	4			innate lymphoid cell	CL:0001065	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	cell	CL:0000548
@@ -381,7 +381,7 @@ visceromotor neuron	visceromotor neuron	CL:0005025	VisceromotorN	5	motor neuron	
 motor neuron	motor neuron	CL:0000100	MotorN	4			efferent neuron	CL:0000527	neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
 efferent neuron	efferent neuron	CL:0000527	EfferentN	3					neuron	CL:0000540	neural cell	CL:0002319	cell	CL:0000548
 fat cell	fat cell	CL:0000136	Adipocyte	2							connective tissue cell	CL:0002320	cell	CL:0000548
-epicardial adipocyte	epicardial adipocyte	CL:1000309	EpicardialAdipocyte	3					fat cell	CL:000136	connective tissue cell	CL:0002320	cell	CL:0000548
+epicardial adipocyte	epicardial adipocyte	CL:1000309	EpicardialAdipocyte	3					fat cell	CL:0000136	connective tissue cell	CL:0002320	cell	CL:0000548
 Slamf1-positive multipotent progenitor cell	Slamf1-positive multipotent progenitor cell	CL:0002036	MultipotentPC_SLAMF	4			hematopoietic multipotent progenitor cell	CL:0000837	hematopoietic precursor cell	CL:0008001	hematopoietic cell	CL:0000988	cell	CL:0000548
 proliferating natural killer cell		DB:0000086	ProlifNKcell	5	natural killer cell	CL:0000623	innate lymphoid cell	CL:0001065	lymphocyte	CL:0000542	hematopoietic cell	CL:0000988	cell	CL:0000548
 B myeloid cell doublet		DB:0000087	BMyeloid	2							hematopoietic cell	CL:0000988	cell	CL:0000548
@@ -460,8 +460,8 @@ epithelial cell of prostate	epithelial cell of prostate	CL:0002231	ProstateEpith
 luminal cell of prostate epithelium	luminal cell of prostate epithelium	CL:0002340	LuminalProstateEpithelium	4			epithelial cell of prostate	CL:0002231	endo-epithelial cell	CL:0002076	epithelial cell	CL:0000066	cell	CL:0000548
 clear cell		DB:0000094	Clear	3					ionocyte	CL:0005006	epithelial cell	CL:0000066	cell	CL:0000548
 renal intercalated cell	renal intercalated cell	CL:0005010	RenalIntercalated	3					epithelial cell of nephron	CL:1000449	epithelial cell	CL:0000066	cell	CL:0000548
-renal alpha-intercalated cell	renal alpha-intercalated cell	CL:0005011	RenalAlphaIntercalated	4			renal intercalated cell	CL:0005011	epithelial cell of nephron	CL:1000449	epithelial cell	CL:0000066	cell	CL:0000548
-renal beta-intercalated cell	renal beta-intercalated cell	CL:0002201	RenalBetaIntercalated	4			renal intercalated cell	CL:0005011	epithelial cell of nephron	CL:1000449	epithelial cell	CL:0000066	cell	CL:0000548
+renal alpha-intercalated cell	renal alpha-intercalated cell	CL:0005011	RenalAlphaIntercalated	4			renal intercalated cell	CL:0005010	epithelial cell of nephron	CL:1000449	epithelial cell	CL:0000066	cell	CL:0000548
+renal beta-intercalated cell	renal beta-intercalated cell	CL:0002201	RenalBetaIntercalated	4			renal intercalated cell	CL:0005010	epithelial cell of nephron	CL:1000449	epithelial cell	CL:0000066	cell	CL:0000548
 renal principal cell	renal principal cell	CL:0005009	RenalPrincipal	3					epithelial cell of nephron	CL:1000449	epithelial cell	CL:0000066	cell	CL:0000548
 glomerular endothelial cell	glomerular endothelial cell	CL:0002188	GlomerularEndo	2							endothelial cell	CL:0000115	cell	CL:0000548
 vasa recta ascending limb cell	vasa recta ascending limb cell	CL:1001131	VasaRectaAscending	5	kidney capillary endothelial cell	CL:1000892	blood vessel endothelial cell	CL:0000071	endothelial cell of vascular tree	CL:0002139	endothelial cell	CL:0000115	cell	CL:0000548
