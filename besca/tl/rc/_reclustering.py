@@ -215,8 +215,9 @@ def annotate_new_cellnames(
             )
         new_annotation = cluster_subset.obs.get(method).to_frame(name=new_label).copy()
 
-        for i in range(0, len(clusters)):
-            new_annotation[new_label].replace(clusters[i], names[i], inplace=True)
+        new_annotation[new_label] = new_annotation[new_label].map(
+            dict(zip(clusters, names))
+        )
 
         # update anndata object with the new annotation
         adata.obs.update(new_annotation)

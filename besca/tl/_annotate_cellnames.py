@@ -1,5 +1,7 @@
 import sys
 
+import pandas as pd
+
 
 def annotate_cells_clustering(
     adata,
@@ -57,10 +59,11 @@ def annotate_cells_clustering(
         )
 
     # replace old labels with the new labels
-    for i in range(0, len(clusters)):
-        cluster_annotation.get(new_annotation_label).replace(
-            clusters[i], new_cluster_labels[i], inplace=True
-        )
+    old_labels = cluster_annotation[new_annotation_label]
+    new_labels = old_labels.map(dict(zip(clusters, new_cluster_labels)))
+    if isinstance(old_labels.dtype, pd.CategoricalDtype):
+        new_labels = new_labels.astype("category")
+    cluster_annotation[new_annotation_label] = new_labels
 
     # write results back into adata
     adata.obs = adata.obs.merge(

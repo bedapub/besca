@@ -236,7 +236,7 @@ def plot_expression_by_sample(adata, gene, col_target ="Target", col_id = "sampl
             # Add the plot only genes that exist and have a non-null expression
             if raw_temp.var[raw_temp.var.SYMBOL == gene] is not None:
                 if expression == expression:
-                    per_samples = per_samples.append({col_target : target, gene + ' Expression' : expression, 'Samples' : sample}, ignore_index = True)
+                    per_samples = pd.concat([per_samples, pd.DataFrame([{col_target : target, gene + ' Expression' : expression, 'Samples' : sample}])], ignore_index = True)
 
     plt.figure(figsize=(10, 5))
     sns.boxplot(data = per_samples, x = col_target, y =  gene + " Expression")
@@ -294,7 +294,7 @@ def avg_KO_persample(adata, col_target = "Target", col_id = "samples__sample_id"
         temp_adata = bc.subset_adata(adata, filter_criteria = filters, raw = False, axis = 0)
         df = bc.tl.count_occurrence(temp_adata, col_target)
         df["sample"] = sample
-        counts = counts.append(df)
+        counts = pd.concat([counts, df])
 
     #Plot the log cell counts
     counts.reset_index(inplace=True)
@@ -425,14 +425,14 @@ def compute_plot_de_crispr(adata, col_target = "Target", by = None, filter_cells
             mypairs.remove(('Control', 'Control'))
             dge_data = bc.tl.crispr.execute_de_sgRNA(temp_adata, mypairs, col_target, myfc, mypval)
             dge_data["sample"] = sample
-            dge_data_total = dge_data_total.append(dge_data)
+            dge_data_total = pd.concat([dge_data_total, dge_data])
     else:
         conds=list(adata.obs[col_target].cat.categories)
         mypairs = [(item, 'Control') for item in conds]
         mypairs.remove(('Control', 'Control'))
         dge_data_total = bc.tl.crispr.execute_de_sgRNA(adata, mypairs, col_target, myfc, mypval)
 
-    cm = plt.cm.get_cmap('viridis')
+    cm = plt.get_cmap('viridis')
 
     g = plt.scatter(x=dge_data_total["Name"], y=dge_data_total["Log2FC"],c=dge_data_total["P.adj"], cmap=cm)
     plt.rcParams["figure.figsize"] = (adata.obs[col_target].nunique()/2,5)
@@ -599,7 +599,7 @@ def plot_comparison_of_cells(adata, root_path, method="Same", experiment = "CROP
                     total_nr = sum(Euc_dist.loc[ind,ind].count())
                     mean_eu_new = (mean_eu * (total_nr - diag_nr) ) / total_nr
 
-                    dist_sgRNA = dist_sgRNA.append({'sgRNAs': g,'Gene': g.split('_')[0], 'Mean_EucDist': mean_eu_new}, ignore_index=True)
+                    dist_sgRNA = pd.concat([dist_sgRNA, pd.DataFrame([{'sgRNAs': g,'Gene': g.split('_')[0], 'Mean_EucDist': mean_eu_new}])], ignore_index=True)
                 dist_sgRNA.to_csv(dist_file, sep='\t', header=True)
                 distances.append(dist_sgRNA)
             else:
@@ -609,7 +609,7 @@ def plot_comparison_of_cells(adata, root_path, method="Same", experiment = "CROP
                     # eucledian
                     mean_eu=np.nanmean(Euc_dist.loc[ind,ind_rev])
 
-                    dist_sgRNA = dist_sgRNA.append({'gRNA': g, 'Gene': g.split('_')[0], 'Mean_EucDist': mean_eu},ignore_index=True)
+                    dist_sgRNA = pd.concat([dist_sgRNA, pd.DataFrame([{'gRNA': g, 'Gene': g.split('_')[0], 'Mean_EucDist': mean_eu}])], ignore_index=True)
                 dist_sgRNA.to_csv(dist_file, sep='\t', header=True)
                 distances.append(dist_sgRNA)
 
@@ -617,7 +617,7 @@ def plot_comparison_of_cells(adata, root_path, method="Same", experiment = "CROP
     fig, ax = plt.subplots(figsize=(30,10))
     sns.set(font_scale=1)
     #Sort the means to improve interpretavility
-    gene_list = [(distances[0][distances[0]["Gene"] == g].mean(axis=0)["Mean_EucDist"],g) for g in distances[0]["Gene"].value_counts().index]
+    gene_list = [(distances[0][distances[0]["Gene"] == g]["Mean_EucDist"].mean(),g) for g in distances[0]["Gene"].value_counts().index]
     gene_list.sort(key = lambda i:i[0], reverse = True)
     indexes = [a for _,a in gene_list]
     if method == "Both":
