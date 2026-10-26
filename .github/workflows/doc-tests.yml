@@ -8,21 +8,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v3
-      - uses: conda-incubator/setup-miniconda@v2
+        uses: actions/checkout@v7
+      - name: Install system dependencies
+        # graphviz provides the layout binaries used by pydot (bc.pl.nomenclature_network)
+        run: sudo apt-get update && sudo apt-get install -y graphviz
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10
         with:
-          miniconda-version: "latest"
-      - name: Bash
-        shell: bash -l {0}
+          python-version: "3.12"
+          enable-cache: true
+      - name: Install dependencies
+        run: uv sync --locked
+      - name: Run tests
+        shell: bash
         run: |
-          conda install -c conda-forge mamba
-          mamba init
-          source ~/.bashrc
-          mamba env create -f environment.yml
-          mamba activate besca_dev
-          pip install pytest
           cd besca
           export PYTHONDONTWRITEBYTECODE=1
-          pytest --doctest-modules -W ignore::PendingDeprecationWarning --durations=0
+          uv run pytest --doctest-modules -W ignore::PendingDeprecationWarning --durations=0
           cd ..
-          pytest
+          uv run pytest

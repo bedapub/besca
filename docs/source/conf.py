@@ -84,7 +84,7 @@ source_suffix = ['.rst', '.ipynb']
 master_doc = 'index'
 
 
-language = None
+language = 'en'
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '**.ipynb_checkpoints', '**bescape_tutorial.ipynb', '**adata_to_eset.ipynb']
 
 # The name of the Pygments (syntax highlighting) style to use.
@@ -130,7 +130,7 @@ html_static_path = ['_static']
 html_extra_path = ['tutorials_html']
 
 def setup(app):
-    app.add_stylesheet('css/custom.css')
+    app.add_css_file('css/custom.css')
 
 # -- Options for HTMLHelp output ---------------------------------------------
 
@@ -140,7 +140,7 @@ htmlhelp_basename = 'BESCAdoc'
 # -- Options for intersphinx extension ---------------------------------------
 
 # Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'https://docs.python.org/': None}
+intersphinx_mapping = {'python': ('https://docs.python.org/3', None)}
 
 # -- Strip output ----------------------------------------------
 import nbclean, glob
