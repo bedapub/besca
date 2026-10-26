@@ -1,28 +1,49 @@
 name: Run doctests
 
-on: [release]
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   doc-test-job:
     name: Doctests
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v3
-      - uses: conda-incubator/setup-miniconda@v2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          miniconda-version: "latest"
-      - name: Bash
-        shell: bash -l {0}
+          persist-credentials: false
+      - name: Install system dependencies
+        # graphviz provides the layout binaries used by pydot (bc.pl.nomenclature_network)
+        run: sudo apt-get update && sudo apt-get install -y graphviz
+      - name: Install uv
+        uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - name: Cache test datasets
+        # the tests download large datasets from zenodo
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: besca/datasets/data/*.h5ad
+          key: besca-datasets-${{ hashFiles('besca/datasets/_datasets.py') }}
+      - name: Install dependencies
+        run: uv sync --locked
+      - name: Run tests
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
         run: |
-          conda install -c conda-forge mamba
-          mamba init
-          source ~/.bashrc
-          mamba env create -f environment.yml
-          mamba activate besca_dev
-          pip install pytest
           cd besca
-          export PYTHONDONTWRITEBYTECODE=1
-          pytest --doctest-modules -W ignore::PendingDeprecationWarning --durations=0
+          uv run pytest --doctest-modules -W ignore::PendingDeprecationWarning --durations=0
           cd ..
-          pytest
+          uv run pytest
