@@ -19,12 +19,19 @@ uv sync
 ## Test besca package
 
 ```bash
-## run the unit tests and doctests
+## run the unit tests and the gallery examples
 uv run pytest
+## run the doctests
 cd besca && uv run pytest --doctest-modules && cd ..
 ## run notebooks (should run without errors before a major release)
 bash devtools/run_workbooks.bash
 ```
+
+`uv run pytest` runs every script in `besca/examples/gallery_examples` (with a non-interactive
+matplotlib backend). The tests and examples download about 3.5 GB of datasets from Zenodo on the
+first run and cache them in `~/.cache/besca/datasets` (see `BESCA_DATA_DIR` in the README);
+`uv run pytest -k "not gallery"` skips the examples. The doctest run does not collect the gallery
+examples (see `conftest.py`); the documentation build executes them with sphinx-gallery.
 
 ## Update dependencies
 
