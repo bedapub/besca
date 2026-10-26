@@ -33,9 +33,12 @@ vulnerabilities:
 
 ```bash
 uv lock --upgrade
-uv export --all-groups --no-emit-project --no-hashes --format requirements-txt -o /tmp/besca-requirements.txt
-uvx pip-audit --no-deps --disable-pip -r /tmp/besca-requirements.txt
+uv audit --preview-features audit-command
 ```
+
+`uv audit` (still an experimental uv command, hence `--preview-features`) checks every locked
+package, including the `dev` and `docs` groups, against the OSV vulnerability database and exits
+with an error if it finds a known vulnerability.
 
 If you need a `requirements.txt` to recreate the environment with pip, export it from the lock file:
 

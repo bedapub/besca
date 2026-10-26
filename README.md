@@ -124,8 +124,7 @@ To update the locked dependencies (e.g. to pick up security fixes) and check the
 
 ```
 uv lock --upgrade
-uv export --all-groups --no-emit-project --no-hashes --format requirements-txt -o /tmp/besca-requirements.txt
-uvx pip-audit --no-deps --disable-pip -r /tmp/besca-requirements.txt
+uv audit --preview-features audit-command
 ```
 
 `bc.pl.nomenclature_network` additionally requires the [graphviz](https://graphviz.org/) system package.

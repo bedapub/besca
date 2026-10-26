@@ -8,15 +8,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  pip-audit:
-    name: pip-audit
+  uv-audit:
+    name: uv audit
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
         uses: actions/checkout@v7
       - name: Install uv
         uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
-      - name: Export locked dependencies
-        run: uv export --locked --all-groups --no-emit-project --no-hashes --format requirements-txt -o requirements-audit.txt
       - name: Audit locked dependencies
-        run: uvx pip-audit --no-deps --disable-pip -r requirements-audit.txt
+        # uv audit is still experimental; --preview-features opts in and silences the warning
+        run: uv audit --locked --preview-features audit-command
