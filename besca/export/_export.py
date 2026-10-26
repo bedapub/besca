@@ -2,12 +2,12 @@ import os
 import sys
 from io import BytesIO
 
-import pkg_resources
 from numpy import arange, expm1, ix_, ndarray, round, where, zeros
 from pandas import DataFrame, concat, read_csv
 from scanpy import AnnData
 from scipy import io, sparse
-from scipy.io.mmio import MMFile
+# scipy>=1.12 no longer exposes the pure-python MMFile writer publicly
+from scipy.io._mmio import MMFile
 
 from besca._helper import get_raw
 from besca.Import import read_mtx

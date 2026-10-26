@@ -39,8 +39,8 @@ def nomenclature_network(
     Example
     -------
     >>> import besca as bc
-    >>> import pkg_resources
-    >>> config_file = pkg_resources.resource_filename('besca', 'datasets/genesets/CellNames_scseqCMs6_config.tsv')
+    >>> from importlib.resources import files
+    >>> config_file = str(files('besca').joinpath('datasets/genesets/CellNames_scseqCMs6_config.tsv'))
     >>> plt = bc.pl.nomenclature_network(config_file)
     >>> plt.show()
     >>> plt = bc.pl.nomenclature_network(config_file, selected_roots = ['Epithelial', 'Tcell'])

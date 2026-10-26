@@ -1,6 +1,5 @@
 import numpy as np
-from scipy.sparse.csr import csr_matrix
-from anndata._core.views import SparseCSRView
+from scipy.sparse import issparse
 
 def closure(mat):
     """
@@ -175,10 +174,7 @@ def normalize_geometric(adata):
     X = np.nan_to_num(X)
 
     # if the matrix is sparse make to array
-    if type(X) == csr_matrix:
-        X = X.todense()
-    # need to add a catch for newly encountered datatype
-    elif type(X) == SparseCSRView:
+    if issparse(X):
         X = X.todense()
 
     # ensure that X is an array otherwise this will cause type issue with multiplicative replacement function
