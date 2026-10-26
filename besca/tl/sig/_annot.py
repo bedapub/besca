@@ -116,9 +116,11 @@ def add_anno(adata: AnnData, cnames: pd.DataFrame, mycol, clusters="leiden"):
         )
         return errm
     else:
-        for i in list(set(newlab)):
-            newlab = newlab.replace(i, cnames.loc[i, mycol]).copy()
-        return newlab
+        mapping = {i: cnames.loc[i, mycol] for i in set(newlab)}
+        annotated = newlab.map(mapping)
+        if isinstance(newlab.dtype, pd.CategoricalDtype):
+            annotated = annotated.astype("category")
+        return annotated
 
 
 def read_annotconfig(configfile: str):
@@ -378,7 +380,7 @@ def obtain_new_label(
                 )
 
             if new_level is not None:
-                is_level = int(cat_nomenclature["is_level"])
+                is_level = int(cat_nomenclature["is_level"].iloc[0])
                 # If is_level is greater than the new_level, try to find a better one between 0 and new_level, otherwise keep initial dblabel
                 if is_level > int(new_level):
                     for l in range(0, int(new_level) + 1):

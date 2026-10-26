@@ -26,7 +26,7 @@ def _to_geneid(conversionTable, symbol):
     'b'
     """
     try:
-        res = conversionTable[conversionTable == symbol].index.format()[0]
+        res = str(conversionTable[conversionTable == symbol].index[0])
         return res
     except IndexError:
         return None

@@ -47,7 +47,7 @@ def count_occurrence(adata, count_variable="celltype", add_percentage=False):
     if add_percentage:  ##  calculate percentages
         percentages = []
         for i in range(len(counts)):
-            count = data["Counts"][i]
+            count = data["Counts"].iloc[i]
             percentages.append(round(count / total_counts * 100, 2))
         # add percentages to dataframe
         data["Percentage"] = percentages
