@@ -6,6 +6,7 @@ import filecmp
 from random import sample
 import anndata
 import numpy as np
+import pandas as pd
 from scipy.sparse import csr_matrix
 
 from scvelo import AnnData
@@ -16,6 +17,34 @@ from besca.st._wrapper_funcs import additional_labeling, highly_variable_genes
 from besca.Import._read import all_symbols_ok
 
 pytest.raw_data_subset_size = 1000
+
+
+def assert_gct_equal(reference_file: str, output_file: str) -> None:
+    """Compare two .gct files allowing for rounding differences.
+
+    Values are rounded when written (%.3f, p-values %.3e), so floating point
+    differences between platforms can flip the last digit: fixed-point
+    values may differ by one unit in the last digit, p-values by 0.15%.
+    Ranked files list genes by score, and genes with tied scores can be
+    ordered differently, so rows are matched by gene.
+    """
+    with open(reference_file) as ref, open(output_file) as out:
+        header = [next(ref), next(ref)]
+        assert header == [next(out), next(out)], f"{output_file}: header differs"
+
+    if reference_file.endswith(".pvalues.gct"):
+        tolerance = {"rtol": 1.5e-3, "atol": 0}
+    else:
+        tolerance = {"rtol": 0, "atol": 1.5e-3}
+    ref_df = pd.read_csv(reference_file, sep="\t", skiprows=2, index_col="Description")
+    out_df = pd.read_csv(output_file, sep="\t", skiprows=2, index_col="Description")
+    pd.testing.assert_frame_equal(
+        ref_df.sort_index(),
+        out_df.sort_index(),
+        check_exact=False,
+        obj=output_file,
+        **tolerance,
+    )
 
 
 @pytest.fixture(scope="session")
@@ -106,10 +135,11 @@ def test_additional_labeling(
         reference_file: str = join(reference_folder, file)
         output_file: str = join(path_to_output_files, file)
 
-        # print(f"Comparing {reference_file} and {output_file})")
-        identical: bool = filecmp.cmp(reference_file, output_file, shallow=False)
-
-        assert identical is True, f"File {file} is not as expected!"
+        if file.endswith(".gct"):
+            assert_gct_equal(reference_file, output_file)
+        else:
+            identical: bool = filecmp.cmp(reference_file, output_file, shallow=False)
+            assert identical is True, f"File {file} is not as expected!"
 
 
 def test_highly_variable_genes(create_random_anndata_object: AnnData):
