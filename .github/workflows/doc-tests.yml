@@ -31,14 +31,29 @@ jobs:
         with:
           python-version: "3.12"
           enable-cache: true
-      - name: Cache test datasets
-        # the tests download large datasets from zenodo
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      - name: Restore test datasets
+        id: datasets
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: besca/datasets/data/*.h5ad
-          key: besca-datasets-${{ hashFiles('besca/datasets/_datasets.py') }}
+          # bump v1 when the datasets downloaded below change
+          key: besca-datasets-v1-${{ hashFiles('besca/datasets/_datasets.py') }}
       - name: Install dependencies
         run: uv sync --locked
+      - name: Download test datasets
+        # the tests use these datasets from zenodo; all other test data is simulated
+        if: steps.datasets.outputs.cache-hit != 'true'
+        run: >-
+          uv run python -c "import besca as bc;
+          bc.datasets.Kotliarov2020_processed();
+          bc.datasets.crispr_10x_filtered()"
+      - name: Save test datasets
+        # saved before the tests run, so failing tests do not prevent caching
+        if: steps.datasets.outputs.cache-hit != 'true'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: besca/datasets/data/*.h5ad
+          key: ${{ steps.datasets.outputs.cache-primary-key }}
       - name: Run tests
         env:
           PYTHONDONTWRITEBYTECODE: "1"
