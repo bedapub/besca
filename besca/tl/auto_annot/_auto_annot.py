@@ -3,13 +3,13 @@ import os
 import sys
 
 
+import anndata as ad
 import numpy as np
 import pandas as pd
 import scanorama as scan
 import scanpy as sc
 import scipy
 import scvi
-import scvelo as scv
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression, LogisticRegressionCV, SGDClassifier
@@ -24,6 +24,21 @@ from sklearn.svm import SVC, LinearSVC
 from sklearn.utils.multiclass import unique_labels
 
 from besca.tl._annot_compare import report as report_generic
+
+
+def _concatenate(adatas):
+    """Concatenate AnnData objects like the removed ``AnnData.concatenate``.
+
+    Genes are inner-joined, ``.obs`` columns are outer-joined, the origin of each
+    cell is stored in ``obs["batch"]`` ("0", "1", ...) and obs names are made unique.
+    """
+    keys = [str(i) for i in range(len(adatas))]
+    kwargs = dict(label="batch", keys=keys, index_unique="-")
+    out = ad.concat(adatas, join="inner", merge="same", **kwargs)
+    out.obs = ad.concat(
+        [ad.AnnData(obs=a.obs) for a in adatas], join="outer", **kwargs
+    ).obs
+    return out
 
 
 def read_data(train_paths, train_datasets, test_path, test_dataset, use_raw=False):
@@ -101,13 +116,13 @@ def read_raw(train_paths, train_datasets, test_path, test_dataset):
 
     adata_trains = []
     for i in range(len(train_datasets)):
-        adata_trains.append(scv.read(os.path.join(train_paths[i], train_datasets[i])))
+        adata_trains.append(sc.read(os.path.join(train_paths[i], train_datasets[i])))
         adata_trains[i] = sc.AnnData(
             X=np.expm1(adata_trains[i].raw.X),
             obs=adata_trains[i].obs,
             var=adata_trains[i].raw.var,
         )
-    adata_pred = scv.read(os.path.join(test_path, test_dataset))
+    adata_pred = sc.read(os.path.join(test_path, test_dataset))
     adata_pred = sc.AnnData(
         X=np.expm1(adata_pred.raw.X), obs=adata_pred.obs, var=adata_pred[i].raw.var
     )
@@ -143,8 +158,8 @@ def read_adata(train_paths, train_datasets, test_path, test_dataset):
 
     adata_trains = []
     for i in range(len(train_datasets)):
-        adata_trains.append(scv.read(os.path.join(train_paths[i], train_datasets[i])))
-    adata_pred = scv.read(os.path.join(test_path, test_dataset))
+        adata_trains.append(sc.read(os.path.join(train_paths[i], train_datasets[i])))
+    adata_pred = sc.read(os.path.join(test_path, test_dataset))
     return adata_trains, adata_pred
 
 
@@ -227,7 +242,7 @@ def naive_merge(adata_trains):
 
     if len(adata_trains) == 1:
         return adata_trains[0]
-    adata_train = adata_trains[0].concatenate(*adata_trains[1:])
+    adata_train = _concatenate(adata_trains)
     return adata_train
 
 
@@ -263,7 +278,7 @@ def scanorama_merge(adata_trains, adata_pred, keepdimensionality):
     corrected = scan.correct_scanpy(adata_trains, return_dimred=True)
     print("integrating training set")
     if len(adata_trains) != 2:
-        adata_train = sc.AnnData.concatenate(*corrected[:-1])
+        adata_train = _concatenate(corrected[:-1])
     else:
         adata_train = corrected[0]
     adata_train.obs = nonmerged_adata_train.obs
@@ -428,7 +443,7 @@ def fit(adata_train, method, celltype, njobs=10, celltype_variable='dblabel', n_
     train = scaler.transform(train)
 
     train = pd.DataFrame(train)
-    y_train = adata_train.obs[celltype].ravel()
+    y_train = adata_train.obs[celltype].to_numpy()
 
     if method == "linear":
         classifier = linear_svm(train, y_train)
@@ -886,27 +901,26 @@ def scanvi_predict(adata_trains, adata_pred, celltype):
     adata_concat: AnnData
         Both adata_train and adata_pred concatenated to one dataset
     """
-    adata_concat = adata_pred.concatenate(*adata_trains)
+    adata_concat = _concatenate([adata_pred, *adata_trains])
     genes_used = adata_concat.var.index.tolist()
     adata_concat.layers["counts"] = adata_concat.raw[:, genes_used].X
 
-    adata_concat.obs["scvi_training_labels"] = adata_concat.obs.batch == "0"
-    adata_concat.obs.scvi_training_labels[
-        adata_concat.obs.scvi_training_labels == True
-    ] = "unlabeled"
-    adata_concat.obs.scvi_training_labels[
-        adata_concat.obs.scvi_training_labels == False
-    ] = adata_concat.obs[celltype]
+    adata_concat.obs["scvi_training_labels"] = np.where(
+        adata_concat.obs.batch == "0",
+        "unlabeled",
+        adata_concat.obs[celltype].astype(str),
+    )
 
     print("setting up anndata for sciv")
-    scvi.data.setup_anndata(
+    scvi.model.SCANVI.setup_anndata(
         adata_concat,
         layer="counts",
         batch_key="batch",
         labels_key="scvi_training_labels",
+        unlabeled_category="unlabeled",
     )
 
-    lvae = scvi.model.SCANVI(adata_concat, "unlabeled", n_latent=30, n_layers=2)
+    lvae = scvi.model.SCANVI(adata_concat, n_latent=30, n_layers=2)
 
     print("train lvae")
     lvae.train()
@@ -939,10 +953,10 @@ def scvi_merge(adata_trains, adata_pred):
         Both adata_train and adata_pred concatenated to one dataset with new representation stored in obsm
     """
 
-    adata_concat = adata_pred.concatenate(*adata_trains)
+    adata_concat = _concatenate([adata_pred, *adata_trains])
     genes_used = adata_concat.var.index.tolist()
     adata_concat.layers["counts"] = adata_concat.raw[:, genes_used].X
-    scvi.data.setup_anndata(adata_concat, layer="counts", batch_key="batch")
+    scvi.model.SCVI.setup_anndata(adata_concat, layer="counts", batch_key="batch")
     vae = scvi.model.SCVI(adata_concat)
     print("training scvi vae")
     vae.train()
