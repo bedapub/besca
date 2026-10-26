@@ -27,7 +27,7 @@ git clone --filter=blob:none git@github.com:bedapub/besca.git
 
 ## Installation
 
-From version 2.2.5+, Besca requires Python 3.8 or above.
+Besca requires Python 3.12 or above.
 
 If you are familiar with python packages simply install them using pip: 
 
@@ -75,7 +75,7 @@ If you don't have a conda python installation download and install [miniconda](h
 As a next step, we create a separate environment for besca which is also called besca.  
 
 ```
-conda create --name besca python=3.8
+conda create --name besca python=3.12
 ```  
 
 We can activate this environment.  
@@ -110,6 +110,25 @@ jupyter notebook
 
 to start a Jupyter Notebook in your browser. See [documentation](https://jupyter.readthedocs.io/en/latest/running.html#running) for further details. 
 
+
+### Development setup with uv
+
+Dependencies for development are managed with [uv](https://docs.astral.sh/uv/) and pinned in `uv.lock`. From the root of the repository run:
+
+```
+uv sync                 # create .venv with besca (editable) and all locked dependencies
+uv run pytest           # run the unit tests
+```
+
+To update the locked dependencies (e.g. to pick up security fixes) and check them for known vulnerabilities:
+
+```
+uv lock --upgrade
+uv export --all-groups --no-emit-project --no-hashes --format requirements-txt -o /tmp/besca-requirements.txt
+uvx pip-audit --no-deps --disable-pip -r /tmp/besca-requirements.txt
+```
+
+`bc.pl.nomenclature_network` additionally requires the [graphviz](https://graphviz.org/) system package.
 
 ### R dependencies for additional methods [R-based functions are deprecated]
 

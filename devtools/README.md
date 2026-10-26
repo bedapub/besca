@@ -2,43 +2,43 @@ Scripts and tools used by BESCA developers
 ===
 Klas Hatj, Roland Schmucki, Jitao David Zhang
 
-## Test besca package in a virtual environment
+## Set up the development environment
 
-The following commands can be used to test `besca` in a virtual environment.
-
-```
-## load python 3.8
-ml purge
-ml load Python/3.8.2-GCCcore-9.3.0
-## create and activate a virtual environment
-python -m venv test_besca
-source test_besca/bin/activate
-test_besca/bin/python -m pip install --upgrade pip
-## clone besca and install it into the virtual environment
-git clone --branch scanpy1.8.2 git@github.com:Accio/besca.git
-cd test_besca/bin
-./python -m pip install ../../besca
-## run notebooks
-cd ../../besca
-bash devtools/run_workbooks.bash
-## capture the version that we use
-../../test_besca/bin/pip freeze | grep -v besca > devtools/requirements.txt
-```
-
-## To fully recapitulate the environment where the development was done
-
-You can use `pip install -r devtools/requirements.txt` to get an identical environment in which the test was done, except for besca.
+Dependencies are managed with [uv](https://docs.astral.sh/uv/). The exact versions of all
+dependencies are pinned in `uv.lock` at the root of the repository. To create an environment
+(in `.venv`) with besca installed in editable mode and all locked dependencies, go to the
+root directory and run:
 
 ```bash
-../../test_besca/bin/pip install -r devtools/requirements.txt
-../../test_besca/bin/python setup.py install
+uv sync
 ```
 
-## Install dependencies with conda
+`bash devtools/install_besca_editable.bash` additionally registers the environment as the
+`besca_dev` Jupyter kernel.
 
-Most packages can be installed by conda, which also manages dependencies. To initialize a conda environment with all dependent packages for besca, go to the root directory and run:
+## Test besca package
 
+```bash
+## run the unit tests and doctests
+uv run pytest
+cd besca && uv run pytest --doctest-modules && cd ..
+## run notebooks (should run without errors before a major release)
+bash devtools/run_workbooks.bash
 ```
-mamba env create -f environment.yml ## double check the BESCA URL, sometimes it can be another branch than master
-conda activate besca_dev
+
+## Update dependencies
+
+To update the locked dependencies, e.g. to pick up security fixes, and check them for known
+vulnerabilities:
+
+```bash
+uv lock --upgrade
+uv export --all-groups --no-emit-project --no-hashes --format requirements-txt -o /tmp/besca-requirements.txt
+uvx pip-audit --no-deps --disable-pip -r /tmp/besca-requirements.txt
+```
+
+If you need a `requirements.txt` to recreate the environment with pip, export it from the lock file:
+
+```bash
+uv export --no-emit-project --format requirements-txt -o requirements.txt
 ```
