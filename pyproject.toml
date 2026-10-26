@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "besca"
 dynamic = ["version"]
-description = "Collection of BEDA internal python functions for analysing single cell RNAseq data."
+description = "BESCA — BEyond Single Cell Analysis toolkit for single-cell transcriptomics."
 readme = "README.md"
 license = "GPL-3.0-only"
 license-files = ["LICENSE"]
@@ -13,8 +13,8 @@ authors = [{ name = "BEDA community", email = "manuel.kohler@roche.com" }]
 requires-python = ">=3.12"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
-    "Intended Audience :: Developers",
-    "Topic :: Software Development :: Build Tools",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.12",
 ]
@@ -48,6 +48,8 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# optional features for users, e.g. `pip install "besca[publication]"`;
+# tools for developing besca are in [dependency-groups] and pinned in uv.lock
 publication = [
     "matplotlib-venn>=1.0",
 ]
@@ -55,6 +57,8 @@ publication = [
 [project.urls]
 Homepage = "https://github.com/bedapub/besca"
 Documentation = "https://bedapub.github.io/besca/"
+Repository = "https://github.com/bedapub/besca"
+Issues = "https://github.com/bedapub/besca/issues"
 
 [dependency-groups]
 dev = ["ipykernel>=6.29", "nbconvert>=7.17.1"]

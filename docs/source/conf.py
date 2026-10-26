@@ -12,10 +12,10 @@ project = 'BESCA'
 copyright = '2024, BEDA'
 author = 'BEDA'
 
+# The full version (derived from the git tag by versioneer), including alpha/beta/rc tags
+from besca import __version__ as release
 # The short X.Y version
-version = '3.0'
-# The full version, including alpha/beta/rc tags
-release = '3.0.0'
+version = '.'.join(release.split('.')[:2])
 
 
 # -- General configuration ---------------------------------------------------

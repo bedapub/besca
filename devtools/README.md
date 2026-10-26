@@ -45,3 +45,19 @@ If you need a `requirements.txt` to recreate the environment with pip, export it
 ```bash
 uv export --no-emit-project --format requirements-txt -o requirements.txt
 ```
+
+## Release a new version
+
+The package version is derived from the latest git tag by [versioneer](https://github.com/python-versioneer/python-versioneer)
+(tags have no `v` prefix, e.g. `2.5.5`). Untagged commits get a local version such as
+`2.5.5+12.gabc1234`. To release, tag the release commit on `main` and push the tag; pushing a tag
+publishes the package to PyPI (see `.github/workflows/pypi-auto-deploy.yml`):
+
+```bash
+git switch main && git pull
+git tag -a 3.0.0 -m "besca 3.0.0"
+git push origin 3.0.0
+```
+
+Afterwards, build the documentation with the manually triggered "Build Sphinx Documentation" workflow
+on `main`; it publishes the docs to the `gh-pages` branch.
