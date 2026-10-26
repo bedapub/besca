@@ -19,6 +19,7 @@ from sklearn.model_selection import (
     cross_validate,
     train_test_split,
 )
+from sklearn.multiclass import OneVsRestClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC, LinearSVC
 from sklearn.utils.multiclass import unique_labels
@@ -607,14 +608,17 @@ def logistic_regression_ovr(train, y_train, njobs):
 
     returns
     -------
-    sklearn.calibration.CalibratedClassifierCV
+    sklearn.multiclass.OneVsRestClassifier
         trained
     """
-    clf = LogisticRegressionCV(
-        random_state=0,
-        verbose=1,
-        class_weight="balanced",
-        n_jobs=njobs,
+    # scikit-learn removed multi_class="ovr"; OneVsRestClassifier is its replacement
+    clf = OneVsRestClassifier(
+        LogisticRegressionCV(
+            random_state=0,
+            verbose=1,
+            class_weight="balanced",
+            n_jobs=njobs,
+        )
     ).fit(train, y_train)
 
     return clf
@@ -679,6 +683,13 @@ def adata_predict(classifier, scaler, adata_pred, adata_orig, threshold=0):
     return adata_orig
 
 
+def _class_probabilities(classifier, test):
+    # one-vs-rest models report independent per-class probabilities
+    if isinstance(classifier, OneVsRestClassifier):
+        return scipy.special.expit(classifier.decision_function(test))
+    return classifier.predict_proba(test)
+
+
 def predict(classifier, scaler, adata_pred, threshold=0):
 
     """predicts on testing set using trained classifier
@@ -707,7 +718,7 @@ def predict(classifier, scaler, adata_pred, threshold=0):
     test = scaler.transform(test)
     results = classifier.predict(test)
 
-    prob = np.max(classifier.predict_proba(test), axis=1)
+    prob = np.max(_class_probabilities(classifier, test), axis=1)
 
     unlabeled = np.where(prob < threshold)
     results[unlabeled] = "unknown"
@@ -779,7 +790,7 @@ def predict_proba(classifier, scaler, adata_pred, threshold=0):
 
     results = classifier.predict(test)
 
-    prob = classifier.predict_proba(test)
+    prob = _class_probabilities(classifier, test)
     probmax = np.max(prob, axis=1)
 
     unlabeled = np.where(probmax < threshold)
