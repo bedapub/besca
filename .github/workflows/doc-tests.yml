@@ -35,9 +35,9 @@ jobs:
         id: datasets
         uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
-          path: besca/datasets/data/*.h5ad
-          # bump v1 when the datasets downloaded below change
-          key: besca-datasets-v1-${{ hashFiles('besca/datasets/_datasets.py') }}
+          path: ~/.cache/besca/datasets
+          # bump v2 when the datasets downloaded below change
+          key: besca-datasets-v2-${{ hashFiles('besca/datasets/_datasets.py') }}
       - name: Install dependencies
         run: uv sync --locked
       - name: Download test datasets
@@ -52,7 +52,7 @@ jobs:
         if: steps.datasets.outputs.cache-hit != 'true'
         uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
-          path: besca/datasets/data/*.h5ad
+          path: ~/.cache/besca/datasets
           key: ${{ steps.datasets.outputs.cache-primary-key }}
       - name: Run tests
         env:

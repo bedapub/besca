@@ -75,7 +75,6 @@ docs = [
 include = ["besca", "besca.*"]
 
 [tool.setuptools.package-data]
-"besca.datasets.data" = ["*.h5ad"]
 "besca.st" = ["*.css"]
 "besca.datasets.nomenclature" = ["*.tsv"]
 "besca.datasets.mito_files" = ["*.tsv"]

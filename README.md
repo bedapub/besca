@@ -145,3 +145,9 @@ All processed datasets were uploaded to Zenodo, within the Besca community:
 
 
 
+
+The datasets loaded with `bc.datasets` are downloaded from Zenodo on first use and cached in
+`~/.cache/besca/datasets` (or `$XDG_CACHE_HOME/besca/datasets`). Set the `BESCA_DATA_DIR`
+environment variable to use a different directory. Since version 3.0.0 they are no longer stored
+inside the besca installation (`besca/datasets/data/`); move previously downloaded `.h5ad` files to
+the cache directory to avoid downloading them again.
