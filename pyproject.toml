@@ -1,0 +1,82 @@
+[build-system]
+requires = ["setuptools>=77", "versioneer[toml]==0.29"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "besca"
+dynamic = ["version"]
+description = "Collection of BEDA internal python functions for analysing single cell RNAseq data."
+readme = "README.md"
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
+authors = [{ name = "BEDA community", email = "manuel.kohler@roche.com" }]
+requires-python = ">=3.12"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "anndata>=0.11",
+    "bbknn>=1.6",
+    "deprecation>=2.1",
+    "dominate>=2.9",
+    "gseapy>=1.1",
+    "igraph>=0.11",
+    "ipython>=8.18",
+    "leidenalg>=0.10",
+    "matplotlib>=3.9",
+    "mygene>=3.2.2",
+    "numpy>=2.0",
+    "packaging>=24.0",
+    "pandas>=2.2.2",
+    "plotly>=5.24",
+    "pydot>=3.0",
+    "pytest>=8.3",
+    "requests>=2.33.0",
+    "scanorama>=1.7.4",
+    "scanpy>=1.11",
+    "scikit-learn>=1.5.0",
+    "scipy>=1.14",
+    "scvelo>=0.3.3",
+    "scvi-tools>=1.3",
+    "seaborn>=0.13",
+    "session-info>=1.0.1",
+    "umap-learn>=0.5.7",
+]
+
+[project.urls]
+Homepage = "https://github.com/bedapub/besca"
+Documentation = "https://bedapub.github.io/besca/"
+
+[dependency-groups]
+dev = ["ipykernel>=6.29", "nbconvert>=7.17.1"]
+docs = [
+    "nbclean>=0.3.2",
+    "nbsphinx>=0.9",
+    "sphinx>=8.1",
+    "sphinx-automodapi>=0.18",
+    "sphinx-gallery>=0.18",
+    "sphinx-rtd-theme>=3.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["besca", "besca.*"]
+
+[tool.setuptools.package-data]
+"besca.datasets.data" = ["*.h5ad"]
+"besca.st" = ["*.css"]
+"besca.datasets.nomenclature" = ["*.tsv"]
+"besca.datasets.mito_files" = ["*.tsv"]
+"besca.datasets.genesets" = ["*.gmt", "*.tsv"]
+"besca.datasets.homologs" = ["*.tsv"]
+
+[tool.versioneer]
+VCS = "git"
+style = "pep440"
+versionfile_source = "besca/_version.py"
+versionfile_build = "besca/_version.py"
+tag_prefix = ""
+parentdir_prefix = "besca-"
