@@ -20,7 +20,7 @@ import random
 import besca as bc
 import scanpy as sc
 import pytest
-pytest.skip('Test is only for here as example and should not be executed')
+pytest.skip('Test is only for here as example and should not be executed', allow_module_level=True)
 random.seed(1)
 # load preprocessed dataset (included in BESCA for demonstration purposes)
 adata = bc.datasets.pbmc3k_filtered()
