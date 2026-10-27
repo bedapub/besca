@@ -9,7 +9,6 @@ jobs:
   build-docs:
     name: Build docs
     runs-on: ubuntu-latest
-    # the build currently stalls on notebook2_celltype_annotation_pbmc3k.ipynb
     timeout-minutes: 60
     steps:
       - name: Check out the repo
